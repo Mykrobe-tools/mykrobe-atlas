@@ -1,0 +1,13 @@
+Discussed with Simon and Mark 15th July 2015
+
+1. Will arrange future meeting with Phelim also
+
+2. Agreed given short timescale, and given we want to be guaranteed a demo by Sept 8th, to go for the following restricted 
+feature set for a demo
+
+A. Set of flat screens, showing the flow of use: authentication, upload, metadata, drug resistance, sample on tree, 
+highlighting your previous samples
+B. If during August Phelim can build an engine that takes a file and returns the node of a fixed tree which is closest 
+to our sample (or maybe the theta/angle at which one should plot a dot), this could be rendered.
+
+All to be discussed with Phelim
