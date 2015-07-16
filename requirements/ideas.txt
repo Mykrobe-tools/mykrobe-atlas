@@ -1,0 +1,7 @@
+Key features
+Upload your sample and get drug resistance predictions, position in tree, species info
+Compare with world + metadata constraints
+
+Future features we would like
+google alerts for someone else uploading a sample which is "close to" yours
+Anonymous messaging to other users - "I hear you have uploaded an identical sample to mine - can we chat?"
