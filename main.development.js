@@ -4,6 +4,8 @@ let menu;
 let template;
 let mainWindow = null;
 
+// const SHOW_DEV_TOOLS = (process.env.NODE_ENV === 'development');
+const SHOW_DEV_TOOLS = true;
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
@@ -52,7 +54,7 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 
-  if (process.env.NODE_ENV === 'development') {
+  if (SHOW_DEV_TOOLS) {
     mainWindow.openDevTools();
     mainWindow.webContents.on('context-menu', (e, props) => {
       const { x, y } = props;
@@ -130,7 +132,7 @@ app.on('ready', async () => {
       }]
     }, {
       label: 'View',
-      submenu: (process.env.NODE_ENV === 'development') ? [{
+      submenu: (SHOW_DEV_TOOLS) ? [{
         label: 'Reload',
         accelerator: 'Command+R',
         click() {
@@ -213,7 +215,7 @@ app.on('ready', async () => {
       }]
     }, {
       label: '&View',
-      submenu: (process.env.NODE_ENV === 'development') ? [{
+      submenu: (SHOW_DEV_TOOLS) ? [{
         label: '&Reload',
         accelerator: 'Ctrl+R',
         click() {
