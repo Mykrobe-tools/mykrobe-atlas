@@ -15,6 +15,8 @@ class DragAndDrop extends Component {
 
   render() {
     const { isDragActive } = this.state;
+    const disableClick = true;
+    const multiple = false;
     return (
       <Dropzone
         className={styles.container}
@@ -23,6 +25,8 @@ class DragAndDrop extends Component {
         onDropRejected={this.onDropRejected.bind(this)}
         onDragLeave={this.onDragLeave.bind(this)}
         onDragEnter={this.onDragEnter.bind(this)}
+        disableClick={disableClick}
+        multiple={multiple}
         accept=".json,.bam,.gz,.fastq"
       >
         <div>
@@ -56,18 +60,19 @@ class DragAndDrop extends Component {
     this.setState({
       isDragActive: false
     });
-    debugger;
+    console.log('onDropAccepted', files);
   }
 
   onDropRejected(files) {
     this.setState({
       isDragActive: false
     });
-    debugger;
+    console.log('onDropRejected', files);
   }
 
   onOpenClick(e) {
     this._dropzone.open();
+    console.log('onOpenClick');
   }
 }
 
