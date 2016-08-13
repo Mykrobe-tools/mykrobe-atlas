@@ -4,6 +4,9 @@ import styles from './DragAndDrop.css';
 
 import Dropzone from 'react-dropzone';
 
+import MykrobeConfig from '../api/MykrobeConfig';
+import MykrobeService from '../api/MykrobeService';
+
 class DragAndDrop extends Component {
   constructor(props) {
     super(props);
@@ -61,6 +64,17 @@ class DragAndDrop extends Component {
       isDragActive: false
     });
     console.log('onDropAccepted', files);
+
+    const config = new MykrobeConfig();
+    const service = new MykrobeService(config);
+    if (this.analyser) {
+      this.analyser.cancel();
+    }
+    this.analyser = service.analyseFileWithPath(files[0].path)
+      .on('progress', (progress) => {
+        console.log('progress', progress);
+      });
+    // console.log('service:', service.analyseFileWithPath().pathToBin());
   }
 
   onDropRejected(files) {
