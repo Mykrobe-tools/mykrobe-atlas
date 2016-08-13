@@ -1,8 +1,7 @@
 import { EventEmitter } from 'events';
 import path from 'path';
-import { chmodSync } from 'fs';
+import fs from 'fs';
 import * as TargetConstants from '../constants/TargetConstants';
-
 
 const app = require('electron').remote.app;
 
@@ -16,8 +15,46 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
     });
   }
 
+  removeSkeletonFiles() {
+    const rootDir = this.rootDir();
+
+    var delete_skeleton_file_tb = path.join(rootDir, 'app/bin/predictor-tb/data/skeleton_binary/tb/skeleton.k15.ctx');
+    console.log('CHECKING ' + delete_skeleton_file_tb);
+    fs.stat(delete_skeleton_file_tb, function (err, stat) {
+      if (err == null) {
+        console.log('Skeleton file exists, removing.');
+
+        fs.unlink(delete_skeleton_file_tb, function (err) {
+          if (err) throw err;
+          console.log('DELETE ' + delete_skeleton_file_tb);
+        });
+
+      } else {
+        console.log('This file does not exist:\n\n' + delete_skeleton_file_tb);
+      }
+    });
+
+    var delete_skeleton_file_staph = path.join(rootDir, 'app/bin/predictor-s-aureus/data/skeleton_binary/staph/skeleton.k15.ctx');
+    console.log('CHECKING ' + delete_skeleton_file_staph);
+    fs.stat(delete_skeleton_file_staph, function (err, stat) {
+      if (err == null) {
+        console.log('Skeleton file exists, removing.');
+
+        fs.unlink(delete_skeleton_file_staph, function (err) {
+          if (err) throw err;
+          console.log('DELETE ' + delete_skeleton_file_staph);
+        });
+
+      } else {
+        console.log('This file does not exist:\n\n' + delete_skeleton_file_staph);
+      }
+    });
+    return this;
+  }
+
   analyseFileWithPath(filePath) {
     this.cancel();
+    this.removeSkeletonFiles();
 
     const spawn = require('child_process').spawn; // eslint-disable-line global-require
 
@@ -109,13 +146,17 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
     return this;
   }
 
-  dirToBin() {
+  rootDir() {
     // path into the app folder
-    const root = (process.env.NODE_ENV === 'development') ? process.cwd() : app.getAppPath();
+    const rootDir = (process.env.NODE_ENV === 'development') ? process.cwd() : app.getAppPath();
+    console.log('rootDir', rootDir);
+    return rootDir;
+  }
 
-    const dirToBin = path.join(root, 'app', 'bin', this.targetConfig.targetName);
+  dirToBin() {
+    const rootDir = this.rootDir();
+    const dirToBin = path.join(rootDir, 'app', 'bin', this.targetConfig.targetName);
     console.log('dirToBin', dirToBin);
-
     return dirToBin;
   }
 
