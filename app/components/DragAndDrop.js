@@ -11,7 +11,12 @@ class DragAndDrop extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDragActive: false
+      filePath: false,
+      isAnalysing: false,
+      isDone: false,
+      progress: 0,
+      isDragActive: false,
+      json: false
     };
   }
 
@@ -19,6 +24,34 @@ class DragAndDrop extends Component {
     const { isDragActive } = this.state;
     const disableClick = true;
     const multiple = false;
+
+    const awaitingDragAndDrop = (
+      <div>
+        <div>
+          Drag and drop {isDragActive ? 'dragging' : false}
+        </div>
+        <button type="button" onClick={this.onOpenClick.bind(this)}>
+          Browse...
+        </button>
+      </div>
+    );
+
+    const analysing = (
+      <div>
+        Analysing... {this.state.progress}%
+      </div>
+    );
+
+    const done = (
+      <div>
+        <pre>
+          {this.state.json}
+        </pre>
+      </div>
+    );
+
+    const content = this.state.isDone ? done : this.state.isAnalysing ? analysing : awaitingDragAndDrop;
+
     return (
       <Dropzone
         className={styles.container}
@@ -31,14 +64,7 @@ class DragAndDrop extends Component {
         multiple={multiple}
         accept=".json,.bam,.gz,.fastq"
       >
-        <div>
-          <div>
-            Drag and drop {isDragActive ? 'dragging' : false}
-          </div>
-          <button type="button" onClick={this.onOpenClick.bind(this)}>
-            Browse...
-          </button>
-        </div>
+        { content }
       </Dropzone>
     );
   }
@@ -69,9 +95,24 @@ class DragAndDrop extends Component {
     if (this.analyser) {
       this.analyser.cancel();
     }
+    this.setState({
+      isAnalysing: true,
+      progress:0
+    });
     this.analyser = service.analyseFileWithPath(files[0].path)
       .on('progress', (progress) => {
         console.log('progress', progress);
+        this.setState({
+          isAnalysing: true,
+          progress: Math.round(100 * progress.progress / progress.total)
+        });
+      })
+      .on('done', (json) => {
+        this.setState({
+          isAnalysing: false,
+          isDone: true,
+          json
+        });
       });
     // console.log('service:', service.analyseFileWithPath().pathToBin());
   }
