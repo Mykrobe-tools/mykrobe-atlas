@@ -27,7 +27,8 @@ const DEFAULT_OPTS = {
   ignore: [
     '^/test($|/)',
     '^/release($|/)',
-    '^/main.development.js'
+    '^/main.development.js',
+    'skeleton.k15.ctx'
   ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
   .concat(
     deps.filter(name => !electronCfg.externals.includes(name))
