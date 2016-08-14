@@ -1,0 +1,140 @@
+Progress 50000/5079226
+Progress 100000/5079226
+Progress 150000/5079226
+Progress 200000/5079226
+Progress 250000/5079226
+Progress 300000/5079226
+Progress 350000/5079226
+Progress 400000/5079226
+Progress 450000/5079226
+Progress 500000/5079226
+Progress 550000/5079226
+Progress 600000/5079226
+Progress 650000/5079226
+Progress 700000/5079226
+Progress 750000/5079226
+Progress 800000/5079226
+Progress 850000/5079226
+Progress 900000/5079226
+Progress 950000/5079226
+Progress 1000000/5079226
+Progress 1050000/5079226
+Progress 1100000/5079226
+Progress 1150000/5079226
+Progress 1200000/5079226
+Progress 1250000/5079226
+Progress 1300000/5079226
+Progress 1350000/5079226
+Progress 1400000/5079226
+Progress 1450000/5079226
+Progress 1500000/5079226
+Progress 1550000/5079226
+Progress 1600000/5079226
+Progress 1650000/5079226
+Progress 1700000/5079226
+Progress 1750000/5079226
+Progress 1800000/5079226
+Progress 1850000/5079226
+Progress 1900000/5079226
+Progress 1950000/5079226
+Progress 2000000/5079226
+Progress 2050000/5079226
+Progress 2100000/5079226
+Progress 2150000/5079226
+Progress 2200000/5079226
+Progress 2250000/5079226
+Progress 2300000/5079226
+Progress 2350000/5079226
+Progress 2400000/5079226
+Progress 2450000/5079226
+Progress 2500000/5079226
+Progress 2550000/5079226
+Progress 2600000/5079226
+Progress 2650000/5079226
+Progress 2700000/5079226
+Progress 2750000/5079226
+Progress 2800000/5079226
+Progress 2850000/5079226
+Progress 2900000/5079226
+Progress 2950000/5079226
+Progress 3000000/5079226
+Progress 3050000/5079226
+Progress 3100000/5079226
+Progress 3150000/5079226
+Progress 3200000/5079226
+Progress 3250000/5079226
+Progress 3300000/5079226
+Progress 3350000/5079226
+Progress 3400000/5079226
+Progress 3450000/5079226
+Progress 3500000/5079226
+Progress 3550000/5079226
+Progress 3600000/5079226
+Progress 3650000/5079226
+Progress 3700000/5079226
+Progress 3750000/5079226
+Progress 3800000/5079226
+Progress 3850000/5079226
+Progress 3900000/5079226
+Progress 3950000/5079226
+Progress 4000000/5079226
+Progress 4050000/5079226
+Progress 4100000/5079226
+Progress 4150000/5079226
+Progress 4200000/5079226
+Progress 4250000/5079226
+Progress 4300000/5079226
+Progress 4350000/5079226
+Progress 4400000/5079226
+Progress 4450000/5079226
+Progress 4500000/5079226
+Progress 4550000/5079226
+Progress 4600000/5079226
+Progress 4650000/5079226
+Progress 4700000/5079226
+Progress 4750000/5079226
+Progress 4800000/5079226
+Progress 4850000/5079226
+Progress 4900000/5079226
+Progress 4950000/5079226
+Progress 5000000/5079226
+Progress 5050000/5079226
+Progress 5079226/5079226
+{
+			"expected_depth": "128",
+			"mean_read_length": "89",
+	"phylogenetics": {
+		"phylo_group": {
+			"Staphylococcus aureus": "152"
+		},
+		"species": {
+			"S. aureus": "152"
+		},
+		"lineage": {
+			"N/A": "-1"
+		}
+	},
+	"susceptibility" :{
+		"Erythromycin": "S",
+		"Penicillin": "S",
+		"Mupirocin": "S",
+		"Trimethoprim": "S",
+		"Methicillin": "S",
+		"Tetracycline": "S",
+		"Vancomycin": "S",
+		"FusidicAcid": "S",
+		"Gentamicin": "S",
+		"Rifampicin": "S",
+		"Ciprofloxacin": "S",
+		"Clindamycin": "S"
+	},
+	"called_variants" :{
+	},
+	"called_genes" :{
+	},
+	"virulence_toxins" :{
+		"tsst1": "negative",
+		"lukPVF": "negative"
+	}
+}
+

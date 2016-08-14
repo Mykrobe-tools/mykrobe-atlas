@@ -1,0 +1,142 @@
+Progress 50000/4718530
+Progress 100000/4718530
+Progress 150000/4718530
+Progress 200000/4718530
+Progress 250000/4718530
+Progress 300000/4718530
+Progress 350000/4718530
+Progress 400000/4718530
+Progress 450000/4718530
+Progress 500000/4718530
+Progress 550000/4718530
+Progress 600000/4718530
+Progress 650000/4718530
+Progress 700000/4718530
+Progress 750000/4718530
+Progress 800000/4718530
+Progress 850000/4718530
+Progress 900000/4718530
+Progress 950000/4718530
+Progress 1000000/4718530
+Progress 1050000/4718530
+Progress 1100000/4718530
+Progress 1150000/4718530
+Progress 1200000/4718530
+Progress 1250000/4718530
+Progress 1300000/4718530
+Progress 1350000/4718530
+Progress 1400000/4718530
+Progress 1450000/4718530
+Progress 1500000/4718530
+Progress 1550000/4718530
+Progress 1600000/4718530
+Progress 1650000/4718530
+Progress 1700000/4718530
+Progress 1750000/4718530
+Progress 1800000/4718530
+Progress 1850000/4718530
+Progress 1900000/4718530
+Progress 1950000/4718530
+Progress 2000000/4718530
+Progress 2050000/4718530
+Progress 2100000/4718530
+Progress 2150000/4718530
+Progress 2200000/4718530
+Progress 2250000/4718530
+Progress 2300000/4718530
+Progress 2350000/4718530
+Progress 2400000/4718530
+Progress 2450000/4718530
+Progress 2500000/4718530
+Progress 2550000/4718530
+Progress 2600000/4718530
+Progress 2650000/4718530
+Progress 2700000/4718530
+Progress 2750000/4718530
+Progress 2800000/4718530
+Progress 2850000/4718530
+Progress 2900000/4718530
+Progress 2950000/4718530
+Progress 3000000/4718530
+Progress 3050000/4718530
+Progress 3100000/4718530
+Progress 3150000/4718530
+Progress 3200000/4718530
+Progress 3250000/4718530
+Progress 3300000/4718530
+Progress 3350000/4718530
+Progress 3400000/4718530
+Progress 3450000/4718530
+Progress 3500000/4718530
+Progress 3550000/4718530
+Progress 3600000/4718530
+Progress 3650000/4718530
+Progress 3700000/4718530
+Progress 3750000/4718530
+Progress 3800000/4718530
+Progress 3850000/4718530
+Progress 3900000/4718530
+Progress 3950000/4718530
+Progress 4000000/4718530
+Progress 4050000/4718530
+Progress 4100000/4718530
+Progress 4150000/4718530
+Progress 4200000/4718530
+Progress 4250000/4718530
+Progress 4300000/4718530
+Progress 4350000/4718530
+Progress 4400000/4718530
+Progress 4450000/4718530
+Progress 4500000/4718530
+Progress 4550000/4718530
+Progress 4600000/4718530
+Progress 4650000/4718530
+Progress 4700000/4718530
+Progress 4718530/4718530
+{
+			"expected_depth": "65",
+			"mean_read_length": "83",
+	"phylogenetics": {
+		"phylo_group": {
+			"MTBC": "106"
+		},
+		"species": {
+			"M. tuberculosis": "70"
+		},
+		"lineage": {
+			"European/American": "88"
+		}
+	},
+	"susceptibility" :{
+		"Isoniazid": "S",
+		"Rifampicin": "S",
+		"Ethambutol": "R",
+		"Quinolones": "R",
+		"Streptomycin": "S",
+		"Amikacin": "S",
+		"Capreomycin": "S",
+		"Kanamycin": "S"
+	},
+	"called_variants" :{
+		"embB_M306X" :{
+			"R_per_cov": "100",
+			"S_per_cov": "0",
+			"R_median_cov": "74",
+			"S_median_cov": "0",
+			"conf": "802",
+		"induced_resistance": "Ethambutol"
+		},
+		"gyrA_D94X" :{
+			"R_per_cov": "100",
+			"S_per_cov": "0",
+			"R_median_cov": "78",
+			"S_median_cov": "0",
+			"conf": "845",
+		"induced_resistance": "Quinolones"
+		}
+	},
+	"called_genes" :{
+	},
+	"virulence_toxins" :{
+	}
+}
