@@ -19,6 +19,7 @@ class MykrobeJsonTransformer {
       const first = string.indexOf('{');
       const last = string.lastIndexOf('}');
       var extracted = string.substr(first, 1 + last - first);
+      debugger
       // replace escaped tabs, quotes, newlines
       extracted = extracted.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"');
       console.log(extracted);

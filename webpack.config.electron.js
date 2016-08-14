@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
-export default merge(baseConfig, {
+export default merge(baseConfig('production'), {
   devtool: 'source-map',
 
   entry: ['babel-polyfill', './app/main.development'],

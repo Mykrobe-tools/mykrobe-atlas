@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
-export default merge(baseConfig, {
+export default merge(baseConfig('development'), {
   debug: true,
 
   devtool: 'cheap-module-eval-source-map',

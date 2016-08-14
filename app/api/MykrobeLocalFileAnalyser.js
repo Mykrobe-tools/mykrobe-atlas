@@ -72,6 +72,17 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
     }, 0);
   }
 
+  doneWithJsonString(jsonString) {
+    const transformer = new MykrobeJsonTransformer();
+    transformer.transform(jsonString).then((json) => {
+      console.log('json', json);
+      this.emit('done', JSON.stringify(json, null, 2));
+    })
+    .catch((err) => {
+      this.failWithError(err);
+    });
+  }
+
   analyseJsonFileWithPath(filePath) {
     // TODO clean and parse raw string
     fs.readFile(filePath, (err, data) => {
@@ -81,14 +92,8 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
       else {
         const dataString = data.toString('utf8');
         console.log('dataString', dataString);
-        const transformer = new MykrobeJsonTransformer();
-        transformer.transform(dataString).then((json) => {
-          console.log('json', json);
-          this.emit('done', JSON.stringify(json, null, 2));
-        })
-        .catch((err) => {
-          this.failWithError(err);
-        });
+        // TODO this should already have been parsed and cleaned
+        this.doneWithJsonString(dataString);
       }
     });
     return this;
@@ -148,7 +153,8 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
       // sometimes receive json after process has exited
       if (this.isBufferingJson && this.processExited) {
         if (this.jsonBuffer.length) {
-          this.emit('done', this.jsonBuffer);
+          console.log('done', this.jsonBuffer);
+          this.doneWithJsonString(this.jsonBuffer);
         }
       }
     });
@@ -165,9 +171,8 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
       // deferring seems to allow the spawn to exit cleanly
       if (0 === code) {
         if (this.jsonBuffer.length) {
-          setTimeout(() => {
-            this.emit('done', this.jsonBuffer);
-          }, 0);
+          console.log('done', this.jsonBuffer);
+          this.doneWithJsonString(this.jsonBuffer);
         }
       }
       this.processExited = true;

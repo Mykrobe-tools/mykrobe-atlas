@@ -4,7 +4,7 @@ import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
-const config = merge(baseConfig, {
+const config = merge(baseConfig('production'), {
   devtool: 'cheap-module-source-map',
 
   entry: './app/index',
