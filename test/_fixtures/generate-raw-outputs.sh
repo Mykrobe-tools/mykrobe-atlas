@@ -10,12 +10,12 @@ echo 'Processing 1/4'
 eval "./$BIN_DIR/predictor-s-aureus/osx/Mykrobe.predictor.staph --install_dir '$BIN_DIR/predictor-s-aureus' --file '$BAM_SOURCE_DIR/staph/C00001084_R00000022.bam' --format JSON --progress > C00001084_R00000022.output.raw"
 
 echo 'Processing 2/4'
-eval "./$BIN_DIR/predictor-s-aureus/osx/Mykrobe.predictor.staph --install_dir './static/bin/predictor-s-aureus' --file '$BAM_SOURCE_DIR/staph/C00007086_R00000022.bam' --format JSON --progress > C00007086_R00000022.output.raw"
+eval "./$BIN_DIR/predictor-s-aureus/osx/Mykrobe.predictor.staph --install_dir '$BIN_DIR/predictor-s-aureus' --file '$BAM_SOURCE_DIR/staph/C00007086_R00000022.bam' --format JSON --progress > C00007086_R00000022.output.raw"
 
 echo 'Processing 3/4'
-eval "./$BIN_DIR/predictor-tb/osx/Mykrobe.predictor.tb --install_dir './static/bin/predictor-tb' --file '$BAM_SOURCE_DIR/tb/C00009037_R00000039.bam' --format JSON --progress > C00009037_R00000039.output.raw"
+eval "./$BIN_DIR/predictor-tb/osx/Mykrobe.predictor.tb --install_dir '$BIN_DIR/predictor-tb' --file '$BAM_SOURCE_DIR/tb/C00009037_R00000039.bam' --format JSON --progress > C00009037_R00000039.output.raw"
 
 echo 'Processing 4/4'
-eval "./$BIN_DIR/predictor-tb/osx/Mykrobe.predictor.tb --install_dir './static/bin/predictor-tb' --file '$BAM_SOURCE_DIR//tb/C00014841_R00000039.bam' --format JSON --progress > C00014841_R00000039.output.raw"
+eval "./$BIN_DIR/predictor-tb/osx/Mykrobe.predictor.tb --install_dir '$BIN_DIR/predictor-tb' --file '$BAM_SOURCE_DIR//tb/C00014841_R00000039.bam' --format JSON --progress > C00014841_R00000039.output.raw"
 
 echo 'Done'
