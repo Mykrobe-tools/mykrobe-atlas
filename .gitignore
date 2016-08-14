@@ -34,6 +34,9 @@ dist
 release
 main.js
 main.js.map
+static/*
+!static/bin/*
+!static/package.json
 
 # Mykrobe
-app/bin/**/*.ctx
+static/bin/**/*.ctx

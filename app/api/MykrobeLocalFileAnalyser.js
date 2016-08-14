@@ -16,9 +16,9 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
   }
 
   removeSkeletonFiles() {
-    const rootDir = this.rootDir();
+    const dirToBin = this.dirToBin();
 
-    var delete_skeleton_file_tb = path.join(rootDir, 'app/bin/predictor-tb/data/skeleton_binary/tb/skeleton.k15.ctx');
+    var delete_skeleton_file_tb = path.join(dirToBin, 'predictor-tb/data/skeleton_binary/tb/skeleton.k15.ctx');
     console.log('CHECKING ' + delete_skeleton_file_tb);
     fs.stat(delete_skeleton_file_tb, function (err, stat) {
       if (err == null) {
@@ -34,7 +34,7 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
       }
     });
 
-    var delete_skeleton_file_staph = path.join(rootDir, 'app/bin/predictor-s-aureus/data/skeleton_binary/staph/skeleton.k15.ctx');
+    var delete_skeleton_file_staph = path.join(dirToBin, 'predictor-s-aureus/data/skeleton_binary/staph/skeleton.k15.ctx');
     console.log('CHECKING ' + delete_skeleton_file_staph);
     fs.stat(delete_skeleton_file_staph, function (err, stat) {
       if (err == null) {
@@ -64,10 +64,17 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
     this.isBufferingJson = false;
     this.processExited = false;
 
-    const dirToBin = this.dirToBin();
     const pathToBin = this.pathToBin();
+    const dirToBin = path.join(this.dirToBin(), this.targetConfig.targetName);
     const args = ['--file', filePath, '--install_dir', dirToBin, '--format', 'JSON', '--progress'];
     this.child = spawn(pathToBin, args);
+
+    this.child.on('error', (err) => {
+      console.log('Failed to start child process.', err);
+      this.emit('error', {
+        description: `Failed to start child process with error: ${err}`
+      });
+    });
 
     this.child.stdout.on('data', (data) => {
       if (this.didReceiveError) {
@@ -146,16 +153,17 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
     return this;
   }
 
-  rootDir() {
-    // path into the app folder
+  dirToBin() {
     const rootDir = (process.env.NODE_ENV === 'development') ? process.cwd() : app.getAppPath();
     console.log('rootDir', rootDir);
-    return rootDir;
-  }
 
-  dirToBin() {
-    const rootDir = this.rootDir();
-    const dirToBin = path.join(rootDir, 'app', 'bin', this.targetConfig.targetName);
+    var dirToBin = '';
+    if (process.env.NODE_ENV === 'development') {
+      dirToBin = path.join(rootDir, 'static', 'bin');
+    }
+    else {
+      dirToBin = path.join(rootDir, 'bin');
+    }
     console.log('dirToBin', dirToBin);
     return dirToBin;
   }
@@ -176,10 +184,10 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
     let pathToBin = '';
 
     if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
-      pathToBin = path.join(dirToBin, platformFolder, 'Mykrobe.predictor.tb');
+      pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.predictor.tb');
     }
     else {
-      pathToBin = path.join(dirToBin, platformFolder, 'Mykrobe.predictor.staph');
+      pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.predictor.staph');
     }
     console.log('pathToBin', pathToBin);
 
