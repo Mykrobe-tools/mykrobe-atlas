@@ -2,6 +2,7 @@ import { EventEmitter } from 'events';
 import path from 'path';
 import fs from 'fs';
 import * as TargetConstants from '../constants/TargetConstants';
+import MykrobeJsonTransformer from './MykrobeJsonTransformer';
 
 const app = require('electron').remote.app;
 
@@ -17,11 +18,11 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
 
   removeSkeletonFiles() {
     const dirToBin = this.dirToBin();
-    const filesToDelte = [
+    const filesToDelete = [
       'predictor-tb/data/skeleton_binary/tb/skeleton.k15.ctx',
       'predictor-s-aureus/data/skeleton_binary/staph/skeleton.k15.ctx'
     ];
-    filesToDelte.forEach((filePath) => {
+    filesToDelete.forEach((filePath) => {
       const fullPath = path.join(dirToBin, filePath);
       fs.stat(fullPath, (statErr, stat) => {
         if (null === statErr) {
@@ -46,7 +47,54 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
   analyseFileWithPath(filePath) {
     this.cancel();
     this.removeSkeletonFiles();
+    const extension = path.extname(filePath).toLowerCase();
+    if ('.json' === extension) {
+      return this.analyseJsonFileWithPath(filePath);
+    }
+    else if (['.bam', '.gz', '.fastq'].indexOf(extension) !== -1) {
+      return this.analyseBinaryFileWithPath(filePath);
+    }
+    else {
+      setTimeout(() => {
+        this.emit('error', {
+          description: `Can only process files with extension: .json, .bam, .gz, .fastq - not ${extension}`
+        });
+      }, 0);
+      return this;
+    }
+  }
 
+  failWithError(err) {
+    setTimeout(() => {
+      this.emit('error', {
+        description: `Processing failed with error: ${err}`
+      });
+    }, 0);
+  }
+
+  analyseJsonFileWithPath(filePath) {
+    // TODO clean and parse raw string
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        this.failWithError(err);
+      }
+      else {
+        const dataString = data.toString('utf8');
+        console.log('dataString', dataString);
+        const transformer = new MykrobeJsonTransformer();
+        transformer.transform(dataString).then((json) => {
+          console.log('json', json);
+          this.emit('done', JSON.stringify(json, null, 2));
+        })
+        .catch((err) => {
+          this.failWithError(err);
+        });
+      }
+    });
+    return this;
+  }
+
+  analyseBinaryFileWithPath(filePath) {
     const spawn = require('child_process').spawn; // eslint-disable-line global-require
 
     console.log('analyseFileWithPath', filePath);
@@ -62,9 +110,7 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
 
     this.child.on('error', (err) => {
       console.log('Failed to start child process.', err);
-      this.emit('error', {
-        description: `Failed to start child process with error: ${err}`
-      });
+      this.failWithError(err);
     });
 
     this.child.stdout.on('data', (data) => {
@@ -110,13 +156,7 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
     this.child.stderr.on('data', (data) => {
       this.didReceiveError = true;
       console.log('ERROR: ' + data);
-      // deferring seems to allow the spawn to exit cleanly
-      setTimeout(() => {
-        this.emit('error', {
-          description: `Processing failed with error: ${data}`
-        });
-      }, 0);
-      // this.cancelLoadFile();
+      this.failWithError(data);
     });
 
     this.child.on('exit', (code) => {

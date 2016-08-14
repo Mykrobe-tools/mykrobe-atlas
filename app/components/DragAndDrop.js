@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import styles from './DragAndDrop.css';
+import fs from 'fs';
 
 import Dropzone from 'react-dropzone';
 
@@ -44,6 +45,9 @@ class DragAndDrop extends Component {
 
     const done = (
       <div>
+        <button type="button" onClick={this.onSaveClick.bind(this)}>
+          Save...
+        </button>
         <pre>
           {this.state.json}
         </pre>
@@ -63,7 +67,7 @@ class DragAndDrop extends Component {
         disableClick={disableClick}
         multiple={multiple}
         accept=".json,.bam,.gz,.fastq"
-      >
+        >
         { content }
       </Dropzone>
     );
@@ -97,7 +101,7 @@ class DragAndDrop extends Component {
     }
     this.setState({
       isAnalysing: true,
-      progress:0
+      progress: 0
     });
     this.analyser = service.analyseFileWithPath(files[0].path)
       .on('progress', (progress) => {
@@ -127,6 +131,30 @@ class DragAndDrop extends Component {
   onOpenClick(e) {
     this._dropzone.open();
     console.log('onOpenClick');
+  }
+
+  onSaveClick(e) {
+    const {dialog} = require('electron').remote;
+    dialog.showSaveDialog(null, {
+      title: 'Save',
+      defaultPath: 'mykrobe.json'
+    },
+      (filePath) => {
+        console.log('filePath', filePath);
+        // JSON.stringify(that.state.json, null, 4);
+        if (filePath) {
+          fs.writeFile(filePath, this.state.json, (err) => {
+            if (err) {
+              console.log(err);
+            }
+            else {
+              console.log('JSON saved to ', filePath);
+            }
+          });
+        }
+      }
+    );
+    console.log('onSaveClick');
   }
 }
 
