@@ -1,10 +1,18 @@
 import path from 'path';
 
+const JS_LOADERS =
+  ('development' === process.env.NODE_ENV)
+  ? ['babel-loader']
+  : [
+    'babel-loader',
+    'strip-loader?strip[]=debug,strip[]=debugger,strip[]=console.log'
+  ];
+
 export default {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: ['babel-loader'],
+      loaders: JS_LOADERS,
       exclude: /node_modules/
     }, {
       test: /\.json$/,
