@@ -17,37 +17,28 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
 
   removeSkeletonFiles() {
     const dirToBin = this.dirToBin();
-
-    var delete_skeleton_file_tb = path.join(dirToBin, 'predictor-tb/data/skeleton_binary/tb/skeleton.k15.ctx');
-    console.log('CHECKING ' + delete_skeleton_file_tb);
-    fs.stat(delete_skeleton_file_tb, function (err, stat) {
-      if (err == null) {
-        console.log('Skeleton file exists, removing.');
-
-        fs.unlink(delete_skeleton_file_tb, function (err) {
-          if (err) throw err;
-          console.log('DELETE ' + delete_skeleton_file_tb);
-        });
-
-      } else {
-        console.log('This file does not exist:\n\n' + delete_skeleton_file_tb);
-      }
-    });
-
-    var delete_skeleton_file_staph = path.join(dirToBin, 'predictor-s-aureus/data/skeleton_binary/staph/skeleton.k15.ctx');
-    console.log('CHECKING ' + delete_skeleton_file_staph);
-    fs.stat(delete_skeleton_file_staph, function (err, stat) {
-      if (err == null) {
-        console.log('Skeleton file exists, removing.');
-
-        fs.unlink(delete_skeleton_file_staph, function (err) {
-          if (err) throw err;
-          console.log('DELETE ' + delete_skeleton_file_staph);
-        });
-
-      } else {
-        console.log('This file does not exist:\n\n' + delete_skeleton_file_staph);
-      }
+    const filesToDelte = [
+      'predictor-tb/data/skeleton_binary/tb/skeleton.k15.ctx',
+      'predictor-s-aureus/data/skeleton_binary/staph/skeleton.k15.ctx'
+    ];
+    filesToDelte.forEach((filePath) => {
+      const fullPath = path.join(dirToBin, filePath);
+      fs.stat(fullPath, (statErr, stat) => {
+        if (null === statErr) {
+          console.log('Skeleton file exists, removing.');
+          fs.unlink(fullPath, (unlinkErr) => {
+            if (unlinkErr) {
+              console.log('error deleting', unlinkErr);
+            }
+            else {
+              console.log('deleted', fullPath);
+            }
+          });
+        }
+        else {
+          console.log('This file does not exist', fullPath);
+        }
+      });
     });
     return this;
   }
@@ -154,11 +145,11 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
   }
 
   dirToBin() {
-    const rootDir = (process.env.NODE_ENV === 'development') ? process.cwd() : app.getAppPath();
+    const rootDir = ('development' === process.env.NODE_ENV) ? process.cwd() : app.getAppPath();
     console.log('rootDir', rootDir);
 
-    var dirToBin = '';
-    if (process.env.NODE_ENV === 'development') {
+    let dirToBin = '';
+    if ('development' === process.env.NODE_ENV) {
       dirToBin = path.join(rootDir, 'static', 'bin');
     }
     else {

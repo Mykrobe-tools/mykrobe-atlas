@@ -29,6 +29,14 @@ const config = merge(baseConfig, {
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
         )
+      },
+
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loaders: [
+          'strip-loader?strip[]=debug,strip[]=debugger,strip[]=console.log'
+        ]
       }
     ]
   },
