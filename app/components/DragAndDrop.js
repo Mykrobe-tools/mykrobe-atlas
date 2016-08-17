@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import styles from './DragAndDrop.css';
 import fs from 'fs';
 
 import Dropzone from 'react-dropzone';
 
-import MykrobeConfig from '../api/MykrobeConfig';
-import MykrobeService from '../api/MykrobeService';
+import * as AnalyserActions from '../actions/AnalyserActions';
 
 class DragAndDrop extends Component {
   constructor(props) {
@@ -23,6 +23,7 @@ class DragAndDrop extends Component {
 
   render() {
     const { isDragActive } = this.state;
+    const {dispatch, analyser} = this.props;
     const disableClick = true;
     const multiple = false;
 
@@ -39,7 +40,7 @@ class DragAndDrop extends Component {
 
     const analysing = (
       <div>
-        Analysing... {this.state.progress}%
+        Analysing... {analyser.progress}%
       </div>
     );
 
@@ -49,12 +50,12 @@ class DragAndDrop extends Component {
           Save...
         </button>
         <pre>
-          {this.state.json}
+          {analyser.json}
         </pre>
       </div>
     );
 
-    const content = this.state.isDone ? done : this.state.isAnalysing ? analysing : awaitingDragAndDrop;
+    const content = analyser.json ? done : analyser.analysing ? analysing : awaitingDragAndDrop;
 
     return (
       <Dropzone
@@ -94,31 +95,9 @@ class DragAndDrop extends Component {
     });
     console.log('onDropAccepted', files);
 
-    const config = new MykrobeConfig();
-    const service = new MykrobeService(config);
-    if (this.analyser) {
-      this.analyser.cancel();
-    }
-    this.setState({
-      isAnalysing: true,
-      progress: 0
-    });
-    this.analyser = service.analyseFileWithPath(files[0].path)
-      .on('progress', (progress) => {
-        console.log('progress', progress);
-        this.setState({
-          isAnalysing: true,
-          progress: Math.round(100 * progress.progress / progress.total)
-        });
-      })
-      .on('done', (json) => {
-        this.setState({
-          isAnalysing: false,
-          isDone: true,
-          json
-        });
-      });
-    // console.log('service:', service.analyseFileWithPath().pathToBin());
+    const {dispatch} = this.props;
+    const filePath = files[0].path;
+    dispatch(AnalyserActions.analyseFileWithPath(filePath));
   }
 
   onDropRejected(files) {
@@ -158,7 +137,15 @@ class DragAndDrop extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    analyser: state.analyser
+  };
+}
+
 DragAndDrop.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  analyser: PropTypes.object.isRequired,
 };
 
-export default DragAndDrop;
+export default connect(mapStateToProps)(DragAndDrop);
