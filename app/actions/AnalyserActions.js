@@ -26,7 +26,15 @@ export function analyseFileWithPath(filePath) {
   };
 }
 
-// TODO: cancel
+export function analyseFileCancel() {
+  if (this.analyser) {
+    this.analyser.cancel();
+    this.analyser = null;
+  }
+  return {
+    type: types.ANALYSE_FILE_CANCEL
+  };
+}
 
 function analyseFile(filePath) {
   return {

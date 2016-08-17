@@ -41,6 +41,9 @@ class DragAndDrop extends Component {
     const analysing = (
       <div>
         Analysing... {analyser.progress}%
+        <button type="button" onClick={this.onCancelClick.bind(this)}>
+          Cancel
+        </button>
       </div>
     );
 
@@ -48,6 +51,9 @@ class DragAndDrop extends Component {
       <div>
         <button type="button" onClick={this.onSaveClick.bind(this)}>
           Save...
+        </button>
+        <button type="button" onClick={this.onCancelClick.bind(this)}>
+          Cancel
         </button>
         <pre>
           {analyser.json}
@@ -105,6 +111,11 @@ class DragAndDrop extends Component {
       isDragActive: false
     });
     console.log('onDropRejected', files);
+  }
+
+  onCancelClick(e) {
+    const {dispatch} = this.props;
+    dispatch(AnalyserActions.analyseFileCancel());
   }
 
   onOpenClick(e) {

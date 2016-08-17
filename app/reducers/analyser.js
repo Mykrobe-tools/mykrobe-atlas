@@ -16,6 +16,8 @@ export default function analyser(state = initialState, action = {}) {
         filePath: action.filePath,
         analysing: true
       };
+    case types.ANALYSE_FILE_CANCEL:
+      return initialState;
     case types.ANALYSE_FILE_PROGRESS:
       return {
         ...state,
