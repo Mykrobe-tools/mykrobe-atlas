@@ -51,7 +51,7 @@ function analyseFile(filePath) {
   };
 }
 
-function analyseFileSuccess(json) {
+export function analyseFileSuccess(json) {
   return {
     type: ActionTypes.ANALYSE_FILE_SUCCESS,
     json

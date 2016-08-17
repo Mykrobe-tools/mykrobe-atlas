@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import styles from './DragAndDrop.css';
 import fs from 'fs';
+import { push } from 'react-router-redux';
 
 import Dropzone from 'react-dropzone';
 
@@ -34,6 +35,9 @@ class DragAndDrop extends Component {
         </div>
         <button type="button" onClick={this.onOpenClick.bind(this)}>
           Browse...
+        </button>
+        <button type="button" onClick={this.onOpenPredictor.bind(this)}>
+          Skip to predictor
         </button>
       </div>
     );
@@ -93,6 +97,12 @@ class DragAndDrop extends Component {
     this.setState({
       isDragActive: true
     });
+  }
+
+  onOpenPredictor(e) {
+    const {dispatch} = this.props;
+    dispatch(push('/predictor'));
+    dispatch(AnalyserActions.analyseFileSuccess(JSON.stringify({test: 'test'})));
   }
 
   onDropAccepted(files) {

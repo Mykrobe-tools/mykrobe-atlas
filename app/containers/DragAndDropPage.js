@@ -5,7 +5,7 @@ import DragAndDrop from '../components/DragAndDrop';
 class DragAndDropPage extends Component {
   render() {
     return (
-      <DragAndDrop />
+      <DragAndDrop {...this.props} />
     );
   }
 }
