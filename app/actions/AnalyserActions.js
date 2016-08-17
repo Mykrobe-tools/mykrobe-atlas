@@ -1,5 +1,6 @@
-import * as types from '../constants/ActionTypes';
+import { push } from 'react-router-redux';
 
+import * as ActionTypes from '../constants/ActionTypes';
 import MykrobeService from '../api/MykrobeService';
 
 export function analyseFileWithPath(filePath) {
@@ -10,6 +11,8 @@ export function analyseFileWithPath(filePath) {
       this.analyser.cancel();
     }
 
+    dispatch(push('/analysing'));
+
     const service = new MykrobeService();
     this.analyser = service.analyseFileWithPath(filePath)
       .on('progress', (progress) => {
@@ -18,48 +21,53 @@ export function analyseFileWithPath(filePath) {
         dispatch(analyseFileProgress(percent));
       })
       .on('done', (json) => {
+        dispatch(push('/predictor'));
         dispatch(analyseFileSuccess(json));
       })
       .on('error', (error) => {
+        dispatch(push('/'));
         dispatch(errorAnalyseFile(error));
       });
   };
 }
 
 export function analyseFileCancel() {
-  if (this.analyser) {
-    this.analyser.cancel();
-    this.analyser = null;
-  }
-  return {
-    type: types.ANALYSE_FILE_CANCEL
+  return (dispatch, getState) => {
+    if (this.analyser) {
+      this.analyser.cancel();
+      this.analyser = null;
+    }
+    dispatch(push('/'));
+    dispatch({
+      type: ActionTypes.ANALYSE_FILE_CANCEL
+    });
   };
 }
 
 function analyseFile(filePath) {
   return {
-    type: types.ANALYSE_FILE,
+    type: ActionTypes.ANALYSE_FILE,
     filePath
   };
 }
 
 function analyseFileSuccess(json) {
   return {
-    type: types.ANALYSE_FILE_SUCCESS,
+    type: ActionTypes.ANALYSE_FILE_SUCCESS,
     json
   };
 }
 
 function analyseFileProgress(progress) {
   return {
-    type: types.ANALYSE_FILE_PROGRESS,
+    type: ActionTypes.ANALYSE_FILE_PROGRESS,
     progress
   };
 }
 
 function errorAnalyseFile(error) {
   return {
-    type: types.ANALYSE_FILE_ERROR,
+    type: ActionTypes.ANALYSE_FILE_ERROR,
     error
   };
 }
