@@ -13,8 +13,8 @@ class Predictor extends Component {
         <h2>Predictor</h2>
         Show results in here
         <ul>
-          <li><Link to="predictor/a" activeClassName="active">Screen A</Link></li>
-          <li><Link to="predictor/b" activeClassName="active">Screen B</Link></li>
+          <li><Link to="results/predictor/a" activeClassName="active">Screen A</Link></li>
+          <li><Link to="results/predictor/b" activeClassName="active">Screen B</Link></li>
         </ul>
         <div>
           {children}

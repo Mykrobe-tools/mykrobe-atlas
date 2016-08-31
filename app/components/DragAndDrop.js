@@ -100,8 +100,9 @@ class DragAndDrop extends Component {
   }
 
   onOpenPredictor(e) {
+    // debugger
     const {dispatch} = this.props;
-    dispatch(push('/predictor'));
+    dispatch(push('/results'));
     dispatch(AnalyserActions.analyseFileSuccess(JSON.stringify({test: 'test'})));
   }
 
