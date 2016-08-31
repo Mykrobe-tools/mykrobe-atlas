@@ -1,4 +1,4 @@
-import * as TargetConstants from '../constants/TargetConstants';
+import * as TargetConstants from 'constants/TargetConstants';
 
 class MykrobeConfig {
   constructor() {

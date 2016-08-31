@@ -3,7 +3,7 @@ import { Route, IndexRoute, Link } from 'react-router';
 import { connect } from 'react-redux';
 import styles from './Predictor.css';
 
-import * as AnalyserActions from '../../actions/AnalyserActions';
+import * as AnalyserActions from 'actions/AnalyserActions';
 
 class Predictor extends Component {
   render() {

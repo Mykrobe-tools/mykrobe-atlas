@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 import { connect } from 'react-redux';
 import styles from './PredictorScreenB.css';
 
-import * as AnalyserActions from '../../actions/AnalyserActions';
+import * as AnalyserActions from 'actions/AnalyserActions';
 
 // TODO: push route on state change
 

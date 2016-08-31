@@ -1,7 +1,7 @@
 import { push } from 'react-router-redux';
 
-import * as ActionTypes from '../constants/ActionTypes';
-import MykrobeService from '../api/MykrobeService';
+import * as ActionTypes from 'constants/ActionTypes';
+import MykrobeService from 'api/MykrobeService';
 
 export function analyseFileWithPath(filePath) {
   return (dispatch, getState) => {

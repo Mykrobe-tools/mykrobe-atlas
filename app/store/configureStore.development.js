@@ -3,9 +3,9 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { hashHistory } from 'react-router';
 import { routerMiddleware, push } from 'react-router-redux';
-import rootReducer from '../reducers';
+import rootReducer from 'reducers';
 
-import * as AnalyserActions from '../actions/AnalyserActions';
+import * as AnalyserActions from 'actions/AnalyserActions';
 
 const actionCreators = {
   ...AnalyserActions,

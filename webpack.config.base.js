@@ -25,6 +25,9 @@ function baseConfig(env = 'development') {
       libraryTarget: 'commonjs2'
     },
     resolve: {
+      root: [
+        path.resolve('./app')
+      ],
       extensions: ['', '.js', '.jsx', '.json'],
       packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
     },

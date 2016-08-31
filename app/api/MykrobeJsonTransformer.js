@@ -1,6 +1,6 @@
 import MykrobeConfig from './MykrobeConfig';
 import _ from 'lodash';
-import * as TargetConstants from '../constants/TargetConstants';
+import * as TargetConstants from 'constants/TargetConstants';
 
 class MykrobeJsonTransformer {
   constructor(config = new MykrobeConfig()) {

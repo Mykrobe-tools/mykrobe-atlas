@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import path from 'path';
 import fs from 'fs';
-import * as TargetConstants from '../constants/TargetConstants';
+import * as TargetConstants from 'constants/TargetConstants';
 import MykrobeJsonTransformer from './MykrobeJsonTransformer';
 
 const app = require('electron').remote.app;

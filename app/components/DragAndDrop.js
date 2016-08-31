@@ -7,7 +7,7 @@ import { push } from 'react-router-redux';
 
 import Dropzone from 'react-dropzone';
 
-import * as AnalyserActions from '../actions/AnalyserActions';
+import * as AnalyserActions from 'actions/AnalyserActions';
 
 class DragAndDrop extends Component {
   constructor(props) {
