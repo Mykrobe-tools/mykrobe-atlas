@@ -17,7 +17,8 @@ function baseConfig(env = 'development') {
       }, {
         test: /\.json$/,
         loader: 'json-loader'
-      }]
+      },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }]
     },
     output: {
       path: path.join(__dirname, 'static'),
