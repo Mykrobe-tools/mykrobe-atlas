@@ -1,0 +1,43 @@
+.container {
+  composes: container from "css/layout.css";
+  flex-direction: column;
+}
+
+.header {
+  background-color:var(--color-buff-dark);
+  height:120px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.headerTitle {
+  composes: fontSizeLarge from "css/typography.css";
+  color: var(--color-tint-primary);
+  padding-bottom: 16px;
+}
+
+.navigation {
+  margin: 0 auto;
+  display: flex;
+}
+
+.navigationItem {
+  composes: fontSecondary from "css/typography.css";
+  composes: fontSecondarySizeSmall from "css/typography.css";
+  text-transform: uppercase;
+  height: 24px;
+  padding: 0 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-tint-secondary);
+}
+
+.navigationItemActive {
+  composes: navigationItem;
+  color: white;
+  background-color: var(--color-tint-secondary);
+}

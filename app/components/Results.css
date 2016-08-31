@@ -1,5 +1,35 @@
 .container {
-  composes: container from "css/layout.css";
-  position:absolute;
+  composes: containerAbsolute from "css/layout.css";
   flex-direction: column;
+}
+
+.header {
+  height:120px;
+  display:flex;
+  justify-content: center;
+}
+
+.navigation {
+  align-self:flex-end;
+  display: flex;
+  padding-bottom: 20px;
+}
+
+.navigationItem {
+  composes: fontSecondary from "css/typography.css";
+  composes: fontSecondarySizeNormal from "css/typography.css";
+  text-transform: uppercase;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-grey-mid);
+}
+
+.navigationItemActive {
+  composes: navigationItem;
+  color: white;
+  background-color: var(--color-grey-mid);
 }

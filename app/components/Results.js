@@ -8,13 +8,15 @@ class Results extends Component {
     const {children} = this.props;
     return (
       <div className={styles.container}>
-        <ul>
-          <li><Link to="results/map" activeClassName="active">Map</Link></li>
-          <li><Link to="results/metadata" activeClassName="active">Metadata</Link></li>
-          <li><Link to="results/resistence" activeClassName="active">Resistence</Link></li>
-          <li><Link to="results/share" activeClassName="active">Share</Link></li>
-          <li><Link to="results/summary" activeClassName="active">Summary</Link></li>
-        </ul>
+        <div className={styles.header}>
+          <div className={styles.navigation}>
+            <Link to="results/map" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Map</Link>
+            <Link to="results/metadata" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Metadata</Link>
+            <Link to="results/resistance" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Resistance</Link>
+            <Link to="results/share" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Share</Link>
+            <Link to="results/summary" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Summary</Link>
+          </div>
+        </div>
         {children}
       </div>
     );

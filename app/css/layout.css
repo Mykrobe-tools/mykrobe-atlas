@@ -6,3 +6,9 @@
   display: flex;
   flex: 1;
 }
+
+.containerAbsolute {
+  composes: container;
+  position: absolute;
+  width: 100%;
+}

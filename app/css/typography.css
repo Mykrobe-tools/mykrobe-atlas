@@ -11,12 +11,36 @@
 	src: url("./webfonts/BryantWebBold.eot?#iefix") format("embedded-opentype"), url("./webfonts/BryantWebBold.woff") format("woff");
 }
 
-.fontPrimary {
+.font {
 	font-family: "Minion-Regular", serif;
+}
+
+.fontSizeExtraLarge {
+	font-size: 36px;
+}
+
+.fontSizeLarge {
+	font-size: 24px;
+}
+
+.fontSizeNormal {
+	font-size: 19px;
+}
+
+.fontSizeSmall {
+	font-size: 14px;
 }
 
 .fontSecondary {
 	font-family: 'Bryant2-Bold', sans-serif;
+}
+
+.fontSecondarySizeNormal {
+	font-size: 17px;
+}
+
+.fontSecondarySizeSmall {
+	font-size: 14px;
 }
 
 body {

@@ -8,9 +8,9 @@ import ResultsPage from './containers/ResultsPage';
 
 import Map from './components/map/Map';
 import Metadata from './components/metadata/Metadata';
-import Resistence from './components/resistence/Resistence';
-import ResistenceScreenA from './components/resistence/ResistenceScreenA';
-import ResistenceScreenB from './components/resistence/ResistenceScreenB';
+import Resistance from './components/resistance/Resistance';
+import ResistanceScreenA from './components/resistance/ResistanceScreenA';
+import ResistanceScreenB from './components/resistance/ResistanceScreenB';
 import Share from './components/share/Share';
 import Summary from './components/summary/Summary';
 
@@ -19,13 +19,13 @@ export default (
     <IndexRoute component={DragAndDropPage} />
     <Route path="analysing" component={AnalysingPage} />
     <Route path="results" component={ResultsPage} >
-      <IndexRedirect to="resistence" />
+      <IndexRedirect to="resistance" />
       <Route path="map" component={Map} />
       <Route path="metadata" component={Metadata} />
-      <Route path="resistence" component={Resistence}>
+      <Route path="resistance" component={Resistance}>
         <IndexRedirect to="a" />
-        <Route path="a" component={ResistenceScreenA} />
-        <Route path="b" component={ResistenceScreenB} />
+        <Route path="a" component={ResistanceScreenA} />
+        <Route path="b" component={ResistanceScreenB} />
       </Route>
       <Route path="share" component={Share} />
       <Route path="summary" component={Summary} />
