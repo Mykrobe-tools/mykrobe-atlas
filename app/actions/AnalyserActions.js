@@ -21,7 +21,7 @@ export function analyseFileWithPath(filePath) {
         dispatch(analyseFileProgress(percent));
       })
       .on('done', (json) => {
-        dispatch(push('/predictor'));
+        dispatch(push('/results'));
         dispatch(analyseFileSuccess(json));
       })
       .on('error', (error) => {
