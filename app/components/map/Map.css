@@ -1,3 +1,5 @@
 .container {
   composes: container from "css/layout.css";
+
+  background-color: white;
 }
