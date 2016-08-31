@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import App from './containers/App';
 import DragAndDropPage from './containers/DragAndDropPage';
 import AnalysingPage from './containers/AnalysingPage';
@@ -12,7 +12,8 @@ export default (
     <IndexRoute component={DragAndDropPage} />
     <Route path="analysing" component={AnalysingPage} />
     <Route path="predictor" component={PredictorPage}>
-      <IndexRoute component={PredictorScreenA} />
+      <IndexRedirect to="a" />
+      <Route path="a" component={PredictorScreenA} />
       <Route path="b" component={PredictorScreenB} />
     </Route>
   </Route>

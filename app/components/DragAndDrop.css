@@ -1,7 +1,7 @@
 
 .container {
   composes: container from "css/layout.css";
-  background-color: var(--color-tint-primary);
+  position:absolute;
 }
 
 .backButton {
