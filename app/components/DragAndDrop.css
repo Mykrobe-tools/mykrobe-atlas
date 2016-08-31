@@ -1,8 +1,6 @@
+
 .container {
-  flex: 1;
-  display: flex;
-  width: 100%;
-  height: 100%;
+  composes: container from "../css/layout.css";
   background-color: var(--color-tint-primary);
 }
 
