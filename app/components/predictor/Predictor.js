@@ -9,17 +9,15 @@ class Predictor extends Component {
   render() {
     const {dispatch, analyser, children} = this.props;
     return (
-      <div>
-        <div className={styles.container}>
-          <h2>Predictor</h2>
-          Show results in here
-          <ul>
-            <li><Link to="/predictor">Screen A</Link></li>
-            <li><Link to="/predictor/b">Screen B</Link></li>
-          </ul>
-          <div>
-            {children}
-          </div>
+      <div className={styles.container}>
+        <h2>Predictor</h2>
+        Show results in here
+        <ul>
+          <li><Link to="/predictor">Screen A</Link></li>
+          <li><Link to="/predictor/b">Screen B</Link></li>
+        </ul>
+        <div>
+          {children}
         </div>
       </div>
     );

@@ -1,16 +1,20 @@
 import React, { Component, PropTypes } from 'react';
+import Header from 'components/header/Header';
 import styles from './App.css';
 
-export default class App extends Component {
-  static propTypes = {
-    children: PropTypes.element.isRequired
-  };
-
+class App extends Component {
   render() {
     return (
       <div className={styles.container}>
+        <Header />
         {this.props.children}
       </div>
     );
   }
 }
+
+App.propTypes = {
+  children: PropTypes.element.isRequired
+};
+
+export default App;

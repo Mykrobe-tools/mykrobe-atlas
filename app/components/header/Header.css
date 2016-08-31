@@ -1,0 +1,16 @@
+.container {
+  composes: container from "css/layout.css";
+  height:120px;
+  padding:30px;
+}
+
+.logo {
+  width:180px;
+  height:60px;
+  background-color:blue;
+}
+
+.account {
+  background-color:red;
+  margin-left:auto;
+}

@@ -1,8 +1,7 @@
 .container {
+  composes: container from "css/layout.css";
   position: absolute;
-  top: 30%;
-  left: 10px;
-  text-align: center;
+  flex-direction: column;
 }
 
 .container h2 {

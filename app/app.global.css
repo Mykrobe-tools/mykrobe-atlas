@@ -1,6 +1,13 @@
-/* apply a natural box layout model to all elements, but allowing components to change */
+/*
+set up base appearance using flexbox
+and filling the main window
+*/
+
+/* border-box sizing */
+
 html {
   box-sizing: border-box;
+  text-size-adjust: 100%;
 }
 
 *, *:before, *:after {
@@ -17,6 +24,8 @@ html {
 }
 
 body {
+  margin: 0;
+  padding: 0;
   position: relative;
   overflow-y: hidden;
   flex: 1;
