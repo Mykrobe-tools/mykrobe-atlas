@@ -22,9 +22,7 @@ class Resistance extends Component {
             <Link to="results/resistance/species" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Species</Link>
           </div>
         </div>
-        <div>
-          {children}
-        </div>
+        {children}
       </div>
     );
   }

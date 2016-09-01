@@ -10,7 +10,7 @@ import * as AnalyserActions from 'actions/AnalyserActions';
 class ResistanceScreenAll extends Component {
   render() {
     return (
-      <div>
+      <div className={styles.container}>
         ResistanceScreenAll
       </div>
     );

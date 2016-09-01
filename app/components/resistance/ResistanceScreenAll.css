@@ -1,8 +1,6 @@
 .container {
-  position: absolute;
-  top: 30%;
-  left: 10px;
-  text-align: center;
+  composes: container from "css/layout.css";
+  background-color: white;
 }
 
 .container h2 {
