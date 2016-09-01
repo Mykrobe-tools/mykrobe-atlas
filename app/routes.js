@@ -19,16 +19,16 @@ export default (
     <IndexRoute component={DragAndDropPage} />
     <Route path="analysing" component={AnalysingPage} />
     <Route path="results" component={ResultsPage} >
-      <IndexRedirect to="resistance" />
-      <Route path="map" component={Map} />
+      <IndexRedirect to="metadata" />
       <Route path="metadata" component={Metadata} />
       <Route path="resistance" component={Resistance}>
         <IndexRedirect to="a" />
         <Route path="a" component={ResistanceScreenA} />
         <Route path="b" component={ResistanceScreenB} />
       </Route>
-      <Route path="share" component={Share} />
+      <Route path="map" component={Map} />
       <Route path="summary" component={Summary} />
+      <Route path="share" component={Share} />
     </Route>
   </Route>
 );
