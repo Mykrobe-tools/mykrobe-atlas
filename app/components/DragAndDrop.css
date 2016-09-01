@@ -22,6 +22,12 @@
   flex-direction: column;
 }
 
+.promptIcon {
+  background:url(static/drag-and-drop-arrow.svg);
+  width: 104px;
+  height: 128px;
+}
+
 .promptTitle {
   composes: fontSizeLarge from "css/typography.css";
   padding: 36px 0;
