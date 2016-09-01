@@ -5,6 +5,7 @@ import moment from 'moment';
 import styles from './Metadata.css';
 
 const locations = require('static/locations.json');
+const drugs = require('static/drugs.json');
 
 class Metadata extends Component {
   constructor(props) {
@@ -64,6 +65,53 @@ class Metadata extends Component {
     );
   }
 
+  susceptibilityPicker() {
+    var rows = [];
+    drugs.forEach((drug, index) => {
+      rows.push(
+        <tr key={index}>
+          <td>
+            {drug}
+          </td>
+          <td>
+            <input
+              type="radio"
+              name={drug}
+              value="S"
+              defaultChecked={'S' === this.state.susceptibility[drug]}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </td>
+          <td>
+            <input
+              type="radio"
+              name={drug}
+              value="R"
+              defaultChecked={'R' === this.state.susceptibility[drug]}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </td>
+          <td>
+            <input
+              type="radio"
+              name={drug}
+              value="I"
+              defaultChecked={'I' === this.state.susceptibility[drug]}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </td>
+        </tr>
+      );
+    });
+    return (
+      <table>
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
+    );
+  }
+
   render() {
     const {children} = this.props;
     return (
@@ -92,6 +140,7 @@ class Metadata extends Component {
         </div>
         <div className={styles.formRow}>
           <label>Phenotypic susceptibility</label>
+          {this.susceptibilityPicker()}
         </div>
         <div className={styles.formRow}>
           <label>Patient history</label>
