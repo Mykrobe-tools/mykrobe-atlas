@@ -30,6 +30,7 @@ class DragAndDrop extends Component {
 
     const awaitingDragAndDrop = (
       <div className={styles.promptContainer}>
+        <img src="static/drag-and-drop-arrow.svg" />
         <div className={styles.promptTitle}>
           Drag file here to analyse
         </div>

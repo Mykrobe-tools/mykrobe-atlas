@@ -8,7 +8,7 @@
 
 .containerDragActive {
   composes: container;
-  border: 12px solid var(--color-tint-primary);
+  border: 12px solid var(--color-grey-mid);
 }
 
 .promptContainer {
@@ -20,6 +20,11 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+
+.promptTitle {
+  composes: fontSizeLarge from "css/typography.css";
+  padding: 36px 0;
 }
 
 .backButton {
