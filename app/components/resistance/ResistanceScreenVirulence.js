@@ -1,17 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { connect } from 'react-redux';
-import styles from './ResistanceScreenA.css';
+import styles from './ResistanceScreenVirulence.css';
 
 import * as AnalyserActions from 'actions/AnalyserActions';
 
 // TODO: push route on state change
 
-class ResistanceScreenA extends Component {
+class ResistanceScreenVirulence extends Component {
   render() {
     return (
       <div>
-        Screen A
+        ResistanceScreenVirulence
       </div>
     );
   }
@@ -23,10 +23,10 @@ function mapStateToProps(state) {
   };
 }
 
-ResistanceScreenA.propTypes = {
+ResistanceScreenVirulence.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   children: PropTypes.object
 };
 
-export default connect(mapStateToProps)(ResistanceScreenA);
+export default connect(mapStateToProps)(ResistanceScreenVirulence);
