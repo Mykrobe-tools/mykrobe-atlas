@@ -126,6 +126,16 @@ class Metadata extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.formContainer}>
+          <div className={styles.formHeader}>
+            <div className={styles.formHeaderTitle}>
+              Metadata
+            </div>
+            <div className={styles.formHeaderActions}>
+              <div className={styles.formHeaderAction}>
+                Open template
+              </div>
+            </div>
+          </div>
           <div className={styles.formRow}>
             <label className={styles.formRowLabel} htmlFor="location">Collection location</label>
             {this.locationSelect()}

@@ -33,6 +33,7 @@
 
 .fontSecondary {
 	font-family: 'Bryant2-Bold', sans-serif;
+	text-transform: uppercase;
 }
 
 .fontSecondarySizeNormal {
@@ -43,6 +44,15 @@
 	font-size: 14px;
 }
 
+.subheading {
+	composes: fontSecondary;
+	display: flex;
+	width: 100%;
+	color: var(--color-tint-primary);
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--color-rule);
+}
+
 :global(body) {
   font-kerning: normal;
   -moz-osx-font-smoothing: grayscale;
@@ -50,5 +60,5 @@
   text-rendering: optimizeLegibility;
   font-family: "Minion-Regular", serif;
 	font-size: 19px;
-	line-height:24px;
+	line-height: 1.2;
 }

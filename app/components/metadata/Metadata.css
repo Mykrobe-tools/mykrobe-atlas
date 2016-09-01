@@ -9,6 +9,30 @@
   padding: 30px;
 }
 
+.formHeader {
+  display: flex;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--color-rule);
+  margin-bottom: 24px;
+}
+
+.formHeaderTitle {
+  composes: fontSecondary from "css/typography.css";
+	composes: fontSecondarySizeNormal from "css/typography.css";
+  color: var(--color-tint-primary);
+}
+
+.formHeaderActions {
+  display: flex;
+  margin-left: auto;
+}
+
+.formHeaderAction {
+  composes: fontSecondary from "css/typography.css";
+	composes: fontSecondarySizeNormal from "css/typography.css";
+  color: var(--color-tint-secondary);
+}
+
 .formContainer input[type="radio"], .formContainer input[type="checkbox"] {
   margin-right: 8px;
 }
