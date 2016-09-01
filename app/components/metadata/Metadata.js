@@ -113,7 +113,7 @@ class Metadata extends Component {
       );
     });
     return (
-      <table>
+      <table className={styles.susceptibilityPicker}>
         <tbody>
           {rows}
         </tbody>
@@ -127,11 +127,11 @@ class Metadata extends Component {
       <div className={styles.container}>
         <div className={styles.formContainer}>
           <div className={styles.formRow}>
-            <label htmlFor="location">Collection location</label>
+            <label className={styles.formRowLabel} htmlFor="location">Collection location</label>
             {this.locationSelect()}
           </div>
           <div className={styles.formRow}>
-            <label htmlFor="location">Collection date</label>
+            <label className={styles.formRowLabel} htmlFor="location">Collection date</label>
             {/* DatePicker currently shows US locale since Electron returns US https://github.com/electron/electron/issues/2484 */}
             <DatePicker
               name="date"
@@ -140,7 +140,7 @@ class Metadata extends Component {
             />
           </div>
           <div className={styles.formRow}>
-            <label htmlFor="location">Sample type</label>
+            <label className={styles.formRowLabel} htmlFor="location">Sample type</label>
             <input
               type="text"
               name="sampleType"
@@ -149,18 +149,18 @@ class Metadata extends Component {
             />
           </div>
           <div className={styles.formRow}>
-            <label>Phenotypic susceptibility</label>
+            <label className={styles.formRowLabel}>Phenotypic susceptibility</label>
             {this.susceptibilityPicker()}
           </div>
           <div className={styles.formRow}>
-            <label>Patient history</label>
+            <label className={styles.formRowLabel}>Patient history</label>
             <label>
               <input type="checkbox" name="treatedForTB" defaultChecked={this.state.treatedForTB} onChange={(event) => this.handleCheckboxChange(event)} />
               Patient has been treated for TB before
             </label>
           </div>
           <div className={styles.formRow}>
-            <label>Help improve Atlas</label>
+            <label className={styles.formRowLabel}>Help improve Atlas</label>
             <label>
               <input type="checkbox" name="shareSequence" defaultChecked={this.state.shareSequence} onChange={(event) => this.handleCheckboxChange(event)} />
               Share bacterial DNA sequence with Atlas
