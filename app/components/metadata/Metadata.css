@@ -2,4 +2,11 @@
   composes: container from "css/layout.css";
   background-color: white;
   flex-direction: column;
+  overflow-y: auto;
+}
+
+.formContainer {
+  composes: container from "css/layout.css";
+  flex-direction: column;
+  padding: 30px;
 }
