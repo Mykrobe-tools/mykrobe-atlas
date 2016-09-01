@@ -43,7 +43,7 @@
 	font-size: 14px;
 }
 
-body {
+:global(body) {
   font-kerning: normal;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
