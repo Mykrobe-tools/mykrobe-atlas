@@ -5,9 +5,9 @@
 }
 
 .logo {
-  width:180px;
+  width:211px;
   height:60px;
-  background-color:blue;
+  background:url(static/predictor-enterics-logo.svg);
 }
 
 .account {
