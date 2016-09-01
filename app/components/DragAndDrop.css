@@ -1,43 +1,31 @@
 
 .container {
-  composes: container from "css/layout.css";
-  position:absolute;
+  composes: containerAbsolute from "css/layout.css";
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.containerDragActive {
+  composes: container;
+  border: 12px solid var(--color-tint-primary);
+}
+
+.promptContainer {
+  background-color: white;
+  width: 480px;
+  height: 480px;
+  border-radius: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .backButton {
   position: absolute;
 }
 
-.counter {
-  position: absolute;
-  top: 30%;
-  left: 45%;
-  font-size: 10rem;
-  font-weight: bold;
-  letter-spacing: -.025em;
-}
-
-.btnGroup {
-  position: relative;
-  top: 500px;
-  width: 480px;
-  margin: 0 auto;
-}
-
-.btn {
-  font-size: 1.6rem;
-  font-weight: bold;
-  background-color: #fff;
-  border-radius: 50%;
-  margin: 10px;
-  width: 100px;
-  height: 100px;
-  opacity: .7;
-  cursor: pointer;
-  font-family: Arial, Helvetica, Helvetica Neue;
-}
-
-.btn:hover {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
+.button {
+  composes: buttonOutline from "css/controls.css";
 }

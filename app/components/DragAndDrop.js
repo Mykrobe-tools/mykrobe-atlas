@@ -29,11 +29,11 @@ class DragAndDrop extends Component {
     const multiple = false;
 
     const awaitingDragAndDrop = (
-      <div>
-        <div>
-          Drag and drop {isDragActive ? 'dragging' : false}
+      <div className={styles.promptContainer}>
+        <div className={styles.promptTitle}>
+          Drag file here to analyse
         </div>
-        <button type="button" onClick={this.onOpenClick.bind(this)}>
+        <button type="button" className={styles.button} onClick={this.onOpenClick.bind(this)}>
           Browse...
         </button>
         <button type="button" onClick={this.onOpenPredictor.bind(this)}>
@@ -53,7 +53,7 @@ class DragAndDrop extends Component {
 
     const done = (
       <div>
-        <button type="button" onClick={this.onSaveClick.bind(this)}>
+        <button type="button" className={styles.button} onClick={this.onSaveClick.bind(this)}>
           Save...
         </button>
         <button type="button" onClick={this.onCancelClick.bind(this)}>
@@ -69,7 +69,7 @@ class DragAndDrop extends Component {
 
     return (
       <Dropzone
-        className={styles.container}
+        className={isDragActive ? styles.containerDragActive : styles.container}
         ref={(ref) => { this._dropzone = ref; }}
         onDropAccepted={this.onDropAccepted.bind(this)}
         onDropRejected={this.onDropRejected.bind(this)}
