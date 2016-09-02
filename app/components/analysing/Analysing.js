@@ -1,19 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Metadata from './metadata/Metadata';
+import Metadata from 'components/metadata/Metadata';
 import styles from './Analysing.css';
-
 import * as AnalyserActions from 'actions/AnalyserActions';
+import AnalysingProgressBar from './AnalysingProgressBar';
 
 // TODO: push route on state change
 
 class Analysing extends Component {
   render() {
-    const {dispatch, analyser} = this.props;
+    const {analyser} = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          Analysing... {analyser.progress}%
+          <AnalysingProgressBar />
           <button type="button" onClick={this.onCancelClick.bind(this)}>
             Cancel
           </button>

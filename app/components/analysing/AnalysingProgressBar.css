@@ -1,0 +1,32 @@
+.container {
+  width:100%;
+}
+
+.progressBarContainer {
+  background-color: var(--color-tint-primary);
+  height:16px;
+  transition: width 2s;
+  position: absolute;
+}
+
+.progressBarLabel {
+  composes: fontSecondary from "css/typography.css";
+  font-size: 11px;
+  white-space: nowrap;
+  position:absolute;
+  top: 0;
+  bottom: 0;
+  padding: 2px 4px;
+}
+
+.progressBarLabelInside {
+  composes: progressBarLabel;
+  right: 0;
+  color: white;
+}
+
+.progressBarLabelOutside {
+  composes: progressBarLabel;
+  left:100%;
+  color: var(--color-tint-primary);
+}
