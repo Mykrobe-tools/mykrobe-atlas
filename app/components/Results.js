@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './Results.css';
-import { Route, IndexRoute, Link } from 'react-router';
+import { Link } from 'react-router';
 
 class Results extends Component {
   render() {
@@ -23,4 +23,16 @@ class Results extends Component {
   }
 }
 
-export default Results;
+function mapStateToProps(state) {
+  return {
+    analyser: state.analyser
+  };
+}
+
+Results.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  analyser: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired
+};
+
+export default connect(mapStateToProps)(Results);

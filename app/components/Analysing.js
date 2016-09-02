@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import Metadata from './metadata/Metadata';
 import styles from './Analysing.css';
 
 import * as AnalyserActions from 'actions/AnalyserActions';
@@ -10,13 +11,14 @@ class Analysing extends Component {
   render() {
     const {dispatch, analyser} = this.props;
     return (
-      <div>
-        <div className={styles.container}>
-          <h2>Analysing... {analyser.progress}%</h2>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          Analysing... {analyser.progress}%
           <button type="button" onClick={this.onCancelClick.bind(this)}>
             Cancel
           </button>
         </div>
+        <Metadata />
       </div>
     );
   }

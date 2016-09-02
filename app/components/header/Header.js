@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import styles from './Header.css';
 
 class Header extends Component {
@@ -14,4 +15,15 @@ class Header extends Component {
   }
 }
 
-export default Header;
+function mapStateToProps(state) {
+  return {
+    analyser: state.analyser
+  };
+}
+
+Header.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  analyser: PropTypes.object.isRequired,
+};
+
+export default connect(mapStateToProps)(Header);

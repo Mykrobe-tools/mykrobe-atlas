@@ -1,8 +1,12 @@
 .container {
-  position: absolute;
-  top: 30%;
-  left: 10px;
-  text-align: center;
+  composes: containerAbsolute from "css/layout.css";
+  flex-direction: column;
+}
+
+.header {
+  height:120px;
+  display:flex;
+  justify-content: center;
 }
 
 .container h2 {
