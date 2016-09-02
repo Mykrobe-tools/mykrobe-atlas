@@ -7,6 +7,15 @@ import AnalysingProgressBar from './AnalysingProgressBar';
 
 // TODO: push route on state change
 
+/*
+// where win is BrowserWindow
+win.setProgressBar(0.5)
+win.setRepresentedFilename('/etc/passwd')
+const {app} = require('electron')
+app.addRecentDocument('/Users/USERNAME/Desktop/work.type')
+app.clearRecentDocuments()
+*/
+
 class Analysing extends Component {
   render() {
     const {analyser} = this.props;

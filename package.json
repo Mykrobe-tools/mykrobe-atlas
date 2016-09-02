@@ -59,7 +59,25 @@
         "deb",
         "AppImage"
       ]
-    }
+    },
+    "fileAssociations":[
+      {
+        "ext": "bam",
+        "name": "bam"
+      },
+      {
+        "ext": "gz",
+        "name": "gz"
+      },
+      {
+        "ext": "json",
+        "name": "json"
+      },
+      {
+        "ext": "fastq",
+        "name": "fastq"
+      }
+    ]
   },
   "directories": {
     "buildResources": "build",

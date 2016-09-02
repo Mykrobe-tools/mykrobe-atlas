@@ -1,13 +1,16 @@
 import path from 'path';
 
+// const STRIP_CONSOLE_LOG = ('development' === env);
+const STRIP_CONSOLE_LOG = false;
+
 function baseConfig(env = 'development') {
   const JS_LOADERS =
-    ('development' === env)
-    ? ['babel-loader']
-    : [
+    STRIP_CONSOLE_LOG
+    ? [
       'babel-loader',
       'strip-loader?strip[]=debug,strip[]=debugger,strip[]=console.log'
-    ];
+    ]
+    : ['babel-loader'];
   return {
     module: {
       loaders: [{

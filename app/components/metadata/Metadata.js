@@ -7,6 +7,8 @@ import styles from './Metadata.css';
 const locations = require('static/locations.json');
 const drugs = require('static/drugs.json');
 
+// TODO: move into redux, save on unmount
+
 class Metadata extends Component {
   constructor(props) {
     super(props);

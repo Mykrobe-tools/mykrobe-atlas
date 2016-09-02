@@ -3,28 +3,26 @@ import { app, BrowserWindow, Menu, shell } from 'electron';
 let menu;
 let template;
 let mainWindow = null;
+var filepath;
+var ready = false;
 
 // const SHOW_DEV_TOOLS = (process.env.NODE_ENV === 'development');
 const SHOW_DEV_TOOLS = true;
-
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support'); // eslint-disable-line
   sourceMapSupport.install();
 }
 
-
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
 }
-
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 
-
-const installExtensions = async () => {
+const installExtensions = (async) () => {
   if (process.env.NODE_ENV === 'development') {
     const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
 
@@ -41,7 +39,7 @@ const installExtensions = async () => {
   }
 };
 
-app.on('ready', async () => {
+app.on('ready', (async) () => {
   await installExtensions();
 
   mainWindow = new BrowserWindow({
@@ -109,6 +107,36 @@ app.on('ready', async () => {
         }
       }]
     }, {
+      label: 'File',
+      submenu: [{
+        label: 'New',
+        accelerator: 'Command+N',
+        click() {
+          mainWindow.send('file-new');
+        }
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Open',
+        accelerator: 'Command+O',
+        click() {
+          mainWindow.send('file-open');
+        }
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: 'Save As…',
+        accelerator: 'Command+Shift+S',
+        click() {
+          mainWindow.send('file-save-as');
+        }
+      }]
+    },
+    {
       label: 'Edit',
       submenu: [{
         label: 'Undo',
@@ -207,6 +235,7 @@ app.on('ready', async () => {
 
     menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
+
   } else {
     template = [{
       label: '&File',
@@ -273,5 +302,21 @@ app.on('ready', async () => {
     }];
     menu = Menu.buildFromTemplate(template);
     mainWindow.setMenu(menu);
+    ready = true;
   }
 });
+
+// TODO: this is not yet working - perhaps need to set file associations in mac info.plist
+/*
+app.on('open-file', function(event, path) {
+  event.preventDefault();
+  filepath = path;
+  debugger
+  if (ready) {
+    mainWindow.webContents.send('open-file', filepath);
+    filepath = null;
+
+    return;
+  }
+});
+*/

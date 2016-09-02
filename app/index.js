@@ -17,3 +17,8 @@ render(
   </Provider>,
   document.getElementById('root')
 );
+
+const ipcRenderer = require('electron').ipcRenderer;
+ipcRenderer.on('open-file', (filepath) => {
+  alert(filepath);
+});

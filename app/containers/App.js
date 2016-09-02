@@ -49,6 +49,17 @@ class App extends Component {
     const disableClick = true;
     const multiple = false;
 
+    /*
+    Get application menu and disable save as...
+    TODO: move this into its own component using redux state to change menu state
+    */
+
+    const remote = require('electron').remote;
+    const menu = remote.Menu.getApplicationMenu();
+    if ('darwin' === process.platform) {
+      menu.items[1].submenu.items[4].enabled = false;
+    }
+
     return (
       <div className={styles.container}>
         <Dropzone
