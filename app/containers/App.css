@@ -1,3 +1,15 @@
+
 .container {
+  composes: container from "css/layout.css";
   background-color: var(--color-background);
+}
+
+.dragIndicatorContainer {
+  composes: containerAbsolute from "css/layout.css";
+  pointer-events: none;
+}
+
+.dragIndicatorContainerDragActive {
+  composes: dragIndicatorContainer;
+  border: 12px solid var(--color-grey-mid);
 }

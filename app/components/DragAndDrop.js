@@ -23,81 +23,22 @@ class DragAndDrop extends Component {
   }
 
   render() {
-    const { isDragActive } = this.state;
-    const {dispatch, analyser} = this.props;
-    const disableClick = true;
-    const multiple = false;
-
-    const awaitingDragAndDrop = (
-      <div className={styles.promptContainer}>
-        <div className={styles.promptIcon} />
-        <div className={styles.promptTitle}>
-          Drag file here to analyse
-        </div>
-        <button type="button" className={styles.button} onClick={this.onOpenClick.bind(this)}>
-          Browse...
-        </button>
-        <button type="button" onClick={this.onOpenPredictor.bind(this)}>
-          Skip to predictor
-        </button>
-      </div>
-    );
-
-    const analysing = (
-      <div>
-        Analysing... {analyser.progress}%
-        <button type="button" onClick={this.onCancelClick.bind(this)}>
-          Cancel
-        </button>
-      </div>
-    );
-
-    const done = (
-      <div>
-        <button type="button" className={styles.button} onClick={this.onSaveClick.bind(this)}>
-          Save...
-        </button>
-        <button type="button" onClick={this.onCancelClick.bind(this)}>
-          Cancel
-        </button>
-        <pre>
-          {analyser.json}
-        </pre>
-      </div>
-    );
-
-    const content = analyser.json ? done : analyser.analysing ? analysing : awaitingDragAndDrop;
-
     return (
-      <Dropzone
-        className={isDragActive ? styles.containerDragActive : styles.container}
-        ref={(ref) => { this._dropzone = ref; }}
-        onDropAccepted={this.onDropAccepted.bind(this)}
-        onDropRejected={this.onDropRejected.bind(this)}
-        onDragLeave={this.onDragLeave.bind(this)}
-        onDragEnter={this.onDragEnter.bind(this)}
-        disableClick={disableClick}
-        multiple={multiple}
-        accept=".json,.bam,.gz,.fastq"
-        >
-        { content }
-      </Dropzone>
+      <div className={styles.container}>
+        <div className={styles.promptContainer}>
+          <div className={styles.promptIcon} />
+          <div className={styles.promptTitle}>
+            Drag file here to analyse
+          </div>
+          <button type="button" className={styles.button} onClick={this.onOpenClick.bind(this)}>
+            Browse...
+          </button>
+          <button type="button" onClick={this.onOpenPredictor.bind(this)}>
+            Skip to predictor
+          </button>
+        </div>
+      </div>
     );
-  }
-
-  onDragLeave(e) {
-    this.setState({
-      isDragActive: false
-    });
-  }
-
-  onDragEnter(e) {
-    // e.preventDefault();
-    // e.dataTransfer.dropEffect = 'copy';
-
-    this.setState({
-      isDragActive: true
-    });
   }
 
   onOpenPredictor(e) {
@@ -107,37 +48,30 @@ class DragAndDrop extends Component {
     dispatch(AnalyserActions.analyseFileSuccess(JSON.stringify({test: 'test'})));
   }
 
-  onDropAccepted(files) {
-    this.setState({
-      isDragActive: false
-    });
-    console.log('onDropAccepted', files);
-
-    const {dispatch} = this.props;
-    const filePath = files[0].path;
-    dispatch(AnalyserActions.analyseFileWithPath(filePath));
-  }
-
-  onDropRejected(files) {
-    this.setState({
-      isDragActive: false
-    });
-    console.log('onDropRejected', files);
-  }
-
-  onCancelClick(e) {
-    const {dispatch} = this.props;
-    dispatch(AnalyserActions.analyseFileCancel());
-  }
-
   onOpenClick(e) {
-    this._dropzone.open();
     console.log('onOpenClick');
+    const {dialog} = require('electron').remote;
+    const ipcRenderer = require('electron').ipcRenderer;
+    const {dispatch} = this.props;
+    dialog.showOpenDialog(ipcRenderer, {
+      title: 'Open',
+      multiSelections: false,
+      filters: [
+        {name: 'Images', extensions: ['json', 'bam', 'gz', 'fastq']},
+      ]
+    },
+      (filePath) => {
+        if (filePath) {
+          dispatch(AnalyserActions.analyseFileWithPath(filePath));
+        }
+      }
+    );
   }
 
   onSaveClick(e) {
     const {dialog} = require('electron').remote;
-    dialog.showSaveDialog(null, {
+    const ipcRenderer = require('electron').ipcRenderer;
+    dialog.showSaveDialog(ipcRenderer, {
       title: 'Save',
       defaultPath: 'mykrobe.json'
     },
