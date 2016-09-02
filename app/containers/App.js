@@ -57,7 +57,8 @@ class App extends Component {
     const remote = require('electron').remote;
     const menu = remote.Menu.getApplicationMenu();
     if ('darwin' === process.platform) {
-      menu.items[1].submenu.items[4].enabled = false;
+      const canSave = (false !== analyser.json);
+      menu.items[1].submenu.items[4].enabled = canSave;
     }
 
     return (
