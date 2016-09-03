@@ -31,3 +31,14 @@ export function saveFileDialog(defaultPath = 'mykrobe.json') {
 
   return filePath || false;
 }
+
+export function setProgress(progress) {
+  // let commander = window.global('commander')
+  const remote = require('electron').remote;
+  const currentWindow = remote.getCurrentWindow();
+  if (0 === progress || 100 === progress) {
+    currentWindow.setProgressBar(-1);
+    return;
+  }
+  currentWindow.setProgressBar(progress / 100.0);
+}

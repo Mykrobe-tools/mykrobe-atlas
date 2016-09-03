@@ -13,6 +13,9 @@ export function analyseFileWithPath(filePath) {
 
     dispatch(push('/analysing'));
 
+    const {app} = require('electron').remote;
+    app.addRecentDocument(filePath);
+
     const service = new MykrobeService();
     this.analyser = service.analyseFileWithPath(filePath)
       .on('progress', (progress) => {

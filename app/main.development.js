@@ -39,6 +39,20 @@ const installExtensions = (async) () => {
   }
 };
 
+// TODO: this is not yet working - perhaps need to set file associations in mac info.plist
+
+app.on('will-finish-launching', () => {
+  app.on('open-file', function(event, path) {
+    event.preventDefault();
+    filepath = path;
+    if (ready) {
+      mainWindow.webContents.send('open-file', filepath);
+      filepath = null;
+      return;
+    }
+  });
+});
+
 app.on('ready', async () => {
   await installExtensions();
 
@@ -303,20 +317,12 @@ app.on('ready', async () => {
     menu = Menu.buildFromTemplate(template);
     mainWindow.setMenu(menu);
     ready = true;
+    if (filepath) {
+      mainWindow.webContents.send('open-file', filepath);
+      filepath = null;
+    }
   }
 });
 
-// TODO: this is not yet working - perhaps need to set file associations in mac info.plist
-/*
-app.on('open-file', function(event, path) {
-  event.preventDefault();
-  filepath = path;
-  debugger
-  if (ready) {
-    mainWindow.webContents.send('open-file', filepath);
-    filepath = null;
 
-    return;
-  }
-});
-*/
+

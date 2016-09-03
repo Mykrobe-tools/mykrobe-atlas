@@ -4,6 +4,7 @@ import Metadata from 'components/metadata/Metadata';
 import styles from './Analysing.css';
 import * as AnalyserActions from 'actions/AnalyserActions';
 import AnalysingProgressBar from './AnalysingProgressBar';
+import * as UIHelpers from 'helpers/UIHelpers';
 
 // TODO: push route on state change
 
@@ -19,6 +20,7 @@ app.clearRecentDocuments()
 class Analysing extends Component {
   render() {
     const {analyser} = this.props;
+    UIHelpers.setProgress(analyser.progress);
     return (
       <div className={styles.container}>
         <div className={styles.header}>

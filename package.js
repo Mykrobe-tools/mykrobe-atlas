@@ -24,6 +24,7 @@ const DEFAULT_OPTS = {
   dir: './static',
   name: appName,
   asar: shouldUseAsar,
+  'extend-info': './static/extend-info.plist',
   ignore: [
     '^/test($|/)',
     '^/release($|/)',
@@ -119,6 +120,8 @@ function pack(plat, arch, cb) {
     'app-version': pkg.version || DEFAULT_OPTS.version,
     out: `release/${plat}-${arch}`
   });
+
+  console.log(JSON.stringify(opts, null, 2));
 
   packager(opts, cb);
 }
