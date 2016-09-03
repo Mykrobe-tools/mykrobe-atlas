@@ -2,9 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Header from 'components/header/Header';
 import styles from './App.css';
+import fs from 'fs';
 import Dropzone from 'react-dropzone';
 import * as AnalyserActions from 'actions/AnalyserActions';
 import * as UIHelpers from 'helpers/UIHelpers';
+import { push } from 'react-router-redux';
 
 class App extends Component {
   constructor(props) {
@@ -14,12 +16,33 @@ class App extends Component {
     this.state = {
       isDragActive: false
     };
+
+    ipcRenderer.on('menu-file-new', (e) => {
+      dispatch(push('/'));
+    });
+
     ipcRenderer.on('menu-file-open', (e) => {
       const filePath = UIHelpers.openFileDialog();
       if (filePath) {
         dispatch(AnalyserActions.analyseFileWithPath(filePath));
       }
     });
+
+    ipcRenderer.on('menu-file-save-as', (e) => {
+      const filePath = UIHelpers.saveFileDialog('mykrobe.json');
+      if (filePath) {
+        const {analyser} = this.props;
+        fs.writeFile(filePath, analyser.json, (err) => {
+          if (err) {
+            console.log(err);
+          }
+          else {
+            console.log('JSON saved to ', filePath);
+          }
+        });
+      }
+    });
+    console.log('onSaveClick');
   }
 
   onDragLeave(e) {
@@ -54,7 +77,7 @@ class App extends Component {
 
   render() {
     const { isDragActive } = this.state;
-    const {dispatch, analyser, children} = this.props;
+    const {analyser, children} = this.props;
     const disableClick = true;
     const multiple = false;
 

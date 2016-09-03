@@ -1,12 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import styles from './DragAndDrop.css';
-import fs from 'fs';
 import { push } from 'react-router-redux';
-
-import Dropzone from 'react-dropzone';
-
+import * as UIHelpers from 'helpers/UIHelpers';
 import * as AnalyserActions from 'actions/AnalyserActions';
 
 class DragAndDrop extends Component {
@@ -50,47 +46,11 @@ class DragAndDrop extends Component {
 
   onOpenClick(e) {
     console.log('onOpenClick');
-    const {dialog} = require('electron').remote;
-    const ipcRenderer = require('electron').ipcRenderer;
     const {dispatch} = this.props;
-    dialog.showOpenDialog(ipcRenderer, {
-      title: 'Open',
-      multiSelections: false,
-      filters: [
-        {name: 'Images', extensions: ['json', 'bam', 'gz', 'fastq']},
-      ]
-    },
-      (filePath) => {
-        if (filePath) {
-          dispatch(AnalyserActions.analyseFileWithPath(filePath));
-        }
-      }
-    );
-  }
-
-  onSaveClick(e) {
-    const {dialog} = require('electron').remote;
-    const ipcRenderer = require('electron').ipcRenderer;
-    dialog.showSaveDialog(ipcRenderer, {
-      title: 'Save',
-      defaultPath: 'mykrobe.json'
-    },
-      (filePath) => {
-        console.log('filePath', filePath);
-        // JSON.stringify(that.state.json, null, 4);
-        if (filePath) {
-          fs.writeFile(filePath, this.state.json, (err) => {
-            if (err) {
-              console.log(err);
-            }
-            else {
-              console.log('JSON saved to ', filePath);
-            }
-          });
-        }
-      }
-    );
-    console.log('onSaveClick');
+    const filePath = UIHelpers.openFileDialog();
+    if (filePath) {
+      dispatch(AnalyserActions.analyseFileWithPath(filePath));
+    }
   }
 }
 

@@ -119,7 +119,7 @@ app.on('ready', async () => {
         type: 'separator'
       },
       {
-        label: 'Open',
+        label: 'Open…',
         accelerator: 'CmdOrCtrl+O',
         click() {
           mainWindow.send('menu-file-open');

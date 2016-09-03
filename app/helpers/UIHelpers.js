@@ -1,4 +1,4 @@
-export function openFileDialog(callback) {
+export function openFileDialog() {
   const {dialog, BrowserWindow} = require('electron').remote;
   const browserWindow = BrowserWindow.getFocusedWindow();
 
@@ -18,4 +18,16 @@ export function openFileDialog(callback) {
   }
 
   return false;
+}
+
+export function saveFileDialog(defaultPath = 'mykrobe.json') {
+  const {dialog, BrowserWindow} = require('electron').remote;
+  const browserWindow = BrowserWindow.getFocusedWindow();
+
+  const filePath = dialog.showSaveDialog(browserWindow, {
+    title: 'Save',
+    defaultPath
+  });
+
+  return filePath || false;
 }
