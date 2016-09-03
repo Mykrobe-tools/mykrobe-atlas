@@ -4,6 +4,7 @@ import Header from 'components/header/Header';
 import styles from './App.css';
 import Dropzone from 'react-dropzone';
 import * as AnalyserActions from 'actions/AnalyserActions';
+import { ipcRenderer } from 'electron';
 
 class App extends Component {
   constructor(props) {
@@ -11,6 +12,9 @@ class App extends Component {
     this.state = {
       isDragActive: false
     };
+    ipcRenderer.on('menu-file-open', (e) => {
+      console.log('menu-file-open', e);
+    });
   }
 
   onDragLeave(e) {

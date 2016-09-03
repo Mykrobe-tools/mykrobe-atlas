@@ -39,7 +39,7 @@ const installExtensions = (async) () => {
   }
 };
 
-app.on('ready', (async) () => {
+app.on('ready', async () => {
   await installExtensions();
 
   mainWindow = new BrowserWindow({
@@ -112,7 +112,7 @@ app.on('ready', (async) () => {
         label: 'New',
         accelerator: 'Command+N',
         click() {
-          mainWindow.send('file-new');
+          mainWindow.send('menu-file-new');
         }
       },
       {
@@ -122,7 +122,7 @@ app.on('ready', (async) () => {
         label: 'Open',
         accelerator: 'Command+O',
         click() {
-          mainWindow.send('file-open');
+          mainWindow.send('menu-file-open');
         }
       },
       {
@@ -132,7 +132,7 @@ app.on('ready', (async) () => {
         label: 'Save As…',
         accelerator: 'Command+Shift+S',
         click() {
-          mainWindow.send('file-save-as');
+          mainWindow.send('menu-file-save-as');
         }
       }]
     },
