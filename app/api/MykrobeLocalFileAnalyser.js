@@ -74,9 +74,11 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
 
   doneWithJsonString(jsonString) {
     const transformer = new MykrobeJsonTransformer();
-    transformer.transform(jsonString).then((json) => {
+    transformer.transform(jsonString).then((result) => {
+      const {json, transformed} = result;
       console.log('json', json);
-      this.emit('done', JSON.stringify(json, null, 2));
+      console.log('transformed', transformed);
+      this.emit('done', result);
     })
     .catch((err) => {
       this.failWithError(err);

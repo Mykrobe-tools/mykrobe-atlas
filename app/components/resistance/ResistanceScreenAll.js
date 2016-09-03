@@ -9,9 +9,23 @@ import * as AnalyserActions from 'actions/AnalyserActions';
 
 class ResistanceScreenAll extends Component {
   render() {
+    const {analyser} = this.props;
+    const resistant = JSON.stringify(analyser.transformed.resistant, null, 2);
+    const susceptible = JSON.stringify(analyser.transformed.susceptible, null, 2);
+    const inconclusive = JSON.stringify(analyser.transformed.inconclusive, null, 2);
     return (
       <div className={styles.container}>
         ResistanceScreenAll
+        <pre>
+          resistant:
+          {resistant}
+          {'\n'}
+          susceptible:
+          {susceptible}
+          {'\n'}
+          inconclusive:
+          {inconclusive}
+        </pre>
       </div>
     );
   }

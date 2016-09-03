@@ -25,9 +25,8 @@ class MykrobeJsonTransformer {
       extracted = extracted.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"');
       console.log(extracted);
       const json = JSON.parse(extracted);
-      const transformedModel = this.transformModel(json);
-      console.log('transformedModel', JSON.stringify(transformedModel, null, 2));
-      resolve(json);
+      const transformed = this.transformModel(json);
+      resolve({json, transformed});
     });
   }
 

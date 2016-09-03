@@ -23,9 +23,10 @@ export function analyseFileWithPath(filePath) {
         const percent = Math.round(100 * progress.progress / progress.total);
         dispatch(analyseFileProgress(percent));
       })
-      .on('done', (json) => {
+      .on('done', (result) => {
+        const {json, transformed} = result;
         dispatch(push('/results'));
-        dispatch(analyseFileSuccess(json));
+        dispatch(analyseFileSuccess(json, transformed));
       })
       .on('error', (error) => {
         dispatch(push('/'));
@@ -54,10 +55,11 @@ function analyseFile(filePath) {
   };
 }
 
-export function analyseFileSuccess(json) {
+export function analyseFileSuccess(json, transformed) {
   return {
     type: ActionTypes.ANALYSE_FILE_SUCCESS,
-    json
+    json,
+    transformed
   };
 }
 

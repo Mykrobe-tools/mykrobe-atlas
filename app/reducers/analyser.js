@@ -5,7 +5,8 @@ const initialState = {
   error: false,
   progress: 0,
   filePath: '',
-  json: false
+  json: false,
+  transformed: false
 };
 
 export default function analyser(state = initialState, action = {}) {
@@ -27,7 +28,8 @@ export default function analyser(state = initialState, action = {}) {
       return {
         ...state,
         analysing: false,
-        json: action.json
+        json: action.json,
+        transformed: action.transformed
       };
     case ActionTypes.ANALYSE_FILE_ERROR:
       return {

@@ -39,7 +39,8 @@ class App extends Component {
       const filePath = UIHelpers.saveFileDialog('mykrobe.json');
       if (filePath) {
         const {analyser} = this.props;
-        fs.writeFile(filePath, analyser.json, (err) => {
+        const json = JSON.stringify(analyser.json, null, 2);
+        fs.writeFile(filePath, json, (err) => {
           if (err) {
             console.log(err);
           }
