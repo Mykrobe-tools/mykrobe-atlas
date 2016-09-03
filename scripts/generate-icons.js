@@ -7,7 +7,10 @@ const exec = require('child_process').exec;
 let promises = [];
 targets.forEach((target, index) => {
   const iconPath = path.resolve(__dirname, `../resources/icon/${target.value}`);
-  promises.push(generateIconsMac(iconPath));
+  // generate mac, then windows which is using the generated png
+  promises.push(generateIconsMac(iconPath).then(() => {
+    generateIconsWindows(iconPath);
+  }));
 });
 
 Promise.all(promises).then(() => {
@@ -38,8 +41,18 @@ function generateIconsMac(iconPath) {
   let icnsPath = path.join(iconPath, 'icon.icns');
   let iconsetPath = path.join(iconPath, 'icon.iconset');
   let command = 'iconutil -c icns -o "' + icnsPath + '" "' + iconsetPath + '"';
-  promises.push(execute(command));
-  return Promise.all(promises);
+  // promises.push(execute(command));
+  // create icns once the other sizes are created
+  return Promise.all(promises).then(() => {
+    execute(command);
+  });
+}
+
+function generateIconsWindows(iconPath) {
+  let pngPath = path.join(iconPath, 'icon.iconset', 'icon_512x512@2x.png');
+  let icoPath = path.join(iconPath, 'icon.ico');
+  let command = `convert "${pngPath}" -define icon:auto-resize=64,48,32,16 "${icoPath}"`;
+  return execute(command);
 }
 
 function execute(command) {
