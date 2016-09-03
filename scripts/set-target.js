@@ -1,7 +1,7 @@
 require('babel-polyfill');
 
 const inquirer = require('inquirer');
-const targets = require('./targets.json');
+const targets = require('../targets.json');
 const rootPackageJson = require('../package.json');
 const staticPackageJson = require('../static/package.json');
 const fs = require('fs');

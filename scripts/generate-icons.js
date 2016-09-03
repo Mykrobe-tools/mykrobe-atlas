@@ -1,6 +1,6 @@
 require('babel-polyfill');
 
-const targets = require('./targets.json');
+const targets = require('../targets.json');
 const path = require('path');
 const exec = require('child_process').exec;
 
