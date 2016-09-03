@@ -3,8 +3,8 @@ import { app, BrowserWindow, Menu, shell } from 'electron';
 let menu;
 let template;
 let mainWindow = null;
-var filepath;
-var ready = false;
+let filepath;
+let ready = false;
 
 // const SHOW_DEV_TOOLS = (process.env.NODE_ENV === 'development');
 const SHOW_DEV_TOOLS = true;
@@ -87,7 +87,7 @@ app.on('ready', async () => {
     });
   }
 
-  if (process.platform === 'darwin') {
+  if ('darwin' === process.platform) {
     template = [{
       label: 'Electron',
       submenu: [{
@@ -316,11 +316,11 @@ app.on('ready', async () => {
     }];
     menu = Menu.buildFromTemplate(template);
     mainWindow.setMenu(menu);
-    ready = true;
-    if (filepath) {
-      mainWindow.webContents.send('open-file', filepath);
-      filepath = null;
-    }
+  }
+  ready = true;
+  if (filepath) {
+    mainWindow.webContents.send('open-file', filepath);
+    filepath = null;
   }
 });
 

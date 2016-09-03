@@ -17,8 +17,11 @@ class App extends Component {
       isDragActive: false
     };
 
-    ipcRenderer.on('open-file', (e) => {
-      debugger
+    ipcRenderer.on('open-file', (e, filePath) => {
+      console.log('App open-file');
+      if (filePath) {
+        dispatch(AnalyserActions.analyseFileWithPath(filePath));
+      }
     });
 
     ipcRenderer.on('menu-file-new', (e) => {

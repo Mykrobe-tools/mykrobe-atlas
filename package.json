@@ -60,7 +60,7 @@
         "AppImage"
       ]
     },
-    "fileAssociations":[
+    "fileAssociations": [
       {
         "ext": "bam",
         "name": "bam"
