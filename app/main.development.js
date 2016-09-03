@@ -110,7 +110,7 @@ app.on('ready', async () => {
       label: 'File',
       submenu: [{
         label: 'New',
-        accelerator: 'Command+N',
+        accelerator: 'CmdOrCtrl+N',
         click() {
           mainWindow.send('menu-file-new');
         }
@@ -120,7 +120,7 @@ app.on('ready', async () => {
       },
       {
         label: 'Open',
-        accelerator: 'Command+O',
+        accelerator: 'CmdOrCtrl+O',
         click() {
           mainWindow.send('menu-file-open');
         }
@@ -130,7 +130,7 @@ app.on('ready', async () => {
       },
       {
         label: 'Save As…',
-        accelerator: 'Command+Shift+S',
+        accelerator: 'CmdOrCtrl+Shift+S',
         click() {
           mainWindow.send('menu-file-save-as');
         }

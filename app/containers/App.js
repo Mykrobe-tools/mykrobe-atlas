@@ -4,16 +4,21 @@ import Header from 'components/header/Header';
 import styles from './App.css';
 import Dropzone from 'react-dropzone';
 import * as AnalyserActions from 'actions/AnalyserActions';
-import { ipcRenderer } from 'electron';
+import * as UIHelpers from 'helpers/UIHelpers';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    const {dispatch} = props;
+    const ipcRenderer = require('electron').ipcRenderer;
     this.state = {
       isDragActive: false
     };
     ipcRenderer.on('menu-file-open', (e) => {
-      console.log('menu-file-open', e);
+      const filePath = UIHelpers.openFileDialog();
+      if (filePath) {
+        dispatch(AnalyserActions.analyseFileWithPath(filePath));
+      }
     });
   }
 
