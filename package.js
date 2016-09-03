@@ -11,7 +11,7 @@ const del = require('del');
 const exec = require('child_process').exec;
 const argv = require('minimist')(process.argv.slice(2));
 const pkg = require('./package.json');
-
+const path = require('path');
 const deps = Object.keys(pkg.dependencies);
 const devDeps = Object.keys(pkg.devDependencies);
 
@@ -19,10 +19,15 @@ const appName = argv.name || argv.n || pkg.productName;
 const shouldUseAsar = argv.asar || argv.a || false;
 const shouldBuildAll = argv.all || false;
 
+const staticPackageJson = require('./static/package.json');
+const targetName = staticPackageJson.targetName;
+
+const icon = path.resolve(__dirname, `resources/icon/${targetName}/icon`);
 
 const DEFAULT_OPTS = {
   dir: './static',
   name: appName,
+  icon: icon,
   asar: shouldUseAsar,
   'extend-info': './static/extend-info.plist',
   ignore: [
@@ -30,18 +35,12 @@ const DEFAULT_OPTS = {
     '^/release($|/)',
     '^/main.development.js',
     'skeleton.k15.ctx'
-  ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
+  ].concat(devDeps.map((name) => `/node_modules/${name}($|/)`))
   .concat(
-    deps.filter(name => !electronCfg.externals.includes(name))
-      .map(name => `/node_modules/${name}($|/)`)
+    deps.filter((name) => !electronCfg.externals.includes(name))
+      .map((name) => `/node_modules/${name}($|/)`)
   )
 };
-
-const icon = argv.icon || argv.i || 'build/icon';
-
-if (icon) {
-  DEFAULT_OPTS.icon = icon;
-}
 
 const version = argv.version || argv.v;
 
@@ -61,7 +60,6 @@ if (version) {
   });
 }
 
-
 function build(cfg) {
   return new Promise((resolve, reject) => {
     webpack(cfg, (err, stats) => {
@@ -76,14 +74,14 @@ function startPack() {
   build(electronCfg)
     .then(() => build(cfg))
     .then(() => del('release'))
-    .then(paths => {
+    .then((paths) => {
       if (shouldBuildAll) {
         // build for all platforms
         const archs = ['ia32', 'x64'];
         const platforms = ['linux', 'win32', 'darwin'];
 
-        platforms.forEach(plat => {
-          archs.forEach(arch => {
+        platforms.forEach((plat) => {
+          archs.forEach((arch) => {
             pack(plat, arch, log(plat, arch));
           });
         });
@@ -92,7 +90,7 @@ function startPack() {
         pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
     });
 }
@@ -125,7 +123,6 @@ function pack(plat, arch, cb) {
 
   packager(opts, cb);
 }
-
 
 function log(plat, arch) {
   return (err, filepath) => {
