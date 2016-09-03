@@ -56,6 +56,8 @@ app.on('will-finish-launching', () => {
 app.on('ready', async () => {
   await installExtensions();
 
+  // const packageJson = require('./package.json');
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,

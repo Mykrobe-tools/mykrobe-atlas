@@ -1,10 +1,11 @@
 {
-  "targetName": "predictor-tb",
+  "targetName": "predictor-enterics",
   "name": "mykrobe",
-  "productName": "electron-react-boilerplate",
-  "version": "1.0.0",
+  "productName": "Mykrobe Predictor Enterics",
+  "version": "0.2.0",
   "main": "./main.js",
   "dependencies": {
     "font-awesome": "^4.6.3"
-  }
+  },
+  "displayVersion": "0.2.0 (beta)"
 }
