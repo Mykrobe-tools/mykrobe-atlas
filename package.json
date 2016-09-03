@@ -25,7 +25,8 @@
     "builder:win": "npm run compile && build --win --x64",
     "builder:linux": "npm run compile && build --linux",
     "builder:all": "npm run compile && build -mwl",
-    "set-target": "node scripts/set-target.js"
+    "set-target": "node scripts/set-target.js",
+    "generate-icons": "node scripts/generate-icons.js"
   },
   "build": {
     "asar": false,
