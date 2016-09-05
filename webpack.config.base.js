@@ -1,9 +1,9 @@
 import path from 'path';
 
-// const STRIP_CONSOLE_LOG = ('development' === env);
-const STRIP_CONSOLE_LOG = false;
-
 function baseConfig(env = 'development') {
+  const STRIP_CONSOLE_LOG = ('development' !== env);
+// const STRIP_CONSOLE_LOG = false;
+
   const JS_LOADERS =
     STRIP_CONSOLE_LOG
     ? [

@@ -6,8 +6,8 @@ let mainWindow = null;
 let filepath;
 let ready = false;
 
-// const SHOW_DEV_TOOLS = (process.env.NODE_ENV === 'development');
-const SHOW_DEV_TOOLS = true;
+const SHOW_DEV_TOOLS = (process.env.NODE_ENV === 'development');
+// const SHOW_DEV_TOOLS = true;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support'); // eslint-disable-line
@@ -22,7 +22,7 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 
-const installExtensions = (async) () => {
+const installExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
     const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
 

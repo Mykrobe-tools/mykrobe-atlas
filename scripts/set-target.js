@@ -5,6 +5,7 @@ const targets = require('../targets.json');
 const rootPackageJson = require('../package.json');
 const fs = require('fs');
 const path = require('path');
+const argv = require('minimist')(process.argv.slice(2));
 
 const defaultTargetName = rootPackageJson.targetName || targets[0].value;
 
@@ -18,21 +19,38 @@ const questions = [
   }
 ];
 
-inquirer.prompt(questions).then((results) => {
-  const targetName = results.targetName;
+let targetName = argv.value || argv.v || false;
+
+if (targetName) {
+  setTarget(targetName);
+}
+else {
+  inquirer.prompt(questions).then((results) => {
+    const targetName = results.targetName;
+    setTarget(targetName);
+  });
+}
+
+function setTarget(targetName) {
   let productName = '';
   let appVersion = '';
   let appDisplayVersion = '';
   let appId = '';
   let json = '';
   let filePath = '';
+  let isValidTarget = false;
   for (let i = 0; i < targets.length; i++) {
     if (targetName === targets[i].value) {
       productName = targets[i].name;
       appVersion = targets[i].version;
       appDisplayVersion = targets[i].displayVersion;
       appId = targets[i].appId;
+      isValidTarget = true;
     }
+  }
+
+  if (!isValidTarget) {
+    return console.error(`Target with value '${targetName}' not found in targets.json`);
   }
 
   const devHtmlPath = path.resolve(__dirname, '../app/app.html');
@@ -53,9 +71,9 @@ inquirer.prompt(questions).then((results) => {
     console.log(`Target changed to ${productName}`);
   })
   .catch((err) => {
-    return console.log(err);
+    return console.error(err);
   });
-});
+}
 
 function writeJsonToFile(filePath, json) {
   return new Promise((resolve, reject) => {
