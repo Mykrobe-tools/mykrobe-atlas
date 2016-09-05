@@ -11,7 +11,7 @@
     "name": "Mykrobe Predictor TB",
     "version": "0.2.0",
     "displayVersion": "0.2.0 (beta)",
-    "appId": "com.mykrobe.predictor-tbs"
+    "appId": "com.mykrobe.predictor-tb"
   },
   {
     "value": "predictor-enterics",
