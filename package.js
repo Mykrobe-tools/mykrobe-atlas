@@ -45,12 +45,15 @@ if (version) {
 }
 else {
   // use the same version as the currently-installed electron-prebuilt
-  exec('npm list electron-prebuilt --depth=0 --dev', (err, stdout) => {
-    if (err) {
-      DEFAULT_OPTS.version = '1.3.5';
+  exec('npm list electron-prebuilt --json --dev', (error, stdout, stderr) => {
+    if (error) {
+      console.error('error', error, stderr, stdout);
+      DEFAULT_OPTS.version = '1.3.3';
     }
     else {
-      DEFAULT_OPTS.version = stdout.split('electron-prebuilt@')[1].replace(/\s/g, '');
+      const json = JSON.parse(stdout);
+      const version = json.dependencies['electron-prebuilt'].version;
+      DEFAULT_OPTS.version = version;
     }
     startPack();
   });
