@@ -1,12 +1,6 @@
 .container {
   composes: container from "css/layout.css";
+  flex-wrap: wrap;
   background-color: white;
-}
-
-.container h2 {
-  font-size: 5rem;
-}
-
-.container a {
-  font-size: 1.4rem;
+  overflow-y: auto;
 }

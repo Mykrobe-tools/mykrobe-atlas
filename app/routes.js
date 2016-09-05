@@ -9,7 +9,7 @@ import ResultsPage from './containers/ResultsPage';
 import Map from './components/map/Map';
 import Metadata from './components/metadata/Metadata';
 import Resistance from './components/resistance/Resistance';
-import ResistanceScreenAll from './components/resistance/ResistanceScreenAll';
+import ResistanceScreenAll from './components/resistance/all/ResistanceScreenAll';
 import ResistanceScreenClass from './components/resistance/ResistanceScreenClass';
 import ResistanceScreenVirulence from './components/resistance/ResistanceScreenVirulence';
 import ResistanceScreenEvidence from './components/resistance/ResistanceScreenEvidence';
@@ -22,7 +22,7 @@ export default (
     <IndexRoute component={DragAndDropPage} />
     <Route path="analysing" component={AnalysingPage} />
     <Route path="results" component={ResultsPage} >
-      <IndexRedirect to="metadata" />
+      <IndexRedirect to="resistance" />
       <Route path="metadata" component={Metadata} />
       <Route path="resistance" component={Resistance}>
         <IndexRedirect to="all" />

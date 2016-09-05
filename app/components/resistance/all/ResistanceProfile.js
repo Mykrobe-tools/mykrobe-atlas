@@ -1,13 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Route, IndexRoute } from 'react-router';
 import { connect } from 'react-redux';
-import styles from './ResistanceScreenAll.css';
+import styles from './ResistanceProfile.css';
 
-import * as AnalyserActions from 'actions/AnalyserActions';
-
-// TODO: push route on state change
-
-class ResistanceScreenAll extends Component {
+class ResistanceProfile extends Component {
   render() {
     const {analyser} = this.props;
     const resistant = JSON.stringify(analyser.transformed.resistant, null, 2);
@@ -15,7 +10,7 @@ class ResistanceScreenAll extends Component {
     const inconclusive = JSON.stringify(analyser.transformed.inconclusive, null, 2);
     return (
       <div className={styles.container}>
-        ResistanceScreenAll
+        ResistanceProfile
         <pre>
           resistant:
           {resistant}
@@ -37,10 +32,9 @@ function mapStateToProps(state) {
   };
 }
 
-ResistanceScreenAll.propTypes = {
+ResistanceProfile.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
-  children: PropTypes.object
+  analyser: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(ResistanceScreenAll);
+export default connect(mapStateToProps)(ResistanceProfile);
