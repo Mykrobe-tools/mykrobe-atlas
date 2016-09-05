@@ -3,11 +3,10 @@ require('babel-polyfill');
 const inquirer = require('inquirer');
 const targets = require('../targets.json');
 const rootPackageJson = require('../package.json');
-const staticPackageJson = require('../static/package.json');
 const fs = require('fs');
 const path = require('path');
 
-const defaultTargetName = staticPackageJson.targetName || targets[0].value;
+const defaultTargetName = rootPackageJson.targetName || targets[0].value;
 
 const questions = [
   {
@@ -37,32 +36,18 @@ inquirer.prompt(questions).then((results) => {
   }
 
   const devHtmlPath = path.resolve(__dirname, '../app/app.html');
-  const staticHtmlPath = path.resolve(__dirname, '../static/app.html');
 
-  // change the bundled settings in /static/package.json
-  staticPackageJson.targetName = targetName;
-  staticPackageJson.productName = productName;
-  staticPackageJson.version = appVersion;
-  staticPackageJson.displayVersion = appDisplayVersion;
-  json = JSON.stringify(staticPackageJson, null, 2);
-  filePath = path.resolve(__dirname, '../static/package.json');
-
+  // change the bundled settings in /package.json
+  rootPackageJson.targetName = targetName;
+  rootPackageJson.productName = productName;
+  rootPackageJson.version = appVersion;
+  rootPackageJson.displayVersion = appDisplayVersion;
+  rootPackageJson.build.appId = appId;
+  json = JSON.stringify(rootPackageJson, null, 2);
+  filePath = path.resolve(__dirname, '../package.json');
   writeJsonToFile(filePath, json)
   .then(() => {
-    rootPackageJson.targetName = targetName;
-    rootPackageJson.productName = productName;
-    rootPackageJson.version = appVersion;
-    rootPackageJson.displayVersion = appDisplayVersion;
-    rootPackageJson.build.appId = appId;
-    json = JSON.stringify(rootPackageJson, null, 2);
-    filePath = path.resolve(__dirname, '../package.json');
-    writeJsonToFile(filePath, json);
-  })
-  .then(() => {
     setTitleInHtmlFile(devHtmlPath, productName);
-  })
-  .then(() => {
-    setTitleInHtmlFile(staticHtmlPath, productName);
   })
   .then(() => {
     console.log(`Target changed to ${productName}`);

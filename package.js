@@ -1,7 +1,5 @@
-/* eslint strict: 0, no-shadow: 0, no-unused-vars: 0, no-console: 0 */
-'use strict';
-
 require('babel-polyfill');
+
 const os = require('os');
 const webpack = require('webpack');
 const electronCfg = require('./webpack.config.electron');
@@ -15,18 +13,14 @@ const path = require('path');
 const deps = Object.keys(pkg.dependencies);
 const devDeps = Object.keys(pkg.devDependencies);
 
-const appName = argv.name || argv.n || pkg.productName;
 const shouldUseAsar = argv.asar || argv.a || false;
 const shouldBuildAll = argv.all || false;
 
-const staticPackageJson = require('./static/package.json');
-const targetName = staticPackageJson.targetName;
-
-const icon = path.resolve(__dirname, `resources/icon/${targetName}/icon`);
+const icon = path.resolve(__dirname, `resources/icon/${pkg.targetName}/icon`);
 
 const DEFAULT_OPTS = {
   dir: './static',
-  name: appName,
+  name: pkg.productName,
   icon: icon,
   asar: shouldUseAsar,
   'extend-info': './resources/plist/extend-info.plist',
@@ -42,20 +36,22 @@ const DEFAULT_OPTS = {
   )
 };
 
+// this is the version of Electron to use
 const version = argv.version || argv.v;
 
 if (version) {
   DEFAULT_OPTS.version = version;
   startPack();
-} else {
+}
+else {
   // use the same version as the currently-installed electron-prebuilt
   exec('npm list electron-prebuilt --dev', (err, stdout) => {
     if (err) {
       DEFAULT_OPTS.version = '1.2.0';
-    } else {
+    }
+    else {
       DEFAULT_OPTS.version = stdout.split('electron-prebuilt@')[1].replace(/\s/g, '');
     }
-
     startPack();
   });
 }
@@ -85,7 +81,8 @@ function startPack() {
             pack(plat, arch, log(plat, arch));
           });
         });
-      } else {
+      }
+      else {
         // build for current platform only
         pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
       }
@@ -97,14 +94,17 @@ function startPack() {
 
 function pack(plat, arch, cb) {
   // there is no darwin ia32 electron
-  if (plat === 'darwin' && arch === 'ia32') return;
+  if ('darwin' === plat && 'ia32' === arch) {
+    return;
+  }
 
   const iconObj = {
     icon: DEFAULT_OPTS.icon + (() => {
       let extension = '.png';
-      if (plat === 'darwin') {
+      if ('darwin' === plat) {
         extension = '.icns';
-      } else if (plat === 'win32') {
+      }
+      else if ('win32' === plat) {
         extension = '.ico';
       }
       return extension;
@@ -126,7 +126,9 @@ function pack(plat, arch, cb) {
 
 function log(plat, arch) {
   return (err, filepath) => {
-    if (err) return console.error(err);
+    if (err) {
+      return console.error(err);
+    }
     console.log(`${plat}-${arch} finished!`);
   };
 }
