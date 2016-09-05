@@ -4,10 +4,28 @@
   padding:30px;
 }
 
-.logo {
+.predictor-enterics-logo {
   width:211px;
   height:60px;
   background:url(static/predictor-enterics-logo.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.predictor-s-aureus-logo {
+  width:185px;
+  height:60px;
+  background:url(static/predictor-s-aureus-logo.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.predictor-tb-logo {
+  width:184px;
+  height:60px;
+  background:url(static/predictor-tb-logo.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .account {

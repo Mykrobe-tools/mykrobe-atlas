@@ -1,7 +1,7 @@
 {
-  "targetName": "predictor-tb",
+  "targetName": "predictor-enterics",
   "name": "mykrobe",
-  "productName": "Mykrobe Predictor TB",
+  "productName": "Mykrobe Predictor Enterics",
   "version": "0.2.0",
   "main": "./main.js",
   "dependencies": {

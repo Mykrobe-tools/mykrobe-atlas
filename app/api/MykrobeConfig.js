@@ -2,7 +2,7 @@ import * as TargetConstants from 'constants/TargetConstants';
 
 class MykrobeConfig {
   constructor() {
-    this.targetName = require('../../package.json').targetName; // eslint-disable-line global-require
+    this.targetName = require('../../package.json').targetName;
 
     if ('predictor-s-aureus' === this.targetName) {
       this.type = TargetConstants.TYPE_PREDICTOR;
