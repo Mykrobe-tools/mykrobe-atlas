@@ -6,7 +6,6 @@ import Phylogeny from './Phylogeny';
 
 class ResistanceScreenAll extends Component {
   render() {
-    const {analyser} = this.props;
     return (
       <div className={styles.container}>
         <ResistanceProfile />

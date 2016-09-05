@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import styles from './Metadata.css';
@@ -124,7 +123,6 @@ class Metadata extends Component {
   }
 
   render() {
-    const {children} = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.formContainer}>

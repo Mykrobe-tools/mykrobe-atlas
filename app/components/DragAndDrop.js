@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './DragAndDrop.css';
-import { push } from 'react-router-redux';
 import * as UIHelpers from 'helpers/UIHelpers';
 import * as AnalyserActions from 'actions/AnalyserActions';
 
@@ -29,19 +28,9 @@ class DragAndDrop extends Component {
           <button type="button" className={styles.button} onClick={this.onOpenClick.bind(this)}>
             Browse...
           </button>
-          <button type="button" onClick={this.onOpenPredictor.bind(this)}>
-            Skip to predictor
-          </button>
         </div>
       </div>
     );
-  }
-
-  onOpenPredictor(e) {
-    // debugger
-    const {dispatch} = this.props;
-    dispatch(push('/results'));
-    dispatch(AnalyserActions.analyseFileSuccess(JSON.stringify({test: 'test'})));
   }
 
   onOpenClick(e) {
