@@ -30,7 +30,7 @@
   },
   "build": {
     "asar": false,
-    "appId": "com.predictor-enterics",
+    "appId": "com.mykrobe.predictor-enterics",
     "app-category-type": "public.app-category.tools",
     "files": [
       "**/*",
