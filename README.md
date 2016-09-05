@@ -1,19 +1,13 @@
 # Mykrobe
 
-[Electron](http://electron.atom.io/) application boilerplate based on [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/), [React Transform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development
+[Electron](http://electron.atom.io/) application based on [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/), [React Transform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development. Modified from [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate)
 
 ## Install
 
-First, clone the repo via git:
+First, clone the repo then install dependencies.
 
 ```bash
-git clone https://github.com/chentsulin/electron-react-boilerplate.git your-project-name
-```
-
-And then install dependencies.
-
-```bash
-$ cd your-project-name && npm install
+$ npm install
 ```
 
 ## Set target
@@ -24,23 +18,13 @@ Selects which version of the app you will target for development, test or packag
 $ npm run set-target
 ```
 
-## Run
+## Run development version
 
-Run this two commands __simultaneously__ in different console tabs.
-
-```bash
-$ npm run hot-server
-$ npm run start-hot
-```
-
-or run two servers with one command
+This will launch a local dev server and instance of the app. This has DevTools enabled and supports hot (live) reloading of modified files.
 
 ```bash
 $ npm run dev
 ```
-
-*Note: requires a node version >= 4 and an npm version >= 2.*
-
 
 ## DevTools
 
@@ -77,7 +61,8 @@ If you use any 3rd party libraries which can't be built with webpack, you must l
 
 ```javascript
 externals: [
-  // put your node 3rd party libraries which can't be built with webpack here (mysql, mongodb, and so on..)
+  // put your node 3rd party libraries which can't be built with webpack here 
+  // (mysql, mongodb, and so on..)
 ]
 ```
 
@@ -117,7 +102,7 @@ $ npm run set-target
 
 
 
-## Package
+## Build for deployment
 
 ```bash
 $ npm run package
@@ -125,39 +110,22 @@ $ npm run package
 
 To package apps for all platforms:
 
-```bash
-$ npm run package-all
-```
+1. Install Wine to build Windows app on mac
 
-After build, you will find them in `release` folder. Otherwise, you will only find one for your os.
+	```
+	$ brew install wine
+	```
+2. Package
 
-`test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
+	```bash
+	$ npm run package-all
+	```
 
-#### Default Ignore modules
+3. After build, you will find them in `release` folder. Otherwise, you will only find one for your os.
 
-We add some module's `peerDependencies` to ignore option as default for application size reduction.
+> **Note:** `test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
 
-- `babel-core` is required by `babel-loader` and its size is ~19 MB
-- `node-libs-browser` is required by `webpack` and its size is ~3MB.
-
-> **Note:** If you want to use any above modules in runtime, for example: `require('babel/register')`, you should move them from `devDependencies` to `dependencies`.
-
-#### Building windows apps from non-windows platforms
-
-Please checkout [Building windows apps from non-windows platforms](https://github.com/maxogden/electron-packager#building-windows-apps-from-non-windows-platforms).
-
-## Dispatching redux actions from main process
-
-see discusses in [#118](https://github.com/chentsulin/electron-react-boilerplate/issues/118) and [#108](https://github.com/chentsulin/electron-react-boilerplate/issues/108)
-
-## How hot-reloading works on Electron
-
-We use [webpack-target-electron-renderer](https://github.com/chentsulin/webpack-target-electron-renderer) to provide a build target for electron renderer process. Read more information [here](https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works).
-
-> Note: webpack >= 1.12.15 has built-in support for `electron-main` and `electron-renderer` targets.
 
 ## Licenses
 
-### electron-react-boilerplate
-
-MIT © [C. T. Lin](https://github.com/chentsulin)
+The build process is modified from electron-react-boilerplate, MIT © [C. T. Lin](https://github.com/chentsulin)
