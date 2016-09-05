@@ -30,9 +30,9 @@ $ npm run dev
 
 #### Toggle Chrome DevTools
 
-- OS X: <kbd>Cmd</kbd> <kbd>Alt</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
-- Linux: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
-- Windows: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
+- OS X: `Cmd Alt I` or `F12`
+- Linux: `Ctrl Shift I` or `F12`
+- Windows: `Ctrl Shift I` or `F12`
 
 *See [electron-debug](https://github.com/sindresorhus/electron-debug) for more information.*
 
@@ -83,7 +83,7 @@ css-modules loader. e.g. `app.global.css`
 Takes the master PDF artwork from `/resources/icon` and generates Mac and Windows icons.
 
 ```bash
-$ npm run set-target
+$ npm run generate-icons
 ```
 
 ### Dependencies
@@ -104,11 +104,13 @@ $ npm run set-target
 
 ## Build for deployment
 
+Build for current platform:
+
 ```bash
 $ npm run package
 ```
 
-To package apps for all platforms:
+To build apps for all platforms:
 
 1. Install Wine to build Windows app on mac
 
