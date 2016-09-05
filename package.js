@@ -29,7 +29,7 @@ const DEFAULT_OPTS = {
   name: appName,
   icon: icon,
   asar: shouldUseAsar,
-  'extend-info': './static/extend-info.plist',
+  'extend-info': './resources/plist/extend-info.plist',
   ignore: [
     '^/test($|/)',
     '^/release($|/)',
