@@ -19,14 +19,19 @@
 }
 
 .panelContainer {
-  display: flex;
-  flex-grow: 1;
+  /*display: flex;*/
+  /*flex-grow: 1;
   flex-shrink: 1;
-  flex-basis: 0;
+  flex-basis: 0;*/
+  display: flex;
   padding: 12px;
 }
 
 .panelContent {
   flex: 1;
   background-color:red;
+}
+
+.panelTitle {
+  composes: subtitleRuled from "css/typography.css";
 }

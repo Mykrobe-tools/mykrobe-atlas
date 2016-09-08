@@ -50,8 +50,9 @@
 	color: var(--color-tint-primary);
 }
 
-.subheading {
+.subtitleRuled {
 	composes: fontSecondary;
+	composes: fontSecondarySizeNormal;
 	display: flex;
 	width: 100%;
 	color: var(--color-tint-primary);
