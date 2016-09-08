@@ -1,4 +1,32 @@
 .container {
   composes: container from "css/layout.css";
+  flex-direction: column;
   background-color: white;
+}
+
+.summaryContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction:row;
+  padding: 18px;
+}
+
+.title {
+  composes: titleExtraLarge from "css/typography.css";
+  text-align: center;
+  width:100%;
+  padding: 30px 30px 0 30px;
+}
+
+.panelContainer {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  padding: 12px;
+}
+
+.panelContent {
+  flex: 1;
+  background-color:red;
 }

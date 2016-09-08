@@ -44,6 +44,12 @@
 	font-size: 14px;
 }
 
+.titleExtraLarge {
+	composes: font;
+	composes: fontSizeExtraLarge;
+	color: var(--color-tint-primary);
+}
+
 .subheading {
 	composes: fontSecondary;
 	display: flex;
