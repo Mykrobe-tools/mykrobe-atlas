@@ -9,21 +9,23 @@ class Phylogeny extends Component {
     const {analyser} = this.props;
     const everything = JSON.stringify(analyser.transformed, null, 2);
     return (
-      <div className={styles.container}>
-        <div>
-          <PhyloCanvasComponent style={styles.container} treeType="circular" data="((B:0.2,(C:0.3,D:0.4)E:0.5)F:0.1)A;" />
-        </div>
-        <div>
-          Phylogeny - TODO: show on tree
-        </div>
-        <pre>
-          Transformed JSON model:
-          {everything}
-        </pre>
+      <div className={styles.container} style={{backgroundColor: 'red'}}>
+        <PhyloCanvasComponent treeType="circular" data="((B:0.2,(C:0.3,D:0.4)E:0.5)F:0.1)A;" />
       </div>
     );
   }
 }
+
+/*
+      <PhyloCanvasComponent style={styles.container} treeType="circular" data="((B:0.2,(C:0.3,D:0.4)E:0.5)F:0.1)A;" />
+      <div>
+        Phylogeny - TODO: show on tree
+      </div>
+      <pre>
+        Transformed JSON model:
+        {everything}
+      </pre>
+      */
 
 function mapStateToProps(state) {
   return {
