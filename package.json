@@ -155,6 +155,7 @@
     "font-awesome": "^4.6.3",
     "lodash": "^4.15.0",
     "moment": "^2.14.1",
+    "phylocanvas": "^2.6.1",
     "postcss": "^5.1.0",
     "react": "^15.3.0",
     "react-datepicker": "^0.29.0",
