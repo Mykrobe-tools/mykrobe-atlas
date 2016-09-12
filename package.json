@@ -1,6 +1,6 @@
 {
   "name": "mykrobe",
-  "productName": "Mykrobe Predictor Enterics",
+  "productName": "Mykrobe Atlas TB",
   "version": "0.2.0",
   "description": "Mykrobe UI",
   "main": "main.js",
@@ -30,7 +30,7 @@
   },
   "build": {
     "asar": false,
-    "appId": "com.mykrobe.predictor-enterics",
+    "appId": "com.mykrobe.atlas-tb",
     "app-category-type": "public.app-category.tools",
     "files": [
       "**/*",
@@ -171,6 +171,6 @@
     "node": "4.x || 5.x || 6.x",
     "npm": "2.x || 3.x"
   },
-  "targetName": "predictor-enterics",
+  "targetName": "atlas-tb",
   "displayVersion": "0.2.0 (beta)"
 }

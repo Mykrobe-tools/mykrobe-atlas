@@ -28,6 +28,14 @@
   background-repeat: no-repeat;
 }
 
+.atlas-tb-logo {
+  width:133px;
+  height:60px;
+  background:url(static/atlas-tb-logo.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .account {
   margin-left:auto;
 }

@@ -14,6 +14,13 @@
     "appId": "com.mykrobe.predictor-tb"
   },
   {
+    "value": "atlas-tb",
+    "name": "Mykrobe Atlas TB",
+    "version": "0.2.0",
+    "displayVersion": "0.2.0 (beta)",
+    "appId": "com.mykrobe.atlas-tb"
+  },
+  {
     "value": "predictor-enterics",
     "name": "Mykrobe Predictor Enterics",
     "version": "0.2.0",
