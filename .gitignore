@@ -38,5 +38,8 @@ static/*
 !static/bin/*
 !static/package.json
 
+# Visual Studio
+.vscode
+
 # Mykrobe
 static/bin/**/*.ctx
