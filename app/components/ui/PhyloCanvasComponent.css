@@ -1,3 +1,24 @@
 .container {
   composes: container from "css/layout.css";
+  position: relative;
+}
+
+.controlsContainer {
+  position:absolute;
+  right:0;
+  bottom:0;
+  z-index:1;
+}
+
+.zoomControl {
+  cursor: pointer;
+  background-color: yellow;
+}
+
+.zoomInControl {
+  composes: zoomControl;
+}
+
+.zoomOutControl {
+  composes: zoomControl;
 }

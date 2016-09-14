@@ -9,36 +9,19 @@ class PhyloCanvasComponent extends Component {
   componentDidMount() {
     this._tree = PhyloCanvas.createTree(this._phyloCanvasDiv);
     this._tree.setTreeType(this.props.treeType);
-    // this._tree.on('loaded', (e) => {
-    //   console.log('loaded');
-    //   this._tree.setNodeColourAndShape('8e8aa6db-175f-4078-9a14-692ace90b884', 'orange', 'x');
-    // });
+    this._tree.on('loaded', (e) => {
+      console.log('loaded');
+    });
     this._tree.load(this.props.data);
-    // let leaves = this._tree.findLeaves('8e8aa6db-175f-4078-9a14-692ace90b884');
-    // this._tree.updateLeaves(leaves, 'colour', 'orange');
-    // this._tree.updateLeaves(leaves, 'shape', 'star');
-    // this._tree.updateLeaves(leaves, 'size', '100');
-
-    // let node = this._tree.findLeaves('8e8aa6db-175f-4078-9a14-692ace90b884')[0];
-    // node.setDisplay({
-    //   colour: 'blue',
-    //   shape: 'star',
-    //   radius: 100000,
-    //   leafStyle: {
-    //     lineWidth: 20,
-    //     strokeStyle: '#ff0000',
-    //     fillStyle: 'lightblue',
-    //   },
-    // });
-
-    //   'colour': 'blue',
-    //   shape: 'square',
-    //   leafStyle: {
-    //     fillStyle: 'lightblue',
-    //   },
-    // });
-    // this._tree.updateLeaves(this._tree.findLeaves('8e8aa6db-175f-4078-9a14-692ace90b884'), 'highlighted', true);
     window.addEventListener('resize', (e) => { this.resize(); });
+  }
+
+  zoomIn() {
+    this._tree.smoothZoom(1);
+  }
+
+  zoomOut() {
+    this._tree.smoothZoom(-1);
   }
 
   highlightNodesWithIds(ids) {
@@ -90,7 +73,17 @@ class PhyloCanvasComponent extends Component {
 
   render() {
     return (
-      <div id="phyloCanvasDiv" ref={(ref) => { this._phyloCanvasDiv = ref; }} className={styles.container} />
+      <div className={styles.container}>
+        <div id="phyloCanvasDiv" ref={(ref) => { this._phyloCanvasDiv = ref; }} className={styles.container} />
+        <div className={styles.controlsContainer}>
+          <div className={styles.zoomInControl} onClick={(e) => { e.preventDefault(); this.zoomIn(); }}>
+            Zoom in
+          </div>
+          <div className={styles.zoomOutControl} onClick={(e) => { e.preventDefault(); this.zoomOut(); }}>
+            Zoom out
+          </div>
+        </div>
+      </div>
     );
   }
 }
