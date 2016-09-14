@@ -27,7 +27,7 @@ class Summary extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.title}>
-          Summary
+          Summary report for sample :sampleid:
         </div>
         <div className={styles.summaryContainer}>
           <Panel title="Metadata" columns={8} />
