@@ -19,7 +19,41 @@ class PhyloCanvasComponent extends Component {
     // this._tree.updateLeaves(leaves, 'shape', 'star');
     // this._tree.updateLeaves(leaves, 'size', '100');
 
-    let node = this._tree.findLeaves('8e8aa6db-175f-4078-9a14-692ace90b884')[0];
+    // let node = this._tree.findLeaves('8e8aa6db-175f-4078-9a14-692ace90b884')[0];
+    // node.setDisplay({
+    //   colour: 'blue',
+    //   shape: 'star',
+    //   radius: 100000,
+    //   leafStyle: {
+    //     lineWidth: 20,
+    //     strokeStyle: '#ff0000',
+    //     fillStyle: 'lightblue',
+    //   },
+    // });
+
+    //   'colour': 'blue',
+    //   shape: 'square',
+    //   leafStyle: {
+    //     fillStyle: 'lightblue',
+    //   },
+    // });
+    // this._tree.updateLeaves(this._tree.findLeaves('8e8aa6db-175f-4078-9a14-692ace90b884'), 'highlighted', true);
+    window.addEventListener('resize', (e) => { this.resize(); });
+  }
+
+  highlightNodesWithIds(ids) {
+    ids.forEach((id, index) => {
+      this.highlightNodeWithId(id);
+    });
+    return this;
+  }
+
+  highlightNodeWithId(id) {
+    let candidateNodes = this._tree.findLeaves(id);
+    if (!candidateNodes) {
+      return false;
+    }
+    let node = candidateNodes[0];
     node.setDisplay({
       colour: 'blue',
       shape: 'star',
@@ -30,15 +64,7 @@ class PhyloCanvasComponent extends Component {
         fillStyle: 'lightblue',
       },
     });
-
-    //   'colour': 'blue',
-    //   shape: 'square',
-    //   leafStyle: {
-    //     fillStyle: 'lightblue',
-    //   },
-    // });
-    // this._tree.updateLeaves(this._tree.findLeaves('8e8aa6db-175f-4078-9a14-692ace90b884'), 'highlighted', true);
-    window.addEventListener('resize', (e) => { this.resize(); });
+    return node;
   }
 
   resize() {
