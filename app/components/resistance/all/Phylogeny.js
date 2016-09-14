@@ -5,7 +5,8 @@ import styles from './Phylogeny.css';
 import PhyloCanvasComponent from 'components/ui/PhyloCanvasComponent';
 
 const TREE_DATA = require('static/api/tree.json');
-const SAMPLE_DATA = require('static/api/sample1.json');
+const SAMPLE_DATA = require('static/api/10091-01.json');
+const MAX_DISTANCE = 5;
 
 class Phylogeny extends Component {
   render() {
@@ -27,8 +28,11 @@ class Phylogeny extends Component {
       const neighbours = sample.neighbours;
       for (let neighbourKey in neighbours) {
         const neighbour = neighbours[neighbourKey];
-        const samples = neighbour.samples;
-        this._phyloCanvas.highlightNodesWithIds(samples);
+        const distance = parseInt(neighbour.distance);
+        if (distance <= MAX_DISTANCE) {
+          const samples = neighbour.samples;
+          this._phyloCanvas.highlightNodesWithIds(samples);
+        }
       }
     }
   }

@@ -38,13 +38,11 @@ class PhyloCanvasComponent extends Component {
     }
     let node = candidateNodes[0];
     node.setDisplay({
-      colour: 'blue',
+      colour: 'red',
       shape: 'star',
-      radius: 100000,
       leafStyle: {
-        lineWidth: 20,
         strokeStyle: '#ff0000',
-        fillStyle: 'lightblue',
+        fillStyle: 'red',
       },
     });
     return node;
