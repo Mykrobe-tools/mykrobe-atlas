@@ -8,11 +8,15 @@
   right:0;
   bottom:0;
   z-index:1;
+  display:flex;
 }
 
 .zoomControl {
-  cursor: pointer;
-  background-color: yellow;
+  composes: overlayControl from "css/controls.css";
+}
+
+.zoomControl+.zoomControl {
+  margin-left:4px;
 }
 
 .zoomInControl {
@@ -21,4 +25,9 @@
 
 .zoomOutControl {
   composes: zoomControl;
+}
+
+.zoomResetControl {
+  composes: zoomControl;
+  font-size: 140%;
 }

@@ -97,13 +97,13 @@ class PhyloCanvasComponent extends Component {
         <div id="phyloCanvasDiv" ref={(ref) => { this._phyloCanvasDiv = ref; }} className={styles.container} />
         <div className={styles.controlsContainer}>
           <div className={styles.zoomInControl} onClick={(e) => { e.preventDefault(); this.zoomIn(); }}>
-            Zoom in
+            <i className="fa fa-plus"></i>
           </div>
           <div className={styles.zoomOutControl} onClick={(e) => { e.preventDefault(); this.zoomOut(); }}>
-            Zoom out
+            <i className="fa fa-minus"></i>
           </div>
-          <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomReset(); }}>
-            Reset
+          <div className={styles.zoomResetControl} onClick={(e) => { e.preventDefault(); this.zoomReset(); }}>
+            <i className="fa fa-compress"></i>
           </div>
         </div>
       </div>

@@ -8,13 +8,15 @@
   --color-blue: #71c7e6;
   --color-blue-text: darken( --color-blue, 5%);
   --color-base-text: #676561;
-  --color-placeholder-text: #ceccc6;
   --color-light-green: #86c9b9;
   --color-dark-green: #3b9da7;
   --color-buff: #f7f6f1;
   --color-buff-dark: #efede4;
-  --color-rule: #ceccc6;
+  --color-grey-light: #ceccc6;
   --color-grey-mid: #9a9893;
+
+  --color-rule: var(--color-grey-light);
+  --color-placeholder-text: var(--color-grey-light);
   --color-blue-hover: darken( --color-blue, 5%);
   --color-blue-hover-text: darken( --color-blue, 15%);
   --color-dark-green-hover: darken( --color-dark-green, 5%);

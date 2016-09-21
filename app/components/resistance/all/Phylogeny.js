@@ -37,9 +37,9 @@ class Phylogeny extends Component {
         <div className={styles.title}>Phylogeny</div>
         <PhyloCanvasComponent ref={(ref) => { this._phyloCanvas = ref; }} treeType="circular" data={newick} />
         <div className={styles.controlsContainer}>
-          Hello!
           <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomSamples(); }}>
-            Zoom samples
+            <i className="fa fa-search"></i>
+            <div className={styles.zoomControlText}>Fit samples</div>
           </div>
         </div>
       </div>

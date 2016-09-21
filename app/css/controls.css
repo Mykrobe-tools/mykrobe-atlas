@@ -23,3 +23,21 @@
   color: var(--color-grey-mid);
   background: none;
 }
+
+.overlayControl {
+  cursor: pointer;
+  color: white;
+  background-color: var(--color-grey-light);
+  display: flex;
+  min-width:44px;
+  height:44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.overlayControlText {
+  composes: fontSecondary from "css/typography.css";
+  composes: fontSecondarySizeSmall from "css/typography.css";
+  margin-left: 4px;
+}
