@@ -10,18 +10,12 @@ class Header extends Component {
   }
 
   render() {
-    // const logoStyle= {
-    //   width: '211px',
-    //   height: '60px',
-    //   background: `static/${this.mykrobeConfig.targetName}-logo.svg`
-    // };
-    // console.log('logoStyle', logoStyle);
     const logoClassName = `${this.mykrobeConfig.targetName}-logo`;
     return (
       <div className={styles.container}>
         <div className={styles[logoClassName]} />
         <div className={styles.account}>
-          Account
+          <i className="fa fa-user"></i> Sign in &middot; Register
         </div>
       </div>
     );
