@@ -13,8 +13,3 @@
   composes: container;
   position: absolute;
 }
-
-.module {
-  composes: container;
-  padding: 12px;
-}

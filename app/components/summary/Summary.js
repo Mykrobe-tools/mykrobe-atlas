@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styles from './Summary.css';
 import ResistanceProfile from 'components/resistance/ResistanceProfile';
 import Panel from  'components/ui/Panel';
+import SummaryMetadata from './SummaryMetadata';
 
 class Summary extends Component {
   render() {
@@ -13,7 +14,9 @@ class Summary extends Component {
           Summary report for sample :sampleid:
         </div>
         <div className={styles.summaryContainer}>
-          <Panel title="Metadata" columns={8} />
+          <Panel title="Metadata" columns={8}>
+            <SummaryMetadata />
+          </Panel>
           <Panel title="Resistance Profile" columns={4}>
             <ResistanceProfile />
           </Panel>

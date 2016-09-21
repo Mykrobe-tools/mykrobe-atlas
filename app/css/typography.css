@@ -73,4 +73,5 @@
   font-family: "Minion-Regular", serif;
 	font-size: 19px;
 	line-height: 1.2;
+  color: var(--color-text);
 }

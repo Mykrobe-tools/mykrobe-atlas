@@ -1,0 +1,33 @@
+.container {
+  composes: container from "css/layout.css";
+  flex-direction: row;
+}
+
+.summaryContainer {
+  flex: 1;
+}
+
+.summaryContainer+.summaryContainer {
+  margin-left:24px;
+}
+
+.title {
+  composes: titleExtraLarge from "css/typography.css";
+  text-align: center;
+  width:100%;
+  padding: 30px 30px 0 30px;
+}
+
+.table {
+  border-collapse: collapse;
+}
+
+.table td {
+  color: var(--color-grey-mid);
+  padding: 0;
+}
+
+.table td+td {
+  color: var(--color-text);
+  padding-left:12px;
+}
