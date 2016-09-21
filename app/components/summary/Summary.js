@@ -4,6 +4,7 @@ import styles from './Summary.css';
 import ResistanceProfile from 'components/resistance/ResistanceProfile';
 import Panel from  'components/ui/Panel';
 import SummaryMetadata from './SummaryMetadata';
+import SummaryVariants from './SummaryVariants';
 
 class Summary extends Component {
   render() {
@@ -20,7 +21,9 @@ class Summary extends Component {
           <Panel title="Resistance Profile" columns={4}>
             <ResistanceProfile />
           </Panel>
-          <Panel title="Variants Inducing Resistance" />
+          <Panel title="Variants Inducing Resistance" columns={4}>
+            <SummaryVariants />
+          </Panel>
         </div>
       </div>
     );

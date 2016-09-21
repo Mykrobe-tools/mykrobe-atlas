@@ -1,0 +1,14 @@
+.container {
+  composes: container from "css/layout.css";
+  flex-direction: column;
+}
+
+.title {
+  composes: subtitle from "css/typography.css";
+  color: var(--color-grey-mid);
+  padding: 8px 0;
+}
+
+.group+.group {
+  margin-top:12px;
+}

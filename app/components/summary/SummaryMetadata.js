@@ -43,11 +43,6 @@ class SummaryMetadata extends Component {
             </tbody>
           </table>
         </div>
-        {/*
-        <pre>
-          {JSON.stringify(analyser,null,2)}
-        </pre>
-        */}
       </div>
     );
   }

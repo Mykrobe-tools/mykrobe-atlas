@@ -34,6 +34,7 @@
   align-items: center;
   text-decoration: none;
   color: var(--color-tint-secondary);
+  line-height: 1;
 }
 
 .navigationItemActive {
