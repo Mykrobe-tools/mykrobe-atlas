@@ -2,4 +2,12 @@
   composes: container from "css/layout.css";
   flex: 2;
   flex-direction: column;
+  position: relative;
+}
+
+.controlsContainer {
+  position:absolute;
+  left:0;
+  bottom:0;
+  z-index:1;
 }

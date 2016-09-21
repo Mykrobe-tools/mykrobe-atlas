@@ -60,27 +60,32 @@ class App extends Component {
   }
 
   onDragEnter(e) {
+    if (!e.dataTransfer.files.length) {
+      return;
+    }
     this.setState({
       isDragActive: true
     });
   }
 
   onDropAccepted(files) {
+    console.log('onDropAccepted', files);
     this.setState({
       isDragActive: false
     });
-    console.log('onDropAccepted', files);
-
+    if (!files.length) {
+      return;
+    }
     const {dispatch} = this.props;
     const filePath = files[0].path;
     dispatch(AnalyserActions.analyseFileWithPath(filePath));
   }
 
   onDropRejected(files) {
+    console.log('onDropRejected', files);
     this.setState({
       isDragActive: false
     });
-    console.log('onDropRejected', files);
   }
 
   render() {

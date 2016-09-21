@@ -1,6 +1,7 @@
 import PhyloCanvas from 'phylocanvas';
 import React, { Component, PropTypes } from 'react';
 import styles from './PhyloCanvasComponent.css';
+import * as Colors from 'constants/Colors';
 
 // http://phylocanvas.org/docs/api/
 
@@ -9,6 +10,7 @@ class PhyloCanvasComponent extends Component {
   componentDidMount() {
     this._tree = PhyloCanvas.createTree(this._phyloCanvasDiv);
     this._tree.setTreeType(this.props.treeType);
+    this._tree.branchColour=Colors.COLOR_GREY_MID;
     this._tree.on('loaded', (e) => {
       console.log('loaded');
     });
@@ -22,6 +24,14 @@ class PhyloCanvasComponent extends Component {
 
   zoomOut() {
     this._tree.smoothZoom(-1);
+  }
+
+  zoomToNodesWithIds(ids) {
+    let candidateNodes = this._tree.findLeaves(ids.join('|'));
+    if (!candidateNodes) {
+      return false;
+    }
+    this._tree.fitInPanel(candidateNodes);
   }
 
   highlightNodesWithIds(ids) {

@@ -1,6 +1,10 @@
 /* Colours */
 
+/* also as constants/Colors.js for access in JS */
+
 :root {
+  --color-tint-primary: #622268;
+  --color-tint-secondary: #D06192;
   --color-blue: #71c7e6;
   --color-blue-text: darken( --color-blue, 5%);
   --color-base-text: #676561;
@@ -16,8 +20,6 @@
   --color-dark-green-hover: darken( --color-dark-green, 5%);
   --color-light-green-hover: darken( --color-light-green, 5%);
   --color-light-green-hover-text: darken( --color-light-green, 15%);
-  --color-tint-primary: #622268;
-  --color-tint-secondary: #D06192;
   --color-background: var(--color-buff);
   --color-text: var(--color-base-text);
 }

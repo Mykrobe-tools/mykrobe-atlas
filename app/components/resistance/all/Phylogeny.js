@@ -9,20 +9,10 @@ const SAMPLE_DATA = require('static/api/10091-01.json');
 const MAX_DISTANCE = 5;
 
 class Phylogeny extends Component {
-  render() {
-    // const {analyser} = this.props;
-    // const everything = JSON.stringify(analyser.transformed, null, 2);
-    const {newick} = TREE_DATA;
-    return (
-      <div className={styles.container}>
-        <PhyloCanvasComponent ref={(ref) => { this._phyloCanvas = ref; }} treeType="circular" data={newick} />
-      </div>
-    );
-  }
 
-  componentDidMount() {
-    console.log('this._phyloCanvas', this._phyloCanvas);
-    console.log('this._phyloCanvas._tree', this._phyloCanvas._tree);
+  constructor(props) {
+    super(props);
+    let samplesToHighlight = [];
     for (let sampleKey in SAMPLE_DATA) {
       const sample = SAMPLE_DATA[sampleKey];
       const neighbours = sample.neighbours;
@@ -31,10 +21,41 @@ class Phylogeny extends Component {
         const distance = parseInt(neighbour.distance);
         if (distance <= MAX_DISTANCE) {
           const samples = neighbour.samples;
-          this._phyloCanvas.highlightNodesWithIds(samples);
+          samplesToHighlight = samplesToHighlight.concat(samples);
         }
       }
     }
+    this._samplesToHighlight = samplesToHighlight;
+  }
+
+  render() {
+    // const {analyser} = this.props;
+    // const everything = JSON.stringify(analyser.transformed, null, 2);
+    const {newick} = TREE_DATA;
+    return (
+      <div className={styles.container}>
+        <PhyloCanvasComponent ref={(ref) => { this._phyloCanvas = ref; }} treeType="circular" data={newick} />
+        <div className={styles.controlsContainer}>
+          Hello!
+          <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomSamples(); }}>
+            Zoom samples
+          </div>
+          <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomReset(); }}>
+            Reset zoom
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  zoomSamples() {
+    this._phyloCanvas.zoomToNodesWithIds(this._samplesToHighlight);
+  }
+
+  componentDidMount() {
+    console.log('this._phyloCanvas', this._phyloCanvas);
+    console.log('this._phyloCanvas._tree', this._phyloCanvas._tree);
+    this._phyloCanvas.highlightNodesWithIds(this._samplesToHighlight);
   }
 }
 
