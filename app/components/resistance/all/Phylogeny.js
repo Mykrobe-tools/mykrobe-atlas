@@ -34,7 +34,6 @@ class Phylogeny extends Component {
     const {newick} = TREE_DATA;
     return (
       <div className={styles.container}>
-        <div className={styles.title}>Phylogeny</div>
         <PhyloCanvasComponent ref={(ref) => { this._phyloCanvas = ref; }} treeType="circular" data={newick} />
         <div className={styles.controlsContainer}>
           <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomSamples(); }}>

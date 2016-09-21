@@ -1,25 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './Summary.css';
-
-class Panel extends Component {
-  render() {
-    const {title, columns} = this.props;
-    return (
-      <div className={styles.panelContainer} style={{width: `${100*columns/8}%`}}>
-        <div className={styles.panelContent}>
-          <div className={styles.panelTitle}>
-            {title}
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-Panel.defaultProps = {
-  columns: 4
-};
+import ResistanceProfile from 'components/resistance/ResistanceProfile';
+import Panel from  'components/ui/Panel';
 
 class Summary extends Component {
   render() {
@@ -31,7 +14,9 @@ class Summary extends Component {
         </div>
         <div className={styles.summaryContainer}>
           <Panel title="Metadata" columns={8} />
-          <Panel title="Resistance Profile" columns={4} />
+          <Panel title="Resistance Profile" columns={4}>
+            <ResistanceProfile />
+          </Panel>
           <Panel title="Variants Inducing Resistance" />
         </div>
       </div>
