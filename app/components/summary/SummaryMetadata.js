@@ -26,8 +26,28 @@ class SummaryMetadata extends Component {
           </table>
         </div>
         <div className={styles.summaryContainer}>
-          Right
+          <table className={styles.table}>
+            <tbody>
+              <tr>
+                <td>Species</td>
+                <td><em>M. tuberculosis / M. abscessus</em></td>
+              </tr>
+              <tr>
+                <td>TB Lineage</td>
+                <td>European / American</td>
+              </tr>
+              <tr>
+                <td>Closest relative</td>
+                <td><a href="#"><i className="fa fa-chevron-circle-right"></i> :sampleid:</a> - X SNPs apart</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+        {/*
+        <pre>
+          {JSON.stringify(analyser,null,2)}
+        </pre>
+        */}
       </div>
     );
   }

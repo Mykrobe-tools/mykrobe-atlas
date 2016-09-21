@@ -72,6 +72,6 @@
   text-rendering: optimizeLegibility;
   font-family: "Minion-Regular", serif;
 	font-size: 19px;
-	line-height: 1.2;
+	line-height: calc(1.0*24/19);
   color: var(--color-text);
 }

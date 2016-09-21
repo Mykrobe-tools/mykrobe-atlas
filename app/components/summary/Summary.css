@@ -2,6 +2,7 @@
   composes: container from "css/layout.css";
   flex-direction: column;
   background-color: white;
+  overflow-y: auto;
 }
 
 .summaryContainer {
