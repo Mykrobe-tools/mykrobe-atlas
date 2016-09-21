@@ -40,9 +40,6 @@ class Phylogeny extends Component {
           <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomSamples(); }}>
             Zoom samples
           </div>
-          <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomReset(); }}>
-            Reset zoom
-          </div>
         </div>
       </div>
     );

@@ -2,15 +2,21 @@ import PhyloCanvas from 'phylocanvas';
 import React, { Component, PropTypes } from 'react';
 import styles from './PhyloCanvasComponent.css';
 import * as Colors from 'constants/Colors';
+import {PhyloCanvasTooltip} from './PhyloCanvasTooltip';
 
-// http://phylocanvas.org/docs/api/
+// Docs http://phylocanvas.org/docs/api/
+// Source http://phylocanvas.org/docs/api/Tree.js.html
 
 class PhyloCanvasComponent extends Component {
 
   componentDidMount() {
     this._tree = PhyloCanvas.createTree(this._phyloCanvasDiv);
     this._tree.setTreeType(this.props.treeType);
+    this._tree.padding = 0;
+    this._tree.showLabels = false;
     this._tree.branchColour=Colors.COLOR_GREY_MID;
+    this._tree.hoverLabel = true;
+    // this._tree.tooltip = new PhyloCanvasTooltip(this._tree);
     this._tree.on('loaded', (e) => {
       console.log('loaded');
     });
@@ -26,12 +32,18 @@ class PhyloCanvasComponent extends Component {
     this._tree.smoothZoom(-1);
   }
 
+  zoomReset() {
+    this._tree.fitInPanel(this._tree.leaves);
+    this._tree.draw();
+  }
+
   zoomToNodesWithIds(ids) {
     let candidateNodes = this._tree.findLeaves(ids.join('|'));
     if (!candidateNodes) {
       return false;
     }
     this._tree.fitInPanel(candidateNodes);
+    this._tree.draw();
   }
 
   highlightNodesWithIds(ids) {
@@ -48,11 +60,10 @@ class PhyloCanvasComponent extends Component {
     }
     let node = candidateNodes[0];
     node.setDisplay({
-      colour: 'red',
-      shape: 'star',
+      colour: Colors.COLOR_TINT_SECONDARY,
+      size: 2,
       leafStyle: {
-        strokeStyle: '#ff0000',
-        fillStyle: 'red',
+        fillStyle: Colors.COLOR_TINT_SECONDARY
       },
     });
     return node;
@@ -66,7 +77,8 @@ class PhyloCanvasComponent extends Component {
     setTimeout(() => {
       console.log('redraw');
       this._tree.resizeToContainer();
-      this._tree.fitInPanel(); // TODO - may want to check if we are zoomed before doing this?
+      this._tree.draw();
+      // this._tree.fitInPanel(); // TODO - may want to check if we are zoomed before doing this?
     }, 0);
   }
 
@@ -89,6 +101,9 @@ class PhyloCanvasComponent extends Component {
           </div>
           <div className={styles.zoomOutControl} onClick={(e) => { e.preventDefault(); this.zoomOut(); }}>
             Zoom out
+          </div>
+          <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomReset(); }}>
+            Reset
           </div>
         </div>
       </div>
