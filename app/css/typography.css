@@ -50,6 +50,11 @@
 	color: var(--color-tint-primary);
 }
 
+.subtitle {
+	composes: fontSecondary;
+	composes: fontSecondarySizeNormal;
+}
+
 .subtitleRuled {
 	composes: fontSecondary;
 	composes: fontSecondarySizeNormal;

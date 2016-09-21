@@ -19,3 +19,23 @@
 .title {
   composes: subtitleRuled from "css/typography.css";
 }
+
+.columnTitle {
+  composes: subtitle from "css/typography.css";
+	padding: 8px 0;
+}
+
+.columnTitleSusceptible {
+  composes: columnTitle;
+  color: var(--color-susceptible);
+}
+
+.columnTitleResistant {
+  composes: columnTitle;
+  color: var(--color-resistant);
+}
+
+.columnTitleInconclusive {
+  composes: columnTitle;
+  color: var(--color-inconclusive);
+}

@@ -24,4 +24,43 @@
   --color-light-green-hover-text: darken( --color-light-green, 15%);
   --color-background: var(--color-buff);
   --color-text: var(--color-base-text);
+
+  --color-susceptible: #9eab60;
+  --color-resistant: #c30042;
+  --color-inconclusive: #9a9893;
+
 }
+
+/*
+@include module-theme('aminoglycosides','#7759b5',3,0);
+@include module-theme('beta-lactams','#9298b5',3,0);
+@include module-theme('macrolides-lincosamides','#c19586',3,0);
+@include module-theme('glycopeptides','#9d9782',3,0);
+@include module-theme('tetracyclines','#ae739c',3,0);
+@include module-theme('quinolone','#9ba38b',3,0);
+@include module-theme('miscellaneous','#7b8499',3,0);
+
+@include module-theme('bloodstream','#7759b5',4,0);
+@include module-theme('endocarditis','#9298b5',4,0);
+@include module-theme('skin-soft-tissue','#c19586',4,0);
+@include module-theme('joint-bone','#9d9782',4,0);
+@include module-theme('cns','#ae739c',4,0);
+@include module-theme('lung','#9ba38b',4,0);
+@include module-theme('mrsa-decolonisation','#7b8499',4,0);
+
+@include module-theme('virulence-markers','#7759b5',5,0);
+
+@include module-theme('generic-1','#7759b5',4,0);
+@include module-theme('generic-2','#9298b5',4,0);
+@include module-theme('generic-3','#c19586',4,0);
+@include module-theme('generic-4','#9d9782',4,0);
+@include module-theme('generic-5','#ae739c',4,0);
+@include module-theme('generic-6','#9ba38b',4,0);
+@include module-theme('generic-7','#7b8499',4,0);
+
+@include module-theme('first-line-drugs','#7759b5',3,0);
+@include module-theme('second-line-drugs','#9298b5',3,0);
+@include module-theme('drug-resistance','#c19586',3,0);
+
+@include module-theme('species','#7759b5',5,0);
+*/

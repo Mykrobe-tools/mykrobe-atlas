@@ -10,22 +10,22 @@ class ResistanceProfile extends Component {
       <div className={styles.container}>
         <div className={styles.title}>Resistance Profile</div>
         <div className={styles.columnContainer}>
-          {this.column('Resistant', resistant)}
-          {this.column('Susceptible', susceptible)}
-          {this.column('Inconclusive', inconclusive)}
+          {this.column(styles.columnTitleSusceptible, 'fa-check-circle', 'Susceptible', resistant)}
+          {this.column(styles.columnTitleResistant, 'fa-exclamation-triangle', 'Resistant', susceptible)}
+          {this.column(styles.columnTitleInconclusive, 'fa-minus-square', 'Inconclusive', inconclusive)}
         </div>
       </div>
     );
   }
 
-  column(title, elements) {
+  column(titleStyle, icon, title, elements) {
     if ( !elements || !elements.length ) {
       return null;
     }
     return (
       <div className={styles.column}>
-        <div className={styles.columnTitle}>
-          {title}
+        <div className={titleStyle}>
+          <i className={`fa ${icon}`}></i> {title}
         </div>
         {elements.map((element) => {
           return (
