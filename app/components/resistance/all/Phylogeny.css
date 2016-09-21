@@ -1,5 +1,5 @@
 .container {
-  composes: container from "css/layout.css";
+  composes: module from "css/layout.css";
   flex: 2;
   flex-direction: column;
   position: relative;
@@ -10,4 +10,8 @@
   left:0;
   bottom:0;
   z-index:1;
+}
+
+.title {
+  composes: subtitleRuled from "css/typography.css";
 }

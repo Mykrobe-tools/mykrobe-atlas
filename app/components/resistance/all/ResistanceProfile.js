@@ -5,22 +5,33 @@ import styles from './ResistanceProfile.css';
 class ResistanceProfile extends Component {
   render() {
     const {analyser} = this.props;
-    const resistant = JSON.stringify(analyser.transformed.resistant, null, 2);
-    const susceptible = JSON.stringify(analyser.transformed.susceptible, null, 2);
-    const inconclusive = JSON.stringify(analyser.transformed.inconclusive, null, 2);
+    const {resistant, susceptible, inconclusive} = analyser.transformed;
     return (
       <div className={styles.container}>
-        ResistanceProfile
-        <pre>
-          resistant:
-          {resistant}
-          {'\n'}
-          susceptible:
-          {susceptible}
-          {'\n'}
-          inconclusive:
-          {inconclusive}
-        </pre>
+        <div className={styles.title}>Resistance Profile</div>
+        <div className={styles.columnContainer}>
+          {this.column('Resistant', resistant)}
+          {this.column('Susceptible', susceptible)}
+          {this.column('Inconclusive', inconclusive)}
+        </div>
+      </div>
+    );
+  }
+
+  column(title, elements) {
+    if ( !elements || !elements.length ) {
+      return null;
+    }
+    return (
+      <div className={styles.column}>
+        <div className={styles.columnTitle}>
+          {title}
+        </div>
+        {elements.map((element) => {
+          return (
+            <div key={`ELEMENT_${element}`}>{element}</div>
+          );
+        })}
       </div>
     );
   }

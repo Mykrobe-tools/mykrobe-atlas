@@ -3,4 +3,5 @@
   flex-wrap: wrap;
   background-color: white;
   overflow-y: auto;
+  padding: 12px;
 }

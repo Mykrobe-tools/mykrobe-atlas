@@ -1,5 +1,21 @@
 .container {
-  composes: container from "css/layout.css";
-  flex: 1;
+  composes: module from "css/layout.css";
   flex-direction: column;
+}
+
+.columnContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  flex: 1;
+}
+
+.column+.column {
+  margin-left: 12px;
+}
+
+.title {
+  composes: subtitleRuled from "css/typography.css";
 }

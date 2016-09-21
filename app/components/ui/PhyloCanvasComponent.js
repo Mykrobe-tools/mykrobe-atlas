@@ -12,7 +12,7 @@ class PhyloCanvasComponent extends Component {
   componentDidMount() {
     this._tree = PhyloCanvas.createTree(this._phyloCanvasDiv);
     this._tree.setTreeType(this.props.treeType);
-    this._tree.padding = 0;
+    this._tree.padding = 12;
     this._tree.showLabels = false;
     this._tree.branchColour=Colors.COLOR_GREY_MID;
     this._tree.hoverLabel = true;
