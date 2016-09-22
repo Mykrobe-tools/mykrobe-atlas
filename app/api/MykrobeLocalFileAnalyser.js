@@ -217,16 +217,38 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
       platformFolder = 'osx';
     }
 
+    const UnsupportedError = new Error({message: 'Unsupported configuration', config: this.targetConfig});
+
     const dirToBin = this.dirToBin();
 
     let pathToBin = '';
 
-    if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
-      pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.predictor.tb');
+    if ( TargetConstants.TYPE_PREDICTOR === this.targetConfig.type) {
+      if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
+        pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.predictor.tb');
+      }
+      else if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
+        pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.predictor.tb');
+      }
+      else {
+        // unsupported configuration
+        throw UnsupportedError;
+      }
+    }
+    else if ( TargetConstants.TYPE_ATLAS === this.targetConfig.type) {
+      if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
+        pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.atlas.tb');
+      }
+      else {
+        // unsupported configuration
+        throw UnsupportedError;
+      }
     }
     else {
-      pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.predictor.staph');
+      // unsupported configuration
+      throw UnsupportedError;
     }
+
     console.log('pathToBin', pathToBin);
 
     // chmodSync(pathToBin, 755);

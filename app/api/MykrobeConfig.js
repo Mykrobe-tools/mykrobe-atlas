@@ -12,10 +12,13 @@ class MykrobeConfig {
       this.type = TargetConstants.TYPE_PREDICTOR;
       this.species = TargetConstants.SPECIES_TB;
     }
+    else if ('atlas-tb' === this.targetName) {
+      this.type = TargetConstants.TYPE_ATLAS;
+      this.species = TargetConstants.SPECIES_TB;
+    }
     else {
-      // default;
-      this.type = TargetConstants.TYPE_PREDICTOR;
-      this.species = TargetConstants.SPECIES_S_AUREUS;
+      // target not recognised
+      throw new Error(`Unsupported target name '${this.targetName}'`);
     }
   }
 }
