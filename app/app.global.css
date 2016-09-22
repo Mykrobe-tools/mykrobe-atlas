@@ -42,6 +42,8 @@ body {
   height: 100%;
 }
 
+@import "css/typography.global.css";
+@import "css/form.global.css";
 
 /* third-party css bypass processing */
 @import "css/vendor.css";
