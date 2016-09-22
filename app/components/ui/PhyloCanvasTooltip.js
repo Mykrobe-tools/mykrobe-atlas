@@ -33,7 +33,16 @@ class PhyloCanvasTooltip extends Component {
     }
     return (
       <div className={styles.tooltip} style={{left:x, top:y}}>
-        TOOLTIP {node.id}
+        <div className={styles.tooltipWrapper}>
+          <div className={styles.tooltipContainer}>
+            <div className={styles.title}>Sample id</div>
+            <div>{node.id}</div>
+            <div className={styles.title}>Location</div>
+            <div>Not implemented</div>
+            <div className={styles.title}>Date</div>
+            <div>Not implemented</div>
+          </div>
+        </div>
       </div>
     )
   }

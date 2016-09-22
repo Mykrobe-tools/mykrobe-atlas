@@ -20,34 +20,18 @@ class PhyloCanvasComponent extends Component {
     this._tree.padding = 12;
     this._tree.showLabels = false;
     this._tree.branchColour=Colors.COLOR_GREY_MID;
-    this._tree.hoverLabel = true;
+    this._tree.hoverLabel = false;
     this._tree.on('loaded', (e) => {
       console.log('loaded');
     });
     this._tree.load(this.props.data);
     window.addEventListener('resize', this._resize);
     this._tree.canvas.canvas.addEventListener('mousemove', this._mouseMove);
-    //    addEvent(this.canvas.canvas, 'mousemove', this.drag.bind(this));
-
   }
-
-  mouseMove(e) {
-    console.log('mouseMove');
-    const node = this._tree.getNodeAtMousePosition(e);
-    if ( !node ) {
-      this._phyloCanvasTooltip.setVisible(false);
-      return;
-    }
-    const nodeId = node.id;
-    console.log('node', node);
-    this._phyloCanvasTooltip.setNode(node);
-    this._phyloCanvasTooltip.setVisible(true, e.clientX, e.clientY);
-  }
-
-  // getNodeAtMousePosition(e);
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._resize);
+    this._tree.canvas.canvas.removeEventListener('mousemove', this._mouseMove);
     this._tree = null;
   }
 
@@ -107,6 +91,16 @@ class PhyloCanvasComponent extends Component {
       this._tree.draw();
       // this._tree.fitInPanel(); // TODO - may want to check if we are zoomed before doing this?
     }, 0);
+  }
+
+  mouseMove(e) {
+    const node = this._tree.getNodeAtMousePosition(e);
+    if ( !node ) {
+      this._phyloCanvasTooltip.setVisible(false);
+      return;
+    }
+    this._phyloCanvasTooltip.setNode(node);
+    this._phyloCanvasTooltip.setVisible(true, e.clientX, e.clientY);
   }
 
   componentDidUpdate(prevProps) {
