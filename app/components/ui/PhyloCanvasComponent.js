@@ -8,6 +8,10 @@ import {PhyloCanvasTooltip} from './PhyloCanvasTooltip';
 // Source http://phylocanvas.org/docs/api/Tree.js.html
 
 class PhyloCanvasComponent extends Component {
+  constructor() {
+    super();
+    this._resize = (e) => { this.resize(e); };
+  }
 
   componentDidMount() {
     this._tree = PhyloCanvas.createTree(this._phyloCanvasDiv);
@@ -21,7 +25,12 @@ class PhyloCanvasComponent extends Component {
       console.log('loaded');
     });
     this._tree.load(this.props.data);
-    window.addEventListener('resize', (e) => { this.resize(); });
+    window.addEventListener('resize', this._resize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resize);
+    this._tree = null;
   }
 
   zoomIn() {

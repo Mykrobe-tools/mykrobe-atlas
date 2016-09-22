@@ -98,14 +98,3 @@ select:focus
   border-color: var(--color-tint-secondary);
 }
 
-select::after {
-  /*display: block;
-  position: absolute;
-  right: pixels-to-ems(12, $base-font-size-pixels);
-  bottom: 0;
-  top: 0;*/
-  content: '\f0d7';
-  font-family: FontAwesome;
-  pointer-events: none;
-  display:block;
-}
