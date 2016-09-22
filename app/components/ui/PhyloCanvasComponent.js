@@ -2,7 +2,7 @@ import PhyloCanvas from 'phylocanvas';
 import React, { Component, PropTypes } from 'react';
 import styles from './PhyloCanvasComponent.css';
 import * as Colors from 'constants/Colors';
-import {PhyloCanvasTooltip} from './PhyloCanvasTooltip';
+import PhyloCanvasTooltip from './PhyloCanvasTooltip';
 
 // Docs http://phylocanvas.org/docs/api/
 // Source http://phylocanvas.org/docs/api/Tree.js.html
@@ -10,7 +10,8 @@ import {PhyloCanvasTooltip} from './PhyloCanvasTooltip';
 class PhyloCanvasComponent extends Component {
   constructor() {
     super();
-    this._resize = (e) => { this.resize(e); };
+    this._resize = (e) => this.resize(e);
+    this._mouseMove = (e) => this.mouseMove(e);
   }
 
   componentDidMount() {
@@ -20,13 +21,30 @@ class PhyloCanvasComponent extends Component {
     this._tree.showLabels = false;
     this._tree.branchColour=Colors.COLOR_GREY_MID;
     this._tree.hoverLabel = true;
-    // this._tree.tooltip = new PhyloCanvasTooltip(this._tree);
     this._tree.on('loaded', (e) => {
       console.log('loaded');
     });
     this._tree.load(this.props.data);
     window.addEventListener('resize', this._resize);
+    this._tree.canvas.canvas.addEventListener('mousemove', this._mouseMove);
+    //    addEvent(this.canvas.canvas, 'mousemove', this.drag.bind(this));
+
   }
+
+  mouseMove(e) {
+    console.log('mouseMove');
+    const node = this._tree.getNodeAtMousePosition(e);
+    if ( !node ) {
+      this._phyloCanvasTooltip.setVisible(false);
+      return;
+    }
+    const nodeId = node.id;
+    console.log('node', node);
+    this._phyloCanvasTooltip.setNode(node);
+    this._phyloCanvasTooltip.setVisible(true, e.clientX, e.clientY);
+  }
+
+  // getNodeAtMousePosition(e);
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._resize);
@@ -115,6 +133,7 @@ class PhyloCanvasComponent extends Component {
             <i className="fa fa-compress"></i>
           </div>
         </div>
+        <PhyloCanvasTooltip ref={(ref) => {this._phyloCanvasTooltip = ref;}} />
       </div>
     );
   }
