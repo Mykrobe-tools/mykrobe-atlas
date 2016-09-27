@@ -11,6 +11,7 @@ import Metadata from './components/metadata/Metadata';
 import Resistance from './components/resistance/Resistance';
 import Phylogeny from './components/phylogeny/Phylogeny';
 import ResistanceScreenAll from './components/resistance/all/ResistanceScreenAll';
+import ResistanceScreenDrugs from './components/resistance/ResistanceScreenDrugs';
 import ResistanceScreenClass from './components/resistance/ResistanceScreenClass';
 import ResistanceScreenEvidence from './components/resistance/ResistanceScreenEvidence';
 import ResistanceScreenSpecies from './components/resistance/ResistanceScreenSpecies';
@@ -27,6 +28,7 @@ export default (
       <Route path="resistance" component={Resistance}>
         <IndexRedirect to="all" />
         <Route path="all" component={ResistanceScreenAll} />
+        <Route path="drugs" component={ResistanceScreenDrugs} />
         <Route path="class" component={ResistanceScreenClass} />
         <Route path="evidence" component={ResistanceScreenEvidence} />
         <Route path="species" component={ResistanceScreenSpecies} />

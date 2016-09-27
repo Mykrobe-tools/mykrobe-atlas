@@ -66,6 +66,11 @@
 	composes: fontSecondarySizeNormal;
 }
 
+.subtitleSmall {
+	composes: fontSecondary;
+	composes: fontSecondarySizeSmall;
+}
+
 .subtitleRuled {
 	composes: fontSecondary;
 	composes: fontSecondarySizeNormal;
