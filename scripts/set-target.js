@@ -3,7 +3,7 @@ require('babel-polyfill');
 const inquirer = require('inquirer');
 const targets = require('../targets.json');
 const rootPackageJson = require('../package.json');
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -65,7 +65,12 @@ function setTarget(targetName) {
   filePath = path.resolve(__dirname, '../package.json');
   writeJsonToFile(filePath, json)
   .then(() => {
-    setTitleInHtmlFile(devHtmlPath, productName);
+    return setTitleInHtmlFile(devHtmlPath, productName);
+  })
+  .then(() => {
+    const filePath = path.resolve(__dirname, `../app/css/target/${targetName}.css`);
+    const copyPath = path.resolve(__dirname, `../app/css/target/current.css`);
+    return copyFile(filePath, copyPath);
   })
   .then(() => {
     console.log(`Target changed to ${productName}`);
@@ -100,5 +105,21 @@ function setTitleInHtmlFile(filePath, title) {
         resolve();
       });
     });
+  });
+}
+
+function copyFile(filePath, copyPath) {
+  return new Promise((resolve, reject) => {
+    let stat = false;
+    try {
+      stat = fs.statSync(copyPath);
+    }
+    catch (err) {
+    }
+    if (stat) {
+      fs.unlink(copyPath);
+    }
+    fs.copySync(filePath, copyPath);
+    resolve();
   });
 }

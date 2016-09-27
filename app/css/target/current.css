@@ -1,0 +1,7 @@
+:root {
+  --color-light-green: #86c9b9;
+  --color-dark-green: #3b9da7;
+
+  --color-tint-primary: var(--color-light-green);
+  --color-tint-secondary: var(--color-dark-green);
+}
