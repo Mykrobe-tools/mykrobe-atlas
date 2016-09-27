@@ -1,14 +1,10 @@
 .container {
-  position: absolute;
-  top: 30%;
-  left: 10px;
-  text-align: center;
+  composes: container from "css/layout.css";
+  padding: 18px;
+  overflow-y: auto;
+  background-color: white;
 }
 
-.container h2 {
-  font-size: 5rem;
-}
-
-.container a {
-  font-size: 1.4rem;
+.species {
+  padding: 8px 0;
 }
