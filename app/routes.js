@@ -10,11 +10,11 @@ import Map from './components/map/Map';
 import Metadata from './components/metadata/Metadata';
 import Resistance from './components/resistance/Resistance';
 import Phylogeny from './components/phylogeny/Phylogeny';
-import ResistanceScreenAll from './components/resistance/all/ResistanceScreenAll';
-import ResistanceScreenDrugs from './components/resistance/ResistanceScreenDrugs';
-import ResistanceScreenClass from './components/resistance/ResistanceScreenClass';
-import ResistanceScreenEvidence from './components/resistance/ResistanceScreenEvidence';
-import ResistanceScreenSpecies from './components/resistance/ResistanceScreenSpecies';
+import ResistanceAll from './components/resistance/ResistanceAll';
+import ResistanceDrugs from './components/resistance/ResistanceDrugs';
+import ResistanceClass from './components/resistance/ResistanceClass';
+import ResistanceEvidence from './components/resistance/ResistanceEvidence';
+import ResistanceSpecies from './components/resistance/ResistanceSpecies';
 import Share from './components/share/Share';
 import Summary from './components/summary/Summary';
 
@@ -27,11 +27,11 @@ export default (
       <Route path="metadata" component={Metadata} />
       <Route path="resistance" component={Resistance}>
         <IndexRedirect to="all" />
-        <Route path="all" component={ResistanceScreenAll} />
-        <Route path="drugs" component={ResistanceScreenDrugs} />
-        <Route path="class" component={ResistanceScreenClass} />
-        <Route path="evidence" component={ResistanceScreenEvidence} />
-        <Route path="species" component={ResistanceScreenSpecies} />
+        <Route path="all" component={ResistanceAll} />
+        <Route path="drugs" component={ResistanceDrugs} />
+        <Route path="class" component={ResistanceClass} />
+        <Route path="evidence" component={ResistanceEvidence} />
+        <Route path="species" component={ResistanceSpecies} />
       </Route>
       <Route path="phylogeny" component={Phylogeny} />
       <Route path="map" component={Map} />

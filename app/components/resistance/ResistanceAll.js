@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import styles from './ResistanceScreenAll.css';
+import styles from './ResistanceAll.css';
 import ResistanceProfile from 'components/resistance/ResistanceProfile';
 import Panel from  'components/ui/Panel';
 
-class ResistanceScreenAll extends Component {
+class ResistanceAll extends Component {
   render() {
     return (
       <div className={styles.container}>
@@ -22,9 +22,9 @@ function mapStateToProps(state) {
   };
 }
 
-ResistanceScreenAll.propTypes = {
+ResistanceAll.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(ResistanceScreenAll);
+export default connect(mapStateToProps)(ResistanceAll);

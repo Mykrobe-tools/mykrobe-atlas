@@ -156,6 +156,36 @@ class MykrobeJsonTransformer {
       }
     }
 
+    let drugsResistance = {
+        mdr:false,
+        xdr:false
+    };
+
+    if ( model.resistant.indexOf('Isoniazid') !== -1 && model.resistant.indexOf('Rifampicin') !== -1 ) {
+        drugsResistance.mdr = true;
+        /*
+        If MDR AND R to both fluoroquinolones and one of the other these 3 (Amikacin, Kanamycin, Capreomycin), then call it XDR (Extensively Drug Resistant)
+        */
+        if ( model.resistant.indexOf('Quinolones') ) {
+            if ( model.resistant.indexOf('Amikacin') !== -1 || model.resistant.indexOf('Kanamycin') !== -1 || model.resistant.indexOf('Capreomycin') !== -1 ) {
+                drugsResistance.xdr = true;
+            }
+        }
+    }
+
+    model.drugsResistance = drugsResistance;
+
+    let speciesPretty = '';
+
+    if ( TargetConstants.SPECIES_TB === this.config.species ) {
+        speciesPretty = model.species.join(' / ') +' (lineage: '+model.lineage[0]+')';
+    }
+    else {
+        speciesPretty = model.species.join(' / ');
+    }
+
+    model.speciesPretty = speciesPretty;
+
     return model;
   }
 

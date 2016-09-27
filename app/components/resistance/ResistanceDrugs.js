@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { connect } from 'react-redux';
-import styles from './ResistanceScreenDrugs.css';
+import styles from './ResistanceDrugs.css';
 import Panel from  'components/ui/Panel';
 import * as AnalyserActions from 'actions/AnalyserActions';
 
@@ -20,8 +20,9 @@ const secondLineDrugs = [
   "Kanamycin"
 ];
 
-class ResistanceScreenDrugs extends Component {
+class ResistanceDrugs extends Component {
   render() {
+    // TODO: need to display XDR / MDR status here?
     return (
       <div className={styles.container}>
         <Panel title="First line drugs" columns={4}>
@@ -45,17 +46,17 @@ class ResistanceScreenDrugs extends Component {
       let indicators = [];
       if (resistant.indexOf(drug) !== -1) {
         indicators.push(
-          <div className={styles.resistant}>Resistant</div>
+          <div key={'resistant'} className={styles.resistant}>Resistant</div>
         );
       }
       if (susceptible.indexOf(drug) !== -1) {
         indicators.push(
-          <div className={styles.susceptible}>Susceptible</div>
+          <div key={'susceptible'} className={styles.susceptible}>Susceptible</div>
         );
       }
       if (inconclusive.indexOf(drug) !== -1) {
         indicators.push(
-          <div className={styles.inconclusive}>Inconclusive</div>
+          <div key={'inconclusive'} className={styles.inconclusive}>Inconclusive</div>
         );
       }
       elements.push(
@@ -77,10 +78,10 @@ function mapStateToProps(state) {
   };
 }
 
-ResistanceScreenDrugs.propTypes = {
+ResistanceDrugs.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   children: PropTypes.object
 };
 
-export default connect(mapStateToProps)(ResistanceScreenDrugs);
+export default connect(mapStateToProps)(ResistanceDrugs);
