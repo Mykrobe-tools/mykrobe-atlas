@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styles from './Map.css';
 import GoogleMapsLoader from 'google-maps';
 
+import Phylogeny from 'components/phylogeny/Phylogeny';
+
 class Map extends Component {
   componentDidMount() {
     GoogleMapsLoader.KEY = 'AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc';
@@ -17,7 +19,10 @@ class Map extends Component {
 
   render() {
     return (
-      <div ref={(ref)=>{this._mapDiv=ref;}} className={styles.container}>
+      <div className={styles.container}>
+        <div ref={(ref)=>{this._mapDiv=ref;}} className={styles.mapContainer}>
+        </div>
+        <Phylogeny className={styles.phylogenyContainer} />
       </div>
     );
   }

@@ -1,6 +1,11 @@
 .container {
   composes: container from "css/layout.css";
-  flex-direction: column;
+  background-color: white;
+  padding: 30px;
+}
+
+.contentContainer {
+  composes: container from "css/layout.css";
   position: relative;
 }
 

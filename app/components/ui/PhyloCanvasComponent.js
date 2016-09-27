@@ -72,7 +72,7 @@ class PhyloCanvasComponent extends Component {
     let node = candidateNodes[0];
     node.setDisplay({
       colour: Colors.COLOR_TINT_SECONDARY,
-      size: 2,
+      size: 1,
       leafStyle: {
         fillStyle: Colors.COLOR_TINT_SECONDARY
       },

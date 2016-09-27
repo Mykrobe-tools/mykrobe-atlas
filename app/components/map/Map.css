@@ -2,3 +2,13 @@
   composes: container from "css/layout.css";
   background-color: white;
 }
+
+.mapContainer {
+  composes: container from "css/layout.css";
+
+}
+
+.phylogenyContainer {
+  composes: container from "css/layout.css";
+
+}

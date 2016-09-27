@@ -34,11 +34,13 @@ class Phylogeny extends Component {
     const {newick} = TREE_DATA;
     return (
       <div className={styles.container}>
-        <PhyloCanvasComponent ref={(ref) => { this._phyloCanvas = ref; }} treeType="circular" data={newick} />
-        <div className={styles.controlsContainer}>
-          <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomSamples(); }}>
-            <i className="fa fa-search"></i>
-            <div className={styles.zoomControlText}>Fit samples</div>
+        <div className={styles.contentContainer}>
+          <PhyloCanvasComponent ref={(ref) => { this._phyloCanvas = ref; }} treeType="radial" data={newick} />
+          <div className={styles.controlsContainer}>
+            <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomSamples(); }}>
+              <i className="fa fa-search"></i>
+              <div className={styles.zoomControlText}>Fit samples</div>
+            </div>
           </div>
         </div>
       </div>
