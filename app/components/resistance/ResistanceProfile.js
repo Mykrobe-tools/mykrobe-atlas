@@ -8,8 +8,8 @@ class ResistanceProfile extends Component {
     const {resistant, susceptible, inconclusive} = analyser.transformed;
     return (
       <div className={styles.container}>
-        {this.column(styles.columnTitleSusceptible, 'fa-check-circle', 'Susceptible', resistant)}
-        {this.column(styles.columnTitleResistant, 'fa-exclamation-triangle', 'Resistant', susceptible)}
+        {this.column(styles.columnTitleSusceptible, 'fa-check-circle', 'Susceptible', susceptible)}
+        {this.column(styles.columnTitleResistant, 'fa-exclamation-triangle', 'Resistant', resistant)}
         {this.column(styles.columnTitleInconclusive, 'fa-minus-square', 'Inconclusive', inconclusive)}
       </div>
     );

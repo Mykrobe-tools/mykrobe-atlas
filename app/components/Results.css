@@ -19,11 +19,11 @@
 .navigationItem {
   composes: button from "css/controls.css";
   background: none;
-  color: var(--color-grey-mid);
+  color: var(--color-grey-dark);
 }
 
 .navigationItemActive {
   composes: navigationItem;
   color: white;
-  background-color: var(--color-grey-mid);
+  background-color: var(--color-grey-dark);
 }

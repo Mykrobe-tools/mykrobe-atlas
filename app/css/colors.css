@@ -7,13 +7,13 @@
   --color-tint-secondary: #D06192;
   --color-blue: #71c7e6;
   --color-blue-text: darken( --color-blue, 5%);
-  --color-base-text: #676561;
   --color-light-green: #86c9b9;
   --color-dark-green: #3b9da7;
   --color-buff: #f7f6f1;
   --color-buff-dark: #efede4;
   --color-grey-light: #ceccc6;
   --color-grey-mid: #9a9893;
+  --color-grey-dark: #676561;
 
   --color-rule: var(--color-grey-light);
   --color-placeholder-text: var(--color-grey-light);
@@ -23,7 +23,7 @@
   --color-light-green-hover: darken( --color-light-green, 5%);
   --color-light-green-hover-text: darken( --color-light-green, 15%);
   --color-background: var(--color-buff);
-  --color-text: var(--color-base-text);
+  --color-text: var(--color-grey-dark);
 
   --color-susceptible: #9eab60;
   --color-resistant: #c30042;
