@@ -1,12 +1,12 @@
 {
-  "expected_depth": "69",
-  "mean_read_length": "92",
+  "expected_depth": "65",
+  "mean_read_length": "83",
   "phylogenetics": {
     "phylo_group": {
-      "MTBC": "111"
+      "MTBC": "106"
     },
     "species": {
-      "M. tuberculosis": "72"
+      "M. tuberculosis": "70"
     },
     "lineage": {
       "European/American": "88"
@@ -25,18 +25,18 @@
   "called_variants": {
     "embB_M306X": {
       "R_per_cov": "100",
-      "S_per_cov": "100",
-      "R_median_cov": "76",
-      "S_median_cov": "1",
-      "conf": "303",
+      "S_per_cov": "0",
+      "R_median_cov": "74",
+      "S_median_cov": "0",
+      "conf": "802",
       "induced_resistance": "Ethambutol"
     },
     "gyrA_D94X": {
       "R_per_cov": "100",
       "S_per_cov": "0",
-      "R_median_cov": "67",
+      "R_median_cov": "78",
       "S_median_cov": "0",
-      "conf": "726",
+      "conf": "845",
       "induced_resistance": "Quinolones"
     }
   },

@@ -10,6 +10,9 @@ import * as TargetConstants from 'constants/TargetConstants';
 class Resistance extends Component {
   render() {
     const {dispatch, analyser, children} = this.props;
+    if ( !analyser.transformed ) {
+      return null;
+    }
     const config = new MykrobeConfig();
     return (
       <div className={styles.container}>
