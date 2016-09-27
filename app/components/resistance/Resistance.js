@@ -11,7 +11,6 @@ class Resistance extends Component {
   render() {
     const {dispatch, analyser, children} = this.props;
     const config = new MykrobeConfig();
-    console.log(children);
     return (
       <div className={styles.container}>
         <div className={styles.header}>

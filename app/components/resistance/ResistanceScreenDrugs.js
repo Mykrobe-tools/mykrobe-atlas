@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { connect } from 'react-redux';
 import styles from './ResistanceScreenDrugs.css';
-
+import Panel from  'components/ui/Panel';
 import * as AnalyserActions from 'actions/AnalyserActions';
 
 const firstLineDrugs = [
@@ -24,13 +24,17 @@ class ResistanceScreenDrugs extends Component {
   render() {
     return (
       <div className={styles.container}>
-        {this.column('First line drugs', firstLineDrugs)}
-        {this.column('Second line drugs', secondLineDrugs)}
+        <Panel title="First line drugs" columns={4}>
+          {this.listDrugsWithIndicators(firstLineDrugs)}
+        </Panel>
+        <Panel title="Second line drugs" columns={4}>
+          {this.listDrugsWithIndicators(secondLineDrugs)}
+        </Panel>
       </div>
     );
   }
 
-  column(title, drugs) {
+  listDrugsWithIndicators(drugs) {
     const {analyser} = this.props;
     if ( !analyser.transformed ) {
       return null;
@@ -38,9 +42,6 @@ class ResistanceScreenDrugs extends Component {
     const {resistant, susceptible, inconclusive} = analyser.transformed;
     let elements = [];
     drugs.forEach((drug, index) => {
-      const isResistant = resistant.indexOf(drug) !== -1;
-      const isSusceptible = susceptible.indexOf(drug) !== -1;
-      const isInconclusive = inconclusive.indexOf(drug) !== -1;
       let indicators = [];
       if (resistant.indexOf(drug) !== -1) {
         indicators.push(
@@ -63,8 +64,7 @@ class ResistanceScreenDrugs extends Component {
     });
 
     return (
-      <div className={styles.column}>
-        {title}
+      <div className={styles.drugs}>
         {elements}
       </div>
     );

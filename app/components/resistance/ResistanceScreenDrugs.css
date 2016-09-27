@@ -1,5 +1,12 @@
 .container {
   composes: container from "css/layout.css";
+  padding: 18px;
+  overflow-y: auto;
+  background-color: white;
+}
+
+.drugs {
+  padding: 8px 0;
 }
 
 .indicator {
