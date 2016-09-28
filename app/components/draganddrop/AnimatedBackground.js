@@ -7,44 +7,58 @@ class Lozenge extends Component {
     this.state = {
       x: 0,
       y: 0,
-      duration: 10,
-      rotation: 10
+      duration: Math.random()*18 + 4,
+      rotation: Math.random()*8 + 4
     };
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      // this.updateTransition();
-    }, 0);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.transitionTimeout);
+    clearTimeout(this.repeatTimeout);
   }
 
   componentWillReceiveProps(nextProps) {
+    // receiving new width and height
     console.log('componentWillReceiveProps', nextProps);
-    this.updateTransitionWithProps(nextProps);
+    const {width, height} = nextProps;
+    this.updateTransitionWithProps({
+      x: Math.random() * width,
+      y: 300 + Math.random() * (height - 200),
+      width,
+      height
+    });
   }
 
   updateTransitionWithProps(props = this.props) {
     console.log('updateTransitionWithProps');
-    const {width, height} = props;
-    // const duration = Math.random() * 5 + 5;
-    const duration = 3;
+    const {x, y, width, height} = props;
+    const {duration} = this.state;
+    // start on screen
     this.setState({
-      x: 0,
-      y: 0,
+      x,
+      y,
       duration: 0
     });
     // allow 1/60 second for browser to reset position of div before animating again
     clearTimeout(this.transitionTimeout);
     this.transitionTimeout = setTimeout(() => {
       this.setState({
-        x: width,
-        y: height,
+        x: x + width + 200 * 2,
+        y: y - 100 + Math.random() * 200,
         duration
       });
     }, 1000*1/60);
     clearTimeout(this.repeatTimeout);
     this.repeatTimeout = setTimeout(() => {
-      this.updateTransitionWithProps();
+      this.updateTransitionWithProps({
+        x: -200,
+        y: 300 + Math.random() * (height - 200),
+        width,
+        height
+      });
     }, duration*1000);
   }
 
@@ -82,12 +96,22 @@ class AnimatedBackground extends Component {
       width: 0,
       height: 0
     };
+    this._resize = (e) => this.resize(e);
   }
 
   componentDidMount() {
+    window.addEventListener('resize', this._resize);
     setTimeout(() => {
       this.measureContainer();
     }, 0);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resize);
+  }
+
+  resize() {
+    this.measureContainer();
   }
 
   measureContainer() {
@@ -103,7 +127,13 @@ class AnimatedBackground extends Component {
     const {width, height} = this.state;
     return (
       <div ref={(ref) => {this._container = ref;}} className={styles.container}>
-        Background
+        <Lozenge width={width} height={height} />
+        <Lozenge width={width} height={height} />
+        <Lozenge width={width} height={height} />
+        <Lozenge width={width} height={height} />
+        <Lozenge width={width} height={height} />
+        <Lozenge width={width} height={height} />
+        <Lozenge width={width} height={height} />
         <Lozenge width={width} height={height} />
       </div>
     );

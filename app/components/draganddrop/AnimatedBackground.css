@@ -13,6 +13,7 @@
 }
 
 .lozengeContainer {
+    position:absolute;
     transition: 5s linear;
 }
 
