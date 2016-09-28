@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styles from './DragAndDrop.css';
 import * as UIHelpers from 'helpers/UIHelpers';
 import * as AnalyserActions from 'actions/AnalyserActions';
+import AnimatedBackground from './AnimatedBackground';
 
 class DragAndDrop extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class DragAndDrop extends Component {
             Browse...
           </button>
         </div>
+        <AnimatedBackground />
       </div>
     );
   }
