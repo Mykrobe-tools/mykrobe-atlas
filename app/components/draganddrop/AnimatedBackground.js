@@ -39,7 +39,6 @@ class Lozenge extends Component {
   }
 
   updateTransitionWithProps(props = this.props) {
-    console.log('updateTransitionWithProps');
     const {x, y, width, height} = props;
     const {duration, scale} = this.state;
     // start on screen

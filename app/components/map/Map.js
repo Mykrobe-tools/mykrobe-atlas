@@ -13,16 +13,35 @@ class Map extends Component {
         center: {lat: 51.5074, lng: 0.1278},
         zoom: 3
       }
-      new google.maps.Map(this._mapDiv, options);
+      this._map = new google.maps.Map(this._mapDiv, options);
+
+      const london = {lat: 51.5074, lng: 0.1278};
+      new google.maps.Marker({
+        position: london,
+        map: this._map
+      });
+
+      const bangalore = { lat: 12.97, lng: 77.59 };
+      new google.maps.Marker({
+        position: bangalore,
+        map: this._map
+      });
     });
   }
 
   render() {
     return (
       <div className={styles.container}>
-        <div ref={(ref)=>{this._mapDiv=ref;}} className={styles.mapContainer}>
+        <div className={styles.header}>
+          <div calssName={styles.headerTitle}>
+            Showing samples :id1:, :id2: &middot; Add
+          </div>
         </div>
-        <Phylogeny className={styles.phylogenyContainer} />
+        <div className={styles.mapAndPhylogenyContainer}>
+          <div ref={(ref)=>{this._mapDiv=ref;}} className={styles.mapContainer}>
+          </div>
+          <Phylogeny className={styles.phylogenyContainer} />
+        </div>
       </div>
     );
   }

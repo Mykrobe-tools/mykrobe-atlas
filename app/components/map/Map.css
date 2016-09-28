@@ -1,6 +1,27 @@
 .container {
   composes: container from "css/layout.css";
   background-color: white;
+  flex-direction: column;
+}
+
+.header {
+  background-color:var(--color-buff-dark);
+  padding:12px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.headerTitle {
+  composes: fontSizeLarge from "css/typography.css";
+  color: var(--color-tint-primary);
+  padding-bottom: 16px;
+}
+
+.mapAndPhylogenyContainer {
+  composes: container from "css/layout.css";
+  background-color: white;
 }
 
 .mapContainer {
