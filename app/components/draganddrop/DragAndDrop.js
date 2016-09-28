@@ -21,6 +21,7 @@ class DragAndDrop extends Component {
   render() {
     return (
       <div className={styles.container}>
+        <AnimatedBackground />
         <div className={styles.promptContainer}>
           <div className={styles.promptIcon} />
           <div className={styles.promptTitle}>
@@ -30,7 +31,6 @@ class DragAndDrop extends Component {
             Browse...
           </button>
         </div>
-        <AnimatedBackground />
       </div>
     );
   }

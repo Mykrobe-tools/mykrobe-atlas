@@ -1,14 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './AnimatedBackground.css';
 
+const LozengeDimensions = {
+  width: 185,
+  height: 65
+};
+
 class Lozenge extends Component {
   constructor(props) {
     super(props);
     this.state = {
       x: 0,
       y: 0,
-      duration: Math.random()*18 + 4,
-      rotation: Math.random()*8 + 4
+      scale: 1.5 + Math.random() * 0.5,
+      duration: Math.random() * 40 + 10,
+      rotation: Math.random() * 40 + 10
     };
   }
 
@@ -25,7 +31,7 @@ class Lozenge extends Component {
     console.log('componentWillReceiveProps', nextProps);
     const {width, height} = nextProps;
     this.updateTransitionWithProps({
-      x: Math.random() * width,
+      x: -width + Math.random() * width * 2,
       y: 300 + Math.random() * (height - 200),
       width,
       height
@@ -35,7 +41,7 @@ class Lozenge extends Component {
   updateTransitionWithProps(props = this.props) {
     console.log('updateTransitionWithProps');
     const {x, y, width, height} = props;
-    const {duration} = this.state;
+    const {duration, scale} = this.state;
     // start on screen
     this.setState({
       x,
@@ -46,7 +52,7 @@ class Lozenge extends Component {
     clearTimeout(this.transitionTimeout);
     this.transitionTimeout = setTimeout(() => {
       this.setState({
-        x: x + width + 200 * 2,
+        x: x + width + LozengeDimensions.width * 2 * scale,
         y: y - 100 + Math.random() * 200,
         duration
       });
@@ -54,7 +60,7 @@ class Lozenge extends Component {
     clearTimeout(this.repeatTimeout);
     this.repeatTimeout = setTimeout(() => {
       this.updateTransitionWithProps({
-        x: -200,
+        x: -LozengeDimensions.width * scale,
         y: 300 + Math.random() * (height - 200),
         width,
         height
@@ -63,29 +69,21 @@ class Lozenge extends Component {
   }
 
   render() {
-    const {width, height} = this.props;
-    const {x, y, duration, rotation} = this.state;
-    console.log('render ',x, y, duration);
+    const {lozengeClassName} = this.props;
+    const {x, y, duration, rotation, scale} = this.state;
     return (
       <div className={styles.lozengeContainer} style={{
         transform: `translate(${x}px, ${y}px)`,
         transitionDuration: `${duration}s`
       }}>
-          <div className={styles.lozengeBlue} style={{
-              animationDuration: `${rotation}s`
-          }}/>
+        <div className={lozengeClassName ? lozengeClassName : styles.lozengeBlue} style={{
+            width: `${scale*LozengeDimensions.width}px`,
+            height: `${scale*LozengeDimensions.height}px`,
+            animationDuration: `${rotation}s`
+        }}/>
       </div>
     );
   }
-  // render() {
-  //   return (
-  //       <div className={styles.lozengeContainer} style={{transform:'translate(500px, 120px)'}}>
-  //           <div className={styles.lozengeBlue} style={{
-  //               animationDuration: '10s'
-  //           }}/>
-  //       </div>
-  //   );
-  // }
 }
 
 
@@ -127,7 +125,13 @@ class AnimatedBackground extends Component {
     const {width, height} = this.state;
     return (
       <div ref={(ref) => {this._container = ref;}} className={styles.container}>
-        <Lozenge width={width} height={height} />
+        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
+        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
+        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
+        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
+        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
+        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
+        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
         <Lozenge width={width} height={height} />
         <Lozenge width={width} height={height} />
         <Lozenge width={width} height={height} />

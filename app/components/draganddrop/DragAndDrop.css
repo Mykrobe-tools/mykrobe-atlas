@@ -9,9 +9,11 @@
 .containerDragActive {
   composes: container;
   border: 12px solid var(--color-grey-mid);
+  transition: border 0.5s linear;
 }
 
 .promptContainer {
+  position:absolute;
   background-color: white;
   width: 480px;
   height: 480px;
