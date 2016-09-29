@@ -32,7 +32,7 @@ class PhyloCanvasTooltip extends Component {
 
   render() {
     const {visible, node, x, y} = this.state;
-    if ( !visible ) {
+    if ( !visible || !node ) {
       return null;
     }
     return (

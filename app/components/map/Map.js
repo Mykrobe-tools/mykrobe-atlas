@@ -5,6 +5,7 @@ import Phylogeny from 'components/phylogeny/Phylogeny';
 import { connect } from 'react-redux';
 import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
 import * as NodeActions from 'actions/NodeActions';
+import * as DemoActions from 'actions/DemoActions';
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc';
 
@@ -35,6 +36,17 @@ class Map extends Component {
         return sample;
       }
     }
+  }
+
+  getSampleIds() {
+    const {demo} = this.props;
+    const {samples} = demo;
+    let nodeIds = [];
+    for (let sampleKey in samples) {
+      const sample = samples[sampleKey];
+      nodeIds.push(sample.id);
+    }
+    return nodeIds;
   }
 
   updateMarkers(samples) {
@@ -110,12 +122,41 @@ class Map extends Component {
     }
   }
 
+  onAddClicked(e) {
+    console.log('onAddClicked');
+    const {dispatch} = this.props;
+    dispatch(NodeActions.unsetNodeHighlightedAll());
+    dispatch(DemoActions.loadTreeWithPath('zoom_tree.json'));
+    dispatch(DemoActions.loadSamplesWithPath('zoom_tree_samples.json'));
+  }
+
+  onRemoveClicked(e) {
+    console.log('onAddClicked');
+    const {dispatch} = this.props;
+    dispatch(NodeActions.unsetNodeHighlightedAll());
+    dispatch(DemoActions.loadTreeWithPath('tree.json'));
+    dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'));
+  }
+
   render() {
+    const {demo} = this.props;
+    const {samples} = demo;
+    const sampleIds = this.getSampleIds();
+    let title = '';
+    let action = null;
+    if ( sampleIds.length > 1 ) {
+      title = `Your sample ${sampleIds[0]} (red), nearest previous sample ${sampleIds[1]} (blue)`;
+      action = <div className={styles.addButton} onClick={(e) => {this.onRemoveClicked(e);}}>Remove</div>;
+    }
+    else {
+      title = `Showing sample :${sampleIds[0]}`;
+      action = <div className={styles.addButton} onClick={(e) => {this.onAddClicked(e);}}>Add</div>;
+    }
     return (
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.headerTitle}>
-            Showing samples :id1:, :id2: &middot; Add
+            {title} &middot; {action}
           </div>
         </div>
         <div className={styles.mapAndPhylogenyContainer}>

@@ -14,9 +14,11 @@
 }
 
 .headerTitle {
-  composes: fontSizeLarge from "css/typography.css";
-  color: var(--color-tint-primary);
-  padding-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  /*composes: fontSizeLarge from "css/typography.css";*/
+  /*color: var(--color-tint-primary);
+  padding-bottom: 16px;*/
 }
 
 .mapAndPhylogenyContainer {
