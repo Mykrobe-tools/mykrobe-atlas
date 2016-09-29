@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
 import * as NodeActions from 'actions/NodeActions';
 
-const TEST_DEMO_DATA = require('static/api/test_demo_data.json');
 const GOOGLE_MAPS_API_KEY = 'AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc';
 
 class Map extends Component {
@@ -17,44 +16,62 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    const {dispatch} = this.props;
-    this._markers = {};
-    this._samples = {};
     GoogleMapsLoader.load((google) => {
       const options = {
         center: {lat: 51.5074, lng: 0.1278},
         zoom: 3
       }
       this._map = new google.maps.Map(this._mapDiv, options);
-
-      for (let sampleKey in TEST_DEMO_DATA) {
-        const sample = TEST_DEMO_DATA[sampleKey];
-        const lat = parseFloat(sample.locationLatLngForTest.lat);
-        const lng = parseFloat(sample.locationLatLngForTest.lng);
-        const marker = new google.maps.Marker({
-          icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 10,
-            strokeWeight: 4,
-            fillColor: sample.colorForTest,
-            strokeColor: '#fff',
-            fillOpacity: 1
-          },
-          position: {lat, lng},
-          map: this._map
-        });
-        marker.addListener('mouseover', (e) => {
-          console.log('map mouseover', sample.id);
-          dispatch(NodeActions.setNodeHighlighted(sample.id, true));
-        });
-        marker.addListener('mouseout', (e) => {
-          console.log('map mouseout', sample.id);
-          dispatch(NodeActions.setNodeHighlighted(sample.id, false));
-        });
-        this._markers[sample.id] = marker;
-        this._samples[sample.id] = sample;
-      }
+      this.updateMarkers(this.props.demo.samples);
     });
+  }
+
+  getSampleWithId(nodeId) {
+    const {demo} = this.props;
+    const {samples} = demo;
+    for (let sampleKey in samples) {
+      const sample = samples[sampleKey];
+      if ( sample.id === nodeId ) {
+        return sample;
+      }
+    }
+  }
+
+  updateMarkers(samples) {
+    const {dispatch} = this.props;
+    if ( this._markers ) {
+      for ( let markerKey in this._markers ) {
+        const marker = this._markers[markerKey];
+        marker.setMap(null);
+      }
+    }
+    this._markers = [];
+    for (let sampleKey in samples) {
+      const sample = samples[sampleKey];
+      const lat = parseFloat(sample.locationLatLngForTest.lat);
+      const lng = parseFloat(sample.locationLatLngForTest.lng);
+      const marker = new google.maps.Marker({
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 10,
+          strokeWeight: 4,
+          fillColor: sample.colorForTest,
+          strokeColor: '#fff',
+          fillOpacity: 1
+        },
+        position: {lat, lng},
+        map: this._map
+      });
+      marker.addListener('mouseover', (e) => {
+        console.log('map mouseover', sample.id);
+        dispatch(NodeActions.setNodeHighlighted(sample.id, true));
+      });
+      marker.addListener('mouseout', (e) => {
+        console.log('map mouseout', sample.id);
+        dispatch(NodeActions.setNodeHighlighted(sample.id, false));
+      });
+      this._markers[sample.id] = marker;
+    }
   }
 
   markerForNodeId(nodeId) {
@@ -73,6 +90,9 @@ class Map extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
+    if ( this.props.demo.samples !== nextProps.demo.samples ) {
+      this.updateMarkers(nextProps.demo.samples);
+    }
     if ( node.highlighted.length ) {
       console.log('node.highlighted', node.highlighted);
       const nodeId = node.highlighted[0];
@@ -81,7 +101,7 @@ class Map extends Component {
         const markerLocation = marker.getPosition();
         const screenPosition = this.fromLatLngToPoint(markerLocation);
         const boundingClientRect = this._mapDiv.getBoundingClientRect();
-        this._phyloCanvasTooltip.setNode(this._samples[nodeId]);
+        this._phyloCanvasTooltip.setNode(this.getSampleWithId(nodeId));
         this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
       }
     }
@@ -113,14 +133,16 @@ class Map extends Component {
 function mapStateToProps(state) {
   return {
     analyser: state.analyser,
-    node: state.node
+    node: state.node,
+    demo: state.demo
   };
 }
 
 Map.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired
+  node: PropTypes.object.isRequired,
+  demo:  PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(Map);
