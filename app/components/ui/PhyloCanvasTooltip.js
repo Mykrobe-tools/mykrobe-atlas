@@ -6,7 +6,11 @@ class PhyloCanvasTooltip extends Component {
     super();
     this.state = {
       visible: false,
-      node: null,
+      node: {
+        id: -1,
+        date: 'Not defined',
+        locationName: 'Not defined'
+      },
       x: 0,
       y: 0
     };
@@ -38,9 +42,9 @@ class PhyloCanvasTooltip extends Component {
             <div className={styles.title}>Sample id</div>
             <div>{node.id}</div>
             <div className={styles.title}>Location</div>
-            <div>Not implemented</div>
+            <div>{node.locationName}</div>
             <div className={styles.title}>Date</div>
-            <div>Not implemented</div>
+            <div>{node.date}</div>
           </div>
         </div>
       </div>

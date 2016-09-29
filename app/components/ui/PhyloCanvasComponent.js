@@ -4,6 +4,9 @@ import styles from './PhyloCanvasComponent.css';
 import * as Colors from 'constants/Colors';
 import PhyloCanvasTooltip from './PhyloCanvasTooltip';
 
+import {utils} from 'phylocanvas';
+const {canvas} = utils;
+
 // Docs http://phylocanvas.org/docs/api/
 // Source http://phylocanvas.org/docs/api/Tree.js.html
 
@@ -65,12 +68,20 @@ class PhyloCanvasComponent extends Component {
     return this;
   }
 
-  highlightNodeWithId(id) {
-    let candidateNodes = this._tree.findLeaves(id);
+  getNodeWithId(nodeId) {
+    const candidateNodes = this._tree.findLeaves(nodeId);
     if (!candidateNodes || !candidateNodes.length) {
-      return false;
+      return null;
     }
-    let node = candidateNodes[0];
+    const node = candidateNodes[0];
+    return node;
+  }
+
+  highlightNodeWithId(nodeId) {
+    const node = this.getNodeWithId(nodeId);
+    if ( !node ) {
+      return;
+    }
     node.setDisplay({
       leafStyle: {
         fillStyle: Colors.COLOR_TINT_SECONDARY
@@ -94,6 +105,15 @@ class PhyloCanvasComponent extends Component {
     }
   }
 
+  getPositionOfNodeWithId(nodeId) {
+    const node = this.getNodeWithId(nodeId);
+    if ( !node ) {
+      return null;
+    }
+    const translatedPoint = canvas.undoPointTranslation({x: node.centerx + node.radius / 2, y: node.centery}, this._tree);
+    return translatedPoint;
+  }
+
   resize() {
     console.log('resize');
     // set size to zero so the parent container can flex to natural size
@@ -108,6 +128,7 @@ class PhyloCanvasComponent extends Component {
   }
 
   mouseMove(e) {
+    const {displayTooltip} = this.props;
     const {onNodeMouseOver, onNodeMouseOut} = this.props;
     const node = this._tree.getNodeAtMousePosition(e);
     if ( !node ) {
@@ -118,7 +139,9 @@ class PhyloCanvasComponent extends Component {
           onNodeMouseOut(this._currentNodeHover);
         }
       }
-      this._phyloCanvasTooltip.setVisible(false);
+      if ( displayTooltip ) {
+        this._phyloCanvasTooltip.setVisible(false);
+      }
       this._currentNodeHover = null;
       return;
     }
@@ -138,8 +161,10 @@ class PhyloCanvasComponent extends Component {
       }
     }
     this._currentNodeHover = node;
-    this._phyloCanvasTooltip.setNode(node);
-    this._phyloCanvasTooltip.setVisible(true, e.clientX, e.clientY);
+    if ( displayTooltip ) {
+      this._phyloCanvasTooltip.setNode(node);
+      this._phyloCanvasTooltip.setVisible(true, e.clientX, e.clientY);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -152,6 +177,7 @@ class PhyloCanvasComponent extends Component {
   }
 
   render() {
+    const {displayTooltip} = this.props;
     return (
       <div className={styles.container}>
         <div id="phyloCanvasDiv" ref={(ref) => { this._phyloCanvasDiv = ref; }} className={styles.container} />
@@ -166,7 +192,7 @@ class PhyloCanvasComponent extends Component {
             <i className="fa fa-compress"></i>
           </div>
         </div>
-        <PhyloCanvasTooltip ref={(ref) => {this._phyloCanvasTooltip = ref;}} />
+        {displayTooltip && <PhyloCanvasTooltip ref={(ref) => {this._phyloCanvasTooltip = ref;}} />}
       </div>
     );
   }
@@ -176,7 +202,8 @@ PhyloCanvasComponent.propTypes = {
   data: PropTypes.string,
   treeType: PropTypes.string,
   onNodeMouseOver: PropTypes.func,
-  onNodeMouseOut: PropTypes.func
+  onNodeMouseOut: PropTypes.func,
+  displayTooltip: PropTypes.bool
 };
 
 export default PhyloCanvasComponent;

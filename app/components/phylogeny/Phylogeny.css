@@ -1,7 +1,6 @@
 .container {
   composes: container from "css/layout.css";
   background-color: white;
-  padding: 30px;
 }
 
 .contentContainer {
@@ -14,6 +13,7 @@
   left:0;
   bottom:0;
   z-index:1;
+  padding: 30px;
 }
 
 .zoomControl {

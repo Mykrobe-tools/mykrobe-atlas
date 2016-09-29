@@ -9,6 +9,7 @@
   bottom:0;
   z-index:1;
   display:flex;
+  padding:30px;
 }
 
 .zoomControl {

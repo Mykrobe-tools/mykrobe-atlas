@@ -1,7 +1,7 @@
 {
     "sample1": {
         "id": "6140-05",
-        "date": "",
+        "date": "29 September 2016",
         "locationName": "London",
         "locationLatLngForTest": {
             "lat": "51.5074",
@@ -10,7 +10,7 @@
     },
     "sample2": {
         "id": "2028-12",
-        "date": "",
+        "date": "28 September 2016",
         "locationName": "Bangalore",
         "locationLatLngForTest": {
             "lat": "12.97",

@@ -4,6 +4,7 @@ import styles from './Phylogeny.css';
 import * as NodeActions from 'actions/NodeActions';
 
 import PhyloCanvasComponent from 'components/ui/PhyloCanvasComponent';
+import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
 
 const TREE_DATA = require('static/api/tree.json');
 const SAMPLE_DATA = require('static/api/10091-01.json');
@@ -14,7 +15,6 @@ class Phylogeny extends Component {
 
   constructor(props) {
     super(props);
-
     /*
     let samplesToHighlight = [];
     for (let sampleKey in SAMPLE_DATA) {
@@ -32,10 +32,12 @@ class Phylogeny extends Component {
     this._samplesToHighlight = samplesToHighlight;
     */
 
+    this._samples = {};
     let samplesToHighlight = [];
     for (let sampleKey in TEST_DEMO_DATA) {
       const sample = TEST_DEMO_DATA[sampleKey];
       samplesToHighlight.push(sample.id);
+      this._samples[sample.id] = sample;
     }
     this._samplesToHighlight = samplesToHighlight;
   }
@@ -61,16 +63,34 @@ class Phylogeny extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const {node} = nextProps;
+    if ( node.highlighted.length ) {
+      console.log('node.highlighted', node.highlighted);
+      const nodeId = node.highlighted[0];
+      const screenPosition = this._phyloCanvas.getPositionOfNodeWithId(nodeId);
+      if ( screenPosition ) {
+        const boundingClientRect = this._container.getBoundingClientRect();
+        this._phyloCanvasTooltip.setNode(this._samples[nodeId]);
+        this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
+      }
+    }
+    else {
+      this._phyloCanvasTooltip.setVisible(false);
+    }
+  }
+
   render() {
     const {node} = this.props;
     const {newick} = TREE_DATA;
     return (
       <div className={styles.container}>
-        <div className={styles.contentContainer}>
+        <div className={styles.contentContainer} ref={(ref) => { this._container = ref; }}>
           <PhyloCanvasComponent
             ref={(ref) => { this._phyloCanvas = ref; }}
             treeType="radial"
             data={newick}
+            displayTooltip={false}
             onNodeMouseOver={(node) => {this.onNodeMouseOver(node)}}
             onNodeMouseOut={(node) => {this.onNodeMouseOut(node)}}
           />
@@ -80,6 +100,7 @@ class Phylogeny extends Component {
               <div className={styles.zoomControlText}>Fit samples</div>
             </div>
           </div>
+          <PhyloCanvasTooltip ref={(ref) => {this._phyloCanvasTooltip = ref;}} />
         </div>
       </div>
     );

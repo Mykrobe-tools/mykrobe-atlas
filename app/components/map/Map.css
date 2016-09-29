@@ -26,10 +26,12 @@
 
 .mapContainer {
   composes: container from "css/layout.css";
+}
 
+.map {
+  composes: container from "css/layout.css";
 }
 
 .phylogenyContainer {
   composes: container from "css/layout.css";
-
 }

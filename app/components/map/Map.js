@@ -3,6 +3,8 @@ import styles from './Map.css';
 import GoogleMapsLoader from 'google-maps';
 import Phylogeny from 'components/phylogeny/Phylogeny';
 import { connect } from 'react-redux';
+import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
+import * as NodeActions from 'actions/NodeActions';
 
 const TEST_DEMO_DATA = require('static/api/test_demo_data.json');
 const GOOGLE_MAPS_API_KEY = 'AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc';
@@ -15,7 +17,9 @@ class Map extends Component {
   }
 
   componentDidMount() {
+    const {dispatch} = this.props;
     this._markers = {};
+    this._samples = {};
     GoogleMapsLoader.load((google) => {
       const options = {
         center: {lat: 51.5074, lng: 0.1278},
@@ -32,12 +36,15 @@ class Map extends Component {
           map: this._map
         });
         marker.addListener('mouseover', (e) => {
-          console.log('map mouseover', sample.id, e);
+          console.log('map mouseover', sample.id);
+          dispatch(NodeActions.setNodeHighlighted(sample.id, true));
         });
         marker.addListener('mouseout', (e) => {
-          console.log('map mouseout', sample.id, e);
+          console.log('map mouseout', sample.id);
+          dispatch(NodeActions.setNodeHighlighted(sample.id, false));
         });
         this._markers[sample.id] = marker;
+        this._samples[sample.id] = sample;
       }
     });
   }
@@ -56,19 +63,26 @@ class Map extends Component {
     return {x, y};
   }
 
-  render() {
-    const {node} = this.props;
+  componentWillReceiveProps(nextProps) {
+    const {node} = nextProps;
     if ( node.highlighted.length ) {
       console.log('node.highlighted', node.highlighted);
       const nodeId = node.highlighted[0];
       const marker = this.markerForNodeId(nodeId);
       if ( marker ) {
-        const projection = this._map.getProjection();
         const markerLocation = marker.getPosition();
         const screenPosition = this.fromLatLngToPoint(markerLocation);
-        debugger
+        const boundingClientRect = this._mapDiv.getBoundingClientRect();
+        this._phyloCanvasTooltip.setNode(this._samples[nodeId]);
+        this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
       }
     }
+    else {
+      this._phyloCanvasTooltip.setVisible(false);
+    }
+  }
+
+  render() {
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -77,7 +91,9 @@ class Map extends Component {
           </div>
         </div>
         <div className={styles.mapAndPhylogenyContainer}>
-          <div ref={(ref)=>{this._mapDiv=ref;}} className={styles.mapContainer}>
+          <div className={styles.mapContainer}>
+            <div ref={(ref)=>{this._mapDiv=ref;}} className={styles.map} />
+            <PhyloCanvasTooltip ref={(ref) => {this._phyloCanvasTooltip = ref;}} />
           </div>
           <Phylogeny className={styles.phylogenyContainer} />
         </div>
