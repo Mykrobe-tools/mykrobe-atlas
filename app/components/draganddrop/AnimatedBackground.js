@@ -30,6 +30,10 @@ class Lozenge extends Component {
     // receiving new width and height
     console.log('componentWillReceiveProps', nextProps);
     const {width, height} = nextProps;
+    if ( this.props.width === nextProps.width && this.props.height === nextProps.height ) {
+      // don't update unless we are a different size
+      return;
+    }
     this.updateTransitionWithProps({
       x: -width + Math.random() * width * 2,
       y: 300 + Math.random() * (height - 200),

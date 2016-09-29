@@ -11,7 +11,7 @@ export function analyseFileWithPath(filePath) {
       this.analyser.cancel();
     }
 
-    dispatch(push('/analysing'));
+    // dispatch(push('/analysing'));
 
     const {app} = require('electron').remote;
     app.addRecentDocument(filePath);

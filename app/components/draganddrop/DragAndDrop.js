@@ -4,24 +4,32 @@ import styles from './DragAndDrop.css';
 import * as UIHelpers from 'helpers/UIHelpers';
 import * as AnalyserActions from 'actions/AnalyserActions';
 import AnimatedBackground from './AnimatedBackground';
+import CircularProgress from './CircularProgress';
 
 class DragAndDrop extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      filePath: false,
-      isAnalysing: false,
-      isDone: false,
-      progress: 0,
-      isDragActive: false,
-      json: false
-    };
+    this.state = {};
   }
 
   render() {
-    return (
-      <div className={styles.container}>
-        <AnimatedBackground />
+    const {analyser} = this.props;
+    let content;
+    if ( analyser.analysing ) {
+      content = (
+        <div className={styles.promptContainer}>
+          <CircularProgress percentage={analyser.progress} />
+          <div className={styles.promptTitle}>
+            {analyser.progress}%
+          </div>
+          <button type="button" className={styles.button} onClick={this.onCancelClick.bind(this)}>
+            Cancel
+          </button>
+        </div>
+      );
+    }
+    else {
+      content = (
         <div className={styles.promptContainer}>
           <div className={styles.promptIcon} />
           <div className={styles.promptTitle}>
@@ -31,6 +39,12 @@ class DragAndDrop extends Component {
             Browse...
           </button>
         </div>
+      );
+    }
+    return (
+      <div className={styles.container}>
+        <AnimatedBackground />
+        {content}
       </div>
     );
   }
@@ -42,6 +56,12 @@ class DragAndDrop extends Component {
     if (filePath) {
       dispatch(AnalyserActions.analyseFileWithPath(filePath));
     }
+  }
+
+  onCancelClick(e) {
+    console.log('onCancelClick');
+    const {dispatch} = this.props;
+    dispatch(AnalyserActions.analyseFileCancel());
   }
 }
 
