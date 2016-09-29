@@ -48,3 +48,7 @@
     composes: subtitle from "css/typography.css";
     padding-top:8px;
 }
+
+.marker {
+	padding-top:8px;
+}
