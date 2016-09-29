@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './Phylogeny.css';
+import * as NodeActions from 'actions/NodeActions';
 
 import PhyloCanvasComponent from 'components/ui/PhyloCanvasComponent';
 
@@ -30,16 +31,22 @@ class Phylogeny extends Component {
 
   onNodeMouseOver(node) {
     console.log('onNodeMouseOver', node);
+    const {dispatch} = this.props;
+    dispatch(NodeActions.setNodeHighlighted(node.id, true));
   }
 
   onNodeMouseOut(node) {
     console.log('onNodeMouseOut', node);
+    const {dispatch} = this.props;
+    dispatch(NodeActions.setNodeHighlighted(node.id, false));
   }
 
   render() {
     // const {analyser} = this.props;
     // const everything = JSON.stringify(analyser.transformed, null, 2);
+    const {node} = this.props;
     const {newick} = TREE_DATA;
+    console.log('node.highlighted', node.highlighted);
     return (
       <div className={styles.container}>
         <div className={styles.contentContainer}>
@@ -69,6 +76,11 @@ class Phylogeny extends Component {
     console.log('this._phyloCanvas', this._phyloCanvas);
     console.log('this._phyloCanvas._tree', this._phyloCanvas._tree);
     this._phyloCanvas.highlightNodesWithIds(this._samplesToHighlight);
+  }
+
+  componentWillUnmount() {
+    const {dispatch} = this.props;
+    dispatch(NodeActions.unsetNodeHighlightedAll());
   }
 }
 

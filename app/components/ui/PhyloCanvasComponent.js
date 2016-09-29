@@ -137,9 +137,9 @@ class PhyloCanvasComponent extends Component {
       if ( onNodeMouseOver) {
         onNodeMouseOver(node);
       }
-      this._currentNodeHover = node;
-      this._phyloCanvasTooltip.setNode(node);
     }
+    this._currentNodeHover = node;
+    this._phyloCanvasTooltip.setNode(node);
     this._phyloCanvasTooltip.setVisible(true, e.clientX, e.clientY);
   }
 
