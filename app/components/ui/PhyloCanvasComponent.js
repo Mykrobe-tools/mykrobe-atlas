@@ -72,12 +72,26 @@ class PhyloCanvasComponent extends Component {
     let node = candidateNodes[0];
     node.setDisplay({
       colour: Colors.COLOR_TINT_SECONDARY,
-      size: 1,
       leafStyle: {
         fillStyle: Colors.COLOR_TINT_SECONDARY
       },
     });
+    this.bringNodeToFront(node);
     return node;
+  }
+
+  bringNodeToFront(node) {
+    if ( node.parent ) {
+      const index = node.parent.children.indexOf(node);
+      const maxIndex = node.parent.children.length - 1;
+      if ( maxIndex !== index) {
+        // remove from current position
+        node.parent.children.splice(index, 1);
+        // insert at end
+        node.parent.children.push(node);
+      }
+      this.bringNodeToFront(node.parent);
+    }
   }
 
   resize() {
