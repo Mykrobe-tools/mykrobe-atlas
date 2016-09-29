@@ -15,7 +15,7 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    this._markers = [];
+    this._markers = {};
     GoogleMapsLoader.load((google) => {
       const options = {
         center: {lat: 51.5074, lng: 0.1278},
@@ -37,15 +37,37 @@ class Map extends Component {
         marker.addListener('mouseout', (e) => {
           console.log('map mouseout', sample.id, e);
         });
-        this._markers.push(marker);
+        this._markers[sample.id] = marker;
       }
     });
+  }
+
+  markerForNodeId(nodeId) {
+    return this._markers[nodeId] || null;
+  }
+
+  fromLatLngToPoint(latLng) {
+    const topRight = this._map.getProjection().fromLatLngToPoint(this._map.getBounds().getNorthEast());
+    const bottomLeft = this._map.getProjection().fromLatLngToPoint(this._map.getBounds().getSouthWest());
+    const scale = Math.pow(2, this._map.getZoom());
+    const worldPoint = this._map.getProjection().fromLatLngToPoint(latLng);
+    const x = (worldPoint.x - bottomLeft.x) * scale;
+    const y =  (worldPoint.y - topRight.y) * scale;
+    return {x, y};
   }
 
   render() {
     const {node} = this.props;
     if ( node.highlighted.length ) {
       console.log('node.highlighted', node.highlighted);
+      const nodeId = node.highlighted[0];
+      const marker = this.markerForNodeId(nodeId);
+      if ( marker ) {
+        const projection = this._map.getProjection();
+        const markerLocation = marker.getPosition();
+        const screenPosition = this.fromLatLngToPoint(markerLocation);
+        debugger
+      }
     }
     return (
       <div className={styles.container}>
