@@ -32,6 +32,14 @@ class Map extends Component {
         const lat = parseFloat(sample.locationLatLngForTest.lat);
         const lng = parseFloat(sample.locationLatLngForTest.lng);
         const marker = new google.maps.Marker({
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 10,
+            strokeWeight: 4,
+            fillColor: sample.colorForTest,
+            strokeColor: '#fff',
+            fillOpacity: 1
+          },
           position: {lat, lng},
           map: this._map
         });
