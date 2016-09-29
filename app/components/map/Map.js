@@ -144,19 +144,21 @@ class Map extends Component {
     const sampleIds = this.getSampleIds();
     let title = '';
     let action = null;
-    if ( sampleIds.length > 1 ) {
-      title = `Your sample ${sampleIds[0]} (red), nearest previous sample ${sampleIds[1]} (blue)`;
+    const sample0 = this.getSampleWithId(sampleIds[0]);
+    if ( sampleIds.length > 1 ) {//fa-circle
+      const sample1 = this.getSampleWithId(sampleIds[1]);
+      title = <div><i className="fa fa-circle" style={{color:sample0.colorForTest}}></i> {sample0.id} Your sample &middot; <i className="fa fa-circle" style={{color:sample1.colorForTest}}></i> {sample1.id} Nearest previous sample</div>
       action = <div className={styles.addButton} onClick={(e) => {this.onRemoveClicked(e);}}>Remove</div>;
     }
     else {
-      title = `Showing sample :${sampleIds[0]}`;
+      title = <div><i className="fa fa-circle" style={{color:sample0.colorForTest}}></i> {sample0.id} Your sample</div>
       action = <div className={styles.addButton} onClick={(e) => {this.onAddClicked(e);}}>Add</div>;
     }
     return (
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.headerTitle}>
-            {title} &middot; {action}
+            {title}&nbsp;&middot;&nbsp;{action}
           </div>
         </div>
         <div className={styles.mapAndPhylogenyContainer}>
