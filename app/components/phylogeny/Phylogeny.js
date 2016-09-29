@@ -28,6 +28,14 @@ class Phylogeny extends Component {
     this._samplesToHighlight = samplesToHighlight;
   }
 
+  onNodeMouseOver(node) {
+    console.log('onNodeMouseOver', node);
+  }
+
+  onNodeMouseOut(node) {
+    console.log('onNodeMouseOut', node);
+  }
+
   render() {
     // const {analyser} = this.props;
     // const everything = JSON.stringify(analyser.transformed, null, 2);
@@ -35,7 +43,13 @@ class Phylogeny extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.contentContainer}>
-          <PhyloCanvasComponent ref={(ref) => { this._phyloCanvas = ref; }} treeType="radial" data={newick} />
+          <PhyloCanvasComponent
+            ref={(ref) => { this._phyloCanvas = ref; }}
+            treeType="radial"
+            data={newick}
+            onNodeMouseOver={(node) => {this.onNodeMouseOver(node)}}
+            onNodeMouseOut={(node) => {this.onNodeMouseOut(node)}}
+          />
           <div className={styles.controlsContainer}>
             <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomSamples(); }}>
               <i className="fa fa-search"></i>
@@ -60,13 +74,15 @@ class Phylogeny extends Component {
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
+    node: state.node
   };
 }
 
 Phylogeny.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired
+  analyser: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(Phylogeny);
