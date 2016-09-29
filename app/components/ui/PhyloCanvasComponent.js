@@ -110,7 +110,12 @@ class PhyloCanvasComponent extends Component {
     if ( !node ) {
       return null;
     }
-    const translatedPoint = canvas.undoPointTranslation({x: node.centerx + node.radius / 2, y: node.centery}, this._tree);
+    // nodes are drawn such that they do not overlap with the line
+    // so we need to adjust to accomodate the additional radius to the centre of the node
+    const theta = node.radius;
+    const centerX = node.leaf ? (theta * Math.cos(node.angle)) + node.centerx : node.centerx;
+    const centerY = node.leaf ? (theta * Math.sin(node.angle)) + node.centery : node.centery;
+    const translatedPoint = canvas.undoPointTranslation({x: centerX, y: centerY}, this._tree);
     return translatedPoint;
   }
 
