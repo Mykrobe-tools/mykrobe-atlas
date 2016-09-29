@@ -1,7 +1,10 @@
 import * as ActionTypes from 'constants/ActionTypes';
 
 const initialState = {
-  tree: []
+  tree: {
+    newick: ''
+  },
+  samples: {}
 };
 
 export default function analyser(state = initialState, action = {}) {
@@ -10,6 +13,11 @@ export default function analyser(state = initialState, action = {}) {
       return {
         ...state,
         tree: action.json
+      };
+    case ActionTypes.LOAD_SAMPLES_SUCCESS:
+      return {
+        ...state,
+        samples: action.json
       };
     default:
       return state;

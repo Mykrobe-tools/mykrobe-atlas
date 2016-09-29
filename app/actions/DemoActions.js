@@ -29,3 +29,30 @@ function loadTreeSuccess(json) {
     json
   };
 }
+
+export function loadSamplesWithPath(filePath) {
+  return (dispatch, getState) => {
+    dispatch(loadSamples(filePath));
+    const dirToBin = new MykrobeLocalFileAnalyser().dirToBin();
+    const filePathJoined = path.join(dirToBin, filePath);
+    fs.readFile(filePathJoined, 'utf8', (err, data) => {
+      if (err) throw err;
+      const json = JSON.parse(data);
+      dispatch(loadSamplesSuccess(json));
+    });
+  };
+}
+
+function loadSamples(filePath) {
+  return {
+    type: ActionTypes.LOAD_SAMPLES,
+    filePath
+  };
+}
+
+function loadSamplesSuccess(json) {
+  return {
+    type: ActionTypes.LOAD_SAMPLES_SUCCESS,
+    json
+  };
+}

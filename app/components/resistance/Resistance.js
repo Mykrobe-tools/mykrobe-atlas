@@ -14,6 +14,7 @@ class Resistance extends Component {
   componentDidMount() {
     const {dispatch} = this.props;
     dispatch(DemoActions.loadTreeWithPath('tree.json'));
+    dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'));
   }
 
   render() {

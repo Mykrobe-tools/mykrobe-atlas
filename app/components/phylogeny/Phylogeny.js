@@ -6,12 +6,6 @@ import * as NodeActions from 'actions/NodeActions';
 import PhyloCanvasComponent from 'components/ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
 
-const TREE_DATA = require('static/api/zoom_tree.json');
-const TEST_DEMO_DATA = require('static/api/test_demo_data.json');
-
-// const SAMPLE_DATA = require('static/api/10091-01.json');
-// const MAX_DISTANCE = 5;
-
 class Phylogeny extends Component {
 
   constructor(props) {
@@ -33,18 +27,10 @@ class Phylogeny extends Component {
     this._samplesToHighlight = samplesToHighlight;
     */
 
-    this._samples = {};
-    let samplesToHighlight = [];
-    for (let sampleKey in TEST_DEMO_DATA) {
-      const sample = TEST_DEMO_DATA[sampleKey];
-      samplesToHighlight.push(sample.id);
-      this._samples[sample.id] = sample;
-    }
-    this._samplesToHighlight = samplesToHighlight;
   }
 
   nodeIsInSamplesToHighlight(node) {
-    const index = this._samplesToHighlight.indexOf(node.id);
+    const index = this.getSampleIds().indexOf(node.id);
     return -1 !== index;
   }
 
@@ -66,13 +52,16 @@ class Phylogeny extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
+    if ( this.props.demo.samples !== nextProps.demo.samples ) {
+      this.updateHighlightedSamples(nextProps.demo.samples);
+    }
     if ( node.highlighted.length ) {
       console.log('node.highlighted', node.highlighted);
       const nodeId = node.highlighted[0];
       const screenPosition = this._phyloCanvas.getPositionOfNodeWithId(nodeId);
       if ( screenPosition ) {
         const boundingClientRect = this._container.getBoundingClientRect();
-        this._phyloCanvasTooltip.setNode(this._samples[nodeId]);
+        this._phyloCanvasTooltip.setNode(this.getSampleWithId(nodeId));
         this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
       }
     }
@@ -107,18 +96,41 @@ class Phylogeny extends Component {
     );
   }
 
+  getSampleWithId(nodeId) {
+    const {demo} = this.props;
+    const {samples} = demo;
+    for (let sampleKey in samples) {
+      const sample = samples[sampleKey];
+      if ( sample.id === nodeId ) {
+        return sample;
+      }
+    }
+  }
+
+  getSampleIds() {
+    const {demo} = this.props;
+    const {samples} = demo;
+    let nodeIds = [];
+    for (let sampleKey in samples) {
+      const sample = samples[sampleKey];
+      nodeIds.push(sample.id);
+    }
+    return nodeIds;
+  }
+
   zoomSamples() {
-    this._phyloCanvas.zoomToNodesWithIds(this._samplesToHighlight);
+    this._phyloCanvas.zoomToNodesWithIds(this.getSampleIds());
   }
 
   componentDidMount() {
-    console.log('this._phyloCanvas', this._phyloCanvas);
-    console.log('this._phyloCanvas._tree', this._phyloCanvas._tree);
-    // this._samplesToHighlight.forEach((sample, index) => {
-    //   this._phyloCanvas.highlightNodesWithIds(this._samplesToHighlight);
-    // });
-    for (let sampleKey in TEST_DEMO_DATA) {
-      const sample = TEST_DEMO_DATA[sampleKey];
+    const {demo} = this.props;
+    const {samples} = demo;
+    this.updateHighlightedSamples(samples);
+  }
+
+  updateHighlightedSamples(samples) {
+    for (let sampleKey in samples) {
+      const sample = samples[sampleKey];
       this._phyloCanvas.highlightNodeWithId(sample.id, sample.colorForTest);
     }
   }
