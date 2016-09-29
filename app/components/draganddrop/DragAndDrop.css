@@ -42,3 +42,9 @@
 .button {
   composes: buttonOutline from "css/controls.css";
 }
+
+.progressTitle {
+  composes: fontSecondary from "css/typography.css";
+  font-size: 96px;
+  color: var(--color-grey-light);
+}

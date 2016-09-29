@@ -42,7 +42,7 @@ class CircularProgress extends Component {
 CircularProgress.defaultProps = {
   radius: 240,
   percentage: 50,
-  strokeWidth: 12
+  strokeWidth: 36
 };
 
 export default CircularProgress;

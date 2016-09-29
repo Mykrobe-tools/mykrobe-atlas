@@ -19,7 +19,7 @@ class DragAndDrop extends Component {
       content = (
         <div className={styles.promptContainer}>
           <CircularProgress percentage={analyser.progress} />
-          <div className={styles.promptTitle}>
+          <div className={styles.progressTitle}>
             {analyser.progress}%
           </div>
           <button type="button" className={styles.button} onClick={this.onCancelClick.bind(this)}>

@@ -5,13 +5,13 @@
 
 .background {
   fill: none;
-  stroke: green;
+  stroke: white;
 }
 
 .foreground {
   fill: none;
   transition: stroke-dashoffset .5s ease-in-out;
-  stroke: red;
+  stroke: var(--color-grey-light);
   transform-origin:center center;
   transform:rotate(-90deg);
 }
