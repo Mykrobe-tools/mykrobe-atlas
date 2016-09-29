@@ -1,0 +1,20 @@
+{
+    "sample1": {
+        "id": "6140-05",
+        "date": "",
+        "locationName": "London",
+        "locationLatLngForTest": {
+            "lat": "51.5074",
+            "lng": "0.1278"
+        }
+    },
+    "sample2": {
+        "id": "2028-12",
+        "date": "",
+        "locationName": "Bangalore",
+        "locationLatLngForTest": {
+            "lat": "12.97",
+            "lng": "77.59"
+        }
+    }
+}

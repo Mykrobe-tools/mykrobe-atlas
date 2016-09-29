@@ -67,12 +67,11 @@ class PhyloCanvasComponent extends Component {
 
   highlightNodeWithId(id) {
     let candidateNodes = this._tree.findLeaves(id);
-    if (!candidateNodes) {
+    if (!candidateNodes || !candidateNodes.length) {
       return false;
     }
     let node = candidateNodes[0];
     node.setDisplay({
-      colour: Colors.COLOR_TINT_SECONDARY,
       leafStyle: {
         fillStyle: Colors.COLOR_TINT_SECONDARY
       },

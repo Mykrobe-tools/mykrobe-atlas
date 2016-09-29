@@ -8,11 +8,14 @@ import PhyloCanvasComponent from 'components/ui/PhyloCanvasComponent';
 const TREE_DATA = require('static/api/tree.json');
 const SAMPLE_DATA = require('static/api/10091-01.json');
 const MAX_DISTANCE = 5;
+const TEST_DEMO_DATA = require('static/api/test_demo_data.json');
 
 class Phylogeny extends Component {
 
   constructor(props) {
     super(props);
+
+    /*
     let samplesToHighlight = [];
     for (let sampleKey in SAMPLE_DATA) {
       const sample = SAMPLE_DATA[sampleKey];
@@ -27,26 +30,40 @@ class Phylogeny extends Component {
       }
     }
     this._samplesToHighlight = samplesToHighlight;
+    */
+
+    let samplesToHighlight = [];
+    for (let sampleKey in TEST_DEMO_DATA) {
+      const sample = TEST_DEMO_DATA[sampleKey];
+      samplesToHighlight.push(sample.id);
+    }
+    this._samplesToHighlight = samplesToHighlight;
+  }
+
+  nodeIsInSamplesToHighlight(node) {
+    const index = this._samplesToHighlight.indexOf(node.id);
+    return -1 !== index;
   }
 
   onNodeMouseOver(node) {
     console.log('onNodeMouseOver', node);
     const {dispatch} = this.props;
-    dispatch(NodeActions.setNodeHighlighted(node.id, true));
+    if ( this.nodeIsInSamplesToHighlight(node)) {
+      dispatch(NodeActions.setNodeHighlighted(node.id, true));
+    }
   }
 
   onNodeMouseOut(node) {
     console.log('onNodeMouseOut', node);
     const {dispatch} = this.props;
-    dispatch(NodeActions.setNodeHighlighted(node.id, false));
+    if ( this.nodeIsInSamplesToHighlight(node)) {
+      dispatch(NodeActions.setNodeHighlighted(node.id, false));
+    }
   }
 
   render() {
-    // const {analyser} = this.props;
-    // const everything = JSON.stringify(analyser.transformed, null, 2);
     const {node} = this.props;
     const {newick} = TREE_DATA;
-    console.log('node.highlighted', node.highlighted);
     return (
       <div className={styles.container}>
         <div className={styles.contentContainer}>
