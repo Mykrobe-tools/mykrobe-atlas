@@ -14,6 +14,9 @@
   --color-grey-light: #ceccc6;
   --color-grey-mid: #9a9893;
   --color-grey-dark: #676561;
+  --color-app-red: #c30042;
+  --color-app-green: #9eab60;
+  --color-app-blue: #0f82d0;
 
   --color-rule: var(--color-grey-light);
   --color-placeholder-text: var(--color-grey-light);
@@ -25,9 +28,9 @@
   --color-background: var(--color-buff);
   --color-text: var(--color-grey-dark);
 
-  --color-susceptible: #9eab60;
-  --color-resistant: #c30042;
-  --color-inconclusive: #9a9893;
+  --color-susceptible: var(--color-app-green);
+  --color-resistant: var(--color-app-red);
+  --color-inconclusive: var(--color-grey-mid);
 
 }
 

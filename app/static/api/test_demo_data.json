@@ -6,15 +6,17 @@
         "locationLatLngForTest": {
             "lat": "51.5074",
             "lng": "0.1278"
-        }
+        },
+        "colorForTest": "#c30042"
     },
     "sample2": {
-        "id": "2028-12",
+        "id": "2098-12",
         "date": "28 September 2016",
         "locationName": "Bangalore",
         "locationLatLngForTest": {
             "lat": "12.97",
             "lng": "77.59"
-        }
+        },
+        "colorForTest": "#0f82d0"
     }
 }

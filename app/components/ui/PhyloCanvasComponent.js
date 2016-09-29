@@ -61,9 +61,9 @@ class PhyloCanvasComponent extends Component {
     this._tree.draw();
   }
 
-  highlightNodesWithIds(ids) {
+  highlightNodesWithIds(ids, color = Colors.COLOR_TINT_SECONDARY) {
     ids.forEach((id, index) => {
-      this.highlightNodeWithId(id);
+      this.highlightNodeWithId(id, color);
     });
     return this;
   }
@@ -77,14 +77,14 @@ class PhyloCanvasComponent extends Component {
     return node;
   }
 
-  highlightNodeWithId(nodeId) {
+  highlightNodeWithId(nodeId, color = Colors.COLOR_TINT_SECONDARY) {
     const node = this.getNodeWithId(nodeId);
     if ( !node ) {
       return;
     }
     node.setDisplay({
       leafStyle: {
-        fillStyle: Colors.COLOR_TINT_SECONDARY
+        fillStyle: color
       },
     });
     this.bringNodeToFront(node);

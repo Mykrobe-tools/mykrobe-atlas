@@ -6,10 +6,11 @@ import * as NodeActions from 'actions/NodeActions';
 import PhyloCanvasComponent from 'components/ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
 
-const TREE_DATA = require('static/api/tree.json');
-const SAMPLE_DATA = require('static/api/10091-01.json');
-const MAX_DISTANCE = 5;
+const TREE_DATA = require('static/api/zoom_tree.json');
 const TEST_DEMO_DATA = require('static/api/test_demo_data.json');
+
+// const SAMPLE_DATA = require('static/api/10091-01.json');
+// const MAX_DISTANCE = 5;
 
 class Phylogeny extends Component {
 
@@ -113,7 +114,13 @@ class Phylogeny extends Component {
   componentDidMount() {
     console.log('this._phyloCanvas', this._phyloCanvas);
     console.log('this._phyloCanvas._tree', this._phyloCanvas._tree);
-    this._phyloCanvas.highlightNodesWithIds(this._samplesToHighlight);
+    // this._samplesToHighlight.forEach((sample, index) => {
+    //   this._phyloCanvas.highlightNodesWithIds(this._samplesToHighlight);
+    // });
+    for (let sampleKey in TEST_DEMO_DATA) {
+      const sample = TEST_DEMO_DATA[sampleKey];
+      this._phyloCanvas.highlightNodeWithId(sample.id, sample.colorForTest);
+    }
   }
 
   componentWillUnmount() {
