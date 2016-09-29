@@ -7,9 +7,17 @@ import * as AnalyserActions from 'actions/AnalyserActions';
 import MykrobeConfig from 'api/MykrobeConfig';
 import * as TargetConstants from 'constants/TargetConstants';
 
+import * as DemoActions from 'actions/DemoActions';
+
 class Resistance extends Component {
+
+  componentDidMount() {
+    const {dispatch} = this.props;
+    dispatch(DemoActions.loadTreeWithPath('tree.json'));
+  }
+
   render() {
-    const {dispatch, analyser, children} = this.props;
+    const {analyser, children} = this.props;
     if ( !analyser.transformed ) {
       return null;
     }

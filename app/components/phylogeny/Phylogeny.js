@@ -82,8 +82,8 @@ class Phylogeny extends Component {
   }
 
   render() {
-    const {node} = this.props;
-    const {newick} = TREE_DATA;
+    const {node, demo} = this.props;
+    const {newick} = demo.tree;
     return (
       <div className={styles.container}>
         <div className={styles.contentContainer} ref={(ref) => { this._container = ref; }}>
@@ -132,14 +132,16 @@ class Phylogeny extends Component {
 function mapStateToProps(state) {
   return {
     analyser: state.analyser,
-    node: state.node
+    node: state.node,
+    demo: state.demo
   };
 }
 
 Phylogeny.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired
+  node: PropTypes.object.isRequired,
+  demo:  PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(Phylogeny);
