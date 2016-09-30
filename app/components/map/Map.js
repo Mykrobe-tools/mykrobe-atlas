@@ -131,7 +131,7 @@ class Map extends Component {
   }
 
   onRemoveClicked(e) {
-    console.log('onAddClicked');
+    console.log('onRemoveClicked');
     const {dispatch} = this.props;
     dispatch(NodeActions.unsetNodeHighlightedAll());
     dispatch(DemoActions.loadTreeWithPath('tree.json'));
@@ -148,11 +148,11 @@ class Map extends Component {
     if ( sampleIds.length > 1 ) {//fa-circle
       const sample1 = this.getSampleWithId(sampleIds[1]);
       title = <div><i className="fa fa-circle" style={{color:sample0.colorForTest}}></i> {sample0.id} Your sample &middot; <i className="fa fa-circle" style={{color:sample1.colorForTest}}></i> {sample1.id} Nearest previous sample</div>
-      action = <div className={styles.addButton} onClick={(e) => {this.onRemoveClicked(e);}}>Remove</div>;
+      action = <div className={styles.addButton} onClick={(e) => {this.onRemoveClicked(e);}}>Reset</div>;
     }
     else {
       title = <div><i className="fa fa-circle" style={{color:sample0.colorForTest}}></i> {sample0.id} Your sample</div>
-      action = <div className={styles.addButton} onClick={(e) => {this.onAddClicked(e);}}>Add</div>;
+      action = <div className={styles.addButton} onClick={(e) => {this.onAddClicked(e);}}>Compare</div>;
     }
     return (
       <div className={styles.container}>

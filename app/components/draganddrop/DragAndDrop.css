@@ -35,6 +35,9 @@
   composes: fontSecondary from "css/typography.css";
   position:absolute;
   bottom: 140px;
+  left: 64px;
+  right: 64px;
+  text-align: center;
 }
 
 .buttonContainer {
