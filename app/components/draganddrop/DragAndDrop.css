@@ -24,15 +24,29 @@
   flex-direction: column;
 }
 
+.progressTextContainer {
+  composes: containerAbsolute from "css/layout.css";
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.progressStatus {
+  composes: fontSecondary from "css/typography.css";
+  position:absolute;
+  bottom: 140px;
+}
+
+.buttonContainer {
+  position:absolute;
+  bottom: 64px;
+}
+
 .promptIcon {
   background:url(static/drag-and-drop-arrow.svg);
   width: 104px;
   height: 128px;
-}
-
-.promptTitle {
-  composes: fontSizeLarge from "css/typography.css";
-  padding: 36px 0;
+  margin-bottom:64px;
 }
 
 .backButton {
@@ -47,4 +61,58 @@
   composes: fontSecondary from "css/typography.css";
   font-size: 96px;
   color: var(--color-grey-light);
+}
+
+.dots {
+  composes: containerAbsolute from "css/layout.css";
+  pointer-events: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.dot {
+  opacity: 0;
+  border-radius: 500px;
+  width:48px;
+  height:48px;
+  margin:12px;
+  background-color: var(--color-grey-light);
+  animation-timing-function: ease-in;
+}
+
+.dotOne {
+  composes: dot;
+  animation: dotone 1.2s infinite;
+}
+
+.dotTwo {
+  composes: dot;
+  animation: dottwo 1.2s infinite;
+}
+
+.dotThree {
+  composes: dot;
+  animation: dotthree 1.2s infinite;
+}
+
+@keyframes dotone {
+			0% { opacity: 0; }
+		 20% { opacity: 0; }
+		 60% { opacity: 1; }
+		100% { opacity: 1; }
+}
+
+@keyframes dottwo {
+			0% { opacity: 0; }
+		 30% { opacity: 0; }
+		 70% { opacity: 1; }
+		100% { opacity: 1; }
+}
+
+@keyframes dotthree {
+			0% { opacity: 0; }
+		 40% { opacity: 0; }
+		 80% { opacity: 1; }
+		100% { opacity: 1; }
 }

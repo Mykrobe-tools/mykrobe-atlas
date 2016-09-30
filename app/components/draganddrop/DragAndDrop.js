@@ -16,15 +16,36 @@ class DragAndDrop extends Component {
     const {analyser} = this.props;
     let content;
     if ( analyser.analysing ) {
+      const {progress} = analyser;
+      let statusText = 'Constructing genome';
+      if (0 === progress) {
+        statusText = 'Analysing';
+      }
+      else if (100 === progress) {
+        statusText = 'Check species and scan for resistance';
+      }
       content = (
         <div className={styles.promptContainer}>
-          <CircularProgress percentage={analyser.progress} />
-          <div className={styles.progressTitle}>
-            {analyser.progress}%
+          {(0 === progress || 100 === progress) ? (
+            <div className={styles.dots}>
+              <div className={styles.dotOne}></div>
+              <div className={styles.dotTwo}></div>
+              <div className={styles.dotThree}></div>
+            </div>
+          ) : (
+            <div className={styles.progressTitle}>
+              {analyser.progress}%
+            </div>
+          )}
+          <CircularProgress percentage={progress} />
+          <div className={styles.progressStatus}>
+            {statusText}
           </div>
-          <button type="button" className={styles.button} onClick={this.onCancelClick.bind(this)}>
-            Cancel
-          </button>
+          <div className={styles.buttonContainer}>
+            <button type="button" className={styles.button} onClick={this.onCancelClick.bind(this)}>
+              Cancel
+            </button>
+          </div>
         </div>
       );
     }
@@ -32,12 +53,14 @@ class DragAndDrop extends Component {
       content = (
         <div className={styles.promptContainer}>
           <div className={styles.promptIcon} />
-          <div className={styles.promptTitle}>
+          <div className={styles.progressStatus}>
             Drag file here to analyse
           </div>
-          <button type="button" className={styles.button} onClick={this.onOpenClick.bind(this)}>
-            Browse...
-          </button>
+          <div className={styles.buttonContainer}>
+            <button type="button" className={styles.button} onClick={this.onOpenClick.bind(this)}>
+              Browse...
+            </button>
+          </div>
         </div>
       );
     }
