@@ -3,13 +3,17 @@ import { connect } from 'react-redux';
 import styles from './ResistanceAll.css';
 import ResistanceProfile from 'components/resistance/ResistanceProfile';
 import Panel from  'components/ui/Panel';
+import Phylogeny from 'components/phylogeny/Phylogeny';
 
 class ResistanceAll extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <Panel title="Resistance Profile" columns={8}>
+        <Panel title="Resistance Profile" columns={3}>
           <ResistanceProfile />
+        </Panel>
+        <Panel title="Phylogeny" columns={5}>
+          <Phylogeny />
         </Panel>
       </div>
     );
