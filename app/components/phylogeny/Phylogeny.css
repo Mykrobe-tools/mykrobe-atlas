@@ -24,3 +24,21 @@
 .zoomControlText {
   composes: overlayControlText from "css/controls.css";
 }
+
+.demoTreeTypeContainer {
+  position:absolute;
+  right:0;
+  top:0;
+  z-index:1;
+  padding: 30px;
+}
+
+.demoTreeTypeSelected {
+  cursor: pointer;
+  color: var(--color-grey-mid);
+}
+
+.demoTreeType {
+  cursor: pointer;
+  color: var(--color-grey-light);
+}

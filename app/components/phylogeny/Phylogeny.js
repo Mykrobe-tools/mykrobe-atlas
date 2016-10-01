@@ -6,6 +6,8 @@ import * as NodeActions from 'actions/NodeActions';
 import PhyloCanvasComponent from 'components/ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
 
+const treeTypes = ['radial', 'rectangular', 'circular', 'diagonal', 'hierarchy'];
+
 class Phylogeny extends Component {
 
   constructor(props) {
@@ -27,6 +29,10 @@ class Phylogeny extends Component {
     this._samplesToHighlight = samplesToHighlight;
     */
 
+    // radial, rectangular, circular, diagonal and hierarchy
+    this.state = {
+      treeType: 'radial'
+    }
   }
 
   nodeIsInSamplesToHighlight(node) {
@@ -53,7 +59,9 @@ class Phylogeny extends Component {
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
     if ( this.props.demo.samples !== nextProps.demo.samples ) {
-      this.updateHighlightedSamples(nextProps.demo.samples);
+      setTimeout(() => {
+        this.updateHighlightedSamples(nextProps.demo.samples);
+      },0);
     }
     if ( node.highlighted.length ) {
       console.log('node.highlighted', node.highlighted);
@@ -72,13 +80,14 @@ class Phylogeny extends Component {
 
   render() {
     const {node, demo} = this.props;
+    const {treeType} = this.state;
     const {newick} = demo.tree;
     return (
       <div className={styles.container}>
         <div className={styles.contentContainer} ref={(ref) => { this._container = ref; }}>
           <PhyloCanvasComponent
             ref={(ref) => { this._phyloCanvas = ref; }}
-            treeType="radial"
+            treeType={treeType}
             data={newick}
             displayTooltip={false}
             onNodeMouseOver={(node) => {this.onNodeMouseOver(node)}}
@@ -89,6 +98,16 @@ class Phylogeny extends Component {
               <i className="fa fa-search"></i>
               <div className={styles.zoomControlText}>Fit samples</div>
             </div>
+          </div>
+          <div className={styles.demoTreeTypeContainer}>
+            {treeTypes.map((thisTreeType, index) =>
+              <div className={thisTreeType===treeType ? styles.demoTreeTypeSelected : styles.demoTreeType} key={index} onClick={(e) => {
+                this.setState({treeType: thisTreeType});
+                setTimeout(() => {
+                  this.updateHighlightedSamples(demo.samples);
+                },0);
+              }}>{thisTreeType}</div>
+            )}
           </div>
           <PhyloCanvasTooltip ref={(ref) => {this._phyloCanvasTooltip = ref;}} />
         </div>
