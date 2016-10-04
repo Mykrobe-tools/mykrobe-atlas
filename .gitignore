@@ -30,16 +30,16 @@ node_modules
 .DS_Store
 
 # App packaged
-dist
-release
+electron/dist/*
+electron/release/*
 main.js
 main.js.map
-static/*
-!static/bin/*
-!static/package.json
+electron/static
+!electron/static/bin/*
+!electron/static/package.json
 
 # Visual Studio
 .vscode
 
 # Mykrobe
-static/bin/**/*.ctx
+electron/static/bin/**/*.ctx

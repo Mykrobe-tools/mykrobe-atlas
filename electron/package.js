@@ -8,7 +8,7 @@ const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
 const argv = require('minimist')(process.argv.slice(2));
-const pkg = require('./package.json');
+const pkg = require('../package.json');
 const path = require('path');
 const deps = Object.keys(pkg.dependencies);
 const devDeps = Object.keys(pkg.devDependencies);
@@ -19,11 +19,11 @@ const shouldBuildAll = argv.all || false;
 const icon = path.resolve(__dirname, `resources/icon/${pkg.targetName}/icon`);
 
 const DEFAULT_OPTS = {
-  dir: './static',
+  dir:  path.resolve(__dirname, './static'),
   name: pkg.productName,
   icon: icon,
   asar: shouldUseAsar,
-  'extend-info': './resources/plist/extend-info.plist',
+  'extend-info': path.resolve(__dirname, './resources/plist/extend-info.plist'),
   ignore: [
     '^/test($|/)',
     '^/release($|/)',

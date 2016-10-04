@@ -6,7 +6,7 @@ const exec = require('child_process').exec;
 
 let promises = [];
 targets.forEach((target, index) => {
-  const iconPath = path.resolve(__dirname, `../resources/icon/${target.value}`);
+  const iconPath = path.resolve(__dirname, `../electron/resources/icon/${target.value}`);
   // generate mac, then windows which is using the generated mac pngs
   promises.push(generateIconsMac(iconPath).then(() => {
     generateIconsWindows(iconPath);

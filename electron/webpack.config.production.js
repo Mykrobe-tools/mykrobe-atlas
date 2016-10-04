@@ -10,7 +10,7 @@ const config = merge(baseConfig('production'), {
   entry: './app/index',
 
   output: {
-    publicPath: '../static/'
+    publicPath: '../electron/static/'
   },
 
   module: {

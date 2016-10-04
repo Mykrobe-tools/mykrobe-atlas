@@ -38,7 +38,7 @@ function baseConfig(env = 'development') {
     },
     resolve: {
       root: [
-        path.resolve('./app')
+        path.resolve(__dirname, '../app')
       ],
       extensions: ['', '.js', '.jsx', '.json'],
       packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
