@@ -32,13 +32,12 @@ function baseConfig(env = 'development') {
       }]
     },
     output: {
-      path: path.join(__dirname, 'static'),
       filename: 'bundle.js',
       libraryTarget: 'commonjs2'
     },
     resolve: {
       root: [
-        path.resolve(__dirname, '../app')
+        path.resolve(__dirname, 'app')
       ],
       extensions: ['', '.js', '.jsx', '.json'],
       packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']

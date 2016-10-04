@@ -1,11 +1,15 @@
 import webpack from 'webpack';
 import merge from 'webpack-merge';
-import baseConfig from './webpack.config.base';
+import baseConfig from './webpack.config.production';
+import path from 'path';
 
-export default merge(baseConfig('production'), {
+export default merge(baseConfig, {
   devtool: 'source-map',
 
-  entry: ['babel-polyfill', './app/main.development'],
+  entry: [
+    'babel-polyfill',
+    path.resolve(__dirname, '../app/main.development')
+  ],
 
   output: {
     path: __dirname,
