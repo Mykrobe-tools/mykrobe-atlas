@@ -6,25 +6,25 @@
 
 First, clone the repo then install dependencies.
 
-```bash
-$ npm install
-```
+	```
+	$ npm install
+	```
 
 ## Set target
 
 Selects which version of the app you will target for development, test or package. Targets are defined in `/targets.json`
 
-```bash
-$ npm run set-target
-```
+	```
+	$ npm run set-target
+	```
 
 ## Run development version
 
 This will launch a local dev server and instance of the app. This has DevTools enabled and supports hot (live) reloading of modified files.
 
-```bash
-$ npm run dev
-```
+	```
+	$ npm run electron-dev
+	```
 
 ## DevTools
 
@@ -48,7 +48,7 @@ You can find the tabs on Chrome DevTools.
 
 If you want to update extensions version, please set `UPGRADE_EXTENSIONS` env, just run:
 
-```bash
+```
 $ UPGRADE_EXTENSIONS=1 npm run dev
 
 # For Windows
@@ -61,7 +61,7 @@ If you use any 3rd party libraries which can't be built with webpack, you must l
 
 ```javascript
 externals: [
-  // put your node 3rd party libraries which can't be built with webpack here 
+  // put your node 3rd party libraries which can't be built with webpack here
   // (mysql, mongodb, and so on..)
 ]
 ```
@@ -80,35 +80,33 @@ css-modules loader. e.g. `app.global.css`
 
 ## Generate app icons
 
-Takes the master PDF artwork from `/resources/icon` and generates Mac and Windows icons.
+Takes the master PDF artwork from `electron/resources/icon` and generates Mac and Windows icons.
 
-```bash
-$ npm run generate-icons
-```
+	```
+	$ npm run generate-icons
+	```
 
 ### Dependencies
 
-* current version of Imagemagick 
+* current version of Imagemagick
 
 	```
 	$ brew install imagemagick
 	```
 
-* current version of Ghostscript 
+* current version of Ghostscript
 
 	```
 	$ brew install ghostscript
 	```
 
-
-
 ## Build for deployment
 
 Build for current platform:
 
-```bash
-$ npm run package
-```
+	```
+	$ npm run electron-package
+	```
 
 To build apps for all platforms:
 
@@ -117,13 +115,14 @@ To build apps for all platforms:
 	```
 	$ brew install wine
 	```
+
 2. Package
 
-	```bash
-	$ npm run package-all
+	```
+	$ npm run electron-package-all
 	```
 
-3. After build, you will find them in `release` folder. Otherwise, you will only find one for your os.
+3. After build, you will find them in `electron/release` folder. Otherwise, you will only find one for your os.
 
 > **Note:** `test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
 
