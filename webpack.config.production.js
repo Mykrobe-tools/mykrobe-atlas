@@ -52,12 +52,7 @@ const config = merge(baseConfig('production'), {
         warnings: false
       }
     }),
-    new ExtractTextPlugin('style.css', { allChunks: true }),
-    new HtmlWebpackPlugin({
-      filename: 'app.html',
-      template: 'app/app.html',
-      inject: false
-    })
+    new ExtractTextPlugin('style.css', { allChunks: true })
   ],
 
   target: 'electron-renderer'

@@ -53,7 +53,7 @@ function setTarget(targetName) {
     return console.error(`Target with value '${targetName}' not found in targets.json`);
   }
 
-  const devHtmlPath = path.resolve(__dirname, '../app/app.html');
+  const devHtmlPath = path.resolve(__dirname, '../app/electron.html');
 
   // change the bundled settings in /package.json
   rootPackageJson.targetName = targetName;
