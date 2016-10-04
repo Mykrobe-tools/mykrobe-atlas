@@ -53,9 +53,7 @@ const config = merge(baseConfig('production'), {
       }
     }),
     new ExtractTextPlugin('style.css', { allChunks: true })
-  ],
-
-  target: 'electron-renderer'
+  ]
 });
 
 export default config;

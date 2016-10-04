@@ -43,7 +43,5 @@ export default merge(baseConfig('development'), {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     })
-  ],
-
-  target: 'electron-renderer'
+  ]
 });
