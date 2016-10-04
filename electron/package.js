@@ -72,7 +72,7 @@ function startPack() {
   console.log('start pack...');
   build(electronCfg)
     .then(() => build(cfg))
-    .then(() => del('release'))
+    .then(() => del(path.resolve(__dirname, 'release')))
     .then((paths) => {
       if (shouldBuildAll) {
         // build for all platforms
@@ -119,7 +119,7 @@ function pack(plat, arch, cb) {
     arch,
     prune: true,
     'app-version': pkg.version || DEFAULT_OPTS.version,
-    out: `release/${plat}-${arch}`
+    out: path.resolve(__dirname, `release/${plat}-${arch}`)
   });
 
   console.log(JSON.stringify(opts, null, 2));
