@@ -8,10 +8,10 @@ function baseConfig(env = 'development') {
   const JS_LOADERS =
     STRIP_CONSOLE_LOG
     ? [
-      'babel-loader',
+      'babel',
       'strip-loader?strip[]=debug,strip[]=debugger,strip[]=console.log'
     ]
-    : ['babel-loader'];
+    : ['babel'];
   return {
     module: {
       loaders: [{
@@ -23,18 +23,17 @@ function baseConfig(env = 'development') {
         loader: 'json-loader'
       }, {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader?limit=100000&mimetype=application/font-woff"
+        loader: 'url-loader?limit=100000&mimetype=application/font-woff'
       }, {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader?limit=100000"
+        loader: 'url-loader?limit=100000'
       }, {
         test: /\.(png)$/,
         loader: 'url-loader?limit=100000'
       }]
     },
     output: {
-      filename: 'bundle.js',
-      libraryTarget: 'commonjs2'
+      filename: 'bundle.js'
     },
     resolve: {
       root: [

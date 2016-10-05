@@ -17,3 +17,15 @@ render(
   </Provider>,
   document.getElementById('root')
 );
+
+if (module.hot) {
+  module.hot.accept('./routes', () => {
+    const routes = require('./routes');
+    render(
+      <Provider store={store}>
+        <Router history={history} routes={routes} />
+      </Provider>,
+      document.getElementById('root')
+    );
+  });
+}
