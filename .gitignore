@@ -34,7 +34,7 @@ electron/dist/*
 electron/release/*
 main.js
 main.js.map
-electron/static
+electron/static/*
 !electron/static/bin/*
 !electron/static/package.json
 
