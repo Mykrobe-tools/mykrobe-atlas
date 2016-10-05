@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './DragAndDrop.css';
-import * as UIHelpers from 'helpers/UIHelpers';
 import * as AnalyserActions from 'actions/AnalyserActions';
 import AnimatedBackground from './AnimatedBackground';
 import CircularProgress from './CircularProgress';
@@ -15,7 +14,7 @@ class DragAndDrop extends Component {
   render() {
     const {analyser} = this.props;
     let content;
-    if ( analyser.analysing ) {
+    if (analyser.analysing) {
       const {progress} = analyser;
       let statusText = 'Constructing genome';
       if (0 === progress) {
@@ -28,9 +27,9 @@ class DragAndDrop extends Component {
         <div className={styles.promptContainer}>
           {(0 === progress || 100 === progress) ? (
             <div className={styles.dots}>
-              <div className={styles.dotOne}></div>
-              <div className={styles.dotTwo}></div>
-              <div className={styles.dotThree}></div>
+              <div className={styles.dotOne} />
+              <div className={styles.dotTwo} />
+              <div className={styles.dotThree} />
             </div>
           ) : (
             <div className={styles.progressTitle}>
@@ -61,6 +60,15 @@ class DragAndDrop extends Component {
               Browse...
             </button>
           </div>
+          <input
+            ref={(ref) => { this._fileInput = ref; }}
+            onChange={(e) => {
+              this.fileInputChanged(e);
+            }}
+            type="file"
+            accept=".json,.bam,.gz,.fastq"
+            style={{position: 'fixed', top: '-100em'}}
+          />
         </div>
       );
     }
@@ -74,10 +82,18 @@ class DragAndDrop extends Component {
 
   onOpenClick(e) {
     console.log('onOpenClick');
+    this._fileInput.click();
+  }
+
+  fileInputChanged(e) {
     const {dispatch} = this.props;
-    const filePath = UIHelpers.openFileDialog();
-    if (filePath) {
-      dispatch(AnalyserActions.analyseFileWithPath(filePath));
+    console.log('fileInputChanged', e);
+    console.log('this._fileInput.files', this._fileInput.files);
+    if (this._fileInput.files && this._fileInput.files.length > 0) {
+      const filePath = this._fileInput.files[0].path;
+      if (filePath) {
+        dispatch(AnalyserActions.analyseFileWithPath(filePath));
+      }
     }
   }
 

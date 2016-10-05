@@ -1,56 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Header from 'components/header/Header';
 import styles from './App.css';
-import fs from 'fs';
 import Dropzone from 'react-dropzone';
 import * as AnalyserActions from 'actions/AnalyserActions';
-import * as UIHelpers from 'helpers/UIHelpers';
-import { push } from 'react-router-redux';
+import Header from 'components/header/Header';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    const {dispatch} = props;
-    const ipcRenderer = require('electron').ipcRenderer;
     this.state = {
       isDragActive: false
     };
-
-    ipcRenderer.on('open-file', (e, filePath) => {
-      console.log('App open-file');
-      if (filePath) {
-        dispatch(AnalyserActions.analyseFileWithPath(filePath));
-      }
-    });
-
-    ipcRenderer.on('menu-file-new', (e) => {
-      dispatch(push('/'));
-    });
-
-    ipcRenderer.on('menu-file-open', (e) => {
-      const filePath = UIHelpers.openFileDialog();
-      if (filePath) {
-        dispatch(AnalyserActions.analyseFileWithPath(filePath));
-      }
-    });
-
-    ipcRenderer.on('menu-file-save-as', (e) => {
-      const filePath = UIHelpers.saveFileDialog('mykrobe.json');
-      if (filePath) {
-        const {analyser} = this.props;
-        const json = JSON.stringify(analyser.json, null, 2);
-        fs.writeFile(filePath, json, (err) => {
-          if (err) {
-            console.log(err);
-          }
-          else {
-            console.log('JSON saved to ', filePath);
-          }
-        });
-      }
-    });
-    console.log('onSaveClick');
   }
 
   onDragLeave(e) {
@@ -89,22 +49,10 @@ class App extends Component {
   }
 
   render() {
-    const { isDragActive } = this.state;
-    const {analyser, children} = this.props;
+    const {isDragActive} = this.state;
+    const {children} = this.props;
     const disableClick = true;
     const multiple = false;
-
-    /*
-    Get application menu and disable save as...
-    TODO: move this into its own component using redux state to change menu state
-    */
-
-    const remote = require('electron').remote;
-    const menu = remote.Menu.getApplicationMenu();
-    if ('darwin' === process.platform) {
-      const canSave = (false !== analyser.json);
-      menu.items[1].submenu.items[4].enabled = canSave;
-    }
 
     return (
       <div className={styles.container}>

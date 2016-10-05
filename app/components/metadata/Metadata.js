@@ -11,9 +11,9 @@ const drugs = require('static/drugs.json');
 class Metadata extends Component {
   constructor(props) {
     super(props);
-    const app = require('electron').remote.app;
-    const locale = app.getLocale();
-    console.log('locale', locale); // returns en-US
+    // const app = require('electron').remote.app;
+    // const locale = app.getLocale();
+    // console.log('locale', locale); // returns en-US
     this.state = {
       location: 'GB',
       date: moment(),

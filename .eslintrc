@@ -35,5 +35,8 @@
         "config": "webpack.config.eslint.js"
       }
     }
+  },
+  "globals": {
+    "IS_ELECTRON": true
   }
 }

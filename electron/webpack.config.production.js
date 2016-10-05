@@ -18,6 +18,9 @@ const config = merge(baseConfig, {
       filename: 'electron.html',
       template: path.resolve(__dirname, '../app/electron.html'),
       inject: false
+    }),
+    new webpack.DefinePlugin({
+      IS_ELECTRON: JSON.stringify(true)
     })
   ],
 

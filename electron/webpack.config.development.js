@@ -16,5 +16,11 @@ export default merge(baseConfig, {
     publicPath: 'http://localhost:3000/static/'
   },
 
+  plugins: [
+    new webpack.DefinePlugin({
+      IS_ELECTRON: JSON.stringify(true)
+    })
+  ],
+
   target: 'electron-renderer'
 });

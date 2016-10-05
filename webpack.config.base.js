@@ -1,3 +1,4 @@
+import webpack from 'webpack';
 import path from 'path';
 
 function baseConfig(env = 'development') {
@@ -43,7 +44,9 @@ function baseConfig(env = 'development') {
       packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
     },
     plugins: [
-
+      new webpack.DefinePlugin({
+        IS_ELECTRON: JSON.stringify(false)
+      })
     ],
     externals: [
       // put your node 3rd party libraries which can't be built with webpack here

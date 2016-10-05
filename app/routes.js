@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
-import App from './containers/App';
 import DragAndDropPage from './containers/DragAndDropPage';
 import AnalysingPage from './containers/AnalysingPage';
 
@@ -17,6 +16,8 @@ import ResistanceEvidence from './components/resistance/ResistanceEvidence';
 import ResistanceSpecies from './components/resistance/ResistanceSpecies';
 import Share from './components/share/Share';
 import Summary from './components/summary/Summary';
+
+const App = IS_ELECTRON ? require('./containers/AppElectron') : require('./containers/App');
 
 export default (
   <Route path="/" component={App}>
