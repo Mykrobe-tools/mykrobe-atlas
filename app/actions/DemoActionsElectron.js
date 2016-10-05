@@ -1,18 +1,17 @@
 import * as ActionTypes from 'constants/ActionTypes';
-import fetch from 'isomorphic-fetch';
+import MykrobeLocalFileAnalyser from 'api/MykrobeLocalFileAnalyser';
+import path from 'path';
+import fs from 'fs';
 
 export function loadTreeWithPath(filePath) {
   return (dispatch, getState) => {
     dispatch(loadTree(filePath));
-    return fetch(`http://localhost:3000/demo/${filePath}`)
-    .then((response) => {
-      if (response.ok) {
-        const json = response.json();
-        dispatch(loadTreeSuccess(json));
-      }
-      else {
-        return Promise.reject(response.statusText);
-      }
+    const dirToBin = new MykrobeLocalFileAnalyser().dirToBin();
+    const filePathJoined = path.join(dirToBin, filePath);
+    fs.readFile(filePathJoined, 'utf8', (err, data) => {
+      if (err) throw err;
+      const json = JSON.parse(data);
+      dispatch(loadTreeSuccess(json));
     });
   };
 }
@@ -34,15 +33,12 @@ function loadTreeSuccess(json) {
 export function loadSamplesWithPath(filePath) {
   return (dispatch, getState) => {
     dispatch(loadSamples(filePath));
-    return fetch(`http://localhost:3000/demo/${filePath}`)
-    .then((response) => {
-      if (response.ok) {
-        const json = response.json();
-        dispatch(loadSamplesSuccess(json));
-      }
-      else {
-        return Promise.reject(response.statusText);
-      }
+    const dirToBin = new MykrobeLocalFileAnalyser().dirToBin();
+    const filePathJoined = path.join(dirToBin, filePath);
+    fs.readFile(filePathJoined, 'utf8', (err, data) => {
+      if (err) throw err;
+      const json = JSON.parse(data);
+      dispatch(loadSamplesSuccess(json));
     });
   };
 }

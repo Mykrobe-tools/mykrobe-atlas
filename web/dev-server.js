@@ -25,8 +25,17 @@ app.use(wdm);
 
 app.use(webpackHotMiddleware(compiler));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../app/web.html'));
+// static assets for demo
+app.use('/demo/', express.static(path.resolve(__dirname, 'demo')));
+
+// serve html
+app.get('/', (req, res, next) => {
+  if (req.accepts('html')) {
+    res.sendFile(path.resolve(__dirname, '../app/web.html'));
+  }
+  else {
+    next();
+  }
 });
 
 const server = app.listen(port, host, (err) => {

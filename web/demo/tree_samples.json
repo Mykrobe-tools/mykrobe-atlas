@@ -1,0 +1,12 @@
+{
+    "sample1": {
+        "id": "6140-05",
+        "date": "29 September 2016",
+        "locationName": "London",
+        "locationLatLngForTest": {
+            "lat": "51.5074",
+            "lng": "0.1278"
+        },
+        "colorForTest": "#c30042"
+    }
+}

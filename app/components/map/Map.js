@@ -5,7 +5,8 @@ import Phylogeny from 'components/phylogeny/Phylogeny';
 import { connect } from 'react-redux';
 import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
 import * as NodeActions from 'actions/NodeActions';
-import * as DemoActions from 'actions/DemoActions';
+
+const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions');
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc';
 
@@ -21,7 +22,7 @@ class Map extends Component {
       const options = {
         center: {lat: 51.5074, lng: 0.1278},
         zoom: 3
-      }
+      };
       this._map = new google.maps.Map(this._mapDiv, options);
       this.updateMarkers(this.props.demo.samples);
     });
@@ -32,7 +33,7 @@ class Map extends Component {
     const {samples} = demo;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      if ( sample.id === nodeId ) {
+      if (sample.id === nodeId) {
         return sample;
       }
     }
@@ -51,8 +52,8 @@ class Map extends Component {
 
   updateMarkers(samples) {
     const {dispatch} = this.props;
-    if ( this._markers ) {
-      for ( let markerKey in this._markers ) {
+    if (this._markers) {
+      for (let markerKey in this._markers) {
         const marker = this._markers[markerKey];
         marker.setMap(null);
       }
@@ -96,20 +97,20 @@ class Map extends Component {
     const scale = Math.pow(2, this._map.getZoom());
     const worldPoint = this._map.getProjection().fromLatLngToPoint(latLng);
     const x = (worldPoint.x - bottomLeft.x) * scale;
-    const y =  (worldPoint.y - topRight.y) * scale;
+    const y = (worldPoint.y - topRight.y) * scale;
     return {x, y};
   }
 
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
-    if ( this.props.demo.samples !== nextProps.demo.samples ) {
+    if (this.props.demo.samples !== nextProps.demo.samples) {
       this.updateMarkers(nextProps.demo.samples);
     }
-    if ( node.highlighted.length ) {
+    if (node.highlighted.length) {
       console.log('node.highlighted', node.highlighted);
       const nodeId = node.highlighted[0];
       const marker = this.markerForNodeId(nodeId);
-      if ( marker ) {
+      if (marker) {
         const markerLocation = marker.getPosition();
         const screenPosition = this.fromLatLngToPoint(markerLocation);
         const boundingClientRect = this._mapDiv.getBoundingClientRect();
@@ -145,14 +146,14 @@ class Map extends Component {
     let title = '';
     let action = null;
     const sample0 = this.getSampleWithId(sampleIds[0]);
-    if ( sampleIds.length > 1 ) {//fa-circle
+    if (sampleIds.length > 1) { // fa-circle
       const sample1 = this.getSampleWithId(sampleIds[1]);
-      title = <div><i className="fa fa-circle" style={{color:sample0.colorForTest}}></i> {sample0.id} Your sample &middot; <i className="fa fa-circle" style={{color:sample1.colorForTest}}></i> {sample1.id} Nearest previous sample</div>
-      action = <div className={styles.addButton} onClick={(e) => {this.onRemoveClicked(e);}}>Reset</div>;
+      title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample &middot; <i className="fa fa-circle" style={{color: sample1.colorForTest}} /> {sample1.id} Nearest previous sample</div>;
+      action = <div className={styles.addButton} onClick={(e) => { this.onRemoveClicked(e); }}>Reset</div>;
     }
     else {
-      title = <div><i className="fa fa-circle" style={{color:sample0.colorForTest}}></i> {sample0.id} Your sample</div>
-      action = <div className={styles.addButton} onClick={(e) => {this.onAddClicked(e);}}>Compare</div>;
+      title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample</div>;
+      action = <div className={styles.addButton} onClick={(e) => { this.onAddClicked(e); }}>Compare</div>;
     }
     return (
       <div className={styles.container}>
@@ -163,8 +164,8 @@ class Map extends Component {
         </div>
         <div className={styles.mapAndPhylogenyContainer}>
           <div className={styles.mapContainer}>
-            <div ref={(ref)=>{this._mapDiv=ref;}} className={styles.map} />
-            <PhyloCanvasTooltip ref={(ref) => {this._phyloCanvasTooltip = ref;}} />
+            <div ref={(ref) => { this._mapDiv = ref; }} className={styles.map} />
+            <PhyloCanvasTooltip ref={(ref) => { this._phyloCanvasTooltip = ref; }} />
           </div>
           <Phylogeny className={styles.phylogenyContainer} />
         </div>
@@ -185,7 +186,7 @@ Map.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
-  demo:  PropTypes.object.isRequired
+  demo: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(Map);
