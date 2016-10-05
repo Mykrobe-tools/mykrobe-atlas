@@ -1,4 +1,4 @@
-// import MykrobeLocalFileAnalyser from './MykrobeLocalFileAnalyser';
+import MykrobeWebFileAnalyser from './MykrobeWebFileAnalyser';
 import MykrobeConfig from './MykrobeConfig';
 
 class MykrobeService {
@@ -7,8 +7,7 @@ class MykrobeService {
   }
 
   analyseFileWithPath(filePath) {
-    // return new MykrobeLocalFileAnalyser(this.config).analyseFileWithPath(filePath);
-    console.log('TODO!');
+    return new MykrobeWebFileAnalyser(this.config).analyseFileWithPath(filePath);
   }
 }
 

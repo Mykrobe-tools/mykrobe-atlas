@@ -1,15 +1,13 @@
-import { EventEmitter } from 'events';
 import path from 'path';
 import fs from 'fs';
 import * as TargetConstants from 'constants/TargetConstants';
-import MykrobeJsonTransformer from './MykrobeJsonTransformer';
+import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 
 const app = require('electron').remote.app;
 
-class MykrobeLocalFileAnalyser extends EventEmitter {
+class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
   constructor(targetConfig) {
-    super();
-    this.targetConfig = targetConfig;
+    super(targetConfig);
     app.on('quit', () => {
       this.cancel();
       console.log('ev:app quit');
@@ -44,64 +42,8 @@ class MykrobeLocalFileAnalyser extends EventEmitter {
     return this;
   }
 
-  analyseFileWithPath(filePath) {
-    this.cancel();
-    this.removeSkeletonFiles();
-    const extension = path.extname(filePath).toLowerCase();
-    if ('.json' === extension) {
-      return this.analyseJsonFileWithPath(filePath);
-    }
-    else if (['.bam', '.gz', '.fastq'].indexOf(extension) !== -1) {
-      return this.analyseBinaryFileWithPath(filePath);
-    }
-    else {
-      setTimeout(() => {
-        this.emit('error', {
-          description: `Can only process files with extension: .json, .bam, .gz, .fastq - not ${extension}`
-        });
-      }, 0);
-      return this;
-    }
-  }
-
-  failWithError(err) {
-    setTimeout(() => {
-      this.emit('error', {
-        description: `Processing failed with error: ${err}`
-      });
-    }, 0);
-  }
-
-  doneWithJsonString(jsonString) {
-    const transformer = new MykrobeJsonTransformer();
-    transformer.transform(jsonString).then((result) => {
-      const {json, transformed} = result;
-      console.log('json', json);
-      console.log('transformed', transformed);
-      this.emit('done', result);
-    })
-    .catch((err) => {
-      this.failWithError(err);
-    });
-  }
-
-  analyseJsonFileWithPath(filePath) {
-    // TODO clean and parse raw string
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        this.failWithError(err);
-      }
-      else {
-        const dataString = data.toString('utf8');
-        console.log('dataString', dataString);
-        // TODO this should already have been parsed and cleaned
-        this.doneWithJsonString(dataString);
-      }
-    });
-    return this;
-  }
-
   analyseBinaryFileWithPath(filePath) {
+    this.removeSkeletonFiles();
     const spawn = require('child_process').spawn; // eslint-disable-line global-require
 
     console.log('analyseFileWithPath', filePath);
