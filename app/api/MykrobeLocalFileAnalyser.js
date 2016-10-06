@@ -42,11 +42,14 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
     return this;
   }
 
-  analyseBinaryFileWithPath(filePath) {
+  analyseBinaryFile(file) {
+    // in Electron we get the full local file path
+    const filePath = file.path;
+
     this.removeSkeletonFiles();
     const spawn = require('child_process').spawn; // eslint-disable-line global-require
 
-    console.log('analyseFileWithPath', filePath);
+    console.log('analyseBinaryFile', filePath);
 
     this.jsonBuffer = '';
     this.isBufferingJson = false;

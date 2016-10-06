@@ -2,11 +2,11 @@ import * as ActionTypes from 'constants/ActionTypes';
 
 const initialState = {
   analysing: false,
-  error: false,
+  error: null,
   progress: 0,
-  filePath: '',
-  json: false,
-  transformed: false
+  file: null,
+  json: null,
+  transformed: null
 };
 
 export default function analyser(state = initialState, action = {}) {
@@ -14,7 +14,7 @@ export default function analyser(state = initialState, action = {}) {
     case ActionTypes.ANALYSE_FILE:
       return {
         ...initialState,
-        filePath: action.filePath,
+        file: action.file,
         analysing: true
       };
     case ActionTypes.ANALYSE_FILE_CANCEL:

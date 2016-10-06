@@ -37,8 +37,8 @@ class App extends Component {
       return;
     }
     const {dispatch} = this.props;
-    const filePath = files[0].path;
-    dispatch(AnalyserActions.analyseFileWithPath(filePath));
+    const file = files[0];
+    dispatch(AnalyserActions.analyseFile(file));
   }
 
   onDropRejected(files) {

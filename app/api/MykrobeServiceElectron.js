@@ -6,8 +6,8 @@ class MykrobeService {
     this.config = config;
   }
 
-  analyseFileWithPath(filePath) {
-    return new MykrobeLocalFileAnalyser(this.config).analyseFileWithPath(filePath);
+  analyseFile(file) {
+    return new MykrobeLocalFileAnalyser(this.config).analyseFile(file);
   }
 }
 

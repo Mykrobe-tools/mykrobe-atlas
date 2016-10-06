@@ -90,9 +90,9 @@ class DragAndDrop extends Component {
     console.log('fileInputChanged', e);
     console.log('this._fileInput.files', this._fileInput.files);
     if (this._fileInput.files && this._fileInput.files.length > 0) {
-      const filePath = this._fileInput.files[0].path;
-      if (filePath) {
-        dispatch(AnalyserActions.analyseFileWithPath(filePath));
+      const file = this._fileInput.files[0];
+      if (file) {
+        dispatch(AnalyserActions.analyseFile(file));
       }
     }
   }

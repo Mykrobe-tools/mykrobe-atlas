@@ -4,10 +4,8 @@ import * as ActionTypes from 'constants/ActionTypes';
 
 const MykrobeService = IS_ELECTRON ? require('api/MykrobeServiceElectron') : require('api/MykrobeService');
 
-export function analyseFileWithPath(filePath) {
+export function analyseFile(file) {
   return (dispatch, getState) => {
-    dispatch(analyseFile(filePath));
-    // const { analyser } = getState();
     if (this.analyser) {
       this.analyser.cancel();
     }
@@ -16,11 +14,16 @@ export function analyseFileWithPath(filePath) {
 
     if (IS_ELECTRON) {
       const {app} = require('electron').remote;
-      app.addRecentDocument(filePath);
+      app.addRecentDocument(file.path);
     }
 
+    dispatch({
+      type: ActionTypes.ANALYSE_FILE,
+      file
+    });
+
     const service = new MykrobeService();
-    this.analyser = service.analyseFileWithPath(filePath)
+    this.analyser = service.analyseFile(file)
       .on('progress', (progress) => {
         console.log('progress', progress);
         const percent = Math.round(100 * progress.progress / progress.total);
@@ -48,13 +51,6 @@ export function analyseFileCancel() {
     dispatch({
       type: ActionTypes.ANALYSE_FILE_CANCEL
     });
-  };
-}
-
-function analyseFile(filePath) {
-  return {
-    type: ActionTypes.ANALYSE_FILE,
-    filePath
   };
 }
 

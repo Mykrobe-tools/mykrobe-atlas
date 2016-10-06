@@ -8,19 +8,19 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     this.targetConfig = targetConfig;
   }
 
-  extensionForPath(filePath) {
-    const extension = filePath.substr(filePath.lastIndexOf('.'));
+  extensionForFileName(fileName) {
+    const extension = fileName.substr(fileName.lastIndexOf('.'));
     return extension.toLowerCase();
   }
 
-  analyseFileWithPath(filePath) {
+  analyseFile(file) {
     this.cancel();
-    const extension = this.extensionForPath(filePath);
+    const extension = this.extensionForFileName(file.name);
     if ('.json' === extension) {
-      return this.analyseJsonFileWithPath(filePath);
+      return this.analyseJsonFile(file);
     }
     else if (['.bam', '.gz', '.fastq'].indexOf(extension) !== -1) {
-      return this.analyseBinaryFileWithPath(filePath);
+      return this.analyseBinaryFile(file);
     }
     else {
       this.failWithError(`Can only process files with extension: .json, .bam, .gz, .fastq - not ${extension}`);
@@ -49,12 +49,11 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     });
   }
 
-  analyseJsonFileWithPath(filePath) {
+  analyseJsonFile(file) {
     const reader = new FileReader();
 
-    // Closure to capture the file information.
     reader.onload = (e) => {
-      const dataString = e.target.result;
+      const dataString = reader.result;
       this.doneWithJsonString(dataString);
     };
 
@@ -62,12 +61,12 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
       this.failWithError(`FileReader failed with error code ${e.target.error.code}`);
     };
 
-    reader.readAsText(filePath);
+    reader.readAsText(file);
     return this;
   }
 
-  analyseBinaryFileWithPath(filePath) {
-    console.log('analyseBinaryFileWithPath', filePath);
+  analyseBinaryFile(file) {
+    console.log('analyseBinaryFile', file);
   }
 
   cancel() {

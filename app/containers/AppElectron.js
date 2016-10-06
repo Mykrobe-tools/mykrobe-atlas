@@ -18,7 +18,14 @@ class AppElectron extends Component {
     ipcRenderer.on('open-file', (e, filePath) => {
       console.log('App open-file');
       if (filePath) {
-        dispatch(AnalyserActions.analyseFileWithPath(filePath));
+        // object similar to File
+        const file = {
+          name: filePath,
+          path: filePath
+        };
+        // TODO
+        debugger
+        dispatch(AnalyserActions.analyseFile(file));
       }
     });
 
@@ -29,7 +36,13 @@ class AppElectron extends Component {
     ipcRenderer.on('menu-file-open', (e) => {
       const filePath = UIHelpers.openFileDialog();
       if (filePath) {
-        dispatch(AnalyserActions.analyseFileWithPath(filePath));
+        const file = {
+          name: filePath,
+          path: filePath
+        };
+        // TODO
+        debugger
+        dispatch(AnalyserActions.analyseFile(file));
       }
     });
 
