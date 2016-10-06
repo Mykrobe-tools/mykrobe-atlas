@@ -53,7 +53,8 @@ function setTarget(targetName) {
     return console.error(`Target with value '${targetName}' not found in targets.json`);
   }
 
-  const devHtmlPath = path.resolve(__dirname, '../app/electron.html');
+  const electronHtmlPath = path.resolve(__dirname, '../app/electron.html');
+  const webHtmlPath = path.resolve(__dirname, '../app/web.html');
 
   // change the bundled settings in /package.json
   rootPackageJson.targetName = targetName;
@@ -65,11 +66,14 @@ function setTarget(targetName) {
   filePath = path.resolve(__dirname, '../package.json');
   writeJsonToFile(filePath, json)
   .then(() => {
-    return setTitleInHtmlFile(devHtmlPath, productName);
+    return setTitleInHtmlFile(electronHtmlPath, productName);
+  })
+  .then(() => {
+    return setTitleInHtmlFile(webHtmlPath, productName);
   })
   .then(() => {
     const filePath = path.resolve(__dirname, `../app/css/target/${targetName}.css`);
-    const copyPath = path.resolve(__dirname, `../app/css/target/current.css`);
+    const copyPath = path.resolve(__dirname, '../app/css/target/current.css');
     return copyFile(filePath, copyPath);
   })
   .then(() => {
