@@ -7,8 +7,9 @@ export function loadTreeWithPath(filePath) {
     return fetch(`http://localhost:3000/demo/${filePath}`)
     .then((response) => {
       if (response.ok) {
-        const json = response.json();
-        dispatch(loadTreeSuccess(json));
+        return response.json().then((json) => {
+          dispatch(loadTreeSuccess(json));
+        });
       }
       else {
         return Promise.reject(response.statusText);
@@ -37,8 +38,9 @@ export function loadSamplesWithPath(filePath) {
     return fetch(`http://localhost:3000/demo/${filePath}`)
     .then((response) => {
       if (response.ok) {
-        const json = response.json();
-        dispatch(loadSamplesSuccess(json));
+        return response.json().then((json) => {
+          dispatch(loadSamplesSuccess(json));
+        });
       }
       else {
         return Promise.reject(response.statusText);
