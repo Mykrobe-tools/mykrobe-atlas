@@ -22,11 +22,19 @@ Selects which version of the app you will target for development, test or packag
 
 This will launch a local dev server and instance of the app. This has DevTools enabled and supports hot (live) reloading of modified files.
 
+### Browser
+
+	```
+	$ npm run web-dev
+	```
+	
+### Electron
+
 	```
 	$ npm run electron-dev
 	```
 
-## DevTools
+## Electron DevTools
 
 #### Toggle Chrome DevTools
 
@@ -55,7 +63,7 @@ $ UPGRADE_EXTENSIONS=1 npm run dev
 $ set UPGRADE_EXTENSIONS=1 && npm run dev
 ```
 
-## Externals
+## Electron Externals
 
 If you use any 3rd party libraries which can't be built with webpack, you must list them in your `webpack.config.base.js`：
 
@@ -69,16 +77,7 @@ externals: [
 You can find those lines in the file.
 
 
-## CSS Modules
-
-This boilerplate out of the box is configured to use [css-modules](https://github.com/css-modules/css-modules).
-
-All `.css` file extensions will use css-modules unless it has `.global.css`.
-
-If you need global styles, stylesheets with `.global.css` will not go through the
-css-modules loader. e.g. `app.global.css`
-
-## Generate app icons
+## Electron generate app icons
 
 Takes the master PDF artwork from `electron/resources/icon` and generates Mac and Windows icons.
 
@@ -100,7 +99,7 @@ Takes the master PDF artwork from `electron/resources/icon` and generates Mac an
 	$ brew install ghostscript
 	```
 
-## Build for deployment
+## Electron production build
 
 Build for current platform:
 
@@ -125,6 +124,16 @@ To build apps for all platforms:
 3. After build, you will find them in `electron/release` folder. Otherwise, you will only find one for your os.
 
 > **Note:** `test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
+
+
+## CSS Modules
+
+This boilerplate out of the box is configured to use [css-modules](https://github.com/css-modules/css-modules).
+
+All `.css` file extensions will use css-modules unless it has `.global.css`.
+
+If you need global styles, stylesheets with `.global.css` will not go through the
+css-modules loader. e.g. `app.global.css`
 
 
 ## Licenses

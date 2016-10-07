@@ -27,7 +27,9 @@
     "builder:all": "npm run electron-compile && build -mwl",
     "set-target": "node scripts/set-target.js",
     "generate-icons": "node scripts/generate-icons.js",
-    "web-hot-server": "node -r babel-register web/dev-server.js"
+    "web-hot-server": "node -r babel-register web/dev-server.js",
+    "web-dev": "concurrently --kill-others \"npm run web-hot-server\" \"npm run web-open\"",
+    "web-open": "open http://localhost:3000"
   },
   "build": {
     "asar": false,
