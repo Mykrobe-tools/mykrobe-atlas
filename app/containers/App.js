@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   onDragEnter(e) {
-    if (!e.dataTransfer.files.length) {
+    if (!e.dataTransfer.files.length && !e.dataTransfer.items.length) {
       return;
     }
     this.setState({
