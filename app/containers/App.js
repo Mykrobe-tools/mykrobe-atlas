@@ -20,8 +20,15 @@ class App extends Component {
   }
 
   onDragEnter(e) {
-    if (!e.dataTransfer.files.length && !e.dataTransfer.items.length) {
-      return;
+    if (e.dataTransfer.items) {
+      if (!e.dataTransfer.items.length) {
+        return;
+      }
+    }
+    else {
+      if (!e.dataTransfer.files.length) {
+        return;
+      }
     }
     this.setState({
       isDragActive: true

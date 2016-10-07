@@ -11,10 +11,6 @@ export default merge(baseConfig, {
     path.resolve(__dirname, '../app/index.js')
   ],
 
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ],
-
   output: {
     path: path.join(__dirname, 'static'),
     publicPath: 'http://localhost:3000/static/'
