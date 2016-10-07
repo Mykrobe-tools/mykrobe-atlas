@@ -32,7 +32,7 @@ class Phylogeny extends Component {
     // radial, rectangular, circular, diagonal and hierarchy
     this.state = {
       treeType: 'radial'
-    }
+    };
   }
 
   nodeIsInSamplesToHighlight(node) {
@@ -43,7 +43,7 @@ class Phylogeny extends Component {
   onNodeMouseOver(node) {
     console.log('onNodeMouseOver', node);
     const {dispatch} = this.props;
-    if ( this.nodeIsInSamplesToHighlight(node)) {
+    if (this.nodeIsInSamplesToHighlight(node)) {
       dispatch(NodeActions.setNodeHighlighted(node.id, true));
     }
   }
@@ -51,23 +51,23 @@ class Phylogeny extends Component {
   onNodeMouseOut(node) {
     console.log('onNodeMouseOut', node);
     const {dispatch} = this.props;
-    if ( this.nodeIsInSamplesToHighlight(node)) {
+    if (this.nodeIsInSamplesToHighlight(node)) {
       dispatch(NodeActions.setNodeHighlighted(node.id, false));
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
-    if ( this.props.demo.samples !== nextProps.demo.samples ) {
+    if (this.props.demo.samples !== nextProps.demo.samples) {
       setTimeout(() => {
         this.updateHighlightedSamples(nextProps.demo.samples);
-      },0);
+      }, 0);
     }
-    if ( node.highlighted.length ) {
+    if (node.highlighted.length) {
       console.log('node.highlighted', node.highlighted);
       const nodeId = node.highlighted[0];
       const screenPosition = this._phyloCanvas.getPositionOfNodeWithId(nodeId);
-      if ( screenPosition ) {
+      if (screenPosition) {
         const boundingClientRect = this._container.getBoundingClientRect();
         this._phyloCanvasTooltip.setNode(this.getSampleWithId(nodeId));
         this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
@@ -90,8 +90,8 @@ class Phylogeny extends Component {
             treeType={treeType}
             data={newick}
             displayTooltip={false}
-            onNodeMouseOver={(node) => {this.onNodeMouseOver(node)}}
-            onNodeMouseOut={(node) => {this.onNodeMouseOut(node)}}
+            onNodeMouseOver={(node) => { this.onNodeMouseOver(node); }}
+            onNodeMouseOut={(node) => { this.onNodeMouseOut(node); }}
           />
           <div className={styles.controlsContainer}>
             <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomSamples(); }}>
@@ -101,15 +101,15 @@ class Phylogeny extends Component {
           </div>
           <div className={styles.demoTreeTypeContainer}>
             {treeTypes.map((thisTreeType, index) =>
-              <div className={thisTreeType===treeType ? styles.demoTreeTypeSelected : styles.demoTreeType} key={index} onClick={(e) => {
+              <div className={thisTreeType === treeType ? styles.demoTreeTypeSelected : styles.demoTreeType} key={index} onClick={(e) => {
                 this.setState({treeType: thisTreeType});
                 setTimeout(() => {
                   this.updateHighlightedSamples(demo.samples);
-                },0);
+                }, 0);
               }}>{thisTreeType}</div>
             )}
           </div>
-          <PhyloCanvasTooltip ref={(ref) => {this._phyloCanvasTooltip = ref;}} />
+          <PhyloCanvasTooltip ref={(ref) => { this._phyloCanvasTooltip = ref; }} />
         </div>
       </div>
     );
@@ -120,7 +120,7 @@ class Phylogeny extends Component {
     const {samples} = demo;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      if ( sample.id === nodeId ) {
+      if (sample.id === nodeId) {
         return sample;
       }
     }
@@ -172,7 +172,7 @@ Phylogeny.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
-  demo:  PropTypes.object.isRequired
+  demo: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(Phylogeny);

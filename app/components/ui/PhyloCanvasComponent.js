@@ -18,12 +18,19 @@ class PhyloCanvasComponent extends Component {
     this._currentNodeHover = null;
   }
 
+  drawDeferred() {
+    this._drawDeferredTimeout && clearTimeout(this._drawDeferredTimeout);
+    this._drawDeferredTimeout = setTimeout(() => {
+      this._tree.draw();
+    }, 0);
+  }
+
   componentDidMount() {
     this._tree = PhyloCanvas.createTree(this._phyloCanvasDiv);
     this._tree.setTreeType(this.props.treeType);
     this._tree.padding = 12;
     this._tree.showLabels = false;
-    this._tree.branchColour=Colors.COLOR_GREY_MID;
+    this._tree.branchColour = Colors.COLOR_GREY_MID;
     this._tree.hoverLabel = false;
     this._tree.on('loaded', (e) => {
       console.log('loaded');
@@ -79,7 +86,7 @@ class PhyloCanvasComponent extends Component {
 
   highlightNodeWithId(nodeId, color = Colors.COLOR_TINT_SECONDARY) {
     const node = this.getNodeWithId(nodeId);
-    if ( !node ) {
+    if (!node) {
       return;
     }
     node.setDisplay({
@@ -88,14 +95,15 @@ class PhyloCanvasComponent extends Component {
       },
     });
     this.bringNodeToFront(node);
+    this.drawDeferred();
     return node;
   }
 
   bringNodeToFront(node) {
-    if ( node.parent ) {
+    if (node.parent) {
       const index = node.parent.children.indexOf(node);
       const maxIndex = node.parent.children.length - 1;
-      if ( maxIndex !== index) {
+      if (maxIndex !== index) {
         // remove from current position
         node.parent.children.splice(index, 1);
         // insert at end
@@ -107,7 +115,7 @@ class PhyloCanvasComponent extends Component {
 
   getPositionOfNodeWithId(nodeId) {
     const node = this.getNodeWithId(nodeId);
-    if ( !node ) {
+    if (!node) {
       return null;
     }
     // nodes are drawn such that they do not overlap with the line
@@ -136,37 +144,37 @@ class PhyloCanvasComponent extends Component {
     const {displayTooltip} = this.props;
     const {onNodeMouseOver, onNodeMouseOut} = this.props;
     const node = this._tree.getNodeAtMousePosition(e);
-    if ( !node ) {
+    if (!node) {
       // not hovering
-      if ( this._currentNodeHover ) {
+      if (this._currentNodeHover) {
         // was hovering
-        if ( onNodeMouseOut) {
+        if (onNodeMouseOut) {
           onNodeMouseOut(this._currentNodeHover);
         }
       }
-      if ( displayTooltip ) {
+      if (displayTooltip) {
         this._phyloCanvasTooltip.setVisible(false);
       }
       this._currentNodeHover = null;
       return;
     }
-    if ( this._currentNodeHover && node !== this._currentNodeHover ) {
+    if (this._currentNodeHover && node !== this._currentNodeHover) {
       // hovered over a new node from another node
-      if ( onNodeMouseOut) {
+      if (onNodeMouseOut) {
         onNodeMouseOut(this._currentNodeHover);
       }
-      if ( onNodeMouseOver) {
+      if (onNodeMouseOver) {
         onNodeMouseOver(node);
       }
     }
-    if ( !this._currentNodeHover ) {
+    if (!this._currentNodeHover) {
       // new hover
-      if ( onNodeMouseOver) {
+      if (onNodeMouseOver) {
         onNodeMouseOver(node);
       }
     }
     this._currentNodeHover = node;
-    if ( displayTooltip ) {
+    if (displayTooltip) {
       this._phyloCanvasTooltip.setNode(node);
       this._phyloCanvasTooltip.setVisible(true, e.clientX, e.clientY);
     }
@@ -197,7 +205,7 @@ class PhyloCanvasComponent extends Component {
             <i className="fa fa-compress"></i>
           </div>
         </div>
-        {displayTooltip && <PhyloCanvasTooltip ref={(ref) => {this._phyloCanvasTooltip = ref;}} />}
+        {displayTooltip && <PhyloCanvasTooltip ref={(ref) => { this._phyloCanvasTooltip = ref; }} />}
       </div>
     );
   }
