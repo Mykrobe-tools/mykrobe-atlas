@@ -31,15 +31,11 @@ body {
   overflow-y: hidden;
   flex: 1;
   display: flex;
-  width: 100%;
-  height: 100%;
 }
 
 #root, #root > [data-reactroot] {
   flex: 1;
   display: flex;
-  width: 100%;
-  height: 100%;
 }
 
 @import "css/typography.global.css";

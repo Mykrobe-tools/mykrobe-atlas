@@ -15,5 +15,6 @@
 }
 
 .panelChildrenContainer {
+  display:flex;
   flex: 1;
 }
