@@ -75,7 +75,9 @@ class DragAndDrop extends Component {
     return (
       <div className={styles.container}>
         <AnimatedBackground />
-        {content}
+        <div className={styles.contentContainer}>
+          {content}
+        </div>
       </div>
     );
   }

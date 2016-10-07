@@ -1,19 +1,17 @@
 
 .container {
+  composes: container from "css/layout.css";
+}
+
+.contentContainer {
   composes: containerAbsolute from "css/layout.css";
   align-items: center;
   justify-content: center;
   flex-direction: column;
 }
 
-.containerDragActive {
-  composes: container;
-  border: 12px solid var(--color-grey-mid);
-  transition: border 0.5s linear;
-}
-
 .promptContainer {
-  position:absolute;
+  position:relative;
   background-color: white;
   width: 480px;
   height: 480px;
@@ -43,6 +41,8 @@
 .buttonContainer {
   position:absolute;
   bottom: 64px;
+  left: 64px;
+  right: 64px;
 }
 
 .promptIcon {
@@ -58,6 +58,7 @@
 
 .button {
   composes: buttonOutline from "css/controls.css";
+  margin: 0 auto;
 }
 
 .progressTitle {

@@ -4,6 +4,14 @@
   background-color: var(--color-background);
 }
 
+.headerContainer {
+  composes: containerAbsolute from "css/layout.css";
+}
+
+.contentContainer {
+  composes: containerAbsolute from "css/layout.css";
+}
+
 .dragIndicatorContainer {
   composes: containerAbsolute from "css/layout.css";
   pointer-events: none;

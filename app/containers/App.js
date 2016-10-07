@@ -67,8 +67,12 @@ class App extends Component {
           multiple={multiple}
           accept=".json,.bam,.gz,.fastq"
           >
-          <Header />
-          {children}
+          <div className={styles.headerContainer}>
+            <Header />
+          </div>
+          <div className={styles.contentContainer}>
+            {children}
+          </div>
         </Dropzone>
         <div className={isDragActive ? styles.dragIndicatorContainerDragActive : styles.dragIndicatorContainer} />
       </div>
