@@ -20,8 +20,10 @@ class Map extends Component {
     GoogleMapsLoader.load((google) => {
       const options = {
         center: {lat: 51.5074, lng: 0.1278},
+        maxZoom: 7,
         zoom: 3
       };
+      this._google = google;
       this._map = new google.maps.Map(this._mapDiv, options);
       this.updateMarkers(this.props.demo.samples);
     });
@@ -62,7 +64,7 @@ class Map extends Component {
       const sample = samples[sampleKey];
       const lat = parseFloat(sample.locationLatLngForTest.lat);
       const lng = parseFloat(sample.locationLatLngForTest.lng);
-      const marker = new google.maps.Marker({
+      const marker = new this._google.maps.Marker({
         icon: {
           path: google.maps.SymbolPath.CIRCLE,
           scale: 10,
@@ -84,6 +86,7 @@ class Map extends Component {
       });
       this._markers[sample.id] = marker;
     }
+    this.zoomToMarkers();
   }
 
   markerForNodeId(nodeId) {
@@ -98,6 +101,16 @@ class Map extends Component {
     const x = (worldPoint.x - bottomLeft.x) * scale;
     const y = (worldPoint.y - topRight.y) * scale;
     return {x, y};
+  }
+
+  zoomToMarkers() {
+    let bounds = new this._google.maps.LatLngBounds();
+    for (let id in this._markers) {
+      console.log('this._markers[id].getPosition()', this._markers[id].getPosition());
+      bounds.extend(this._markers[id].getPosition());
+    }
+    console.log('bounds', bounds);
+    this._map.fitBounds(bounds);
   }
 
   componentWillReceiveProps(nextProps) {
