@@ -13,7 +13,7 @@ class ResistanceAll extends Component {
           <ResistanceProfile />
         </Panel>
         <Panel title="Phylogeny" columns={5}>
-          <Phylogeny />
+          <Phylogeny controlsInset={0} />
         </Panel>
       </div>
     );

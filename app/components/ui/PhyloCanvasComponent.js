@@ -190,19 +190,20 @@ class PhyloCanvasComponent extends Component {
   }
 
   render() {
-    const {displayTooltip} = this.props;
+    const {displayTooltip, controlsInset} = this.props;
+    const insetStyle = {padding: `${controlsInset}px`};
     return (
       <div className={styles.container}>
         <div id="phyloCanvasDiv" ref={(ref) => { this._phyloCanvasDiv = ref; }} className={styles.container} />
-        <div className={styles.controlsContainer}>
+        <div className={styles.controlsContainer} style={insetStyle}>
           <div className={styles.zoomInControl} onClick={(e) => { e.preventDefault(); this.zoomIn(); }}>
-            <i className="fa fa-plus"></i>
+            <i className="fa fa-plus" />
           </div>
           <div className={styles.zoomOutControl} onClick={(e) => { e.preventDefault(); this.zoomOut(); }}>
-            <i className="fa fa-minus"></i>
+            <i className="fa fa-minus" />
           </div>
           <div className={styles.zoomResetControl} onClick={(e) => { e.preventDefault(); this.zoomReset(); }}>
-            <i className="fa fa-compress"></i>
+            <i className="fa fa-compress" />
           </div>
         </div>
         {displayTooltip && <PhyloCanvasTooltip ref={(ref) => { this._phyloCanvasTooltip = ref; }} />}
@@ -211,12 +212,17 @@ class PhyloCanvasComponent extends Component {
   }
 }
 
+PhyloCanvasComponent.defaultProps = {
+  controlsInset: 0
+};
+
 PhyloCanvasComponent.propTypes = {
   data: PropTypes.string,
   treeType: PropTypes.string,
   onNodeMouseOver: PropTypes.func,
   onNodeMouseOut: PropTypes.func,
-  displayTooltip: PropTypes.bool
+  displayTooltip: PropTypes.bool,
+  controlsInset: PropTypes.number
 };
 
 export default PhyloCanvasComponent;

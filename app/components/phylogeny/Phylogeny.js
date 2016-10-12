@@ -79,9 +79,10 @@ class Phylogeny extends Component {
   }
 
   render() {
-    const {node, demo} = this.props;
+    const {node, demo, controlsInset} = this.props;
     const {treeType} = this.state;
     const {newick} = demo.tree;
+    const insetStyle = {padding: `${controlsInset}px`};
     return (
       <div className={styles.container}>
         <div className={styles.contentContainer} ref={(ref) => { this._container = ref; }}>
@@ -92,14 +93,15 @@ class Phylogeny extends Component {
             displayTooltip={false}
             onNodeMouseOver={(node) => { this.onNodeMouseOver(node); }}
             onNodeMouseOut={(node) => { this.onNodeMouseOut(node); }}
+            controlsInset={controlsInset}
           />
-          <div className={styles.controlsContainer}>
+          <div className={styles.controlsContainer} style={insetStyle}>
             <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomSamples(); }}>
-              <i className="fa fa-search"></i>
+              <i className="fa fa-search" />
               <div className={styles.zoomControlText}>Fit samples</div>
             </div>
           </div>
-          <div className={styles.demoTreeTypeContainer}>
+          <div className={styles.demoTreeTypeContainer} style={insetStyle}>
             {treeTypes.map((thisTreeType, index) =>
               <div className={thisTreeType === treeType ? styles.demoTreeTypeSelected : styles.demoTreeType} key={index} onClick={(e) => {
                 this.setState({treeType: thisTreeType});
@@ -168,11 +170,16 @@ function mapStateToProps(state) {
   };
 }
 
+Phylogeny.defaultProps = {
+  controlsInset: 30
+};
+
 Phylogeny.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
-  demo: PropTypes.object.isRequired
+  demo: PropTypes.object.isRequired,
+  controlsInset: PropTypes.number
 };
 
 export default connect(mapStateToProps)(Phylogeny);

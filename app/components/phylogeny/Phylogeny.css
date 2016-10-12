@@ -13,7 +13,6 @@
   left:0;
   bottom:0;
   z-index:1;
-  padding: 30px;
 }
 
 .zoomControl {
@@ -30,7 +29,6 @@
   right:0;
   top:0;
   z-index:1;
-  padding: 30px;
 }
 
 .demoTreeTypeSelected {
