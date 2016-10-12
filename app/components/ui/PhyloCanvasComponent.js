@@ -1,14 +1,24 @@
-import PhyloCanvas from 'phylocanvas';
+import PhyloCanvas, {Tree} from 'phylocanvas';
 import React, { Component, PropTypes } from 'react';
 import styles from './PhyloCanvasComponent.css';
 import * as Colors from 'constants/Colors';
 import PhyloCanvasTooltip from './PhyloCanvasTooltip';
 
 import {utils} from 'phylocanvas';
-const {canvas} = utils;
+const {events, canvas} = utils;
+const { fireEvent } = events;
 
 // Docs http://phylocanvas.org/docs/api/
 // Source http://phylocanvas.org/docs/api/Tree.js.html
+
+// extend Tree to fire an event after draw
+
+class DrawEventTree extends Tree {
+  draw(forceRedraw) {
+    super.draw(forceRedraw);
+    fireEvent(this.containerElement, 'draw');
+  }
+}
 
 class PhyloCanvasComponent extends Component {
   constructor() {
@@ -16,18 +26,19 @@ class PhyloCanvasComponent extends Component {
     this._resize = (e) => this.resize(e);
     this._mouseMove = (e) => this.mouseMove(e);
     this._currentNodeHover = null;
+    this._highlightedNodes = [];
   }
 
   drawDeferred() {
     this._drawDeferredTimeout && clearTimeout(this._drawDeferredTimeout);
     this._drawDeferredTimeout = setTimeout(() => {
-      this._tree.draw();
+      this.draw();
     }, 0);
   }
 
   componentDidMount() {
     const {onLoad} = this.props;
-    this._tree = PhyloCanvas.createTree(this._phyloCanvasDiv);
+    this._tree = new DrawEventTree(this._phyloCanvasDiv);
     this._tree.setTreeType(this.props.treeType);
     this._tree.padding = 12;
     this._tree.showLabels = false;
@@ -38,6 +49,10 @@ class PhyloCanvasComponent extends Component {
       if (onLoad) {
         onLoad();
       }
+    });
+    this._tree.on('draw', (e) => {
+      console.log('draw');
+      this.afterDraw();
     });
     this._tree.load(this.props.data);
     window.addEventListener('resize', this._resize);
@@ -60,7 +75,7 @@ class PhyloCanvasComponent extends Component {
 
   zoomReset() {
     this._tree.fitInPanel(this._tree.leaves);
-    this._tree.draw();
+    this.draw();
   }
 
   zoomToNodesWithIds(ids) {
@@ -73,7 +88,7 @@ class PhyloCanvasComponent extends Component {
     }
     this._tree.fitInPanel(candidateNodes);
     this._tree.smoothZoom(-2);
-    this._tree.draw();
+    this.draw();
   }
 
   highlightNodesWithIds(ids, color = Colors.COLOR_TINT_SECONDARY) {
@@ -103,6 +118,7 @@ class PhyloCanvasComponent extends Component {
       },
     });
     this.bringNodeToFront(node);
+    this._highlightedNodes[nodeId] = color;
     this.drawDeferred();
     return node;
   }
@@ -143,9 +159,26 @@ class PhyloCanvasComponent extends Component {
     setTimeout(() => {
       console.log('redraw');
       this._tree.resizeToContainer();
-      this._tree.draw();
+      this.draw();
       // this._tree.fitInPanel(); // TODO - may want to check if we are zoomed before doing this?
     }, 0);
+  }
+
+  draw() {
+    this._tree.draw();
+  }
+
+  afterDraw() {
+    const context = this._tree.canvas;
+    const radius = 4;
+    for (let id in this._highlightedNodes) {
+      const color = this._highlightedNodes[id];
+      const position = this.getPositionOfNodeWithId(id);
+      context.fillStyle = color;
+      context.beginPath();
+      context.arc(position.x, position.y, radius, 0, 2 * Math.PI, false);
+      context.fill();
+    }
   }
 
   mouseMove(e) {
