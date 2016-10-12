@@ -91,6 +91,17 @@ class PhyloCanvasComponent extends Component {
     this.draw();
   }
 
+  resetHighlightedNodes() {
+    for (let nodeId in this._highlightedNodes) {
+      const node = this.getNodeWithId(nodeId);
+      node.setDisplay({
+        leafStyle: {}
+      });
+    }
+    this._highlightedNodes = [];
+    this.drawDeferred();
+  }
+
   highlightNodesWithIds(ids, color = Colors.COLOR_TINT_SECONDARY) {
     ids.forEach((id, index) => {
       this.highlightNodeWithId(id, color);
@@ -171,9 +182,9 @@ class PhyloCanvasComponent extends Component {
   afterDraw() {
     const context = this._tree.canvas;
     const radius = 4;
-    for (let id in this._highlightedNodes) {
-      const color = this._highlightedNodes[id];
-      const position = this.getPositionOfNodeWithId(id);
+    for (let nodeId in this._highlightedNodes) {
+      const color = this._highlightedNodes[nodeId];
+      const position = this.getPositionOfNodeWithId(nodeId);
       context.fillStyle = color;
       context.beginPath();
       context.arc(position.x, position.y, radius, 0, 2 * Math.PI, false);
