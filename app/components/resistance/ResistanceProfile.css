@@ -1,5 +1,5 @@
 .container {
-  display: flex;
+  composes: container from "css/layout.css";
   flex-direction: row;
 }
 

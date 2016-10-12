@@ -16,13 +16,13 @@ class ResistanceProfile extends Component {
   }
 
   column(titleStyle, icon, title, elements) {
-    if ( !elements || !elements.length ) {
+    if (!elements || !elements.length) {
       return null;
     }
     return (
       <div className={styles.column}>
         <div className={titleStyle}>
-          <i className={`fa ${icon}`}></i> {title}
+          <i className={`fa ${icon}`} /> {title}
         </div>
         {elements.map((element) => {
           return (
