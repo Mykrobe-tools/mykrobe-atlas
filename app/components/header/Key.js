@@ -50,7 +50,13 @@ class Key extends Component {
     let title = '';
     let action = null;
     if (!sampleIds.length) {
-      return null;
+      return (
+        <div className={styles.container}>
+          <div className={styles.headerTitle}>
+            Loading
+          </div>
+        </div>
+      );
     }
     const sample0 = this.getSampleWithId(sampleIds[0]);
     if (sampleIds.length > 1) { // fa-circle

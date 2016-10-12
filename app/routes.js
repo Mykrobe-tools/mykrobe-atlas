@@ -8,7 +8,7 @@ import ResultsPage from './containers/ResultsPage';
 import Map from './components/map/Map';
 import Metadata from './components/metadata/Metadata';
 import Resistance from './components/resistance/Resistance';
-import Phylogeny from './components/phylogeny/Phylogeny';
+import PhylogenyWithKey from './components/phylogeny/PhylogenyWithKey';
 import ResistanceAll from './components/resistance/ResistanceAll';
 import ResistanceDrugs from './components/resistance/ResistanceDrugs';
 import ResistanceClass from './components/resistance/ResistanceClass';
@@ -34,7 +34,7 @@ export default (
         <Route path="evidence" component={ResistanceEvidence} />
         <Route path="species" component={ResistanceSpecies} />
       </Route>
-      <Route path="phylogeny" component={Phylogeny} />
+      <Route path="phylogeny" component={PhylogenyWithKey} />
       <Route path="map" component={Map} />
       <Route path="summary" component={Summary} />
       <Route path="share" component={Share} />

@@ -1,0 +1,4 @@
+.container {
+  composes: container from "css/layout.css";
+  flex-direction: column;
+}
