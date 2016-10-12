@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { Route, IndexRoute, Link } from 'react-router';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import styles from './Resistance.css';
+import Key from 'components/header/Key';
 
-import * as AnalyserActions from 'actions/AnalyserActions';
 import MykrobeConfig from 'api/MykrobeConfig';
 import * as TargetConstants from 'constants/TargetConstants';
 
@@ -12,23 +12,24 @@ import * as DemoActions from 'actions/DemoActions';
 class Resistance extends Component {
 
   componentDidMount() {
-    const {dispatch} = this.props;
-    dispatch(DemoActions.loadTreeWithPath('tree.json'));
-    dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'));
+    const {dispatch, demo} = this.props;
+    // only load if not already loaded
+    if (0 === demo.tree.newick.length) {
+      dispatch(DemoActions.loadTreeWithPath('tree.json'));
+      dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'));
+    }
   }
 
   render() {
     const {analyser, children} = this.props;
-    if ( !analyser.transformed ) {
+    if (!analyser.transformed) {
       return null;
     }
     const config = new MykrobeConfig();
     return (
       <div className={styles.container}>
+        <Key />
         <div className={styles.header}>
-          <div className={styles.headerTitle}>
-            Viewing sample :sampleid:
-          </div>
           {TargetConstants.SPECIES_TB === config.species ? (
             <div className={styles.navigation}>
               <Link to="results/resistance/all" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>All</Link>
@@ -53,13 +54,15 @@ class Resistance extends Component {
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
+    demo: state.demo
   };
 }
 
 Resistance.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
+  demo: PropTypes.object.isRequired,
   children: PropTypes.object
 };
 

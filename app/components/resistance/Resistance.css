@@ -5,7 +5,7 @@
 
 .header {
   background-color:var(--color-buff-dark);
-  height:120px;
+  padding:0 12px 12px 12px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -33,12 +33,12 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: var(--color-tint-secondary);
+  color: var(--color-tint-primary);
   line-height: 1;
 }
 
 .navigationItemActive {
   composes: navigationItem;
   color: white;
-  background-color: var(--color-tint-secondary);
+  background-color: var(--color-tint-primary);
 }

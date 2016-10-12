@@ -5,8 +5,7 @@ import Phylogeny from 'components/phylogeny/Phylogeny';
 import { connect } from 'react-redux';
 import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
 import * as NodeActions from 'actions/NodeActions';
-
-const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions');
+import Key from 'components/header/Key';
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc';
 
@@ -123,45 +122,10 @@ class Map extends Component {
     }
   }
 
-  onAddClicked(e) {
-    console.log('onAddClicked');
-    const {dispatch} = this.props;
-    dispatch(NodeActions.unsetNodeHighlightedAll());
-    dispatch(DemoActions.loadTreeWithPath('zoom_tree.json'));
-    dispatch(DemoActions.loadSamplesWithPath('zoom_tree_samples.json'));
-  }
-
-  onRemoveClicked(e) {
-    console.log('onRemoveClicked');
-    const {dispatch} = this.props;
-    dispatch(NodeActions.unsetNodeHighlightedAll());
-    dispatch(DemoActions.loadTreeWithPath('tree.json'));
-    dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'));
-  }
-
   render() {
-    const {demo} = this.props;
-    const {samples} = demo;
-    const sampleIds = this.getSampleIds();
-    let title = '';
-    let action = null;
-    const sample0 = this.getSampleWithId(sampleIds[0]);
-    if (sampleIds.length > 1) { // fa-circle
-      const sample1 = this.getSampleWithId(sampleIds[1]);
-      title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample &middot; <i className="fa fa-circle" style={{color: sample1.colorForTest}} /> {sample1.id} Nearest previous sample</div>;
-      action = <div className={styles.addButton} onClick={(e) => { this.onRemoveClicked(e); }}>Reset</div>;
-    }
-    else {
-      title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample</div>;
-      action = <div className={styles.addButton} onClick={(e) => { this.onAddClicked(e); }}>Compare</div>;
-    }
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.headerTitle}>
-            {title}&nbsp;&middot;&nbsp;{action}
-          </div>
-        </div>
+        <Key />
         <div className={styles.mapAndPhylogenyContainer}>
           <div className={styles.mapContainer}>
             <div ref={(ref) => { this._mapDiv = ref; }} className={styles.map} />
