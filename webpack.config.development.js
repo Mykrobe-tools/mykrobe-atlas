@@ -6,7 +6,7 @@ import baseConfig from './webpack.config.base';
 export default merge(baseConfig('development'), {
   debug: true,
 
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
 
   entry: [
     'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',

@@ -17,7 +17,9 @@ const wdm = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
   stats: {
     colors: true
-  }
+  },
+  historyApiFallback: true,
+  serverSideRender: false
 });
 
 app.use(wdm);

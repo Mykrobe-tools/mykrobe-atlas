@@ -65,7 +65,7 @@ class AppElectron extends Component {
   }
 
   render() {
-    const {analyser} = this.props;
+    const {analyser, children} = this.props;
 
     /*
     Get application menu and disable save as...
@@ -80,7 +80,7 @@ class AppElectron extends Component {
     }
 
     return (
-      <App />
+      <App children={children} />
     );
   }
 }

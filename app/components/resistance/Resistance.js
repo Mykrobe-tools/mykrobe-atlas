@@ -7,7 +7,7 @@ import Key from 'components/header/Key';
 import MykrobeConfig from 'api/MykrobeConfig';
 import * as TargetConstants from 'constants/TargetConstants';
 
-import * as DemoActions from 'actions/DemoActions';
+const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions');
 
 class Resistance extends Component {
 

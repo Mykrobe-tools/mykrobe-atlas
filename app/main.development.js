@@ -64,7 +64,7 @@ app.on('ready', async () => {
     height: 728
   });
 
-  mainWindow.loadURL(`file://${__dirname}/electron.html`);
+  mainWindow.loadURL(`file://${__dirname}/../electron/index.html`);
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();

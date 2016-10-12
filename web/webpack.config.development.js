@@ -15,6 +15,11 @@ export default merge(baseConfig, {
   output: {
     path: path.join(__dirname, 'static'),
     publicPath: 'http://localhost:3000/static/'
-  }
+  },
 
+  plugins: [
+    new webpack.DefinePlugin({
+      IS_ELECTRON: JSON.stringify(false)
+    })
+  ]
 });

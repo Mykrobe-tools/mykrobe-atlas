@@ -3,6 +3,7 @@ import { push } from 'react-router-redux';
 import * as ActionTypes from 'constants/ActionTypes';
 
 const MykrobeService = IS_ELECTRON ? require('api/MykrobeServiceElectron') : require('api/MykrobeService');
+console.log('MykrobeService', MykrobeService);
 
 export function analyseFile(file) {
   return (dispatch, getState) => {
