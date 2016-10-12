@@ -1,17 +1,10 @@
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
 const config = merge(baseConfig('production'), {
-  devtool: 'cheap-module-source-map',
-
-  entry: './app/index',
-
-  output: {
-    publicPath: '../electron/static/'
-  },
+  devtool: 'cheap-module-eval-source-map',
 
   module: {
     loaders: [
@@ -42,7 +35,9 @@ const config = merge(baseConfig('production'), {
   },
 
   plugins: [
+    new webpack.NoErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),

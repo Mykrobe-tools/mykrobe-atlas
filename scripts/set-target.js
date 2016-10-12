@@ -54,7 +54,7 @@ function setTarget(targetName) {
   }
 
   const electronHtmlPath = path.resolve(__dirname, '../app/electron.html');
-  const webHtmlPath = path.resolve(__dirname, '../app/web.html');
+  const webHtmlPath = path.resolve(__dirname, '../web/index.html');
 
   // change the bundled settings in /package.json
   rootPackageJson.targetName = targetName;

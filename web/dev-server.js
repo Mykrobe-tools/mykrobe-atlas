@@ -18,7 +18,8 @@ const wdm = webpackDevMiddleware(compiler, {
   stats: {
     colors: true
   },
-  historyApiFallback: true
+  historyApiFallback: true,
+  serverSideRender: false
 });
 
 app.use(wdm);
@@ -31,7 +32,7 @@ app.use('/demo/', express.static(path.resolve(__dirname, 'demo')));
 // serve html
 app.get('/', (req, res, next) => {
   if (req.accepts('html')) {
-    res.sendFile(path.resolve(__dirname, '../app/web.html'));
+    res.sendFile(path.resolve(__dirname, 'index.html'));
   }
   else {
     next();
