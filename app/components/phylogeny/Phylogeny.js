@@ -7,6 +7,7 @@ import PhyloCanvasComponent from 'components/ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
 
 const treeTypes = ['radial', 'rectangular', 'circular', 'diagonal', 'hierarchy'];
+const AUTO_ZOOM_SAMPLES = true;
 
 class Phylogeny extends Component {
 
@@ -56,11 +57,19 @@ class Phylogeny extends Component {
     }
   }
 
+  onLoad() {
+    console.log('onLoad');
+  }
+
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
     if (this.props.demo.samples !== nextProps.demo.samples) {
+      // new samples
       setTimeout(() => {
         this.updateHighlightedSamples(nextProps.demo.samples);
+        if (AUTO_ZOOM_SAMPLES) {
+          this.zoomSamples();
+        }
       }, 0);
     }
     if (node.highlighted.length) {
@@ -93,6 +102,7 @@ class Phylogeny extends Component {
             displayTooltip={false}
             onNodeMouseOver={(node) => { this.onNodeMouseOver(node); }}
             onNodeMouseOut={(node) => { this.onNodeMouseOut(node); }}
+            onLoad={() => { this.onLoad(); }}
             controlsInset={controlsInset}
           />
           <div className={styles.controlsContainer} style={insetStyle}>
@@ -107,6 +117,9 @@ class Phylogeny extends Component {
                 this.setState({treeType: thisTreeType});
                 setTimeout(() => {
                   this.updateHighlightedSamples(demo.samples);
+                  if (AUTO_ZOOM_SAMPLES) {
+                    this.zoomSamples();
+                  }
                 }, 0);
               }}>{thisTreeType}</div>
             )}
@@ -147,6 +160,9 @@ class Phylogeny extends Component {
     const {demo} = this.props;
     const {samples} = demo;
     this.updateHighlightedSamples(samples);
+    if (AUTO_ZOOM_SAMPLES) {
+      this.zoomSamples();
+    }
   }
 
   updateHighlightedSamples(samples) {

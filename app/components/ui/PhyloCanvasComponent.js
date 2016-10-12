@@ -26,6 +26,7 @@ class PhyloCanvasComponent extends Component {
   }
 
   componentDidMount() {
+    const {onLoad} = this.props;
     this._tree = PhyloCanvas.createTree(this._phyloCanvasDiv);
     this._tree.setTreeType(this.props.treeType);
     this._tree.padding = 12;
@@ -34,6 +35,9 @@ class PhyloCanvasComponent extends Component {
     this._tree.hoverLabel = false;
     this._tree.on('loaded', (e) => {
       console.log('loaded');
+      if (onLoad) {
+        onLoad();
+      }
     });
     this._tree.load(this.props.data);
     window.addEventListener('resize', this._resize);
@@ -60,6 +64,9 @@ class PhyloCanvasComponent extends Component {
   }
 
   zoomToNodesWithIds(ids) {
+    if (!ids.length) {
+      return false;
+    }
     let candidateNodes = this._tree.findLeaves(ids.join('|'));
     if (!candidateNodes) {
       return false;
@@ -222,6 +229,7 @@ PhyloCanvasComponent.propTypes = {
   treeType: PropTypes.string,
   onNodeMouseOver: PropTypes.func,
   onNodeMouseOut: PropTypes.func,
+  onLoad: PropTypes.func,
   displayTooltip: PropTypes.bool,
   controlsInset: PropTypes.number
 };

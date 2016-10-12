@@ -49,6 +49,9 @@ class Key extends Component {
     const sampleIds = this.getSampleIds();
     let title = '';
     let action = null;
+    if (!sampleIds.length) {
+      return null;
+    }
     const sample0 = this.getSampleWithId(sampleIds[0]);
     if (sampleIds.length > 1) { // fa-circle
       const sample1 = this.getSampleWithId(sampleIds[1]);
