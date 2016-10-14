@@ -2,9 +2,20 @@ import * as TargetConstants from 'constants/TargetConstants';
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 
 class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
-  analyseBinaryFileWithPath(filePath) {
-    console.log('analyseBinaryFileWithPath', filePath);
+  analyseBinaryFile(file) {
+    console.log('analyseBinaryFile', file);
     console.error('TODO: upload file to API and report progress');
+    const fileName = file.name;
+    const baseName = fileName.substr(0, fileName.lastIndexOf('.'));
+    fetch(`http://localhost:3000/demo/${baseName}.json`)
+      .then((response) => {
+        if (response.ok) {
+          this.doneWithJsonString(response.text());
+        }
+        else {
+          this.failWithError(response.statusText);
+        }
+      });
     return this;
   }
 
