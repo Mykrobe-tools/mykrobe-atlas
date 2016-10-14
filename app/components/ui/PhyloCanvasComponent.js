@@ -87,7 +87,7 @@ class PhyloCanvasComponent extends Component {
       return false;
     }
     this._tree.fitInPanel(candidateNodes);
-    this._tree.smoothZoom(-2);
+    this._tree.smoothZoom(-3);
     this.draw();
   }
 

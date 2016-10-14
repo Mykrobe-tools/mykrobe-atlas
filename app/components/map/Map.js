@@ -25,13 +25,13 @@ class Map extends Component {
       };
       this._google = google;
       this._map = new google.maps.Map(this._mapDiv, options);
-      this.updateMarkers(this.props.demo.samples);
+      this.updateMarkers(this.props.analyser.transformed.atlas.samples);
     });
   }
 
   getSampleWithId(nodeId) {
-    const {demo} = this.props;
-    const {samples} = demo;
+    const {analyser} = this.props;
+    const {samples} = analyser.transformed.atlas;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
       if (sample.id === nodeId) {
@@ -41,8 +41,8 @@ class Map extends Component {
   }
 
   getSampleIds() {
-    const {demo} = this.props;
-    const {samples} = demo;
+    const {analyser} = this.props;
+    const {samples} = analyser.transformed.atlas;
     let nodeIds = [];
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
@@ -115,8 +115,8 @@ class Map extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
-    if (this.props.demo.samples !== nextProps.demo.samples) {
-      this.updateMarkers(nextProps.demo.samples);
+    if (this.props.analyser.transformed.atlas.samples !== nextProps.analyser.transformed.atlas.samples) {
+      this.updateMarkers(nextProps.analyser.transformed.atlas.samples);
     }
     if (node.highlighted.length) {
       console.log('node.highlighted', node.highlighted);
@@ -154,16 +154,14 @@ class Map extends Component {
 function mapStateToProps(state) {
   return {
     analyser: state.analyser,
-    node: state.node,
-    demo: state.demo
+    node: state.node
   };
 }
 
 Map.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired,
-  demo: PropTypes.object.isRequired
+  node: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(Map);

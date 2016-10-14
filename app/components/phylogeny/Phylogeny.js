@@ -63,10 +63,10 @@ class Phylogeny extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
-    if (this.props.demo.samples !== nextProps.demo.samples) {
+    if (this.props.analyser.transformed.atlas.samples !== nextProps.analyser.transformed.atlas.samples) {
       // new samples
       setTimeout(() => {
-        this.updateHighlightedSamples(nextProps.demo.samples);
+        this.updateHighlightedSamples(nextProps.analyser.transformed.atlas.samples);
         if (AUTO_ZOOM_SAMPLES) {
           this.zoomSamples();
         }
@@ -88,9 +88,9 @@ class Phylogeny extends Component {
   }
 
   render() {
-    const {node, demo, controlsInset} = this.props;
+    const {analyser, controlsInset} = this.props;
     const {treeType} = this.state;
-    const {newick} = demo.tree;
+    const newick = analyser.transformed.atlas.tree;
     const insetStyle = {padding: `${controlsInset}px`};
     return (
       <div className={styles.container}>
@@ -116,7 +116,7 @@ class Phylogeny extends Component {
               <div className={thisTreeType === treeType ? styles.demoTreeTypeSelected : styles.demoTreeType} key={index} onClick={(e) => {
                 this.setState({treeType: thisTreeType});
                 setTimeout(() => {
-                  this.updateHighlightedSamples(demo.samples);
+                  this.updateHighlightedSamples(analyser.transformed.atlas.samples);
                   if (AUTO_ZOOM_SAMPLES) {
                     this.zoomSamples();
                   }
@@ -131,8 +131,8 @@ class Phylogeny extends Component {
   }
 
   getSampleWithId(nodeId) {
-    const {demo} = this.props;
-    const {samples} = demo;
+    const {analyser} = this.props;
+    const {samples} = analyser.transformed.atlas;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
       if (sample.id === nodeId) {
@@ -142,8 +142,8 @@ class Phylogeny extends Component {
   }
 
   getSampleIds() {
-    const {demo} = this.props;
-    const {samples} = demo;
+    const {analyser} = this.props;
+    const {samples} = analyser.transformed.atlas;
     let nodeIds = [];
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
@@ -157,8 +157,8 @@ class Phylogeny extends Component {
   }
 
   componentDidMount() {
-    const {demo} = this.props;
-    const {samples} = demo;
+    const {analyser} = this.props;
+    const {samples} = analyser.transformed.atlas;
     this.updateHighlightedSamples(samples);
     if (AUTO_ZOOM_SAMPLES) {
       this.zoomSamples();
@@ -182,8 +182,7 @@ class Phylogeny extends Component {
 function mapStateToProps(state) {
   return {
     analyser: state.analyser,
-    node: state.node,
-    demo: state.demo
+    node: state.node
   };
 }
 
@@ -195,7 +194,6 @@ Phylogeny.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
-  demo: PropTypes.object.isRequired,
   controlsInset: PropTypes.number
 };
 

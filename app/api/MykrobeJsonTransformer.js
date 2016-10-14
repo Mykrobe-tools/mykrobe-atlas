@@ -2,6 +2,27 @@ import MykrobeConfig from './MykrobeConfig';
 import _ from 'lodash';
 import * as TargetConstants from 'constants/TargetConstants';
 
+const samplesForTest = [
+  {
+    'date': '29 September 2016',
+    'locationName': 'London',
+    'locationLatLngForTest': {
+      'lat': '51.5074',
+      'lng': '0.1278'
+    },
+    'colorForTest': '#c30042'
+  },
+  {
+    'date': '28 September 2016',
+    'locationName': 'Bangalore',
+    'locationLatLngForTest': {
+      'lat': '12.97',
+      'lng': '77.59'
+    },
+    'colorForTest': '#0f82d0'
+  }
+];
+
 class MykrobeJsonTransformer {
   constructor(config = new MykrobeConfig()) {
     this.config = config;
@@ -31,15 +52,42 @@ class MykrobeJsonTransformer {
   }
 
   transformModel(sourceModel) {
-    const predictor = sourceModel.predictor;
-    const sampleIds = _.keys(predictor);
-    // just do the first one for now
+    const {atlas, predictor} = sourceModel;
+
+    // just do the first one for now, use same id for atlas and predictor
+    const sampleIds = _.keys(atlas);
     const sampleId = sampleIds[0];
+
+    const sampleAtlasModel = atlas[sampleId];
+    const transformedSampleAtlasModel = this.transformSampleAtlasModel(sampleAtlasModel);
+
     const samplePredictorModel = predictor[sampleId];
     const transformedSamplePredictorModel = this.transformSamplePredictorModel(samplePredictorModel);
+
     return {
-      atlas: sourceModel.atlas,
+      atlas: transformedSampleAtlasModel,
       predictor: transformedSamplePredictorModel
+    };
+  }
+
+  transformSampleAtlasModel(sourceModel) {
+    let model = {};
+    model.tree = sourceModel.tree;
+    let neighbourKeys = _.keys(sourceModel.neighbours);
+    let samples = {};
+    // two samples for demo
+    // take one from samplesForTest and set the id
+    for (let i = 0; i < 2; i++) {
+      const neighbour = sourceModel.neighbours[neighbourKeys[i]];
+      let keys = _.keys(neighbour);
+      let demoSampleModel = samplesForTest[i];
+      let sampleId = keys[0];
+      demoSampleModel.id = sampleId;
+      samples[sampleId] = demoSampleModel;
+    }
+    return {
+      tree: model.tree,
+      samples: samples
     };
   }
 
