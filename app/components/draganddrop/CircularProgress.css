@@ -10,7 +10,7 @@
 
 .foreground {
   fill: none;
-  transition: stroke-dashoffset 2s linear;
+  transition: stroke-dashoffset 0.3s linear;
   stroke: var(--color-grey-light);
   transform-origin:center center;
   transform:rotate(-90deg);

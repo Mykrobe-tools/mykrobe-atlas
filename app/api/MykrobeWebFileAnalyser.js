@@ -3,9 +3,35 @@ import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 
 class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
   analyseBinaryFile(file) {
+    this._file = file;
     console.log('analyseBinaryFile', file);
     console.error('TODO: upload file to API and report progress');
-    const fileName = file.name;
+    this._progress = 0;
+    this.demoUpdateProgress();
+    return this;
+  }
+
+  demoUpdateProgress() {
+    this._timeout && clearTimeout(this._timeout);
+    this._progress++;
+    this.emit('progress', {
+      progress: this._progress,
+      total: 100
+    });
+    if (100 === this._progress) {
+      this._timeout = setTimeout(() => {
+        this.demoFinishAnalysing();
+      }, 3000);
+    }
+    else {
+      this._timeout = setTimeout(() => {
+        this.demoUpdateProgress();
+      }, 100);
+    }
+  }
+
+  demoFinishAnalysing() {
+    const fileName = this._file.name;
     const baseName = fileName.substr(0, fileName.lastIndexOf('.'));
     fetch(`http://localhost:3000/demo/${baseName}.json`)
       .then((response) => {
@@ -18,11 +44,10 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
           this.failWithError(response.statusText);
         }
       });
-    return this;
   }
 
   cancel() {
-    return this;
+    this._timeout && clearTimeout(this._timeout);
   }
 
 }
