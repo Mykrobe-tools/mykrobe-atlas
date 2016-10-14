@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { connect } from 'react-redux';
 import styles from './ResistanceSpecies.css';
-import Panel from  'components/ui/Panel';
+import Panel from 'components/ui/Panel';
 
 class ResistanceSpecies extends Component {
   render() {
     const {analyser} = this.props;
-    const {speciesPretty} = analyser.transformed;
+    const {speciesPretty} = analyser.transformed.predictor;
 
     return (
       <div className={styles.container}>

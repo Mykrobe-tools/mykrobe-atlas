@@ -9,8 +9,8 @@ class MykrobeJsonTransformer {
 
   transform(jsonString) {
     return new Promise((resolve, reject) => {
-      this.stringToJson(jsonString).then((json) => {
-        resolve(json);
+      this.stringToJson(jsonString).then((transformed) => {
+        resolve(transformed);
       });
     });
   }
@@ -23,7 +23,7 @@ class MykrobeJsonTransformer {
       let extracted = string.substr(first, 1 + last - first);
       // replace escaped tabs, quotes, newlines
       extracted = extracted.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"');
-      console.log(extracted);
+      // console.log(extracted);
       const json = JSON.parse(extracted);
       const transformed = this.transformModel(json);
       resolve({json, transformed});
@@ -31,13 +31,16 @@ class MykrobeJsonTransformer {
   }
 
   transformModel(sourceModel) {
-    let transformed = [];
     const predictor = sourceModel.predictor;
-    for (let sampleId in predictor) {
-      const samplePredictorModel = predictor[sampleId];
-      const transformedSamplePredictorModel = this.transformSamplePredictorModel(samplePredictorModel);
-      debugger;
-    }
+    const sampleIds = _.keys(predictor);
+    // just do the first one for now
+    const sampleId = sampleIds[0];
+    const samplePredictorModel = predictor[sampleId];
+    const transformedSamplePredictorModel = this.transformSamplePredictorModel(samplePredictorModel);
+    return {
+      atlas: sourceModel.atlas,
+      predictor: transformedSamplePredictorModel
+    };
   }
 
   transformSamplePredictorModel(sourceModel) {

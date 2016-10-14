@@ -2,22 +2,22 @@ import React, { Component, PropTypes } from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { connect } from 'react-redux';
 import styles from './ResistanceDrugs.css';
-import Panel from  'components/ui/Panel';
+import Panel from 'components/ui/Panel';
 import * as AnalyserActions from 'actions/AnalyserActions';
 
 const firstLineDrugs = [
-  "Isoniazid",
-  "Rifampicin",
-  "Ethambutol",
-  "Pyrazinamide"
+  'Isoniazid',
+  'Rifampicin',
+  'Ethambutol',
+  'Pyrazinamide'
 ];
 
 const secondLineDrugs = [
-  "Quinolones",
-  "Streptomycin",
-  "Amikacin",
-  "Capreomycin",
-  "Kanamycin"
+  'Quinolones',
+  'Streptomycin',
+  'Amikacin',
+  'Capreomycin',
+  'Kanamycin'
 ];
 
 class ResistanceDrugs extends Component {
@@ -37,7 +37,7 @@ class ResistanceDrugs extends Component {
 
   listDrugsWithIndicators(drugs) {
     const {analyser} = this.props;
-    const {resistant, susceptible, inconclusive} = analyser.transformed;
+    const {resistant, susceptible, inconclusive} = analyser.transformed.predictor;
     let elements = [];
     drugs.forEach((drug, index) => {
       let indicators = [];

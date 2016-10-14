@@ -5,7 +5,7 @@ import styles from './ResistanceProfile.css';
 class ResistanceProfile extends Component {
   render() {
     const {analyser} = this.props;
-    const {resistant, susceptible, inconclusive} = analyser.transformed;
+    const {resistant, susceptible, inconclusive} = analyser.transformed.predictor;
     return (
       <div className={styles.container}>
         {this.column(styles.columnTitleSusceptible, 'fa-check-circle', 'Susceptible', susceptible)}
