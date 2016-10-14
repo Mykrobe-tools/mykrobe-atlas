@@ -20,7 +20,7 @@ class MykrobeJsonTransformer {
       // extract just the portion in curly braces {}
       const first = string.indexOf('{');
       const last = string.lastIndexOf('}');
-      var extracted = string.substr(first, 1 + last - first);
+      let extracted = string.substr(first, 1 + last - first);
       // replace escaped tabs, quotes, newlines
       extracted = extracted.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"');
       console.log(extracted);
@@ -31,15 +31,25 @@ class MykrobeJsonTransformer {
   }
 
   transformModel(sourceModel) {
-    var o;
-    var susceptibilityModel;
-    var key;
-    var calledVariants;
-    var calledGenes;
-    var value;
-    var isInducible;
-    var virulenceModel;
-    var model = {};
+    let transformed = [];
+    const predictor = sourceModel.predictor;
+    for (let sampleId in predictor) {
+      const samplePredictorModel = predictor[sampleId];
+      const transformedSamplePredictorModel = this.transformSamplePredictorModel(samplePredictorModel);
+      debugger;
+    }
+  }
+
+  transformSamplePredictorModel(sourceModel) {
+    let o;
+    let susceptibilityModel;
+    let key;
+    let calledVariants;
+    let calledGenes;
+    let value;
+    let isInducible;
+    let virulenceModel;
+    let model = {};
 
     model.susceptible = [];
     model.resistant = [];
@@ -127,8 +137,9 @@ class MykrobeJsonTransformer {
     }
 
     for (key in susceptibilityModel) {
-      value = susceptibilityModel[key].substr(0, 1).toUpperCase();
-      isInducible = susceptibilityModel[key].toUpperCase().indexOf('INDUCIBLE') !== -1;
+      const predict = susceptibilityModel[key]['predict'].toUpperCase();
+      value = predict.substr(0, 1);
+      isInducible = predict.indexOf('INDUCIBLE') !== -1;
       if ('S' === value) {
         model.susceptible.push(key);
       }
@@ -157,31 +168,31 @@ class MykrobeJsonTransformer {
     }
 
     let drugsResistance = {
-        mdr:false,
-        xdr:false
+      mdr: false,
+      xdr: false
     };
 
-    if ( model.resistant.indexOf('Isoniazid') !== -1 && model.resistant.indexOf('Rifampicin') !== -1 ) {
-        drugsResistance.mdr = true;
+    if (model.resistant.indexOf('Isoniazid') !== -1 && model.resistant.indexOf('Rifampicin') !== -1) {
+      drugsResistance.mdr = true;
         /*
         If MDR AND R to both fluoroquinolones and one of the other these 3 (Amikacin, Kanamycin, Capreomycin), then call it XDR (Extensively Drug Resistant)
         */
-        if ( model.resistant.indexOf('Quinolones') ) {
-            if ( model.resistant.indexOf('Amikacin') !== -1 || model.resistant.indexOf('Kanamycin') !== -1 || model.resistant.indexOf('Capreomycin') !== -1 ) {
-                drugsResistance.xdr = true;
-            }
+      if (model.resistant.indexOf('Quinolones')) {
+        if (model.resistant.indexOf('Amikacin') !== -1 || model.resistant.indexOf('Kanamycin') !== -1 || model.resistant.indexOf('Capreomycin') !== -1) {
+          drugsResistance.xdr = true;
         }
+      }
     }
 
     model.drugsResistance = drugsResistance;
 
     let speciesPretty = '';
 
-    if ( TargetConstants.SPECIES_TB === this.config.species ) {
-        speciesPretty = model.species.join(' / ') +' (lineage: '+model.lineage[0]+')';
+    if (TargetConstants.SPECIES_TB === this.config.species) {
+      speciesPretty = model.species.join(' / ') + ' (lineage: ' + model.lineage + ')';
     }
     else {
-        speciesPretty = model.species.join(' / ');
+      speciesPretty = model.species.join(' / ');
     }
 
     model.speciesPretty = speciesPretty;
@@ -190,9 +201,9 @@ class MykrobeJsonTransformer {
   }
 
   _sortObject(o) {
-    var sorted = {};
-    var key;
-    var a = [];
+    let sorted = {};
+    let key;
+    let a = [];
 
     for (key in o) {
       if (o.hasOwnProperty(key)) {

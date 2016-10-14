@@ -10,7 +10,9 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
     fetch(`http://localhost:3000/demo/${baseName}.json`)
       .then((response) => {
         if (response.ok) {
-          this.doneWithJsonString(response.text());
+          response.text().then((string) => {
+            this.doneWithJsonString(string);
+          });
         }
         else {
           this.failWithError(response.statusText);
