@@ -39,6 +39,12 @@ class CircularProgress extends Component {
   }
 }
 
+CircularProgress.propTypes = {
+  radius: PropTypes.number,
+  percentage: PropTypes.number,
+  strokeWidth: PropTypes.number
+};
+
 CircularProgress.defaultProps = {
   radius: 240,
   percentage: 50,

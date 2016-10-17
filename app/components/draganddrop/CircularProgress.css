@@ -1,6 +1,7 @@
 .container {
   composes: containerAbsolute from "css/layout.css";
   pointer-events: none;
+  transform:rotate(-90deg);
 }
 
 .background {
@@ -13,5 +14,4 @@
   transition: stroke-dashoffset 0.3s linear;
   stroke: var(--color-grey-light);
   transform-origin:center center;
-  transform:rotate(-90deg);
 }

@@ -30,7 +30,7 @@ class Lozenge extends Component {
     // receiving new width and height
     console.log('componentWillReceiveProps', nextProps);
     const {width, height} = nextProps;
-    if ( this.props.width === nextProps.width && this.props.height === nextProps.height ) {
+    if (this.props.width === nextProps.width && this.props.height === nextProps.height) {
       // don't update unless we are a different size
       return;
     }
@@ -59,7 +59,7 @@ class Lozenge extends Component {
         y: y - 100 + Math.random() * 200,
         duration
       });
-    }, 1000*1/60);
+    }, 1000 * 1 / 60);
     clearTimeout(this.repeatTimeout);
     this.repeatTimeout = setTimeout(() => {
       this.updateTransitionWithProps({
@@ -68,7 +68,7 @@ class Lozenge extends Component {
         width,
         height
       });
-    }, duration*1000);
+    }, duration * 1000);
   }
 
   render() {
@@ -80,15 +80,20 @@ class Lozenge extends Component {
         transitionDuration: `${duration}s`
       }}>
         <div className={lozengeClassName ? lozengeClassName : styles.lozengeBlue} style={{
-            width: `${scale*LozengeDimensions.width}px`,
-            height: `${scale*LozengeDimensions.height}px`,
-            animationDuration: `${rotation}s`
-        }}/>
+          width: `${scale * LozengeDimensions.width}px`,
+          height: `${scale * LozengeDimensions.height}px`,
+          animationDuration: `${rotation}s`
+        }} />
       </div>
     );
   }
 }
 
+Lozenge.propTypes = {
+  lozengeClassName: PropTypes.string,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired
+};
 
 class AnimatedBackground extends Component {
   constructor(props) {
@@ -127,7 +132,7 @@ class AnimatedBackground extends Component {
   render() {
     const {width, height} = this.state;
     return (
-      <div ref={(ref) => {this._container = ref;}} className={styles.container}>
+      <div ref={(ref) => { this._container = ref; }} className={styles.container}>
         <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
         <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
         <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
