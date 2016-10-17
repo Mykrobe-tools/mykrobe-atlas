@@ -123,8 +123,10 @@ class PhyloCanvasComponent extends Component {
     if (!node) {
       return;
     }
+    // rgba(1,1,1,0) prevents box outline in Safari
     node.setDisplay({
       leafStyle: {
+        strokeStyle: 'rgba(1,1,1,0)',
         fillStyle: color
       },
     });
