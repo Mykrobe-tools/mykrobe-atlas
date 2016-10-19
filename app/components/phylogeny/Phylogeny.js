@@ -91,7 +91,7 @@ class Phylogeny extends Component {
     const {analyser, controlsInset} = this.props;
     const {treeType} = this.state;
     const newick = analyser.transformed.atlas.tree;
-    const insetStyle = {padding: `${controlsInset}px`};
+    const insetStyle = {margin: `${controlsInset}px`};
     return (
       <div className={styles.container}>
         <div className={styles.contentContainer} ref={(ref) => { this._container = ref; }}>

@@ -245,7 +245,7 @@ class PhyloCanvasComponent extends Component {
 
   render() {
     const {displayTooltip, controlsInset} = this.props;
-    const insetStyle = {padding: `${controlsInset}px`};
+    const insetStyle = {margin: `${controlsInset}px`};
     return (
       <div className={styles.container}>
         <div id="phyloCanvasDiv" ref={(ref) => { this._phyloCanvasDiv = ref; }} className={styles.container} />
