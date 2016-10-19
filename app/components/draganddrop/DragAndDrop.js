@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './DragAndDrop.css';
 import * as AnalyserActions from 'actions/AnalyserActions';
-import AnimatedBackground from './AnimatedBackground';
+import AnimatedBackground from 'components/animatedbackground/AnimatedBackground';
 import CircularProgress from './CircularProgress';
 
 class DragAndDrop extends Component {

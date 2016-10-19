@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './AnimatedBackground.css';
+import styles from './Lozenge.css';
 
 const LozengeDimensions = {
   width: 185,
@@ -95,61 +95,4 @@ Lozenge.propTypes = {
   height: PropTypes.number.isRequired
 };
 
-class AnimatedBackground extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      width: 0,
-      height: 0
-    };
-    this._resize = (e) => this.resize(e);
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this._resize);
-    setTimeout(() => {
-      this.measureContainer();
-    }, 0);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this._resize);
-  }
-
-  resize() {
-    this.measureContainer();
-  }
-
-  measureContainer() {
-    const boundingClientRect = this._container.getBoundingClientRect();
-    const {width, height} = boundingClientRect;
-    this.setState({
-      width,
-      height
-    });
-  }
-
-  render() {
-    const {width, height} = this.state;
-    return (
-      <div ref={(ref) => { this._container = ref; }} className={styles.container}>
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
-      </div>
-    );
-  }
-}
-
-export default AnimatedBackground;
+export default Lozenge;
