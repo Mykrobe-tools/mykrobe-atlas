@@ -1,22 +1,12 @@
-@keyframes spin {
-    from {
-        transform:rotate(0deg);
-    }
-    to {
-        transform:rotate(360deg);
-    }
-}
 
 .lozengeContainer {
     position:absolute;
-    transition: 5s linear;
 }
 
 .lozenge {
     border-radius: 500px;
     width: 185px;
     height: 65px;
-    animation: spin 1s infinite linear;
 }
 
 .lozengeBlue {

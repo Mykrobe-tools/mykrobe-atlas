@@ -1,6 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import Lozenge from './Lozenge';
 import styles from './AnimatedBackground.css';
+import lozengeStyles from './Lozenge.css';
 
 class AnimatedBackground extends Component {
   constructor(props) {
@@ -40,20 +41,20 @@ class AnimatedBackground extends Component {
     const {width, height} = this.state;
     return (
       <div ref={(ref) => { this._container = ref; }} className={styles.container}>
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} lozengeClassName={styles.lozengeYellow} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
-        <Lozenge width={width} height={height} />
+        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
+        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
+        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
+        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
+        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
+        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
+        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
+        <Lozenge containerWidth={width} containerHeight={height} />
+        <Lozenge containerWidth={width} containerHeight={height} />
+        <Lozenge containerWidth={width} containerHeight={height} />
+        <Lozenge containerWidth={width} containerHeight={height} />
+        <Lozenge containerWidth={width} containerHeight={height} />
+        <Lozenge containerWidth={width} containerHeight={height} />
+        <Lozenge containerWidth={width} containerHeight={height} />
       </div>
     );
   }

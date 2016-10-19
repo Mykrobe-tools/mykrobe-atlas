@@ -10,79 +10,77 @@ class Lozenge extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      x: 0,
-      y: 0,
-      scale: 1.5 + Math.random() * 0.5,
-      duration: Math.random() * 40 + 10,
-      rotation: Math.random() * 40 + 10
+      initialised: false
     };
   }
 
-  componentDidMount() {
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.transitionTimeout);
-    clearTimeout(this.repeatTimeout);
+  initialiseWithProps(props) {
+    const {containerWidth, containerHeight} = props;
+    this.state = {
+      initialised: true,
+      x: (-0.1 + 1.2 * Math.random()) * containerWidth,
+      y: 300 + Math.random() * (containerHeight - 200),
+      scale: 1.5 + Math.random() * 0.5,
+      rotation: Math.random() * 180,
+      vx: 0.1 + Math.random() * 0.2,
+      vy: 0.1 + Math.random() * 0.2,
+      vr: 0.1 + Math.random() * 0.2
+    };
   }
 
   componentWillReceiveProps(nextProps) {
-    // receiving new width and height
-    console.log('componentWillReceiveProps', nextProps);
-    const {width, height} = nextProps;
-    if (this.props.width === nextProps.width && this.props.height === nextProps.height) {
-      // don't update unless we are a different size
-      return;
+    // receiving new width and height, initialise if non-zero
+    const {containerWidth, containerHeight} = nextProps;
+    if (!this.state.initialised) {
+      if (containerWidth !== 0 && containerHeight !== 0) {
+        this.initialiseWithProps(nextProps);
+      }
     }
-    this.updateTransitionWithProps({
-      x: -width + Math.random() * width * 2,
-      y: 300 + Math.random() * (height - 200),
-      width,
-      height
+  }
+
+  componentDidMount() {
+    this._raf = requestAnimationFrame(() => {
+      this.onEnterFrame();
     });
   }
 
-  updateTransitionWithProps(props = this.props) {
-    const {x, y, width, height} = props;
-    const {duration, scale} = this.state;
-    // start on screen
-    this.setState({
+  componentWillUnmount() {
+    this._raf && cancelAnimationFrame(this._raf);
+    this._raf = null;
+  }
+
+  onEnterFrame() {
+    const {x, y, scale, rotation, vx, vy, vr} = this.state;
+    const {containerWidth, containerHeight} = this.props;
+    const thisWidth = LozengeDimensions.width * scale;
+    let newState = {
       x,
       y,
-      duration: 0
+      rotation
+    };
+    newState.x += vx * 3;
+    newState.rotation += vr * 0.5;
+    if (newState.x > containerWidth + thisWidth) {
+      newState.x -= (containerWidth + 2 * thisWidth);
+      newState.y = 300 + Math.random() * (containerHeight - 200);
+    }
+    this.setState(newState);
+    this._raf = requestAnimationFrame(() => {
+      this.onEnterFrame();
     });
-    // allow 1/60 second for browser to reset position of div before animating again
-    clearTimeout(this.transitionTimeout);
-    this.transitionTimeout = setTimeout(() => {
-      this.setState({
-        x: x + width + LozengeDimensions.width * 2 * scale,
-        y: y - 100 + Math.random() * 200,
-        duration
-      });
-    }, 1000 * 1 / 60);
-    clearTimeout(this.repeatTimeout);
-    this.repeatTimeout = setTimeout(() => {
-      this.updateTransitionWithProps({
-        x: -LozengeDimensions.width * scale,
-        y: 300 + Math.random() * (height - 200),
-        width,
-        height
-      });
-    }, duration * 1000);
   }
 
   render() {
     const {lozengeClassName} = this.props;
-    const {x, y, duration, rotation, scale} = this.state;
+    const {x, y, rotation, scale} = this.state;
     return (
       <div className={styles.lozengeContainer} style={{
-        transform: `translate(${x}px, ${y}px)`,
-        transitionDuration: `${duration}s`
+        transform: `translate(${x}px, ${y}px)`
       }}>
-        <div className={lozengeClassName ? lozengeClassName : styles.lozengeBlue} style={{
+        <div className={lozengeClassName || styles.lozengeBlue} style={{
+          transform: `rotate(${rotation}deg) translate3d(0, 0, 0)`,
           width: `${scale * LozengeDimensions.width}px`,
-          height: `${scale * LozengeDimensions.height}px`,
-          animationDuration: `${rotation}s`
+          height: `${scale * LozengeDimensions.height}px`
         }} />
       </div>
     );
@@ -91,8 +89,8 @@ class Lozenge extends Component {
 
 Lozenge.propTypes = {
   lozengeClassName: PropTypes.string,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  containerWidth: PropTypes.number.isRequired,
+  containerHeight: PropTypes.number.isRequired
 };
 
 export default Lozenge;
