@@ -29,8 +29,17 @@ app.use(webpackHotMiddleware(compiler));
 // static assets for demo
 app.use('/demo/', express.static(path.resolve(__dirname, 'demo')));
 
+// treeplace for demo
+// e.g. http://13.69.243.89:8000/treeplace?file=10057-10.fastq.gz
+app.get('/treeplace', (req, res, next) => {
+  const {file} = req.query;
+  const index = file.indexOf('.');
+  const prefix = file.substr(0, index);
+  res.sendFile(path.resolve(__dirname, 'demo', `${prefix}.json`));
+});
+
 // serve html
-app.get('/', (req, res, next) => {
+app.get('*', (req, res, next) => {
   if (req.accepts('html')) {
     res.sendFile(path.resolve(__dirname, 'index.html'));
   }

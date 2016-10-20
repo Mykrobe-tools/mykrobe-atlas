@@ -33,8 +33,7 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
 
   demoFinishAnalysing() {
     const fileName = this._file.name;
-    const baseName = fileName.substr(0, fileName.lastIndexOf('.'));
-    fetch(`${BASE_URL}/demo/${baseName}.json`)
+    fetch(`${BASE_URL}/treeplace?file=${fileName}`)
       .then((response) => {
         if (response.ok) {
           response.text().then((string) => {
