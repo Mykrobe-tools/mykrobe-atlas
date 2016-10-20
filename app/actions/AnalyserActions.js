@@ -11,7 +11,7 @@ export function analyseFile(file) {
       this.analyser.cancel();
     }
 
-    // dispatch(push('/analysing'));
+    dispatch(push('/'));
 
     if (IS_ELECTRON) {
       const {app} = require('electron').remote;
@@ -26,7 +26,7 @@ export function analyseFile(file) {
     const service = new MykrobeService();
     this.analyser = service.analyseFile(file)
       .on('progress', (progress) => {
-        console.log('progress', progress);
+        // console.log('progress', progress);
         const percent = Math.round(100 * progress.progress / progress.total);
         dispatch(analyseFileProgress(percent));
       })
