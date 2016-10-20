@@ -38,7 +38,7 @@ class SummaryMetadata extends Component {
               </tr>
               <tr>
                 <td>Closest relative</td>
-                <td><a href="#"><i className="fa fa-chevron-circle-right"></i> :sampleid:</a> - X SNPs apart</td>
+                <td><a href="#"><i className="fa fa-chevron-circle-right" /> :sampleid:</a> - X SNPs apart</td>
               </tr>
             </tbody>
           </table>

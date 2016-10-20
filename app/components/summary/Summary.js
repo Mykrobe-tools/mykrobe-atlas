@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './Summary.css';
 import ResistanceProfile from 'components/resistance/ResistanceProfile';
-import Panel from  'components/ui/Panel';
+import Panel from 'components/ui/Panel';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';
 

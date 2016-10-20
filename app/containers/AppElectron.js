@@ -24,7 +24,7 @@ class AppElectron extends Component {
           path: filePath
         };
         // TODO
-        debugger
+        debugger;
         dispatch(AnalyserActions.analyseFile(file));
       }
     });
@@ -41,7 +41,7 @@ class AppElectron extends Component {
           path: filePath
         };
         // TODO
-        debugger
+        debugger;
         dispatch(AnalyserActions.analyseFile(file));
       }
     });

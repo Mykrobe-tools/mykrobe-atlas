@@ -10,17 +10,17 @@ export default function analyser(state = initialState, action = {}) {
       // clone the current array
       let highlighted = state.highlighted.slice();
       const index = highlighted.indexOf(action.node);
-      if ( action.highlighted ) {
-        if ( -1 === index ) {
+      if (action.highlighted) {
+        if (-1 === index) {
           highlighted = highlighted.concat(action.node);
         }
       }
       else {
-        if ( -1 !== index ) {
-          highlighted.splice(index,1);
+        if (-1 !== index) {
+          highlighted.splice(index, 1);
         }
-        if ( 0 !== highlighted.length ) {
-          debugger
+        if (0 !== highlighted.length) {
+          debugger;
         }
       }
       return {

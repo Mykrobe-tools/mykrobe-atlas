@@ -18,7 +18,7 @@ class SummaryVariants extends Component {
           <div className={styles.title}>Whole genome analysis</div>
           <div>Depth of coverage 80&times;</div>
           <div>No evidence of multiple strains (only 2 heterozygous sites)</div>
-          <div><a href="#"><i className="fa fa-plus-circle"></i> more</a></div>
+          <div><a href="#"><i className="fa fa-plus-circle" /> more</a></div>
         </div>
         <div className={styles.group}>
           <div className={styles.title}>Contamination check</div>

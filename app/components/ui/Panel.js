@@ -5,7 +5,7 @@ class Panel extends Component {
   render() {
     const {title, columns, children} = this.props;
     return (
-      <div className={styles.panelContainer} style={{width: `${100*columns/8}%`}}>
+      <div className={styles.panelContainer} style={{width: `${100 * columns / 8}%`}}>
         <div className={styles.panelContent}>
           {title && (
             <div className={styles.panelTitle}>
