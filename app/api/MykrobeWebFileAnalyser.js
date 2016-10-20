@@ -1,5 +1,6 @@
 import * as TargetConstants from 'constants/TargetConstants';
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
+import { BASE_URL } from 'constants/APIConstants';
 
 class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
   analyseBinaryFile(file) {
@@ -33,7 +34,7 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
   demoFinishAnalysing() {
     const fileName = this._file.name;
     const baseName = fileName.substr(0, fileName.lastIndexOf('.'));
-    fetch(`http://localhost:3000/demo/${baseName}.json`)
+    fetch(`${BASE_URL}/demo/${baseName}.json`)
       .then((response) => {
         if (response.ok) {
           response.text().then((string) => {
