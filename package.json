@@ -1,8 +1,9 @@
 {
-  "name": "mykrobe",
+  "name": "mykrobe-atlas",
   "productName": "Mykrobe Atlas TB",
   "version": "0.2.0",
-  "description": "Mykrobe UI",
+  "description": "Mykrobe Atlas UI",
+  "private": true,
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test mocha --compilers js:babel-register --recursive --require ./test/setup.js test/**/*.spec.js",
