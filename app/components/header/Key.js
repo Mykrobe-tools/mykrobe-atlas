@@ -25,7 +25,7 @@ class Key extends Component {
 
   getSampleWithId(nodeId) {
     const {analyser} = this.props;
-    const {samples} = analyser.transformed.atlas;
+    const {samples} = analyser.transformed;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
       if (sample.id === nodeId) {
@@ -36,7 +36,7 @@ class Key extends Component {
 
   getSampleIds() {
     const {analyser} = this.props;
-    const {samples} = analyser.transformed.atlas;
+    const {samples} = analyser.transformed;
     let nodeIds = [];
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];

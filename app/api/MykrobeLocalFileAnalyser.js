@@ -1,3 +1,5 @@
+/* @flow */
+
 import path from 'path';
 import fs from 'fs';
 import * as TargetConstants from 'constants/TargetConstants';
@@ -42,7 +44,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
     return this;
   }
 
-  analyseBinaryFile(file) {
+  analyseBinaryFile(file: File) {
     // in Electron we get the full local file path
     const filePath = file.path;
 
@@ -168,7 +170,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
 
     let pathToBin = '';
 
-    if ( TargetConstants.TYPE_PREDICTOR === this.targetConfig.type) {
+    if (TargetConstants.TYPE_PREDICTOR === this.targetConfig.type) {
       if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
         pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.predictor.tb');
       }
@@ -180,7 +182,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
         throw UnsupportedError;
       }
     }
-    else if ( TargetConstants.TYPE_ATLAS === this.targetConfig.type) {
+    else if (TargetConstants.TYPE_ATLAS === this.targetConfig.type) {
       if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
         pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.atlas.tb');
       }

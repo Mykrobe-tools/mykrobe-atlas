@@ -25,13 +25,13 @@ class Map extends Component {
       };
       this._google = google;
       this._map = new google.maps.Map(this._mapDiv, options);
-      this.updateMarkers(this.props.analyser.transformed.atlas.samples);
+      this.updateMarkers(this.props.analyser.transformed.samples);
     });
   }
 
   getSampleWithId(nodeId) {
     const {analyser} = this.props;
-    const {samples} = analyser.transformed.atlas;
+    const {samples} = analyser.transformed;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
       if (sample.id === nodeId) {
@@ -42,7 +42,7 @@ class Map extends Component {
 
   getSampleIds() {
     const {analyser} = this.props;
-    const {samples} = analyser.transformed.atlas;
+    const {samples} = analyser.transformed;
     let nodeIds = [];
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
@@ -115,8 +115,8 @@ class Map extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
-    if (this.props.analyser.transformed.atlas.samples !== nextProps.analyser.transformed.atlas.samples) {
-      this.updateMarkers(nextProps.analyser.transformed.atlas.samples);
+    if (this.props.analyser.transformed.samples !== nextProps.analyser.transformed.samples) {
+      this.updateMarkers(nextProps.analyser.transformed.samples);
     }
     if (node.highlighted.length) {
       console.log('node.highlighted', node.highlighted);

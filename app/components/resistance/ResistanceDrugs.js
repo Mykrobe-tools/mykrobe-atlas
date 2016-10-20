@@ -37,7 +37,7 @@ class ResistanceDrugs extends Component {
 
   listDrugsWithIndicators(drugs) {
     const {analyser} = this.props;
-    const {resistant, susceptible, inconclusive} = analyser.transformed.predictor;
+    const {resistant, susceptible, inconclusive} = analyser.transformed;
     let elements = [];
     drugs.forEach((drug, index) => {
       let indicators = [];

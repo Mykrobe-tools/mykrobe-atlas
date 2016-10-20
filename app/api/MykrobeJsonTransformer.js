@@ -1,3 +1,5 @@
+/* @flow */
+
 import MykrobeConfig from './MykrobeConfig';
 import _ from 'lodash';
 import * as TargetConstants from 'constants/TargetConstants';
@@ -24,11 +26,13 @@ const samplesForTest = [
 ];
 
 class MykrobeJsonTransformer {
-  constructor(config = new MykrobeConfig()) {
+  config: MykrobeConfig;
+
+  constructor(config: MykrobeConfig = new MykrobeConfig()) {
     this.config = config;
   }
 
-  transform(jsonString) {
+  transform(jsonString: string) {
     return new Promise((resolve, reject) => {
       this.stringToJson(jsonString).then((transformed) => {
         resolve(transformed);
@@ -36,7 +40,7 @@ class MykrobeJsonTransformer {
     });
   }
 
-  stringToJson(string) {
+  stringToJson(string: string) {
     return new Promise((resolve, reject) => {
       // extract just the portion in curly braces {}
       const first = string.indexOf('{');
@@ -51,47 +55,18 @@ class MykrobeJsonTransformer {
     });
   }
 
-  transformModel(sourceModel) {
-    const {atlas, predictor} = sourceModel;
-
-    // just do the first one for now, use same id for atlas and predictor
-    const sampleIds = _.keys(atlas);
+  transformModel(sourceModel: Object) {
+    // just do the first one for now
+    const sampleIds = _.keys(sourceModel);
     const sampleId = sampleIds[0];
 
-    const sampleAtlasModel = atlas[sampleId];
-    const transformedSampleAtlasModel = this.transformSampleAtlasModel(sampleAtlasModel);
+    const sampleModel = sourceModel[sampleId];
+    const transformedSampleModel = this.transformSampleModel(sampleModel);
 
-    const samplePredictorModel = predictor[sampleId];
-    const transformedSamplePredictorModel = this.transformSamplePredictorModel(samplePredictorModel);
-
-    return {
-      atlas: transformedSampleAtlasModel,
-      predictor: transformedSamplePredictorModel
-    };
+    return transformedSampleModel;
   }
 
-  transformSampleAtlasModel(sourceModel) {
-    let model = {};
-    model.tree = sourceModel.tree;
-    let neighbourKeys = _.keys(sourceModel.neighbours);
-    let samples = {};
-    // two samples for demo
-    // take one from samplesForTest and set the id
-    for (let i = 0; i < 2; i++) {
-      const neighbour = sourceModel.neighbours[neighbourKeys[i]];
-      let keys = _.keys(neighbour);
-      let demoSampleModel = samplesForTest[i];
-      let sampleId = keys[0];
-      demoSampleModel.id = sampleId;
-      samples[sampleId] = demoSampleModel;
-    }
-    return {
-      tree: model.tree,
-      samples: samples
-    };
-  }
-
-  transformSamplePredictorModel(sourceModel) {
+  transformSampleModel(sourceModel: Object) {
     let o;
     let susceptibilityModel;
     let key;
@@ -248,10 +223,28 @@ class MykrobeJsonTransformer {
 
     model.speciesPretty = speciesPretty;
 
+    // tree and neighbours
+
+    model.tree = sourceModel.tree;
+
+    let neighbourKeys = _.keys(sourceModel.neighbours);
+    let samples = {};
+    // two samples for demo
+    // take one from samplesForTest and set the id
+    for (let i = 0; i < 2; i++) {
+      const neighbour = sourceModel.neighbours[neighbourKeys[i]];
+      let keys = _.keys(neighbour);
+      let demoSampleModel = samplesForTest[i];
+      let sampleId = keys[0];
+      demoSampleModel.id = sampleId;
+      samples[sampleId] = demoSampleModel;
+    }
+    model.samples = samples;
+
     return model;
   }
 
-  _sortObject(o) {
+  _sortObject(o: Object) {
     let sorted = {};
     let key;
     let a = [];

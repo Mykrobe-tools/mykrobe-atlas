@@ -1,3 +1,5 @@
+/* @flow */
+
 import { EventEmitter } from 'events';
 import * as TargetConstants from 'constants/TargetConstants';
 import MykrobeJsonTransformer from './MykrobeJsonTransformer';
@@ -8,12 +10,12 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     this.targetConfig = targetConfig;
   }
 
-  extensionForFileName(fileName) {
+  extensionForFileName(fileName: string) {
     const extension = fileName.substr(fileName.lastIndexOf('.'));
     return extension.toLowerCase();
   }
 
-  analyseFile(file) {
+  analyseFile(file: File) {
     this.cancel();
     const extension = this.extensionForFileName(file.name);
     if ('.json' === extension) {
@@ -28,7 +30,7 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     }
   }
 
-  failWithError(err) {
+  failWithError(err: string) {
     setTimeout(() => {
       this.emit('error', {
         description: `Processing failed with error: ${err}`
@@ -36,7 +38,7 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     }, 0);
   }
 
-  doneWithJsonString(jsonString) {
+  doneWithJsonString(jsonString: string) {
     const transformer = new MykrobeJsonTransformer();
     transformer.transform(jsonString).then((result) => {
       const {json, transformed} = result;
@@ -49,7 +51,7 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     });
   }
 
-  analyseJsonFile(file) {
+  analyseJsonFile(file: File) {
     const reader = new FileReader();
 
     reader.onload = (e) => {
@@ -65,7 +67,7 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     return this;
   }
 
-  analyseBinaryFile(file) {
+  analyseBinaryFile(file: File) {
     console.log('analyseBinaryFile', file);
   }
 

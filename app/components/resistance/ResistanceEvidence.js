@@ -11,7 +11,7 @@ import * as AnalyserActions from 'actions/AnalyserActions';
 class ResistanceEvidence extends Component {
   render() {
     const {analyser} = this.props;
-    const {evidence} = analyser.transformed.predictor;
+    const {evidence} = analyser.transformed;
     let panels = [];
     for (let title in evidence) {
       const values = evidence[title][0];

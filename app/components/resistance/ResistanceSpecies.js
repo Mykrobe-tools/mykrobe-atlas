@@ -7,7 +7,7 @@ import Panel from 'components/ui/Panel';
 class ResistanceSpecies extends Component {
   render() {
     const {analyser} = this.props;
-    const {speciesPretty} = analyser.transformed.predictor;
+    const {speciesPretty} = analyser.transformed;
 
     return (
       <div className={styles.container}>
