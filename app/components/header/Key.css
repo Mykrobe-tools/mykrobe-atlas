@@ -2,14 +2,15 @@
   background-color:var(--color-buff-dark);
   padding:12px;
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  flex-shrink: 0;
+  position: relative;
 }
 
-.headerTitle {
+.title {
   display: flex;
   flex-direction: row;
+  margin: 0 auto;
 }
 
 .button {
@@ -26,4 +27,20 @@
 
 .compareButton {
   composes: button;
+}
+
+.actions {
+  position: absolute;
+  right: 30px;
+}
+
+.actionItem {
+  composes: fontSecondary from "css/typography.css";
+  composes: fontSecondarySizeSmall from "css/typography.css";
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.actionItem:hover {
+  opacity: 0.7;
 }

@@ -5,6 +5,7 @@ import styles from './Key.css';
 import { connect } from 'react-redux';
 import type { Sample } from 'types/Sample';
 // import * as NodeActions from 'actions/NodeActions';
+import * as AnalyserActions from 'actions/AnalyserActions';
 
 // const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions');
 
@@ -25,6 +26,15 @@ class Key extends Component {
   //   dispatch(DemoActions.loadTreeWithPath('tree.json'));
   //   dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'));
   // }
+
+  onNewClicked(e) {
+    console.log('onNewClicked');
+    const {dispatch} = this.props;
+    const result = confirm('Open a new sample?');
+    if (result) {
+      dispatch(AnalyserActions.analyseFileCancel());
+    }
+  }
 
   getSampleWithId(nodeId: string): ?Sample {
     const {analyser} = this.props;
@@ -79,8 +89,11 @@ class Key extends Component {
     }
     return (
       <div className={styles.container}>
-        <div className={styles.headerTitle}>
+        <div className={styles.title}>
           {title}
+        </div>
+        <div className={styles.actions}>
+          <div className={styles.actionItem} onClick={(e) => { this.onNewClicked(e); }}><i className="fa fa-plus-circle" /> New</div>
         </div>
       </div>
     );
