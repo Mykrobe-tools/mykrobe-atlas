@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
+import Key from 'components/header/Key';
 import moment from 'moment';
 import styles from './Metadata.css';
 
@@ -125,6 +126,7 @@ class Metadata extends Component {
   render() {
     return (
       <div className={styles.container}>
+        <Key single />
         <div className={styles.formContainer}>
           <div className={styles.formHeader}>
             <div className={styles.formHeaderTitle}>

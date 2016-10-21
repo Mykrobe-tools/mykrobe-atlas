@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styles from './Summary.css';
 import ResistanceProfile from 'components/resistance/ResistanceProfile';
 import Panel from 'components/ui/Panel';
+import Key from 'components/header/Key';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';
 
@@ -11,6 +12,7 @@ class Summary extends Component {
     const {children} = this.props;
     return (
       <div className={styles.container}>
+        <Key single />
         <div className={styles.title}>
           Summary report for sample :sampleid:
         </div>
