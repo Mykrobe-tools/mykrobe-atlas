@@ -39,7 +39,7 @@ electron/static/*
 !electron/static/package.json
 
 # Web build
-web/build/*
+web/build/static/*
 
 # Visual Studio
 .vscode

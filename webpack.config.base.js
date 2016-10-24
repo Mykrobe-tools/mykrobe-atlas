@@ -2,21 +2,11 @@ import webpack from 'webpack';
 import path from 'path';
 
 function baseConfig(env = 'development') {
-  const STRIP_CONSOLE_LOG = ('development' !== env);
-// const STRIP_CONSOLE_LOG = false;
-
-  const JS_LOADERS =
-    STRIP_CONSOLE_LOG
-    ? [
-      'babel',
-      'strip-loader?strip[]=debug,strip[]=debugger,strip[]=console.log'
-    ]
-    : ['babel'];
   return {
     module: {
       loaders: [{
         test: /\.jsx?$/,
-        loaders: JS_LOADERS,
+        loaders: ['babel'],
         exclude: /node_modules/
       }, {
         test: /\.json$/,

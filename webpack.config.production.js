@@ -15,7 +15,6 @@ const config = merge(baseConfig('production'), {
           'css-loader'
         )
       },
-
       {
         test: /^((?!\.global).)*\.css$/,
         loader: ExtractTextPlugin.extract(
@@ -23,9 +22,8 @@ const config = merge(baseConfig('production'), {
           'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
         )
       },
-
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         loaders: [
           'strip-loader?strip[]=debug,strip[]=debugger,strip[]=console.log'
