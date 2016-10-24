@@ -23,7 +23,7 @@ class Map extends Component {
         center: {lat: 51.5074, lng: 0.1278},
         maxZoom: 7,
         zoom: 3,
-        backgroundColor: '#eae9e4',
+        backgroundColor: '#e2e1dc',
         styles: mapStyle
       };
       this._google = google;
@@ -175,10 +175,7 @@ const mapStyle = [
     'elementType': 'geometry',
     'stylers': [
       {
-        'color': '#e9e9e9'
-      },
-      {
-        'lightness': 17
+        'color': '#e2e1dc'
       }
     ]
   },
@@ -187,10 +184,7 @@ const mapStyle = [
     'elementType': 'geometry',
     'stylers': [
       {
-        'color': '#f5f5f5'
-      },
-      {
-        'lightness': 20
+        'color': '#edece8'
       }
     ]
   },
@@ -250,10 +244,7 @@ const mapStyle = [
     'elementType': 'geometry',
     'stylers': [
       {
-        'color': '#f5f5f5'
-      },
-      {
-        'lightness': 21
+        'color': '#edece8'
       }
     ]
   },
@@ -262,10 +253,7 @@ const mapStyle = [
     'elementType': 'geometry',
     'stylers': [
       {
-        'color': '#dedede'
-      },
-      {
-        'lightness': 21
+        'color': '#d7d6d2'
       }
     ]
   },
@@ -287,13 +275,7 @@ const mapStyle = [
     'elementType': 'labels.text.fill',
     'stylers': [
       {
-        'saturation': 36
-      },
-      {
-        'color': '#333333'
-      },
-      {
-        'lightness': 40
+        'color': Colors.COLOR_GREY_MID
       }
     ]
   },
@@ -310,10 +292,7 @@ const mapStyle = [
     'elementType': 'geometry',
     'stylers': [
       {
-        'color': '#f2f2f2'
-      },
-      {
-        'lightness': 19
+        'color': '#eae9e5'
       }
     ]
   },
@@ -322,10 +301,7 @@ const mapStyle = [
     'elementType': 'geometry.fill',
     'stylers': [
       {
-        'color': '#fefefe'
-      },
-      {
-        'lightness': 20
+        'color': '#f6f5f0'
       }
     ]
   },
@@ -334,10 +310,7 @@ const mapStyle = [
     'elementType': 'geometry.stroke',
     'stylers': [
       {
-        'color': '#fefefe'
-      },
-      {
-        'lightness': 17
+        'color': '#f6f5f0'
       },
       {
         'weight': 1.2
