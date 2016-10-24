@@ -23,7 +23,7 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={DragAndDropPage} />
     <Route path="analysing" component={AnalysingPage} />
-    <Route path="results" component={ResultsPage} >
+    <Route path="results" component={ResultsPage}>
       <IndexRedirect to="resistance" />
       <Route path="metadata" component={Metadata} />
       <Route path="resistance" component={Resistance}>

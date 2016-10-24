@@ -13,14 +13,14 @@ class App extends Component {
   };
   _dropzone: Dropzone;
 
-  constructor(props) {
+  constructor(props: Object) {
     super(props);
     this.state = {
       isDragActive: false
     };
   }
 
-  onDragLeave(e) {
+  onDragLeave(e: SyntheticDragEvent) {
     this.setState({
       isDragActive: false
     });
@@ -42,7 +42,7 @@ class App extends Component {
     });
   }
 
-  onDropAccepted(files) {
+  onDropAccepted(files: Array<File>) {
     console.log('onDropAccepted', files);
     this.setState({
       isDragActive: false
@@ -55,7 +55,7 @@ class App extends Component {
     dispatch(AnalyserActions.analyseFile(file));
   }
 
-  onDropRejected(files) {
+  onDropRejected(files: Array<File>) {
     console.log('onDropRejected', files);
     this.setState({
       isDragActive: false
@@ -96,13 +96,11 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
   };
 }
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
   children: PropTypes.element.isRequired
 };
 
