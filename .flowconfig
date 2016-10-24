@@ -4,5 +4,7 @@
 
 [libs]
 
+decls/
+
 [options]
 module.name_mapper='^\(.*\)$' -> '<PROJECT_ROOT>/app/\1'

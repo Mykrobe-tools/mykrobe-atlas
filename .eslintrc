@@ -2,7 +2,8 @@
   "parser": "babel-eslint",
   "extends": [
     "standard",
-    "standard-react"
+    "standard-react",
+    "plugin:flowtype/recommended"
   ],
   "env": {
     "browser": true,
@@ -27,7 +28,8 @@
   },
   "plugins": [
     "import",
-    "react"
+    "react",
+    "flowtype"
   ],
   "settings": {
     "import/resolver": {

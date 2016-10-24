@@ -1,10 +1,19 @@
+/* @flow */
+
 import React, { Component } from 'react';
 import Lozenge from './Lozenge';
 import styles from './AnimatedBackground.css';
 import lozengeStyles from './Lozenge.css';
 
 class AnimatedBackground extends Component {
-  constructor(props) {
+  state: {
+    width: number,
+    height: number
+  }
+  _resize: (e: Event) => void;
+  _container: Element;
+
+  constructor(props: Object) {
     super(props);
     this.state = {
       width: 0,

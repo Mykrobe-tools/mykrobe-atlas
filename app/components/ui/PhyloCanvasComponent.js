@@ -26,7 +26,7 @@ class PhyloCanvasComponent extends Component {
   _resize: (e: Event) => void;
   _mouseMove: (e: MouseEvent) => void;
   _tree: DrawEventTree;
-  _phyloCanvasDiv: Object;
+  _phyloCanvasDiv: React$Element<any>;
   _highlightedNodes: Object;
   _phyloCanvasTooltip: PhyloCanvasTooltip;
   _currentNodeHover: Branch;

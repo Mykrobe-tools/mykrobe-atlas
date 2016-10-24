@@ -1,14 +1,11 @@
+/* @flow */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Metadata from 'components/metadata/Metadata';
 import styles from './Analysing.css';
 import * as AnalyserActions from 'actions/AnalyserActions';
 import AnalysingProgressBar from './AnalysingProgressBar';
-// import * as UIHelpers from 'helpers/UIHelpers';
-
-if (IS_ELECTRON) {
-  const UIHelpers = require('helpers/UIHelpers');
-}
 
 // TODO: push route on state change
 
@@ -25,6 +22,7 @@ class Analysing extends Component {
   render() {
     const {analyser} = this.props;
     if (IS_ELECTRON) {
+      const UIHelpers = require('helpers/UIHelpers');
       UIHelpers.setProgress(analyser.progress);
     }
     return (

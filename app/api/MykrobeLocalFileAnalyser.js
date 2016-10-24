@@ -13,7 +13,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
   jsonBuffer: string;
   isBufferingJson: boolean;
   processExited: boolean;
-  child: child_process$ChildProcess; // eslint-disable-line camelcase, no-undef
+  child: child_process$ChildProcess; // eslint-disable-line camelcase
   didReceiveError: boolean;
 
   constructor(targetConfig: MykrobeConfig) {

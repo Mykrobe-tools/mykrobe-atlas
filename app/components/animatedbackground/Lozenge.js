@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component, PropTypes } from 'react';
 import styles from './Lozenge.css';
 
@@ -7,14 +9,31 @@ const LozengeDimensions = {
 };
 
 class Lozenge extends Component {
-  constructor(props) {
+  state: {
+    initialised: boolean,
+    x: number,
+    y: number,
+    scale: number,
+    rotation: number,
+    vx: number,
+    vr: number
+  };
+  _raf: number;
+
+  constructor(props: Object) {
     super(props);
     this.state = {
-      initialised: false
+      initialised: false,
+      x: 0,
+      y: 0,
+      scale: 1,
+      rotation: 0,
+      vx: 0,
+      vr: 0
     };
   }
 
-  initialiseWithProps(props) {
+  initialiseWithProps(props: Object) {
     const {containerWidth, containerHeight} = props;
     this.state = {
       initialised: true,
@@ -23,12 +42,11 @@ class Lozenge extends Component {
       scale: 1.5 + Math.random() * 0.5,
       rotation: Math.random() * 180,
       vx: 0.1 + Math.random() * 0.2,
-      vy: 0.1 + Math.random() * 0.2,
       vr: 0.1 + Math.random() * 0.2
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Object) {
     // receiving new width and height, initialise if non-zero
     const {containerWidth, containerHeight} = nextProps;
     if (!this.state.initialised) {
@@ -46,11 +64,11 @@ class Lozenge extends Component {
 
   componentWillUnmount() {
     this._raf && cancelAnimationFrame(this._raf);
-    this._raf = null;
+    delete this._raf;
   }
 
   onEnterFrame() {
-    const {x, y, scale, rotation, vx, vy, vr} = this.state;
+    const {x, y, scale, rotation, vx, vr} = this.state;
     const {containerWidth, containerHeight} = this.props;
     const thisWidth = LozengeDimensions.width * scale;
     let newState = {

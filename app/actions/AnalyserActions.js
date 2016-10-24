@@ -1,3 +1,5 @@
+/* @flow */
+
 import { push } from 'react-router-redux';
 
 import * as ActionTypes from 'constants/ActionTypes';
@@ -5,8 +7,8 @@ import * as ActionTypes from 'constants/ActionTypes';
 const MykrobeService = IS_ELECTRON ? require('api/MykrobeServiceElectron') : require('api/MykrobeService');
 console.log('MykrobeService', MykrobeService);
 
-export function analyseFile(file) {
-  return (dispatch, getState) => {
+export function analyseFile(file: File) {
+  return (dispatch: Function, getState: Function) => {
     if (this.analyser) {
       this.analyser.cancel();
     }
@@ -43,7 +45,7 @@ export function analyseFile(file) {
 }
 
 export function analyseFileCancel() {
-  return (dispatch, getState) => {
+  return (dispatch: Function, getState: Function) => {
     if (this.analyser) {
       this.analyser.cancel();
       delete this.analyser;
@@ -55,7 +57,7 @@ export function analyseFileCancel() {
   };
 }
 
-export function analyseFileSuccess(json, transformed) {
+export function analyseFileSuccess(json: Object, transformed: Object) {
   return {
     type: ActionTypes.ANALYSE_FILE_SUCCESS,
     json,
