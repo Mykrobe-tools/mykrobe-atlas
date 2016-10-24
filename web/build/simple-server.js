@@ -1,4 +1,4 @@
-/* eslint no-console: 0 */
+/* @flow */
 
 import express from 'express';
 import path from 'path';
@@ -7,9 +7,10 @@ const app = express();
 const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || 3000;
 
+// static assets
 app.use('/static/', express.static(path.resolve(__dirname, 'static')));
 
-// serve html
+// serve html for all unmatched routes
 app.get('*', (req, res, next) => {
   if (req.accepts('html')) {
     res.sendFile(path.resolve(__dirname, 'index.html'));
@@ -24,13 +25,11 @@ const server = app.listen(port, host, (err) => {
     console.error(err);
     return;
   }
-
   console.log(`Listening at http://${host}:${port}`);
 });
 
 process.on('SIGTERM', () => {
   console.log('Stopping dev server');
-  wdm.close();
   server.close(() => {
     process.exit(0);
   });
