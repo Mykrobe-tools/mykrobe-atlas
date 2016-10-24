@@ -3,6 +3,8 @@
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 import { BASE_URL } from 'constants/APIConstants';
 
+const IMMEDIATE_FETCH = true;
+
 class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
   _progress: number;
   _timeout: number;
@@ -14,6 +16,9 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
     console.error('TODO: upload file to API and report progress');
     this._progress = 0;
     this.demoUpdateProgress();
+    if (IMMEDIATE_FETCH) {
+      this.fetchDemoData();
+    }
     return this;
   }
 
@@ -36,7 +41,7 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
     }
   }
 
-  demoFinishAnalysing() {
+  fetchDemoData() {
     const fileName = this._file.name;
     fetch(`${BASE_URL}/treeplace?file=${fileName}`)
       .then((response) => {
@@ -49,6 +54,12 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
           this.failWithError(response.statusText);
         }
       });
+  }
+
+  demoFinishAnalysing() {
+    if (!IMMEDIATE_FETCH) {
+      this.fetchDemoData();
+    }
   }
 
   cancel(): void {
