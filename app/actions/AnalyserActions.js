@@ -46,7 +46,7 @@ export function analyseFileCancel() {
   return (dispatch, getState) => {
     if (this.analyser) {
       this.analyser.cancel();
-      this.analyser = null;
+      delete this.analyser;
     }
     dispatch(push('/'));
     dispatch({

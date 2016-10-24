@@ -1,9 +1,14 @@
-import * as TargetConstants from 'constants/TargetConstants';
+/* @flow */
+
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 import { BASE_URL } from 'constants/APIConstants';
 
 class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
-  analyseBinaryFile(file) {
+  _progress: number;
+  _timeout: number;
+  _file: File;
+
+  analyseBinaryFile(file: File): MykrobeWebFileAnalyser {
     this._file = file;
     console.log('analyseBinaryFile', file);
     console.error('TODO: upload file to API and report progress');
@@ -46,7 +51,7 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
       });
   }
 
-  cancel() {
+  cancel(): void {
     this._timeout && clearTimeout(this._timeout);
   }
 

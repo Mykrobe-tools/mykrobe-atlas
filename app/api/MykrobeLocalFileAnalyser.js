@@ -4,11 +4,18 @@ import path from 'path';
 import fs from 'fs';
 import * as TargetConstants from 'constants/TargetConstants';
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
+import MykrobeConfig from './MykrobeConfig';
 
 const app = require('electron').remote.app;
 
 class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
-  constructor(targetConfig) {
+  jsonBuffer: string;
+  isBufferingJson: boolean;
+  processExited: boolean;
+  child: typeof child_process$ChildProcess;
+  didReceiveError: boolean;
+
+  constructor(targetConfig: MykrobeConfig) {
     super(targetConfig);
     app.on('quit', () => {
       this.cancel();
@@ -44,7 +51,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
     return this;
   }
 
-  analyseBinaryFile(file: File) {
+  analyseBinaryFile(file: File): MykrobeLocalFileAnalyser {
     // in Electron we get the full local file path
     const filePath = file.path;
 
@@ -61,6 +68,10 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
     const dirToBin = path.join(this.dirToBin(), this.targetConfig.targetName);
     const args = ['--file', filePath, '--install_dir', dirToBin, '--format', 'JSON', '--progress'];
     this.child = spawn(pathToBin, args);
+    if (!this.child) {
+      this.failWithError('Failed to start child process');
+      return this;
+    }
 
     this.child.on('error', (err) => {
       console.log('Failed to start child process.', err);
@@ -130,12 +141,11 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
     return this;
   }
 
-  cancel() {
+  cancel(): void {
     if (this.child) {
       this.child.kill();
-      this.child = null;
+      delete this.child;
     }
-    return this;
   }
 
   dirToBin() {

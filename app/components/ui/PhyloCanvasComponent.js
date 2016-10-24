@@ -24,7 +24,7 @@ class DrawEventTree extends Tree {
 class PhyloCanvasComponent extends Component {
   _drawDeferredTimeout: number;
   _resize: (e: Event) => void;
-  _mouseMove: (e: Event) => void;
+  _mouseMove: (e: MouseEvent) => void;
   _tree: DrawEventTree;
   _phyloCanvasDiv: Object;
   _highlightedNodes: Object;
@@ -202,10 +202,12 @@ class PhyloCanvasComponent extends Component {
     for (let nodeId in this._highlightedNodes) {
       const color = this._highlightedNodes[nodeId];
       const position = this.getPositionOfNodeWithId(nodeId);
-      context.fillStyle = color;
-      context.beginPath();
-      context.arc(position.x, position.y, radius, 0, 2 * Math.PI, false);
-      context.fill();
+      if (position) {
+        context.fillStyle = color;
+        context.beginPath();
+        context.arc(position.x, position.y, radius, 0, 2 * Math.PI, false);
+        context.fill();
+      }
     }
   }
 
@@ -279,11 +281,11 @@ class PhyloCanvasComponent extends Component {
       </div>
     );
   }
-}
 
-PhyloCanvasComponent.defaultProps = {
-  controlsInset: 0
-};
+  static defaultProps = {
+    controlsInset: 0
+  }
+}
 
 PhyloCanvasComponent.propTypes = {
   data: PropTypes.string,

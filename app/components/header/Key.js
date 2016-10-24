@@ -98,11 +98,11 @@ class Key extends Component {
       </div>
     );
   }
-}
 
-Key.defaultProps = {
-  single: false
-};
+  static defaultProps = {
+    single: false
+  }
+}
 
 Key.propTypes = {
   dispatch: PropTypes.func.isRequired,

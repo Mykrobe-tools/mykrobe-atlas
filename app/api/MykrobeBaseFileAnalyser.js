@@ -1,11 +1,13 @@
 /* @flow */
 
-import { EventEmitter } from 'events';
-import * as TargetConstants from 'constants/TargetConstants';
+import EventEmitter from 'events';
 import MykrobeJsonTransformer from './MykrobeJsonTransformer';
+import MykrobeConfig from './MykrobeConfig';
 
 class MykrobeBaseFileAnalyser extends EventEmitter {
-  constructor(targetConfig) {
+  targetConfig: MykrobeConfig;
+
+  constructor(targetConfig: MykrobeConfig) {
     super();
     this.targetConfig = targetConfig;
   }
@@ -15,7 +17,7 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     return extension.toLowerCase();
   }
 
-  analyseFile(file: File) {
+  analyseFile(file: File): MykrobeBaseFileAnalyser {
     this.cancel();
     const extension = this.extensionForFileName(file.name);
     if ('.json' === extension) {
@@ -51,7 +53,7 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     });
   }
 
-  analyseJsonFile(file: File) {
+  analyseJsonFile(file: File): MykrobeBaseFileAnalyser {
     const reader = new FileReader();
 
     reader.onload = (e) => {
@@ -67,11 +69,12 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     return this;
   }
 
-  analyseBinaryFile(file: File) {
+  analyseBinaryFile(file: File): MykrobeBaseFileAnalyser {
     console.log('analyseBinaryFile', file);
+    return this;
   }
 
-  cancel() {
+  cancel(): void {
   }
 }
 

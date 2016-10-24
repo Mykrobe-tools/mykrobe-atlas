@@ -1,12 +1,16 @@
+/* @flow */
+
 import MykrobeLocalFileAnalyser from './MykrobeLocalFileAnalyser';
 import MykrobeConfig from './MykrobeConfig';
 
 class MykrobeService {
-  constructor(config = new MykrobeConfig()) {
+  config: MykrobeConfig;
+
+  constructor(config: MykrobeConfig = new MykrobeConfig()) {
     this.config = config;
   }
 
-  analyseFile(file) {
+  analyseFile(file: File) {
     return new MykrobeLocalFileAnalyser(this.config).analyseFile(file);
   }
 }
