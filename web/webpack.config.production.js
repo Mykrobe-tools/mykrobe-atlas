@@ -4,7 +4,9 @@ import baseConfig from '../webpack.config.production';
 import path from 'path';
 
 const config = merge(baseConfig, {
-  entry: path.resolve(__dirname, '../app/index'),
+  entry: [
+    path.resolve(__dirname, '../app/index')
+  ],
 
   output: {
     path: path.resolve(__dirname, 'build/static')
@@ -16,5 +18,7 @@ const config = merge(baseConfig, {
     })
   ]
 });
+
+console.log(config);
 
 export default config;

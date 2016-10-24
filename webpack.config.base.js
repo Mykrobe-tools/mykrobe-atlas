@@ -1,8 +1,11 @@
-import webpack from 'webpack';
 import path from 'path';
 
 function baseConfig(env = 'development') {
   return {
+    entry: [
+      'babel-polyfill',
+      'whatwg-fetch'
+    ],
     module: {
       loaders: [{
         test: /\.jsx?$/,

@@ -179,7 +179,8 @@
     "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-    "source-map-support": "^0.4.2"
+    "source-map-support": "^0.4.2",
+    "whatwg-fetch": "^1.0.0"
   },
   "devEngines": {
     "node": "4.x || 5.x || 6.x",
