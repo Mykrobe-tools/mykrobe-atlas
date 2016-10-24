@@ -1,3 +1,5 @@
+/* @flow */
+
 import PhyloCanvas, {Tree} from 'phylocanvas';
 import React, { Component, PropTypes } from 'react';
 import styles from './PhyloCanvasComponent.css';
@@ -21,9 +23,16 @@ class DrawEventTree extends Tree {
 }
 
 class PhyloCanvasComponent extends Component {
+  _drawDeferredTimeout: number;
+  _resize: (e: Event) => void;
+  _mouseMove: (e: Event) => void;
+  _tree: DrawEventTree;
+  _phyloCanvasDiv: Object;
+  _highlightedNodes: Object;
+
   constructor() {
     super();
-    this._resize = (e) => this.resize(e);
+    this._resize = (e) => this.resize();
     this._mouseMove = (e) => this.mouseMove(e);
     this._currentNodeHover = null;
     this._highlightedNodes = [];
@@ -193,7 +202,7 @@ class PhyloCanvasComponent extends Component {
     }
   }
 
-  mouseMove(e) {
+  mouseMove(e: Event) {
     const {displayTooltip} = this.props;
     const {onNodeMouseOver, onNodeMouseOut} = this.props;
     const node = this._tree.getNodeAtMousePosition(e);
@@ -233,7 +242,7 @@ class PhyloCanvasComponent extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Object) {
     if (prevProps.data !== this.props.data) {
       this._tree.load(this.props.data);
     }
