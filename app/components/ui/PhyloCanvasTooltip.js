@@ -1,22 +1,28 @@
-import React, { Component, PropTypes } from 'react';
+/* @flow */
+
+import React, { Component } from 'react';
 import styles from './PhyloCanvasTooltip.css';
+import type { Sample } from 'types/Sample';
 
 class PhyloCanvasTooltip extends Component {
+  state: {
+    visible: boolean,
+    node: ?Sample,
+    x: number,
+    y: number
+  }
+
   constructor() {
     super();
     this.state = {
       visible: false,
-      node: {
-        id: -1,
-        date: 'Not defined',
-        locationName: 'Not defined'
-      },
+      node: null,
       x: 0,
       y: 0
     };
   }
 
-  setVisible(visible, x = 100, y = 100) {
+  setVisible(visible: boolean, x: number = 100, y: number = 100) {
     this.setState({
       visible,
       x,
@@ -24,7 +30,7 @@ class PhyloCanvasTooltip extends Component {
     });
   }
 
-  setNode(node) {
+  setNode(node: Sample) {
     this.setState({
       node
     });

@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './Phylogeny.css';
@@ -5,11 +7,18 @@ import * as NodeActions from 'actions/NodeActions';
 
 import PhyloCanvasComponent from 'components/ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
+import type { Sample } from 'types/Sample';
 
 const treeTypes = ['radial', 'rectangular', 'circular', 'diagonal', 'hierarchy'];
 const AUTO_ZOOM_SAMPLES = true;
 
 class Phylogeny extends Component {
+  state: {
+    treeType: string
+  };
+  _phyloCanvas: PhyloCanvasComponent;
+  _phyloCanvasTooltip: PhyloCanvasTooltip;
+  _container: Element;
 
   constructor(props) {
     super(props);
@@ -76,8 +85,11 @@ class Phylogeny extends Component {
       const screenPosition = this._phyloCanvas.getPositionOfNodeWithId(nodeId);
       if (screenPosition) {
         const boundingClientRect = this._container.getBoundingClientRect();
-        this._phyloCanvasTooltip.setNode(this.getSampleWithId(nodeId));
-        this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
+        const sample = this.getSampleWithId(nodeId);
+        if (sample) {
+          this._phyloCanvasTooltip.setNode(sample);
+          this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
+        }
       }
     }
     else {
@@ -97,7 +109,6 @@ class Phylogeny extends Component {
             ref={(ref) => { this._phyloCanvas = ref; }}
             treeType={treeType}
             data={newick}
-            displayTooltip={false}
             onNodeMouseOver={(node) => { this.onNodeMouseOver(node); }}
             onNodeMouseOut={(node) => { this.onNodeMouseOut(node); }}
             onLoad={() => { this.onLoad(); }}
@@ -128,7 +139,7 @@ class Phylogeny extends Component {
     );
   }
 
-  getSampleWithId(nodeId) {
+  getSampleWithId(nodeId): ?Sample {
     const {analyser} = this.props;
     const {samples} = analyser.transformed;
     for (let sampleKey in samples) {
@@ -139,7 +150,7 @@ class Phylogeny extends Component {
     }
   }
 
-  getSampleIds() {
+  getSampleIds(): Array<string> {
     const {analyser} = this.props;
     const {samples} = analyser.transformed;
     let nodeIds = [];
@@ -175,6 +186,10 @@ class Phylogeny extends Component {
     const {dispatch} = this.props;
     dispatch(NodeActions.unsetNodeHighlightedAll());
   }
+
+  static defaultProps = {
+    controlsInset: 30
+  };
 }
 
 function mapStateToProps(state) {
@@ -183,10 +198,6 @@ function mapStateToProps(state) {
     node: state.node
   };
 }
-
-Phylogeny.defaultProps = {
-  controlsInset: 30
-};
 
 Phylogeny.propTypes = {
   dispatch: PropTypes.func.isRequired,

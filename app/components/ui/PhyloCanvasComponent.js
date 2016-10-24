@@ -212,7 +212,6 @@ class PhyloCanvasComponent extends Component {
   }
 
   mouseMove(e: MouseEvent) {
-    const {displayTooltip} = this.props;
     const {onNodeMouseOver, onNodeMouseOut} = this.props;
     const node: Branch = this._tree.getNodeAtMousePosition(e);
     if (!node) {
@@ -222,9 +221,6 @@ class PhyloCanvasComponent extends Component {
         if (onNodeMouseOut) {
           onNodeMouseOut(this._currentNodeHover);
         }
-      }
-      if (displayTooltip) {
-        this._phyloCanvasTooltip.setVisible(false);
       }
       delete this._currentNodeHover;
       return;
@@ -245,10 +241,6 @@ class PhyloCanvasComponent extends Component {
       }
     }
     this._currentNodeHover = node;
-    if (displayTooltip) {
-      this._phyloCanvasTooltip.setNode(node);
-      this._phyloCanvasTooltip.setVisible(true, e.clientX, e.clientY);
-    }
   }
 
   componentDidUpdate(prevProps: Object) {
@@ -261,7 +253,7 @@ class PhyloCanvasComponent extends Component {
   }
 
   render() {
-    const {displayTooltip, controlsInset} = this.props;
+    const {controlsInset} = this.props;
     const insetStyle = {margin: `${controlsInset}px`};
     return (
       <div className={styles.container}>
@@ -277,7 +269,6 @@ class PhyloCanvasComponent extends Component {
             <i className="fa fa-compress" />
           </div>
         </div>
-        {displayTooltip && <PhyloCanvasTooltip ref={(ref) => { this._phyloCanvasTooltip = ref; }} />}
       </div>
     );
   }
@@ -293,7 +284,6 @@ PhyloCanvasComponent.propTypes = {
   onNodeMouseOver: PropTypes.func,
   onNodeMouseOut: PropTypes.func,
   onLoad: PropTypes.func,
-  displayTooltip: PropTypes.bool,
   controlsInset: PropTypes.number
 };
 

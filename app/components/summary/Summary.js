@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './Summary.css';

@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import Key from 'components/header/Key';
@@ -10,7 +12,16 @@ const drugs = require('static/drugs.json');
 // TODO: move into redux, save on unmount
 
 class Metadata extends Component {
-  constructor(props) {
+  state: {
+    location: string,
+    date: moment,
+    sampleType: string,
+    susceptibility: Object,
+    treatedForTB: boolean,
+    shareSequence: boolean
+  };
+
+  constructor(props: Object) {
     super(props);
     // const app = require('electron').remote.app;
     // const locale = app.getLocale();
@@ -25,14 +36,14 @@ class Metadata extends Component {
     };
   }
 
-  handleDateChange(date) {
+  handleDateChange(date: moment) {
     console.log('handleDateChange', date);
     this.setState({
       date
     });
   }
 
-  handleCheckboxChange(event) {
+  handleCheckboxChange(event: ElementEvent<HTMLInputElement>) {
     console.log('handleCheckboxChange', event);
     var state = {};
     state[event.target.name] = event.target.checked;
@@ -40,7 +51,7 @@ class Metadata extends Component {
     this.setState(state);
   }
 
-  handleChange(event) {
+  handleChange(event: ElementEvent<HTMLInputElement>) {
     console.log('handleChange', event);
     console.log('event.target.name', event.target.name);
     console.log('event.target.value', event.target.value);

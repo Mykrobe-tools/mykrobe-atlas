@@ -9,6 +9,7 @@ import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
 import * as NodeActions from 'actions/NodeActions';
 import Key from 'components/header/Key';
 import MapStyle from './MapStyle';
+import type { Sample } from 'types/Sample';
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc';
 
@@ -40,7 +41,7 @@ class Map extends Component {
     });
   }
 
-  getSampleWithId(nodeId) {
+  getSampleWithId(nodeId): ?Sample {
     const {analyser} = this.props;
     const {samples} = analyser.transformed;
     for (let sampleKey in samples) {
@@ -133,8 +134,11 @@ class Map extends Component {
         const markerLocation = marker.getPosition();
         const screenPosition = this.fromLatLngToPoint(markerLocation);
         const boundingClientRect = this._mapDiv.getBoundingClientRect();
-        this._phyloCanvasTooltip.setNode(this.getSampleWithId(nodeId));
-        this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
+        const sample = this.getSampleWithId(nodeId);
+        if (sample) {
+          this._phyloCanvasTooltip.setNode(sample);
+          this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
+        }
       }
     }
     else {

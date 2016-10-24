@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component} from 'react';
 import styles from './PhylogenyWithKey.css';
 import Key from 'components/header/Key';
