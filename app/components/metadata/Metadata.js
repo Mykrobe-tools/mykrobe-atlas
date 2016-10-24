@@ -43,7 +43,7 @@ class Metadata extends Component {
     });
   }
 
-  handleCheckboxChange(event: ElementEvent<HTMLInputElement>) {
+  handleCheckboxChange(event: InputEvent) {
     console.log('handleCheckboxChange', event);
     var state = {};
     state[event.target.name] = event.target.checked;
@@ -51,7 +51,7 @@ class Metadata extends Component {
     this.setState(state);
   }
 
-  handleChange(event: ElementEvent<HTMLInputElement>) {
+  handleChange(event: InputEvent) {
     console.log('handleChange', event);
     console.log('event.target.name', event.target.name);
     console.log('event.target.value', event.target.value);

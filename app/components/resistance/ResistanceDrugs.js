@@ -80,7 +80,7 @@ function mapStateToProps(state) {
 ResistanceDrugs.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  children: PropTypes.object
+  children: PropTypes.node
 };
 
 export default connect(mapStateToProps)(ResistanceDrugs);

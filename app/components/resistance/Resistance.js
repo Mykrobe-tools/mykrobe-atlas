@@ -65,7 +65,7 @@ Resistance.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   demo: PropTypes.object.isRequired,
-  children: PropTypes.object
+  children: PropTypes.node
 };
 
 export default connect(mapStateToProps)(Resistance);
