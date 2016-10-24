@@ -1,3 +1,5 @@
+/* @flow */
+
 export function openFileDialog() {
   const {dialog, BrowserWindow} = require('electron').remote;
   const browserWindow = BrowserWindow.getFocusedWindow();
@@ -20,7 +22,7 @@ export function openFileDialog() {
   return false;
 }
 
-export function saveFileDialog(defaultPath = 'mykrobe.json') {
+export function saveFileDialog(defaultPath: string = 'mykrobe.json') {
   const {dialog, BrowserWindow} = require('electron').remote;
   const browserWindow = BrowserWindow.getFocusedWindow();
 
@@ -32,7 +34,7 @@ export function saveFileDialog(defaultPath = 'mykrobe.json') {
   return filePath || false;
 }
 
-export function setProgress(progress) {
+export function setProgress(progress: number) {
   // let commander = window.global('commander')
   const remote = require('electron').remote;
   const currentWindow = remote.getCurrentWindow();

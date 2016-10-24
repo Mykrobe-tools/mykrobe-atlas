@@ -1,3 +1,5 @@
+/* @flow */
+
 export const COLOR_TINT_PRIMARY = '#622268';
 export const COLOR_TINT_SECONDARY = '#D06192';
 export const COLOR_BASE_TEXT = '#676561';

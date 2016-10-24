@@ -1,3 +1,5 @@
+/* @flow */
+
 export const ANALYSE_FILE = 'ANALYSE_FILE';
 export const ANALYSE_FILE_ERROR = 'ANALYSE_FILE_ERROR';
 export const ANALYSE_FILE_SUCCESS = 'ANALYSE_FILE_SUCCESS';

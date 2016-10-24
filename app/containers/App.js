@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './App.css';
@@ -6,6 +8,11 @@ import * as AnalyserActions from 'actions/AnalyserActions';
 import Header from 'components/header/Header';
 
 class App extends Component {
+  state: {
+    isDragActive: boolean
+  };
+  _dropzone: Dropzone;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +26,7 @@ class App extends Component {
     });
   }
 
-  onDragEnter(e) {
+  onDragEnter(e: SyntheticDragEvent) {
     if (e.dataTransfer.items) {
       if (!e.dataTransfer.items.length) {
         return;
