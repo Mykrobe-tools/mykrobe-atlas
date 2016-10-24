@@ -2,6 +2,7 @@
 
 import path from 'path';
 import fs from 'fs';
+import {spawn} from 'child_process';
 import * as TargetConstants from 'constants/TargetConstants';
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 import MykrobeConfig from './MykrobeConfig';
@@ -12,7 +13,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
   jsonBuffer: string;
   isBufferingJson: boolean;
   processExited: boolean;
-  child: typeof child_process$ChildProcess;
+  child: child_process$ChildProcess; // eslint-disable-line camelcase, no-undef
   didReceiveError: boolean;
 
   constructor(targetConfig: MykrobeConfig) {
@@ -56,7 +57,6 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
     const filePath = file.path;
 
     this.removeSkeletonFiles();
-    const spawn = require('child_process').spawn; // eslint-disable-line global-require
 
     console.log('analyseBinaryFile', filePath);
 
