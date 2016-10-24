@@ -1,14 +1,13 @@
 /* @flow */
 
-import PhyloCanvas, {Tree} from 'phylocanvas';
+import PhyloCanvas, {Tree, Branch, utils} from 'phylocanvas';
 import React, { Component, PropTypes } from 'react';
 import styles from './PhyloCanvasComponent.css';
 import * as Colors from 'constants/Colors';
 import PhyloCanvasTooltip from './PhyloCanvasTooltip';
 
-import {utils} from 'phylocanvas';
 const {events, canvas} = utils;
-const { fireEvent } = events;
+const {fireEvent} = events;
 
 // Docs http://phylocanvas.org/docs/api/
 // Source http://phylocanvas.org/docs/api/Tree.js.html
@@ -29,13 +28,15 @@ class PhyloCanvasComponent extends Component {
   _tree: DrawEventTree;
   _phyloCanvasDiv: Object;
   _highlightedNodes: Object;
+  _phyloCanvasTooltip: PhyloCanvasTooltip;
+  _currentNodeHover: Branch;
 
   constructor() {
     super();
     this._resize = (e) => this.resize();
     this._mouseMove = (e) => this.mouseMove(e);
     this._currentNodeHover = null;
-    this._highlightedNodes = [];
+    this._highlightedNodes = {};
   }
 
   drawDeferred() {
@@ -63,14 +64,16 @@ class PhyloCanvasComponent extends Component {
       this.afterDraw();
     });
     this._tree.load(this.props.data);
-    window.addEventListener('resize', this._resize);
     this._tree.canvas.canvas.addEventListener('mousemove', this._mouseMove);
+    console.log('addEventListener');
+    window.addEventListener('resize', this._resize);
   }
 
   componentWillUnmount() {
+    console.log('removeEventListener');
     window.removeEventListener('resize', this._resize);
     this._tree.canvas.canvas.removeEventListener('mousemove', this._mouseMove);
-    this._tree = null;
+    delete this._tree;
   }
 
   zoomIn() {
@@ -86,7 +89,7 @@ class PhyloCanvasComponent extends Component {
     this.draw();
   }
 
-  zoomToNodesWithIds(ids) {
+  zoomToNodesWithIds(ids: Array<string>) {
     if (!ids.length) {
       return false;
     }
@@ -101,23 +104,23 @@ class PhyloCanvasComponent extends Component {
 
   resetHighlightedNodes() {
     for (let nodeId in this._highlightedNodes) {
-      const node = this.getNodeWithId(nodeId);
+      const node: Branch = this.getNodeWithId(nodeId);
       node.setDisplay({
         leafStyle: {}
       });
     }
-    this._highlightedNodes = [];
+    this._highlightedNodes = {};
     this.drawDeferred();
   }
 
-  highlightNodesWithIds(ids, color = Colors.COLOR_TINT_SECONDARY) {
+  highlightNodesWithIds(ids: Array<string>, color = Colors.COLOR_TINT_SECONDARY) {
     ids.forEach((id, index) => {
       this.highlightNodeWithId(id, color);
     });
     return this;
   }
 
-  getNodeWithId(nodeId) {
+  getNodeWithId(nodeId: string): Branch {
     const candidateNodes = this._tree.findLeaves(nodeId);
     if (!candidateNodes || !candidateNodes.length) {
       return null;
@@ -126,7 +129,7 @@ class PhyloCanvasComponent extends Component {
     return node;
   }
 
-  highlightNodeWithId(nodeId, color = Colors.COLOR_TINT_SECONDARY) {
+  highlightNodeWithId(nodeId: string, color = Colors.COLOR_TINT_SECONDARY) {
     const node = this.getNodeWithId(nodeId);
     if (!node) {
       return;
@@ -144,7 +147,7 @@ class PhyloCanvasComponent extends Component {
     return node;
   }
 
-  bringNodeToFront(node) {
+  bringNodeToFront(node: Branch) {
     if (node.parent) {
       const index = node.parent.children.indexOf(node);
       const maxIndex = node.parent.children.length - 1;
@@ -158,7 +161,7 @@ class PhyloCanvasComponent extends Component {
     }
   }
 
-  getPositionOfNodeWithId(nodeId) {
+  getPositionOfNodeWithId(nodeId: string): ?{x: number, y: number} {
     const node = this.getNodeWithId(nodeId);
     if (!node) {
       return null;
@@ -190,6 +193,10 @@ class PhyloCanvasComponent extends Component {
   }
 
   afterDraw() {
+    // FIXME: draw still fires after tree is deleted - there is no way to stop the phylocanvas listening to window resize events which trigger draw()
+    if (!this._tree) {
+      return;
+    }
     const context = this._tree.canvas;
     const radius = 4;
     for (let nodeId in this._highlightedNodes) {
@@ -202,10 +209,10 @@ class PhyloCanvasComponent extends Component {
     }
   }
 
-  mouseMove(e: Event) {
+  mouseMove(e: MouseEvent) {
     const {displayTooltip} = this.props;
     const {onNodeMouseOver, onNodeMouseOut} = this.props;
-    const node = this._tree.getNodeAtMousePosition(e);
+    const node: Branch = this._tree.getNodeAtMousePosition(e);
     if (!node) {
       // not hovering
       if (this._currentNodeHover) {
@@ -217,7 +224,7 @@ class PhyloCanvasComponent extends Component {
       if (displayTooltip) {
         this._phyloCanvasTooltip.setVisible(false);
       }
-      this._currentNodeHover = null;
+      delete this._currentNodeHover;
       return;
     }
     if (this._currentNodeHover && node !== this._currentNodeHover) {
