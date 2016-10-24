@@ -107,7 +107,11 @@ $ npm run generate-icons
 $ npm run web-build
 ```
 
-After build, you will find files in `web/build` folder. Otherwise, you will only find one for your os.
+After build, you will find files in `web/build` folder. To run a simple production server:
+
+```
+$ npm run web-build-simple-server
+```
 
 ## Electron production build
 

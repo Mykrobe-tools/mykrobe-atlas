@@ -32,7 +32,9 @@
     "web-hot-server": "node -r babel-register web/dev-server.js",
     "web-dev": "concurrently --kill-others \"npm run web-hot-server\" \"npm run web-open\"",
     "web-open": "open http://localhost:3000",
-    "web-build": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config web/webpack.config.production.js --progress --profile --colors"
+    "web-build": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config web/webpack.config.production.js --progress --profile --colors",
+    "web-build-server": "node -r babel-register web/build/simple-server.js",
+    "web-build-simple-server": "concurrently --kill-others \"npm run web-build-server\" \"npm run web-open\""
   },
   "build": {
     "asar": false,
