@@ -51,7 +51,6 @@ class PhyloCanvasComponent extends Component {
       }
     });
     this._tree.on('draw', (e) => {
-      console.log('draw');
       this.afterDraw();
     });
     this._tree.load(this.props.data);

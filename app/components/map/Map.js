@@ -1,3 +1,5 @@
+/* @flow */
+
 import React, { Component, PropTypes } from 'react';
 import styles from './Map.css';
 import GoogleMapsLoader from 'google-maps';
@@ -6,11 +8,17 @@ import { connect } from 'react-redux';
 import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
 import * as NodeActions from 'actions/NodeActions';
 import Key from 'components/header/Key';
-import * as Colors from 'constants/Colors';
+import MapStyle from './MapStyle';
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc';
 
 class Map extends Component {
+  _google: Object;
+  _map: Object;
+  _mapDiv: Object;
+  _markers: Object;
+  _phyloCanvasTooltip: PhyloCanvasTooltip;
+
   constructor(props) {
     super(props);
     GoogleMapsLoader.KEY = GOOGLE_MAPS_API_KEY;
@@ -24,7 +32,7 @@ class Map extends Component {
         maxZoom: 7,
         zoom: 3,
         backgroundColor: '#e2e1dc',
-        styles: mapStyle
+        styles: MapStyle
       };
       this._google = google;
       this._map = new google.maps.Map(this._mapDiv, options);
@@ -62,14 +70,14 @@ class Map extends Component {
         marker.setMap(null);
       }
     }
-    this._markers = [];
+    this._markers = {};
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
       const lat = parseFloat(sample.locationLatLngForTest.lat);
       const lng = parseFloat(sample.locationLatLngForTest.lng);
       const marker = new this._google.maps.Marker({
         icon: {
-          path: google.maps.SymbolPath.CIRCLE,
+          path: this._google.maps.SymbolPath.CIRCLE,
           scale: 10,
           strokeWeight: 4,
           fillColor: sample.colorForTest,
@@ -80,11 +88,9 @@ class Map extends Component {
         map: this._map
       });
       marker.addListener('mouseover', (e) => {
-        console.log('map mouseover', sample.id);
         dispatch(NodeActions.setNodeHighlighted(sample.id, true));
       });
       marker.addListener('mouseout', (e) => {
-        console.log('map mouseout', sample.id);
         dispatch(NodeActions.setNodeHighlighted(sample.id, false));
       });
       this._markers[sample.id] = marker;
@@ -109,10 +115,8 @@ class Map extends Component {
   zoomToMarkers() {
     let bounds = new this._google.maps.LatLngBounds();
     for (let id in this._markers) {
-      console.log('this._markers[id].getPosition()', this._markers[id].getPosition());
       bounds.extend(this._markers[id].getPosition());
     }
-    console.log('bounds', bounds);
     this._map.fitBounds(bounds);
   }
 
@@ -168,154 +172,3 @@ Map.propTypes = {
 };
 
 export default connect(mapStateToProps)(Map);
-
-const mapStyle = [
-  {
-    'featureType': 'water',
-    'elementType': 'geometry',
-    'stylers': [
-      {
-        'color': '#e2e1dc'
-      }
-    ]
-  },
-  {
-    'featureType': 'landscape',
-    'elementType': 'geometry',
-    'stylers': [
-      {
-        'color': '#edece8'
-      }
-    ]
-  },
-  {
-    'featureType': 'road.highway',
-    'elementType': 'geometry.fill',
-    'stylers': [
-      {
-        'color': '#ffffff'
-      },
-      {
-        'lightness': 17
-      }
-    ]
-  },
-  {
-    'featureType': 'road.highway',
-    'elementType': 'geometry.stroke',
-    'stylers': [
-      {
-        'color': '#ffffff'
-      },
-      {
-        'lightness': 29
-      },
-      {
-        'weight': 0.2
-      }
-    ]
-  },
-  {
-    'featureType': 'road.arterial',
-    'elementType': 'geometry',
-    'stylers': [
-      {
-        'color': '#ffffff'
-      },
-      {
-        'lightness': 18
-      }
-    ]
-  },
-  {
-    'featureType': 'road.local',
-    'elementType': 'geometry',
-    'stylers': [
-      {
-        'color': '#ffffff'
-      },
-      {
-        'lightness': 16
-      }
-    ]
-  },
-  {
-    'featureType': 'poi',
-    'elementType': 'geometry',
-    'stylers': [
-      {
-        'color': '#edece8'
-      }
-    ]
-  },
-  {
-    'featureType': 'poi.park',
-    'elementType': 'geometry',
-    'stylers': [
-      {
-        'color': '#d7d6d2'
-      }
-    ]
-  },
-  {
-    'elementType': 'labels.text.stroke',
-    'stylers': [
-      {
-        'visibility': 'on'
-      },
-      {
-        'color': '#ffffff'
-      },
-      {
-        'lightness': 16
-      }
-    ]
-  },
-  {
-    'elementType': 'labels.text.fill',
-    'stylers': [
-      {
-        'color': Colors.COLOR_GREY_MID
-      }
-    ]
-  },
-  {
-    'elementType': 'labels.icon',
-    'stylers': [
-      {
-        'visibility': 'off'
-      }
-    ]
-  },
-  {
-    'featureType': 'transit',
-    'elementType': 'geometry',
-    'stylers': [
-      {
-        'color': '#eae9e5'
-      }
-    ]
-  },
-  {
-    'featureType': 'administrative',
-    'elementType': 'geometry.fill',
-    'stylers': [
-      {
-        'color': '#f6f5f0'
-      }
-    ]
-  },
-  {
-    'featureType': 'administrative',
-    'elementType': 'geometry.stroke',
-    'stylers': [
-      {
-        'color': '#f6f5f0'
-      },
-      {
-        'weight': 1.2
-      }
-    ]
-  }
-];
-

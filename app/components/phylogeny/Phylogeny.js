@@ -42,7 +42,6 @@ class Phylogeny extends Component {
   }
 
   onNodeMouseOver(node) {
-    console.log('onNodeMouseOver', node);
     const {dispatch} = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
       dispatch(NodeActions.setNodeHighlighted(node.id, true));
@@ -50,7 +49,6 @@ class Phylogeny extends Component {
   }
 
   onNodeMouseOut(node) {
-    console.log('onNodeMouseOut', node);
     const {dispatch} = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
       dispatch(NodeActions.setNodeHighlighted(node.id, false));
