@@ -3,9 +3,11 @@
 import MykrobeConfig from './MykrobeConfig';
 import _ from 'lodash';
 import * as TargetConstants from 'constants/TargetConstants';
+import type { Sample } from 'types/Sample';
 
-const samplesForTest = [
+const samplesForTest: Array<Sample> = [
   {
+    'id': '1',
     'date': '29 September 2016',
     'locationName': 'London',
     'locationLatLngForTest': {
@@ -15,6 +17,7 @@ const samplesForTest = [
     'colorForTest': '#c30042'
   },
   {
+    'id': '2',
     'date': '28 September 2016',
     'locationName': 'Bangalore',
     'locationLatLngForTest': {
@@ -235,7 +238,7 @@ class MykrobeJsonTransformer {
       const neighbour = sourceModel.neighbours[neighbourKeys[i]];
       let keys = _.keys(neighbour);
       let demoSampleModel = samplesForTest[i];
-      let sampleId = keys[0];
+      let sampleId: string = keys[0];
       demoSampleModel.id = sampleId;
       samples[sampleId] = demoSampleModel;
     }
