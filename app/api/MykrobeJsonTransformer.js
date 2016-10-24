@@ -7,24 +7,24 @@ import type { Sample } from 'types/Sample';
 
 const samplesForTest: Array<Sample> = [
   {
-    'id': '1',
-    'date': '29 September 2016',
-    'locationName': 'London',
-    'locationLatLngForTest': {
-      'lat': '51.5074',
-      'lng': '0.1278'
+    id: '1',
+    date: '29 September 2016',
+    locationName: 'London',
+    locationLatLngForTest: {
+      lat: '51.5074',
+      lng: '0.1278'
     },
-    'colorForTest': '#c30042'
+    colorForTest: '#c30042'
   },
   {
-    'id': '2',
-    'date': '28 September 2016',
-    'locationName': 'Bangalore',
-    'locationLatLngForTest': {
-      'lat': '12.97',
-      'lng': '77.59'
+    id: '2',
+    date: '28 September 2016',
+    locationName: 'Bangalore',
+    locationLatLngForTest: {
+      lat: '12.97',
+      lng: '77.59'
     },
-    'colorForTest': '#0f82d0'
+    colorForTest: '#0f82d0'
   }
 ];
 
