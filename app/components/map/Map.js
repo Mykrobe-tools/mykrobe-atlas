@@ -171,177 +171,178 @@ export default connect(mapStateToProps)(Map);
 
 const mapStyle = [
   {
-    "featureType": "water",
-    "elementType": "geometry",
-    "stylers": [
+    'featureType': 'water',
+    'elementType': 'geometry',
+    'stylers': [
       {
-        "color": "#eae9e4"
+        'color': '#e9e9e9'
       },
       {
-        "lightness": 17
+        'lightness': 17
       }
     ]
   },
   {
-    "featureType": "landscape",
-    "elementType": "geometry",
-    "stylers": [
+    'featureType': 'landscape',
+    'elementType': 'geometry',
+    'stylers': [
       {
-        "color": "#f6f5f0"
+        'color': '#f5f5f5'
       },
       {
-        "lightness": 20
+        'lightness': 20
       }
     ]
   },
   {
-    "featureType": "road.highway",
-    "elementType": "geometry.fill",
-    "stylers": [
+    'featureType': 'road.highway',
+    'elementType': 'geometry.fill',
+    'stylers': [
       {
-        "color": "#ffffff"
+        'color': '#ffffff'
       },
       {
-        "lightness": 17
+        'lightness': 17
       }
     ]
   },
   {
-    "featureType": "road.highway",
-    "elementType": "geometry.stroke",
-    "stylers": [
+    'featureType': 'road.highway',
+    'elementType': 'geometry.stroke',
+    'stylers': [
       {
-        "color": "#ffffff"
+        'color': '#ffffff'
       },
       {
-        "lightness": 29
+        'lightness': 29
       },
       {
-        "weight": 0.2
+        'weight': 0.2
       }
     ]
   },
   {
-    "featureType": "road.arterial",
-    "elementType": "geometry",
-    "stylers": [
+    'featureType': 'road.arterial',
+    'elementType': 'geometry',
+    'stylers': [
       {
-        "color": "#ffffff"
+        'color': '#ffffff'
       },
       {
-        "lightness": 18
+        'lightness': 18
       }
     ]
   },
   {
-    "featureType": "road.local",
-    "elementType": "geometry",
-    "stylers": [
+    'featureType': 'road.local',
+    'elementType': 'geometry',
+    'stylers': [
       {
-        "color": "#ffffff"
+        'color': '#ffffff'
       },
       {
-        "lightness": 16
+        'lightness': 16
       }
     ]
   },
   {
-    "featureType": "poi",
-    "elementType": "geometry",
-    "stylers": [
+    'featureType': 'poi',
+    'elementType': 'geometry',
+    'stylers': [
       {
-        "color": "#f6f5f0"
+        'color': '#f5f5f5'
       },
       {
-        "lightness": 21
+        'lightness': 21
       }
     ]
   },
   {
-    "featureType": "poi.park",
-    "elementType": "geometry",
-    "stylers": [
+    'featureType': 'poi.park',
+    'elementType': 'geometry',
+    'stylers': [
       {
-        "color": "#dfded9"
+        'color': '#dedede'
       },
       {
-        "lightness": 21
+        'lightness': 21
       }
     ]
   },
   {
-    "elementType": "labels.text.stroke",
-    "stylers": [
+    'elementType': 'labels.text.stroke',
+    'stylers': [
       {
-        "visibility": "on"
+        'visibility': 'on'
       },
       {
-        "color": "#ffffff"
+        'color': '#ffffff'
       },
       {
-        "lightness": 16
+        'lightness': 16
       }
     ]
   },
   {
-    "elementType": "labels.text.fill",
-    "stylers": [
+    'elementType': 'labels.text.fill',
+    'stylers': [
       {
-        "saturation": 36
+        'saturation': 36
       },
       {
-        "color": Colors.COLOR_GREY_MID
+        'color': '#333333'
       },
       {
-        "lightness": 40
+        'lightness': 40
       }
     ]
   },
   {
-    "elementType": "labels.icon",
-    "stylers": [
+    'elementType': 'labels.icon',
+    'stylers': [
       {
-        "visibility": "off"
+        'visibility': 'off'
       }
     ]
   },
   {
-    "featureType": "transit",
-    "elementType": "geometry",
-    "stylers": [
+    'featureType': 'transit',
+    'elementType': 'geometry',
+    'stylers': [
       {
-        "color": "#f3f2ed"
+        'color': '#f2f2f2'
       },
       {
-        "lightness": 19
+        'lightness': 19
       }
     ]
   },
   {
-    "featureType": "administrative",
-    "elementType": "geometry.fill",
-    "stylers": [
+    'featureType': 'administrative',
+    'elementType': 'geometry.fill',
+    'stylers': [
       {
-        "color": "#fffef9"
+        'color': '#fefefe'
       },
       {
-        "lightness": 20
+        'lightness': 20
       }
     ]
   },
   {
-    "featureType": "administrative",
-    "elementType": "geometry.stroke",
-    "stylers": [
+    'featureType': 'administrative',
+    'elementType': 'geometry.stroke',
+    'stylers': [
       {
-        "color": "#fffef9"
+        'color': '#fefefe'
       },
       {
-        "lightness": 17
+        'lightness': 17
       },
       {
-        "weight": 1.2
+        'weight': 1.2
       }
     ]
   }
-]
+];
+
