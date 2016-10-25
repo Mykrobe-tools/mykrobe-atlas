@@ -17,7 +17,9 @@ export function analyseFile(file: File) {
 
     if (IS_ELECTRON) {
       const {app} = require('electron').remote;
-      app.addRecentDocument(file.path);
+      if (file.path) {
+        app.addRecentDocument(file.path);
+      }
     }
 
     dispatch({

@@ -1,8 +1,11 @@
+/* @flow */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import fs from 'fs';
 import * as AnalyserActions from 'actions/AnalyserActions';
 import * as UIHelpers from 'helpers/UIHelpers';
+import * as FileHelpers from 'helpers/FileHelpers';
 import { push } from 'react-router-redux';
 import App from './App';
 
@@ -11,21 +14,16 @@ class AppElectron extends Component {
     super(props);
     const {dispatch} = props;
     const ipcRenderer = require('electron').ipcRenderer;
-    this.state = {
-      isDragActive: false
-    };
 
     ipcRenderer.on('open-file', (e, filePath) => {
       console.log('App open-file');
       if (filePath) {
-        // object similar to File
-        const file = {
-          name: filePath,
-          path: filePath
-        };
-        // TODO
-        debugger;
-        dispatch(AnalyserActions.analyseFile(file));
+        FileHelpers.getFileObject(filePath).then((fileObject) => {
+          dispatch(AnalyserActions.analyseFile(fileObject));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
       }
     });
 
@@ -36,13 +34,12 @@ class AppElectron extends Component {
     ipcRenderer.on('menu-file-open', (e) => {
       const filePath = UIHelpers.openFileDialog();
       if (filePath) {
-        const file = {
-          name: filePath,
-          path: filePath
-        };
-        // TODO
-        debugger;
-        dispatch(AnalyserActions.analyseFile(file));
+        FileHelpers.getFileObject(filePath).then((fileObject) => {
+          dispatch(AnalyserActions.analyseFile(fileObject));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
       }
     });
 
@@ -53,7 +50,7 @@ class AppElectron extends Component {
         const json = JSON.stringify(analyser.json, null, 2);
         fs.writeFile(filePath, json, (err) => {
           if (err) {
-            console.log(err);
+            console.error(err);
           }
           else {
             console.log('JSON saved to ', filePath);
