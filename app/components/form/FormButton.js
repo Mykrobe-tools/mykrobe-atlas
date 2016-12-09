@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 
+import styles from './FormButton.css';
+
 class FormButton extends Component {
 
   constructor(props: Object) {
@@ -16,8 +18,9 @@ class FormButton extends Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.wrap}>
         <button
+          className={styles.input}
           onClick={this.onClick.bind(this)}
           type={this.props.type}>
           {this.props.label}

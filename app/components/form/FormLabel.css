@@ -1,0 +1,8 @@
+.wrap {
+  composes: wrap from "css/form.css";
+}
+
+.label {
+  display: inline-block;
+  padding: 6px 0;
+}

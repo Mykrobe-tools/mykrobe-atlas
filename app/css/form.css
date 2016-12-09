@@ -1,0 +1,32 @@
+.wrap {
+  display: flex;
+  width:100%;
+}
+
+.input {
+  font-family: "Minion-Regular", serif;
+  font-size: 19px;
+  line-height: 24px;
+  color: var(--color-text);
+  transition: all 0.1s;
+  outline: none;
+  -webkit-appearance: none;
+  margin: 0;
+  border: 1px solid var(--color-rule);
+  background: var(--color-buff);
+  border-radius: 4px;
+  padding: 5px 8px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-tint-secondary);
+}
+
+.label {
+  display: flex;
+  width: 25%;
+  margin: 0;
+  padding-right: 24px;
+  color: var(--color-grey-mid);
+}

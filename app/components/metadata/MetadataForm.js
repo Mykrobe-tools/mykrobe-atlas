@@ -12,6 +12,7 @@ import styles from './MetadataForm.css';
 import * as MetadataActions from 'actions/MetadataActions';
 
 import Form from 'components/form/Form';
+import FormRow from 'components/form/FormRow';
 import FormLabel from 'components/form/FormLabel';
 import FormInputText from 'components/form/FormInputText';
 import FormInputDate from 'components/form/FormInputDate';
@@ -92,140 +93,174 @@ class MetadataForm extends Component {
   render() {
     return (
       <Form onSubmit={(event) => this.handleSubmit(event)}>
-        <FormSelect
-          title="Collection Location"
-          name="location"
-          selectedOption={this.state.location}
-          options={locations.map((location, index) => {
-            return({
-              value: location['alpha-2'],
-              label: location.name
-            });
-          })}
-          onChange={(event) => this.handleChange(event)}
-        />
-        <FormInputText
-          title="Lab ID"
-          name="labId"
-          type="text"
-          value={this.state.labId}
-          onChange={(event) => this.handleChange(event)}
-        />
-        <FormInputDate
-          title="Collection date"
-          name="date"
-          value={this.state.date}
-          onChange={(date) => this.handleDateChange(date)}
-        />
-        <FormInputText
-          title="Responsible Person ID"
-          name="responsiblePersonId"
-          type="text"
-          value={this.state.responsiblePersonId}
-          onChange={(event) => this.handleChange(event)}
-        />
-        <FormTextarea
-          title="Responsible Person Data"
-          rows="3"
-          name="responsiblePersonData"
-          value={this.state.responsiblePersonData}
-          onChange={(event) => this.handleChange(event)}
-        />
-        <FormInputText
-          title="Patient ID"
-          name="patientId"
-          type="text"
-          value={this.state.patientId}
-          onChange={(event) => this.handleChange(event)}
-        />
-        <FormInputText
-          title="Sample ID"
-          name="sampleId"
-          type="text"
-          value={this.state.sampleId}
-          onChange={(event) => this.handleChange(event)}
-        />
-        <FormInputText
-          title="Sequencing Machine"
-          name="sequencingMachine"
-          type="text"
-          value={this.state.sequencingMachine}
-          onChange={(event) => this.handleChange(event)}
-        />
-        <FormInputRadio
-          title="Patient History"
-          name="patientHistory"
-          options={[
-            {value: 'yes', label: 'Yes'},
-            {value: 'no', label: 'No'},
-            {value: 'unknown', label: 'Not Known'}
-          ]}
-          selectedOption={this.state.patientHistory}
-          onChange={(event) => this.handleChange(event)}
-        />
-        <FormInputText
-          title="Sample Type"
-          name="sampleType"
-          type="text"
-          value={this.state.sampleType}
-          onChange={(event) => this.handleChange(event)}
-        />
-
-        <FormLabel label="Phenotypic susceptibility" />
-        {drugs.map((drug, index) => {
-          return (
-            <div key={index}>
-              <FormInputRadio
-                title={drug}
-                name={drug}
-                options={[
-                  {value: 'S', label: 'Susceptible'},
-                  {value: 'R', label: 'Resistant'},
-                  {value: 'I', label: 'Inconclusive'},
-                  {value: 'U', label: 'Untested'}
-                ]}
-                selectedOption={this.state.susceptibility[drug]}
-                onChange={(event) => this.handleSusceptibilityChange(event)}
-              />
+        <FormRow>
+          <FormSelect
+            title="Collection Location"
+            name="location"
+            selectedOption={this.state.location}
+            options={locations.map((location, index) => {
+              return({
+                value: location['alpha-2'],
+                label: location.name
+              });
+            })}
+            onChange={(event) => this.handleChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormInputText
+            title="Lab ID"
+            name="labId"
+            type="text"
+            value={this.state.labId}
+            onChange={(event) => this.handleChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormInputDate
+            title="Collection date"
+            name="date"
+            value={this.state.date}
+            onChange={(date) => this.handleDateChange(date)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormInputText
+            title="Responsible Person ID"
+            name="responsiblePersonId"
+            type="text"
+            value={this.state.responsiblePersonId}
+            onChange={(event) => this.handleChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormTextarea
+            title="Responsible Person Data"
+            rows="3"
+            name="responsiblePersonData"
+            value={this.state.responsiblePersonData}
+            onChange={(event) => this.handleChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormInputText
+            title="Patient ID"
+            name="patientId"
+            type="text"
+            value={this.state.patientId}
+            onChange={(event) => this.handleChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormInputText
+            title="Sample ID"
+            name="sampleId"
+            type="text"
+            value={this.state.sampleId}
+            onChange={(event) => this.handleChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormInputText
+            title="Sequencing Machine"
+            name="sequencingMachine"
+            type="text"
+            value={this.state.sequencingMachine}
+            onChange={(event) => this.handleChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormInputRadio
+            title="Patient History"
+            name="patientHistory"
+            options={[
+              {value: 'yes', label: 'Yes'},
+              {value: 'no', label: 'No'},
+              {value: 'unknown', label: 'Not Known'}
+            ]}
+            selectedOption={this.state.patientHistory}
+            onChange={(event) => this.handleChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormInputText
+            title="Sample Type"
+            name="sampleType"
+            type="text"
+            value={this.state.sampleType}
+            onChange={(event) => this.handleChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <div className={styles.susceptibilityWrap}>
+            <div className={styles.susceptibilityLabel}>
+              <FormLabel label="Phenotypic susceptibility" />
             </div>
-          )
-        })}
-
-        <FormInputRadio
-          title="Patient is HIV positive"
-          name="hivPositive"
-          options={[
-            {value: 'yes', label: 'Yes'},
-            {value: 'no', label: 'No'},
-            {value: 'unknown', label: 'Not Known'}
-          ]}
-          selectedOption={this.state.hivPositive}
-          onChange={(event) => this.handleChange(event)}
-        />
-        <FormInputRadio
-          title="Patient has been treated for TB before"
-          name="treatedForTB"
-          options={[
-            {value: 'yes', label: 'Yes'},
-            {value: 'no', label: 'No'},
-            {value: 'unknown', label: 'Not Known'}
-          ]}
-          selectedOption={this.state.treatedForTB}
-          onChange={(event) => this.handleChange(event)}
-        />
-        <FormInputCheckbox
-          title="Share bacterial DNA sequence with Atlas"
-          name="shareSequence"
-          options={[
-            {value: true, label: 'Yes'}
-          ]}
-          selectedOptions={[this.state.shareSequence]}
-          onChange={(event) => this.handleCheckboxChange(event)}
-        />
-        <FormButton
-          type="submit"
-          label="Save"
-        />
+            <div className={styles.susceptibilityRows}>
+              {drugs.map((drug, index) => {
+                return (
+                  <div key={index} className={styles.susceptibilityRow}>
+                    <FormInputRadio
+                      title={drug}
+                      name={drug}
+                      options={[
+                        {value: 'S', label: 'Susceptible'},
+                        {value: 'R', label: 'Resistant'},
+                        {value: 'I', label: 'Inconclusive'},
+                        {value: 'U', label: 'Untested'}
+                      ]}
+                      selectedOption={this.state.susceptibility[drug]}
+                      onChange={(event) => this.handleSusceptibilityChange(event)}
+                    />
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </FormRow>
+        <FormRow>
+          <FormInputRadio
+            title="Patient is HIV positive"
+            name="hivPositive"
+            options={[
+              {value: 'yes', label: 'Yes'},
+              {value: 'no', label: 'No'},
+              {value: 'unknown', label: 'Not Known'}
+            ]}
+            selectedOption={this.state.hivPositive}
+            onChange={(event) => this.handleChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormInputRadio
+            title="Patient has been treated for TB before"
+            name="treatedForTB"
+            options={[
+              {value: 'yes', label: 'Yes'},
+              {value: 'no', label: 'No'},
+              {value: 'unknown', label: 'Not Known'}
+            ]}
+            selectedOption={this.state.treatedForTB}
+            onChange={(event) => this.handleChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormInputCheckbox
+            title="Share bacterial DNA sequence with Atlas"
+            name="shareSequence"
+            options={[
+              {value: true, label: 'Yes'}
+            ]}
+            selectedOptions={[this.state.shareSequence]}
+            onChange={(event) => this.handleCheckboxChange(event)}
+          />
+        </FormRow>
+        <FormRow>
+          <FormButton
+            type="submit"
+            label="Save"
+          />
+        </FormRow>
       </Form>
     );
   }

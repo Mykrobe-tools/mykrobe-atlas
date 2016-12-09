@@ -12,7 +12,7 @@ class Form extends Component {
 
   render() {
     return (
-      <form onSubmit={this.props.onSubmit.bind(this)}>
+      <form className={styles.form} onSubmit={this.props.onSubmit.bind(this)}>
         {this.props.children}
       </form>
     );

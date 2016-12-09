@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 
 import FormLabel from './FormLabel';
 
+import styles from './FormSelect.css';
+
 class FormSelect extends Component {
 
   constructor(props: Object) {
@@ -12,11 +14,14 @@ class FormSelect extends Component {
 
   render() {
     return (
-      <div>
-        <FormLabel
-          htmlFor={this.props.name}
-          label={this.props.title} />
+      <div className={styles.wrap}>
+        <div className={styles.label}>
+          <FormLabel
+            htmlFor={this.props.name}
+            label={this.props.title} />
+        </div>
         <select
+          className={styles.input}
           name={this.props.name}
           value={this.props.selectedOption}
           onChange={this.props.onChange.bind(this)}>

@@ -1,0 +1,22 @@
+.wrap {
+  composes: wrap from "css/form.css";
+}
+
+.label {
+  composes: label from "css/form.css";
+}
+
+.items {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.item {
+  padding-right: 24px;
+  color: var(--color-grey-mid);
+}
+
+.input {
+  margin-right: 8px;
+  cursor: pointer;
+}

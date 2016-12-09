@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 
 import FormLabel from './FormLabel';
 
+import styles from './FormInputRadio.css';
+
 class FormInputRadio extends Component {
 
   constructor(props: Object) {
@@ -12,23 +14,28 @@ class FormInputRadio extends Component {
 
   render() {
     return (
-      <div>
-        <FormLabel
-          htmlFor={this.props.name}
-          label={this.props.title} />
-        <div>
+      <div className={styles.wrap}>
+        <div className={styles.label}>
+          <FormLabel
+            htmlFor={this.props.name}
+            label={this.props.title} />
+        </div>
+        <div className={styles.items}>
           {this.props.options.map(opt => {
             return (
-              <FormLabel
-                key={opt.value}
-                label={opt.label}>
-                <input
-                  name={this.props.name}
-                  onChange={this.props.onChange.bind(this)}
-                  value={opt.value}
-                  checked={this.props.selectedOption === opt.value}
-                  type="radio" />
-              </FormLabel>
+              <div className={styles.item}>
+                <FormLabel
+                  key={opt.value}
+                  label={opt.label}>
+                  <input
+                    className={styles.input}
+                    name={this.props.name}
+                    onChange={this.props.onChange.bind(this)}
+                    value={opt.value}
+                    checked={this.props.selectedOption === opt.value}
+                    type="radio" />
+                </FormLabel>
+              </div>
             );
           })}
         </div>

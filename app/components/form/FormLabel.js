@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 
+import styles from './FormLabel.css';
+
 class FormLabel extends Component {
 
   constructor(props: Object) {
@@ -11,6 +13,7 @@ class FormLabel extends Component {
   render() {
     return (
       <label
+        className={styles.label}
         htmlFor={this.props.htmlFor}
         key={this.props.htmlFor}>
         {this.props.children}

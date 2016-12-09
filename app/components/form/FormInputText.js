@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 
 import FormLabel from './FormLabel';
 
+import styles from './FormInputText.css';
+
 class FormInputText extends Component {
 
   constructor(props: Object) {
@@ -12,11 +14,14 @@ class FormInputText extends Component {
 
   render() {
     return (
-      <div>
-        <FormLabel
-          htmlFor={this.props.name}
-          label={this.props.title} />
+      <div className={styles.wrap}>
+        <div className={styles.label}>
+          <FormLabel
+            htmlFor={this.props.name}
+            label={this.props.title} />
+        </div>
         <input
+          className={styles.input}
           id={this.props.name}
           name={this.props.name}
           type={this.props.type}
