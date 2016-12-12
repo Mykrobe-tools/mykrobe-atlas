@@ -23,10 +23,8 @@ class FormInputCheckbox extends Component {
         <div className={styles.items}>
           {this.props.options.map(opt => {
             return (
-              <div className={styles.item}>
-                <FormLabel
-                  key={opt.value}
-                  label={opt.label}>
+              <div key={opt.value} className={styles.item}>
+                <FormLabel label={opt.label}>
                   <input
                     className={styles.input}
                     name={this.props.name}
