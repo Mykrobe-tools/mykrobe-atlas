@@ -7,13 +7,18 @@
 }
 
 .items {
-  display: inline-block;
+  display: flex;
+  flex-wrap: wrap;
   vertical-align: top;
 }
 
 .item {
   padding-right: 24px;
   color: var(--color-grey-mid);
+}
+
+.item:last-child {
+  padding-right: 0;
 }
 
 .input {

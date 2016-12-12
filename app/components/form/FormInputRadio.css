@@ -17,6 +17,10 @@
   color: var(--color-grey-mid);
 }
 
+.item:last-child {
+  padding-right: 0;
+}
+
 .input {
   margin-right: 8px;
   cursor: pointer;
