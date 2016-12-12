@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import FormLabel from './FormLabel';
 
@@ -13,20 +13,21 @@ class FormSelect extends Component {
   }
 
   render() {
+    const {name, onChange, options, placeholder, selectedOption, title} = this.props;
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
           <FormLabel
-            htmlFor={this.props.name}
-            label={this.props.title} />
+            htmlFor={name}
+            label={title} />
         </div>
         <select
           className={styles.input}
-          name={this.props.name}
-          value={this.props.selectedOption}
-          onChange={this.props.onChange.bind(this)}>
-          <option value="">{this.props.placeholder}</option>
-          {this.props.options.map(opt => {
+          name={name}
+          value={selectedOption}
+          onChange={(event) => onChange(event)}>
+          <option value="">{placeholder}</option>
+          {options.map(opt => {
             return (
               <option
                 key={opt.value}
@@ -42,12 +43,12 @@ class FormSelect extends Component {
 }
 
 FormSelect.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
-  options: React.PropTypes.array.isRequired,
-  selectedOption: React.PropTypes.string,
-  placeholder: React.PropTypes.string,
-  onChange: React.PropTypes.func.isRequired
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.array.isRequired,
+  placeholder: PropTypes.string,
+  selectedOption: PropTypes.string,
+  title: PropTypes.string.isRequired
 };
 
 export default FormSelect;

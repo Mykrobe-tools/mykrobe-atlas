@@ -1,7 +1,5 @@
 /* @flow */
 
-import { push } from 'react-router-redux';
-
 import * as ActionTypes from 'constants/ActionTypes';
 
 export function postMetadataForm(metadata: Object) {

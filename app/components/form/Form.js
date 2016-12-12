@@ -1,8 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
-
-import styles from './Form.css';
+import React, { Component, PropTypes } from 'react';
 
 class Form extends Component {
 
@@ -11,17 +9,18 @@ class Form extends Component {
   }
 
   render() {
+    const {children, onSubmit} = this.props;
     return (
-      <form className={styles.form} onSubmit={this.props.onSubmit.bind(this)}>
-        {this.props.children}
+      <form onSubmit={(event) => onSubmit(event)}>
+        {children}
       </form>
     );
   }
 }
 
 Form.propTypes = {
-  children: React.PropTypes.node.isRequired,
-  onSubmit: React.PropTypes.func.isRequired
+  children: PropTypes.node.isRequired,
+  onSubmit: PropTypes.func.isRequired
 }
 
 export default Form;

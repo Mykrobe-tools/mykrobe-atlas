@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import FormLabel from './FormLabel';
 
@@ -13,36 +13,37 @@ class FormInputText extends Component {
   }
 
   render() {
+    const {name, onChange, placeholder, title, type, value} = this.props;
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
           <FormLabel
-            htmlFor={this.props.name}
-            label={this.props.title} />
+            htmlFor={name}
+            label={title} />
         </div>
         <input
           className={styles.input}
-          id={this.props.name}
-          name={this.props.name}
-          type={this.props.type}
-          value={this.props.value}
-          placeholder={this.props.placeholder}
-          onChange={this.props.onChange} />
+          id={name}
+          name={name}
+          type={type}
+          value={value}
+          placeholder={placeholder}
+          onChange={(event) => onChange(event)} />
       </div>
     );
   }
 }
 
 FormInputText.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
-  placeholder: React.PropTypes.string,
-  type: React.PropTypes.oneOf(['text', 'number', 'email', 'tel', 'search', 'password']).isRequired,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
-  ]),
-  onChange: React.PropTypes.func.isRequired
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['text', 'number', 'email', 'tel', 'search', 'password']).isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ])
 }
 
 export default FormInputText;

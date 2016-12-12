@@ -91,13 +91,14 @@ class MetadataForm extends Component {
   }
 
   render() {
+    const { location, labId, date, responsiblePersonId, responsiblePersonData, patientId, sampleId, sequencingMachine, patientHistory, sampleType, susceptibility, hivPositive, treatedForTB, shareSequence } = this.state;
     return (
       <Form onSubmit={(event) => this.handleSubmit(event)}>
         <FormRow>
           <FormSelect
             title="Collection Location"
             name="location"
-            selectedOption={this.state.location}
+            selectedOption={location}
             options={locations.map((location, index) => {
               return({
                 value: location['alpha-2'],
@@ -112,7 +113,7 @@ class MetadataForm extends Component {
             title="Lab ID"
             name="labId"
             type="text"
-            value={this.state.labId}
+            value={labId}
             onChange={(event) => this.handleChange(event)}
           />
         </FormRow>
@@ -120,7 +121,7 @@ class MetadataForm extends Component {
           <FormInputDate
             title="Collection date"
             name="date"
-            value={this.state.date}
+            value={date}
             onChange={(date) => this.handleDateChange(date)}
           />
         </FormRow>
@@ -129,7 +130,7 @@ class MetadataForm extends Component {
             title="Responsible Person ID"
             name="responsiblePersonId"
             type="text"
-            value={this.state.responsiblePersonId}
+            value={responsiblePersonId}
             onChange={(event) => this.handleChange(event)}
           />
         </FormRow>
@@ -138,7 +139,7 @@ class MetadataForm extends Component {
             title="Responsible Person Data"
             rows="3"
             name="responsiblePersonData"
-            value={this.state.responsiblePersonData}
+            value={responsiblePersonData}
             onChange={(event) => this.handleChange(event)}
           />
         </FormRow>
@@ -147,7 +148,7 @@ class MetadataForm extends Component {
             title="Patient ID"
             name="patientId"
             type="text"
-            value={this.state.patientId}
+            value={patientId}
             onChange={(event) => this.handleChange(event)}
           />
         </FormRow>
@@ -156,7 +157,7 @@ class MetadataForm extends Component {
             title="Sample ID"
             name="sampleId"
             type="text"
-            value={this.state.sampleId}
+            value={sampleId}
             onChange={(event) => this.handleChange(event)}
           />
         </FormRow>
@@ -165,7 +166,7 @@ class MetadataForm extends Component {
             title="Sequencing Machine"
             name="sequencingMachine"
             type="text"
-            value={this.state.sequencingMachine}
+            value={sequencingMachine}
             onChange={(event) => this.handleChange(event)}
           />
         </FormRow>
@@ -178,7 +179,7 @@ class MetadataForm extends Component {
               {value: 'no', label: 'No'},
               {value: 'unknown', label: 'Not Known'}
             ]}
-            selectedOption={this.state.patientHistory}
+            selectedOption={patientHistory}
             onChange={(event) => this.handleChange(event)}
           />
         </FormRow>
@@ -187,7 +188,7 @@ class MetadataForm extends Component {
             title="Sample Type"
             name="sampleType"
             type="text"
-            value={this.state.sampleType}
+            value={sampleType}
             onChange={(event) => this.handleChange(event)}
           />
         </FormRow>
@@ -209,7 +210,7 @@ class MetadataForm extends Component {
                         {value: 'I', label: 'Inconclusive'},
                         {value: 'U', label: 'Untested'}
                       ]}
-                      selectedOption={this.state.susceptibility[drug]}
+                      selectedOption={susceptibility[drug]}
                       onChange={(event) => this.handleSusceptibilityChange(event)}
                     />
                   </div>
@@ -227,7 +228,7 @@ class MetadataForm extends Component {
               {value: 'no', label: 'No'},
               {value: 'unknown', label: 'Not Known'}
             ]}
-            selectedOption={this.state.hivPositive}
+            selectedOption={hivPositive}
             onChange={(event) => this.handleChange(event)}
           />
         </FormRow>
@@ -240,7 +241,7 @@ class MetadataForm extends Component {
               {value: 'no', label: 'No'},
               {value: 'unknown', label: 'Not Known'}
             ]}
-            selectedOption={this.state.treatedForTB}
+            selectedOption={treatedForTB}
             onChange={(event) => this.handleChange(event)}
           />
         </FormRow>
@@ -251,7 +252,7 @@ class MetadataForm extends Component {
             options={[
               {value: true, label: 'Yes'}
             ]}
-            selectedOptions={[this.state.shareSequence]}
+            selectedOptions={[shareSequence]}
             onChange={(event) => this.handleCheckboxChange(event)}
           />
         </FormRow>
