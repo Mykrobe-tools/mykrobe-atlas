@@ -1,5 +1,3 @@
-
-
 ::-webkit-input-placeholder {
   color: var(--color-placeholder);
 }
@@ -28,12 +26,6 @@
   color: var(--color-placeholder);
 }
 
-label {
-  padding: 6px 0;
-}
-
-input[type="radio"],
-input[type="checkbox"],
 input[type="radio"] + label,
 input[type="checkbox"]  + label
 {
@@ -45,56 +37,3 @@ input[type="checkbox"]:checked  + label
 {
   color: var(--color-tint-secondary);
 }
-
-input[type="search"],
-input[type="text"],
-input[type="email"],
-input[type="date"],
-input[type="password"],
-input[type="submit"],
-textarea,
-select
-{
-  font-family: "Minion-Regular", serif;
-  font-size: 19px;
-  line-height: 24px;
-  color: var(--color-text);
-  transition: all 0.1s;
-  outline: none;
-  border: none;
-  -webkit-appearance: none;
-  padding: 0;
-  margin: 0;
-  background: none;
-}
-
-input:focus {
-  outline: none;
-}
-
-input[type="search"],
-input[type="text"],
-input[type="email"],
-input[type="date"],
-input[type="password"],
-input[type="submit"],
-textarea,
-select
-{
-  border: 1px solid var(--color-rule);
-  background-color: var(--color-buff);
-  border-radius: 4px;
-  padding: 5px 8px;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-input[type="date"]:focus,
-input[type="search"]:focus,
-textarea:focus,
-select:focus
-{
-  border-color: var(--color-tint-secondary);
-}
-

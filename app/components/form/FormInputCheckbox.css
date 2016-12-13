@@ -1,0 +1,27 @@
+.wrap {
+  composes: wrap from "css/form.css";
+}
+
+.label {
+  composes: label from "css/form.css";
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  vertical-align: top;
+}
+
+.item {
+  padding-right: 24px;
+  color: var(--color-grey-mid);
+}
+
+.item:last-child {
+  padding-right: 0;
+}
+
+.input {
+  margin-right: 8px;
+  cursor: pointer;
+}

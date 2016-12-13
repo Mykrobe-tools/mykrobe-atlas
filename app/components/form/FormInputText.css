@@ -1,0 +1,11 @@
+.wrap {
+  composes: wrap from "css/form.css";
+}
+
+.label {
+  composes: label from "css/form.css";
+}
+
+.input {
+  composes: input from "css/form.css";
+}
