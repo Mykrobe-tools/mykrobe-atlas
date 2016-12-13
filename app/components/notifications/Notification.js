@@ -20,7 +20,7 @@ class Notification extends Component {
     const {category, content} = this.props;
     return (
       <a
-        className={[styles.wrap, styles[category]].join(' ')}
+        className={styles[category]}
         onClick={event => this.onClick(event)}>
         <p className={styles.content}>
           {content}

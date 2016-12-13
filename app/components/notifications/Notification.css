@@ -1,22 +1,23 @@
 .wrap {
-  background: var(--color-app-blue);
-  border-bottom: 1px solid white;
   color: white;
   display: block;
   padding: 10px;
 }
 
 .message {
+  composes: wrap;
   background: var(--color-app-blue);
   color: white;
 }
 
 .error {
+  composes: wrap;
   background: var(--color-app-red);
   color: white;
 }
 
 .success {
+  composes: wrap;
   background: var(--color-app-green);
   color: white;
 }
