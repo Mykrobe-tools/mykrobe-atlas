@@ -11,6 +11,7 @@ import styles from './MetadataForm.css';
 
 import * as MetadataActions from 'actions/MetadataActions';
 import * as NotificationActions from 'actions/NotificationActions';
+import * as NotificationCategories from 'constants/NotificationCategories';
 
 import Form from 'components/form/Form';
 import FormRow from 'components/form/FormRow';
@@ -64,7 +65,7 @@ class MetadataForm extends Component {
 
     this.props.postMetadataForm(this.state);
     this.props.showNotification({
-      category: 'message',
+      category: NotificationCategories.MESSAGE,
       content: 'The form has been submitted'
     });
     this.setState(this.props.metadata);

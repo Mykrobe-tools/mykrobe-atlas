@@ -29,7 +29,7 @@ class Notifications extends Component {
             <div key={notification.id}>
               <Notification
                 content={notification.content}
-                category={notification.category}
+                category={notification.category.toLowerCase()}
                 id={notification.id}
                 onClick={this.onClick.bind(this)} />
             </div>
