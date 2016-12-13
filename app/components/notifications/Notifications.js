@@ -25,13 +25,14 @@ class Notifications extends Component {
     return (
       <div className={styles.wrap}>
         {notifications.map(notification => {
+          const {id, content, category} = notification;
           return (
-            <div key={notification.id}>
+            <div key={id}>
               <Notification
-                content={notification.content}
-                category={notification.category.toLowerCase()}
-                id={notification.id}
-                onClick={this.onClick.bind(this)} />
+                content={content}
+                category={category.toLowerCase()}
+                id={id}
+                onClick={event => this.onClick(id)} />
             </div>
           )
         })}
