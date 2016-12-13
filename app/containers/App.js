@@ -6,6 +6,7 @@ import styles from './App.css';
 import Dropzone from 'react-dropzone';
 import * as AnalyserActions from 'actions/AnalyserActions';
 import Header from 'components/header/Header';
+import Notifications from 'components/notifications/Notifications';
 
 class App extends Component {
   state: {
@@ -64,7 +65,7 @@ class App extends Component {
 
   render() {
     const {isDragActive} = this.state;
-    const {children} = this.props;
+    const {children, notifications} = this.props;
     const disableClick = true;
     const multiple = false;
 
@@ -81,6 +82,11 @@ class App extends Component {
           multiple={multiple}
           accept=".json,.bam,.gz,.fastq"
           >
+          <div className={styles.notificationsContainer}>
+            {notifications &&
+              <Notifications notifications={notifications} />
+            }
+          </div>
           <div className={styles.headerContainer}>
             <Header />
           </div>
@@ -96,6 +102,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
+    notifications: state.notifications
   };
 }
 

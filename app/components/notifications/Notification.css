@@ -1,0 +1,27 @@
+.wrap {
+  background: var(--color-app-blue);
+  border-bottom: 1px solid white;
+  color: white;
+  display: block;
+  padding: 10px;
+}
+
+.message {
+  background: var(--color-app-blue);
+  color: white;
+}
+
+.error {
+  background: var(--color-app-red);
+  color: white;
+}
+
+.success {
+  background: var(--color-app-green);
+  color: white;
+}
+
+.content {
+  composes: fontSecondary from "css/typography.css";
+  composes: fontSecondarySizeNormal from "css/typography.css";
+}

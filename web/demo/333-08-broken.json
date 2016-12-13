@@ -1,0 +1,38 @@
+{
+  "333-08": {
+    "neighbours": {
+      "0": {
+        "2093-08": {
+          "distance": 0
+        }
+      }
+    },
+    "phylogenetics": {
+      "sub_complex": {
+        "Unknown": {
+          "percent_coverage": -1,
+          "median_depth": -1
+        }
+      },
+      "species": {
+        "Mycobacterium_tuberculosis": {
+          "percent_coverage": 99.109,
+          "median_depth": 82.0
+        }
+      },
+      "lineage": {
+        "European_American": {
+          "percent_coverage": 100.0,
+          "median_depth": 75
+        }
+      },
+      "phylo_group": {
+        "Mycobacterium_tuberculosis_complex": {
+          "percent_coverage": 99.659,
+          "median_depth": 90.0
+        }
+      }
+    },
+    "version": "v0.3.13-2-gd5880fa-dirty"
+  }
+}
