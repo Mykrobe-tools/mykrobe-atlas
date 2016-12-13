@@ -47,7 +47,7 @@ export function analyseFile(file: File) {
         dispatch(showNotification({
           category: NotificationCategories.ERROR,
           content: error.description,
-          isFixed: true
+          autoHide: false
         }));
       });
   };

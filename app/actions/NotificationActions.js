@@ -4,11 +4,11 @@ import * as ActionTypes from 'constants/ActionTypes';
 
 let nextNotificationId = 0;
 
-export function showNotification({category, content, isFixed}:Object) {
+export function showNotification({category, content, autoHide = true}:Object) {
   return (dispatch: Function) => {
     const id = nextNotificationId++;
-    dispatch(show(id, category, content, isFixed));
-    if (!isFixed) {
+    dispatch(show(id, category, content, autoHide));
+    if (autoHide) {
       setTimeout(() => {
         dispatch(hide(id))
       }, 5000);
@@ -28,13 +28,13 @@ export function hideNotifications() {
   }
 }
 
-function show(id, category, content, isFixed) {
+function show(id, category, content, autoHide) {
   return {
     type: ActionTypes.SHOW_NOTIFICATION,
     id,
     category,
     content,
-    isFixed
+    autoHide
   }
 }
 
