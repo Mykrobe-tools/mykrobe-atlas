@@ -18,7 +18,7 @@ export default function notifications(state = initialState, action = {}) {
       return state.filter(notification => {
 	      return notification.id !== action.id
       });
-    case ActionTypes.HIDE_NOTIFICATIONS:
+    case ActionTypes.HIDE_ALL_NOTIFICATIONS:
       return [];
     default:
       return state;

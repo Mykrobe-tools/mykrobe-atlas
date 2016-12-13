@@ -47,6 +47,6 @@ function hide(id) {
 
 function hideAll() {
   return {
-    type: ActionTypes.HIDE_NOTIFICATIONS
+    type: ActionTypes.HIDE_ALL_NOTIFICATIONS
   }
 }
