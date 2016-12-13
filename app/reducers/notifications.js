@@ -19,7 +19,7 @@ export default function notifications(state = initialState, action = {}) {
 	      return notification.id !== action.id
       });
     case ActionTypes.HIDE_ALL_NOTIFICATIONS:
-      return [];
+      return initialState;
     default:
       return state;
   }
