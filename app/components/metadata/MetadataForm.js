@@ -10,6 +10,8 @@ import moment from 'moment';
 import styles from './MetadataForm.css';
 
 import * as MetadataActions from 'actions/MetadataActions';
+import * as NotificationActions from 'actions/NotificationActions';
+import * as NotificationCategories from 'constants/NotificationCategories';
 
 import Form from 'components/form/Form';
 import FormRow from 'components/form/FormRow';
@@ -58,7 +60,14 @@ class MetadataForm extends Component {
 
   handleSubmit(event: Event) {
     event.preventDefault();
+
+    // TODO: Error checking
+
     this.props.postMetadataForm(this.state);
+    this.props.showNotification({
+      category: NotificationCategories.MESSAGE,
+      content: 'The form has been submitted'
+    });
     this.setState(this.props.metadata);
   }
 
@@ -277,6 +286,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     postMetadataForm: MetadataActions.postMetadataForm,
     setMetadata: MetadataActions.setMetadata,
+    showNotification: NotificationActions.showNotification
   }, dispatch);
 }
 

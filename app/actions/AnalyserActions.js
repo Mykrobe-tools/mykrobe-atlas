@@ -3,6 +3,8 @@
 import { push } from 'react-router-redux';
 
 import * as ActionTypes from 'constants/ActionTypes';
+import * as NotificationCategories from 'constants/NotificationCategories';
+import {showNotification} from './NotificationActions';
 
 const MykrobeService = IS_ELECTRON ? require('api/MykrobeServiceElectron') : require('api/MykrobeService');
 console.log('MykrobeService', MykrobeService);
@@ -42,6 +44,11 @@ export function analyseFile(file: File) {
       .on('error', (error) => {
         dispatch(push('/'));
         dispatch(errorAnalyseFile(error));
+        dispatch(showNotification({
+          category: NotificationCategories.ERROR,
+          content: error.description,
+          autoHide: false
+        }));
       });
   };
 }
