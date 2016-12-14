@@ -1,6 +1,6 @@
 # Mykrobe
 
-Web or [Electron](http://electron.atom.io/) application based on [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/), [React Transform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development. 
+Web or [Electron](http://electron.atom.io/) application based on [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/), [React Transform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development.
 
 ## Install
 
@@ -10,7 +10,7 @@ First, clone the repo then install dependencies.
 $ npm install
 ```
 
-## Set target
+### Set target
 
 Selects which version of the app you will target for development, test or package. Targets are defined in `/targets.json`
 
@@ -29,14 +29,12 @@ This will initially show a 'not found' page while the initial build takes place,
 ```
 $ npm run web-dev
 ```
-	
+
 ### Electron
 
 ```
 $ npm run electron-dev
 ```
-
-## Electron DevTools
 
 #### Toggle Chrome DevTools
 
@@ -65,7 +63,7 @@ $ UPGRADE_EXTENSIONS=1 npm run dev
 $ set UPGRADE_EXTENSIONS=1 && npm run dev
 ```
 
-## Electron Externals
+#### Electron Externals
 
 If you use any 3rd party libraries which can't be built with webpack, you must list them in your `webpack.config.base.js`：
 
@@ -79,7 +77,7 @@ externals: [
 You can find those lines in the file.
 
 
-## Electron generate app icons
+#### Electron generate app icons
 
 Takes the master PDF artwork from `electron/resources/icon` and generates Mac and Windows icons.
 
@@ -87,7 +85,7 @@ Takes the master PDF artwork from `electron/resources/icon` and generates Mac an
 $ npm run generate-icons
 ```
 
-### Dependencies
+## Dependencies
 
 * current version of Imagemagick
 
@@ -148,6 +146,17 @@ All `.css` file extensions will use css-modules unless it has `.global.css`.
 
 If you need global styles, stylesheets with `.global.css` will not go through the
 css-modules loader. e.g. `app.global.css`
+
+
+## Testing
+
+Tests have been written using [Jest](https://facebook.github.io/jest/)
+
+To run the tests:
+
+```
+$ npm test
+```
 
 
 ## Licenses

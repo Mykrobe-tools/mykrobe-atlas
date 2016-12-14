@@ -1,6 +1,6 @@
 /* @flow */
 
-import * as ActionTypes from 'constants/ActionTypes';
+import * as ActionTypes from '../constants/ActionTypes';
 
 let nextNotificationId = 0;
 
@@ -22,7 +22,7 @@ export function hideNotification(id: Number) {
   }
 }
 
-export function hideNotifications() {
+export function hideAllNotifications() {
   return (dispatch: Function) => {
     dispatch(hideAll());
   }
