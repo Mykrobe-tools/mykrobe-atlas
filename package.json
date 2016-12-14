@@ -6,7 +6,7 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "test": "jest",
+    "test": "cross-env BABEL_DISABLE_CACHE=1 jest",
     "test:watch": "npm test -- --watch",
     "lint": "eslint app *.js",
     "lint-fix": "eslint app --fix *.js",
