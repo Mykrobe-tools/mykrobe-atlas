@@ -1,0 +1,10 @@
+exports[`Notification component snapshot renders correctly 1`] = `
+<a
+  className="success"
+  onClick={[Function]}>
+  <p
+    className="content">
+    Lorem Ipsum
+  </p>
+</a>
+`;

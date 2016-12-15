@@ -1,0 +1,25 @@
+exports[`Notifications component snapshot renders correctly 1`] = `
+<div
+  className="wrap">
+  <div>
+    <a
+      className="success"
+      onClick={[Function]}>
+      <p
+        className="content">
+        Lorem
+      </p>
+    </a>
+  </div>
+  <div>
+    <a
+      className="error"
+      onClick={[Function]}>
+      <p
+        className="content">
+        Ipsum
+      </p>
+    </a>
+  </div>
+</div>
+`;

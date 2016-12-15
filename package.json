@@ -140,6 +140,7 @@
     "file-loader": "^0.9.0",
     "fs-extra": "^0.30.0",
     "html-webpack-plugin": "^2.22.0",
+    "identity-obj-proxy": "^3.0.0",
     "inquirer": "^1.1.3",
     "jest": "^17.0.3",
     "json-loader": "^0.5.4",
@@ -185,5 +186,11 @@
     "npm": "2.x || 3.x"
   },
   "targetName": "atlas-tb",
-  "displayVersion": "0.2.0 (beta)"
+  "displayVersion": "0.2.0 (beta)",
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(css)$": "identity-obj-proxy",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/_mocks/jestFileMock.js"
+    }
+  }
 }
