@@ -4,7 +4,6 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import styles from './MetadataForm.css';
