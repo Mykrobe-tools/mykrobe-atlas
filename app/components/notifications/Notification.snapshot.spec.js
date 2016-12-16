@@ -19,4 +19,17 @@ describe('Notification component snapshot', () => {
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('runs click event', () => {
+    const component = renderer.create(
+      <Notification
+        id={id}
+        category={category}
+        content={content}
+        onClick={onClick} />
+    );
+    let tree = component.toJSON();
+    tree.props.onClick({preventDefault: jest.fn()});
+    expect(onClick).toBeCalledWith(1);
+  });
 });

@@ -1,0 +1,25 @@
+exports[`Metadata component snapshot renders correctly 1`] = `
+<div
+  className="container">
+  <
+    single={true} />
+  <div
+    className="formContainer">
+    <div
+      className="formHeader">
+      <div
+        className="formHeaderTitle">
+        Metadata
+      </div>
+      <div
+        className="formHeaderActions">
+        <div
+          className="formHeaderAction">
+          Open template
+        </div>
+      </div>
+    </div>
+    < />
+  </div>
+</div>
+`;

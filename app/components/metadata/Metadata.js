@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import Key from 'components/header/Key';
+import Key from '../header/Key';
 import styles from './Metadata.css';
 
 import MetadataForm from './MetadataForm';

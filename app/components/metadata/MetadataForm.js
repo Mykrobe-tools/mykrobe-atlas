@@ -9,9 +9,9 @@ import moment from 'moment';
 
 import styles from './MetadataForm.css';
 
-import * as MetadataActions from 'actions/MetadataActions';
-import * as NotificationActions from 'actions/NotificationActions';
-import * as NotificationCategories from 'constants/NotificationCategories';
+import * as MetadataActions from '../../actions/MetadataActions';
+import * as NotificationActions from '../../actions/NotificationActions';
+import * as NotificationCategories from '../../constants/NotificationCategories';
 
 import Form from 'components/form/Form';
 import FormRow from 'components/form/FormRow';

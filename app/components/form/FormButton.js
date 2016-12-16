@@ -10,20 +10,13 @@ class FormButton extends Component {
     super(props);
   }
 
-  onClick(event: Event) {
-    const {onClick} = this.props;
-    if (onClick) {
-      onClick(event);
-    }
-  }
-
   render() {
-    const {label, type} = this.props;
+    const {label, type, onClick} = this.props;
     return (
       <div className={styles.wrap}>
         <button
           className={styles.input}
-          onClick={(event) => this.onClick(event)}
+          onClick={(event) => onClick(event)}
           type={type}>
           {label}
         </button>
@@ -34,7 +27,7 @@ class FormButton extends Component {
 
 FormButton.propTypes = {
   label: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
   type: PropTypes.oneOf(['submit', 'button', 'reset']).isRequired
 }
 

@@ -123,6 +123,7 @@
     "electron-packager": "^7.3.0",
     "electron-prebuilt": "^1.2.8",
     "electron-rebuild": "^1.1.5",
+    "enzyme": "^2.6.0",
     "eslint": "^3.2.2",
     "eslint-config-airbnb": "^10.0.0",
     "eslint-config-standard": "^5.3.5",
