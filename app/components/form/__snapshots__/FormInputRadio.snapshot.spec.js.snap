@@ -1,0 +1,93 @@
+exports[`FormInputRadio component snapshot renders correctly with a single input 1`] = `
+<div
+  className="wrap">
+  <div
+    className="label">
+    <label
+      className="label"
+      htmlFor="loremIpsum">
+      Lorem Ipsum
+    </label>
+  </div>
+  <div
+    className="items">
+    <div
+      className="item">
+      <label
+        className="label"
+        htmlFor={undefined}>
+        <input
+          checked={true}
+          className="input"
+          name="loremIpsum"
+          onChange={[Function]}
+          type="radio"
+          value="lorem" />
+        Lorem
+      </label>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`FormInputRadio component snapshot renders correctly with multiple inputs 1`] = `
+<div
+  className="wrap">
+  <div
+    className="label">
+    <label
+      className="label"
+      htmlFor="loremIpsum">
+      Lorem Ipsum
+    </label>
+  </div>
+  <div
+    className="items">
+    <div
+      className="item">
+      <label
+        className="label"
+        htmlFor={undefined}>
+        <input
+          checked={false}
+          className="input"
+          name="loremIpsum"
+          onChange={[Function]}
+          type="radio"
+          value="lorem" />
+        Lorem
+      </label>
+    </div>
+    <div
+      className="item">
+      <label
+        className="label"
+        htmlFor={undefined}>
+        <input
+          checked={false}
+          className="input"
+          name="loremIpsum"
+          onChange={[Function]}
+          type="radio"
+          value="ipsum" />
+        Ipsum
+      </label>
+    </div>
+    <div
+      className="item">
+      <label
+        className="label"
+        htmlFor={undefined}>
+        <input
+          checked={true}
+          className="input"
+          name="loremIpsum"
+          onChange={[Function]}
+          type="radio"
+          value="dolorSitAmet" />
+        Dolor Sit Amet
+      </label>
+    </div>
+  </div>
+</div>
+`;

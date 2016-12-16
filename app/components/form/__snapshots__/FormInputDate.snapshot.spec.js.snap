@@ -1,0 +1,18 @@
+exports[`FormInputDate component snapshot renders correctly 1`] = `
+<div
+  className="wrap">
+  <div
+    className="label">
+    <label
+      className="label"
+      htmlFor="loremIpsum">
+      Lorem Ipsum
+    </label>
+  </div>
+  <
+    className="input"
+    name="loremIpsum"
+    onChange={[Function]}
+    selected={"2016-01-01T00:00:00.000Z"} />
+</div>
+`;

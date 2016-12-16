@@ -1,0 +1,21 @@
+exports[`FormInputText component snapshot renders correctly 1`] = `
+<div
+  className="wrap">
+  <div
+    className="label">
+    <label
+      className="label"
+      htmlFor="loremIpsum">
+      Lorem Ipsum
+    </label>
+  </div>
+  <input
+    className="input"
+    id="loremIpsum"
+    name="loremIpsum"
+    onChange={[Function]}
+    placeholder="Lorem Ipsum Dolor Sit Amet"
+    type="text"
+    value="Dolor sit amet" />
+</div>
+`;
