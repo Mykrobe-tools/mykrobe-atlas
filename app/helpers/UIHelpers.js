@@ -36,6 +36,7 @@ export function saveFileDialog(defaultPath: string = 'mykrobe.json') {
 
 export function setProgress(progress: number) {
   // let commander = window.global('commander')
+  // $FlowFixMe: Ignore Electron require
   const remote = require('electron').remote;
   const currentWindow = remote.getCurrentWindow();
   if (0 === progress || 100 === progress) {

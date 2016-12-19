@@ -69,6 +69,7 @@ class AppElectron extends Component {
     TODO: move this into its own component using redux state to change menu state
     */
 
+    // $FlowFixMe: Ignore Electron require
     const remote = require('electron').remote;
     const menu = remote.Menu.getApplicationMenu();
     if ('darwin' === process.platform) {

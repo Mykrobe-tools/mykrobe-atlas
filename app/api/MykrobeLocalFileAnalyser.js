@@ -7,6 +7,7 @@ import * as TargetConstants from '../constants/TargetConstants';
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 import MykrobeConfig from './MykrobeConfig';
 
+// $FlowFixMe: Ignore Electron require
 const app = require('electron').remote.app;
 
 class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
@@ -54,6 +55,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
 
   analyseBinaryFile(file: File): MykrobeLocalFileAnalyser {
     // in Electron we get the full local file path
+    // $FlowFixMe: Ignore missing type values
     const filePath = file.path;
 
     this.removeSkeletonFiles();

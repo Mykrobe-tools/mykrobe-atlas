@@ -23,8 +23,8 @@ import FormInputRadio from '../form/FormInputRadio';
 import FormInputCheckbox from '../form/FormInputCheckbox';
 import FormButton from '../form/FormButton';
 
-const locations = require('static/locations.json');
-const drugs = require('static/drugs.json');
+const locations = require('../../static/locations.json');
+const drugs = require('../../static/drugs.json');
 
 class MetadataForm extends Component {
   state: {

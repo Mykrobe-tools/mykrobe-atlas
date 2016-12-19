@@ -6,7 +6,7 @@ import * as ActionTypes from '../constants/ActionTypes';
 import * as NotificationCategories from '../constants/NotificationCategories';
 import {showNotification} from './NotificationActions';
 
-const MykrobeService = IS_ELECTRON ? require('../api/MykrobeServiceElectron') : require('../api/MykrobeService');
+const MykrobeService = IS_ELECTRON ? require('../api/MykrobeServiceElectron').default : require('../api/MykrobeService').default;
 console.log('MykrobeService', MykrobeService);
 
 export function analyseFile(file: File) {
@@ -18,6 +18,7 @@ export function analyseFile(file: File) {
     dispatch(push('/'));
 
     if (IS_ELECTRON) {
+      // $FlowFixMe: Ignore Electron require
       const {app} = require('electron').remote;
       if (file.path) {
         app.addRecentDocument(file.path);
