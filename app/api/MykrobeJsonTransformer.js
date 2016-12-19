@@ -218,7 +218,7 @@ class MykrobeJsonTransformer {
     let speciesPretty = '';
 
     if (TargetConstants.SPECIES_TB === this.config.species) {
-      speciesPretty = model.species.join(' / ') + ' (lineage: ' + model.lineage + ')';
+      speciesPretty = model.species.join(' / ') + ' (lineage: ' + model.lineage.join(', ') + ')';
     }
     else {
       speciesPretty = model.species.join(' / ');

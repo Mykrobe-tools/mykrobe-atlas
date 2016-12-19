@@ -108,7 +108,8 @@ function mapStateToProps(state) {
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  notifications: PropTypes.array.isRequired
 };
 
 export default connect(mapStateToProps)(App);

@@ -46,15 +46,6 @@ const {name, onClick} = this.props;
 ```
 
 
-### Flow and ESLint
-
-[Flow](https://flowtype.org/) is used to enforce and check types.
-
-[ESLint](http://eslint.org/) is used to enforce consistency and code conventions.
-
-Installing a flow linter and eslint in your code editor will assist in catching issues before they are committed to source control.
-
-
 ## CSS
 
 Use `composes` to import styles from other classes, rather than adding multiple class names to an element.
@@ -82,3 +73,32 @@ This app uses [css-modules](https://github.com/css-modules/css-modules).
 All `.css` file extensions will use css-modules unless it has `.global.css`.
 
 If you need global styles, stylesheets with `.global.css` will not go through the css-modules loader. e.g. `app.global.css`
+
+
+## Flow and Linting
+
+[Flow](https://flowtype.org/) is used to enforce and check types.
+
+To run flow:
+
+```
+$ npm run flow
+```
+
+[ESLint](http://eslint.org/) is used to enforce consistency and code conventions in JavaScript.
+
+To run eslint:
+
+```
+$ npm run lint:js
+```
+
+[Stylelint](https://stylelint.io/) is used to enforce consistency and code conventions in CSS.
+
+To run eslint:
+
+```
+$ npm run lint:css
+```
+
+Installing a flow linter, eslint and stylelint in your code editor will assist in catching issues before they are committed to source control.
