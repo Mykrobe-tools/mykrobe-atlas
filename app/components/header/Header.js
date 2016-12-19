@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './Header.css';
-import MykrobeConfig from 'api/MykrobeConfig';
+import MykrobeConfig from '../../api/MykrobeConfig';
 
 class Header extends Component {
   mykrobeConfig: MykrobeConfig;

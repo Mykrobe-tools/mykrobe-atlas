@@ -1,6 +1,6 @@
 /* @flow */
 
-import * as ActionTypes from 'constants/ActionTypes';
+import * as ActionTypes from '../constants/ActionTypes';
 
 export function setNodeHighlighted(node: string, highlighted: boolean) {
   return {

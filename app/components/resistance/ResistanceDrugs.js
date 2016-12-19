@@ -4,8 +4,8 @@ import React, { Component, PropTypes } from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { connect } from 'react-redux';
 import styles from './ResistanceDrugs.css';
-import Panel from 'components/ui/Panel';
-import * as AnalyserActions from 'actions/AnalyserActions';
+import Panel from '../ui/Panel';
+import * as AnalyserActions from '../../actions/AnalyserActions';
 
 const firstLineDrugs = [
   'Isoniazid',

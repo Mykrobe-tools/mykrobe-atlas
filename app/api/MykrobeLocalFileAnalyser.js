@@ -3,7 +3,7 @@
 import path from 'path';
 import fs from 'fs';
 import {spawn} from 'child_process';
-import * as TargetConstants from 'constants/TargetConstants';
+import * as TargetConstants from '../constants/TargetConstants';
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 import MykrobeConfig from './MykrobeConfig';
 

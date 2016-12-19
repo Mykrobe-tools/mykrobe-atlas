@@ -4,10 +4,10 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import styles from './Resistance.css';
-import Key from 'components/header/Key';
+import Key from '../header/Key';
 
-import MykrobeConfig from 'api/MykrobeConfig';
-import * as TargetConstants from 'constants/TargetConstants';
+import MykrobeConfig from '../../api/MykrobeConfig';
+import * as TargetConstants from '../../constants/TargetConstants';
 
 // const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions');
 

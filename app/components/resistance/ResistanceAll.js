@@ -3,9 +3,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './ResistanceAll.css';
-import ResistanceProfile from 'components/resistance/ResistanceProfile';
-import Panel from 'components/ui/Panel';
-import Phylogeny from 'components/phylogeny/Phylogeny';
+import ResistanceProfile from '../resistance/ResistanceProfile';
+import Panel from '../ui/Panel';
+import Phylogeny from '../phylogeny/Phylogeny';
 
 class ResistanceAll extends Component {
   render() {

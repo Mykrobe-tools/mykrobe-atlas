@@ -2,8 +2,8 @@
 
 import MykrobeConfig from './MykrobeConfig';
 import _ from 'lodash';
-import * as TargetConstants from 'constants/TargetConstants';
-import type { Sample } from 'types/Sample';
+import * as TargetConstants from '../constants/TargetConstants';
+import type { Sample } from '../types/Sample';
 
 const samplesForTest: Array<Sample> = [
   {

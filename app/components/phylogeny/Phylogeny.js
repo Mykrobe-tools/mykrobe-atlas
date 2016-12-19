@@ -3,11 +3,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './Phylogeny.css';
-import * as NodeActions from 'actions/NodeActions';
+import * as NodeActions from '../../actions/NodeActions';
 
-import PhyloCanvasComponent from 'components/ui/PhyloCanvasComponent';
-import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
-import type { Sample } from 'types/Sample';
+import PhyloCanvasComponent from '../ui/PhyloCanvasComponent';
+import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
+import type { Sample } from '../../types/Sample';
 
 const treeTypes = ['radial', 'rectangular', 'circular', 'diagonal', 'hierarchy'];
 const AUTO_ZOOM_SAMPLES = true;

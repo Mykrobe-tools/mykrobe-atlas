@@ -3,7 +3,7 @@
 import PhyloCanvas, {Tree, Branch, utils} from 'phylocanvas';
 import React, { Component, PropTypes } from 'react';
 import styles from './PhyloCanvasComponent.css';
-import * as Colors from 'constants/Colors';
+import * as Colors from '../../constants/Colors';
 import PhyloCanvasTooltip from './PhyloCanvasTooltip';
 
 const {events, canvas} = utils;

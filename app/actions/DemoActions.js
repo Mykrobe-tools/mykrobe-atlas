@@ -1,6 +1,6 @@
-import * as ActionTypes from 'constants/ActionTypes';
+import * as ActionTypes from '../constants/ActionTypes';
 import fetch from 'isomorphic-fetch';
-import { BASE_URL } from 'constants/APIConstants';
+import { BASE_URL } from '../constants/APIConstants';
 
 export function loadTreeWithPath(filePath) {
   return (dispatch, getState) => {

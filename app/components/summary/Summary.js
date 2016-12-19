@@ -3,9 +3,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './Summary.css';
-import ResistanceProfile from 'components/resistance/ResistanceProfile';
-import Panel from 'components/ui/Panel';
-import Key from 'components/header/Key';
+import ResistanceProfile from '../resistance/ResistanceProfile';
+import Panel from '../ui/Panel';
+import Key from '../header/Key';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';
 
