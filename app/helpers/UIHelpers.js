@@ -1,8 +1,8 @@
 /* @flow */
 
-export function openFileDialog() {
-  const {dialog, BrowserWindow} = require('electron').remote;
-  const browserWindow = BrowserWindow.getFocusedWindow();
+export function openFileDialog () {
+  const {dialog, BrowserWindow} = require('electron').remote
+  const browserWindow = BrowserWindow.getFocusedWindow()
 
   const files = dialog.showOpenDialog(browserWindow, {
     title: 'Open',
@@ -11,37 +11,37 @@ export function openFileDialog() {
       {
         name: 'Extensions',
         extensions: ['json', 'bam', 'gz', 'fastq']
-      },
+      }
     ]
-  });
+  })
 
   if (files && files.length) {
-    return files[0];
+    return files[0]
   }
 
-  return false;
+  return false
 }
 
-export function saveFileDialog(defaultPath: string = 'mykrobe.json') {
-  const {dialog, BrowserWindow} = require('electron').remote;
-  const browserWindow = BrowserWindow.getFocusedWindow();
+export function saveFileDialog (defaultPath: string = 'mykrobe.json') {
+  const {dialog, BrowserWindow} = require('electron').remote
+  const browserWindow = BrowserWindow.getFocusedWindow()
 
   const filePath = dialog.showSaveDialog(browserWindow, {
     title: 'Save',
     defaultPath
-  });
+  })
 
-  return filePath || false;
+  return filePath || false
 }
 
-export function setProgress(progress: number) {
+export function setProgress (progress: number) {
   // let commander = window.global('commander')
   // $FlowFixMe: Ignore Electron require
-  const remote = require('electron').remote;
-  const currentWindow = remote.getCurrentWindow();
-  if (0 === progress || 100 === progress) {
-    currentWindow.setProgressBar(-1);
-    return;
+  const remote = require('electron').remote
+  const currentWindow = remote.getCurrentWindow()
+  if (progress === 0 || progress === 100) {
+    currentWindow.setProgressBar(-1)
+    return
   }
-  currentWindow.setProgressBar(progress / 100.0);
+  currentWindow.setProgressBar(progress / 100.0)
 }

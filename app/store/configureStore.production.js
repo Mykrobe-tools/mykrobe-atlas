@@ -1,13 +1,15 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { browserHistory, hashHistory } from 'react-router';
-import { routerMiddleware } from 'react-router-redux';
-import rootReducer from 'reducers';
+/* @flow */
 
-const router = routerMiddleware(IS_ELECTRON ? hashHistory : browserHistory);
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { browserHistory, hashHistory } from 'react-router'
+import { routerMiddleware } from 'react-router-redux'
+import rootReducer from '../reducers'
 
-const enhancer = applyMiddleware(thunk, router);
+const router = routerMiddleware(IS_ELECTRON ? hashHistory : browserHistory)
 
-export default function configureStore(initialState) {
-  return createStore(rootReducer, initialState, enhancer);
+const enhancer = applyMiddleware(thunk, router)
+
+export default function configureStore (initialState: Object) {
+  return createStore(rootReducer, initialState, enhancer)
 }

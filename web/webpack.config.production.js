@@ -1,7 +1,9 @@
-import webpack from 'webpack';
-import merge from 'webpack-merge';
-import baseConfig from '../webpack.config.production';
-import path from 'path';
+/* @flow */
+
+import webpack from 'webpack'
+import merge from 'webpack-merge'
+import baseConfig from '../webpack.config.production'
+import path from 'path'
 
 const config = merge(baseConfig, {
   entry: [
@@ -17,8 +19,8 @@ const config = merge(baseConfig, {
       IS_ELECTRON: JSON.stringify(false)
     })
   ]
-});
+})
 
-console.log(config);
+console.log(config)
 
-export default config;
+export default config

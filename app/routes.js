@@ -1,23 +1,25 @@
-import React from 'react';
-import { Route, IndexRoute, IndexRedirect } from 'react-router';
-import DragAndDropPage from './containers/DragAndDropPage';
-import AnalysingPage from './containers/AnalysingPage';
+/* @flow */
 
-import ResultsPage from './containers/ResultsPage';
+import React from 'react'
+import { Route, IndexRoute, IndexRedirect } from 'react-router'
+import DragAndDropPage from './containers/DragAndDropPage'
+import AnalysingPage from './containers/AnalysingPage'
 
-import Map from './components/map/Map';
-import Metadata from './components/metadata/Metadata';
-import Resistance from './components/resistance/Resistance';
-import PhylogenyWithKey from './components/phylogeny/PhylogenyWithKey';
-import ResistanceAll from './components/resistance/ResistanceAll';
-import ResistanceDrugs from './components/resistance/ResistanceDrugs';
-import ResistanceClass from './components/resistance/ResistanceClass';
-import ResistanceEvidence from './components/resistance/ResistanceEvidence';
-import ResistanceSpecies from './components/resistance/ResistanceSpecies';
-import Share from './components/share/Share';
-import Summary from './components/summary/Summary';
+import ResultsPage from './containers/ResultsPage'
 
-const App = IS_ELECTRON ? require('./containers/AppElectron') : require('./containers/App');
+import Map from './components/map/Map'
+import Metadata from './components/metadata/Metadata'
+import Resistance from './components/resistance/Resistance'
+import PhylogenyWithKey from './components/phylogeny/PhylogenyWithKey'
+import ResistanceAll from './components/resistance/ResistanceAll'
+import ResistanceDrugs from './components/resistance/ResistanceDrugs'
+import ResistanceClass from './components/resistance/ResistanceClass'
+import ResistanceEvidence from './components/resistance/ResistanceEvidence'
+import ResistanceSpecies from './components/resistance/ResistanceSpecies'
+import Share from './components/share/Share'
+import Summary from './components/summary/Summary'
+
+const App = IS_ELECTRON ? require('./containers/AppElectron') : require('./containers/App')
 
 export default (
   <Route path="/" component={App}>
@@ -40,4 +42,4 @@ export default (
       <Route path="share" component={Share} />
     </Route>
   </Route>
-);
+)

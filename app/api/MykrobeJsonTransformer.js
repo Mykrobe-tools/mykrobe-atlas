@@ -1,9 +1,9 @@
 /* @flow */
 
-import MykrobeConfig from './MykrobeConfig';
-import _ from 'lodash';
-import * as TargetConstants from '../constants/TargetConstants';
-import type { Sample } from '../types/Sample';
+import MykrobeConfig from './MykrobeConfig'
+import _ from 'lodash'
+import * as TargetConstants from '../constants/TargetConstants'
+import type { Sample } from '../types/Sample'
 
 const samplesForTest: Array<Sample> = [
   {
@@ -26,172 +26,166 @@ const samplesForTest: Array<Sample> = [
     },
     colorForTest: '#0f82d0'
   }
-];
+]
 
 class MykrobeJsonTransformer {
-  config: MykrobeConfig;
+  config: MykrobeConfig
 
-  constructor(config: MykrobeConfig = new MykrobeConfig()) {
-    this.config = config;
+  constructor (config: MykrobeConfig = new MykrobeConfig()) {
+    this.config = config
   }
 
-  transform(jsonString: string) {
+  transform (jsonString: string) {
     return new Promise((resolve, reject) => {
       this.stringToJson(jsonString).then((transformed) => {
-        resolve(transformed);
-      });
-    });
+        resolve(transformed)
+      })
+    })
   }
 
-  stringToJson(string: string) {
+  stringToJson (string: string) {
     return new Promise((resolve, reject) => {
       // extract just the portion in curly braces {}
-      const first = string.indexOf('{');
-      const last = string.lastIndexOf('}');
-      let extracted = string.substr(first, 1 + last - first);
+      const first = string.indexOf('{')
+      const last = string.lastIndexOf('}')
+      let extracted = string.substr(first, 1 + last - first)
       // replace escaped tabs, quotes, newlines
-      extracted = extracted.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"');
-      // console.log(extracted);
-      const json = JSON.parse(extracted);
-      const transformed = this.transformModel(json);
-      resolve({json, transformed});
-    });
+      extracted = extracted.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"')
+      // console.log(extracted)
+      const json = JSON.parse(extracted)
+      const transformed = this.transformModel(json)
+      resolve({json, transformed})
+    })
   }
 
-  transformModel(sourceModel: Object) {
+  transformModel (sourceModel: Object) {
     // just do the first one for now
-    const sampleIds = _.keys(sourceModel);
-    const sampleId = sampleIds[0];
+    const sampleIds = _.keys(sourceModel)
+    const sampleId = sampleIds[0]
 
-    const sampleModel = sourceModel[sampleId];
-    const transformedSampleModel = this.transformSampleModel(sampleModel);
+    const sampleModel = sourceModel[sampleId]
+    const transformedSampleModel = this.transformSampleModel(sampleModel)
 
-    return transformedSampleModel;
+    return transformedSampleModel
   }
 
-  transformSampleModel(sourceModel: Object) {
-    let o;
-    let susceptibilityModel;
-    let key;
-    let calledVariants;
-    let calledGenes;
-    let value;
-    let isInducible;
-    let virulenceModel;
-    let model = {};
+  transformSampleModel (sourceModel: Object) {
+    let o
+    let susceptibilityModel
+    let key
+    let calledVariants
+    let calledGenes
+    let value
+    let isInducible
+    let virulenceModel
+    let model = {}
 
-    model.susceptible = [];
-    model.resistant = [];
-    model.inconclusive = [];
-    model.positive = [];
-    model.negative = [];
-    model.inducible = [];
+    model.susceptible = []
+    model.resistant = []
+    model.inconclusive = []
+    model.positive = []
+    model.negative = []
+    model.inducible = []
 
-    susceptibilityModel = sourceModel['susceptibility'];
+    susceptibilityModel = sourceModel['susceptibility']
 
-    calledVariants = sourceModel['called_variants'];
-    calledGenes = sourceModel['called_genes'];
+    calledVariants = sourceModel['called_variants']
+    calledGenes = sourceModel['called_genes']
 
-    model.evidence = {};
+    model.evidence = {}
 
     for (key in calledVariants) {
-      const mutation = calledVariants[key];
-      const title = mutation['induced_resistance'];
-      const genes = key.split('_');
+      const mutation = calledVariants[key]
+      const title = mutation['induced_resistance']
+      const genes = key.split('_')
       // group by title
-      o = [];
+      o = []
       if (model.evidence[title]) {
-        o = model.evidence[title];
-      }
-      else {
+        o = model.evidence[title]
+      } else {
         // initialise
-        model.evidence[title] = o;
+        model.evidence[title] = o
       }
       o.push([
         'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
         'Resistant allele seen ' + (mutation['R_median_cov']) + ' times',
         'Susceptible allele seen ' + (mutation['S_median_cov']) + ' times'
-      ]);
+      ])
     }
 
     for (key in calledGenes) {
-      const spot = calledGenes[key];
-      const title = spot['induced_resistance'];
+      const spot = calledGenes[key]
+      const title = spot['induced_resistance']
       // group by title
-      o = [];
+      o = []
       if (model.evidence[title]) {
-        o = model.evidence[title];
-      }
-      else {
+        o = model.evidence[title]
+      } else {
         // initialise
-        model.evidence[title] = o;
+        model.evidence[title] = o
       }
       o.push([
         key + ' gene found',
         'Percent recovered: ' + spot['per_cov'] + '%',
         'Median coverage: ' + spot['median_cov']
-      ]);
+      ])
     }
 
-    model.evidence = this._sortObject(model.evidence);
+    model.evidence = this._sortObject(model.evidence)
 
     // ignore the values
-    model.phyloGroup = _.keys(sourceModel.phylogenetics.phylo_group);
+    model.phyloGroup = _.keys(sourceModel.phylogenetics.phylo_group)
 
     // build array of included species
-    model.species = _.keys(sourceModel.phylogenetics.species);
+    model.species = _.keys(sourceModel.phylogenetics.species)
     // if ( kTargetSpeciesTB === MykrobeTarget.species ) {
-    // sourceSpecies = sourceModel.phylogenetics.species;
+    // sourceSpecies = sourceModel.phylogenetics.species
     // }
     // else {
-    //     sourceSpecies = sourceModel.species;
+    //     sourceSpecies = sourceModel.species
     // }
     // for ( key in sourceSpecies ) {
-    //     value = sourceSpecies[key].toLowerCase();
+    //     value = sourceSpecies[key].toLowerCase()
     //     if ( 'major' === value ) {
-    //         model.species.push(key);
+    //         model.species.push(key)
     //     }
     // }
 
-    model.lineage = [];
+    model.lineage = []
     if (TargetConstants.SPECIES_TB === this.config.species) {
-      model.lineage = _.keys(sourceModel.phylogenetics.lineage);
-      // sourceLineage = sourceModel.phylogenetics.lineage;
+      model.lineage = _.keys(sourceModel.phylogenetics.lineage)
+      // sourceLineage = sourceModel.phylogenetics.lineage
       // for ( key in sourceLineage ) {
-      // value = sourceLineage[key].toLowerCase();
+      // value = sourceLineage[key].toLowerCase()
       // if ( 'major' === value ) {
-      // model.lineage.push(key);
+      // model.lineage.push(key)
       // }
       // }
     }
 
     for (key in susceptibilityModel) {
-      const predict = susceptibilityModel[key]['predict'].toUpperCase();
-      value = predict.substr(0, 1);
-      isInducible = predict.indexOf('INDUCIBLE') !== -1;
-      if ('S' === value) {
-        model.susceptible.push(key);
-      }
-      else if ('R' === value) {
-        model.resistant.push(key);
-      }
-      else if ('N' === value) {
-        model.inconclusive.push(key);
-      }
-      if (isInducible) {
-        model.inducible.push(key);
+      const predict = susceptibilityModel[key]['predict'].toUpperCase()
+      value = predict.substr(0, 1)
+      isInducible = predict.indexOf('INDUCIBLE') !== -1
+      if (value === 'S') {
+        model.susceptible.push(key)
+      } else if (value === 'R') {
+        model.resistant.push(key)
+      } else if (value === 'N') {
+        model.inconclusive.push(key)
+      } if (isInducible) {
+        model.inducible.push(key)
       }
     }
 
     if ('virulence_toxins' in sourceModel) {
-      virulenceModel = sourceModel['virulence_toxins'];
+      virulenceModel = sourceModel['virulence_toxins']
       for (key in virulenceModel) {
-        value = virulenceModel[key].toUpperCase();
-        if ('POSITIVE' === value) {
-          model.positive.push(key);
-        }
-        else if ('NEGATIVE' === value) {
-          model.negative.push(key);
+        value = virulenceModel[key].toUpperCase()
+        if (value === 'POSITIVE') {
+          model.positive.push(key)
+        } else if (value === 'NEGATIVE') {
+          model.negative.push(key)
         }
       }
     }
@@ -199,71 +193,70 @@ class MykrobeJsonTransformer {
     let drugsResistance = {
       mdr: false,
       xdr: false
-    };
+    }
 
     if (model.resistant.indexOf('Isoniazid') !== -1 && model.resistant.indexOf('Rifampicin') !== -1) {
-      drugsResistance.mdr = true;
+      drugsResistance.mdr = true
         /*
         If MDR AND R to both fluoroquinolones and one of the other these 3 (Amikacin, Kanamycin, Capreomycin), then call it XDR (Extensively Drug Resistant)
         */
       if (model.resistant.indexOf('Quinolones')) {
         if (model.resistant.indexOf('Amikacin') !== -1 || model.resistant.indexOf('Kanamycin') !== -1 || model.resistant.indexOf('Capreomycin') !== -1) {
-          drugsResistance.xdr = true;
+          drugsResistance.xdr = true
         }
       }
     }
 
-    model.drugsResistance = drugsResistance;
+    model.drugsResistance = drugsResistance
 
-    let speciesPretty = '';
+    let speciesPretty = ''
 
     if (TargetConstants.SPECIES_TB === this.config.species) {
-      speciesPretty = model.species.join(' / ') + ' (lineage: ' + model.lineage.join(', ') + ')';
-    }
-    else {
-      speciesPretty = model.species.join(' / ');
+      speciesPretty = model.species.join(' / ') + ' (lineage: ' + model.lineage.join(', ') + ')'
+    } else {
+      speciesPretty = model.species.join(' / ')
     }
 
-    model.speciesPretty = speciesPretty;
+    model.speciesPretty = speciesPretty
 
     // tree and neighbours
 
-    model.tree = sourceModel.tree;
+    model.tree = sourceModel.tree
 
-    let neighbourKeys = _.keys(sourceModel.neighbours);
-    let samples = {};
+    let neighbourKeys = _.keys(sourceModel.neighbours)
+    let samples = {}
     // two samples for demo
     // take one from samplesForTest and set the id
     for (let i = 0; i < 2; i++) {
-      const neighbour = sourceModel.neighbours[neighbourKeys[i]];
-      let keys = _.keys(neighbour);
-      let demoSampleModel = samplesForTest[i];
-      let sampleId: string = keys[0];
-      demoSampleModel.id = sampleId;
-      samples[sampleId] = demoSampleModel;
+      const neighbour = sourceModel.neighbours[neighbourKeys[i]]
+      let keys = _.keys(neighbour)
+      let demoSampleModel = samplesForTest[i]
+      let sampleId: string = keys[0]
+      demoSampleModel.id = sampleId
+      samples[sampleId] = demoSampleModel
     }
-    model.samples = samples;
+    model.samples = samples
 
-    return model;
+    return model
   }
 
-  _sortObject(o: Object) {
-    let sorted = {};
-    let key;
-    let a = [];
+  _sortObject (o: Object) {
+    let sorted = {}
+    let key
+    let a = []
 
     for (key in o) {
       if (o.hasOwnProperty(key)) {
-        a.push(key);
+        a.push(key)
       }
     }
 
-    a.sort();
+    a.sort()
 
     for (key = 0; key < a.length; key++) {
-      sorted[a[key]] = o[a[key]];
+      sorted[a[key]] = o[a[key]]
     }
-    return sorted;
+    return sorted
   }
 }
-export default MykrobeJsonTransformer;
+export default MykrobeJsonTransformer

@@ -1,7 +1,9 @@
+/* @flow */
+
 /* eslint max-len: 0 */
-import webpack from 'webpack';
-import merge from 'webpack-merge';
-import baseConfig from './webpack.config.base';
+import webpack from 'webpack'
+import merge from 'webpack-merge'
+import baseConfig from './webpack.config.base'
 
 export default merge(baseConfig('development'), {
   debug: true,
@@ -44,4 +46,4 @@ export default merge(baseConfig('development'), {
       'process.env.NODE_ENV': JSON.stringify('development')
     })
   ]
-});
+})

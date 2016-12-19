@@ -1,19 +1,15 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 
-import FormLabel from './FormLabel';
+import FormLabel from './FormLabel'
 
-import styles from './FormInputText.css';
+import styles from './FormInputText.css'
 
 class FormInputText extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
-  render() {
-    const {name, onChange, placeholder, title, type, value} = this.props;
+  render () {
+    const {name, onChange, placeholder, title, type, value} = this.props
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
@@ -30,7 +26,7 @@ class FormInputText extends Component {
           placeholder={placeholder}
           onChange={(event) => onChange(event)} />
       </div>
-    );
+    )
   }
 }
 
@@ -42,8 +38,8 @@ FormInputText.propTypes = {
   type: PropTypes.oneOf(['text', 'number', 'email', 'tel', 'search', 'password']).isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.number,
+    PropTypes.number
   ])
 }
 
-export default FormInputText;
+export default FormInputText

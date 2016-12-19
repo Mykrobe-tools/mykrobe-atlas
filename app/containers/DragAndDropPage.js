@@ -1,13 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import DragAndDrop from '../components/draganddrop/DragAndDrop';
+/* @flow */
+
+import React, { Component } from 'react'
+import DragAndDrop from '../components/draganddrop/DragAndDrop'
 
 class DragAndDropPage extends Component {
-  render() {
+  render () {
     return (
       <DragAndDrop {...this.props} />
-    );
+    )
   }
 }
 
-export default DragAndDropPage;
+export default DragAndDropPage

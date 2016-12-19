@@ -1,95 +1,98 @@
-import { app, BrowserWindow, Menu, shell } from 'electron';
+/* @flow */
 
-let menu;
-let template;
-let mainWindow = null;
-let filepath;
-let ready = false;
+// $FlowFixMe: Ignore Electron import
+import { app, BrowserWindow, Menu, shell } from 'electron'
 
-const SHOW_DEV_TOOLS = ('development' === process.env.NODE_ENV);
-// const SHOW_DEV_TOOLS = true;
+let menu
+let template
+let mainWindow = null
+let filepath
+let ready = false
 
-if ('production' === process.env.NODE_ENV) {
-  const sourceMapSupport = require('source-map-support'); // eslint-disable-line
-  sourceMapSupport.install();
+const SHOW_DEV_TOOLS = (process.env.NODE_ENV === 'development')
+// const SHOW_DEV_TOOLS = true
+
+if (process.env.NODE_ENV === 'production') {
+  const sourceMapSupport = require('source-map-support') // eslint-disable-line
+  sourceMapSupport.install()
 }
 
-if ('development' === process.env.NODE_ENV) {
-  require('electron-debug')(); // eslint-disable-line global-require
+if (process.env.NODE_ENV === 'development') {
+  require('electron-debug')() // eslint-disable-line global-require
 }
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
-});
+  if (process.platform !== 'darwin') app.quit()
+})
 
 const installExtensions = async () => {
-  if ('development' === process.env.NODE_ENV) {
-    const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
+  if (process.env.NODE_ENV === 'development') {
+    const installer = require('electron-devtools-installer') // eslint-disable-line global-require
 
     const extensions = [
       'REACT_DEVELOPER_TOOLS',
       'REDUX_DEVTOOLS'
-    ];
-    const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+    ]
+    const forceDownload = !!process.env.UPGRADE_EXTENSIONS
     for (const name of extensions) {
       try {
-        await installer.default(installer[name], forceDownload);
+        await installer.default(installer[name], forceDownload)
       } catch (e) {} // eslint-disable-line
     }
   }
-};
+}
 
 // TODO: this is not yet working - perhaps need to set file associations in mac info.plist
 
 app.on('will-finish-launching', () => {
-  app.on('open-file', function(event, path) {
-    event.preventDefault();
-    filepath = path;
+  app.on('open-file', function (event, path) {
+    event.preventDefault()
+    filepath = path
     if (ready) {
-      mainWindow.webContents.send('open-file', filepath);
-      filepath = null;
-      return;
+      mainWindow.webContents.send('open-file', filepath)
+      filepath = null
+      return
     }
-  });
-});
+  })
+})
 
 app.on('ready', async () => {
-  await installExtensions();
+  await installExtensions()
 
-  // const packageJson = require('./package.json');
+  // const packageJson = require('./package.json')
 
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728
-  });
+  })
 
-  mainWindow.loadURL(`file://${__dirname}/../electron/index.html`);
+  mainWindow.loadURL(`file://${__dirname}/../electron/index.html`)
 
   mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.show();
-    mainWindow.focus();
-  });
+    mainWindow.show()
+    mainWindow.focus()
+  })
 
   mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
+    mainWindow = null
+  })
 
   if (SHOW_DEV_TOOLS) {
-    mainWindow.openDevTools();
+    mainWindow.openDevTools()
     mainWindow.webContents.on('context-menu', (e, props) => {
-      const { x, y } = props;
+      const { x, y } = props
 
       Menu.buildFromTemplate([{
         label: 'Inspect element',
-        click() {
-          mainWindow.inspectElement(x, y);
+        click () {
+          mainWindow.inspectElement(x, y)
         }
-      }]).popup(mainWindow);
-    });
+      }]).popup(mainWindow)
+    })
   }
 
-  if ('darwin' === process.platform) {
+  if (process.platform === 'darwin') {
     template = [{
       label: 'Electron',
       submenu: [{
@@ -118,8 +121,8 @@ app.on('ready', async () => {
       }, {
         label: 'Quit',
         accelerator: 'Command+Q',
-        click() {
-          app.quit();
+        click () {
+          app.quit()
         }
       }]
     }, {
@@ -127,8 +130,8 @@ app.on('ready', async () => {
       submenu: [{
         label: 'New',
         accelerator: 'CmdOrCtrl+N',
-        click() {
-          mainWindow.send('menu-file-new');
+        click () {
+          mainWindow.send('menu-file-new')
         }
       },
       {
@@ -137,8 +140,8 @@ app.on('ready', async () => {
       {
         label: 'Open…',
         accelerator: 'CmdOrCtrl+O',
-        click() {
-          mainWindow.send('menu-file-open');
+        click () {
+          mainWindow.send('menu-file-open')
         }
       },
       {
@@ -147,8 +150,8 @@ app.on('ready', async () => {
       {
         label: 'Save As…',
         accelerator: 'CmdOrCtrl+Shift+S',
-        click() {
-          mainWindow.send('menu-file-save-as');
+        click () {
+          mainWindow.send('menu-file-save-as')
         }
       }]
     },
@@ -186,26 +189,26 @@ app.on('ready', async () => {
       submenu: (SHOW_DEV_TOOLS) ? [{
         label: 'Reload',
         accelerator: 'Command+R',
-        click() {
-          mainWindow.webContents.reload();
+        click () {
+          mainWindow.webContents.reload()
         }
       }, {
         label: 'Toggle Full Screen',
         accelerator: 'Ctrl+Command+F',
-        click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+        click () {
+          mainWindow.setFullScreen(!mainWindow.isFullScreen())
         }
       }, {
         label: 'Toggle Developer Tools',
         accelerator: 'Alt+Command+I',
-        click() {
-          mainWindow.toggleDevTools();
+        click () {
+          mainWindow.toggleDevTools()
         }
       }] : [{
         label: 'Toggle Full Screen',
         accelerator: 'Ctrl+Command+F',
-        click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+        click () {
+          mainWindow.setFullScreen(!mainWindow.isFullScreen())
         }
       }]
     }, {
@@ -228,29 +231,29 @@ app.on('ready', async () => {
       label: 'Help',
       submenu: [{
         label: 'Learn More',
-        click() {
-          shell.openExternal('http://electron.atom.io');
+        click () {
+          shell.openExternal('http://electron.atom.io')
         }
       }, {
         label: 'Documentation',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
+        click () {
+          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme')
         }
       }, {
         label: 'Community Discussions',
-        click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
+        click () {
+          shell.openExternal('https://discuss.atom.io/c/electron')
         }
       }, {
         label: 'Search Issues',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+        click () {
+          shell.openExternal('https://github.com/atom/electron/issues')
         }
       }]
-    }];
+    }]
 
-    menu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(menu);
+    menu = Menu.buildFromTemplate(template)
+    Menu.setApplicationMenu(menu)
   } else {
     template = [{
       label: '&File',
@@ -260,68 +263,67 @@ app.on('ready', async () => {
       }, {
         label: '&Close',
         accelerator: 'Ctrl+W',
-        click() {
-          mainWindow.close();
+        click () {
+          mainWindow.close()
         }
       }]
     }, {
       label: '&View',
-      submenu: ('development' === process.env.NODE_ENV) ? [{
+      submenu: (process.env.NODE_ENV === 'development') ? [{
         label: '&Reload',
         accelerator: 'Ctrl+R',
-        click() {
-          mainWindow.webContents.reload();
+        click () {
+          mainWindow.webContents.reload()
         }
       }, {
         label: 'Toggle &Full Screen',
         accelerator: 'F11',
-        click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+        click () {
+          mainWindow.setFullScreen(!mainWindow.isFullScreen())
         }
       }, {
         label: 'Toggle &Developer Tools',
         accelerator: 'Alt+Ctrl+I',
-        click() {
-          mainWindow.toggleDevTools();
+        click () {
+          mainWindow.toggleDevTools()
         }
       }] : [{
         label: 'Toggle &Full Screen',
         accelerator: 'F11',
-        click() {
-          mainWindow.setFullScreen(!mainWindow.isFullScreen());
+        click () {
+          mainWindow.setFullScreen(!mainWindow.isFullScreen())
         }
       }]
     }, {
       label: 'Help',
       submenu: [{
         label: 'Learn More',
-        click() {
-          shell.openExternal('http://electron.atom.io');
+        click () {
+          shell.openExternal('http://electron.atom.io')
         }
       }, {
         label: 'Documentation',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
+        click () {
+          shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme')
         }
       }, {
         label: 'Community Discussions',
-        click() {
-          shell.openExternal('https://discuss.atom.io/c/electron');
+        click () {
+          shell.openExternal('https://discuss.atom.io/c/electron')
         }
       }, {
         label: 'Search Issues',
-        click() {
-          shell.openExternal('https://github.com/atom/electron/issues');
+        click () {
+          shell.openExternal('https://github.com/atom/electron/issues')
         }
       }]
-    }];
-    menu = Menu.buildFromTemplate(template);
-    mainWindow.setMenu(menu);
+    }]
+    menu = Menu.buildFromTemplate(template)
+    mainWindow.setMenu(menu)
   }
-  ready = true;
+  ready = true
   if (filepath) {
-    mainWindow.webContents.send('open-file', filepath);
-    filepath = null;
+    mainWindow.webContents.send('open-file', filepath)
+    filepath = null
   }
-});
-
+})

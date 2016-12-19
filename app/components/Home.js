@@ -1,11 +1,11 @@
 /* @flow */
 
-import React, { Component } from 'react';
-import { Link } from 'react-router';
-import styles from './Home.css';
+import React, { Component } from 'react'
+import { Link } from 'react-router'
+import styles from './Home.css'
 
 export default class Home extends Component {
-  render() {
+  render () {
     return (
       <div>
         <div className={styles.container}>
@@ -14,6 +14,6 @@ export default class Home extends Component {
           <Link to="/draganddrop">to Drag and Drop</Link>
         </div>
       </div>
-    );
+    )
   }
 }

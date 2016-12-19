@@ -1,18 +1,18 @@
 /* @flow */
 
-import MykrobeLocalFileAnalyser from './MykrobeLocalFileAnalyser';
-import MykrobeConfig from './MykrobeConfig';
+import MykrobeLocalFileAnalyser from './MykrobeLocalFileAnalyser'
+import MykrobeConfig from './MykrobeConfig'
 
 class MykrobeService {
-  config: MykrobeConfig;
+  config: MykrobeConfig
 
-  constructor(config: MykrobeConfig = new MykrobeConfig()) {
-    this.config = config;
+  constructor (config: MykrobeConfig = new MykrobeConfig()) {
+    this.config = config
   }
 
-  analyseFile(file: File) {
-    return new MykrobeLocalFileAnalyser(this.config).analyseFile(file);
+  analyseFile (file: File) {
+    return new MykrobeLocalFileAnalyser(this.config).analyseFile(file)
   }
 }
 
-export default MykrobeService;
+export default MykrobeService

@@ -1,19 +1,15 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 
-import FormLabel from './FormLabel';
+import FormLabel from './FormLabel'
 
-import styles from './FormSelect.css';
+import styles from './FormSelect.css'
 
 class FormSelect extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
-  render() {
-    const {name, onChange, options, placeholder, selectedOption, title} = this.props;
+  render () {
+    const {name, onChange, options, placeholder, selectedOption, title} = this.props
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
@@ -34,11 +30,11 @@ class FormSelect extends Component {
                 value={opt.value}>
                 {opt.label}
               </option>
-            );
+            )
           })}
         </select>
       </div>
-    );
+    )
   }
 }
 
@@ -49,6 +45,6 @@ FormSelect.propTypes = {
   placeholder: PropTypes.string,
   selectedOption: PropTypes.string,
   title: PropTypes.string.isRequired
-};
+}
 
-export default FormSelect;
+export default FormSelect

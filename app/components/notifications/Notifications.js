@@ -1,31 +1,26 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React, { Component, PropTypes } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import * as NotificationActions from '../../actions/NotificationActions';
+import * as NotificationActions from '../../actions/NotificationActions'
 
-import Notification from './Notification';
-import styles from './Notifications.css';
+import Notification from './Notification'
+import styles from './Notifications.css'
 
 export class Notifications extends Component {
-
-  constructor(props: Object) {
-    super(props);
+  onClick (id: Number) {
+    const {hideNotification} = this.props
+    hideNotification(id)
   }
 
-  onClick(id: Number) {
-    const {hideNotification} = this.props;
-    hideNotification(id);
-  }
-
-  render() {
-    const {notifications} = this.props;
+  render () {
+    const {notifications} = this.props
     return (
       <div className={styles.wrap}>
         {notifications.map(notification => {
-          const {id, content, category} = notification;
+          const {id, content, category} = notification
           return (
             <div key={id}>
               <Notification
@@ -37,23 +32,24 @@ export class Notifications extends Component {
           )
         })}
       </div>
-    );
+    )
   }
 }
 
 Notifications.propTypes = {
-  notifications: PropTypes.array
+  notifications: PropTypes.array,
+  hideNotification: PropTypes.func.isRequired
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
-  };
+  }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     hideNotification: NotificationActions.hideNotification
-  }, dispatch);
+  }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications)

@@ -1,14 +1,14 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import styles from './ResistanceAll.css';
-import ResistanceProfile from '../resistance/ResistanceProfile';
-import Panel from '../ui/Panel';
-import Phylogeny from '../phylogeny/Phylogeny';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import styles from './ResistanceAll.css'
+import ResistanceProfile from '../resistance/ResistanceProfile'
+import Panel from '../ui/Panel'
+import Phylogeny from '../phylogeny/Phylogeny'
 
 class ResistanceAll extends Component {
-  render() {
+  render () {
     return (
       <div className={styles.container}>
         <Panel title="Resistance Profile" columns={3}>
@@ -18,19 +18,19 @@ class ResistanceAll extends Component {
           <Phylogeny controlsInset={0} />
         </Panel>
       </div>
-    );
+    )
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     analyser: state.analyser
-  };
+  }
 }
 
 ResistanceAll.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired
-};
+}
 
-export default connect(mapStateToProps)(ResistanceAll);
+export default connect(mapStateToProps)(ResistanceAll)

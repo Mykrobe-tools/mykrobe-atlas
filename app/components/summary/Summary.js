@@ -1,17 +1,15 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import styles from './Summary.css';
-import ResistanceProfile from '../resistance/ResistanceProfile';
-import Panel from '../ui/Panel';
-import Key from '../header/Key';
-import SummaryMetadata from './SummaryMetadata';
-import SummaryVariants from './SummaryVariants';
+import React, { Component } from 'react'
+import styles from './Summary.css'
+import ResistanceProfile from '../resistance/ResistanceProfile'
+import Panel from '../ui/Panel'
+import Key from '../header/Key'
+import SummaryMetadata from './SummaryMetadata'
+import SummaryVariants from './SummaryVariants'
 
 class Summary extends Component {
-  render() {
-    const {children} = this.props;
+  render () {
     return (
       <div className={styles.container}>
         <Key single />
@@ -30,8 +28,8 @@ class Summary extends Component {
           </Panel>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Summary;
+export default Summary

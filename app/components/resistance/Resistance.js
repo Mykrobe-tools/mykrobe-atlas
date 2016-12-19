@@ -1,33 +1,33 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import { connect } from 'react-redux';
-import styles from './Resistance.css';
-import Key from '../header/Key';
+import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
+import { connect } from 'react-redux'
+import styles from './Resistance.css'
+import Key from '../header/Key'
 
-import MykrobeConfig from '../../api/MykrobeConfig';
-import * as TargetConstants from '../../constants/TargetConstants';
+import MykrobeConfig from '../../api/MykrobeConfig'
+import * as TargetConstants from '../../constants/TargetConstants'
 
-// const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions');
+// const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions')
 
 class Resistance extends Component {
 
   // componentDidMount() {
-  //   const {dispatch, demo} = this.props;
+  //   const {dispatch, demo} = this.props
   //   // only load if not already loaded
   //   if (0 === demo.tree.newick.length) {
-  //     dispatch(DemoActions.loadTreeWithPath('tree.json'));
-  //     dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'));
+  //     dispatch(DemoActions.loadTreeWithPath('tree.json'))
+  //     dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'))
   //   }
   // }
 
-  render() {
-    const {analyser, children} = this.props;
+  render () {
+    const {analyser, children} = this.props
     if (!analyser.transformed) {
-      return null;
+      return null
     }
-    const config = new MykrobeConfig();
+    const config = new MykrobeConfig()
     return (
       <div className={styles.container}>
         <Key />
@@ -50,15 +50,15 @@ class Resistance extends Component {
         </div>
         {children}
       </div>
-    );
+    )
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     analyser: state.analyser,
     demo: state.demo
-  };
+  }
 }
 
 Resistance.propTypes = {
@@ -66,6 +66,6 @@ Resistance.propTypes = {
   analyser: PropTypes.object.isRequired,
   demo: PropTypes.object.isRequired,
   children: PropTypes.node
-};
+}
 
-export default connect(mapStateToProps)(Resistance);
+export default connect(mapStateToProps)(Resistance)

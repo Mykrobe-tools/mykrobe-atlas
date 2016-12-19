@@ -1,18 +1,16 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
-import { Route, IndexRoute } from 'react-router';
-import { connect } from 'react-redux';
-import styles from './ResistanceDrugs.css';
-import Panel from '../ui/Panel';
-import * as AnalyserActions from '../../actions/AnalyserActions';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import styles from './ResistanceDrugs.css'
+import Panel from '../ui/Panel'
 
 const firstLineDrugs = [
   'Isoniazid',
   'Rifampicin',
   'Ethambutol',
   'Pyrazinamide'
-];
+]
 
 const secondLineDrugs = [
   'Quinolones',
@@ -20,10 +18,10 @@ const secondLineDrugs = [
   'Amikacin',
   'Capreomycin',
   'Kanamycin'
-];
+]
 
 class ResistanceDrugs extends Component {
-  render() {
+  render () {
     // TODO: need to display XDR / MDR status here?
     return (
       <div className={styles.container}>
@@ -34,53 +32,53 @@ class ResistanceDrugs extends Component {
           {this.listDrugsWithIndicators(secondLineDrugs)}
         </Panel>
       </div>
-    );
+    )
   }
 
-  listDrugsWithIndicators(drugs) {
-    const {analyser} = this.props;
-    const {resistant, susceptible, inconclusive} = analyser.transformed;
-    let elements = [];
+  listDrugsWithIndicators (drugs) {
+    const {analyser} = this.props
+    const {resistant, susceptible, inconclusive} = analyser.transformed
+    let elements = []
     drugs.forEach((drug, index) => {
-      let indicators = [];
+      let indicators = []
       if (resistant.indexOf(drug) !== -1) {
         indicators.push(
           <div key={'resistant'} className={styles.resistant}>Resistant</div>
-        );
+        )
       }
       if (susceptible.indexOf(drug) !== -1) {
         indicators.push(
           <div key={'susceptible'} className={styles.susceptible}>Susceptible</div>
-        );
+        )
       }
       if (inconclusive.indexOf(drug) !== -1) {
         indicators.push(
           <div key={'inconclusive'} className={styles.inconclusive}>Inconclusive</div>
-        );
+        )
       }
       elements.push(
         <div key={`ELEMENT_${index}`}>{drug} {indicators}</div>
-      );
-    });
+      )
+    })
 
     return (
       <div className={styles.drugs}>
         {elements}
       </div>
-    );
+    )
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     analyser: state.analyser
-  };
+  }
 }
 
 ResistanceDrugs.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   children: PropTypes.node
-};
+}
 
-export default connect(mapStateToProps)(ResistanceDrugs);
+export default connect(mapStateToProps)(ResistanceDrugs)

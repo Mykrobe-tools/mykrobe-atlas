@@ -1,7 +1,9 @@
-import webpack from 'webpack';
-import merge from 'webpack-merge';
-import baseConfig from './webpack.config.production';
-import path from 'path';
+/* @flow */
+
+import webpack from 'webpack'
+import merge from 'webpack-merge'
+import baseConfig from './webpack.config.production'
+import path from 'path'
 
 export default merge(baseConfig, {
   devtool: 'source-map',
@@ -38,4 +40,4 @@ export default merge(baseConfig, {
     // 'font-awesome',
     // 'source-map-support'
   ]
-});
+})

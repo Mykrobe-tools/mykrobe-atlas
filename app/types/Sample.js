@@ -9,4 +9,4 @@ export type Sample = {
     lat: string,
     lng: string
   }
-};
+}

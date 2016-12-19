@@ -1,4 +1,6 @@
-import * as ActionTypes from '../constants/ActionTypes';
+/* @flow */
+
+import * as ActionTypes from '../constants/ActionTypes'
 
 const initialState = {
   location: 'GB',
@@ -15,15 +17,15 @@ const initialState = {
   hivPositive: '',
   treatedForTB: '',
   shareSequence: true
-};
+}
 
-export default function metadata(state = initialState, action = {}) {
+export default function metadata (state: Object = initialState, action: Object = {}) {
   switch (action.type) {
     case ActionTypes.POST_METADATA_FORM:
-      return initialState;
+      return initialState
     case ActionTypes.SET_METADATA:
-      return action.metadata;
+      return action.metadata
     default:
-      return state;
+      return state
   }
 }

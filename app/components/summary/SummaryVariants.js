@@ -1,12 +1,11 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import styles from './SummaryVariants.css';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import styles from './SummaryVariants.css'
 
 class SummaryVariants extends Component {
-  render() {
-    const {analyser} = this.props;
+  render () {
     return (
       <div className={styles.container}>
         <div className={styles.group}>
@@ -18,7 +17,7 @@ class SummaryVariants extends Component {
         </div>
         <div className={styles.group}>
           <div className={styles.title}>Whole genome analysis</div>
-          <div>Depth of coverage 80&times;</div>
+          <div>Depth of coverage 80&times</div>
           <div>No evidence of multiple strains (only 2 heterozygous sites)</div>
           <div><a href="#"><i className="fa fa-plus-circle" /> more</a></div>
         </div>
@@ -27,18 +26,18 @@ class SummaryVariants extends Component {
           <div>Minor contamination (3%) from M. abscessus</div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     analyser: state.analyser
-  };
+  }
 }
 
 SummaryVariants.propTypes = {
   analyser: PropTypes.object.isRequired
-};
+}
 
-export default connect(mapStateToProps)(SummaryVariants);
+export default connect(mapStateToProps)(SummaryVariants)

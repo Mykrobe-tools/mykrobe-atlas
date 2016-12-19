@@ -1,3 +1,5 @@
-require('babel-register');
+/* @flow */
 
-module.exports = require('./webpack.config.development');
+require('babel-register')
+
+module.exports = require('./webpack.config.development')

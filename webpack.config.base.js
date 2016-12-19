@@ -1,6 +1,8 @@
-import path from 'path';
+/* @flow */
 
-function baseConfig(env = 'development') {
+import path from 'path'
+
+function baseConfig (env: string = 'development') {
   return {
     entry: [
       'babel-polyfill',
@@ -41,7 +43,7 @@ function baseConfig(env = 'development') {
       // put your node 3rd party libraries which can't be built with webpack here
       // (mysql, mongodb, and so on..)
     ]
-  };
+  }
 }
 
-export default baseConfig;
+export default baseConfig

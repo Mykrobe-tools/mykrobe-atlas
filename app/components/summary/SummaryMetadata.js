@@ -1,12 +1,11 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import styles from './SummaryMetadata.css';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import styles from './SummaryMetadata.css'
 
 class SummaryMetadata extends Component {
-  render() {
-    const {analyser} = this.props;
+  render () {
     return (
       <div className={styles.container}>
         <div className={styles.summaryContainer}>
@@ -46,18 +45,18 @@ class SummaryMetadata extends Component {
           </table>
         </div>
       </div>
-    );
+    )
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     analyser: state.analyser
-  };
+  }
 }
 
 SummaryMetadata.propTypes = {
   analyser: PropTypes.object.isRequired
-};
+}
 
-export default connect(mapStateToProps)(SummaryMetadata);
+export default connect(mapStateToProps)(SummaryMetadata)

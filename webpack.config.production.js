@@ -1,7 +1,9 @@
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import merge from 'webpack-merge';
-import baseConfig from './webpack.config.base';
+/* @flow */
+
+import webpack from 'webpack'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import merge from 'webpack-merge'
+import baseConfig from './webpack.config.base'
 
 const config = merge(baseConfig('production'), {
   devtool: 'source-map',
@@ -47,6 +49,6 @@ const config = merge(baseConfig('production'), {
     }),
     new ExtractTextPlugin('style.css', { allChunks: true })
   ]
-});
+})
 
-export default config;
+export default config

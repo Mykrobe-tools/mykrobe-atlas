@@ -1,17 +1,17 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import FormSelect from './FormSelect';
+import React from 'react'
+import renderer from 'react-test-renderer'
+import FormSelect from './FormSelect'
 
 describe('FormSelect component snapshot', () => {
-  const name = 'loremIpsum';
-  const title = 'Lorem Ipsum';
-  const onChange = jest.fn();
+  const name = 'loremIpsum'
+  const title = 'Lorem Ipsum'
+  const onChange = jest.fn()
 
   it('renders correctly with a single option', () => {
-    const selectedOption = 'lorem';
+    const selectedOption = 'lorem'
     const options = [
       {value: 'lorem', label: 'Lorem'}
-    ];
+    ]
     const component = renderer.create(
       <FormSelect
         name={name}
@@ -19,18 +19,18 @@ describe('FormSelect component snapshot', () => {
         options={options}
         selectedOption={selectedOption}
         onChange={onChange} />
-    );
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+    )
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 
   it('renders correctly with multiple options', () => {
-    const selectedOption = 'dolorSitAmet';
+    const selectedOption = 'dolorSitAmet'
     const options = [
       {value: 'lorem', label: 'Lorem'},
       {value: 'ipsum', label: 'Ipsum'},
       {value: 'dolorSitAmet', label: 'Dolor Sit Amet'}
-    ];
+    ]
     const component = renderer.create(
       <FormSelect
         name={name}
@@ -38,8 +38,8 @@ describe('FormSelect component snapshot', () => {
         options={options}
         selectedOption={selectedOption}
         onChange={onChange} />
-    );
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
+    )
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+})

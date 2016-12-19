@@ -1,5 +1,5 @@
 declare type ElementEventTemplate<E> = {
   target: E
-} & Event;
+} & Event
 
-declare type InputEvent = ElementEventTemplate<HTMLInputElement>;
+declare type InputEvent = ElementEventTemplate<HTMLInputElement>

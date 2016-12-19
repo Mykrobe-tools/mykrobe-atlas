@@ -1,14 +1,14 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import FormInputDate from './FormInputDate';
+import React from 'react'
+import renderer from 'react-test-renderer'
+import FormInputDate from './FormInputDate'
 
-jest.mock('react-datepicker', () => { return '';});
+jest.mock('react-datepicker', () => { return '' })
 
 describe('FormInputDate component snapshot', () => {
-  const name = 'loremIpsum';
-  const title = 'Lorem Ipsum';
-  const value = '2016-01-01';
-  const onChange = jest.fn();
+  const name = 'loremIpsum'
+  const title = 'Lorem Ipsum'
+  const value = '2016-01-01'
+  const onChange = jest.fn()
 
   it('renders correctly', () => {
     const component = renderer.create(
@@ -17,8 +17,8 @@ describe('FormInputDate component snapshot', () => {
         title={title}
         value={value}
         onChange={onChange} />
-    );
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
+    )
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+})

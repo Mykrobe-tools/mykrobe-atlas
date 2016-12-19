@@ -1,5 +1,5 @@
-import reducer from './metadata';
-import * as ActionTypes from '../constants/ActionTypes';
+import reducer from './metadata'
+import * as ActionTypes from '../constants/ActionTypes'
 
 const initialState = {
   location: 'GB',
@@ -16,7 +16,7 @@ const initialState = {
   hivPositive: '',
   treatedForTB: '',
   shareSequence: true
-};
+}
 
 describe('metadata reducer', () => {
   it('should return the initial state', () => {
@@ -24,8 +24,8 @@ describe('metadata reducer', () => {
       reducer(undefined, {})
     ).toEqual(
       initialState
-    );
-  });
+    )
+  })
 
   it('should handle "POST_METADATA_FORM" action', () => {
     expect(
@@ -34,17 +34,17 @@ describe('metadata reducer', () => {
       })
     ).toEqual(
       initialState
-    );
-  });
+    )
+  })
 
   it('should handle "SET_METADATA" action', () => {
     expect(
       reducer(undefined, {
         type: ActionTypes.SET_METADATA,
-        metadata: {lorem: "ipsum"}
+        metadata: {lorem: 'ipsum'}
       })
     ).toEqual(
-      {lorem: "ipsum"}
-    );
-  });
-});
+      {lorem: 'ipsum'}
+    )
+  })
+})

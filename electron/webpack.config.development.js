@@ -1,8 +1,10 @@
+/* @flow */
+
 /* eslint max-len: 0 */
-import webpack from 'webpack';
-import merge from 'webpack-merge';
-import baseConfig from '../webpack.config.development';
-import path from 'path';
+import webpack from 'webpack'
+import merge from 'webpack-merge'
+import baseConfig from '../webpack.config.development'
+import path from 'path'
 
 export default merge(baseConfig, {
 
@@ -24,4 +26,4 @@ export default merge(baseConfig, {
   ],
 
   target: 'electron-renderer'
-});
+})

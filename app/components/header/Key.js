@@ -1,68 +1,68 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
-import styles from './Key.css';
-import { connect } from 'react-redux';
-import type { Sample } from '../../types/Sample';
-// import * as NodeActions from 'actions/NodeActions';
-import * as AnalyserActions from '../../actions/AnalyserActions';
+import React, { Component, PropTypes } from 'react'
+import styles from './Key.css'
+import { connect } from 'react-redux'
+import type { Sample } from '../../types/Sample'
+// import * as NodeActions from 'actions/NodeActions'
+import * as AnalyserActions from '../../actions/AnalyserActions'
 
-// const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions');
+// const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions')
 
 class Key extends Component {
 
   // onAddClicked(e) {
-  //   console.log('onAddClicked');
-  //   const {dispatch} = this.props;
-  //   dispatch(NodeActions.unsetNodeHighlightedAll());
-  //   dispatch(DemoActions.loadTreeWithPath('zoom_tree.json'));
-  //   dispatch(DemoActions.loadSamplesWithPath('zoom_tree_samples.json'));
+  //   console.log('onAddClicked')
+  //   const {dispatch} = this.props
+  //   dispatch(NodeActions.unsetNodeHighlightedAll())
+  //   dispatch(DemoActions.loadTreeWithPath('zoom_tree.json'))
+  //   dispatch(DemoActions.loadSamplesWithPath('zoom_tree_samples.json'))
   // }
 
   // onRemoveClicked(e) {
-  //   console.log('onRemoveClicked');
-  //   const {dispatch} = this.props;
-  //   dispatch(NodeActions.unsetNodeHighlightedAll());
-  //   dispatch(DemoActions.loadTreeWithPath('tree.json'));
-  //   dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'));
+  //   console.log('onRemoveClicked')
+  //   const {dispatch} = this.props
+  //   dispatch(NodeActions.unsetNodeHighlightedAll())
+  //   dispatch(DemoActions.loadTreeWithPath('tree.json'))
+  //   dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'))
   // }
 
-  onNewClicked(e) {
-    console.log('onNewClicked');
-    const {dispatch} = this.props;
-    const result = confirm('Open a new sample?');
+  onNewClicked (e) {
+    console.log('onNewClicked')
+    const {dispatch} = this.props
+    const result = confirm('Open a new sample?')
     if (result) {
-      dispatch(AnalyserActions.analyseFileCancel());
+      dispatch(AnalyserActions.analyseFileCancel())
     }
   }
 
-  getSampleWithId(nodeId: string): ?Sample {
-    const {analyser} = this.props;
-    const {samples} = analyser.transformed;
+  getSampleWithId (nodeId: string): ?Sample {
+    const {analyser} = this.props
+    const {samples} = analyser.transformed
     for (let sampleKey in samples) {
-      const sample: Sample = samples[sampleKey];
+      const sample: Sample = samples[sampleKey]
       if (sample.id === nodeId) {
-        return sample;
+        return sample
       }
     }
   }
 
-  getSampleIds(): Array<string> {
-    const {analyser} = this.props;
-    const {samples} = analyser.transformed;
-    let nodeIds: Array<string> = [];
+  getSampleIds (): Array<string> {
+    const {analyser} = this.props
+    const {samples} = analyser.transformed
+    let nodeIds: Array<string> = []
     for (let sampleKey: string in samples) {
-      const sample: Sample = samples[sampleKey];
-      nodeIds.push(sample.id);
+      const sample: Sample = samples[sampleKey]
+      nodeIds.push(sample.id)
     }
-    return nodeIds;
+    return nodeIds
   }
 
-  render() {
-    const {single} = this.props;
-    const sampleIds = this.getSampleIds();
-    let title = '';
-    // let action = null;
+  render () {
+    const {single} = this.props
+    const sampleIds = this.getSampleIds()
+    let title = ''
+    // let action = null
     if (!sampleIds.length) {
       return (
         <div className={styles.container}>
@@ -70,22 +70,21 @@ class Key extends Component {
             Loading
           </div>
         </div>
-      );
+      )
     }
-    const sample0 = this.getSampleWithId(sampleIds[0]);
+    const sample0 = this.getSampleWithId(sampleIds[0])
     if (!sample0) {
-      return null;
+      return null
     }
     if (!single && sampleIds.length > 1) {
-      const sample1 = this.getSampleWithId(sampleIds[1]);
+      const sample1 = this.getSampleWithId(sampleIds[1])
       if (sample1) {
-        title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample &middot; <i className="fa fa-circle" style={{color: sample1.colorForTest}} /> {sample1.id} Nearest previous sample</div>;
-        // action = <div className={styles.resetButton} onClick={(e) => { this.onRemoveClicked(e); }}><i className="fa fa-times-circle" /> Reset</div>;
+        title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample &middot <i className="fa fa-circle" style={{color: sample1.colorForTest}} /> {sample1.id} Nearest previous sample</div>
+        // action = <div className={styles.resetButton} onClick={(e) => { this.onRemoveClicked(e) }}><i className="fa fa-times-circle" /> Reset</div>
       }
-    }
-    else {
-      title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample</div>;
-      // action = <div className={styles.compareButton} onClick={(e) => { this.onAddClicked(e); }}><i className="fa fa-plus-circle" /> Compare</div>;
+    } else {
+      title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample</div>
+      // action = <div className={styles.compareButton} onClick={(e) => { this.onAddClicked(e) }}><i className="fa fa-plus-circle" /> Compare</div>
     }
     return (
       <div className={styles.container}>
@@ -93,10 +92,10 @@ class Key extends Component {
           {title}
         </div>
         <div className={styles.actions}>
-          <div className={styles.actionItem} onClick={(e) => { this.onNewClicked(e); }}><i className="fa fa-plus-circle" /> New</div>
+          <div className={styles.actionItem} onClick={(e) => { this.onNewClicked(e) }}><i className="fa fa-plus-circle" /> New</div>
         </div>
       </div>
-    );
+    )
   }
 
   static defaultProps = {
@@ -108,15 +107,16 @@ Key.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
-  demo: PropTypes.object.isRequired
-};
+  demo: PropTypes.object.isRequired,
+  single: PropTypes.bool
+}
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     analyser: state.analyser,
     node: state.node,
     demo: state.demo
-  };
+  }
 }
 
-export default connect(mapStateToProps)(Key);
+export default connect(mapStateToProps)(Key)
