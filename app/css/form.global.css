@@ -27,13 +27,11 @@
 }
 
 input[type="radio"] + label,
-input[type="checkbox"]  + label
-{
+input[type="checkbox"] + label {
   cursor: pointer;
 }
 
 input[type="radio"]:checked + label,
-input[type="checkbox"]:checked  + label
-{
+input[type="checkbox"]:checked + label {
   color: var(--color-tint-secondary);
 }

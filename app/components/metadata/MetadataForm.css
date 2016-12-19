@@ -8,11 +8,11 @@
 }
 
 .susceptibilityRows {
-  border-bottom:1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
   width: 60%;
 }
 
 .susceptibilityRow {
-  border-top:1px solid var(--color-rule);
+  border-top: 1px solid var(--color-rule);
   padding: 8px 0;
 }

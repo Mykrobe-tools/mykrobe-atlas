@@ -7,13 +7,13 @@
   flex: 1;
 }
 
-.column+.column {
+.column + .column {
   margin-left: 12px;
 }
 
 .columnTitle {
   composes: subtitle from "css/typography.css";
-	padding: 8px 0;
+  padding: 8px 0;
 }
 
 .columnTitleSusceptible {

@@ -1,4 +1,4 @@
 .container {
   composes: containerAbsolute from "css/layout.css";
-  overflow:hidden;
+  overflow: hidden;
 }

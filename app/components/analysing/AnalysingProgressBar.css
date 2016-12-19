@@ -1,10 +1,10 @@
 .container {
-  width:100%;
+  width: 100%;
 }
 
 .progressBarContainer {
   background-color: var(--color-tint-primary);
-  height:16px;
+  height: 16px;
   transition: width 2s;
   position: absolute;
 }
@@ -13,7 +13,7 @@
   composes: fontSecondary from "css/typography.css";
   font-size: 11px;
   white-space: nowrap;
-  position:absolute;
+  position: absolute;
   top: 0;
   bottom: 0;
   padding: 2px 4px;
@@ -27,6 +27,6 @@
 
 .progressBarLabelOutside {
   composes: progressBarLabel;
-  left:100%;
+  left: 100%;
   color: var(--color-tint-primary);
 }

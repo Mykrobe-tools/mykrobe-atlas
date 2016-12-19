@@ -11,7 +11,7 @@
 
 .indicator {
   composes: subtitleSmall from "css/typography.css";
-  display:inline-block;
+  display: inline-block;
 }
 
 .susceptible {

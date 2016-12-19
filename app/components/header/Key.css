@@ -1,6 +1,6 @@
 .container {
-  background-color:var(--color-buff-dark);
-  padding:12px;
+  background-color: var(--color-buff-dark);
+  padding: 12px;
   display: flex;
   flex-direction: row;
   flex-shrink: 0;

@@ -5,11 +5,11 @@
 
 .summaryContainer {
   flex: 1;
-  padding:8px 0;
+  padding: 8px 0;
 }
 
-.summaryContainer+.summaryContainer {
-  margin-left:24px;
+.summaryContainer + .summaryContainer {
+  margin-left: 24px;
 }
 
 .table {
@@ -21,7 +21,7 @@
   padding: 0;
 }
 
-.table td+td {
+.table td + td {
   color: var(--color-text);
-  padding-left:12px;
+  padding-left: 12px;
 }

@@ -3,10 +3,12 @@
 /* also as constants/Colors.js for access in JS */
 
 :root {
+  /* colour definitions */
+
   --color-tint-primary: #622268;
-  --color-tint-secondary: #D06192;
+  --color-tint-secondary: #d06192;
   --color-blue: #71c7e6;
-  --color-blue-text: darken( --color-blue, 5%);
+  --color-blue-text: darken(--color-blue, 5%);
   --color-light-green: #86c9b9;
   --color-dark-green: #3b9da7;
   --color-buff: #f7f6f1;
@@ -18,20 +20,23 @@
   --color-app-green: #9eab60;
   --color-app-blue: #0f82d0;
 
+  /* colour uses */
+
   --color-rule: var(--color-grey-light);
   --color-placeholder-text: var(--color-grey-light);
-  --color-blue-hover: darken( --color-blue, 5%);
-  --color-blue-hover-text: darken( --color-blue, 15%);
-  --color-dark-green-hover: darken( --color-dark-green, 5%);
-  --color-light-green-hover: darken( --color-light-green, 5%);
-  --color-light-green-hover-text: darken( --color-light-green, 15%);
+  --color-blue-hover: darken(--color-blue, 5%);
+  --color-blue-hover-text: darken(--color-blue, 15%);
+  --color-dark-green-hover: darken(--color-dark-green, 5%);
+  --color-light-green-hover: darken(--color-light-green, 5%);
+  --color-light-green-hover-text: darken(--color-light-green, 15%);
   --color-background: var(--color-buff);
   --color-text: var(--color-grey-dark);
+
+  /* colour types */
 
   --color-susceptible: var(--color-app-green);
   --color-resistant: var(--color-app-red);
   --color-inconclusive: var(--color-grey-mid);
-
 }
 
 /*
