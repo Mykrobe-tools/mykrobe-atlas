@@ -1,9 +1,9 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
-import Results from 'components/Results';
+import Results from '../components/Results';
 import { connect } from 'react-redux';
-import * as AnalyserActions from 'actions/AnalyserActions';
+import * as AnalyserActions from '../actions/AnalyserActions';
 
 class ResultsPage extends Component {
   componentDidMount() {

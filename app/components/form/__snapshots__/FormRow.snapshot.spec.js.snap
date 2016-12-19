@@ -1,0 +1,6 @@
+exports[`FormRow component snapshot renders correctly 1`] = `
+<div
+  className="formRow">
+  <a href=\"#\">Dolor Sit Amet</a>
+</div>
+`;

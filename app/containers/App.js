@@ -4,9 +4,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './App.css';
 import Dropzone from 'react-dropzone';
-import * as AnalyserActions from 'actions/AnalyserActions';
-import Header from 'components/header/Header';
-import Notifications from 'components/notifications/Notifications';
+import * as AnalyserActions from '../actions/AnalyserActions';
+import Header from '../components/header/Header';
+import Notifications from '../components/notifications/Notifications';
 
 class App extends Component {
   state: {

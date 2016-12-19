@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import styles from './PhyloCanvasTooltip.css';
-import type { Sample } from 'types/Sample';
+import type { Sample } from '../../types/Sample';
 
 class PhyloCanvasTooltip extends Component {
   state: {

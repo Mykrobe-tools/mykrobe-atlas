@@ -1,6 +1,6 @@
 /* @flow */
 
-import * as ActionTypes from 'constants/ActionTypes';
+import * as ActionTypes from '../constants/ActionTypes';
 
 export function postMetadataForm(metadata: Object) {
   // TODO: post metadata form to API

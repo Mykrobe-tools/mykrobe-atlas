@@ -3,9 +3,9 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './Key.css';
 import { connect } from 'react-redux';
-import type { Sample } from 'types/Sample';
+import type { Sample } from '../../types/Sample';
 // import * as NodeActions from 'actions/NodeActions';
-import * as AnalyserActions from 'actions/AnalyserActions';
+import * as AnalyserActions from '../../actions/AnalyserActions';
 
 // const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions');
 

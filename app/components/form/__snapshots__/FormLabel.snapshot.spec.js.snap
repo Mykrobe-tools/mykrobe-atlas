@@ -1,0 +1,8 @@
+exports[`FormLabel component snapshot renders correctly 1`] = `
+<label
+  className="label"
+  htmlFor="loremIpsum">
+  <a href=\"#\">Dolor Sit Amet</a>
+  Lorem Ipsum
+</label>
+`;

@@ -3,13 +3,13 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './Map.css';
 import GoogleMapsLoader from 'google-maps';
-import Phylogeny from 'components/phylogeny/Phylogeny';
+import Phylogeny from '../phylogeny/Phylogeny';
 import { connect } from 'react-redux';
-import PhyloCanvasTooltip from 'components/ui/PhyloCanvasTooltip';
-import * as NodeActions from 'actions/NodeActions';
-import Key from 'components/header/Key';
+import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
+import * as NodeActions from '../../actions/NodeActions';
+import Key from '../header/Key';
 import MapStyle from './MapStyle';
-import type { Sample } from 'types/Sample';
+import type { Sample } from '../../types/Sample';
 
 const GOOGLE_MAPS_API_KEY = 'AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc';
 

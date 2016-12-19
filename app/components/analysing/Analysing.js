@@ -2,9 +2,9 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Metadata from 'components/metadata/Metadata';
+import Metadata from '../metadata/Metadata';
 import styles from './Analysing.css';
-import * as AnalyserActions from 'actions/AnalyserActions';
+import * as AnalyserActions from '../../actions/AnalyserActions';
 import AnalysingProgressBar from './AnalysingProgressBar';
 
 // TODO: push route on state change
@@ -22,7 +22,7 @@ class Analysing extends Component {
   render() {
     const {analyser} = this.props;
     if (IS_ELECTRON) {
-      const UIHelpers = require('helpers/UIHelpers');
+      const UIHelpers = require('../../helpers/UIHelpers');
       UIHelpers.setProgress(analyser.progress);
     }
     return (

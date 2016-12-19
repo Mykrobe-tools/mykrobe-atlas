@@ -3,9 +3,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import fs from 'fs';
-import * as AnalyserActions from 'actions/AnalyserActions';
-import * as UIHelpers from 'helpers/UIHelpers';
-import * as FileHelpers from 'helpers/FileHelpers';
+import * as AnalyserActions from '../actions/AnalyserActions';
+import * as UIHelpers from '../helpers/UIHelpers';
+import * as FileHelpers from '../helpers/FileHelpers';
 import { push } from 'react-router-redux';
 import App from './App';
 

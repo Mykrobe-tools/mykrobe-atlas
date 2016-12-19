@@ -4,18 +4,18 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as NotificationActions from 'actions/NotificationActions';
+import * as NotificationActions from '../../actions/NotificationActions';
 
 import Notification from './Notification';
 import styles from './Notifications.css';
 
-class Notifications extends Component {
+export class Notifications extends Component {
 
   constructor(props: Object) {
     super(props);
   }
 
-  onClick(id) {
+  onClick(id: Number) {
     const {hideNotification} = this.props;
     hideNotification(id);
   }

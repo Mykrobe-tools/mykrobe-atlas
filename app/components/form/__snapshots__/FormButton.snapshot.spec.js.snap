@@ -1,0 +1,11 @@
+exports[`FormButton component snapshot renders correctly 1`] = `
+<div
+  className="wrap">
+  <button
+    className="input"
+    onClick={[Function]}
+    type="submit">
+    Lorem ipsum
+  </button>
+</div>
+`;

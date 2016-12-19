@@ -1,5 +1,5 @@
-import * as ActionTypes from 'constants/ActionTypes';
-import MykrobeLocalFileAnalyser from 'api/MykrobeLocalFileAnalyser';
+import * as ActionTypes from '../constants/ActionTypes';
+import MykrobeLocalFileAnalyser from '../api/MykrobeLocalFileAnalyser';
 import path from 'path';
 import fs from 'fs';
 

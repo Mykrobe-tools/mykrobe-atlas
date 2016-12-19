@@ -4,25 +4,24 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import styles from './MetadataForm.css';
 
-import * as MetadataActions from 'actions/MetadataActions';
-import * as NotificationActions from 'actions/NotificationActions';
-import * as NotificationCategories from 'constants/NotificationCategories';
+import * as MetadataActions from '../../actions/MetadataActions';
+import * as NotificationActions from '../../actions/NotificationActions';
+import * as NotificationCategories from '../../constants/NotificationCategories';
 
-import Form from 'components/form/Form';
-import FormRow from 'components/form/FormRow';
-import FormLabel from 'components/form/FormLabel';
-import FormInputText from 'components/form/FormInputText';
-import FormInputDate from 'components/form/FormInputDate';
-import FormSelect from 'components/form/FormSelect';
-import FormTextarea from 'components/form/FormTextarea';
-import FormInputRadio from 'components/form/FormInputRadio';
-import FormInputCheckbox from 'components/form/FormInputCheckbox';
-import FormButton from 'components/form/FormButton';
+import Form from '../form/Form';
+import FormRow from '../form/FormRow';
+import FormLabel from '../form/FormLabel';
+import FormInputText from '../form/FormInputText';
+import FormInputDate from '../form/FormInputDate';
+import FormSelect from '../form/FormSelect';
+import FormTextarea from '../form/FormTextarea';
+import FormInputRadio from '../form/FormInputRadio';
+import FormInputCheckbox from '../form/FormInputCheckbox';
+import FormButton from '../form/FormButton';
 
 const locations = require('static/locations.json');
 const drugs = require('static/drugs.json');

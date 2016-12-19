@@ -1,0 +1,6 @@
+exports[`Form component snapshot renders correctly 1`] = `
+<form
+  onSubmit={[Function]}>
+  <p>Lorem ipsum</p>
+</form>
+`;

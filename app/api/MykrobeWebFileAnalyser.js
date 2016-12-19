@@ -1,7 +1,7 @@
 /* @flow */
 
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
-import { BASE_URL } from 'constants/APIConstants';
+import { BASE_URL } from '../constants/APIConstants';
 
 const IMMEDIATE_FETCH = true;
 
