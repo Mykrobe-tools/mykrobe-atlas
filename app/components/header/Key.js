@@ -49,6 +49,7 @@ class Key extends Component {
 
   getSampleIds (): Array<string> {
     const {analyser} = this.props
+    if (!analyser.transformed) return []
     const {samples} = analyser.transformed
     let nodeIds: Array<string> = []
     for (let sampleKey: string in samples) {
@@ -79,7 +80,7 @@ class Key extends Component {
     if (!single && sampleIds.length > 1) {
       const sample1 = this.getSampleWithId(sampleIds[1])
       if (sample1) {
-        title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample &middot <i className="fa fa-circle" style={{color: sample1.colorForTest}} /> {sample1.id} Nearest previous sample</div>
+        title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample &middot; <i className="fa fa-circle" style={{color: sample1.colorForTest}} /> {sample1.id} Nearest previous sample</div>
         // action = <div className={styles.resetButton} onClick={(e) => { this.onRemoveClicked(e) }}><i className="fa fa-times-circle" /> Reset</div>
       }
     } else {
