@@ -27,7 +27,7 @@ describe('FormButton component snapshot', () => {
     )
     let tree = component.toJSON()
     const btn = tree.children[0]
-    btn.props.onClick()
+    btn.props.onClick({preventDefault: jest.fn()})
     expect(onClick).toBeCalled()
   })
 })
