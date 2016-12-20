@@ -29,6 +29,9 @@ app.use(webpackHotMiddleware(compiler))
 // static assets for demo
 app.use('/demo/', express.static(path.resolve(__dirname, 'demo')))
 
+// serve font awe...
+app.use('*/fonts', express.static('./node_modules/font-awesome/fonts'))
+
 // treeplace for demo
 // e.g. http://13.69.243.89:8000/treeplace?file=10057-10.fastq.gz
 app.get('/treeplace', (req, res, next) => {
