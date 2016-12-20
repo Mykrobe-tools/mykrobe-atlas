@@ -19,7 +19,7 @@ class Header extends Component {
       <div className={styles.container}>
         <div className={styles[logoClassName]} />
         <div className={styles.account}>
-          <i className="fa fa-user" /> Sign in &middot Register
+          <i className="fa fa-user" /> Sign in &middot; Register
         </div>
       </div>
     )
