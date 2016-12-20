@@ -4,6 +4,8 @@ Coding standards to follow when working on the app, to ensure consistency and qu
 
 ## JavaScript
 
+Follow the [standardjs.com](http://standardjs.com) conventions, unless otherwise outlined below.
+
 ### Use relative import paths
 
 Webpack allows references to imported files to be interpreted from the root of the project. However, this can cause issues with the jest testing framework, and so it is best to always use relative paths to files that are being imported.
@@ -47,6 +49,10 @@ const {name, onClick} = this.props;
 
 
 ## CSS
+
+Follow the [stylelint standard](https://github.com/stylelint/stylelint-config-standard) conventions, unless otherwise outlined below.
+
+### Use composes
 
 Use `composes` to import styles from other classes, rather than adding multiple class names to an element.
 
