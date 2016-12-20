@@ -1,3 +1,3 @@
 .wrap {
-  composes: container from "css/layout.css";
+  width: 100%;
 }
