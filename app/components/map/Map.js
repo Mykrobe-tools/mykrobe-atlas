@@ -14,11 +14,11 @@ import type { Sample } from '../../types/Sample';
 const GOOGLE_MAPS_API_KEY = 'AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc';
 
 class Map extends Component {
-  _google: Object
-  _map: Object
-  _mapDiv: Object
-  _markers: Object
-  _phyloCanvasTooltip: PhyloCanvasTooltip
+  _google: Object;
+  _map: Object;
+  _mapDiv: Object;
+  _markers: Object;
+  _phyloCanvasTooltip: PhyloCanvasTooltip;
 
   constructor(props) {
     super(props);

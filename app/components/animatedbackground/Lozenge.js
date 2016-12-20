@@ -17,8 +17,8 @@ class Lozenge extends Component {
     rotation: number,
     vx: number,
     vr: number
-  }
-  _raf: number
+  };
+  _raf: number;
 
   constructor(props: Object) {
     super(props);

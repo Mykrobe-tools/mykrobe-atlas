@@ -5,7 +5,7 @@ import MykrobeJsonTransformer from './MykrobeJsonTransformer';
 import MykrobeConfig from './MykrobeConfig';
 
 class MykrobeBaseFileAnalyser extends EventEmitter {
-  targetConfig: MykrobeConfig
+  targetConfig: MykrobeConfig;
 
   constructor(targetConfig: MykrobeConfig) {
     super();

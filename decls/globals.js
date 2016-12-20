@@ -1,1 +1,1 @@
-declare var IS_ELECTRON: boolean
+declare var IS_ELECTRON: boolean;

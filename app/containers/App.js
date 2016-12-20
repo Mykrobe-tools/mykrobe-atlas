@@ -11,8 +11,8 @@ import Notifications from '../components/notifications/Notifications';
 class App extends Component {
   state: {
     isDragActive: boolean
-  }
-  _dropzone: Dropzone
+  };
+  _dropzone: Dropzone;
 
   constructor(props: Object) {
     super(props);

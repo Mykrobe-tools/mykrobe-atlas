@@ -29,7 +29,7 @@ const samplesForTest: Array<Sample> = [
 ];
 
 class MykrobeJsonTransformer {
-  config: MykrobeConfig
+  config: MykrobeConfig;
 
   constructor(config: MykrobeConfig = new MykrobeConfig()) {
     this.config = config;
@@ -51,7 +51,7 @@ class MykrobeJsonTransformer {
       let extracted = string.substr(first, 1 + last - first);
       // replace escaped tabs, quotes, newlines
       extracted = extracted.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"');
-      // console.log(extracted)
+      // console.log(extracted);
       const json = JSON.parse(extracted);
       const transformed = this.transformModel(json);
       resolve({json, transformed});
@@ -141,26 +141,26 @@ class MykrobeJsonTransformer {
     // build array of included species
     model.species = _.keys(sourceModel.phylogenetics.species);
     // if ( kTargetSpeciesTB === MykrobeTarget.species ) {
-    // sourceSpecies = sourceModel.phylogenetics.species
+    // sourceSpecies = sourceModel.phylogenetics.species;
     // }
     // else {
-    //     sourceSpecies = sourceModel.species
+    //     sourceSpecies = sourceModel.species;
     // }
     // for ( key in sourceSpecies ) {
-    //     value = sourceSpecies[key].toLowerCase()
+    //     value = sourceSpecies[key].toLowerCase();
     //     if ( 'major' === value ) {
-    //         model.species.push(key)
+    //         model.species.push(key);
     //     }
     // }
 
     model.lineage = [];
     if (TargetConstants.SPECIES_TB === this.config.species) {
       model.lineage = _.keys(sourceModel.phylogenetics.lineage);
-      // sourceLineage = sourceModel.phylogenetics.lineage
+      // sourceLineage = sourceModel.phylogenetics.lineage;
       // for ( key in sourceLineage ) {
-      // value = sourceLineage[key].toLowerCase()
+      // value = sourceLineage[key].toLowerCase();
       // if ( 'major' === value ) {
-      // model.lineage.push(key)
+      // model.lineage.push(key);
       // }
       // }
     }

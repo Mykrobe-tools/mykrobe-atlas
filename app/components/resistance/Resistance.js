@@ -9,16 +9,16 @@ import Key from '../header/Key';
 import MykrobeConfig from '../../api/MykrobeConfig';
 import * as TargetConstants from '../../constants/TargetConstants';
 
-// const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions')
+// const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions');
 
 class Resistance extends Component {
 
   // componentDidMount() {
-  //   const {dispatch, demo} = this.props
+  //   const {dispatch, demo} = this.props;
   //   // only load if not already loaded
   //   if (0 === demo.tree.newick.length) {
-  //     dispatch(DemoActions.loadTreeWithPath('tree.json'))
-  //     dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'))
+  //     dispatch(DemoActions.loadTreeWithPath('tree.json'));
+  //     dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'));
   //   }
   // }
 

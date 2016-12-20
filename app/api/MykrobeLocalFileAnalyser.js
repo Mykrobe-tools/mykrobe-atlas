@@ -11,11 +11,11 @@ import MykrobeConfig from './MykrobeConfig';
 const app = require('electron').remote.app;
 
 class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
-  jsonBuffer: string
-  isBufferingJson: boolean
-  processExited: boolean
-  child: child_process$ChildProcess // eslint-disable-line camelcase
-  didReceiveError: boolean
+  jsonBuffer: string;
+  isBufferingJson: boolean;
+  processExited: boolean;
+  child: child_process$ChildProcess; // eslint-disable-line camelcase
+  didReceiveError: boolean;
 
   constructor(targetConfig: MykrobeConfig) {
     super(targetConfig);
@@ -87,15 +87,15 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
       const dataString = data.toString('utf8');
       console.log(dataString);
       if (dataString.indexOf('Progress') === 0) {
-        // console.log('progress')
+        // console.log('progress');
         // we get a string like "Progress 1000000/1660554"
         // extract groups of digits
         const digitGroups = dataString.match(/\d+/g);
         if (digitGroups.length > 1) {
           const progress = parseInt(digitGroups[0]);
           const total = parseInt(digitGroups[1]);
-          // console.log('progress:'+progress)
-          // console.log('total:'+total)
+          // console.log('progress:'+progress);
+          // console.log('total:'+total);
           this.emit('progress', {
             progress,
             total
@@ -129,7 +129,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
 
     this.child.on('exit', (code) => {
       console.log('Processing exited with code: ' + code);
-      // this.child = null
+      // this.child = null;
       // deferring seems to allow the spawn to exit cleanly
       if (code === 0) {
         if (this.jsonBuffer.length) {
@@ -210,7 +210,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
 
     console.log('pathToBin', pathToBin);
 
-    // chmodSync(pathToBin, 755)
+    // chmodSync(pathToBin, 755);
     return pathToBin;
   }
 }

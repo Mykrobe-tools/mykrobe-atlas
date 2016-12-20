@@ -24,7 +24,7 @@ class Panel extends Component {
 
   static defaultProps = {
     columns: 4
-  }
+  };
 }
 
 Panel.propTypes = {

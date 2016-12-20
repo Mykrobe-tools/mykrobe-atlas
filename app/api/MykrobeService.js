@@ -5,7 +5,7 @@ import MykrobeWebFileAnalyser from './MykrobeWebFileAnalyser';
 import MykrobeConfig from './MykrobeConfig';
 
 class MykrobeService {
-  config: MykrobeConfig
+  config: MykrobeConfig;
 
   constructor(config: MykrobeConfig = new MykrobeConfig()) {
     this.config = config;

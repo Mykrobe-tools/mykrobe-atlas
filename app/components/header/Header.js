@@ -6,7 +6,7 @@ import styles from './Header.css';
 import MykrobeConfig from '../../api/MykrobeConfig';
 
 class Header extends Component {
-  mykrobeConfig: MykrobeConfig
+  mykrobeConfig: MykrobeConfig;
 
   constructor() {
     super();

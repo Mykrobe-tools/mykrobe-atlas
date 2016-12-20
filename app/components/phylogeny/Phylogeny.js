@@ -15,28 +15,28 @@ const AUTO_ZOOM_SAMPLES = true;
 class Phylogeny extends Component {
   state: {
     treeType: string
-  }
-  _phyloCanvas: PhyloCanvasComponent
-  _phyloCanvasTooltip: PhyloCanvasTooltip
-  _container: Element
+  };
+  _phyloCanvas: PhyloCanvasComponent;
+  _phyloCanvasTooltip: PhyloCanvasTooltip;
+  _container: Element;
 
   constructor(props) {
     super(props);
     /*
-    let samplesToHighlight = []
+    let samplesToHighlight = [];
     for (let sampleKey in SAMPLE_DATA) {
-      const sample = SAMPLE_DATA[sampleKey]
-      const neighbours = sample.neighbours
+      const sample = SAMPLE_DATA[sampleKey];
+      const neighbours = sample.neighbours;
       for (let neighbourKey in neighbours) {
-        const neighbour = neighbours[neighbourKey]
-        const distance = parseInt(neighbour.distance)
+        const neighbour = neighbours[neighbourKey];
+        const distance = parseInt(neighbour.distance);
         if (distance <= MAX_DISTANCE) {
-          const samples = neighbour.samples
-          samplesToHighlight = samplesToHighlight.concat(samples)
+          const samples = neighbour.samples;
+          samplesToHighlight = samplesToHighlight.concat(samples);
         }
       }
     }
-    this._samplesToHighlight = samplesToHighlight
+    this._samplesToHighlight = samplesToHighlight;
     */
 
     // radial, rectangular, circular, diagonal and hierarchy
@@ -203,7 +203,7 @@ class Phylogeny extends Component {
 
   static defaultProps = {
     controlsInset: 30
-  }
+  };
 }
 
 function mapStateToProps(state) {

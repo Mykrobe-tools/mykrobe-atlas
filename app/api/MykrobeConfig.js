@@ -3,9 +3,9 @@
 import * as TargetConstants from '../constants/TargetConstants';
 
 class MykrobeConfig {
-  targetName: string
-  type: string
-  species: string
+  targetName: string;
+  type: string;
+  species: string;
 
   constructor() {
     this.targetName = require('../../package.json').targetName;

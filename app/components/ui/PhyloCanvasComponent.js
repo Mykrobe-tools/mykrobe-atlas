@@ -22,14 +22,14 @@ class DrawEventTree extends Tree {
 }
 
 class PhyloCanvasComponent extends Component {
-  _drawDeferredTimeout: number
-  _resize: (e: Event) => void
-  _mouseMove: (e: MouseEvent) => void
-  _tree: DrawEventTree
-  _phyloCanvasDiv: React$Element<any>
-  _highlightedNodes: Object
-  _phyloCanvasTooltip: PhyloCanvasTooltip
-  _currentNodeHover: Branch
+  _drawDeferredTimeout: number;
+  _resize: (e: Event) => void;
+  _mouseMove: (e: MouseEvent) => void;
+  _tree: DrawEventTree;
+  _phyloCanvasDiv: React$Element<any>;
+  _highlightedNodes: Object;
+  _phyloCanvasTooltip: PhyloCanvasTooltip;
+  _currentNodeHover: Branch;
 
   constructor() {
     super();
@@ -184,7 +184,7 @@ class PhyloCanvasComponent extends Component {
       console.log('redraw');
       this._tree.resizeToContainer();
       this.draw();
-      // this._tree.fitInPanel() // TODO - may want to check if we are zoomed before doing this?
+      // this._tree.fitInPanel(); // TODO - may want to check if we are zoomed before doing this?
     }, 0);
   }
 

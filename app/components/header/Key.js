@@ -4,27 +4,27 @@ import React, { Component, PropTypes } from 'react';
 import styles from './Key.css';
 import { connect } from 'react-redux';
 import type { Sample } from '../../types/Sample';
-// import * as NodeActions from 'actions/NodeActions'
+// import * as NodeActions from 'actions/NodeActions';
 import * as AnalyserActions from '../../actions/AnalyserActions';
 
-// const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions')
+// const DemoActions = IS_ELECTRON ? require('actions/DemoActionsElectron') : require('actions/DemoActions');
 
 class Key extends Component {
 
   // onAddClicked(e) {
-  //   console.log('onAddClicked')
-  //   const {dispatch} = this.props
-  //   dispatch(NodeActions.unsetNodeHighlightedAll())
-  //   dispatch(DemoActions.loadTreeWithPath('zoom_tree.json'))
-  //   dispatch(DemoActions.loadSamplesWithPath('zoom_tree_samples.json'))
+  //   console.log('onAddClicked');
+  //   const {dispatch} = this.props;
+  //   dispatch(NodeActions.unsetNodeHighlightedAll());
+  //   dispatch(DemoActions.loadTreeWithPath('zoom_tree.json'));
+  //   dispatch(DemoActions.loadSamplesWithPath('zoom_tree_samples.json'));
   // }
 
   // onRemoveClicked(e) {
-  //   console.log('onRemoveClicked')
-  //   const {dispatch} = this.props
-  //   dispatch(NodeActions.unsetNodeHighlightedAll())
-  //   dispatch(DemoActions.loadTreeWithPath('tree.json'))
-  //   dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'))
+  //   console.log('onRemoveClicked');
+  //   const {dispatch} = this.props;
+  //   dispatch(NodeActions.unsetNodeHighlightedAll());
+  //   dispatch(DemoActions.loadTreeWithPath('tree.json'));
+  //   dispatch(DemoActions.loadSamplesWithPath('tree_samples.json'));
   // }
 
   onNewClicked(e) {
@@ -63,7 +63,7 @@ class Key extends Component {
     const {single} = this.props;
     const sampleIds = this.getSampleIds();
     let title = '';
-    // let action = null
+    // let action = null;
     if (!sampleIds.length) {
       return (
         <div className={styles.container}>
@@ -81,12 +81,12 @@ class Key extends Component {
       const sample1 = this.getSampleWithId(sampleIds[1]);
       if (sample1) {
         title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample &middot; <i className="fa fa-circle" style={{color: sample1.colorForTest}} /> {sample1.id} Nearest previous sample</div>;
-        // action = <div className={styles.resetButton} onClick={(e) => { this.onRemoveClicked(e) }}><i className="fa fa-times-circle" /> Reset</div>
+        // action = <div className={styles.resetButton} onClick={(e) => { this.onRemoveClicked(e) }}><i className="fa fa-times-circle" /> Reset</div>;
       }
     }
     else {
       title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample</div>;
-      // action = <div className={styles.compareButton} onClick={(e) => { this.onAddClicked(e) }}><i className="fa fa-plus-circle" /> Compare</div>
+      // action = <div className={styles.compareButton} onClick={(e) => { this.onAddClicked(e) }}><i className="fa fa-plus-circle" /> Compare</div>;
     }
     return (
       <div className={styles.container}>

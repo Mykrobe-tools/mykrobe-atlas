@@ -9,9 +9,9 @@ class AnimatedBackground extends Component {
   state: {
     width: number,
     height: number
-  }
-  _resize: (e: Event) => void
-  _container: Element
+  };
+  _resize: (e: Event) => void;
+  _container: Element;
 
   constructor(props: Object) {
     super(props);

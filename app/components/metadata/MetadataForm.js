@@ -42,15 +42,15 @@ class MetadataForm extends Component {
     hivPositive: string,
     treatedForTB: string,
     shareSequence: boolean
-  }
+  };
 
   constructor(props: Object) {
     super(props);
     this.state = props.metadata;
 
-    // const app = require('electron').remote.app
-    // const locale = app.getLocale()
-    // console.log('locale', locale) // returns en-US
+    // const app = require('electron').remote.app;
+    // const locale = app.getLocale();
+    // console.log('locale', locale); // returns en-US
   }
 
   componentWillUnmount() {

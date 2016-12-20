@@ -103,24 +103,24 @@
 /* stylelint-disable indentation  */
 
 @keyframes dotone {
-		0% { opacity: 0; }
-	 20% { opacity: 0; }
-	 60% { opacity: 1; }
-	100% { opacity: 1; }
+    0% { opacity: 0; }
+   20% { opacity: 0; }
+   60% { opacity: 1; }
+  100% { opacity: 1; }
 }
 
 @keyframes dottwo {
-		0% { opacity: 0; }
-	 30% { opacity: 0; }
-	 70% { opacity: 1; }
-	100% { opacity: 1; }
+    0% { opacity: 0; }
+   30% { opacity: 0; }
+   70% { opacity: 1; }
+  100% { opacity: 1; }
 }
 
 @keyframes dotthree {
-		0% { opacity: 0; }
-	 40% { opacity: 0; }
-	 80% { opacity: 1; }
-	100% { opacity: 1; }
+    0% { opacity: 0; }
+   40% { opacity: 0; }
+   80% { opacity: 1; }
+  100% { opacity: 1; }
 }
 
 /* stylelint-enable indentation  */

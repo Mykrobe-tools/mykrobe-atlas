@@ -8,7 +8,7 @@ class CircularProgress extends Component {
     radius: number,
     percentage: number,
     strokeWidth: number
-  }
+  };
 
   render() {
     const percentage = parseInt(this.props.percentage);

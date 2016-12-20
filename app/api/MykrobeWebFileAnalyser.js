@@ -6,9 +6,9 @@ import { BASE_URL } from '../constants/APIConstants';
 const IMMEDIATE_FETCH = true;
 
 class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
-  _progress: number
-  _timeout: number
-  _file: File
+  _progress: number;
+  _timeout: number;
+  _file: File;
 
   analyseBinaryFile(file: File): MykrobeWebFileAnalyser {
     this._file = file;
