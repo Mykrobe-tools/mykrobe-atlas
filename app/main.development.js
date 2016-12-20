@@ -1,6 +1,3 @@
-/* @flow */
-
-// $FlowFixMe: Ignore Electron import
 import { app, BrowserWindow, Menu, shell } from 'electron'
 
 let menu

@@ -1,6 +1,7 @@
 /* @flow */
 
 import * as ActionTypes from '../constants/ActionTypes'
+import MykrobeConfig from '../api/MykrobeConfig'
 import MykrobeLocalFileAnalyser from '../api/MykrobeLocalFileAnalyser'
 import path from 'path'
 import fs from 'fs'
@@ -8,7 +9,7 @@ import fs from 'fs'
 export function loadTreeWithPath (filePath: string) {
   return (dispatch: Function, getState: Function) => {
     dispatch(loadTree(filePath))
-    const dirToBin = new MykrobeLocalFileAnalyser().dirToBin()
+    const dirToBin = new MykrobeLocalFileAnalyser(new MykrobeConfig()).dirToBin()
     const filePathJoined = path.join(dirToBin, filePath)
     fs.readFile(filePathJoined, 'utf8', (err, data) => {
       if (err) throw err
@@ -35,7 +36,7 @@ function loadTreeSuccess (json) {
 export function loadSamplesWithPath (filePath: string) {
   return (dispatch: Function, getState: Function) => {
     dispatch(loadSamples(filePath))
-    const dirToBin = new MykrobeLocalFileAnalyser().dirToBin()
+    const dirToBin = new MykrobeLocalFileAnalyser(new MykrobeConfig()).dirToBin()
     const filePathJoined = path.join(dirToBin, filePath)
     fs.readFile(filePathJoined, 'utf8', (err, data) => {
       if (err) throw err
