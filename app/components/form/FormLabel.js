@@ -1,13 +1,13 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
-import styles from './FormLabel.css'
+import styles from './FormLabel.css';
 
 class FormLabel extends Component {
 
-  render () {
-    const {children, htmlFor, label} = this.props
+  render() {
+    const {children, htmlFor, label} = this.props;
     return (
       <label
         className={styles.label}
@@ -16,7 +16,7 @@ class FormLabel extends Component {
         {children}
         {label}
       </label>
-    )
+    );
   }
 }
 
@@ -24,6 +24,6 @@ FormLabel.propTypes = {
   children: PropTypes.node,
   htmlFor: PropTypes.string,
   label: PropTypes.string.isRequired
-}
+};
 
-export default FormLabel
+export default FormLabel;

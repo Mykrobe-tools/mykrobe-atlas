@@ -1,6 +1,6 @@
 /* @flow */
 
-import * as Colors from '../../constants/Colors'
+import * as Colors from '../../constants/Colors';
 
 export default [
   {
@@ -150,4 +150,4 @@ export default [
       }
     ]
   }
-]
+];

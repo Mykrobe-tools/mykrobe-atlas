@@ -1,21 +1,21 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
-import styles from './FormButton.css'
+import styles from './FormButton.css';
 
 class FormButton extends Component {
 
-  onClick (event: Event) {
-    const {onClick} = this.props
+  onClick(event: Event) {
+    const {onClick} = this.props;
     if (onClick) {
-      event.preventDefault()
-      onClick(event)
+      event.preventDefault();
+      onClick(event);
     }
   }
 
-  render () {
-    const {label, type} = this.props
+  render() {
+    const {label, type} = this.props;
     return (
       <div className={styles.wrap}>
         <button
@@ -25,7 +25,7 @@ class FormButton extends Component {
           {label}
         </button>
       </div>
-    )
+    );
   }
 }
 
@@ -33,6 +33,6 @@ FormButton.propTypes = {
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   type: PropTypes.oneOf(['submit', 'button', 'reset']).isRequired
-}
+};
 
-export default FormButton
+export default FormButton;

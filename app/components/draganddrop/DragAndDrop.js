@@ -1,26 +1,27 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import styles from './DragAndDrop.css'
-import * as AnalyserActions from '../../actions/AnalyserActions'
-import AnimatedBackground from '../animatedbackground/AnimatedBackground'
-import CircularProgress from './CircularProgress'
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import styles from './DragAndDrop.css';
+import * as AnalyserActions from '../../actions/AnalyserActions';
+import AnimatedBackground from '../animatedbackground/AnimatedBackground';
+import CircularProgress from './CircularProgress';
 
 class DragAndDrop extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {}
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
-  render () {
-    const {analyser} = this.props
-    let content
+  render() {
+    const {analyser} = this.props;
+    let content;
     if (analyser.analysing) {
-      const {progress} = analyser
-      let statusText = 'Constructing genome'
+      const {progress} = analyser;
+      let statusText = 'Constructing genome';
       if (progress === 0) {
-        statusText = 'Analysing'
-      } else if (progress === 100) {
-        statusText = 'Check species and scan for resistance'
+        statusText = 'Analysing';
+      }
+      else if (progress === 100) {
+        statusText = 'Check species and scan for resistance';
       }
       content = (
         <div className={styles.promptContainer}>
@@ -45,8 +46,9 @@ class DragAndDrop extends Component {
             </button>
           </div>
         </div>
-      )
-    } else {
+      );
+    }
+    else {
       content = (
         <div className={styles.promptContainer}>
           <div className={styles.promptIcon} />
@@ -59,16 +61,18 @@ class DragAndDrop extends Component {
             </button>
           </div>
           <input
-            ref={(ref) => { this._fileInput = ref }}
+            ref={(ref) => {
+              this._fileInput = ref;
+            }}
             onChange={(e) => {
-              this.fileInputChanged(e)
+              this.fileInputChanged(e);
             }}
             type="file"
             accept=".json,.bam,.gz,.fastq"
             style={{position: 'fixed', top: '-100em'}}
           />
         </div>
-      )
+      );
     }
     return (
       <div className={styles.container}>
@@ -77,42 +81,42 @@ class DragAndDrop extends Component {
           {content}
         </div>
       </div>
-    )
+    );
   }
 
-  onOpenClick (e) {
-    console.log('onOpenClick')
-    this._fileInput.click()
+  onOpenClick(e) {
+    console.log('onOpenClick');
+    this._fileInput.click();
   }
 
-  fileInputChanged (e) {
-    const {dispatch} = this.props
-    console.log('fileInputChanged', e)
-    console.log('this._fileInput.files', this._fileInput.files)
+  fileInputChanged(e) {
+    const {dispatch} = this.props;
+    console.log('fileInputChanged', e);
+    console.log('this._fileInput.files', this._fileInput.files);
     if (this._fileInput.files && this._fileInput.files.length > 0) {
-      const file = this._fileInput.files[0]
+      const file = this._fileInput.files[0];
       if (file) {
-        dispatch(AnalyserActions.analyseFile(file))
+        dispatch(AnalyserActions.analyseFile(file));
       }
     }
   }
 
-  onCancelClick (e) {
-    console.log('onCancelClick')
-    const {dispatch} = this.props
-    dispatch(AnalyserActions.analyseFileCancel())
+  onCancelClick(e) {
+    console.log('onCancelClick');
+    const {dispatch} = this.props;
+    dispatch(AnalyserActions.analyseFileCancel());
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     analyser: state.analyser
-  }
+  };
 }
 
 DragAndDrop.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired
-}
+};
 
-export default connect(mapStateToProps)(DragAndDrop)
+export default connect(mapStateToProps)(DragAndDrop);

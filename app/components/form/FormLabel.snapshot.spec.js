@@ -1,11 +1,11 @@
-import React from 'react'
-import renderer from 'react-test-renderer'
-import FormLabel from './FormLabel'
+import React from 'react';
+import renderer from 'react-test-renderer';
+import FormLabel from './FormLabel';
 
 describe('FormLabel component snapshot', () => {
-  const htmlFor = 'loremIpsum'
-  const label = 'Lorem Ipsum'
-  const children = '<a href="#">Dolor Sit Amet</a>'
+  const htmlFor = 'loremIpsum';
+  const label = 'Lorem Ipsum';
+  const children = '<a href="#">Dolor Sit Amet</a>';
 
   it('renders correctly', () => {
     const component = renderer.create(
@@ -13,8 +13,8 @@ describe('FormLabel component snapshot', () => {
         htmlFor={htmlFor}
         children={children}
         label={label} />
-    )
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
-  })
-})
+    );
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});

@@ -1,13 +1,13 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import styles from './Results.css'
-import { Link } from 'react-router'
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import styles from './Results.css';
+import { Link } from 'react-router';
 
 class Results extends Component {
-  render () {
-    const {children} = this.props
+  render() {
+    const {children} = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -22,20 +22,20 @@ class Results extends Component {
         </div>
         {children}
       </div>
-    )
+    );
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     analyser: state.analyser
-  }
+  };
 }
 
 Results.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   children: PropTypes.element.isRequired
-}
+};
 
-export default connect(mapStateToProps)(Results)
+export default connect(mapStateToProps)(Results);

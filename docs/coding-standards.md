@@ -6,16 +6,62 @@ Coding standards to follow when working on the app, to ensure consistency and qu
 
 Follow the [standardjs.com](http://standardjs.com) conventions, unless otherwise outlined below.
 
-### Use relative import paths
+Check the `rules` block of the `.eslintrc` config file in the project root to see which options differ from the stadardjs documentation:
 
-Webpack allows references to imported files to be interpreted from the root of the project. However, this can cause issues with the jest testing framework, and so it is best to always use relative paths to files that are being imported.
+
+### Semi-colons
+
+Use semi-colons.
+
+_eslint rule: `semi: "always"`_
 
 ```
 // bad
-import * as MetadataActions from 'actions/MetadataActions';
+const lorem = 'ipsum'
 
 // good
-import * as MetadataActions from '../../actions/MetadataActions';
+const lorem = 'ipsum';
+```
+
+### Space before function parenthesis
+
+No space between function name and function parenthesis.
+
+_eslint rule: `space-before-function-paren: "never"`_
+
+```
+// bad
+function withSpace (x) {
+    // ...
+}
+
+// good
+function withoutSpace(x) {
+	// ...
+}
+```
+
+### "stroustrup" style braces
+
+Put `else` statements on a new line.
+
+_eslint rule: `brace-style: "stroustrup"`_
+
+```
+// bad
+if (foo) {
+  bar();
+} else {
+  baz();
+}
+
+// good
+if (foo) {
+  bar();
+}
+else {
+  baz();
+}
 ```
 
 ### Avoid bind
@@ -47,6 +93,17 @@ const {name, onClick} = this.props;
 	onClick={(event) => onClick(event)} />
 ```
 
+### Use relative import paths
+
+Webpack allows references to imported files to be interpreted from the root of the project. However, this can cause issues with the jest testing framework, and so it is best to always use relative paths to files that are being imported.
+
+```
+// bad
+import * as MetadataActions from 'actions/MetadataActions';
+
+// good
+import * as MetadataActions from '../../actions/MetadataActions';
+```
 
 ## CSS
 

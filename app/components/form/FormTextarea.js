@@ -1,15 +1,15 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
-import FormLabel from './FormLabel'
+import FormLabel from './FormLabel';
 
-import styles from './FormTextarea.css'
+import styles from './FormTextarea.css';
 
 class FormTextarea extends Component {
 
-  render () {
-    const {name, onChange, placeholder, resize, rows, title, value} = this.props
+  render() {
+    const {name, onChange, placeholder, resize, rows, title, value} = this.props;
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
@@ -27,7 +27,7 @@ class FormTextarea extends Component {
           placeholder={placeholder}
           onChange={(event) => onChange(event)} />
       </div>
-    )
+    );
   }
 }
 
@@ -39,6 +39,6 @@ FormTextarea.propTypes = {
   rows: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   value: PropTypes.string
-}
+};
 
-export default FormTextarea
+export default FormTextarea;

@@ -1,15 +1,15 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
-import FormLabel from './FormLabel'
+import FormLabel from './FormLabel';
 
-import styles from './FormInputRadio.css'
+import styles from './FormInputRadio.css';
 
 class FormInputRadio extends Component {
 
-  render () {
-    const {name, onChange, options, selectedOption, title} = this.props
+  render() {
+    const {name, onChange, options, selectedOption, title} = this.props;
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
@@ -31,11 +31,11 @@ class FormInputRadio extends Component {
                     type="radio" />
                 </FormLabel>
               </div>
-            )
+            );
           })}
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -45,6 +45,6 @@ FormInputRadio.propTypes = {
   options: PropTypes.array.isRequired,
   selectedOption: PropTypes.string,
   title: PropTypes.string.isRequired
-}
+};
 
-export default FormInputRadio
+export default FormInputRadio;

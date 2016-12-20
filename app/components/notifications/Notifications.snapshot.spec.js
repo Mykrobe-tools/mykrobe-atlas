@@ -1,6 +1,6 @@
-import React from 'react'
-import renderer from 'react-test-renderer'
-import {Notifications} from './Notifications'
+import React from 'react';
+import renderer from 'react-test-renderer';
+import {Notifications} from './Notifications';
 
 describe('Notifications component snapshot', () => {
   const notifications = [
@@ -14,16 +14,16 @@ describe('Notifications component snapshot', () => {
       content: 'Ipsum',
       category: 'error'
     }
-  ]
-  const hideNotification = jest.fn()
+  ];
+  const hideNotification = jest.fn();
 
   it('renders correctly', () => {
     const component = renderer.create(
       <Notifications
         notifications={notifications}
         hideNotification={hideNotification} />
-    )
-    let tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
-  })
-})
+    );
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});

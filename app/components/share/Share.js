@@ -1,16 +1,16 @@
 /* @flow */
 
-import React, { Component } from 'react'
-import styles from './Share.css'
+import React, { Component } from 'react';
+import styles from './Share.css';
 
 class Share extends Component {
-  render () {
+  render() {
     return (
       <div className={styles.container}>
         Share
       </div>
-    )
+    );
   }
 }
 
-export default Share
+export default Share;

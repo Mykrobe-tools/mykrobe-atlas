@@ -1,52 +1,52 @@
 /* @flow */
 
-import * as ActionTypes from '../constants/ActionTypes'
+import * as ActionTypes from '../constants/ActionTypes';
 
-let nextNotificationId = 0
+let nextNotificationId = 0;
 
-export function showNotification ({category, content, autoHide = true}: Object) {
+export function showNotification({category, content, autoHide = true}: Object) {
   return (dispatch: Function) => {
-    const id = nextNotificationId++
-    dispatch(show(id, category, content, autoHide))
+    const id = nextNotificationId++;
+    dispatch(show(id, category, content, autoHide));
     if (autoHide) {
       setTimeout(() => {
-        dispatch(hide(id))
-      }, 5000)
+        dispatch(hide(id));
+      }, 5000);
     }
-  }
+  };
 }
 
-export function hideNotification (id: Number) {
+export function hideNotification(id: Number) {
   return (dispatch: Function) => {
-    dispatch(hide(id))
-  }
+    dispatch(hide(id));
+  };
 }
 
-export function hideAllNotifications () {
+export function hideAllNotifications() {
   return (dispatch: Function) => {
-    dispatch(hideAll())
-  }
+    dispatch(hideAll());
+  };
 }
 
-function show (id, category, content, autoHide) {
+function show(id, category, content, autoHide) {
   return {
     type: ActionTypes.SHOW_NOTIFICATION,
     id,
     category,
     content,
     autoHide
-  }
+  };
 }
 
-function hide (id) {
+function hide(id) {
   return {
     type: ActionTypes.HIDE_NOTIFICATION,
     id
-  }
+  };
 }
 
-function hideAll () {
+function hideAll() {
   return {
     type: ActionTypes.HIDE_ALL_NOTIFICATIONS
-  }
+  };
 }

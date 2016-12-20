@@ -1,91 +1,91 @@
 /* @flow */
 
-import { push } from 'react-router-redux'
+import { push } from 'react-router-redux';
 
-import * as ActionTypes from '../constants/ActionTypes'
-import * as NotificationCategories from '../constants/NotificationCategories'
-import {showNotification} from './NotificationActions'
+import * as ActionTypes from '../constants/ActionTypes';
+import * as NotificationCategories from '../constants/NotificationCategories';
+import {showNotification} from './NotificationActions';
 
-const MykrobeService = IS_ELECTRON ? require('../api/MykrobeServiceElectron') : require('../api/MykrobeService')
+const MykrobeService = IS_ELECTRON ? require('../api/MykrobeServiceElectron') : require('../api/MykrobeService');
 
-export function analyseFile (file: File) {
+export function analyseFile(file: File) {
   return (dispatch: Function, getState: Function) => {
     if (this.analyser) {
-      this.analyser.cancel()
+      this.analyser.cancel();
     }
 
-    dispatch(push('/'))
+    dispatch(push('/'));
 
     if (IS_ELECTRON) {
       // $FlowFixMe: Ignore Electron require
-      const {app} = require('electron').remote
+      const {app} = require('electron').remote;
       if (file.path) {
-        app.addRecentDocument(file.path)
+        app.addRecentDocument(file.path);
       }
     }
 
     dispatch({
       type: ActionTypes.ANALYSE_FILE,
       file
-    })
+    });
 
     // $FlowFixMe: Ignore missing require().default
-    const service = new MykrobeService()
+    const service = new MykrobeService();
 
     this.analyser = service.analyseFile(file)
       .on('progress', (progress) => {
         // console.log('progress', progress)
-        const percent = Math.round(100 * progress.progress / progress.total)
-        dispatch(analyseFileProgress(percent))
+        const percent = Math.round(100 * progress.progress / progress.total);
+        dispatch(analyseFileProgress(percent));
       })
       .on('done', (result) => {
-        const {json, transformed} = result
-        dispatch(push('/results'))
-        dispatch(analyseFileSuccess(json, transformed))
+        const {json, transformed} = result;
+        dispatch(push('/results'));
+        dispatch(analyseFileSuccess(json, transformed));
       })
       .on('error', (error) => {
-        dispatch(push('/'))
-        dispatch(errorAnalyseFile(error))
+        dispatch(push('/'));
+        dispatch(errorAnalyseFile(error));
         dispatch(showNotification({
           category: NotificationCategories.ERROR,
           content: error.description,
           autoHide: false
-        }))
-      })
-  }
+        }));
+      });
+  };
 }
 
-export function analyseFileCancel () {
+export function analyseFileCancel() {
   return (dispatch: Function, getState: Function) => {
     if (this.analyser) {
-      this.analyser.cancel()
-      delete this.analyser
+      this.analyser.cancel();
+      delete this.analyser;
     }
-    dispatch(push('/'))
+    dispatch(push('/'));
     dispatch({
       type: ActionTypes.ANALYSE_FILE_CANCEL
-    })
-  }
+    });
+  };
 }
 
-export function analyseFileSuccess (json: Object, transformed: Object) {
+export function analyseFileSuccess(json: Object, transformed: Object) {
   return {
     type: ActionTypes.ANALYSE_FILE_SUCCESS,
     json,
     transformed
-  }
+  };
 }
 
-function analyseFileProgress (progress) {
+function analyseFileProgress(progress) {
   return {
     type: ActionTypes.ANALYSE_FILE_PROGRESS,
     progress
-  }
+  };
 }
 
-function errorAnalyseFile (error) {
+function errorAnalyseFile(error) {
   return {
     type: ActionTypes.ANALYSE_FILE_ERROR,
     error
-  }
+  };
 }

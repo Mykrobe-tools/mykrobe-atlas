@@ -1,30 +1,30 @@
 /* @flow */
 
-import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import moment from 'moment'
+import moment from 'moment';
 
-import styles from './MetadataForm.css'
+import styles from './MetadataForm.css';
 
-import * as MetadataActions from '../../actions/MetadataActions'
-import * as NotificationActions from '../../actions/NotificationActions'
-import * as NotificationCategories from '../../constants/NotificationCategories'
+import * as MetadataActions from '../../actions/MetadataActions';
+import * as NotificationActions from '../../actions/NotificationActions';
+import * as NotificationCategories from '../../constants/NotificationCategories';
 
-import Form from '../form/Form'
-import FormRow from '../form/FormRow'
-import FormLabel from '../form/FormLabel'
-import FormInputText from '../form/FormInputText'
-import FormInputDate from '../form/FormInputDate'
-import FormSelect from '../form/FormSelect'
-import FormTextarea from '../form/FormTextarea'
-import FormInputRadio from '../form/FormInputRadio'
-import FormInputCheckbox from '../form/FormInputCheckbox'
-import FormButton from '../form/FormButton'
+import Form from '../form/Form';
+import FormRow from '../form/FormRow';
+import FormLabel from '../form/FormLabel';
+import FormInputText from '../form/FormInputText';
+import FormInputDate from '../form/FormInputDate';
+import FormSelect from '../form/FormSelect';
+import FormTextarea from '../form/FormTextarea';
+import FormInputRadio from '../form/FormInputRadio';
+import FormInputCheckbox from '../form/FormInputCheckbox';
+import FormButton from '../form/FormButton';
 
-const locations = require('../../static/locations.json')
-const drugs = require('../../static/drugs.json')
+const locations = require('../../static/locations.json');
+const drugs = require('../../static/drugs.json');
 
 class MetadataForm extends Component {
   state: {
@@ -44,62 +44,62 @@ class MetadataForm extends Component {
     shareSequence: boolean
   }
 
-  constructor (props: Object) {
-    super(props)
-    this.state = props.metadata
+  constructor(props: Object) {
+    super(props);
+    this.state = props.metadata;
 
     // const app = require('electron').remote.app
     // const locale = app.getLocale()
     // console.log('locale', locale) // returns en-US
   }
 
-  componentWillUnmount () {
-    this.props.setMetadata(this.state)
+  componentWillUnmount() {
+    this.props.setMetadata(this.state);
   }
 
-  handleSubmit (event: Event) {
-    event.preventDefault()
+  handleSubmit(event: Event) {
+    event.preventDefault();
 
     // TODO: Error checking
 
-    this.props.postMetadataForm(this.state)
+    this.props.postMetadataForm(this.state);
     this.props.showNotification({
       category: NotificationCategories.MESSAGE,
       content: 'The form has been submitted'
-    })
-    this.setState(this.props.metadata)
+    });
+    this.setState(this.props.metadata);
   }
 
-  handleDateChange (date: moment) {
+  handleDateChange(date: moment) {
     this.setState({
       date: date.format()
-    })
+    });
   }
 
-  handleCheckboxChange (event: InputEvent) {
+  handleCheckboxChange(event: InputEvent) {
     var state = {
       [event.target.name]: event.target.checked
-    }
-    this.setState(state)
+    };
+    this.setState(state);
   }
 
-  handleChange (event: InputEvent) {
+  handleChange(event: InputEvent) {
     var state = {
       [event.target.name]: event.target.value
-    }
-    this.setState(state)
+    };
+    this.setState(state);
   }
 
-  handleSusceptibilityChange (event: InputEvent) {
-    var state = {}
+  handleSusceptibilityChange(event: InputEvent) {
+    var state = {};
     state.susceptibility = Object.assign({}, this.state.susceptibility, {
       [event.target.name]: event.target.value
-    })
-    this.setState(state)
+    });
+    this.setState(state);
   }
 
-  render () {
-    const { location, labId, date, responsiblePersonId, responsiblePersonData, patientId, sampleId, sequencingMachine, patientHistory, sampleType, susceptibility, hivPositive, treatedForTB, shareSequence } = this.state
+  render() {
+    const { location, labId, date, responsiblePersonId, responsiblePersonData, patientId, sampleId, sequencingMachine, patientHistory, sampleType, susceptibility, hivPositive, treatedForTB, shareSequence } = this.state;
     return (
       <Form onSubmit={(event) => this.handleSubmit(event)}>
         <FormRow>
@@ -111,7 +111,7 @@ class MetadataForm extends Component {
               return ({
                 value: location['alpha-2'],
                 label: location.name
-              })
+              });
             })}
             onChange={(event) => this.handleChange(event)}
           />
@@ -222,7 +222,7 @@ class MetadataForm extends Component {
                       onChange={(event) => this.handleSusceptibilityChange(event)}
                     />
                   </div>
-                )
+                );
               })}
             </div>
           </div>
@@ -271,22 +271,22 @@ class MetadataForm extends Component {
           />
         </FormRow>
       </Form>
-    )
+    );
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     metadata: state.metadata
-  }
+  };
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     postMetadataForm: MetadataActions.postMetadataForm,
     setMetadata: MetadataActions.setMetadata,
     showNotification: NotificationActions.showNotification
-  }, dispatch)
+  }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MetadataForm)
+export default connect(mapStateToProps, mapDispatchToProps)(MetadataForm);

@@ -1,7 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react'
-import styles from './CircularProgress.css'
+import React, { Component, PropTypes } from 'react';
+import styles from './CircularProgress.css';
 
 class CircularProgress extends Component {
   static defaultProps: {
@@ -10,14 +10,14 @@ class CircularProgress extends Component {
     strokeWidth: number
   }
 
-  render () {
-    const percentage = parseInt(this.props.percentage)
-    const radius = this.props.radius - this.props.strokeWidth / 2
-    const width = this.props.radius * 2
-    const height = this.props.radius * 2
-    const viewBox = `0 0 ${width} ${height}`
-    const dashArray = radius * Math.PI * 2
-    const dashOffset = dashArray - dashArray * percentage / 100
+  render() {
+    const percentage = parseInt(this.props.percentage);
+    const radius = this.props.radius - this.props.strokeWidth / 2;
+    const width = this.props.radius * 2;
+    const height = this.props.radius * 2;
+    const viewBox = `0 0 ${width} ${height}`;
+    const dashArray = radius * Math.PI * 2;
+    const dashOffset = dashArray - dashArray * percentage / 100;
     return (
       <svg
         className={styles.container}
@@ -43,7 +43,7 @@ class CircularProgress extends Component {
           }}
         />
       </svg>
-    )
+    );
   }
 }
 
@@ -51,12 +51,12 @@ CircularProgress.propTypes = {
   radius: PropTypes.number,
   percentage: PropTypes.number,
   strokeWidth: PropTypes.number
-}
+};
 
 CircularProgress.defaultProps = {
   radius: 240,
   percentage: 50,
   strokeWidth: 36
-}
+};
 
-export default CircularProgress
+export default CircularProgress;

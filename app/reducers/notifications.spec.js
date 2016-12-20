@@ -1,10 +1,10 @@
-import reducer from './notifications'
-import * as ActionTypes from '../constants/ActionTypes'
+import reducer from './notifications';
+import * as ActionTypes from '../constants/ActionTypes';
 
 describe('notifications reducer', () => {
   it('should return the initial state', () => {
-    expect(reducer(undefined, [])).toEqual([])
-  })
+    expect(reducer(undefined, [])).toEqual([]);
+  });
 
   it('should handle "SHOW_NOTIFICATION" action', () => {
     expect(
@@ -22,8 +22,8 @@ describe('notifications reducer', () => {
         content: 'Ipsum',
         autoHide: true
       }]
-    )
-  })
+    );
+  });
 
   it('should handle "HIDE_NOTIFICATION" action', () => {
     const initialState = [
@@ -45,7 +45,7 @@ describe('notifications reducer', () => {
         content: 'Dolor Sit Amet',
         autoHide: false
       }
-    ]
+    ];
     const expectedState = [
       {
         id: 0,
@@ -59,7 +59,7 @@ describe('notifications reducer', () => {
         content: 'Dolor Sit Amet',
         autoHide: false
       }
-    ]
+    ];
     expect(
       reducer(initialState, {
         type: ActionTypes.HIDE_NOTIFICATION,
@@ -67,8 +67,8 @@ describe('notifications reducer', () => {
       })
     ).toEqual(
       expectedState
-    )
-  })
+    );
+  });
 
   it('should handle "HIDE_ALL_NOTIFICATIONS" action', () => {
     const initialState = [
@@ -90,13 +90,13 @@ describe('notifications reducer', () => {
         content: 'Dolor Sit Amet',
         autoHide: false
       }
-    ]
+    ];
     expect(
       reducer(initialState, {
         type: ActionTypes.HIDE_ALL_NOTIFICATIONS
       })
     ).toEqual(
       []
-    )
-  })
-})
+    );
+  });
+});

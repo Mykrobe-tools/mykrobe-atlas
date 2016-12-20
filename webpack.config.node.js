@@ -1,7 +1,7 @@
 /* @flow */
 
 // for babel-plugin-webpack-loaders
-require('babel-register')
+require('babel-register');
 
 module.exports = {
   output: {
@@ -10,4 +10,4 @@ module.exports = {
   module: {
     loaders: []
   }
-}
+};

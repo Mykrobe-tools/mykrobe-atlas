@@ -1,17 +1,17 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react'
-import moment from 'moment'
-import DatePicker from 'react-datepicker'
+import React, { Component, PropTypes } from 'react';
+import moment from 'moment';
+import DatePicker from 'react-datepicker';
 
-import FormLabel from './FormLabel'
+import FormLabel from './FormLabel';
 
-import styles from './FormInputDate.css'
+import styles from './FormInputDate.css';
 
 class FormInputDate extends Component {
 
-  render () {
-    const {name, onChange, title, value} = this.props
+  render() {
+    const {name, onChange, title, value} = this.props;
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
@@ -26,7 +26,7 @@ class FormInputDate extends Component {
           onChange={(date) => onChange(date)}
         />
       </div>
-    )
+    );
   }
 }
 
@@ -35,6 +35,6 @@ FormInputDate.propTypes = {
   onChange: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   value: PropTypes.string
-}
+};
 
-export default FormInputDate
+export default FormInputDate;

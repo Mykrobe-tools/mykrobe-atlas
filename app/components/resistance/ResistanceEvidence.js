@@ -1,19 +1,19 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import styles from './ResistanceEvidence.css'
-import Panel from '../ui/Panel'
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import styles from './ResistanceEvidence.css';
+import Panel from '../ui/Panel';
 
 // TODO: push route on state change
 
 class ResistanceEvidence extends Component {
-  render () {
-    const {analyser} = this.props
-    const {evidence} = analyser.transformed
-    let panels = []
+  render() {
+    const {analyser} = this.props;
+    const {evidence} = analyser.transformed;
+    let panels = [];
     for (let title in evidence) {
-      const values = evidence[title][0]
+      const values = evidence[title][0];
       panels.push(
         <Panel title={title} columns={4}>
           <div className={styles.evidence}>
@@ -22,26 +22,26 @@ class ResistanceEvidence extends Component {
             )}
           </div>
         </Panel>
-      )
+      );
     }
     return (
       <div className={styles.container}>
         {panels}
       </div>
-    )
+    );
   }
 }
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     analyser: state.analyser
-  }
+  };
 }
 
 ResistanceEvidence.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   children: PropTypes.node
-}
+};
 
-export default connect(mapStateToProps)(ResistanceEvidence)
+export default connect(mapStateToProps)(ResistanceEvidence);

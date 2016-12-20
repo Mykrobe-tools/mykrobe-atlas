@@ -1,14 +1,14 @@
 /* @flow */
 
-import React, { Component } from 'react'
-import Key from '../header/Key'
-import styles from './Metadata.css'
+import React, { Component } from 'react';
+import Key from '../header/Key';
+import styles from './Metadata.css';
 
-import MetadataForm from './MetadataForm'
+import MetadataForm from './MetadataForm';
 
 class Metadata extends Component {
 
-  render () {
+  render() {
     return (
       <div className={styles.container}>
         <Key single />
@@ -26,8 +26,8 @@ class Metadata extends Component {
           <MetadataForm />
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Metadata
+export default Metadata;

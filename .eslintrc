@@ -17,8 +17,11 @@
     "flowtype"
   ],
   "rules": {
+    "semi": [2, "always"],
+    "space-before-function-paren": [2, "never"],
+    "brace-style": [2, "stroustrup"],
     "react/jsx-no-bind": [2, {
-    "allowArrowFunctions": true
+      "allowArrowFunctions": true
     }]
   },
   "settings": {

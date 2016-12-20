@@ -1,19 +1,19 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
-import styles from './Notification.css'
+import styles from './Notification.css';
 
 class Notification extends Component {
 
-  onClick (event: Event) {
-    const {onClick, id} = this.props
-    event.preventDefault()
-    onClick(id)
+  onClick(event: Event) {
+    const {onClick, id} = this.props;
+    event.preventDefault();
+    onClick(id);
   }
 
-  render () {
-    const {category, content} = this.props
+  render() {
+    const {category, content} = this.props;
     return (
       <a
         className={styles[category]}
@@ -22,7 +22,7 @@ class Notification extends Component {
           {content}
         </p>
       </a>
-    )
+    );
   }
 }
 
@@ -31,6 +31,6 @@ Notification.propTypes = {
   content: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired
-}
+};
 
-export default Notification
+export default Notification;

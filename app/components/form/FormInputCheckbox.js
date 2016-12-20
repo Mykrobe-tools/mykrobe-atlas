@@ -1,15 +1,15 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
-import FormLabel from './FormLabel'
+import FormLabel from './FormLabel';
 
-import styles from './FormInputCheckbox.css'
+import styles from './FormInputCheckbox.css';
 
 class FormInputCheckbox extends Component {
 
-  render () {
-    const {name, onChange, options, selectedOptions, title} = this.props
+  render() {
+    const {name, onChange, options, selectedOptions, title} = this.props;
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
@@ -31,11 +31,11 @@ class FormInputCheckbox extends Component {
                     type="checkbox" />
                 </FormLabel>
               </div>
-            )
+            );
           })}
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -45,6 +45,6 @@ FormInputCheckbox.propTypes = {
   options: PropTypes.array.isRequired,
   selectedOptions: PropTypes.array,
   title: PropTypes.string.isRequired
-}
+};
 
-export default FormInputCheckbox
+export default FormInputCheckbox;
