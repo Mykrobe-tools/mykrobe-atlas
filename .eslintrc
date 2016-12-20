@@ -17,10 +17,10 @@
     "flowtype"
   ],
   "rules": {
-    "semi": [2, "always"],
-    "space-before-function-paren": [2, "never"],
-    "brace-style": [2, "stroustrup"],
-    "react/jsx-no-bind": [2, {
+    "semi": ["error", "always"],
+    "space-before-function-paren": ["error", "never"],
+    "brace-style": ["error", "stroustrup"],
+    "react/jsx-no-bind": ["error", {
       "allowArrowFunctions": true
     }]
   },
