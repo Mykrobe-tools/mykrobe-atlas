@@ -29,7 +29,7 @@ class Analysing extends Component {
       <div className={styles.container}>
         <div className={styles.header}>
           <AnalysingProgressBar />
-          <button type="button" onClick={this.onCancelClick.bind(this)}>
+          <button type="button" onClick={event => this.onCancelClick(event)}>
             Cancel
           </button>
         </div>

@@ -40,7 +40,7 @@ class DragAndDrop extends Component {
             {statusText}
           </div>
           <div className={styles.buttonContainer}>
-            <button type="button" className={styles.button} onClick={this.onCancelClick.bind(this)}>
+            <button type="button" className={styles.button} onClick={event => this.onCancelClick(event)}>
               Cancel
             </button>
           </div>
@@ -54,7 +54,7 @@ class DragAndDrop extends Component {
             Drag file here to analyse
           </div>
           <div className={styles.buttonContainer}>
-            <button type="button" className={styles.button} onClick={this.onOpenClick.bind(this)}>
+            <button type="button" className={styles.button} onClick={(event) => this.onOpenClick(event)}>
               Browse...
             </button>
           </div>

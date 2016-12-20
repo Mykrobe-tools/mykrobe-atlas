@@ -16,6 +16,11 @@
     "react",
     "flowtype"
   ],
+  "rules": {
+    "react/jsx-no-bind": [2, {
+    "allowArrowFunctions": true
+    }]
+  },
   "settings": {
     "import/resolver": {
       "webpack": {

@@ -21,7 +21,7 @@ export default function analyser (state: Object = initialState, action: Object =
           highlighted.splice(index, 1)
         }
         if (highlighted.length !== 0) {
-          debugger
+          console.log(highlighted)
         }
       }
       return {
