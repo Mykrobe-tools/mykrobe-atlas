@@ -43,6 +43,7 @@ web/build/static/*
 
 # Visual Studio
 .vscode
+jsconfig.json
 
 # Mykrobe
 electron/static/bin/**/*.ctx
