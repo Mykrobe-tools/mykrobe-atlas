@@ -1,12 +1,14 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import styles from './Map.css';
 import GoogleMapsLoader from 'google-maps';
 import Phylogeny from '../phylogeny/Phylogeny';
 import { connect } from 'react-redux';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
 import * as NodeActions from '../../actions/NodeActions';
+import * as ExperimentActions from '../../actions/ExperimentActions';
 import Key from '../header/Key';
 import MapStyle from './MapStyle';
 import type { Sample } from '../../types/Sample';
@@ -24,6 +26,8 @@ class Map extends Component {
     super(props);
     GoogleMapsLoader.KEY = GOOGLE_MAPS_API_KEY;
     GoogleMapsLoader.REGION = 'GB';
+    const {fetchExperiments} = this.props;
+    fetchExperiments();
   }
 
   componentDidMount() {
@@ -38,6 +42,7 @@ class Map extends Component {
       this._google = google;
       this._map = new google.maps.Map(this._mapDiv, options);
       this.updateMarkers(this.props.analyser.transformed.samples);
+      console.log(this.props.experiments);
     });
   }
 
@@ -64,7 +69,7 @@ class Map extends Component {
   }
 
   updateMarkers(samples) {
-    const {dispatch} = this.props;
+    const {setNodeHighlighted} = this.props;
     if (this._markers) {
       for (let markerKey in this._markers) {
         const marker = this._markers[markerKey];
@@ -89,10 +94,10 @@ class Map extends Component {
         map: this._map
       });
       marker.addListener('mouseover', (e) => {
-        dispatch(NodeActions.setNodeHighlighted(sample.id, true));
+        setNodeHighlighted(sample.id, true);
       });
       marker.addListener('mouseout', (e) => {
-        dispatch(NodeActions.setNodeHighlighted(sample.id, false));
+        setNodeHighlighted(sample.id, false);
       });
       this._markers[sample.id] = marker;
     }
@@ -169,14 +174,24 @@ class Map extends Component {
 function mapStateToProps(state) {
   return {
     analyser: state.analyser,
-    node: state.node
+    node: state.node,
+    experiments: state.experiments
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    fetchExperiments: ExperimentActions.fetchExperiments,
+    setNodeHighlighted: NodeActions.setNodeHighlighted
+  }, dispatch);
+}
+
 Map.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  setNodeHighlighted: PropTypes.func.isRequired,
+  fetchExperiments: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired
+  node: PropTypes.object.isRequired,
+  experiments: PropTypes.array
 };
 
-export default connect(mapStateToProps)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(Map);
