@@ -3,6 +3,8 @@
 import fetch from 'isomorphic-fetch';
 import { BASE_URL } from '../constants/APIConstants';
 import * as ActionTypes from '../constants/ActionTypes';
+import * as NotificationCategories from '../constants/NotificationCategories';
+import {showNotification} from './NotificationActions';
 
 function requestExperiments(filters: Object) {
   return {
@@ -11,7 +13,7 @@ function requestExperiments(filters: Object) {
   };
 }
 
-function receiveExperiments(data: Array<Object>) {
+function receiveExperiments(data: Array<Object> = []) {
   return {
     type: ActionTypes.RECEIVE_EXPERIMENTS,
     data
@@ -29,6 +31,12 @@ export function fetchExperiments(filters: Object = {}) {
           });
         }
         else {
+          dispatch(showNotification({
+            category: NotificationCategories.ERROR,
+            content: response.statusText,
+            autoHide: false
+          }));
+          dispatch(receiveExperiments());
           return Promise.reject(response.statusText);
         }
       });

@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './Key.css';
 import { connect } from 'react-redux';
 import type { Sample } from '../../types/Sample';
+import LoadingIndicator from '../ui/LoadingIndicator';
 // import * as NodeActions from 'actions/NodeActions';
 import * as AnalyserActions from '../../actions/AnalyserActions';
 
@@ -59,9 +60,16 @@ class Key extends Component {
     return nodeIds;
   }
 
+  getLoadingIndicatorState(): boolean {
+    // check all async actions
+    const {experiments} = this.props;
+    return experiments.isFetching;
+  }
+
   render() {
     const {single} = this.props;
     const sampleIds = this.getSampleIds();
+    const displayLoadingIndicator = this.getLoadingIndicatorState();
     let title = '';
     // let action = null;
     if (!sampleIds.length) {
@@ -90,6 +98,9 @@ class Key extends Component {
     }
     return (
       <div className={styles.container}>
+        <div className={styles.loadingIndicator}>
+          <LoadingIndicator isDisplayed={displayLoadingIndicator} />
+        </div>
         <div className={styles.title}>
           {title}
         </div>
@@ -110,6 +121,7 @@ class Key extends Component {
 Key.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
+  experiments: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
   demo: PropTypes.object.isRequired,
   single: PropTypes.bool
@@ -118,6 +130,7 @@ Key.propTypes = {
 function mapStateToProps(state) {
   return {
     analyser: state.analyser,
+    experiments: state.experiments,
     node: state.node,
     demo: state.demo
   };

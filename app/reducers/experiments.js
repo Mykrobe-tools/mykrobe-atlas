@@ -2,14 +2,22 @@
 
 import * as ActionTypes from '../constants/ActionTypes';
 
-const initialState = [];
+const initialState = {
+  isFetching: false,
+  experiments: []
+};
 
-export default function experiments(state: Array<Object> = initialState, action: Object = {}) {
+export default function experiments(state: Object = initialState, action: Object = {}) {
   switch (action.type) {
     case ActionTypes.REQUEST_EXPERIMENTS:
-      return state;
+      return Object.assign({}, state, {
+        isFetching: true
+      });
     case ActionTypes.RECEIVE_EXPERIMENTS:
-      return action.data;
+      return Object.assign({}, state, {
+        isFetching: false,
+        experiments: action.data
+      });
     default:
       return state;
   }

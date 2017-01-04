@@ -186,7 +186,7 @@ Map.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
-  experiments: PropTypes.array
+  experiments: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

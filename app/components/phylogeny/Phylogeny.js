@@ -227,7 +227,7 @@ Phylogeny.propTypes = {
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
   controlsInset: PropTypes.number,
-  experiments: PropTypes.array,
+  experiments: PropTypes.object.isRequired,
   setNodeHighlighted: PropTypes.func.isRequired,
   unsetNodeHighlightedAll: PropTypes.func.isRequired
 };
