@@ -1,3 +1,5 @@
+/* @flow */
+
 require('babel-polyfill');
 
 const inquirer = require('inquirer');
@@ -101,7 +103,7 @@ function setTitleInHtmlFile(filePath, title) {
       if (err) {
         return reject(err);
       }
-      const html = data.replace(/<title>[\s\S]*?<\/title>/, `<title>${title}<\/title>`);
+      const html = data.replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`);
       fs.writeFile(filePath, html, 'utf8', (err) => {
         if (err) {
           return reject(err);

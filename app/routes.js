@@ -1,3 +1,5 @@
+/* @flow */
+
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
 import DragAndDropPage from './containers/DragAndDropPage';

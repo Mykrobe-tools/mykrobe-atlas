@@ -8,10 +8,6 @@ import styles from './FormSelect.css';
 
 class FormSelect extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
   render() {
     const {name, onChange, options, placeholder, selectedOption, title} = this.props;
     return (

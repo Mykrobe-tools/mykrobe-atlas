@@ -73,11 +73,13 @@ class App extends Component {
       <div className={styles.container}>
         <Dropzone
           className={styles.container}
-          ref={(ref) => { this._dropzone = ref; }}
-          onDropAccepted={this.onDropAccepted.bind(this)}
-          onDropRejected={this.onDropRejected.bind(this)}
-          onDragLeave={this.onDragLeave.bind(this)}
-          onDragEnter={this.onDragEnter.bind(this)}
+          ref={(ref) => {
+            this._dropzone = ref;
+          }}
+          onDropAccepted={(event) => this.onDropAccepted(event)}
+          onDropRejected={(event) => this.onDropRejected(event)}
+          onDragLeave={(event) => this.onDragLeave(event)}
+          onDragEnter={(event) => this.onDragEnter(event)}
           disableClick={disableClick}
           multiple={multiple}
           accept=".json,.bam,.gz,.fastq"
@@ -108,7 +110,8 @@ function mapStateToProps(state) {
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  notifications: PropTypes.array.isRequired
 };
 
 export default connect(mapStateToProps)(App);

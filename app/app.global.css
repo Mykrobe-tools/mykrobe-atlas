@@ -11,7 +11,9 @@ html {
   text-size-adjust: 100%;
 }
 
-*, *:before, *:after {
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }
 
@@ -33,7 +35,8 @@ body {
   display: flex;
 }
 
-#root, #root > [data-reactroot] {
+#root,
+#root > [data-reactroot] {
   flex: 1;
   display: flex;
 }

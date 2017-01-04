@@ -7,7 +7,6 @@ import * as NotificationCategories from '../constants/NotificationCategories';
 import {showNotification} from './NotificationActions';
 
 const MykrobeService = IS_ELECTRON ? require('../api/MykrobeServiceElectron') : require('../api/MykrobeService');
-console.log('MykrobeService', MykrobeService);
 
 export function analyseFile(file: File) {
   return (dispatch: Function, getState: Function) => {
@@ -18,6 +17,7 @@ export function analyseFile(file: File) {
     dispatch(push('/'));
 
     if (IS_ELECTRON) {
+      // $FlowFixMe: Ignore Electron require
       const {app} = require('electron').remote;
       if (file.path) {
         app.addRecentDocument(file.path);
@@ -29,10 +29,12 @@ export function analyseFile(file: File) {
       file
     });
 
+    // $FlowFixMe: Ignore missing require().default
     const service = new MykrobeService();
+
     this.analyser = service.analyseFile(file)
       .on('progress', (progress) => {
-        // console.log('progress', progress);
+        // console.log('progress', progress)
         const percent = Math.round(100 * progress.progress / progress.total);
         dispatch(analyseFileProgress(percent));
       })

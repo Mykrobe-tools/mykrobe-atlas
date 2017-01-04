@@ -49,6 +49,7 @@ class Key extends Component {
 
   getSampleIds(): Array<string> {
     const {analyser} = this.props;
+    if (!analyser.transformed) return [];
     const {samples} = analyser.transformed;
     let nodeIds: Array<string> = [];
     for (let sampleKey: string in samples) {
@@ -80,12 +81,12 @@ class Key extends Component {
       const sample1 = this.getSampleWithId(sampleIds[1]);
       if (sample1) {
         title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample &middot; <i className="fa fa-circle" style={{color: sample1.colorForTest}} /> {sample1.id} Nearest previous sample</div>;
-        // action = <div className={styles.resetButton} onClick={(e) => { this.onRemoveClicked(e); }}><i className="fa fa-times-circle" /> Reset</div>;
+        // action = <div className={styles.resetButton} onClick={(e) => { this.onRemoveClicked(e) }}><i className="fa fa-times-circle" /> Reset</div>;
       }
     }
     else {
       title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample</div>;
-      // action = <div className={styles.compareButton} onClick={(e) => { this.onAddClicked(e); }}><i className="fa fa-plus-circle" /> Compare</div>;
+      // action = <div className={styles.compareButton} onClick={(e) => { this.onAddClicked(e) }}><i className="fa fa-plus-circle" /> Compare</div>;
     }
     return (
       <div className={styles.container}>
@@ -93,7 +94,9 @@ class Key extends Component {
           {title}
         </div>
         <div className={styles.actions}>
-          <div className={styles.actionItem} onClick={(e) => { this.onNewClicked(e); }}><i className="fa fa-plus-circle" /> New</div>
+          <div className={styles.actionItem} onClick={(e) => {
+            this.onNewClicked(e);
+          }}><i className="fa fa-plus-circle" /> New</div>
         </div>
       </div>
     );
@@ -108,7 +111,8 @@ Key.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
-  demo: PropTypes.object.isRequired
+  demo: PropTypes.object.isRequired,
+  single: PropTypes.bool
 };
 
 function mapStateToProps(state) {

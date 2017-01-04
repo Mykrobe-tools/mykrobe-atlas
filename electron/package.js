@@ -1,8 +1,10 @@
+/* @flow */
+
 require('babel-polyfill');
 
 const os = require('os');
 const webpack = require('webpack');
-const electronCfg = require('./webpack.config.electron');
+const electronCfg = require('./webpack.config.electron').default;
 const cfg = require('./webpack.config.production');
 const packager = require('electron-packager');
 const del = require('del');
@@ -19,10 +21,11 @@ const shouldBuildAll = argv.all || false;
 const icon = path.resolve(__dirname, `resources/icon/${pkg.targetName}/icon`);
 
 const DEFAULT_OPTS = {
-  dir:  path.resolve(__dirname, './static'),
+  dir: path.resolve(__dirname, './static'),
   name: pkg.productName,
   icon: icon,
   asar: shouldUseAsar,
+  version: '',
   'extend-info': path.resolve(__dirname, './resources/plist/extend-info.plist'),
   ignore: [
     '^/test($|/)',
@@ -97,17 +100,17 @@ function startPack() {
 
 function pack(plat, arch, cb) {
   // there is no darwin ia32 electron
-  if ('darwin' === plat && 'ia32' === arch) {
+  if (plat === 'darwin' && arch === 'ia32') {
     return;
   }
 
   const iconObj = {
     icon: DEFAULT_OPTS.icon + (() => {
       let extension = '.png';
-      if ('darwin' === plat) {
+      if (plat === 'darwin') {
         extension = '.icns';
       }
-      else if ('win32' === plat) {
+      else if (plat === 'win32') {
         extension = '.ico';
       }
       return extension;

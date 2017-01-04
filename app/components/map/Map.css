@@ -5,8 +5,8 @@
 }
 
 .header {
-  background-color:var(--color-buff-dark);
-  padding:12px;
+  background-color: var(--color-buff-dark);
+  padding: 12px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -16,9 +16,12 @@
 .headerTitle {
   display: flex;
   flex-direction: row;
-  /*composes: fontSizeLarge from "css/typography.css";*/
-  /*color: var(--color-tint-primary);
-  padding-bottom: 16px;*/
+
+  /*
+  composes: fontSizeLarge from "css/typography.css";
+  color: var(--color-tint-primary);
+  padding-bottom: 16px;
+  */
 }
 
 .mapAndPhylogenyContainer {

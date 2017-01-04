@@ -1,7 +1,15 @@
+/* @flow */
+
 import React, { Component, PropTypes } from 'react';
 import styles from './CircularProgress.css';
 
 class CircularProgress extends Component {
+  static defaultProps: {
+    radius: number,
+    percentage: number,
+    strokeWidth: number
+  };
+
   render() {
     const percentage = parseInt(this.props.percentage);
     const radius = this.props.radius - this.props.strokeWidth / 2;

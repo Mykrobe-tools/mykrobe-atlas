@@ -25,5 +25,5 @@ describe('Form component snapshot', () => {
     let tree = component.toJSON();
     tree.props.onSubmit();
     expect(onSubmit).toBeCalled();
-  })
+  });
 });

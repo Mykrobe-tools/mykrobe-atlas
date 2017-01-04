@@ -5,7 +5,7 @@ describe('MetadataActions', () => {
     it('should create a "POST_METADATA_FORM" action', () => {
       const expectedAction = {
         type: 'POST_METADATA_FORM'
-      }
+      };
       expect(MetadataActions.postMetadataForm()).toEqual(expectedAction);
     });
   });
@@ -18,7 +18,7 @@ describe('MetadataActions', () => {
       const expectedAction = {
         type: 'SET_METADATA',
         metadata
-      }
+      };
       expect(MetadataActions.setMetadata(metadata)).toEqual(expectedAction);
     });
   });

@@ -10,10 +10,6 @@ import styles from './FormInputDate.css';
 
 class FormInputDate extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
   render() {
     const {name, onChange, title, value} = this.props;
     return (
@@ -39,6 +35,6 @@ FormInputDate.propTypes = {
   onChange: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   value: PropTypes.string
-}
+};
 
 export default FormInputDate;

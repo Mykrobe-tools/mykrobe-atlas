@@ -6,10 +6,6 @@ import styles from './Notification.css';
 
 class Notification extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
   onClick(event: Event) {
     const {onClick, id} = this.props;
     event.preventDefault();
@@ -33,7 +29,8 @@ class Notification extends Component {
 Notification.propTypes = {
   category: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
-}
+  onClick: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired
+};
 
 export default Notification;

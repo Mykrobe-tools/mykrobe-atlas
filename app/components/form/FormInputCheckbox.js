@@ -8,10 +8,6 @@ import styles from './FormInputCheckbox.css';
 
 class FormInputCheckbox extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
   render() {
     const {name, onChange, options, selectedOptions, title} = this.props;
     return (
@@ -49,6 +45,6 @@ FormInputCheckbox.propTypes = {
   options: PropTypes.array.isRequired,
   selectedOptions: PropTypes.array,
   title: PropTypes.string.isRequired
-}
+};
 
 export default FormInputCheckbox;

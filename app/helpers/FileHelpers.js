@@ -27,8 +27,10 @@ function getFileBlob(url): Promise<Blob> {
 }
 
 function blobToFile(blob: Blob, name: string): File {
+  // $FlowFixMe: Ignore missing type values
   blob.lastModifiedDate = new Date();
+  // $FlowFixMe: Ignore missing type values
   blob.name = name;
+  // $FlowFixMe: Ignore missing type values
   return blob;
-};
-
+}

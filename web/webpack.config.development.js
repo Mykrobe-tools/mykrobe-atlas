@@ -1,3 +1,5 @@
+/* @flow */
+
 /* eslint max-len: 0 */
 import webpack from 'webpack';
 import merge from 'webpack-merge';

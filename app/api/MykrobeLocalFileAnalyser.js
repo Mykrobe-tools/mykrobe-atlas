@@ -7,6 +7,7 @@ import * as TargetConstants from '../constants/TargetConstants';
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 import MykrobeConfig from './MykrobeConfig';
 
+// $FlowFixMe: Ignore Electron require
 const app = require('electron').remote.app;
 
 class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
@@ -33,7 +34,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
     filesToDelete.forEach((filePath) => {
       const fullPath = path.join(dirToBin, filePath);
       fs.stat(fullPath, (statErr, stat) => {
-        if (null === statErr) {
+        if (statErr === null) {
           console.log('Skeleton file exists, removing.');
           fs.unlink(fullPath, (unlinkErr) => {
             if (unlinkErr) {
@@ -54,6 +55,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
 
   analyseBinaryFile(file: File): MykrobeLocalFileAnalyser {
     // in Electron we get the full local file path
+    // $FlowFixMe: Ignore missing type values
     const filePath = file.path;
 
     this.removeSkeletonFiles();
@@ -84,7 +86,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
       }
       const dataString = data.toString('utf8');
       console.log(dataString);
-      if (0 === dataString.indexOf('Progress')) {
+      if (dataString.indexOf('Progress') === 0) {
         // console.log('progress');
         // we get a string like "Progress 1000000/1660554"
         // extract groups of digits
@@ -129,7 +131,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
       console.log('Processing exited with code: ' + code);
       // this.child = null;
       // deferring seems to allow the spawn to exit cleanly
-      if (0 === code) {
+      if (code === 0) {
         if (this.jsonBuffer.length) {
           console.log('done', this.jsonBuffer);
           this.doneWithJsonString(this.jsonBuffer);
@@ -149,11 +151,11 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
   }
 
   dirToBin() {
-    const rootDir = ('development' === process.env.NODE_ENV) ? process.cwd() : app.getAppPath();
+    const rootDir = (process.env.NODE_ENV === 'development') ? process.cwd() : app.getAppPath();
     console.log('rootDir', rootDir);
 
     let dirToBin = '';
-    if ('development' === process.env.NODE_ENV) {
+    if (process.env.NODE_ENV === 'development') {
       dirToBin = path.join(rootDir, 'static', 'bin');
     }
     else {
@@ -170,7 +172,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
     let platformFolder = platform;
 
     // use 'osx' folder for Mac
-    if ('darwin' === platform) {
+    if (platform === 'darwin') {
       platformFolder = 'osx';
     }
 

@@ -34,7 +34,7 @@ function mapStateToProps(state) {
 
 Header.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
+  analyser: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(Header);

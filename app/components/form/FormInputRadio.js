@@ -8,10 +8,6 @@ import styles from './FormInputRadio.css';
 
 class FormInputRadio extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
   render() {
     const {name, onChange, options, selectedOption, title} = this.props;
     return (
@@ -49,6 +45,6 @@ FormInputRadio.propTypes = {
   options: PropTypes.array.isRequired,
   selectedOption: PropTypes.string,
   title: PropTypes.string.isRequired
-}
+};
 
 export default FormInputRadio;

@@ -6,7 +6,6 @@ import styles from './SummaryMetadata.css';
 
 class SummaryMetadata extends Component {
   render() {
-    const {analyser} = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.summaryContainer}>

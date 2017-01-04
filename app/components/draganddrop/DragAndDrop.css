@@ -11,7 +11,7 @@
 }
 
 .promptContainer {
-  position:relative;
+  position: relative;
   background-color: white;
   width: 480px;
   height: 480px;
@@ -31,7 +31,7 @@
 
 .progressStatus {
   composes: fontSecondary from "css/typography.css";
-  position:absolute;
+  position: absolute;
   bottom: 140px;
   left: 64px;
   right: 64px;
@@ -39,17 +39,17 @@
 }
 
 .buttonContainer {
-  position:absolute;
+  position: absolute;
   bottom: 64px;
   left: 64px;
   right: 64px;
 }
 
 .promptIcon {
-  background:url(static/drag-and-drop-arrow.svg);
+  background: url(static/drag-and-drop-arrow.svg);
   width: 104px;
   height: 128px;
-  margin-bottom:64px;
+  margin-bottom: 64px;
 }
 
 .backButton {
@@ -78,9 +78,9 @@
 .dot {
   opacity: 0;
   border-radius: 500px;
-  width:48px;
-  height:48px;
-  margin:12px;
+  width: 48px;
+  height: 48px;
+  margin: 12px;
   background-color: var(--color-grey-light);
   animation-timing-function: ease-in;
 }
@@ -100,23 +100,27 @@
   animation: dotthree 1.2s infinite;
 }
 
+/* stylelint-disable indentation  */
+
 @keyframes dotone {
-			0% { opacity: 0; }
-		 20% { opacity: 0; }
-		 60% { opacity: 1; }
-		100% { opacity: 1; }
+    0% { opacity: 0; }
+   20% { opacity: 0; }
+   60% { opacity: 1; }
+  100% { opacity: 1; }
 }
 
 @keyframes dottwo {
-			0% { opacity: 0; }
-		 30% { opacity: 0; }
-		 70% { opacity: 1; }
-		100% { opacity: 1; }
+    0% { opacity: 0; }
+   30% { opacity: 0; }
+   70% { opacity: 1; }
+  100% { opacity: 1; }
 }
 
 @keyframes dotthree {
-			0% { opacity: 0; }
-		 40% { opacity: 0; }
-		 80% { opacity: 1; }
-		100% { opacity: 1; }
+    0% { opacity: 0; }
+   40% { opacity: 0; }
+   80% { opacity: 1; }
+  100% { opacity: 1; }
 }
+
+/* stylelint-enable indentation  */

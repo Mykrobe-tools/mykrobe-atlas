@@ -1,6 +1,8 @@
+/* @flow */
+
 import path from 'path';
 
-function baseConfig(env = 'development') {
+function baseConfig(env: string = 'development') {
   return {
     entry: [
       'babel-polyfill',

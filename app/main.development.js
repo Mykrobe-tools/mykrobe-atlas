@@ -6,15 +6,15 @@ let mainWindow = null;
 let filepath;
 let ready = false;
 
-const SHOW_DEV_TOOLS = ('development' === process.env.NODE_ENV);
-// const SHOW_DEV_TOOLS = true;
+const SHOW_DEV_TOOLS = (process.env.NODE_ENV === 'development');
+// const SHOW_DEV_TOOLS = true
 
-if ('production' === process.env.NODE_ENV) {
-  const sourceMapSupport = require('source-map-support'); // eslint-disable-line
+if (process.env.NODE_ENV === 'production') {
+  const sourceMapSupport = require('source-map-support') // eslint-disable-line
   sourceMapSupport.install();
 }
 
-if ('development' === process.env.NODE_ENV) {
+if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
 }
 
@@ -23,7 +23,7 @@ app.on('window-all-closed', () => {
 });
 
 const installExtensions = async () => {
-  if ('development' === process.env.NODE_ENV) {
+  if (process.env.NODE_ENV === 'development') {
     const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
 
     const extensions = [
@@ -89,7 +89,7 @@ app.on('ready', async () => {
     });
   }
 
-  if ('darwin' === process.platform) {
+  if (process.platform === 'darwin') {
     template = [{
       label: 'Electron',
       submenu: [{
@@ -251,7 +251,8 @@ app.on('ready', async () => {
 
     menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
-  } else {
+  }
+  else {
     template = [{
       label: '&File',
       submenu: [{
@@ -266,7 +267,7 @@ app.on('ready', async () => {
       }]
     }, {
       label: '&View',
-      submenu: ('development' === process.env.NODE_ENV) ? [{
+      submenu: (process.env.NODE_ENV === 'development') ? [{
         label: '&Reload',
         accelerator: 'Ctrl+R',
         click() {
@@ -324,4 +325,3 @@ app.on('ready', async () => {
     filepath = null;
   }
 });
-

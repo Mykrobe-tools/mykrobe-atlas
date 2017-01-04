@@ -3,8 +3,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import * as AnalyserActions from '../../actions/AnalyserActions';
-
 // TODO: push route on state change
 
 class ResistanceClass extends Component {

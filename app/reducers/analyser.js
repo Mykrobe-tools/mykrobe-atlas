@@ -1,3 +1,5 @@
+/* @flow */
+
 import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
@@ -9,7 +11,7 @@ const initialState = {
   transformed: null
 };
 
-export default function analyser(state = initialState, action = {}) {
+export default function analyser(state: Object = initialState, action: Object = {}) {
   switch (action.type) {
     case ActionTypes.ANALYSE_FILE:
       return {

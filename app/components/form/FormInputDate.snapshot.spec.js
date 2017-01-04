@@ -2,7 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import FormInputDate from './FormInputDate';
 
-jest.mock('react-datepicker', () => { return '';});
+jest.mock('react-datepicker', () => {
+  return '';
+});
 
 describe('FormInputDate component snapshot', () => {
   const name = 'loremIpsum';

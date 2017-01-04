@@ -22,7 +22,7 @@ describe('FormInputRadio component', () => {
         selectedOption={selectedOption}
         onChange={onChange} />
     );
-    component.find('input[value="ipsum"]').simulate('change', { target: { checked: true }});
+    component.find('input[value="ipsum"]').simulate('change', {target: {checked: true}});
     expect(onChange).toBeCalled();
   });
 });

@@ -1,5 +1,6 @@
+/* @flow */
+
 import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig from '../webpack.config.production';

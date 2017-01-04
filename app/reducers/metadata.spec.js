@@ -41,10 +41,10 @@ describe('metadata reducer', () => {
     expect(
       reducer(undefined, {
         type: ActionTypes.SET_METADATA,
-        metadata: {lorem: "ipsum"}
+        metadata: {lorem: 'ipsum'}
       })
     ).toEqual(
-      {lorem: "ipsum"}
+      {lorem: 'ipsum'}
     );
   });
 });

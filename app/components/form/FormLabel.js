@@ -6,10 +6,6 @@ import styles from './FormLabel.css';
 
 class FormLabel extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
   render() {
     const {children, htmlFor, label} = this.props;
     return (
@@ -28,6 +24,6 @@ FormLabel.propTypes = {
   children: PropTypes.node,
   htmlFor: PropTypes.string,
   label: PropTypes.string.isRequired
-}
+};
 
 export default FormLabel;

@@ -1,12 +1,9 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
-import { Route, IndexRoute } from 'react-router';
 import { connect } from 'react-redux';
 import styles from './ResistanceEvidence.css';
 import Panel from '../ui/Panel';
-
-import * as AnalyserActions from '../../actions/AnalyserActions';
 
 // TODO: push route on state change
 

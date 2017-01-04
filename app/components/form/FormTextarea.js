@@ -8,10 +8,6 @@ import styles from './FormTextarea.css';
 
 class FormTextarea extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
   render() {
     const {name, onChange, placeholder, resize, rows, title, value} = this.props;
     return (
@@ -43,6 +39,6 @@ FormTextarea.propTypes = {
   rows: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   value: PropTypes.string
-}
+};
 
 export default FormTextarea;

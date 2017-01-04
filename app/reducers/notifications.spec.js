@@ -11,15 +11,15 @@ describe('notifications reducer', () => {
       reducer(undefined, {
         type: ActionTypes.SHOW_NOTIFICATION,
         id: 0,
-        category: "Lorem",
-        content: "Ipsum",
+        category: 'Lorem',
+        content: 'Ipsum',
         autoHide: true
       })
     ).toEqual(
       [{
         id: 0,
-        category: "Lorem",
-        content: "Ipsum",
+        category: 'Lorem',
+        content: 'Ipsum',
         autoHide: true
       }]
     );
@@ -29,34 +29,34 @@ describe('notifications reducer', () => {
     const initialState = [
       {
         id: 0,
-        category: "lorem",
-        content: "Lorem",
+        category: 'lorem',
+        content: 'Lorem',
         autoHide: true
       },
       {
         id: 1,
-        category: "ipsum",
-        content: "Ipsum",
+        category: 'ipsum',
+        content: 'Ipsum',
         autoHide: true
       },
       {
         id: 2,
-        category: "dolor",
-        content: "Dolor Sit Amet",
+        category: 'dolor',
+        content: 'Dolor Sit Amet',
         autoHide: false
       }
     ];
     const expectedState = [
       {
         id: 0,
-        category: "lorem",
-        content: "Lorem",
+        category: 'lorem',
+        content: 'Lorem',
         autoHide: true
       },
       {
         id: 2,
-        category: "dolor",
-        content: "Dolor Sit Amet",
+        category: 'dolor',
+        content: 'Dolor Sit Amet',
         autoHide: false
       }
     ];
@@ -74,20 +74,20 @@ describe('notifications reducer', () => {
     const initialState = [
       {
         id: 0,
-        category: "lorem",
-        content: "Lorem",
+        category: 'lorem',
+        content: 'Lorem',
         autoHide: true
       },
       {
         id: 1,
-        category: "ipsum",
-        content: "Ipsum",
+        category: 'ipsum',
+        content: 'Ipsum',
         autoHide: true
       },
       {
         id: 2,
-        category: "dolor",
-        content: "Dolor Sit Amet",
+        category: 'dolor',
+        content: 'Dolor Sit Amet',
         autoHide: false
       }
     ];

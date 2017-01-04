@@ -1,9 +1,11 @@
+/* @flow */
+
 import * as ActionTypes from '../constants/ActionTypes';
 import fetch from 'isomorphic-fetch';
 import { BASE_URL } from '../constants/APIConstants';
 
-export function loadTreeWithPath(filePath) {
-  return (dispatch, getState) => {
+export function loadTreeWithPath(filePath: string) {
+  return (dispatch: Function, getState: Function) => {
     dispatch(loadTree(filePath));
     return fetch(`${BASE_URL}/demo/${filePath}`)
     .then((response) => {
@@ -33,8 +35,8 @@ function loadTreeSuccess(json) {
   };
 }
 
-export function loadSamplesWithPath(filePath) {
-  return (dispatch, getState) => {
+export function loadSamplesWithPath(filePath: string) {
+  return (dispatch: Function, getState: Function) => {
     dispatch(loadSamples(filePath));
     return fetch(`${BASE_URL}/demo/${filePath}`)
     .then((response) => {

@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -23,8 +23,8 @@ import FormInputRadio from '../form/FormInputRadio';
 import FormInputCheckbox from '../form/FormInputCheckbox';
 import FormButton from '../form/FormButton';
 
-const locations = require('static/locations.json');
-const drugs = require('static/drugs.json');
+const locations = require('../../static/locations.json');
+const drugs = require('../../static/drugs.json');
 
 class MetadataForm extends Component {
   state: {
@@ -108,7 +108,7 @@ class MetadataForm extends Component {
             name="location"
             selectedOption={location}
             options={locations.map((location, index) => {
-              return({
+              return ({
                 value: location['alpha-2'],
                 label: location.name
               });
@@ -222,7 +222,7 @@ class MetadataForm extends Component {
                       onChange={(event) => this.handleSusceptibilityChange(event)}
                     />
                   </div>
-                )
+                );
               })}
             </div>
           </div>

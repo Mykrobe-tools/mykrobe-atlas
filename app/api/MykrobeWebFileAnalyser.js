@@ -29,7 +29,7 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
       progress: this._progress,
       total: 100
     });
-    if (100 === this._progress) {
+    if (this._progress === 100) {
       this._timeout = setTimeout(() => {
         this.demoFinishAnalysing();
       }, 3000);

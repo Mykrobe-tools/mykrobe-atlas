@@ -4,10 +4,6 @@ import React, { Component, PropTypes } from 'react';
 
 class Form extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
   render() {
     const {children, onSubmit} = this.props;
     return (
@@ -21,6 +17,6 @@ class Form extends Component {
 Form.propTypes = {
   children: PropTypes.node.isRequired,
   onSubmit: PropTypes.func.isRequired
-}
+};
 
 export default Form;

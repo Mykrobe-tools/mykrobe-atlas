@@ -47,7 +47,7 @@ class Phylogeny extends Component {
 
   nodeIsInSamplesToHighlight(node) {
     const index = this.getSampleIds().indexOf(node.id);
-    return -1 !== index;
+    return index !== -1;
   }
 
   onNodeMouseOver(node) {
@@ -104,18 +104,30 @@ class Phylogeny extends Component {
     const insetStyle = {margin: `${controlsInset}px`};
     return (
       <div className={styles.container}>
-        <div className={styles.contentContainer} ref={(ref) => { this._container = ref; }}>
+        <div className={styles.contentContainer} ref={(ref) => {
+          this._container = ref;
+        }}>
           <PhyloCanvasComponent
-            ref={(ref) => { this._phyloCanvas = ref; }}
+            ref={(ref) => {
+              this._phyloCanvas = ref;
+            }}
             treeType={treeType}
             data={newick}
-            onNodeMouseOver={(node) => { this.onNodeMouseOver(node); }}
-            onNodeMouseOut={(node) => { this.onNodeMouseOut(node); }}
-            onLoad={() => { this.onLoad(); }}
+            onNodeMouseOver={(node) => {
+              this.onNodeMouseOver(node);
+            }}
+            onNodeMouseOut={(node) => {
+              this.onNodeMouseOut(node);
+            }}
+            onLoad={() => {
+              this.onLoad();
+            }}
             controlsInset={controlsInset}
           />
           <div className={styles.controlsContainer} style={insetStyle}>
-            <div className={styles.zoomControl} onClick={(e) => { e.preventDefault(); this.zoomSamples(); }}>
+            <div className={styles.zoomControl} onClick={(e) => {
+              e.preventDefault(); this.zoomSamples();
+            }}>
               <i className="fa fa-search" />
               <div className={styles.zoomControlText}>Fit samples</div>
             </div>
@@ -133,7 +145,9 @@ class Phylogeny extends Component {
               }}>{thisTreeType}</div>
             )}
           </div>
-          <PhyloCanvasTooltip ref={(ref) => { this._phyloCanvasTooltip = ref; }} />
+          <PhyloCanvasTooltip ref={(ref) => {
+            this._phyloCanvasTooltip = ref;
+          }} />
         </div>
       </div>
     );

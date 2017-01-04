@@ -6,20 +6,22 @@ describe('Notifications component snapshot', () => {
   const notifications = [
     {
       id: 0,
-      content: "Lorem",
-      category: "success"
+      content: 'Lorem',
+      category: 'success'
     },
     {
       id: 1,
-      content: "Ipsum",
-      category: "error"
+      content: 'Ipsum',
+      category: 'error'
     }
   ];
+  const hideNotification = jest.fn();
 
   it('renders correctly', () => {
     const component = renderer.create(
       <Notifications
-        notifications={notifications} />
+        notifications={notifications}
+        hideNotification={hideNotification} />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();

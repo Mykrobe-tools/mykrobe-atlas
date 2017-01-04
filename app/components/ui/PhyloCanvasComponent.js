@@ -1,6 +1,6 @@
 /* @flow */
 
-import PhyloCanvas, {Tree, Branch, utils} from 'phylocanvas';
+import {Tree, Branch, utils} from 'phylocanvas';
 import React, { Component, PropTypes } from 'react';
 import styles from './PhyloCanvasComponent.css';
 import * as Colors from '../../constants/Colors';
@@ -139,7 +139,7 @@ class PhyloCanvasComponent extends Component {
       leafStyle: {
         strokeStyle: 'rgba(1,1,1,0)',
         fillStyle: color
-      },
+      }
     });
     this.bringNodeToFront(node);
     this._highlightedNodes[nodeId] = color;
@@ -257,15 +257,23 @@ class PhyloCanvasComponent extends Component {
     const insetStyle = {margin: `${controlsInset}px`};
     return (
       <div className={styles.container}>
-        <div id="phyloCanvasDiv" ref={(ref) => { this._phyloCanvasDiv = ref; }} className={styles.container} />
+        <div id="phyloCanvasDiv" ref={(ref) => {
+          this._phyloCanvasDiv = ref;
+        }} className={styles.container} />
         <div className={styles.controlsContainer} style={insetStyle}>
-          <div className={styles.zoomInControl} onClick={(e) => { e.preventDefault(); this.zoomIn(); }}>
+          <div className={styles.zoomInControl} onClick={(e) => {
+            e.preventDefault(); this.zoomIn();
+          }}>
             <i className="fa fa-plus" />
           </div>
-          <div className={styles.zoomOutControl} onClick={(e) => { e.preventDefault(); this.zoomOut(); }}>
+          <div className={styles.zoomOutControl} onClick={(e) => {
+            e.preventDefault(); this.zoomOut();
+          }}>
             <i className="fa fa-minus" />
           </div>
-          <div className={styles.zoomResetControl} onClick={(e) => { e.preventDefault(); this.zoomReset(); }}>
+          <div className={styles.zoomResetControl} onClick={(e) => {
+            e.preventDefault(); this.zoomReset();
+          }}>
             <i className="fa fa-compress" />
           </div>
         </div>

@@ -17,15 +17,15 @@ class DragAndDrop extends Component {
     if (analyser.analysing) {
       const {progress} = analyser;
       let statusText = 'Constructing genome';
-      if (0 === progress) {
+      if (progress === 0) {
         statusText = 'Analysing';
       }
-      else if (100 === progress) {
+      else if (progress === 100) {
         statusText = 'Check species and scan for resistance';
       }
       content = (
         <div className={styles.promptContainer}>
-          {(0 === progress || 100 === progress) ? (
+          {(progress === 0 || progress === 100) ? (
             <div className={styles.dots}>
               <div className={styles.dotOne} />
               <div className={styles.dotTwo} />
@@ -41,7 +41,7 @@ class DragAndDrop extends Component {
             {statusText}
           </div>
           <div className={styles.buttonContainer}>
-            <button type="button" className={styles.button} onClick={this.onCancelClick.bind(this)}>
+            <button type="button" className={styles.button} onClick={event => this.onCancelClick(event)}>
               Cancel
             </button>
           </div>
@@ -56,12 +56,14 @@ class DragAndDrop extends Component {
             Drag file here to analyse
           </div>
           <div className={styles.buttonContainer}>
-            <button type="button" className={styles.button} onClick={this.onOpenClick.bind(this)}>
+            <button type="button" className={styles.button} onClick={(event) => this.onOpenClick(event)}>
               Browse...
             </button>
           </div>
           <input
-            ref={(ref) => { this._fileInput = ref; }}
+            ref={(ref) => {
+              this._fileInput = ref;
+            }}
             onChange={(e) => {
               this.fileInputChanged(e);
             }}
@@ -114,7 +116,7 @@ function mapStateToProps(state) {
 
 DragAndDrop.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
+  analyser: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(DragAndDrop);

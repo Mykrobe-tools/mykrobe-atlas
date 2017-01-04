@@ -6,7 +6,6 @@ import styles from './SummaryVariants.css';
 
 class SummaryVariants extends Component {
   render() {
-    const {analyser} = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.group}>

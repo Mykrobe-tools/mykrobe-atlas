@@ -1,37 +1,38 @@
+/* @flow */
+
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { browserHistory, hashHistory } from 'react-router';
 import { routerMiddleware, push } from 'react-router-redux';
-import rootReducer from 'reducers';
+import rootReducer from '../reducers';
 
 import * as AnalyserActions from '../actions/AnalyserActions';
 
 const actionCreators = {
   ...AnalyserActions,
-  push,
+  push
 };
 
 const logger = createLogger({
   level: 'info',
-  collapsed: true,
+  collapsed: true
 });
 
 const router = routerMiddleware(IS_ELECTRON ? hashHistory : browserHistory);
 
-const enhancer = compose(
-  applyMiddleware(thunk, router, logger),
-  window.devToolsExtension ?
-    window.devToolsExtension({ actionCreators }) :
-    (noop) => noop
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+    actionCreators
+  })
+  : compose;
+
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk, router, logger)
 );
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState: Object) {
   const store = createStore(rootReducer, initialState, enhancer);
-
-  if (window.devToolsExtension) {
-    window.devToolsExtension.updateStore(store);
-  }
 
   if (module.hot) {
     module.hot.accept('../reducers', () =>

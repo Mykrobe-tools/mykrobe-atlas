@@ -9,7 +9,7 @@ class AnimatedBackground extends Component {
   state: {
     width: number,
     height: number
-  }
+  };
   _resize: (e: Event) => void;
   _container: Element;
 
@@ -49,7 +49,9 @@ class AnimatedBackground extends Component {
   render() {
     const {width, height} = this.state;
     return (
-      <div ref={(ref) => { this._container = ref; }} className={styles.container}>
+      <div ref={(ref) => {
+        this._container = ref;
+      }} className={styles.container}>
         <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
         <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
         <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />

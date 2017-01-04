@@ -152,8 +152,12 @@ class Map extends Component {
         <Key />
         <div className={styles.mapAndPhylogenyContainer}>
           <div className={styles.mapContainer}>
-            <div ref={(ref) => { this._mapDiv = ref; }} className={styles.map} />
-            <PhyloCanvasTooltip ref={(ref) => { this._phyloCanvasTooltip = ref; }} />
+            <div ref={(ref) => {
+              this._mapDiv = ref;
+            }} className={styles.map} />
+            <PhyloCanvasTooltip ref={(ref) => {
+              this._phyloCanvasTooltip = ref;
+            }} />
           </div>
           <Phylogeny className={styles.phylogenyContainer} />
         </div>

@@ -29,8 +29,8 @@
   color: white;
   background-color: var(--color-grey-light);
   display: flex;
-  min-width:44px;
-  height:44px;
+  min-width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   border-radius: 4px;

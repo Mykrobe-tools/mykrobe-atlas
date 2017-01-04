@@ -1,3 +1,5 @@
+/* @flow */
+
 require('babel-polyfill');
 
 const targets = require('../targets.json');
@@ -69,10 +71,10 @@ function execute(command) {
 /*
 exec('cat *.js bad_file | wc -l', (error, stdout, stderr) => {
   if (error) {
-    console.error(`exec error: ${error}`);
-    return;
+    console.error(`exec error: ${error}`)
+    return
   }
-  console.log(`stdout: ${stdout}`);
-  console.log(`stderr: ${stderr}`);
-});
+  console.log(`stdout: ${stdout}`)
+  console.log(`stderr: ${stderr}`)
+})
 */

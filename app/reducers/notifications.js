@@ -1,8 +1,10 @@
+/* @flow */
+
 import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = [];
 
-export default function notifications(state = initialState, action = {}) {
+export default function notifications(state: Array<any> = initialState, action: Object = {}) {
   switch (action.type) {
     case ActionTypes.SHOW_NOTIFICATION:
       const {id, category, content, autoHide} = action;
@@ -11,12 +13,12 @@ export default function notifications(state = initialState, action = {}) {
         category,
         content,
         autoHide
-      }
+      };
       return [...state, notification];
 
     case ActionTypes.HIDE_NOTIFICATION:
       return state.filter(notification => {
-	      return notification.id !== action.id
+        return notification.id !== action.id;
       });
     case ActionTypes.HIDE_ALL_NOTIFICATIONS:
       return initialState;

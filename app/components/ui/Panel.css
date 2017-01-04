@@ -1,11 +1,11 @@
 .panelContainer {
-  display:flex;
+  display: flex;
   padding: 12px;
 }
 
 .panelContent {
-  display:flex;
-  flex-grow:1;
+  display: flex;
+  flex-grow: 1;
   flex-direction: column;
   align-content: stretch;
 }
@@ -15,6 +15,6 @@
 }
 
 .panelChildrenContainer {
-  display:flex;
+  display: flex;
   flex: 1;
 }

@@ -1,26 +1,28 @@
+/* @flow */
+
 import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
   highlighted: []
 };
 
-export default function analyser(state = initialState, action = {}) {
+export default function analyser(state: Object = initialState, action: Object = {}) {
   switch (action.type) {
     case ActionTypes.SET_NODE_HIGHLIGHTED:
       // clone the current array
       let highlighted = state.highlighted.slice();
       const index = highlighted.indexOf(action.node);
       if (action.highlighted) {
-        if (-1 === index) {
+        if (index === -1) {
           highlighted = highlighted.concat(action.node);
         }
       }
       else {
-        if (-1 !== index) {
+        if (index !== -1) {
           highlighted.splice(index, 1);
         }
-        if (0 !== highlighted.length) {
-          debugger;
+        if (highlighted.length !== 0) {
+          console.log(highlighted);
         }
       }
       return {

@@ -69,10 +69,11 @@ class AppElectron extends Component {
     TODO: move this into its own component using redux state to change menu state
     */
 
+    // $FlowFixMe: Ignore Electron require
     const remote = require('electron').remote;
     const menu = remote.Menu.getApplicationMenu();
-    if ('darwin' === process.platform) {
-      const canSave = (false !== analyser.json);
+    if (process.platform === 'darwin') {
+      const canSave = (analyser.json !== false);
       menu.items[1].submenu.items[4].enabled = canSave;
     }
 

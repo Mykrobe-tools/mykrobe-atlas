@@ -10,15 +10,15 @@ class MykrobeConfig {
   constructor() {
     this.targetName = require('../../package.json').targetName;
 
-    if ('predictor-s-aureus' === this.targetName) {
+    if (this.targetName === 'predictor-s-aureus') {
       this.type = TargetConstants.TYPE_PREDICTOR;
       this.species = TargetConstants.SPECIES_S_AUREUS;
     }
-    else if ('predictor-tb' === this.targetName) {
+    else if (this.targetName === 'predictor-tb') {
       this.type = TargetConstants.TYPE_PREDICTOR;
       this.species = TargetConstants.SPECIES_TB;
     }
-    else if ('atlas-tb' === this.targetName) {
+    else if (this.targetName === 'atlas-tb') {
       this.type = TargetConstants.TYPE_ATLAS;
       this.species = TargetConstants.SPECIES_TB;
     }

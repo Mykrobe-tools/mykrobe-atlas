@@ -8,13 +8,13 @@
 .summaryContainer {
   display: flex;
   flex-wrap: wrap;
-  flex-direction:row;
+  flex-direction: row;
   padding: 18px;
 }
 
 .title {
   composes: titleExtraLarge from "css/typography.css";
   text-align: center;
-  width:100%;
-  padding: 30px 30px 0 30px;
+  width: 100%;
+  padding: 30px 30px 0;
 }

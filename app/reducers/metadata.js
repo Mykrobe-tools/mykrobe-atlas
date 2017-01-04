@@ -1,3 +1,5 @@
+/* @flow */
+
 import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
@@ -17,7 +19,7 @@ const initialState = {
   shareSequence: true
 };
 
-export default function metadata(state = initialState, action = {}) {
+export default function metadata(state: Object = initialState, action: Object = {}) {
   switch (action.type) {
     case ActionTypes.POST_METADATA_FORM:
       return initialState;

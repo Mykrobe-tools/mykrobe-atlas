@@ -11,10 +11,10 @@ class AnalysingProgressBar extends Component {
       width: `${analyser.progress}%`
     };
     var text = `Analysing ${analyser.progress}%`;
-    if (0 === analyser.progress) {
+    if (analyser.progress === 0) {
       text = 'Constructing genome';
     }
-    else if (100 === analyser.progress) {
+    else if (analyser.progress === 100) {
       text = 'Check species and scan for resistance';
     }
     return (

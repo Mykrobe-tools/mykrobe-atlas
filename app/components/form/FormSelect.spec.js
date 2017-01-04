@@ -22,7 +22,7 @@ describe('FormSelect component', () => {
         selectedOption={selectedOption}
         onChange={onChange} />
     );
-    component.find('select').simulate('change', { target: { value: 'ipsum'}});
+    component.find('select').simulate('change', {target: {value: 'ipsum'}});
     expect(onChange).toBeCalled();
   });
 });

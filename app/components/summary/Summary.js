@@ -1,7 +1,6 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import styles from './Summary.css';
 import ResistanceProfile from '../resistance/ResistanceProfile';
 import Panel from '../ui/Panel';
@@ -11,7 +10,6 @@ import SummaryVariants from './SummaryVariants';
 
 class Summary extends Component {
   render() {
-    const {children} = this.props;
     return (
       <div className={styles.container}>
         <Key single />

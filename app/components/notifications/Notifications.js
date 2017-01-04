@@ -10,11 +10,6 @@ import Notification from './Notification';
 import styles from './Notifications.css';
 
 export class Notifications extends Component {
-
-  constructor(props: Object) {
-    super(props);
-  }
-
   onClick(id: Number) {
     const {hideNotification} = this.props;
     hideNotification(id);
@@ -34,7 +29,7 @@ export class Notifications extends Component {
                 id={id}
                 onClick={event => this.onClick(id)} />
             </div>
-          )
+          );
         })}
       </div>
     );
@@ -42,8 +37,9 @@ export class Notifications extends Component {
 }
 
 Notifications.propTypes = {
-  notifications: PropTypes.array
-}
+  notifications: PropTypes.array,
+  hideNotification: PropTypes.func.isRequired
+};
 
 function mapStateToProps(state) {
   return {

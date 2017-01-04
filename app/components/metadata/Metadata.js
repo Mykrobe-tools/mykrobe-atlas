@@ -8,10 +8,6 @@ import MetadataForm from './MetadataForm';
 
 class Metadata extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
   render() {
     return (
       <div className={styles.container}>

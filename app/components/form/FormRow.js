@@ -6,10 +6,6 @@ import styles from './FormRow.css';
 
 class FormRow extends Component {
 
-  constructor(props: Object) {
-    super(props);
-  }
-
   render() {
     const {children} = this.props;
     return (
@@ -22,6 +18,6 @@ class FormRow extends Component {
 
 FormRow.propTypes = {
   children: PropTypes.node.isRequired
-}
+};
 
 export default FormRow;

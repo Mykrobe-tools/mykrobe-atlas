@@ -31,15 +31,13 @@ describe('NotificationActions', () => {
         content: 'lorem ipsum',
         autoHide: true
       };
-      const expectedActions =
-      [{
+      const expectedActions = [{
         type: 'SHOW_NOTIFICATION',
         id: 1,
         category: 'category',
         content: 'lorem ipsum',
         autoHide: true
-      },
-      {
+      }, {
         type: 'HIDE_NOTIFICATION',
         id: 1
       }];

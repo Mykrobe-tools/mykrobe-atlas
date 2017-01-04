@@ -20,7 +20,7 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
   analyseFile(file: File): MykrobeBaseFileAnalyser {
     this.cancel();
     const extension = this.extensionForFileName(file.name);
-    if ('.json' === extension) {
+    if (extension === '.json') {
       return this.analyseJsonFile(file);
     }
     else if (['.bam', '.gz', '.fastq'].indexOf(extension) !== -1) {

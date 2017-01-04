@@ -6,17 +6,21 @@ import styles from './FormButton.css';
 
 class FormButton extends Component {
 
-  constructor(props: Object) {
-    super(props);
+  onClick(event: Event) {
+    const {onClick} = this.props;
+    if (onClick) {
+      event.preventDefault();
+      onClick(event);
+    }
   }
 
   render() {
-    const {label, type, onClick} = this.props;
+    const {label, type} = this.props;
     return (
       <div className={styles.wrap}>
         <button
           className={styles.input}
-          onClick={(event) => onClick(event)}
+          onClick={(event) => this.onClick(event)}
           type={type}>
           {label}
         </button>
@@ -27,8 +31,8 @@ class FormButton extends Component {
 
 FormButton.propTypes = {
   label: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   type: PropTypes.oneOf(['submit', 'button', 'reset']).isRequired
-}
+};
 
 export default FormButton;

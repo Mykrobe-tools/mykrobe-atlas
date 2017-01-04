@@ -169,16 +169,15 @@ class MykrobeJsonTransformer {
       const predict = susceptibilityModel[key]['predict'].toUpperCase();
       value = predict.substr(0, 1);
       isInducible = predict.indexOf('INDUCIBLE') !== -1;
-      if ('S' === value) {
+      if (value === 'S') {
         model.susceptible.push(key);
       }
-      else if ('R' === value) {
+      else if (value === 'R') {
         model.resistant.push(key);
       }
-      else if ('N' === value) {
+      else if (value === 'N') {
         model.inconclusive.push(key);
-      }
-      if (isInducible) {
+      } if (isInducible) {
         model.inducible.push(key);
       }
     }
@@ -187,10 +186,10 @@ class MykrobeJsonTransformer {
       virulenceModel = sourceModel['virulence_toxins'];
       for (key in virulenceModel) {
         value = virulenceModel[key].toUpperCase();
-        if ('POSITIVE' === value) {
+        if (value === 'POSITIVE') {
           model.positive.push(key);
         }
-        else if ('NEGATIVE' === value) {
+        else if (value === 'NEGATIVE') {
           model.negative.push(key);
         }
       }
@@ -218,7 +217,7 @@ class MykrobeJsonTransformer {
     let speciesPretty = '';
 
     if (TargetConstants.SPECIES_TB === this.config.species) {
-      speciesPretty = model.species.join(' / ') + ' (lineage: ' + model.lineage + ')';
+      speciesPretty = model.species.join(' / ') + ' (lineage: ' + model.lineage.join(', ') + ')';
     }
     else {
       speciesPretty = model.species.join(' / ');

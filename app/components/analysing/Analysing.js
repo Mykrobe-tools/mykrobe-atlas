@@ -29,7 +29,7 @@ class Analysing extends Component {
       <div className={styles.container}>
         <div className={styles.header}>
           <AnalysingProgressBar />
-          <button type="button" onClick={this.onCancelClick.bind(this)}>
+          <button type="button" onClick={event => this.onCancelClick(event)}>
             Cancel
           </button>
         </div>
@@ -52,7 +52,7 @@ function mapStateToProps(state) {
 
 Analysing.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
+  analyser: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps)(Analysing);
