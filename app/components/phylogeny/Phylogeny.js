@@ -1,6 +1,7 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from './Phylogeny.css';
 import * as NodeActions from '../../actions/NodeActions';
@@ -51,16 +52,16 @@ class Phylogeny extends Component {
   }
 
   onNodeMouseOver(node) {
-    const {dispatch} = this.props;
+    const {setNodeHighlighted} = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
-      dispatch(NodeActions.setNodeHighlighted(node.id, true));
+      setNodeHighlighted(node.id, true);
     }
   }
 
   onNodeMouseOut(node) {
-    const {dispatch} = this.props;
+    const {setNodeHighlighted} = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
-      dispatch(NodeActions.setNodeHighlighted(node.id, false));
+      setNodeHighlighted(node.id, false);
     }
   }
 
@@ -186,6 +187,7 @@ class Phylogeny extends Component {
     if (AUTO_ZOOM_SAMPLES) {
       this.zoomSamples();
     }
+    console.log(this.props.experiments);
   }
 
   updateHighlightedSamples(samples) {
@@ -197,8 +199,8 @@ class Phylogeny extends Component {
   }
 
   componentWillUnmount() {
-    const {dispatch} = this.props;
-    dispatch(NodeActions.unsetNodeHighlightedAll());
+    const {unsetNodeHighlightedAll} = this.props;
+    unsetNodeHighlightedAll();
   }
 
   static defaultProps = {
@@ -209,15 +211,25 @@ class Phylogeny extends Component {
 function mapStateToProps(state) {
   return {
     analyser: state.analyser,
-    node: state.node
+    node: state.node,
+    experiments: state.experiments
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    setNodeHighlighted: NodeActions.setNodeHighlighted,
+    unsetNodeHighlightedAll: NodeActions.unsetNodeHighlightedAll
+  }, dispatch);
+}
+
 Phylogeny.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
-  controlsInset: PropTypes.number
+  controlsInset: PropTypes.number,
+  experiments: PropTypes.array,
+  setNodeHighlighted: PropTypes.func.isRequired,
+  unsetNodeHighlightedAll: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(Phylogeny);
+export default connect(mapStateToProps, mapDispatchToProps)(Phylogeny);
