@@ -8,7 +8,6 @@ import Phylogeny from '../phylogeny/Phylogeny';
 import { connect } from 'react-redux';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
 import * as NodeActions from '../../actions/NodeActions';
-import * as ExperimentActions from '../../actions/ExperimentActions';
 import Key from '../header/Key';
 import MapStyle from './MapStyle';
 import type { Sample } from '../../types/Sample';
@@ -26,8 +25,6 @@ class Map extends Component {
     super(props);
     GoogleMapsLoader.KEY = GOOGLE_MAPS_API_KEY;
     GoogleMapsLoader.REGION = 'GB';
-    const {fetchExperiments} = this.props;
-    fetchExperiments();
   }
 
   componentDidMount() {
@@ -181,14 +178,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    fetchExperiments: ExperimentActions.fetchExperiments,
     setNodeHighlighted: NodeActions.setNodeHighlighted
   }, dispatch);
 }
 
 Map.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
-  fetchExperiments: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
   experiments: PropTypes.array

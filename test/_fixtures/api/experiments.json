@@ -11,26 +11,26 @@
 	},
 	"uploaded_by": "user_57bc04a2af4fa3000106e34a",
 	"related_samples": {
-		"jaccard_simillarity": [{
-			"experiements": "expe54bc04a2af4fa3000106e34a",
-			"jaccard_simillarity": 0.99
+		"jaccard_similarity": [{
+			"experiments": "expe54bc04a2af4fa3000106e34a",
+			"jaccard_similarity": 0.99
 		}],
 		"SNP_distance": [{
-			"experiements": "expe54bc04a2af4fa3000106e34a",
+			"experiments": "expe54bc04a2af4fa3000106e34a",
 			"SNP_distance": 13
 		}],
 		"location": [{
-			"experiements": "expe54bc04a2af4fa3000106e34a",
+			"experiments": "expe54bc04a2af4fa3000106e34a",
 			"distance": "5mi"
 		}],
 		"time": [{
-			"experiements": "expe54bc04a2af4fa3000106e34a",
+			"experiments": "expe54bc04a2af4fa3000106e34a",
 			"timedelta": "12days"
 		}],
 		"patient": "pati_55ac04a2af4fa3000106e34a",
 		"epi": [{
 			"epi_link": "epid_541c04a2af4fa3000106e34a",
-			"experiements": "expe54bc04a2af4fa3000106e34a"
+			"experiments": "expe54bc04a2af4fa3000106e34a"
 		}]
 	}
 }, {
@@ -46,26 +46,26 @@
 	},
 	"uploaded_by": "user_57bc04a2af4fa3000106e34a",
 	"related_samples": {
-		"jaccard_simillarity": [{
-			"experiements": "expe_57bc04a2af4fa3000106e34a",
-			"jaccard_simillarity": 0.99
+		"jaccard_similarity": [{
+			"experiments": "expe_57bc04a2af4fa3000106e34a",
+			"jaccard_similarity": 0.99
 		}],
 		"SNP_distance": [{
-			"experiements": "expe_57bc04a2af4fa3000106e34a",
+			"experiments": "expe_57bc04a2af4fa3000106e34a",
 			"SNP_distance": 13
 		}],
 		"location": [{
-			"experiements": "expe_57bc04a2af4fa3000106e34a",
+			"experiments": "expe_57bc04a2af4fa3000106e34a",
 			"distance": "5mi"
 		}],
 		"time": [{
-			"experiements": "expe_57bc04a2af4fa3000106e34a",
+			"experiments": "expe_57bc04a2af4fa3000106e34a",
 			"timedelta": "12days"
 		}],
 		"patient": "pati_55ac04a2af4fa3000106e34a",
 		"epi": [{
 			"epi_link": "epid_541c04a2af4fa3000106e34a",
-			"experiements": "expe_57bc04a2af4fa3000106e34a"
+			"experiments": "expe_57bc04a2af4fa3000106e34a"
 		}]
 	}
 }]
