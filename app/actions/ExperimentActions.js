@@ -37,8 +37,15 @@ export function fetchExperiments(filters: Object = {}) {
             autoHide: false
           }));
           dispatch(receiveExperiments());
-          return Promise.reject(response.statusText);
         }
+      })
+      .catch((err) => {
+        dispatch(showNotification({
+          category: NotificationCategories.ERROR,
+          content: err,
+          autoHide: false
+        }));
+        dispatch(receiveExperiments());
       });
   };
 }
