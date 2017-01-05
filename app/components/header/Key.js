@@ -42,7 +42,7 @@ class Key extends Component {
     const {samples} = analyser.transformed;
     for (let sampleKey in samples) {
       const sample: Sample = samples[sampleKey];
-      if (sample.id === nodeId) {
+      if (sample._id === nodeId) {
         return sample;
       }
     }
@@ -55,7 +55,7 @@ class Key extends Component {
     let nodeIds: Array<string> = [];
     for (let sampleKey: string in samples) {
       const sample: Sample = samples[sampleKey];
-      nodeIds.push(sample.id);
+      nodeIds.push(sample._id);
     }
     return nodeIds;
   }
@@ -88,12 +88,12 @@ class Key extends Component {
     if (!single && sampleIds.length > 1) {
       const sample1 = this.getSampleWithId(sampleIds[1]);
       if (sample1) {
-        title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample &middot; <i className="fa fa-circle" style={{color: sample1.colorForTest}} /> {sample1.id} Nearest previous sample</div>;
+        title = <div><i className="fa fa-circle" style={{color: '#f90'}} /> {sample0._id} Your sample &middot; <i className="fa fa-circle" style={{color: '#f90'}} /> {sample1._id} Nearest previous sample</div>;
         // action = <div className={styles.resetButton} onClick={(e) => { this.onRemoveClicked(e) }}><i className="fa fa-times-circle" /> Reset</div>;
       }
     }
     else {
-      title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample</div>;
+      title = <div><i className="fa fa-circle" style={{color: '#f90'}} /> {sample0._id} Your sample</div>;
       // action = <div className={styles.compareButton} onClick={(e) => { this.onAddClicked(e) }}><i className="fa fa-plus-circle" /> Compare</div>;
     }
     return (

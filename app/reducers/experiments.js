@@ -4,7 +4,7 @@ import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
   isFetching: false,
-  experiments: []
+  samples: []
 };
 
 export default function experiments(state: Object = initialState, action: Object = {}) {
@@ -16,7 +16,7 @@ export default function experiments(state: Object = initialState, action: Object
     case ActionTypes.RECEIVE_EXPERIMENTS:
       return Object.assign({}, state, {
         isFetching: false,
-        experiments: action.data
+        samples: action.data
       });
     default:
       return state;

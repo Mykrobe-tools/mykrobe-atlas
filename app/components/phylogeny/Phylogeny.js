@@ -47,21 +47,21 @@ class Phylogeny extends Component {
   }
 
   nodeIsInSamplesToHighlight(node) {
-    const index = this.getSampleIds().indexOf(node.id);
+    const index = this.getSampleIds().indexOf(node._id);
     return index !== -1;
   }
 
   onNodeMouseOver(node) {
     const {setNodeHighlighted} = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
-      setNodeHighlighted(node.id, true);
+      setNodeHighlighted(node._id, true);
     }
   }
 
   onNodeMouseOut(node) {
     const {setNodeHighlighted} = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
-      setNodeHighlighted(node.id, false);
+      setNodeHighlighted(node._id, false);
     }
   }
 
@@ -159,7 +159,7 @@ class Phylogeny extends Component {
     const {samples} = analyser.transformed;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      if (sample.id === nodeId) {
+      if (sample._id === nodeId) {
         return sample;
       }
     }
@@ -171,7 +171,7 @@ class Phylogeny extends Component {
     let nodeIds = [];
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      nodeIds.push(sample.id);
+      nodeIds.push(sample._id);
     }
     return nodeIds;
   }
@@ -194,7 +194,7 @@ class Phylogeny extends Component {
     this._phyloCanvas.resetHighlightedNodes();
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      this._phyloCanvas.highlightNodeWithId(sample.id, sample.colorForTest);
+      this._phyloCanvas.highlightNodeWithId(sample._id, '#f90');
     }
   }
 

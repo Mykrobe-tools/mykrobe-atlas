@@ -38,29 +38,26 @@ class Map extends Component {
       };
       this._google = google;
       this._map = new google.maps.Map(this._mapDiv, options);
-      this.updateMarkers(this.props.analyser.transformed.samples);
-      console.log(this.props.experiments);
+      this.updateMarkers(this.props.experiments.samples);
     });
   }
 
   getSampleWithId(nodeId): ?Sample {
-    const {analyser} = this.props;
-    const {samples} = analyser.transformed;
+    const {samples} = this.props.experiments;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      if (sample.id === nodeId) {
+      if (sample._id === nodeId) {
         return sample;
       }
     }
   }
 
   getSampleIds() {
-    const {analyser} = this.props;
-    const {samples} = analyser.transformed;
+    const {samples} = this.props.experiments;
     let nodeIds = [];
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      nodeIds.push(sample.id);
+      nodeIds.push(sample._id);
     }
     return nodeIds;
   }
@@ -76,14 +73,15 @@ class Map extends Component {
     this._markers = {};
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      const lat = parseFloat(sample.locationLatLngForTest.lat);
-      const lng = parseFloat(sample.locationLatLngForTest.lng);
+      const lat = parseFloat(sample.location.lat);
+      const lng = parseFloat(sample.location.long);
+      console.log('marker', lat, lng);
       const marker = new this._google.maps.Marker({
         icon: {
           path: this._google.maps.SymbolPath.CIRCLE,
           scale: 10,
           strokeWeight: 4,
-          fillColor: sample.colorForTest,
+          fillColor: '#f90',
           strokeColor: '#fff',
           fillOpacity: 1
         },
@@ -91,12 +89,12 @@ class Map extends Component {
         map: this._map
       });
       marker.addListener('mouseover', (e) => {
-        setNodeHighlighted(sample.id, true);
+        setNodeHighlighted(sample._id, true);
       });
       marker.addListener('mouseout', (e) => {
-        setNodeHighlighted(sample.id, false);
+        setNodeHighlighted(sample._id, false);
       });
-      this._markers[sample.id] = marker;
+      this._markers[sample._id] = marker;
     }
     this.zoomToMarkers();
   }
@@ -125,8 +123,8 @@ class Map extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
-    if (this.props.analyser.transformed.samples !== nextProps.analyser.transformed.samples) {
-      this.updateMarkers(nextProps.analyser.transformed.samples);
+    if (this.props.experiments.samples !== nextProps.experiments.samples) {
+      this.updateMarkers(nextProps.experiments.samples);
     }
     if (node.highlighted.length) {
       console.log('node.highlighted', node.highlighted);

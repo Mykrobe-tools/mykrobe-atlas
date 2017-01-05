@@ -7,24 +7,22 @@ import type { Sample } from '../types/Sample';
 
 const samplesForTest: Array<Sample> = [
   {
-    id: '1',
-    date: '29 September 2016',
-    locationName: 'London',
-    locationLatLngForTest: {
+    _id: '1',
+    collected_at: '29 September 2016',
+    location: {
+      name: 'London',
       lat: '51.5074',
-      lng: '0.1278'
-    },
-    colorForTest: '#c30042'
+      long: '0.1278'
+    }
   },
   {
-    id: '2',
-    date: '28 September 2016',
-    locationName: 'Bangalore',
-    locationLatLngForTest: {
+    _id: '2',
+    collected_at: '28 September 2016',
+    location: {
+      name: 'Bangalore',
       lat: '12.97',
-      lng: '77.59'
-    },
-    colorForTest: '#0f82d0'
+      long: '77.59'
+    }
   }
 ];
 
@@ -238,7 +236,7 @@ class MykrobeJsonTransformer {
       let keys = _.keys(neighbour);
       let demoSampleModel = samplesForTest[i];
       let sampleId: string = keys[0];
-      demoSampleModel.id = sampleId;
+      demoSampleModel._id = sampleId;
       samples[sampleId] = demoSampleModel;
     }
     model.samples = samples;
