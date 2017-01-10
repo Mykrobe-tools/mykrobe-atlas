@@ -6,6 +6,7 @@ import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import CircularProgress from './CircularProgress';
 import UploadBtnDropbox from './UploadBtnDropbox';
 import UploadBtnGoogleDrive from './UploadBtnGoogleDrive';
+import UploadBtnBox from './UploadBtnBox';
 
 const acceptedExtensions = ['.json', '.bam', '.gz', '.fastq', '.jpg'];
 
@@ -67,6 +68,8 @@ class Upload extends Component {
               acceptedExtensions={acceptedExtensions}
               onFileSelect={(file) => this.onFileSelected(file)} />
             <UploadBtnGoogleDrive
+              onFileSelect={(file) => this.onFileSelected(file)} />
+            <UploadBtnBox
               onFileSelect={(file) => this.onFileSelected(file)} />
           </div>
           <input
