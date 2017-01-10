@@ -32,10 +32,7 @@
 
 .progressStatus {
   composes: fontSecondary from "css/typography.css";
-  position: absolute;
-  bottom: 140px;
-  left: 64px;
-  right: 64px;
+  margin-top: 200px;
   text-align: center;
 }
 

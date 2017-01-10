@@ -101,8 +101,8 @@ class Upload extends Component {
 
   onFileSelected(file) {
     console.log('onFileSelected', file);
-    const {dispatch} = this.props;
-    dispatch(AnalyserActions.analyseFile(file));
+    // const {dispatch} = this.props;
+    // dispatch(AnalyserActions.analyseFile(file));
   }
 
   onOpenClick(e) {

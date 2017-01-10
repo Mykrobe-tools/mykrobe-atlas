@@ -54,7 +54,10 @@ export default class UploadBtnBox extends Component {
 
   onFileSelect(files: Array<Object>) {
     const {onFileSelect} = this.props;
-    onFileSelect(files[0].url);
+    onFileSelect({
+      name: files[0].name,
+      url: files[0].url
+    });
   }
 }
 

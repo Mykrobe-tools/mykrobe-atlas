@@ -49,7 +49,10 @@ export default class UploadBtnOneDrive extends Component {
 
   onFileSelect(files: Object) {
     const {onFileSelect} = this.props;
-    onFileSelect(files.value[0]['@microsoft.graph.downloadUrl']);
+    onFileSelect({
+      name: files.value[0].name,
+      url: files.value[0]['@microsoft.graph.downloadUrl']
+    });
   }
 }
 

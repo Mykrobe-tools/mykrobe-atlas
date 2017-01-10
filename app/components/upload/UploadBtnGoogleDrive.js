@@ -46,6 +46,9 @@ export default class UploadBtnGoogleDrive extends Component {
   onApiLoad() {
     window.gapi.load('auth');
     window.gapi.load('picker');
+    window.gapi.load('client', () => {
+      window.gapi.client.load('drive', 'v3');
+    });
   }
 
   authoriseApp(callback: Function) {
@@ -90,19 +93,18 @@ export default class UploadBtnGoogleDrive extends Component {
     if (data[window.google.picker.Response.ACTION] === window.google.picker.Action.PICKED) {
       const file = data[window.google.picker.Response.DOCUMENTS][0];
       const id = file[window.google.picker.Document.ID];
-
-      const request = new Request(`https://www.googleapis.com/drive/v3/files/${id}?alt=media`, {
-        headers: new Headers({
-          'Authorization': 'Bearer ' + window.gapi.auth.getToken().access_token
-        })
+      const request = window.gapi.client.drive.files.get({
+        'fileId': id
       });
-
-      fetch(request)
-        .then((response) => {
-          if (response.ok) {
-            onFileSelect(response);
+      request.execute((response) => {
+        onFileSelect({
+          name: response.name,
+          url: `https://www.googleapis.com/drive/v3/files/${id}?alt=media`,
+          headers: {
+            'Authorization': 'Bearer ' + window.gapi.auth.getToken().access_token
           }
         });
+      });
     }
   }
 }
