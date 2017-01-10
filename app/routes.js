@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Route, IndexRoute, IndexRedirect } from 'react-router';
-import DragAndDropPage from './containers/DragAndDropPage';
+import UploadPage from './containers/UploadPage';
 import AnalysingPage from './containers/AnalysingPage';
 
 import ResultsPage from './containers/ResultsPage';
@@ -23,7 +23,7 @@ const App = IS_ELECTRON ? require('./containers/AppElectron') : require('./conta
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={DragAndDropPage} />
+    <IndexRoute component={UploadPage} />
     <Route path="analysing" component={AnalysingPage} />
     <Route path="results" component={ResultsPage}>
       <IndexRedirect to="resistance" />

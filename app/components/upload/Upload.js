@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import styles from './DragAndDrop.css';
+import styles from './Upload.css';
 import * as AnalyserActions from '../../actions/AnalyserActions';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import CircularProgress from './CircularProgress';
+import UploadBtnDropbox from './UploadBtnDropbox';
+import UploadBtnGoogleDrive from './UploadBtnGoogleDrive';
 
-class DragAndDrop extends Component {
+const acceptedExtensions = ['.json', '.bam', '.gz', '.fastq', '.jpg'];
+
+class Upload extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -59,6 +63,11 @@ class DragAndDrop extends Component {
             <button type="button" className={styles.button} onClick={(event) => this.onOpenClick(event)}>
               Browse...
             </button>
+            <UploadBtnDropbox
+              acceptedExtensions={acceptedExtensions}
+              onFileSelect={(file) => this.onFileSelected(file)} />
+            <UploadBtnGoogleDrive
+              onFileSelect={(file) => this.onFileSelected(file)} />
           </div>
           <input
             ref={(ref) => {
@@ -68,7 +77,7 @@ class DragAndDrop extends Component {
               this.fileInputChanged(e);
             }}
             type="file"
-            accept=".json,.bam,.gz,.fastq"
+            accept={acceptedExtensions.join(',')}
             style={{position: 'fixed', top: '-100em'}}
           />
         </div>
@@ -82,6 +91,12 @@ class DragAndDrop extends Component {
         </div>
       </div>
     );
+  }
+
+  onFileSelected(file) {
+    console.log('onFileSelected', file);
+    const {dispatch} = this.props;
+    dispatch(AnalyserActions.analyseFile(file));
   }
 
   onOpenClick(e) {
@@ -114,9 +129,9 @@ function mapStateToProps(state) {
   };
 }
 
-DragAndDrop.propTypes = {
+Upload.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(DragAndDrop);
+export default connect(mapStateToProps)(Upload);
