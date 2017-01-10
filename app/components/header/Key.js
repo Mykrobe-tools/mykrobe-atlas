@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './Key.css';
 import { connect } from 'react-redux';
 import type { Sample } from '../../types/Sample';
+import LoadingIndicator from '../ui/LoadingIndicator';
 // import * as NodeActions from 'actions/NodeActions';
 import * as AnalyserActions from '../../actions/AnalyserActions';
 
@@ -41,7 +42,7 @@ class Key extends Component {
     const {samples} = analyser.transformed;
     for (let sampleKey in samples) {
       const sample: Sample = samples[sampleKey];
-      if (sample.id === nodeId) {
+      if (sample._id === nodeId) {
         return sample;
       }
     }
@@ -54,14 +55,21 @@ class Key extends Component {
     let nodeIds: Array<string> = [];
     for (let sampleKey: string in samples) {
       const sample: Sample = samples[sampleKey];
-      nodeIds.push(sample.id);
+      nodeIds.push(sample._id);
     }
     return nodeIds;
+  }
+
+  getLoadingIndicatorState(): boolean {
+    // check all async actions
+    const {experiments} = this.props;
+    return experiments.isFetching;
   }
 
   render() {
     const {single} = this.props;
     const sampleIds = this.getSampleIds();
+    const displayLoadingIndicator = this.getLoadingIndicatorState();
     let title = '';
     // let action = null;
     if (!sampleIds.length) {
@@ -80,16 +88,19 @@ class Key extends Component {
     if (!single && sampleIds.length > 1) {
       const sample1 = this.getSampleWithId(sampleIds[1]);
       if (sample1) {
-        title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample &middot; <i className="fa fa-circle" style={{color: sample1.colorForTest}} /> {sample1.id} Nearest previous sample</div>;
+        title = <div><i className="fa fa-circle" style={{color: '#f90'}} /> {sample0._id} Your sample &middot; <i className="fa fa-circle" style={{color: '#f90'}} /> {sample1._id} Nearest previous sample</div>;
         // action = <div className={styles.resetButton} onClick={(e) => { this.onRemoveClicked(e) }}><i className="fa fa-times-circle" /> Reset</div>;
       }
     }
     else {
-      title = <div><i className="fa fa-circle" style={{color: sample0.colorForTest}} /> {sample0.id} Your sample</div>;
+      title = <div><i className="fa fa-circle" style={{color: '#f90'}} /> {sample0._id} Your sample</div>;
       // action = <div className={styles.compareButton} onClick={(e) => { this.onAddClicked(e) }}><i className="fa fa-plus-circle" /> Compare</div>;
     }
     return (
       <div className={styles.container}>
+        <div className={styles.loadingIndicator}>
+          <LoadingIndicator isDisplayed={displayLoadingIndicator} />
+        </div>
         <div className={styles.title}>
           {title}
         </div>
@@ -110,6 +121,7 @@ class Key extends Component {
 Key.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
+  experiments: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
   demo: PropTypes.object.isRequired,
   single: PropTypes.bool
@@ -118,6 +130,7 @@ Key.propTypes = {
 function mapStateToProps(state) {
   return {
     analyser: state.analyser,
+    experiments: state.experiments,
     node: state.node,
     demo: state.demo
   };

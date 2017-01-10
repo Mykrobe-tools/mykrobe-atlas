@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import styles from './PhyloCanvasTooltip.css';
 import type { Sample } from '../../types/Sample';
+import moment from 'moment';
 
 class PhyloCanvasTooltip extends Component {
   state: {
@@ -45,13 +46,13 @@ class PhyloCanvasTooltip extends Component {
       <div className={styles.tooltip} style={{left: x, top: y}}>
         <div className={styles.tooltipWrapper}>
           <div className={styles.tooltipContainer}>
-            <div className={styles.marker}><i className="fa fa-circle" style={{color: node.colorForTest}} /></div>
+            <div className={styles.marker}><i className="fa fa-circle" style={{color: '#f90'}} /></div>
             <div className={styles.title}>Sample id</div>
-            <div>{node.id}</div>
+            <div>{node._id}</div>
             <div className={styles.title}>Location</div>
-            <div>{node.locationName}</div>
+            <div>{node.location.name}</div>
             <div className={styles.title}>Date</div>
-            <div>{node.date}</div>
+            <div>{moment(node.collected_at).format('LLL')}</div>
           </div>
         </div>
       </div>

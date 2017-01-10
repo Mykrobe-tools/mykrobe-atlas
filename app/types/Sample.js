@@ -1,12 +1,11 @@
 /* @flow */
 
 export type Sample = {
-  id: string,
-  colorForTest: string,
-  date: string,
-  locationName: string,
-  locationLatLngForTest: {
+  _id: string,
+  collected_at: string,
+  location: {
+    name: string,
     lat: string,
-    lng: string
+    long: string
   }
 };

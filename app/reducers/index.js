@@ -7,6 +7,7 @@ import analyser from './analyser';
 import demo from './demo';
 import metadata from './metadata';
 import notifications from './notifications';
+import experiments from './experiments';
 
 const rootReducer = combineReducers({
   node,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   demo,
   metadata,
   notifications,
+  experiments,
   routing
 });
 

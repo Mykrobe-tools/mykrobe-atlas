@@ -1,6 +1,7 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from './Phylogeny.css';
 import * as NodeActions from '../../actions/NodeActions';
@@ -46,21 +47,21 @@ class Phylogeny extends Component {
   }
 
   nodeIsInSamplesToHighlight(node) {
-    const index = this.getSampleIds().indexOf(node.id);
+    const index = this.getSampleIds().indexOf(node._id);
     return index !== -1;
   }
 
   onNodeMouseOver(node) {
-    const {dispatch} = this.props;
+    const {setNodeHighlighted} = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
-      dispatch(NodeActions.setNodeHighlighted(node.id, true));
+      setNodeHighlighted(node._id, true);
     }
   }
 
   onNodeMouseOut(node) {
-    const {dispatch} = this.props;
+    const {setNodeHighlighted} = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
-      dispatch(NodeActions.setNodeHighlighted(node.id, false));
+      setNodeHighlighted(node._id, false);
     }
   }
 
@@ -158,7 +159,7 @@ class Phylogeny extends Component {
     const {samples} = analyser.transformed;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      if (sample.id === nodeId) {
+      if (sample._id === nodeId) {
         return sample;
       }
     }
@@ -170,7 +171,7 @@ class Phylogeny extends Component {
     let nodeIds = [];
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      nodeIds.push(sample.id);
+      nodeIds.push(sample._id);
     }
     return nodeIds;
   }
@@ -186,19 +187,20 @@ class Phylogeny extends Component {
     if (AUTO_ZOOM_SAMPLES) {
       this.zoomSamples();
     }
+    console.log(this.props.experiments);
   }
 
   updateHighlightedSamples(samples) {
     this._phyloCanvas.resetHighlightedNodes();
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      this._phyloCanvas.highlightNodeWithId(sample.id, sample.colorForTest);
+      this._phyloCanvas.highlightNodeWithId(sample._id, '#f90');
     }
   }
 
   componentWillUnmount() {
-    const {dispatch} = this.props;
-    dispatch(NodeActions.unsetNodeHighlightedAll());
+    const {unsetNodeHighlightedAll} = this.props;
+    unsetNodeHighlightedAll();
   }
 
   static defaultProps = {
@@ -209,15 +211,25 @@ class Phylogeny extends Component {
 function mapStateToProps(state) {
   return {
     analyser: state.analyser,
-    node: state.node
+    node: state.node,
+    experiments: state.experiments
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    setNodeHighlighted: NodeActions.setNodeHighlighted,
+    unsetNodeHighlightedAll: NodeActions.unsetNodeHighlightedAll
+  }, dispatch);
+}
+
 Phylogeny.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
-  controlsInset: PropTypes.number
+  controlsInset: PropTypes.number,
+  experiments: PropTypes.object.isRequired,
+  setNodeHighlighted: PropTypes.func.isRequired,
+  unsetNodeHighlightedAll: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(Phylogeny);
+export default connect(mapStateToProps, mapDispatchToProps)(Phylogeny);
