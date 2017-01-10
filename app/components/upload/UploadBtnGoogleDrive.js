@@ -3,9 +3,8 @@
 import React, { Component, PropTypes } from 'react';
 import loadScript from 'load-script';
 import styles from './Upload.css';
+import config from '../../config';
 
-const CLIENT_ID = '971300101515-nf9vb3c52smc7nudb2cjie7fd21keqj7.apps.googleusercontent.com';
-const DEVELOPER_KEY = 'AIzaSyBNgTFyDmqIn9P-ivtXlTD8nfk6Qgn1TBI';
 const SCOPE = ['https://www.googleapis.com/auth/drive.readonly'];
 const GOOGLE_SDK_URL = 'https://apis.google.com/js/api.js';
 
@@ -51,7 +50,7 @@ export default class UploadBtnGoogleDrive extends Component {
 
   authoriseApp(callback: Function) {
     window.gapi.auth.authorize({
-      client_id: CLIENT_ID,
+      client_id: config.GOOGLE_DRIVE_CLIENT_ID,
       scope: SCOPE,
       immediate: false
     },
@@ -62,7 +61,7 @@ export default class UploadBtnGoogleDrive extends Component {
     const picker = new window.google.picker.PickerBuilder();
     picker.addView(window.google.picker.ViewId.DOCS);
     picker.setOAuthToken(oauthToken);
-    picker.setDeveloperKey(DEVELOPER_KEY);
+    picker.setDeveloperKey(config.GOOGLE_DRIVE_DEVELOPER_KEY);
     picker.setCallback((data) => {
       this.onFileSelect(data);
     });

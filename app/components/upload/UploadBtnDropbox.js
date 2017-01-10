@@ -3,10 +3,10 @@
 import React, { Component, PropTypes } from 'react';
 import loadScript from 'load-script';
 import styles from './Upload.css';
+import config from '../../config';
 
 const DROPBOX_SDK_URL = 'https://www.dropbox.com/static/api/2/dropins.js';
 const SCRIPT_ID = 'dropboxjs';
-const APP_KEY = '0dase5xwg2u4li4';
 
 let isLoading = false;
 
@@ -27,7 +27,7 @@ export default class UploadBtnDropbox extends Component {
       loadScript(DROPBOX_SDK_URL, {
         attrs: {
           id: SCRIPT_ID,
-          'data-app-key': APP_KEY
+          'data-app-key': config.DROPBOX_APP_KEY
         }
       });
     }

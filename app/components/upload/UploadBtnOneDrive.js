@@ -3,9 +3,9 @@
 import React, { Component, PropTypes } from 'react';
 import loadScript from 'load-script';
 import styles from './Upload.css';
+import config from '../../config';
 
 const ONEDRIVE_SDK_URL = 'https://js.live.net/v7.0/OneDrive.js';
-const CLIENT_ID = 'f831d53e-8f2f-4446-8d9b-54f57161cb6e';
 
 let isLoading = false;
 
@@ -37,7 +37,7 @@ export default class UploadBtnOneDrive extends Component {
       return null;
     }
     window.OneDrive.open({
-      clientId: CLIENT_ID,
+      clientId: config.ONEDRIVE_CLIENT_ID,
       action: 'download',
       multiSelect: false,
       openInNewWindow: true,

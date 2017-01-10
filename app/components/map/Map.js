@@ -11,8 +11,7 @@ import * as NodeActions from '../../actions/NodeActions';
 import Key from '../header/Key';
 import MapStyle from './MapStyle';
 import type { Sample } from '../../types/Sample';
-
-const GOOGLE_MAPS_API_KEY = 'AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc';
+import config from '../../config';
 
 class Map extends Component {
   _google: Object;
@@ -23,7 +22,7 @@ class Map extends Component {
 
   constructor(props) {
     super(props);
-    GoogleMapsLoader.KEY = GOOGLE_MAPS_API_KEY;
+    GoogleMapsLoader.KEY = config.GOOGLE_MAPS_API_KEY;
     GoogleMapsLoader.REGION = 'GB';
   }
 

@@ -3,9 +3,9 @@
 import React, { Component, PropTypes } from 'react';
 import loadScript from 'load-script';
 import styles from './Upload.css';
+import config from '../../config';
 
 const BOX_SDK_URL = 'https://cdn01.boxcdn.net/js/static/select.js';
-const CLIENT_ID = 'gjwt1p1esw2pfwcfkswpxfmtpua0ybka';
 
 let isLoading = false;
 let boxSelect;
@@ -30,7 +30,7 @@ export default class UploadBtnBox extends Component {
 
   onApiLoad() {
     const options = {
-      clientId: CLIENT_ID,
+      clientId: config.BOX_CLIENT_ID,
       linkType: 'direct',
       multiselect: 'false'
     };
