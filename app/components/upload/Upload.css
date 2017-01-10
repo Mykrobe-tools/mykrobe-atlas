@@ -16,6 +16,7 @@
   width: 480px;
   height: 480px;
   border-radius: 240px;
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,27 +39,35 @@
   text-align: center;
 }
 
-.buttonContainer {
-  position: absolute;
-  bottom: 64px;
-  left: 64px;
-  right: 64px;
+.buttonTitle {
+  composes: fontSecondary from "css/typography.css";
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .promptIcon {
   background: url(static/drag-and-drop-arrow.svg);
   width: 104px;
   height: 128px;
-  margin-bottom: 64px;
+  margin-bottom: 44px;
 }
 
 .backButton {
   position: absolute;
 }
 
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .button {
   composes: buttonOutline from "css/controls.css";
-  margin: 0 auto;
+  margin: 10px;
 }
 
 .progressTitle {

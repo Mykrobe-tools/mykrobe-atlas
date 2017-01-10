@@ -58,19 +58,19 @@ class Upload extends Component {
       content = (
         <div className={styles.promptContainer}>
           <div className={styles.promptIcon} />
-          <div className={styles.progressStatus}>
-            Drag file here to analyse
+          <div className={styles.buttonTitle}>
+            Drag a file here to analyse it,<br /> or upload a file from:
           </div>
           <div className={styles.buttonContainer}>
             <button type="button" className={styles.button} onClick={(event) => this.onOpenClick(event)}>
-              Browse...
+              Computer
             </button>
             <UploadBtnDropbox
               acceptedExtensions={acceptedExtensions}
               onFileSelect={(file) => this.onFileSelected(file)} />
-            <UploadBtnGoogleDrive
-              onFileSelect={(file) => this.onFileSelected(file)} />
             <UploadBtnBox
+              onFileSelect={(file) => this.onFileSelected(file)} />
+            <UploadBtnGoogleDrive
               onFileSelect={(file) => this.onFileSelected(file)} />
             <UploadBtnOneDrive
               onFileSelect={(file) => this.onFileSelected(file)} />
