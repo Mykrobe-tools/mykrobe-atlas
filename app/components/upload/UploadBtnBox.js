@@ -5,7 +5,7 @@ import loadScript from 'load-script';
 import styles from './Upload.css';
 
 const BOX_SDK_URL = 'https://cdn01.boxcdn.net/js/static/select.js';
-const CLIENT_ID = '';
+const CLIENT_ID = 'gjwt1p1esw2pfwcfkswpxfmtpua0ybka';
 
 let isLoading = false;
 let boxSelect;

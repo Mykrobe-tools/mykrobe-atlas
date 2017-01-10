@@ -7,6 +7,7 @@ import CircularProgress from './CircularProgress';
 import UploadBtnDropbox from './UploadBtnDropbox';
 import UploadBtnGoogleDrive from './UploadBtnGoogleDrive';
 import UploadBtnBox from './UploadBtnBox';
+import UploadBtnOneDrive from './UploadBtnOneDrive';
 
 const acceptedExtensions = ['.json', '.bam', '.gz', '.fastq', '.jpg'];
 
@@ -70,6 +71,8 @@ class Upload extends Component {
             <UploadBtnGoogleDrive
               onFileSelect={(file) => this.onFileSelected(file)} />
             <UploadBtnBox
+              onFileSelect={(file) => this.onFileSelected(file)} />
+            <UploadBtnOneDrive
               onFileSelect={(file) => this.onFileSelected(file)} />
           </div>
           <input
