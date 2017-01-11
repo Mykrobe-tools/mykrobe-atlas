@@ -1,0 +1,66 @@
+/* @flow */
+
+import React, { Component, PropTypes } from 'react';
+import loadScript from 'load-script';
+import styles from './Upload.css';
+import config from '../../config';
+
+const BOX_SDK_URL = 'https://cdn01.boxcdn.net/js/static/select.js';
+
+let isLoading = false;
+let boxSelect;
+
+export default class UploadBtnBox extends Component {
+  render() {
+    return (
+      <button
+        className={styles.button}
+        onClick={(event) => this.onClick(event)}>
+        Box
+      </button>
+    );
+  }
+
+  componentDidMount() {
+    if (!this.isBoxReady() && !isLoading) {
+      isLoading = true;
+      loadScript(BOX_SDK_URL, () => this.onApiLoad());
+    }
+  }
+
+  onApiLoad() {
+    const options = {
+      clientId: config.BOX_CLIENT_ID,
+      linkType: 'direct',
+      multiselect: 'false'
+    };
+    boxSelect = new window.BoxSelect(options);
+    boxSelect.success((files) => {
+      this.onFileSelect(files);
+    });
+  }
+
+  isBoxReady() {
+    return !!window.BoxSelect && !!boxSelect;
+  }
+
+  onClick(e: Event) {
+    e.preventDefault();
+    if (!this.isBoxReady()) {
+      return null;
+    }
+    boxSelect.launchPopup();
+  }
+
+  onFileSelect(files: Array<Object>) {
+    const {onFileSelect} = this.props;
+    onFileSelect({
+      name: files[0].name,
+      url: files[0].url
+    });
+  }
+}
+
+UploadBtnBox.propTypes = {
+  onFileSelect: PropTypes.func.isRequired
+};
