@@ -41,12 +41,6 @@ app.get('/treeplace', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, 'demo', `${prefix}.json`));
 });
 
-// serve api fixtures
-app.get('/api/:endpoint', (req, res, next) => {
-  const {endpoint} = req.params;
-  res.sendFile(path.resolve(__dirname, '../test/_fixtures/api', `${endpoint}.json`));
-});
-
 // serve html
 app.get('*', (req, res, next) => {
   if (req.accepts('html')) {

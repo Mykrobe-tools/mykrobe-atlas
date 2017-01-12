@@ -19,13 +19,3 @@
 .contentContainer {
   composes: containerAbsolute from "css/layout.css";
 }
-
-.dragIndicatorContainer {
-  composes: containerAbsolute from "css/layout.css";
-  pointer-events: none;
-}
-
-.dragIndicatorContainerDragActive {
-  composes: dragIndicatorContainer;
-  border: 12px solid var(--color-grey-mid);
-}

@@ -16,7 +16,7 @@
   width: 480px;
   height: 480px;
   border-radius: 240px;
-  padding: 20px;
+  padding: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +32,6 @@
 
 .progressStatus {
   composes: fontSecondary from "css/typography.css";
-  margin-top: 200px;
   text-align: center;
 }
 
@@ -74,11 +73,12 @@
 }
 
 .dots {
-  composes: containerAbsolute from "css/layout.css";
+  display: flex;
   pointer-events: none;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-bottom: 10px;
 }
 
 .dot {
