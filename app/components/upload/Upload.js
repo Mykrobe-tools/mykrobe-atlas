@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Resumablejs from 'resumablejs';
+import SparkMD5 from 'spark-md5';
 import styles from './Upload.css';
 import { BASE_URL } from '../../constants/APIConstants';
 import * as NotificationActions from '../../actions/NotificationActions';
@@ -27,6 +28,11 @@ class Upload extends Component {
       maxFiles: 1,
       minFileSize: 0,
       fileType: acceptedExtensions,
+      query: (resumableFile, resumableObj) => {
+        return {
+          'checksum': resumableFile.hashes[resumableObj.offset]
+        };
+      },
       maxFilesErrorCallback: () => {
         this.onUploadError('Please upload one file at a time');
       },
@@ -38,7 +44,7 @@ class Upload extends Component {
       this.onUploadError(`There was an error with the upload: ${message}`);
     });
     this.resumable.on('fileAdded', (file) => {
-      this.resumable.upload();
+      this.computeHashes(file);
     });
     this.resumable.on('fileProgress', (file) => {
       this.forceUpdate();
@@ -46,6 +52,47 @@ class Upload extends Component {
     this.resumable.on('fileSuccess', (file) => {
       this.onLocalFileSelected(file);
     });
+  }
+
+  // Calculate md5 checksums
+  // Via: https://github.com/23/resumable.js/issues/135#issuecomment-31123690
+  computeHashes(resumableFile, offset, fileReader) {
+
+    // TODO: update UI while generating hashes
+    // ...
+
+    const round = resumableFile.resumableObj.getOpt('forceChunkSize') ? Math.ceil : Math.floor;
+    const chunkSize = resumableFile.getOpt('chunkSize');
+    const numChunks = Math.max(round(resumableFile.file.size / chunkSize), 1);
+    const forceChunkSize = resumableFile.getOpt('forceChunkSize');
+    const func = (resumableFile.file.slice ? 'slice' : (resumableFile.file.mozSlice ? 'mozSlice' : (resumableFile.file.webkitSlice ? 'webkitSlice' : 'slice')));
+    let startByte;
+    let endByte;
+    let bytes;
+
+    resumableFile.hashes = resumableFile.hashes || [];
+    fileReader = fileReader || new FileReader();
+    offset = offset || 0;
+
+    startByte = offset * chunkSize;
+    endByte = Math.min(resumableFile.file.size, (offset + 1) * chunkSize);
+
+    if (resumableFile.file.size - endByte < chunkSize && !forceChunkSize) {
+      endByte = resumableFile.file.size;
+    }
+    bytes = resumableFile.file[func](startByte, endByte);
+
+    fileReader.onloadend = (e) => {
+      var spark = SparkMD5.ArrayBuffer.hash(e.target.result);
+      resumableFile.hashes.push(spark);
+      if (numChunks > offset + 1) {
+        this.computeHashes(resumableFile, offset + 1, fileReader);
+      }
+      else {
+        this.resumable.upload();
+      }
+    };
+    fileReader.readAsArrayBuffer(bytes);
   }
 
   bindUploader() {

@@ -1,13 +1,13 @@
-const resumablePath = '/tmp/resumable.js/';
-const host = process.env.HOST || 'localhost';
-const port = process.env.PORT || 3001;
-
 const path = require('path');
 const express = require('express');
-const resumable = require('resumablejs/samples/Node.js/resumable-node')(resumablePath);
 const del = require('del');
 const app = express();
 const multipart = require('connect-multiparty');
+
+const host = process.env.HOST || 'localhost';
+const port = process.env.PORT || 3001;
+const resumablePath = path.resolve(__dirname, 'tmp');
+const resumable = require('./resumable-uploader')(resumablePath);
 
 // empty upload temp directory
 del([`${resumablePath}/*`], {force: true}).then(paths => {
@@ -41,7 +41,7 @@ app.post('/api/upload', (req, res) => {
 app.get('/api/upload', (req, res) => {
   resumable.get(req, (status, filename, originalFilename, identifier) => {
     console.log('GET', status);
-    res.send((status === 'found' ? 200 : 204), status);
+    res.status(status === 'found' ? 200 : 204).send(status);
   });
 });
 
@@ -57,7 +57,7 @@ app.get('/api/:endpoint', (req, res, next) => {
 });
 
 // Start dev API server
-const server = app.listen(port, host, (err) => {
+const server = app.listen(port, (err) => {
   if (err) {
     console.error(err);
     return;
