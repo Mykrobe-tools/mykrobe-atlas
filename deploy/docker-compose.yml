@@ -1,4 +1,18 @@
-mykrobe-atlas:
+atlas-client:
+  build: ..
+  dockerfile: ./deploy/ClientDockerfile
+  container_name: atlas-client
+  restart: always
+  ports:
+    - 8080:80
+  environment:
+    - NODE_ENV=production
+    - HOST=0.0.0.0
+    - PORT=80
+  links:
+    - atlas-server:atlas-server
+
+atlas-server:
   build: ..
   dockerfile: ./deploy/ServerDockerfile
   container_name: atlas-server
@@ -8,4 +22,3 @@ mykrobe-atlas:
   environment:
     - NODE_ENV=dev
     - HOST=0.0.0.0
-
