@@ -1,229 +1,209 @@
 // adapted from:
 // https://github.com/23/resumable.js/blob/master/samples/Node.js/resumable-node.js
+//
+// checksum-checking logic added
 
 var fs = require('fs');
 var path = require('path');
 var crypto = require('crypto');
 
-function resumable(temporaryFolder) {
-  var $ = {};
-  $.temporaryFolder = temporaryFolder;
-  $.maxFileSize = null;
-  $.fileParameterName = 'file';
+var uploadDirectory;
+var maxFileSize = null;
+var fileParameterName = 'file';
 
+// set local upload directory
+function setUploadDirectory(uploadDir) {
+  uploadDirectory = uploadDir;
   try {
-    fs.mkdirSync($.temporaryFolder);
+    fs.mkdirSync(uploadDirectory);
   }
   catch (e) {
     // console.log(e);
   }
+}
 
-  var cleanIdentifier = function(identifier) {
-    return identifier.replace(/^0-9A-Za-z_-/img, '');
+// handle get requests
+function get(req) {
+  var chunkNumber = req.query.resumableChunkNumber || 0;
+  var chunkSize = req.query.resumableChunkSize || 0;
+  var totalSize = req.query.resumableTotalSize || 0;
+  var identifier = req.query.resumableIdentifier || '';
+  var filename = req.query.resumableFilename || '';
+  var checksum = req.query.checksum || '';
+
+  var chunkFilename = getChunkFilename(chunkNumber, identifier);
+
+  var status = {
+    valid: true,
+    message: null,
+    filename: chunkFilename,
+    originalFilename: filename,
+    identifier: identifier
   };
 
-  var getChunkFilename = function(chunkNumber, identifier) {
-    // Clean up the identifier
-    identifier = cleanIdentifier(identifier);
-    // What would the file name be?
-    return path.join($.temporaryFolder, './resumable-' + identifier + '.' + chunkNumber);
+  var validation = validateRequest(chunkNumber, chunkSize, totalSize, identifier, filename);
+  if (!validation.valid) {
+    status.valid = validation.valid;
+    status.message = validation.message;
+    return status;
+  }
+
+  if (!fs.existsSync(chunkFilename)) {
+    status.valid = false;
+    status.message = `Chunk ${chunkNumber} not uploaded yet`;
+    return status;
+  }
+
+  var validChecksum = validateChecksum(chunkFilename, checksum);
+  if (!validChecksum) {
+    status.valid = false;
+    status.message = 'Uploaded file checksum doesn\'t match original checksum';
+    return status;
+  }
+
+  return status;
+}
+
+// handle post requests
+function post(req) {
+  var fields = req.body;
+  var files = req.files;
+
+  var chunkNumber = fields.resumableChunkNumber;
+  var chunkSize = fields.resumableChunkSize;
+  var totalSize = fields.resumableTotalSize;
+  var identifier = cleanIdentifier(fields.resumableIdentifier);
+  var filename = fields.resumableFilename;
+  var originalFilename = fields.resumableIdentifier;
+  var checksum = fields.checksum;
+
+  var chunkFilename = getChunkFilename(chunkNumber, identifier);
+
+  var status = {
+    complete: false,
+    message: null,
+    filename: filename,
+    originalFilename: originalFilename,
+    identifier: identifier
   };
 
-  var validateRequest = function(chunkNumber, chunkSize, totalSize, identifier, filename, fileSize) {
-    // Clean up the identifier
-    identifier = cleanIdentifier(identifier);
+  if (!files[fileParameterName] || !files[fileParameterName].size) {
+    status.message = 'Invalid resumable request';
+    return status;
+  }
 
-    // Check if the request is sane
-    if (chunkNumber === 0 || chunkSize === 0 || totalSize === 0 || identifier.length === 0 || filename.length === 0) {
-      return 'non_resumable_request';
-    }
-    var numberOfChunks = Math.max(Math.floor(totalSize / (chunkSize * 1)), 1);
-    if (chunkNumber > numberOfChunks) {
-      return 'invalid_resumable_request1';
-    }
+  var validation = validateRequest(chunkNumber, chunkSize, totalSize, identifier, files[fileParameterName].size);
+  if (!validation.valid) {
+    status.message = validation.message;
+    return status;
+  }
 
-    // Is the file too big?
-    if ($.maxFileSize && totalSize > $.maxFileSize) {
-      return 'invalid_resumable_request2';
-    }
+  var validChecksum = validateChecksum(files[fileParameterName].path, checksum);
+  if (!validChecksum) {
+    status.message = 'Uploaded file checksum doesn\'t match original checksum';
+    return status;
+  }
 
-    if (typeof fileSize !== 'undefined') {
-      if (chunkNumber < numberOfChunks && fileSize !== chunkSize) {
-        // The chunk in the POST request isn't the correct size
-        return 'invalid_resumable_request3';
+  // save uploaded chunk to disk
+  fs.renameSync(files[fileParameterName].path, chunkFilename);
+  status.message = `Chunk ${chunkNumber} uploaded`;
+
+  var currentTestChunk = 1;
+  var numberOfChunks = Math.max(Math.floor(totalSize / (chunkSize * 1.0)), 1);
+
+  function testForUploadCompletion() {
+    var fileName = getChunkFilename(currentTestChunk, identifier);
+    var fileExists = fs.existsSync(fileName);
+    if (fileExists) {
+      currentTestChunk++;
+      if (currentTestChunk > numberOfChunks) {
+        status.complete = true;
+        return status;
       }
-      if (numberOfChunks > 1 && chunkNumber === numberOfChunks && fileSize !== ((totalSize % chunkSize) + chunkSize)) {
-        // The chunks in the POST is the last one, and the fil is not the correct size
-        return 'invalid_resumable_request4';
+      else {
+        return testForUploadCompletion();
       }
-      if (numberOfChunks === 1 && fileSize !== totalSize) {
-        // The file is only a single chunk, and the data size does not fit
-        return 'invalid_resumable_request5';
-      }
-    }
-
-    return 'valid';
-  };
-
-  // 'found', filename, originalFilename, identifier
-  // 'not_found', null, null, null
-  $.get = function(req, callback) {
-    var chunkNumber = req.query.resumableChunkNumber || 0;
-    var chunkSize = req.query.resumableChunkSize || 0;
-    var totalSize = req.query.resumableTotalSize || 0;
-    var identifier = req.query.resumableIdentifier || '';
-    var filename = req.query.resumableFilename || '';
-    var checksum = req.query.checksum || '';
-
-    if (validateRequest(chunkNumber, chunkSize, totalSize, identifier, filename) === 'valid') {
-      var chunkFilename = getChunkFilename(chunkNumber, identifier);
-      fs.exists(chunkFilename, function(exists) {
-        if (exists) {
-          fs.readFile(chunkFilename, function(err, data) {
-            if (!err) {
-              var generatedChecksum = crypto.createHash('md5').update(data).digest('hex');
-              if (generatedChecksum === checksum) {
-                callback('found', chunkFilename, filename, identifier);
-              }
-              else {
-                callback('not_found', null, null, null);
-              }
-            }
-          });
-        }
-        else {
-          callback('not_found', null, null, null);
-        }
-      });
     }
     else {
-      callback('not_found', null, null, null);
+      return status;
     }
+  }
+  return testForUploadCompletion();
+}
+
+function cleanIdentifier(identifier) {
+  return identifier.replace(/^0-9A-Za-z_-/img, '');
+}
+
+function getChunkFilename(chunkNumber, identifier) {
+  identifier = cleanIdentifier(identifier);
+  return path.join(uploadDirectory, `./resumable-${identifier}.${chunkNumber}`);
+}
+
+function validateRequest(chunkNumber, chunkSize, totalSize, identifier, filename, fileSize) {
+  identifier = cleanIdentifier(identifier);
+
+  var validation = {
+    valid: true,
+    message: null
   };
 
-  // 'partly_done', filename, originalFilename, identifier
-  // 'done', filename, originalFilename, identifier
-  // 'invalid_resumable_request', null, null, null
-  // 'non_resumable_request', null, null, null
-  $.post = function(req, callback) {
-    var fields = req.body;
-    var files = req.files;
+  // Validation: Check if the request is sane
+  if (chunkNumber === 0 || chunkSize === 0 || totalSize === 0 || identifier.length === 0 || filename.length === 0) {
+    validation.valid = false;
+    validation.message = 'Non-resumable request';
+    return validation;
+  }
 
-    var chunkNumber = fields['resumableChunkNumber'];
-    var chunkSize = fields['resumableChunkSize'];
-    var totalSize = fields['resumableTotalSize'];
-    var identifier = cleanIdentifier(fields['resumableIdentifier']);
-    var filename = fields['resumableFilename'];
+  // Validation: Incorrect chunk number
+  var numberOfChunks = Math.max(Math.floor(totalSize / (chunkSize * 1)), 1);
+  if (chunkNumber > numberOfChunks) {
+    validation.valid = false;
+    validation.message = 'Incorrect chunk number';
+    return validation;
+  }
 
-    var originalFilename = fields['resumableIdentifier'];
+  // Validation: Is the file too big?
+  if (maxFileSize && totalSize > maxFileSize) {
+    validation.valid = false;
+    validation.message = 'File is larger than max file size';
+    return validation;
+  }
 
-    if (!files[$.fileParameterName] || !files[$.fileParameterName].size) {
-      callback('invalid_resumable_request', null, null, null);
-      return;
+  if (typeof fileSize !== 'undefined') {
+    // Validation: The chunk in the POST request isn't the correct size
+    if (chunkNumber < numberOfChunks && fileSize !== chunkSize) {
+      validation.valid = false;
+      validation.message = 'Incorrect chunk size';
+      return validation;
     }
-    var validation = validateRequest(chunkNumber, chunkSize, totalSize, identifier, files[$.fileParameterName].size);
-    if (validation === 'valid') {
-      var chunkFilename = getChunkFilename(chunkNumber, identifier);
 
-      // TODO: check that the hash of the incoming file matches the hash sent in the params
-      // ...
-
-      // Save the chunk (TODO: OVERWRITE)
-      fs.rename(files[$.fileParameterName].path, chunkFilename, function() {
-        // Do we have all the chunks?
-        var currentTestChunk = 1;
-        var numberOfChunks = Math.max(Math.floor(totalSize / (chunkSize * 1.0)), 1);
-        var testChunkExists = function() {
-          fs.exists(getChunkFilename(currentTestChunk, identifier), function(exists) {
-            if (exists) {
-              currentTestChunk++;
-              if (currentTestChunk > numberOfChunks) {
-                callback('done', filename, originalFilename, identifier);
-              }
-              else {
-                // Recursion
-                testChunkExists();
-              }
-            }
-            else {
-              callback('partly_done', filename, originalFilename, identifier);
-            }
-          });
-        };
-        testChunkExists();
-      });
+    // Validation: The chunks in the POST is the last one, and the fil is not the correct size
+    if (numberOfChunks > 1 && chunkNumber === numberOfChunks && fileSize !== ((totalSize % chunkSize) + chunkSize)) {
+      validation.valid = false;
+      validation.message = 'Incorrect final chunk size';
+      return validation;
     }
-    else {
-      callback(validation, filename, originalFilename, identifier);
+
+    // Validation: The file is only a single chunk, and the data size does not fit
+    if (numberOfChunks === 1 && fileSize !== totalSize) {
+      validation.valid = false;
+      validation.message = 'Incorrect individual chunk size';
+      return validation;
     }
-  };
+  }
 
-  // Pipe chunks directly in to an existsing WritableStream
-  //   r.write(identifier, response);
-  //   r.write(identifier, response, {end:false});
-  //
-  //   var stream = fs.createWriteStream(filename);
-  //   r.write(identifier, stream);
-  //   stream.on('data', function(data){...});
-  //   stream.on('end', function(){...});
-  $.write = function(identifier, writableStream, options) {
-    options = options || {};
-    options.end = (typeof options['end'] === 'undefined' ? true : options['end']);
-
-    // Iterate over each chunk
-    var pipeChunk = function(number) {
-      var chunkFilename = getChunkFilename(number, identifier);
-      fs.exists(chunkFilename, function(exists) {
-        if (exists) {
-          // If the chunk with the current number exists,
-          // then create a ReadStream from the file
-          // and pipe it to the specified writableStream.
-          var sourceStream = fs.createReadStream(chunkFilename);
-          sourceStream.pipe(writableStream, {
-            end: false
-          });
-          sourceStream.on('end', function() {
-            // When the chunk is fully streamed,
-            // jump to the next one
-            pipeChunk(number + 1);
-          });
-        }
-        else {
-          // When all the chunks have been piped, end the stream
-          if (options.end) writableStream.end();
-          if (options.onDone) options.onDone();
-        }
-      });
-    };
-    pipeChunk(1);
-  };
-
-  $.clean = function(identifier, options) {
-    options = options || {};
-
-    // Iterate over each chunk
-    var pipeChunkRm = function(number) {
-      var chunkFilename = getChunkFilename(number, identifier);
-
-      // console.log('removing pipeChunkRm ', number, 'chunkFilename', chunkFilename);
-      fs.exists(chunkFilename, function(exists) {
-        if (exists) {
-          console.log('exist removing ', chunkFilename);
-          fs.unlink(chunkFilename, function(err) {
-            if (options.onError) options.onError(err);
-          });
-
-          pipeChunkRm(number + 1);
-        }
-        else {
-          if (options.onDone) options.onDone();
-        }
-      });
-    };
-    pipeChunkRm(1);
-  };
-
-  return $;
+  return validation;
 };
 
-module.exports = resumable;
+function validateChecksum(filename, checksum) {
+  var fileData = fs.readFileSync(filename);
+  var generatedChecksum = crypto.createHash('md5').update(fileData).digest('hex');
+  return generatedChecksum === checksum;
+}
+
+module.exports = {
+  setUploadDirectory: setUploadDirectory,
+  get: get,
+  post: post
+};

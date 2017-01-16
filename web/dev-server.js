@@ -57,7 +57,7 @@ const server = app.listen(port, host, (err) => {
     return;
   }
 
-  console.log(`Listening at http://${host}:${port}`);
+  console.log(`Dev server listening at http://${host}:${port}`);
 });
 
 process.on('SIGTERM', () => {

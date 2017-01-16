@@ -15,3 +15,14 @@
   stroke: var(--color-grey-light);
   transform-origin: center center;
 }
+
+.foregroundLight {
+  composes: foreground;
+  stroke: var(--color-grey-light);
+  transform-origin: center center;
+}
+
+.foregroundDark {
+  composes: foreground;
+  stroke: var(--color-grey-mid);
+}

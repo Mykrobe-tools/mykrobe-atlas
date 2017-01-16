@@ -3,16 +3,18 @@ const express = require('express');
 const del = require('del');
 const app = express();
 const multipart = require('connect-multiparty');
+const resumable = require('./resumable-uploader');
 
 const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || 3001;
-const resumablePath = path.resolve(__dirname, 'tmp');
-const resumable = require('./resumable-uploader')(resumablePath);
+
+const uploadDirectory = path.resolve(__dirname, 'tmp');
+resumable.setUploadDirectory(uploadDirectory);
 
 // empty upload temp directory
-del([`${resumablePath}/*`], {force: true}).then(paths => {
+del([`${uploadDirectory}/*`], {force: true}).then(paths => {
   if (paths.length > 0) {
-    console.log('Files removed:\n', paths.join('\n'));
+    console.log('Temp files removed:\n', paths.join('\n'));
   }
 });
 
@@ -27,27 +29,20 @@ app.use((req, res, next) => {
 
 // Handle uploads through Resumable.js
 app.post('/api/upload', (req, res) => {
-  resumable.post(req, (status, filename, originalFilename, identifier) => {
-    console.log('POST', status, originalFilename, identifier);
-    res.send(status);
-    if (status === 'done') {
-      // file upload is complete, begin processing
-      // ...
-    }
-  });
+  var postUpload = resumable.post(req);
+  console.log('POST', postUpload);
+  res.send(postUpload.complete);
+  if (postUpload.complete) {
+    // file upload is complete, reassemble original file and process...
+    // ...
+  }
 });
 
 // Handle status checks on chunks through Resumable.js
 app.get('/api/upload', (req, res) => {
-  resumable.get(req, (status, filename, originalFilename, identifier) => {
-    console.log('GET', status);
-    res.status(status === 'found' ? 200 : 204).send(status);
-  });
-});
-
-// Handle access requests to uploaded files
-app.get('/api/download/:identifier', (req, res) => {
-  resumable.write(req.params.identifier, res);
+  var validateGetRequest = resumable.get(req);
+  console.log('GET', validateGetRequest);
+  res.status(validateGetRequest.valid ? 200 : 204).send(validateGetRequest);
 });
 
 // Serve all other api fixtures
@@ -62,7 +57,7 @@ const server = app.listen(port, (err) => {
     console.error(err);
     return;
   }
-  console.log(`Listening at http://${host}:${port}`);
+  console.log(`API dev server listening at http://${host}:${port}`);
 });
 
 // Stop dev API server

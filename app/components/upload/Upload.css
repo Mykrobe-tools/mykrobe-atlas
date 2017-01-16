@@ -3,6 +3,11 @@
   composes: container from "css/layout.css";
 }
 
+.containerDragActive {
+  composes: container;
+  border: 12px solid var(--color-grey-mid);
+}
+
 .contentContainer {
   composes: containerAbsolute from "css/layout.css";
   align-items: center;

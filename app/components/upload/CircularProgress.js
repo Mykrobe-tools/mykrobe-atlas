@@ -6,18 +6,21 @@ import styles from './CircularProgress.css';
 class CircularProgress extends Component {
   static defaultProps: {
     radius: number,
-    percentage: number,
+    lightPercentage: number,
+    darkPercentage: number,
     strokeWidth: number
   };
 
   render() {
-    const percentage = parseInt(this.props.percentage);
+    const lightPercentage = parseInt(this.props.lightPercentage);
+    const darkPercentage = parseInt(this.props.darkPercentage);
     const radius = this.props.radius - this.props.strokeWidth / 2;
     const width = this.props.radius * 2;
     const height = this.props.radius * 2;
     const viewBox = `0 0 ${width} ${height}`;
     const dashArray = radius * Math.PI * 2;
-    const dashOffset = dashArray - dashArray * percentage / 100;
+    const dashOffsetLight = dashArray - dashArray * lightPercentage / 100;
+    const dashOffsetDark = dashArray - dashArray * darkPercentage / 100;
     return (
       <svg
         className={styles.container}
@@ -32,14 +35,25 @@ class CircularProgress extends Component {
           strokeWidth={`${this.props.strokeWidth}px`}
         />
         <circle
-          className={styles.foreground}
+          className={styles.foregroundLight}
           cx={this.props.radius}
           cy={this.props.radius}
           r={radius}
           strokeWidth={`${this.props.strokeWidth}px`}
           style={{
             strokeDasharray: dashArray,
-            strokeDashoffset: dashOffset
+            strokeDashoffset: dashOffsetLight
+          }}
+        />
+        <circle
+          className={styles.foregroundDark}
+          cx={this.props.radius}
+          cy={this.props.radius}
+          r={radius}
+          strokeWidth={`${this.props.strokeWidth}px`}
+          style={{
+            strokeDasharray: dashArray,
+            strokeDashoffset: dashOffsetDark
           }}
         />
       </svg>
@@ -49,13 +63,15 @@ class CircularProgress extends Component {
 
 CircularProgress.propTypes = {
   radius: PropTypes.number,
-  percentage: PropTypes.number,
+  lightPercentage: PropTypes.number,
+  darkPercentage: PropTypes.number,
   strokeWidth: PropTypes.number
 };
 
 CircularProgress.defaultProps = {
   radius: 240,
-  percentage: 50,
+  lightPercentage: 0,
+  darkPercentage: 0,
   strokeWidth: 36
 };
 

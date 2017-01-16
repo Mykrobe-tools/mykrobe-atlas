@@ -21,8 +21,145 @@ class Upload extends Component {
   _uploadButton: Element;
   _dropzone: Element;
   resumable: Object;
+  state: {
+    isDragActive: Boolean,
+    isProcessing: Boolean,
+    isPaused: Boolean,
+    checksumProgress: Number,
+    uploadProgress: Number
+  };
+
+  constructor(props: Object) {
+    super(props);
+    this.state = {
+      isDragActive: false,
+      isProcessing: false,
+      isPaused: false,
+      checksumProgress: 0,
+      uploadProgress: 0
+    };
+  }
 
   componentWillMount() {
+    this.initUploader();
+  }
+
+  componentDidMount() {
+    this.bindUploader();
+  }
+
+  componentDidUpdate() {
+    this.bindUploader();
+  }
+
+  bindUploader() {
+    // only bind the uploader to dom elements if not currently uploading
+    // (upload links will only be rendered if not uploading)
+    if (this._dropzone && this._uploadButton) {
+      this.resumable.assignDrop(this._dropzone);
+      this.resumable.assignBrowse(this._uploadButton);
+    }
+  }
+
+  resetState() {
+    this.setState({
+      isDragActive: false,
+      isProcessing: false,
+      isPaused: false,
+      checksumProgress: 0,
+      uploadProgress: 0
+    });
+  }
+
+  // called when a file has been selected from third-party storage
+  onRemoteFileSelected(file) {
+    const {showNotification} = this.props;
+    console.log('onRemoteFileSelected', file);
+    showNotification({
+      category: NotificationCategories.SUCCESS,
+      content: `File Selected: ${file.name}`,
+      autoHide: true
+    });
+    // const {analyseFile} = this.props;
+    // analyseFile(file);
+  }
+
+  // called when a file has been successfully uploaded locally
+  onLocalFileSelected(file) {
+    const {showNotification} = this.props;
+    console.log('onLocalFileSelected', file);
+    this.resetState();
+    showNotification({
+      category: NotificationCategories.SUCCESS,
+      content: `File Upload Complete: ${file.file.name}`,
+      autoHide: true
+    });
+    // const {analyseFile} = this.props;
+    // analyseFile(file.file);
+  }
+
+  onCancelClick(e) {
+    const {showNotification} = this.props;
+    console.log('onCancelClick');
+    this.resumable.cancel();
+    this.resetState();
+    showNotification({
+      category: NotificationCategories.MESSAGE,
+      content: 'The upload was cancelled',
+      autoHide: true
+    });
+  }
+
+  onPauseClick(e) {
+    console.log('onPauseClick');
+    this.resumable.pause();
+    this.setState({
+      isPaused: true
+    });
+  }
+
+  onResumeClick(e) {
+    console.log('onResumeClick');
+    this.resumable.upload();
+    this.setState({
+      isPaused: false
+    });
+  }
+
+  onFileAdded(file: File) {
+    this.setState({
+      isProcessing: true,
+      isDragActive: false
+    });
+    this.computeChecksums(file);
+  }
+
+  onUploadProgress() {
+    const uploadProgress = Math.floor(this.resumable.progress() * 100);
+    this.setState({uploadProgress});
+  }
+
+  onUploadError(error: String) {
+    const {showNotification} = this.props;
+    showNotification({
+      category: NotificationCategories.ERROR,
+      content: error
+    });
+  }
+
+  onDragOver() {
+    this.setState({
+      isDragActive: true
+    });
+  }
+
+  onDragLeave() {
+    this.setState({
+      isDragActive: false
+    });
+  }
+
+  initUploader() {
     this.resumable = new Resumablejs({
       target: `${BASE_URL}/api/upload`,
       maxFiles: 1,
@@ -44,22 +181,25 @@ class Upload extends Component {
       this.onUploadError(`There was an error with the upload: ${message}`);
     });
     this.resumable.on('fileAdded', (file) => {
-      this.computeHashes(file);
+      this.onFileAdded(file);
     });
     this.resumable.on('fileProgress', (file) => {
-      this.forceUpdate();
+      this.onUploadProgress();
     });
     this.resumable.on('fileSuccess', (file) => {
       this.onLocalFileSelected(file);
     });
   }
 
-  // Calculate md5 checksums
-  // Via: https://github.com/23/resumable.js/issues/135#issuecomment-31123690
-  computeHashes(resumableFile, offset, fileReader) {
+  startUpload() {
+    this.resumable.upload();
+  }
 
-    // TODO: update UI while generating hashes
-    // ...
+  // Calculate md5 checksums for each chunk
+  // Adapted from: https://github.com/23/resumable.js/issues/135#issuecomment-31123690
+  computeChecksums(resumableFile, offset, fileReader) {
+    const {isProcessing} = this.state;
+    if (!isProcessing) return;
 
     const round = resumableFile.resumableObj.getOpt('forceChunkSize') ? Math.ceil : Math.floor;
     const chunkSize = resumableFile.getOpt('chunkSize');
@@ -82,112 +222,52 @@ class Upload extends Component {
     }
     bytes = resumableFile.file[func](startByte, endByte);
 
+    const checksumProgress = Math.ceil((offset / numChunks) * 100);
+    this.setState({checksumProgress});
+
     fileReader.onloadend = (e) => {
       var spark = SparkMD5.ArrayBuffer.hash(e.target.result);
       resumableFile.hashes.push(spark);
       if (numChunks > offset + 1) {
-        this.computeHashes(resumableFile, offset + 1, fileReader);
+        this.computeChecksums(resumableFile, offset + 1, fileReader);
       }
       else {
-        this.resumable.upload();
+        this.startUpload();
       }
     };
     fileReader.readAsArrayBuffer(bytes);
   }
 
-  bindUploader() {
-    if (this._dropzone && this._uploadButton) {
-      this.resumable.assignDrop(this._dropzone);
-      this.resumable.assignBrowse(this._uploadButton);
-    }
-  }
-
-  componentDidMount() {
-    this.bindUploader();
-  }
-
-  componentDidUpdate() {
-    this.bindUploader();
-  }
-
-  onRemoteFileSelected(file) {
-    const {showNotification} = this.props;
-    console.log('onRemoteFileSelected', file);
-    showNotification({
-      category: NotificationCategories.SUCCESS,
-      content: `File Selected: ${file.name}`,
-      autoHide: true
-    });
-    // const {analyseFile} = this.props;
-    // analyseFile(file);
-  }
-
-  onLocalFileSelected(file) {
-    const {showNotification} = this.props;
-    console.log('onLocalFileSelected', file);
-    showNotification({
-      category: NotificationCategories.SUCCESS,
-      content: `File Upload Complete: ${file.file.name}`,
-      autoHide: true
-    });
-    // const {analyseFile} = this.props;
-    // analyseFile(file.file);
-  }
-
-  onCancelClick(e) {
-    const {showNotification} = this.props;
-    console.log('onCancelClick');
-    this.resumable.cancel();
-    showNotification({
-      category: NotificationCategories.MESSAGE,
-      content: 'The upload was cancelled',
-      autoHide: true
-    });
-  }
-
-  onPauseClick(e) {
-    console.log('onPauseClick');
-    this.resumable.pause();
-  }
-
-  onResumeClick(e) {
-    console.log('onResumeClick');
-    this.resumable.upload();
-  }
-
-  onUploadError(error: String) {
-    const {showNotification} = this.props;
-    showNotification({
-      category: NotificationCategories.ERROR,
-      content: error
-    });
-  }
-
   render() {
     let content;
-    const progress = Math.floor(this.resumable.progress() * 100);
-    const isUploading = this.resumable.isUploading();
-    if (isUploading || (progress !== 0 && progress !== 100)) {
+    const {isDragActive, isProcessing, isPaused, uploadProgress, checksumProgress} = this.state;
+    if (isProcessing) {
       this._uploadButton = null;
       this._dropzone = null;
       content = (
         <div className={styles.promptContainer}>
           <div className={styles.progressTitle}>
-            {progress}%
+            {checksumProgress < 100 ? checksumProgress : uploadProgress}%
           </div>
-          <CircularProgress percentage={progress} />
+          <p className={styles.progressStatus}>
+            {checksumProgress < 100 ? 'Processing' : 'Uploading'}
+          </p>
+          <CircularProgress lightPercentage={checksumProgress} darkPercentage={uploadProgress} />
           <div className={styles.dots}>
             <div className={styles.dotOne} />
             <div className={styles.dotTwo} />
             <div className={styles.dotThree} />
           </div>
           <div className={styles.buttonContainer}>
-            {isUploading &&
-              <button type="button" className={styles.button} onClick={event => this.onPauseClick(event)}>
+            {!isPaused &&
+              <button type="button"
+                className={styles.button}
+                onClick={event => this.onPauseClick(event)}
+                disabled={checksumProgress < 100}>
                 Pause
               </button>
             }
-            {!isUploading &&
+            {isPaused &&
               <button type="button" className={styles.button} onClick={event => this.onResumeClick(event)}>
                 Resume
               </button>
@@ -233,7 +313,13 @@ class Upload extends Component {
     }
     return (
       <div
-        className={styles.container}
+        className={isDragActive ? styles.containerDragActive : styles.container}
+        onDragOver={(e) => {
+          this.onDragOver(e);
+        }}
+        onDragLeave={(e) => {
+          this.onDragLeave(e);
+        }}
         ref={(ref) => {
           this._dropzone = ref;
         }}>
