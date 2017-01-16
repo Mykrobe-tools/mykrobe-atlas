@@ -1,0 +1,11 @@
+mykrobe-atlas:
+  build: ..
+  dockerfile: ./deploy/ServerDockerfile
+  container_name: atlas-server
+  restart: always
+  ports:
+    - 3000:3000
+  environment:
+    - NODE_ENV=dev
+    - HOST=0.0.0.0
+
