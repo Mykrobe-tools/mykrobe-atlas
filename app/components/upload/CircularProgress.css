@@ -19,7 +19,6 @@
 .foregroundLight {
   composes: foreground;
   stroke: var(--color-grey-light);
-  transform-origin: center center;
 }
 
 .foregroundDark {
