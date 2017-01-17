@@ -88,14 +88,14 @@ class Upload extends Component {
   onLocalFileSelected(file) {
     const {showNotification} = this.props;
     console.log('onLocalFileSelected', file);
-    this.resetState();
     showNotification({
       category: NotificationCategories.SUCCESS,
       content: `File Upload Complete: ${file.file.name}`,
       autoHide: true
     });
-    // const {analyseFile} = this.props;
-    // analyseFile(file.file);
+    this.setState({uploadProgress: 100});
+    const {analyseFile} = this.props;
+    analyseFile(file.file);
   }
 
   onCancelClick(e) {
@@ -232,6 +232,7 @@ class Upload extends Component {
         this.computeChecksums(resumableFile, offset + 1, fileReader);
       }
       else {
+        this.setState({checksumProgress: 100});
         this.startUpload();
       }
     };

@@ -1,10 +1,11 @@
 const path = require('path');
 const express = require('express');
 const del = require('del');
-const app = express();
 const multipart = require('connect-multiparty');
+const proxy = require('express-http-proxy');
 const resumable = require('./resumable-uploader');
 
+const app = express();
 const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || 3001;
 
@@ -50,6 +51,13 @@ app.get('/api/:endpoint', (req, res, next) => {
   const {endpoint} = req.params;
   res.sendFile(path.resolve(__dirname, '../test/_fixtures/api', `${endpoint}.json`));
 });
+
+// Pass through any specific requests to the external API
+app.use('/treeplace', proxy('13.69.243.89:8000', {
+  forwardPath: (req, res) => {
+    return `/treeplace${require('url').parse(req.url).path.substr(1)}`;
+  }
+}));
 
 // Start dev API server
 const server = app.listen(port, (err) => {

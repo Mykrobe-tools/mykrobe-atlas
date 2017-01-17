@@ -9,10 +9,12 @@ import {showNotification} from './NotificationActions';
 
 const MykrobeService = IS_ELECTRON ? require('../api/MykrobeServiceElectron') : require('../api/MykrobeService');
 
+let analyser;
+
 export function analyseFile(file: File) {
   return (dispatch: Function, getState: Function) => {
-    if (this.analyser) {
-      this.analyser.cancel();
+    if (analyser) {
+      analyser.cancel();
     }
 
     dispatch(push('/'));
@@ -33,7 +35,7 @@ export function analyseFile(file: File) {
     // $FlowFixMe: Ignore missing require().default
     const service = new MykrobeService();
 
-    this.analyser = service.analyseFile(file)
+    analyser = service.analyseFile(file)
       .on('progress', (progress) => {
         // console.log('progress', progress)
         const percent = Math.round(100 * progress.progress / progress.total);
@@ -59,9 +61,9 @@ export function analyseFile(file: File) {
 
 export function analyseFileCancel() {
   return (dispatch: Function, getState: Function) => {
-    if (this.analyser) {
-      this.analyser.cancel();
-      delete this.analyser;
+    if (analyser) {
+      analyser.cancel();
+      analyser = null;
     }
     dispatch(push('/'));
     dispatch({

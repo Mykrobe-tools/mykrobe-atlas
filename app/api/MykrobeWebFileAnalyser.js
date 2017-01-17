@@ -3,8 +3,6 @@
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 import { BASE_URL } from '../constants/APIConstants';
 
-const IMMEDIATE_FETCH = true;
-
 class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
   _progress: number;
   _timeout: number;
@@ -15,30 +13,8 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
     console.log('analyseBinaryFile', file);
     console.error('TODO: upload file to API and report progress');
     this._progress = 0;
-    this.demoUpdateProgress();
-    if (IMMEDIATE_FETCH) {
-      this.fetchDemoData();
-    }
+    this.fetchDemoData();
     return this;
-  }
-
-  demoUpdateProgress() {
-    this._timeout && clearTimeout(this._timeout);
-    this._progress++;
-    this.emit('progress', {
-      progress: this._progress,
-      total: 100
-    });
-    if (this._progress === 100) {
-      this._timeout = setTimeout(() => {
-        this.demoFinishAnalysing();
-      }, 3000);
-    }
-    else {
-      this._timeout = setTimeout(() => {
-        this.demoUpdateProgress();
-      }, 100);
-    }
   }
 
   fetchDemoData() {
@@ -54,12 +30,6 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
           this.failWithError(response.statusText);
         }
       });
-  }
-
-  demoFinishAnalysing() {
-    if (!IMMEDIATE_FETCH) {
-      this.fetchDemoData();
-    }
   }
 
   cancel(): void {
