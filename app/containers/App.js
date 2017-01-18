@@ -4,12 +4,31 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './App.css';
 import Header from '../components/header/Header';
+import Menu from '../components/menu/Menu';
 import Notifications from '../components/notifications/Notifications';
 
 class App extends Component {
+  state = {
+    displayMenu: Boolean
+  };
+
+  constructor(props: Object) {
+    super(props);
+    this.state = {
+      displayMenu: false
+    };
+  }
+
+  toggleMenu() {
+    const {displayMenu} = this.state;
+    this.setState({
+      displayMenu: !displayMenu
+    });
+  }
 
   render() {
     const {children, notifications} = this.props;
+    const {displayMenu} = this.state;
 
     return (
       <div className={styles.container}>
@@ -19,7 +38,10 @@ class App extends Component {
           }
         </div>
         <div className={styles.headerContainer}>
-          <Header />
+          <Header toggleMenu={() => this.toggleMenu()} />
+        </div>
+        <div className={styles.menuContainer}>
+          <Menu displayMenu={displayMenu} />
         </div>
         <div className={styles.contentContainer}>
           {children}

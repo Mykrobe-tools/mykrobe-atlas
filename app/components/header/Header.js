@@ -1,23 +1,23 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import styles from './Header.css';
-import MykrobeConfig from '../../api/MykrobeConfig';
 
 class Header extends Component {
-  mykrobeConfig: MykrobeConfig;
-
-  constructor() {
-    super();
-    this.mykrobeConfig = new MykrobeConfig();
+  onMenuToggleClick(e: Event) {
+    const {toggleMenu} = this.props;
+    e.preventDefault();
+    toggleMenu();
   }
 
   render() {
-    const logoClassName = `${this.mykrobeConfig.targetName}-logo`;
     return (
       <div className={styles.container}>
-        <div className={styles[logoClassName]} />
+        <div className={styles.menuToggle}>
+          <a href="#" onClick={(e) => this.onMenuToggleClick(e)}>
+            <i className="fa fa-bars" />
+          </a>
+        </div>
         <div className={styles.account}>
           <i className="fa fa-user" /> Sign in &middot; Register
         </div>
@@ -26,15 +26,8 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser
-  };
-}
-
 Header.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired
+  toggleMenu: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(Header);
+export default Header;

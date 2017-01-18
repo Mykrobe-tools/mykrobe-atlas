@@ -16,6 +16,10 @@
   composes: containerAbsolute from "css/layout.css";
 }
 
+.menuContainer {
+  position: relative;
+}
+
 .contentContainer {
   composes: containerAbsolute from "css/layout.css";
 }
