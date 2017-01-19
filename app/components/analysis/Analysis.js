@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
-import styles from './Map.css';
+import styles from './Analysis.css';
 import GoogleMapsLoader from 'google-maps';
 import Phylogeny from '../phylogeny/Phylogeny';
 import { connect } from 'react-redux';
@@ -13,7 +13,7 @@ import MapStyle from './MapStyle';
 import type { Sample } from '../../types/Sample';
 import config from '../../config';
 
-class Map extends Component {
+class Analysis extends Component {
   _google: Object;
   _map: Object;
   _mapDiv: Object;
@@ -179,11 +179,11 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-Map.propTypes = {
+Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
   experiments: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(Analysis);

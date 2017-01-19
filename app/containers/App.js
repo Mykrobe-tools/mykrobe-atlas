@@ -3,6 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './App.css';
+import Analysing from '../components/analysing/Analysing';
 import Header from '../components/header/Header';
 import Menu from '../components/menu/Menu';
 import Notifications from '../components/notifications/Notifications';
@@ -27,15 +28,16 @@ class App extends Component {
   }
 
   render() {
-    const {children, notifications} = this.props;
+    const {children} = this.props;
     const {displayMenu} = this.state;
 
     return (
       <div className={styles.container}>
+        <div className={styles.analysingContainer}>
+          <Analysing />
+        </div>
         <div className={styles.notificationsContainer}>
-          {notifications &&
-            <Notifications notifications={notifications} />
-          }
+          <Notifications />
         </div>
         <div className={styles.headerContainer}>
           <Header toggleMenu={() => this.toggleMenu()} />
@@ -53,13 +55,11 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    notifications: state.notifications
   };
 }
 
 App.propTypes = {
-  children: PropTypes.element.isRequired,
-  notifications: PropTypes.array.isRequired
+  children: PropTypes.element.isRequired
 };
 
 export default connect(mapStateToProps)(App);
