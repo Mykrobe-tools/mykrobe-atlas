@@ -1,0 +1,22 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableCell {
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--color-grey-mid);
+}
+
+.tableHeading {
+  composes: tableCell;
+  background: var(--color-grey-light);
+}
+
+.tableData {
+  composes: tableCell;
+}
+
+.experimentLink {
+  color: var(--color-tint-primary);
+}

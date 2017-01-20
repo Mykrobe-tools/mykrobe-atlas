@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import styles from './Summary.css';
 import ResistanceProfile from '../resistance/ResistanceProfile';
 import Panel from '../ui/Panel';
-import Key from '../header/Key';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';
 
@@ -12,7 +11,6 @@ class Summary extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <Key single />
         <div className={styles.title}>
           Summary report for sample :sampleid:
         </div>

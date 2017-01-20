@@ -2,6 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import styles from './App.css';
 import Analysing from '../components/analysing/Analysing';
 import Header from '../components/header/Header';
@@ -18,6 +19,14 @@ class App extends Component {
     this.state = {
       displayMenu: false
     };
+  }
+
+  componentDidMount() {
+    browserHistory.listen(location => {
+      this.setState({
+        displayMenu: false
+      });
+    });
   }
 
   toggleMenu() {

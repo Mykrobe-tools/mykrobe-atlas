@@ -27,7 +27,9 @@ export function fetchExperiments(filters: Object = {}) {
       .then(response => {
         if (response.ok) {
           return response.json().then((data) => {
-            dispatch(receiveExperiments(data));
+            setTimeout(() => {
+              dispatch(receiveExperiments(data));
+            }, 3000);
           });
         }
         else {

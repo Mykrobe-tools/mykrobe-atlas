@@ -1,23 +1,35 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import styles from './Menu.css';
-import MykrobeConfig from '../../api/MykrobeConfig';
+import Logo from '../logo/Logo';
 
 class Menu extends Component {
-  mykrobeConfig: MykrobeConfig;
-
-  constructor(props: Object) {
-    super(props);
-    this.mykrobeConfig = new MykrobeConfig();
-  }
-
   render() {
     const {displayMenu} = this.props;
-    const logoClassName = `${this.mykrobeConfig.targetName}-logo`;
     return (
       <div className={displayMenu ? styles.containerDisplayed : styles.container}>
-        <div className={styles[logoClassName]} />
+        <div className={styles.logo}>
+          <Logo />
+        </div>
+        <ul className={styles.navigation}>
+          <li className={styles.navigationItem}>
+            <Link to="/" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Home</Link>
+          </li>
+          <li className={styles.navigationItem}>
+            <Link to="/library" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Library</Link>
+          </li>
+          <li className={styles.navigationItem}>
+            <Link to="/comparisons" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Comparisons</Link>
+          </li>
+          <li className={styles.navigationItem}>
+            <Link to="/about" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>About</Link>
+          </li>
+          <li className={styles.navigationItem}>
+            <Link to="/contact" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Contact</Link>
+          </li>
+        </ul>
       </div>
     );
   }

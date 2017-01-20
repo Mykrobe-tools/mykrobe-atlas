@@ -1,7 +1,6 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import Key from '../header/Key';
 import styles from './Metadata.css';
 
 import MetadataForm from './MetadataForm';
@@ -11,7 +10,6 @@ class Metadata extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <Key single />
         <div className={styles.formContainer}>
           <div className={styles.formHeader}>
             <div className={styles.formHeaderTitle}>
@@ -19,7 +17,7 @@ class Metadata extends Component {
             </div>
             <div className={styles.formHeaderActions}>
               <div className={styles.formHeaderAction}>
-                Open template
+                Edit
               </div>
             </div>
           </div>

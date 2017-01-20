@@ -3,6 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './Upload.css';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
+import Logo from '../logo/Logo';
 import UploadBtnDropbox from './UploadBtnDropbox';
 import UploadBtnGoogleDrive from './UploadBtnGoogleDrive';
 import UploadBtnBox from './UploadBtnBox';
@@ -61,11 +62,12 @@ class Upload extends Component {
         }}>
         <AnimatedBackground />
         <div className={styles.contentContainer}>
-          <div className={styles.promptContainer}>
-            <div className={styles.promptIcon} />
-            <div className={styles.buttonTitle}>
-              {uploader.isSupported() && <span>Drag a file here to analyse it,<br /> or </span>}
-              upload a file from:
+          <div className={styles.content}>
+            <div className={styles.logo}>
+              <Logo />
+            </div>
+            <div className={styles.title}>
+              Outbreak and resistance analysis in minutes
             </div>
             <div className={styles.buttonContainer}>
               {uploader.isSupported() &&

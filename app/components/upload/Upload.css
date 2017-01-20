@@ -15,7 +15,7 @@
   flex-direction: column;
 }
 
-.promptContainer {
+.content {
   position: relative;
   background-color: white;
   width: 480px;
@@ -28,33 +28,15 @@
   flex-direction: column;
 }
 
-.progressTextContainer {
-  composes: containerAbsolute from "css/layout.css";
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
+.logo {
+  margin-bottom: 30px;
 }
 
-.progressStatus {
-  composes: fontSecondary from "css/typography.css";
+.title {
+  composes: fontPrimary from "css/typography.css";
+  composes: fontSizeLarge from "css/typography.css";
   text-align: center;
-}
-
-.buttonTitle {
-  composes: fontSecondary from "css/typography.css";
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.promptIcon {
-  background: url(static/drag-and-drop-arrow.svg);
-  width: 104px;
-  height: 128px;
-  margin-bottom: 44px;
-}
-
-.backButton {
-  position: absolute;
+  margin-bottom: 30px;
 }
 
 .buttonContainer {
@@ -70,68 +52,3 @@
   composes: buttonOutline from "css/controls.css";
   margin: 10px;
 }
-
-.progressTitle {
-  composes: fontSecondary from "css/typography.css";
-  font-size: 96px;
-  color: var(--color-grey-light);
-}
-
-.dots {
-  display: flex;
-  pointer-events: none;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.dot {
-  opacity: 0;
-  border-radius: 500px;
-  width: 48px;
-  height: 48px;
-  margin: 12px;
-  background-color: var(--color-grey-light);
-  animation-timing-function: ease-in;
-}
-
-.dotOne {
-  composes: dot;
-  animation: dotone 1.2s infinite;
-}
-
-.dotTwo {
-  composes: dot;
-  animation: dottwo 1.2s infinite;
-}
-
-.dotThree {
-  composes: dot;
-  animation: dotthree 1.2s infinite;
-}
-
-/* stylelint-disable indentation  */
-
-@keyframes dotone {
-    0% { opacity: 0; }
-   20% { opacity: 0; }
-   60% { opacity: 1; }
-  100% { opacity: 1; }
-}
-
-@keyframes dottwo {
-    0% { opacity: 0; }
-   30% { opacity: 0; }
-   70% { opacity: 1; }
-  100% { opacity: 1; }
-}
-
-@keyframes dotthree {
-    0% { opacity: 0; }
-   40% { opacity: 0; }
-   80% { opacity: 1; }
-  100% { opacity: 1; }
-}
-
-/* stylelint-enable indentation  */

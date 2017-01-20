@@ -11,6 +11,9 @@ class Sample extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.header}>
+          <h1 className={styles.title}>
+            Name of sample
+          </h1>
           <div className={styles.navigation}>
             <Link to="/sample/metadata" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Metadata</Link>
             <Link to="/sample/resistance" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Resistance</Link>

@@ -4,7 +4,6 @@ import { push } from 'react-router-redux';
 
 import * as ActionTypes from '../constants/ActionTypes';
 import * as NotificationCategories from '../constants/NotificationCategories';
-// import {fetchExperiments} from './ExperimentActions';
 import {showNotification} from './NotificationActions';
 
 const MykrobeService = IS_ELECTRON ? require('../api/MykrobeServiceElectron') : require('../api/MykrobeService');
@@ -68,7 +67,6 @@ function analyseFileProcess(file: File) {
       })
       .on('done', (result) => {
         const {json, transformed} = result;
-        // dispatch(fetchExperiments());
         dispatch(analyseFileSuccess(json, transformed));
       })
       .on('error', (error) => {

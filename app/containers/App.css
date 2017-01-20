@@ -5,25 +5,30 @@
 }
 
 .notificationsContainer {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 2;
+  composes: containerAbsolute from "css/layout.css";
+  bottom: auto;
+  z-index: 5;
 }
 
 .analysingContainer {
   composes: containerAbsolute from "css/layout.css";
+  bottom: auto;
+  z-index: 4;
 }
 
 .headerContainer {
   composes: containerAbsolute from "css/layout.css";
+  bottom: auto;
+  z-index: 3;
 }
 
 .menuContainer {
-  position: relative;
+  composes: containerAbsolute from "css/layout.css";
+  right: auto;
+  z-index: 2;
 }
 
 .contentContainer {
   composes: containerAbsolute from "css/layout.css";
+  z-index: 1;
 }

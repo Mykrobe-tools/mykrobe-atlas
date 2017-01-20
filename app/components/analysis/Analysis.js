@@ -8,7 +8,6 @@ import Phylogeny from '../phylogeny/Phylogeny';
 import { connect } from 'react-redux';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
 import * as NodeActions from '../../actions/NodeActions';
-import Key from '../header/Key';
 import MapStyle from './MapStyle';
 import type { Sample } from '../../types/Sample';
 import config from '../../config';
@@ -148,7 +147,6 @@ class Analysis extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <Key />
         <div className={styles.mapAndPhylogenyContainer}>
           <div className={styles.mapContainer}>
             <div ref={(ref) => {

@@ -2,10 +2,10 @@
   composes: container from "css/layout.css";
   width: 200px;
   height: 100%;
-  background: var(--color-grey-light);
-  padding: 20px;
+  background: white;
+  flex-direction: column;
   transform: translateX(-200px);
-  transition: translateX 0.3s;
+  transition: transform 0.3s;
 }
 
 .containerDisplayed {
@@ -13,34 +13,30 @@
   transform: translateX(0);
 }
 
-.predictor-enterics-logo {
-  width: 211px;
-  height: 60px;
-  background: url(static/predictor-enterics-logo.svg);
-  background-size: contain;
-  background-repeat: no-repeat;
+.logo {
+  padding: 20px;
 }
 
-.predictor-s-aureus-logo {
-  width: 185px;
-  height: 60px;
-  background: url(static/predictor-s-aureus-logo.svg);
-  background-size: contain;
-  background-repeat: no-repeat;
+.navigation {
+  margin: 20px 0 0 20px;
+  padding: 0;
+  border-bottom: 1px solid var(--color-grey-mid);
 }
 
-.predictor-tb-logo {
-  width: 184px;
-  height: 60px;
-  background: url(static/predictor-tb-logo.svg);
-  background-size: contain;
-  background-repeat: no-repeat;
+.navigationItem {
+  border-top: 1px solid var(--color-grey-mid);
+  list-style: none;
 }
 
-.atlas-tb-logo {
-  width: 133px;
-  height: 60px;
-  background: url(static/atlas-tb-logo.svg);
-  background-size: contain;
-  background-repeat: no-repeat;
+.navigationLink {
+  composes: fontSecondary from "css/typography.css";
+  composes: fontSecondarySizeSmall from "css/typography.css";
+  display: block;
+  padding: 10px 0;
+  color: var(--color-grey-dark);
+}
+
+.navigationLinkActive {
+  composes: navigationLink;
+  color: var(--color-app-blue);
 }

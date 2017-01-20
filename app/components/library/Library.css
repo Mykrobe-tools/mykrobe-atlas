@@ -17,20 +17,12 @@
   text-align: center;
 }
 
-.navigation {
-  align-self: flex-end;
-  display: flex;
-  padding-bottom: 20px;
+.content {
+  background: white;
+  padding: 30px;
+  flex: 1;
 }
 
-.navigationItem {
-  composes: button from "css/controls.css";
-  background: none;
-  color: var(--color-tint-primary);
-}
-
-.navigationItemActive {
-  composes: navigationItem;
-  color: white;
-  background-color: var(--color-tint-primary);
+.experimentsHeader {
+  margin-bottom: 20px;
 }
