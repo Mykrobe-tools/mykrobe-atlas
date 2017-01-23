@@ -8,22 +8,44 @@ import styles from './ExperimentsTable.css';
 class ExperimentsTable extends Component {
   render() {
     const {experiments} = this.props;
-    const tableItems = experiments.map((experiment) =>
-      <tr key={experiment._id}>
-        <td className={styles.tableData}>
-          {/*
-            <Link to={`/sample/${experiment._id}`} className={styles.experimentLink}>
-          */}
-          {experiment.sample}
-          {/*
-          </Link>
-          */}
-        </td>
-        <td className={styles.tableData}>{experiment.uploaded_by}</td>
-        <td className={styles.tableData}>{moment().to(experiment.collected_at)}</td>
-        <td className={styles.tableData}>{experiment.location.name}</td>
-      </tr>
-    );
+    let tableContent;
+
+    if (experiments.isFetching) {
+      tableContent = (
+        <tr>
+          <td className={styles.tableData} colSpan="4">
+            <i className="fa fa-cog fa-spin" /> Fetching results
+          </td>
+        </tr>
+      );
+    }
+    else if (experiments.samples.length === 0) {
+      tableContent = (
+        <tr>
+          <td className={styles.tableData} colSpan="4">
+            No results found
+          </td>
+        </tr>
+      );
+    }
+    else {
+      tableContent = experiments.samples.map((experiment) =>
+        <tr key={experiment._id}>
+          <td className={styles.tableData}>
+            {/*
+              <Link to={`/sample/${experiment._id}`} className={styles.experimentLink}>
+            */}
+            {experiment.sample}
+            {/*
+            </Link>
+            */}
+          </td>
+          <td className={styles.tableData}>{experiment.uploaded_by}</td>
+          <td className={styles.tableData}>{moment().to(experiment.collected_at)}</td>
+          <td className={styles.tableData}>{experiment.location.name}</td>
+        </tr>
+      );
+    }
     return (
       <table className={styles.table}>
         <thead>
@@ -35,7 +57,7 @@ class ExperimentsTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {tableItems}
+          {tableContent}
         </tbody>
       </table>
     );
@@ -43,7 +65,7 @@ class ExperimentsTable extends Component {
 }
 
 ExperimentsTable.propTypes = {
-  experiments: PropTypes.array
+  experiments: PropTypes.object.isRequired
 };
 
 export default ExperimentsTable;

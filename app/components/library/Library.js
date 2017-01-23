@@ -16,28 +16,14 @@ class Library extends Component {
           </h1>
         </div>
         <div className={styles.content}>
-          {experiments.isFetching &&
-            <div className={styles.loading}>
-              Fetching experiments...
+          <div className={styles.experiments}>
+            <div className={styles.experimentsHeader}>
+              <ExperimentsHeader />
             </div>
-          }
-          {!experiments.isFetching &&
-            <div className={styles.experiments}>
-              <div className={styles.experimentsHeader}>
-                <ExperimentsHeader />
-              </div>
-              <div className={styles.experimentsBody}>
-                {experiments.samples.length === 0 &&
-                  <p>
-                    No results found
-                  </p>
-                }
-                {experiments.samples.length > 0 &&
-                  <ExperimentsTable experiments={experiments.samples} />
-                }
-              </div>
+            <div className={styles.experimentsBody}>
+              <ExperimentsTable experiments={experiments} />
             </div>
-          }
+          </div>
         </div>
       </div>
     );
