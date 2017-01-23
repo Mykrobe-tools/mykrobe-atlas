@@ -26,8 +26,8 @@ class Resistance extends Component {
               <div className={styles.navigation}>
                 <Link to="/sample/resistance/all" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>All</Link>
                 <Link to="/sample/resistance/drugs" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Drugs</Link>
-                <Link to="/sample/resistance/species" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Species</Link>
                 <Link to="/sample/resistance/evidence" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Evidence</Link>
+                <Link to="/sample/resistance/species" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Species</Link>
               </div>
             ) : (
               <div className={styles.navigation}>
