@@ -4,11 +4,11 @@ atlas-client:
   container_name: atlas-client
   restart: always
   ports:
-    - 8080:80
+    - 3000:3000
   environment:
     - NODE_ENV=production
     - HOST=0.0.0.0
-    - PORT=80
+    - PORT=3000
   links:
     - atlas-server:atlas-server
 
@@ -18,7 +18,7 @@ atlas-server:
   container_name: atlas-server
   restart: always
   ports:
-    - 3000:3000
+    - 3001:3001
   environment:
     - NODE_ENV=dev
     - HOST=0.0.0.0
