@@ -50,7 +50,7 @@ class MykrobeUploader extends EventEmitter {
     this.resumable.assignBrowse(buttonEl);
   }
 
-  unbindUploader(dropzoneEl: Element, buttonEl: Element) {
+  unbindUploader(dropzoneEl: Element) {
     this.resumable.unAssignDrop(dropzoneEl);
   }
 
@@ -75,15 +75,8 @@ class MykrobeUploader extends EventEmitter {
     this.emit('error', error);
   }
 
-  // called when a file has been successfully uploaded locally
   onFileUploadComplete(file: Object) {
     this.emit('done', file.file);
-  }
-
-  // called when a file has been selected from third-party storage
-  onRemoteFileSelected(file: Object) {
-    // AnalyserActions.analyseRemoteFile(file);
-    console.log('onRemoteFileSelected', file);
   }
 
   // Calculate md5 checksums for each chunk

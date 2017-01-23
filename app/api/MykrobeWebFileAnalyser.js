@@ -4,9 +4,9 @@ import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 import { BASE_URL } from '../constants/APIConstants';
 
 class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
-  _file: File;
   _progress: number;
   _timeout: number;
+  _file: File;
 
   analyseBinaryFile(file: File): MykrobeWebFileAnalyser {
     this._file = file;
