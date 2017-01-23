@@ -6,6 +6,7 @@ import styles from './Analysis.css';
 import GoogleMapsLoader from 'google-maps';
 import Phylogeny from '../phylogeny/Phylogeny';
 import { connect } from 'react-redux';
+import Uploading from '../ui/Uploading';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
 import * as NodeActions from '../../actions/NodeActions';
 import MapStyle from './MapStyle';
@@ -26,6 +27,12 @@ class Analysis extends Component {
   }
 
   componentDidMount() {
+    const {analyser} = this.props;
+    if (analyser.analysing) return;
+    this.loadMaps();
+  }
+
+  loadMaps() {
     GoogleMapsLoader.load((google) => {
       const options = {
         center: {lat: 51.5074, lng: 0.1278},
@@ -36,12 +43,12 @@ class Analysis extends Component {
       };
       this._google = google;
       this._map = new google.maps.Map(this._mapDiv, options);
-      this.updateMarkers(this.props.experiments.samples);
+      this.updateMarkers(this.props.analyser.transformed.samples);
     });
   }
 
   getSampleWithId(nodeId): ?Sample {
-    const {samples} = this.props.experiments;
+    const {samples} = this.props.analyser.transformed;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
       if (sample._id === nodeId) {
@@ -51,7 +58,7 @@ class Analysis extends Component {
   }
 
   getSampleIds() {
-    const {samples} = this.props.experiments;
+    const {samples} = this.props.analyser.transformed;
     let nodeIds = [];
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
@@ -121,8 +128,12 @@ class Analysis extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
-    if (this.props.experiments.samples !== nextProps.experiments.samples) {
-      this.updateMarkers(nextProps.experiments.samples);
+    if (nextProps.analyser.analysing) return;
+    if (!this.props.analyser.transformed) {
+      this.loadMaps();
+    }
+    else if (this.props.analyser.transformed.samples !== nextProps.analyser.transformed.samples) {
+      this.updateMarkers(nextProps.analyser.transformed.samples);
     }
     if (node.highlighted.length) {
       console.log('node.highlighted', node.highlighted);
@@ -140,24 +151,39 @@ class Analysis extends Component {
       }
     }
     else {
-      this._phyloCanvasTooltip.setVisible(false);
+      if (this._phyloCanvasTooltip) {
+        this._phyloCanvasTooltip.setVisible(false);
+      }
     }
   }
 
   render() {
+    const {analyser} = this.props;
+    let content;
+    if (analyser.analysing) {
+      content = <Uploading sectionName="Analysis" />;
+    }
+    else {
+      content = (
+        <div className={styles.content}>
+          <div className={styles.mapAndPhylogenyContainer}>
+            <div className={styles.mapContainer}>
+              <div ref={(ref) => {
+                this._mapDiv = ref;
+              }} className={styles.map} />
+              <PhyloCanvasTooltip ref={(ref) => {
+                this._phyloCanvasTooltip = ref;
+              }} />
+            </div>
+            <Phylogeny className={styles.phylogenyContainer} />
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className={styles.container}>
-        <div className={styles.mapAndPhylogenyContainer}>
-          <div className={styles.mapContainer}>
-            <div ref={(ref) => {
-              this._mapDiv = ref;
-            }} className={styles.map} />
-            <PhyloCanvasTooltip ref={(ref) => {
-              this._phyloCanvasTooltip = ref;
-            }} />
-          </div>
-          <Phylogeny className={styles.phylogenyContainer} />
-        </div>
+        {content}
       </div>
     );
   }
@@ -165,9 +191,7 @@ class Analysis extends Component {
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser,
-    node: state.node,
-    experiments: state.experiments
+    node: state.node
   };
 }
 
@@ -180,8 +204,7 @@ function mapDispatchToProps(dispatch) {
 Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired,
-  experiments: PropTypes.object.isRequired
+  node: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Analysis);

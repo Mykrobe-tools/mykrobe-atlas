@@ -20,15 +20,6 @@ class Menu extends Component {
           <li className={styles.navigationItem}>
             <Link to="/library" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Library</Link>
           </li>
-          <li className={styles.navigationItem}>
-            <Link to="/comparisons" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Comparisons</Link>
-          </li>
-          <li className={styles.navigationItem}>
-            <Link to="/about" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>About</Link>
-          </li>
-          <li className={styles.navigationItem}>
-            <Link to="/contact" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Contact</Link>
-          </li>
         </ul>
       </div>
     );

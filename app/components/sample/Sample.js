@@ -1,18 +1,17 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import styles from './Sample.css';
 import { Link } from 'react-router';
 
 class Sample extends Component {
   render() {
-    const {children} = this.props;
+    const {children, analyser} = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
           <h1 className={styles.title}>
-            Name of sample
+            (Name of sample)
           </h1>
           <div className={styles.navigation}>
             <Link to="/sample/metadata" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Metadata</Link>
@@ -21,19 +20,15 @@ class Sample extends Component {
             <Link to="/sample/summary" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Summary</Link>
           </div>
         </div>
-        {children}
+        {children && React.cloneElement(children, {analyser})}
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-  };
-}
-
 Sample.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
+  analyser: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(Sample);
+export default Sample;

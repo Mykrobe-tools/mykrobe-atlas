@@ -14,11 +14,13 @@
 }
 
 .logo {
-  padding: 20px;
+  border-top: 1px solid var(--color-grey-mid);
+  margin: 65px 0 20px 20px;
+  padding-top: 20px;
 }
 
 .navigation {
-  margin: 20px 0 0 20px;
+  margin: 0 0 0 20px;
   padding: 0;
   border-bottom: 1px solid var(--color-grey-mid);
 }

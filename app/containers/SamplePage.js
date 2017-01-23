@@ -14,6 +14,7 @@ class SamplePage extends Component {
 
 function mapStateToProps(state) {
   return {
+    analyser: state.analyser
   };
 }
 
