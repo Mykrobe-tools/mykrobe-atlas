@@ -10,7 +10,7 @@ subber deploy/docker-compose.yml
 docker-compose -f deploy/docker-compose.yml up -d
 
 # clean containers down
-dkcleanup.sh
+deploy/dkcleanup.sh
 
 # restart the reverse proxy
 sudo service nginx restart
