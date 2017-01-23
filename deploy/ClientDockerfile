@@ -50,8 +50,8 @@ ADD . /app
 # move cached installs into the app
 RUN cp -a /tmp/node_modules /app/
 
-# run local api on 3000
-EXPOSE 80
+# run app on 3000
+EXPOSE 3000
 
 # build a server for production
 RUN npm run web-build
