@@ -1,6 +1,6 @@
 #/bin/bash
 
-# 0 * * * * /var/lib/go-agent/pipelines/atlas-uat/deploy/cleanup/cleanup.sh
+# 0 * * * * /var/lib/go-agent/pipelines/atlas-uat/deploy/cleanup.sh
 
 export CURRENT_VERSION=`cat /var/go/releases/CURRENT_VERSION`
 export PREVIOUS_VERSION=`cat /var/go/releases/PREVIOUS_VERSION`
