@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.icon {
+  color: var(--color-grey-light);
+}
+
+.title {
+  composes: font from "css/typography.css";
+  composes: fontSizeLarge from "css/typography.css";
+  color: var(--color-grey-mid);
+  margin: 15px 0 10px;
+}
+
+.text {
+  composes: font from "css/typography.css";
+  composes: fontSizeNormal from "css/typography.css";
+  color: var(--color-grey-mid);
+  margin: 0;
+}

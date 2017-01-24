@@ -1,27 +1,31 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import styles from './AnalysingProgressBar.css';
 
 class AnalysingProgressBar extends Component {
   render() {
-    const {analyser} = this.props;
+    const {progress, onCancel} = this.props;
     const progressBarContainerStyle = {
-      width: `${analyser.progress}%`
+      width: `${progress}%`
     };
-    var text = `Analysing ${analyser.progress}%`;
-    if (analyser.progress === 0) {
-      text = 'Constructing genome';
-    }
-    else if (analyser.progress === 100) {
+    var text = `Analysing ${progress}%`;
+    if (progress === 100) {
       text = 'Check species and scan for resistance';
     }
     return (
       <div className={styles.container}>
         <div className={styles.progressBarContainer} style={progressBarContainerStyle}>
-          <div className={analyser.progress > 20 ? styles.progressBarLabelInside : styles.progressBarLabelOutside}>
+          <div className={progress > 20 ? styles.progressBarLabelInside : styles.progressBarLabelOutside}>
             {text}
+            {progress < 100 &&
+              <span>
+                <span> - </span>
+                <a href="#" onClick={event => onCancel(event)} className={progress > 20 ? styles.cancelInside : styles.cancelOutside}>
+                  Cancel
+                </a>
+              </span>
+            }
           </div>
         </div>
       </div>
@@ -29,14 +33,9 @@ class AnalysingProgressBar extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser
-  };
-}
-
 AnalysingProgressBar.propTypes = {
-  analyser: PropTypes.object.isRequired
+  progress: PropTypes.number.isRequired,
+  onCancel: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(AnalysingProgressBar);
+export default AnalysingProgressBar;

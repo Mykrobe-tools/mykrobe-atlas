@@ -3,8 +3,6 @@
 import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
 import { BASE_URL } from '../constants/APIConstants';
 
-const IMMEDIATE_FETCH = true;
-
 class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
   _progress: number;
   _timeout: number;
@@ -16,28 +14,18 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
     console.error('TODO: upload file to API and report progress');
     this._progress = 0;
     this.demoUpdateProgress();
-    if (IMMEDIATE_FETCH) {
-      this.fetchDemoData();
-    }
+    this.fetchDemoData();
     return this;
   }
 
   demoUpdateProgress() {
     this._timeout && clearTimeout(this._timeout);
     this._progress++;
-    this.emit('progress', {
-      progress: this._progress,
-      total: 100
-    });
-    if (this._progress === 100) {
-      this._timeout = setTimeout(() => {
-        this.demoFinishAnalysing();
-      }, 3000);
-    }
-    else {
+    this.emit('progress', this._progress);
+    if (this._progress < 100) {
       this._timeout = setTimeout(() => {
         this.demoUpdateProgress();
-      }, 100);
+      }, 200);
     }
   }
 
@@ -45,27 +33,36 @@ class MykrobeWebFileAnalyser extends MykrobeBaseFileAnalyser {
     const fileName = this._file.name;
     fetch(`${BASE_URL}/treeplace?file=${fileName}`)
       .then((response) => {
+        clearTimeout(this._timeout);
         if (response.ok) {
           response.text().then((string) => {
-            this.doneWithJsonString(string);
+            if (this._progress < 100) {
+              this._progress = 100;
+              this.emit('progress', this._progress);
+              this._timeout = setTimeout(() => {
+                this.handleDemoData(string);
+              }, 3000);
+            }
+            else {
+              this.handleDemoData(string);
+            }
           });
         }
         else {
           this.failWithError(response.statusText);
+          this.end();
         }
       });
   }
 
-  demoFinishAnalysing() {
-    if (!IMMEDIATE_FETCH) {
-      this.fetchDemoData();
-    }
+  handleDemoData(string: string) {
+    this.doneWithJsonString(string);
+    this.end();
   }
 
-  cancel(): void {
+  end(): void {
     this._timeout && clearTimeout(this._timeout);
   }
-
 }
 
 export default MykrobeWebFileAnalyser;

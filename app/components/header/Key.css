@@ -7,10 +7,6 @@
   position: relative;
 }
 
-.loadingIndicator {
-  margin-left: 20px;
-}
-
 .title {
   display: flex;
   flex-direction: row;

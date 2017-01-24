@@ -49,7 +49,10 @@ export default class UploadBtnDropbox extends Component {
       },
       linkType: 'direct',
       multiselect: false,
-      extensions: acceptedExtensions
+      extensions: acceptedExtensions.map(ext => {
+        // dropbox requires a fullstop at the start of extension
+        return `.${ext}`;
+      })
     });
   }
 

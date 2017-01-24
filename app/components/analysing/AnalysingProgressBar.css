@@ -30,3 +30,11 @@
   left: 100%;
   color: var(--color-tint-primary);
 }
+
+.cancelInside {
+  color: white;
+}
+
+.cancelOutside {
+  color: var(--color-tint-primary);
+}

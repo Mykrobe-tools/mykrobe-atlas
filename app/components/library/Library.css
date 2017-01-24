@@ -1,0 +1,28 @@
+.container {
+  composes: containerAbsolute from "css/layout.css";
+  flex-direction: column;
+}
+
+.header {
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.title {
+  composes: font from "css/typography.css";
+  composes: fontSizeLarge from "css/typography.css";
+  width: 100%;
+  text-align: center;
+}
+
+.content {
+  background: white;
+  padding: 30px;
+  flex: 1;
+}
+
+.experimentsHeader {
+  margin-bottom: 20px;
+}

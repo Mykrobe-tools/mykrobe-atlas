@@ -2,101 +2,61 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import styles from './App.css';
-import Dropzone from 'react-dropzone';
-import * as AnalyserActions from '../actions/AnalyserActions';
+import Analysing from '../components/analysing/Analysing';
 import Header from '../components/header/Header';
+import Menu from '../components/menu/Menu';
 import Notifications from '../components/notifications/Notifications';
 
 class App extends Component {
-  state: {
-    isDragActive: boolean
+  state = {
+    displayMenu: Boolean
   };
-  _dropzone: Dropzone;
 
   constructor(props: Object) {
     super(props);
     this.state = {
-      isDragActive: false
+      displayMenu: false
     };
   }
 
-  onDragLeave(e: SyntheticDragEvent) {
-    this.setState({
-      isDragActive: false
+  componentDidMount() {
+    browserHistory.listen(location => {
+      this.setState({
+        displayMenu: false
+      });
     });
   }
 
-  onDragEnter(e: SyntheticDragEvent) {
-    if (e.dataTransfer.items) {
-      if (!e.dataTransfer.items.length) {
-        return;
-      }
-    }
-    else {
-      if (!e.dataTransfer.files.length) {
-        return;
-      }
-    }
+  toggleMenu() {
+    const {displayMenu} = this.state;
     this.setState({
-      isDragActive: true
-    });
-  }
-
-  onDropAccepted(files: Array<File>) {
-    console.log('onDropAccepted', files);
-    this.setState({
-      isDragActive: false
-    });
-    if (!files.length) {
-      return;
-    }
-    const {dispatch} = this.props;
-    const file = files[0];
-    dispatch(AnalyserActions.analyseFile(file));
-  }
-
-  onDropRejected(files: Array<File>) {
-    console.log('onDropRejected', files);
-    this.setState({
-      isDragActive: false
+      displayMenu: !displayMenu
     });
   }
 
   render() {
-    const {isDragActive} = this.state;
-    const {children, notifications} = this.props;
-    const disableClick = true;
-    const multiple = false;
+    const {children} = this.props;
+    const {displayMenu} = this.state;
 
     return (
       <div className={styles.container}>
-        <Dropzone
-          className={styles.container}
-          ref={(ref) => {
-            this._dropzone = ref;
-          }}
-          onDropAccepted={(event) => this.onDropAccepted(event)}
-          onDropRejected={(event) => this.onDropRejected(event)}
-          onDragLeave={(event) => this.onDragLeave(event)}
-          onDragEnter={(event) => this.onDragEnter(event)}
-          disableClick={disableClick}
-          multiple={multiple}
-          accept=".json,.bam,.gz,.fastq"
-          >
-          <div className={styles.notificationsContainer}>
-            {notifications &&
-              <Notifications notifications={notifications} />
-            }
-          </div>
-          <div className={styles.headerContainer}>
-            <Header />
-          </div>
-          <div className={styles.contentContainer}>
-            {children}
-          </div>
-        </Dropzone>
-        <div className={isDragActive ? styles.dragIndicatorContainerDragActive : styles.dragIndicatorContainer} />
+        <div className={styles.analysingContainer}>
+          <Analysing />
+        </div>
+        <div className={styles.notificationsContainer}>
+          <Notifications />
+        </div>
+        <div className={styles.headerContainer}>
+          <Header toggleMenu={() => this.toggleMenu()} />
+        </div>
+        <div className={styles.menuContainer}>
+          <Menu displayMenu={displayMenu} />
+        </div>
+        <div className={styles.contentContainer}>
+          {children}
+        </div>
       </div>
     );
   }
@@ -104,14 +64,11 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    notifications: state.notifications
   };
 }
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
-  notifications: PropTypes.array.isRequired
+  children: PropTypes.element.isRequired
 };
 
 export default connect(mapStateToProps)(App);

@@ -74,6 +74,11 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     return this;
   }
 
+  analyseRemoteFile(file: File): MykrobeBaseFileAnalyser {
+    console.log('analyseRemoteFile', file);
+    return this;
+  }
+
   cancel(): void {
   }
 }
