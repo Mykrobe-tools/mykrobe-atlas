@@ -53,7 +53,7 @@
 
 .menuIconClose::before {
   width: 0;
-  transform: translate(5px, 5px) rotate(-45deg);
+  transform: rotate(-45deg) translate(5px, 5px);
 }
 
 .menuIconClose::after {
