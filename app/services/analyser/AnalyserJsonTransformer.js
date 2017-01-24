@@ -1,9 +1,9 @@
 /* @flow */
 
-import MykrobeConfig from './MykrobeConfig';
+import MykrobeConfig from '../MykrobeConfig';
 import _ from 'lodash';
-import * as TargetConstants from '../constants/TargetConstants';
-import type { Sample } from '../types/Sample';
+import * as TargetConstants from '../../constants/TargetConstants';
+import type { Sample } from '../../types/Sample';
 
 const samplesForTest: Array<Sample> = [
   {
@@ -26,7 +26,7 @@ const samplesForTest: Array<Sample> = [
   }
 ];
 
-class MykrobeJsonTransformer {
+class AnalyserJsonTransformer {
   config: MykrobeConfig;
 
   constructor(config: MykrobeConfig = new MykrobeConfig()) {
@@ -263,4 +263,4 @@ class MykrobeJsonTransformer {
     return sorted;
   }
 }
-export default MykrobeJsonTransformer;
+export default AnalyserJsonTransformer;

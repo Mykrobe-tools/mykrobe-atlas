@@ -3,21 +3,21 @@
 import Resumablejs from 'resumablejs';
 import SparkMD5 from 'spark-md5';
 import EventEmitter from 'events';
-import { BASE_URL } from '../constants/APIConstants';
+import { BASE_URL } from '../../constants/APIConstants';
 
-const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
-
-class MykrobeUploader extends EventEmitter {
+class UploadFile extends EventEmitter {
+  acceptedExtensions: Array<string>;
   resumable: Object;
   props: Object;
 
-  constructor() {
+  constructor(acceptedExtensions: Array<string>) {
     super();
+    this.acceptedExtensions = acceptedExtensions;
     this.resumable = new Resumablejs({
       target: `${BASE_URL}/api/upload`,
       maxFiles: 1,
       minFileSize: 0,
-      fileType: acceptedExtensions,
+      fileType: this.acceptedExtensions,
       query: (resumableFile, resumableObj) => {
         return {
           'checksum': resumableFile.hashes[resumableObj.offset]
@@ -55,7 +55,7 @@ class MykrobeUploader extends EventEmitter {
   }
 
   getAcceptedExtensions() {
-    return acceptedExtensions;
+    return this.acceptedExtensions;
   }
 
   isSupported() {
@@ -118,4 +118,4 @@ class MykrobeUploader extends EventEmitter {
   }
 }
 
-export default MykrobeUploader;
+export default UploadFile;

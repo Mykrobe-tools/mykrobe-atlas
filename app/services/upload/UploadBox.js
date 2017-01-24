@@ -1,8 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import EventEmitter from 'events';
 import loadScript from 'load-script';
-import styles from './Upload.css';
 import config from '../../config';
 
 const BOX_SDK_URL = 'https://cdn01.boxcdn.net/js/static/select.js';
@@ -10,18 +9,10 @@ const BOX_SDK_URL = 'https://cdn01.boxcdn.net/js/static/select.js';
 let isLoading = false;
 let boxSelect;
 
-export default class UploadBtnBox extends Component {
-  render() {
-    return (
-      <button
-        className={styles.button}
-        onClick={(event) => this.onClick(event)}>
-        Box
-      </button>
-    );
-  }
+class UploadBox extends EventEmitter {
 
-  componentDidMount() {
+  constructor() {
+    super();
     if (!this.isBoxReady() && !isLoading) {
       isLoading = true;
       loadScript(BOX_SDK_URL, () => this.onApiLoad());
@@ -44,8 +35,7 @@ export default class UploadBtnBox extends Component {
     return !!window.BoxSelect && !!boxSelect;
   }
 
-  onClick(e: Event) {
-    e.preventDefault();
+  trigger() {
     if (!this.isBoxReady()) {
       return null;
     }
@@ -53,14 +43,11 @@ export default class UploadBtnBox extends Component {
   }
 
   onFileSelect(files: Array<Object>) {
-    const {onFileSelect} = this.props;
-    onFileSelect({
+    this.emit('fileSelected', {
       name: files[0].name,
       url: files[0].url
     });
   }
 }
 
-UploadBtnBox.propTypes = {
-  onFileSelect: PropTypes.func.isRequired
-};
+export default UploadBox;

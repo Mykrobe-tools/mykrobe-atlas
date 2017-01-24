@@ -15,7 +15,7 @@ class Menu extends Component {
         </div>
         <ul className={styles.navigation}>
           <li className={styles.navigationItem}>
-            <Link to="/" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Home</Link>
+            <Link to="/" className={styles.navigationLink} activeClassName={styles.navigationLinkActive} onlyActiveOnIndex>Home</Link>
           </li>
           <li className={styles.navigationItem}>
             <Link to="/library" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Library</Link>

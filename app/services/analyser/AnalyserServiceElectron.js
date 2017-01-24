@@ -1,11 +1,11 @@
 /* @flow */
 
-import MykrobeLocalFileAnalyser from './MykrobeLocalFileAnalyser';
-import MykrobeConfig from './MykrobeConfig';
+import AnalyserLocalFile from './AnalyserLocalFile';
+import MykrobeConfig from '../MykrobeConfig';
 
 let instance = null;
 
-class MykrobeService {
+class AnalyserService {
   config: MykrobeConfig;
 
   constructor(config: MykrobeConfig = new MykrobeConfig()) {
@@ -17,8 +17,8 @@ class MykrobeService {
   }
 
   analyseFile(file: File) {
-    return new MykrobeLocalFileAnalyser(this.config).analyseFile(file);
+    return new AnalyserLocalFile(this.config).analyseFile(file);
   }
 }
 
-export default MykrobeService;
+export default AnalyserService;

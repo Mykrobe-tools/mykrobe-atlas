@@ -46,9 +46,11 @@
   justify-content: center;
   flex-direction: row;
   flex-wrap: wrap;
+  position: relative;
 }
 
-.button {
-  composes: buttonOutline from "css/controls.css";
-  margin: 10px;
+.buttonOffscreen {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
 }
