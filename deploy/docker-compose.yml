@@ -1,0 +1,24 @@
+atlas-client:
+  build: ..
+  dockerfile: ./deploy/ClientDockerfile
+  container_name: atlas-client
+  restart: always
+  ports:
+    - 3000:3000
+  environment:
+    - NODE_ENV=production
+    - HOST=0.0.0.0
+    - PORT=3000
+  links:
+    - atlas-server:atlas-server
+
+atlas-server:
+  build: ..
+  dockerfile: ./deploy/ServerDockerfile
+  container_name: atlas-server
+  restart: always
+  ports:
+    - 3001:3000
+  environment:
+    - NODE_ENV=dev
+    - HOST=0.0.0.0

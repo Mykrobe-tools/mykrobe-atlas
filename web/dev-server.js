@@ -1,6 +1,7 @@
 /* @flow */
 
 import express from 'express';
+import cors from 'cors';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -23,6 +24,8 @@ const wdm = webpackDevMiddleware(compiler, {
 });
 
 app.use(wdm);
+
+app.use(cors());
 
 app.use(webpackHotMiddleware(compiler));
 
