@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import fs from 'fs';
-import * as AnalyserActions from '../actions/AnalyserActions';
+// import * as AnalyserActions from '../actions/AnalyserActions';
 import * as UIHelpers from '../helpers/UIHelpers';
 import * as FileHelpers from '../helpers/FileHelpers';
 import { push } from 'react-router-redux';
@@ -19,7 +19,7 @@ class AppElectron extends Component {
       console.log('App open-file');
       if (filePath) {
         FileHelpers.getFileObject(filePath).then((fileObject) => {
-          dispatch(AnalyserActions.analyseFile(fileObject));
+          // dispatch(AnalyserActions.analyseFile(fileObject));
         })
         .catch((error) => {
           console.error(error);
@@ -35,7 +35,7 @@ class AppElectron extends Component {
       const filePath = UIHelpers.openFileDialog();
       if (filePath) {
         FileHelpers.getFileObject(filePath).then((fileObject) => {
-          dispatch(AnalyserActions.analyseFile(fileObject));
+          // dispatch(AnalyserActions.analyseFile(fileObject));
         })
         .catch((error) => {
           console.error(error);

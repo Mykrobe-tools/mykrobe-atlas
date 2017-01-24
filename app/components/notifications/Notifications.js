@@ -43,6 +43,7 @@ Notifications.propTypes = {
 
 function mapStateToProps(state) {
   return {
+    notifications: state.notifications
   };
 }
 

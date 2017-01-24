@@ -5,6 +5,23 @@
   overflow-y: auto;
 }
 
+.uploadingMessage {
+  margin: 0 auto;
+  max-width: 50%;
+  text-align: center;
+}
+
+.uploadingMessageTitle {
+  composes: font from "css/typography.css";
+  composes: fontSizeExtraLarge from "css/typography.css";
+  color: var(--color-tint-primary);
+}
+
+.uploadingMessageText {
+  composes: font from "css/typography.css";
+  composes: fontSizeLarge from "css/typography.css";
+}
+
 .formContainer {
   display: flex;
   flex-direction: column;

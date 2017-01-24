@@ -1,7 +1,7 @@
 .wrap {
   color: white;
   display: block;
-  padding: 10px;
+  padding: 5px 10px;
 }
 
 .message {
@@ -23,6 +23,7 @@
 }
 
 .content {
-  composes: fontSecondary from "css/typography.css";
-  composes: fontSecondarySizeNormal from "css/typography.css";
+  composes: fontPrimary from "css/typography.css";
+  composes: fontSizeNormal from "css/typography.css";
+  margin: 5px 0;
 }

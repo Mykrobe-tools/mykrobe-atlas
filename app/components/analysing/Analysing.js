@@ -1,24 +1,18 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Metadata from '../metadata/Metadata';
-import styles from './Analysing.css';
 import * as AnalyserActions from '../../actions/AnalyserActions';
+import styles from './Analysing.css';
 import AnalysingProgressBar from './AnalysingProgressBar';
 
-// TODO: push route on state change
-
-/*
-// where win is BrowserWindow
-win.setProgressBar(0.5)
-win.setRepresentedFilename('/etc/passwd')
-const {app} = require('electron')
-app.addRecentDocument('/Users/USERNAME/Desktop/work.type')
-app.clearRecentDocuments()
-*/
-
 class Analysing extends Component {
+  componentDidMount() {
+    const {monitorUpload} = this.props;
+    monitorUpload();
+  }
+
   render() {
     const {analyser} = this.props;
     if (IS_ELECTRON) {
@@ -27,22 +21,26 @@ class Analysing extends Component {
     }
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <AnalysingProgressBar />
-          <button type="button" onClick={event => this.onCancelClick(event)}>
-            Cancel
-          </button>
-        </div>
-        <Metadata />
+        {analyser.analysing &&
+          <div className={styles.header}>
+            <AnalysingProgressBar progress={analyser.progress} onCancel={(e) => this.onCancelClick(e)} />
+          </div>
+        }
       </div>
     );
   }
 
-  onCancelClick(e) {
-    const {dispatch} = this.props;
-    dispatch(AnalyserActions.analyseFileCancel());
+  onCancelClick(e: Event) {
+    const {analyseFileCancel} = this.props;
+    analyseFileCancel();
   }
 }
+
+Analysing.propTypes = {
+  analyser: PropTypes.object.isRequired,
+  monitorUpload: PropTypes.func.isRequired,
+  analyseFileCancel: PropTypes.func.isRequired
+};
 
 function mapStateToProps(state) {
   return {
@@ -50,9 +48,11 @@ function mapStateToProps(state) {
   };
 }
 
-Analysing.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired
-};
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    monitorUpload: AnalyserActions.monitorUpload,
+    analyseFileCancel: AnalyserActions.analyseFileCancel
+  }, dispatch);
+}
 
-export default connect(mapStateToProps)(Analysing);
+export default connect(mapStateToProps, mapDispatchToProps)(Analysing);

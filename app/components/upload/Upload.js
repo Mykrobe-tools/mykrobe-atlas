@@ -1,143 +1,105 @@
+/* @flow */
+
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import styles from './Upload.css';
-import * as AnalyserActions from '../../actions/AnalyserActions';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
-import CircularProgress from './CircularProgress';
+import Logo from '../logo/Logo';
 import UploadBtnDropbox from './UploadBtnDropbox';
 import UploadBtnGoogleDrive from './UploadBtnGoogleDrive';
 import UploadBtnBox from './UploadBtnBox';
 import UploadBtnOneDrive from './UploadBtnOneDrive';
 
-const acceptedExtensions = ['.json', '.bam', '.gz', '.fastq', '.jpg'];
-
 class Upload extends Component {
-  constructor(props) {
+  _uploadButton: Element;
+  _dropzone: Element;
+  state: {
+    isDragActive: boolean
+  };
+
+  constructor(props: Object) {
     super(props);
-    this.state = {};
+    this.state = {
+      isDragActive: false
+    };
+  }
+
+  componentDidMount() {
+    const {uploader} = this.props;
+    uploader.bindUploader(this._dropzone, this._uploadButton);
+  }
+
+  componentWillUnmount() {
+    const {uploader} = this.props;
+    uploader.unbindUploader(this._dropzone, this._uploadButton);
+  }
+
+  onDragOver() {
+    this.setState({
+      isDragActive: true
+    });
+  }
+
+  onDragLeave() {
+    this.setState({
+      isDragActive: false
+    });
   }
 
   render() {
-    const {analyser} = this.props;
-    let content;
-    if (analyser.analysing) {
-      const {progress} = analyser;
-      let statusText = 'Constructing genome';
-      if (progress === 0) {
-        statusText = 'Analysing';
-      }
-      else if (progress === 100) {
-        statusText = 'Check species and scan for resistance';
-      }
-      content = (
-        <div className={styles.promptContainer}>
-          {(progress === 0 || progress === 100) ? (
-            <div className={styles.dots}>
-              <div className={styles.dotOne} />
-              <div className={styles.dotTwo} />
-              <div className={styles.dotThree} />
-            </div>
-          ) : (
-            <div className={styles.progressTitle}>
-              {analyser.progress}%
-            </div>
-          )}
-          <CircularProgress percentage={progress} />
-          <div className={styles.progressStatus}>
-            {statusText}
-          </div>
-          <div className={styles.buttonContainer}>
-            <button type="button" className={styles.button} onClick={event => this.onCancelClick(event)}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      );
-    }
-    else {
-      content = (
-        <div className={styles.promptContainer}>
-          <div className={styles.promptIcon} />
-          <div className={styles.buttonTitle}>
-            Drag a file here to analyse it,<br /> or upload a file from:
-          </div>
-          <div className={styles.buttonContainer}>
-            <button type="button" className={styles.button} onClick={(event) => this.onOpenClick(event)}>
-              Computer
-            </button>
-            <UploadBtnDropbox
-              acceptedExtensions={acceptedExtensions}
-              onFileSelect={(file) => this.onFileSelected(file)} />
-            <UploadBtnBox
-              onFileSelect={(file) => this.onFileSelected(file)} />
-            <UploadBtnGoogleDrive
-              onFileSelect={(file) => this.onFileSelected(file)} />
-            <UploadBtnOneDrive
-              onFileSelect={(file) => this.onFileSelected(file)} />
-          </div>
-          <input
-            ref={(ref) => {
-              this._fileInput = ref;
-            }}
-            onChange={(e) => {
-              this.fileInputChanged(e);
-            }}
-            type="file"
-            accept={acceptedExtensions.join(',')}
-            style={{position: 'fixed', top: '-100em'}}
-          />
-        </div>
-      );
-    }
+    const {isDragActive} = this.state;
+    const {uploader, analyseRemoteFile} = this.props;
     return (
-      <div className={styles.container}>
+      <div
+        className={isDragActive ? styles.containerDragActive : styles.container}
+        onDragOver={(e) => {
+          this.onDragOver(e);
+        }}
+        onDragLeave={(e) => {
+          this.onDragLeave(e);
+        }}
+        ref={(ref) => {
+          this._dropzone = ref;
+        }}>
         <AnimatedBackground />
         <div className={styles.contentContainer}>
-          {content}
+          <div className={styles.content}>
+            <div className={styles.logo}>
+              <Logo />
+            </div>
+            <div className={styles.title}>
+              Outbreak and resistance analysis in minutes
+            </div>
+            <div className={styles.buttonContainer}>
+              {uploader.isSupported() &&
+                <button
+                  type="button"
+                  className={styles.button}
+                  ref={(ref) => {
+                    this._uploadButton = ref;
+                  }}>
+                  Computer
+                </button>
+              }
+              <UploadBtnDropbox
+                acceptedExtensions={uploader.getAcceptedExtensions()}
+                onFileSelect={(file) => analyseRemoteFile(file)} />
+              <UploadBtnBox
+                onFileSelect={(file) => analyseRemoteFile(file)} />
+              <UploadBtnGoogleDrive
+                onFileSelect={(file) => analyseRemoteFile(file)} />
+              <UploadBtnOneDrive
+                onFileSelect={(file) => analyseRemoteFile(file)} />
+            </div>
+          </div>
         </div>
       </div>
     );
   }
-
-  onFileSelected(file) {
-    console.log('onFileSelected', file);
-    // const {dispatch} = this.props;
-    // dispatch(AnalyserActions.analyseFile(file));
-  }
-
-  onOpenClick(e) {
-    console.log('onOpenClick');
-    this._fileInput.click();
-  }
-
-  fileInputChanged(e) {
-    const {dispatch} = this.props;
-    console.log('fileInputChanged', e);
-    console.log('this._fileInput.files', this._fileInput.files);
-    if (this._fileInput.files && this._fileInput.files.length > 0) {
-      const file = this._fileInput.files[0];
-      if (file) {
-        dispatch(AnalyserActions.analyseFile(file));
-      }
-    }
-  }
-
-  onCancelClick(e) {
-    console.log('onCancelClick');
-    const {dispatch} = this.props;
-    dispatch(AnalyserActions.analyseFileCancel());
-  }
-}
-
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser
-  };
 }
 
 Upload.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired
+  uploader: PropTypes.object.isRequired,
+  analyseRemoteFile: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(Upload);
+export default Upload;

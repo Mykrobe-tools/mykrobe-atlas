@@ -4,6 +4,11 @@
   flex-direction: column;
 }
 
+.content {
+  flex: 1;
+  display: flex;
+}
+
 .header {
   background-color: var(--color-buff-dark);
   padding: 12px;

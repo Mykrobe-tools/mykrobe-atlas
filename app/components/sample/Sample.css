@@ -7,6 +7,14 @@
   height: 120px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.title {
+  composes: font from "css/typography.css";
+  composes: fontSizeLarge from "css/typography.css";
+  width: 100%;
+  text-align: center;
 }
 
 .navigation {
@@ -18,11 +26,11 @@
 .navigationItem {
   composes: button from "css/controls.css";
   background: none;
-  color: var(--color-grey-dark);
+  color: var(--color-tint-primary);
 }
 
 .navigationItemActive {
   composes: navigationItem;
   color: white;
-  background-color: var(--color-grey-dark);
+  background-color: var(--color-tint-primary);
 }
