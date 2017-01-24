@@ -7,6 +7,7 @@ import styles from './App.css';
 import Analysing from '../components/analysing/Analysing';
 import Header from '../components/header/Header';
 import Menu from '../components/menu/Menu';
+import MenuBg from '../components/menu/MenuBg';
 import Notifications from '../components/notifications/Notifications';
 
 class App extends Component {
@@ -49,10 +50,11 @@ class App extends Component {
           <Notifications />
         </div>
         <div className={styles.headerContainer}>
-          <Header toggleMenu={() => this.toggleMenu()} />
+          <Header displayMenu={displayMenu} toggleMenu={() => this.toggleMenu()} />
         </div>
         <div className={styles.menuContainer}>
           <Menu displayMenu={displayMenu} />
+          <MenuBg displayMenu={displayMenu} toggleMenu={() => this.toggleMenu()} />
         </div>
         <div className={styles.contentContainer}>
           {children}
