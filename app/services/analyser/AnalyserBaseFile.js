@@ -1,10 +1,10 @@
 /* @flow */
 
 import EventEmitter from 'events';
-import MykrobeJsonTransformer from './MykrobeJsonTransformer';
-import MykrobeConfig from './MykrobeConfig';
+import AnalyserJsonTransformer from './AnalyserJsonTransformer';
+import MykrobeConfig from '../MykrobeConfig';
 
-class MykrobeBaseFileAnalyser extends EventEmitter {
+class AnalyserBaseFile extends EventEmitter {
   targetConfig: MykrobeConfig;
 
   constructor(targetConfig: MykrobeConfig) {
@@ -17,7 +17,7 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     return extension.toLowerCase();
   }
 
-  analyseFile(file: File): MykrobeBaseFileAnalyser {
+  analyseFile(file: File): AnalyserBaseFile {
     this.cancel();
     const extension = this.extensionForFileName(file.name);
     if (extension === '.json') {
@@ -41,7 +41,7 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
   }
 
   doneWithJsonString(jsonString: string) {
-    const transformer = new MykrobeJsonTransformer();
+    const transformer = new AnalyserJsonTransformer();
     transformer.transform(jsonString).then((result) => {
       const {json, transformed} = result;
       console.log('json', json);
@@ -53,7 +53,7 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     });
   }
 
-  analyseJsonFile(file: File): MykrobeBaseFileAnalyser {
+  analyseJsonFile(file: File): AnalyserBaseFile {
     const reader = new FileReader();
 
     reader.onload = (e) => {
@@ -69,12 +69,12 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
     return this;
   }
 
-  analyseBinaryFile(file: File): MykrobeBaseFileAnalyser {
+  analyseBinaryFile(file: File): AnalyserBaseFile {
     console.log('analyseBinaryFile', file);
     return this;
   }
 
-  analyseRemoteFile(file: File): MykrobeBaseFileAnalyser {
+  analyseRemoteFile(file: File): AnalyserBaseFile {
     console.log('analyseRemoteFile', file);
     return this;
   }
@@ -83,4 +83,4 @@ class MykrobeBaseFileAnalyser extends EventEmitter {
   }
 }
 
-export default MykrobeBaseFileAnalyser;
+export default AnalyserBaseFile;

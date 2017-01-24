@@ -4,13 +4,10 @@ import React, { Component, PropTypes } from 'react';
 import styles from './Upload.css';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
-import UploadBtnDropbox from './UploadBtnDropbox';
-import UploadBtnGoogleDrive from './UploadBtnGoogleDrive';
-import UploadBtnBox from './UploadBtnBox';
-import UploadBtnOneDrive from './UploadBtnOneDrive';
+import PopoverMenu from '../ui/PopoverMenu';
 
 class Upload extends Component {
-  _uploadButton: Element;
+  _uploadButton: HTMLAnchorElement;
   _dropzone: Element;
   state: {
     isDragActive: boolean
@@ -24,13 +21,13 @@ class Upload extends Component {
   }
 
   componentDidMount() {
-    const {uploader} = this.props;
-    uploader.bindUploader(this._dropzone, this._uploadButton);
+    const {uploadFile} = this.props.service;
+    uploadFile.bindUploader(this._dropzone, this._uploadButton);
   }
 
   componentWillUnmount() {
-    const {uploader} = this.props;
-    uploader.unbindUploader(this._dropzone, this._uploadButton);
+    const {uploadFile} = this.props.service;
+    uploadFile.unbindUploader(this._dropzone, this._uploadButton);
   }
 
   onDragOver() {
@@ -45,9 +42,51 @@ class Upload extends Component {
     });
   }
 
+  popoverMenuLinks() {
+    const {uploadBox, uploadDropbox, uploadGoogleDrive, uploadOneDrive} = this.props.service;
+    return [
+      {
+        text: 'Computer',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          if (this._uploadButton) {
+            this._uploadButton.click();
+          }
+        }
+      },
+      {
+        text: 'Dropbox',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          uploadDropbox.trigger();
+        }
+      },
+      {
+        text: 'Box',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          uploadBox.trigger();
+        }
+      },
+      {
+        text: 'Google Drive',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          uploadGoogleDrive.trigger();
+        }
+      },
+      {
+        text: 'OneDrive',
+        onClick: (e: Event) => {
+          e.preventDefault();
+          uploadOneDrive.trigger();
+        }
+      }
+    ];
+  }
+
   render() {
     const {isDragActive} = this.state;
-    const {uploader, analyseRemoteFile} = this.props;
     return (
       <div
         className={isDragActive ? styles.containerDragActive : styles.container}
@@ -70,25 +109,15 @@ class Upload extends Component {
               Outbreak and resistance analysis in minutes
             </div>
             <div className={styles.buttonContainer}>
-              {uploader.isSupported() &&
-                <button
-                  type="button"
-                  className={styles.button}
-                  ref={(ref) => {
-                    this._uploadButton = ref;
-                  }}>
-                  Computer
-                </button>
-              }
-              <UploadBtnDropbox
-                acceptedExtensions={uploader.getAcceptedExtensions()}
-                onFileSelect={(file) => analyseRemoteFile(file)} />
-              <UploadBtnBox
-                onFileSelect={(file) => analyseRemoteFile(file)} />
-              <UploadBtnGoogleDrive
-                onFileSelect={(file) => analyseRemoteFile(file)} />
-              <UploadBtnOneDrive
-                onFileSelect={(file) => analyseRemoteFile(file)} />
+              <button
+                type="button"
+                className={styles.buttonOffscreen}
+                ref={(ref) => {
+                  this._uploadButton = ref;
+                }} />
+              <PopoverMenu
+                toggleText="Analyse Sample"
+                links={this.popoverMenuLinks()} />
             </div>
           </div>
         </div>
@@ -98,8 +127,7 @@ class Upload extends Component {
 }
 
 Upload.propTypes = {
-  uploader: PropTypes.object.isRequired,
-  analyseRemoteFile: PropTypes.func.isRequired
+  service: PropTypes.object.isRequired
 };
 
 export default Upload;

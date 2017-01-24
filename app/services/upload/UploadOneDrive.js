@@ -1,26 +1,17 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import EventEmitter from 'events';
 import loadScript from 'load-script';
-import styles from './Upload.css';
 import config from '../../config';
 
 const ONEDRIVE_SDK_URL = 'https://js.live.net/v7.0/OneDrive.js';
 
 let isLoading = false;
 
-export default class UploadBtnOneDrive extends Component {
-  render() {
-    return (
-      <button
-        className={styles.button}
-        onClick={(event) => this.onClick(event)}>
-        OneDrive
-      </button>
-    );
-  }
+class UploadOneDrive extends EventEmitter {
 
-  componentDidMount() {
+  constructor() {
+    super();
     if (!this.isOneDriveReady() && !isLoading) {
       isLoading = true;
       loadScript(ONEDRIVE_SDK_URL);
@@ -31,8 +22,7 @@ export default class UploadBtnOneDrive extends Component {
     return !!window.OneDrive;
   }
 
-  onClick(e: Event) {
-    e.preventDefault();
+  trigger() {
     if (!this.isOneDriveReady()) {
       return null;
     }
@@ -48,14 +38,11 @@ export default class UploadBtnOneDrive extends Component {
   }
 
   onFileSelect(files: Object) {
-    const {onFileSelect} = this.props;
-    onFileSelect({
+    this.emit('fileSelected', {
       name: files.value[0].name,
       url: files.value[0]['@microsoft.graph.downloadUrl']
     });
   }
 }
 
-UploadBtnOneDrive.propTypes = {
-  onFileSelect: PropTypes.func.isRequired
-};
+export default UploadOneDrive;

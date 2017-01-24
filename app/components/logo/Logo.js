@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import styles from './Logo.css';
-import MykrobeConfig from '../../api/MykrobeConfig';
+import MykrobeConfig from '../../services/MykrobeConfig';
 
 class Logo extends Component {
   mykrobeConfig: MykrobeConfig;

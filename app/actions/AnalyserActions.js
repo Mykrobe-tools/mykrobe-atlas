@@ -5,15 +5,17 @@ import { push } from 'react-router-redux';
 import * as ActionTypes from '../constants/ActionTypes';
 import * as NotificationCategories from '../constants/NotificationCategories';
 import {showNotification} from './NotificationActions';
+import UploadService from '../services/upload/UploadService';
 
-const MykrobeService = IS_ELECTRON ? require('../api/MykrobeServiceElectron') : require('../api/MykrobeService');
+const AnalyserService = IS_ELECTRON ? require('../services/analyser/AnalyserServiceElectron') : require('../services/analyser/AnalyserService');
 
 // $FlowFixMe: Ignore missing require().default
-const service = new MykrobeService();
+const analyserService = new AnalyserService();
+const uploadService = new UploadService();
 
 export function monitorUpload() {
   return (dispatch: Function, getState: Function) => {
-    service.uploader
+    uploadService.uploadFile
       .on('check', () => {
         dispatch(analyseFileCheck());
       })
@@ -61,7 +63,7 @@ function analyseFileProcess(file: File) {
       type: ActionTypes.ANALYSE_FILE_PROCESS
     });
 
-    service.analyseFile(file)
+    analyserService.analyseFile(file)
       .on('progress', (progress) => {
         dispatch(analyseFileProgress(progress));
       })
@@ -76,7 +78,7 @@ function analyseFileProcess(file: File) {
 }
 
 export function analyseFileCancel() {
-  service.uploader.cancel();
+  uploadService.uploadFile.cancel();
   return {
     type: ActionTypes.ANALYSE_FILE_CANCEL
   };
@@ -123,7 +125,7 @@ export function analyseRemoteFile(file: Object) {
     dispatch({
       type: ActionTypes.ANALYSE_FILE_PROCESS
     });
-    service.analyseRemoteFile(file)
+    analyserService.analyseRemoteFile(file)
       .on('progress', (progress) => {
         dispatch(analyseFileProgress(progress));
       })

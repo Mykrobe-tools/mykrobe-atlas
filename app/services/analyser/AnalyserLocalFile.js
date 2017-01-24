@@ -3,14 +3,14 @@
 import path from 'path';
 import fs from 'fs';
 import {spawn} from 'child_process';
-import * as TargetConstants from '../constants/TargetConstants';
-import MykrobeBaseFileAnalyser from './MykrobeBaseFileAnalyser';
-import MykrobeConfig from './MykrobeConfig';
+import * as TargetConstants from '../../constants/TargetConstants';
+import AnalyserBaseFile from './AnalyserBaseFile';
+import MykrobeConfig from '../MykrobeConfig';
 
 // $FlowFixMe: Ignore Electron require
 const app = require('electron').remote.app;
 
-class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
+class AnalyserLocalFile extends AnalyserBaseFile {
   jsonBuffer: string;
   isBufferingJson: boolean;
   processExited: boolean;
@@ -53,7 +53,7 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
     return this;
   }
 
-  analyseBinaryFile(file: File): MykrobeLocalFileAnalyser {
+  analyseBinaryFile(file: File): AnalyserLocalFile {
     // in Electron we get the full local file path
     // $FlowFixMe: Ignore missing type values
     const filePath = file.path;
@@ -215,4 +215,4 @@ class MykrobeLocalFileAnalyser extends MykrobeBaseFileAnalyser {
   }
 }
 
-export default MykrobeLocalFileAnalyser;
+export default AnalyserLocalFile;

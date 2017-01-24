@@ -1,8 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import EventEmitter from 'events';
 import loadScript from 'load-script';
-import styles from './Upload.css';
 import config from '../../config';
 
 const SCOPE = ['https://www.googleapis.com/auth/drive.readonly'];
@@ -10,18 +9,10 @@ const GOOGLE_SDK_URL = 'https://apis.google.com/js/api.js';
 
 let isLoading = false;
 
-export default class UploadBtnGoogleDrive extends Component {
-  render() {
-    return (
-      <button
-        className={styles.button}
-        onClick={(event) => this.onClick(event)}>
-        Google Drive
-      </button>
-    );
-  }
+class UploadGoogleDrive extends EventEmitter {
 
-  componentDidMount() {
+  constructor() {
+    super();
     if (this.isGoogleReady()) {
       this.onApiLoad();
     }
@@ -72,7 +63,7 @@ export default class UploadBtnGoogleDrive extends Component {
     picker.build().setVisible(true);
   }
 
-  onClick() {
+  trigger() {
     if (!this.isGoogleReady() || !this.isGoogleAuthReady() || !this.isGooglePickerReady()) {
       return null;
     }
@@ -89,7 +80,6 @@ export default class UploadBtnGoogleDrive extends Component {
   }
 
   onFileSelect(data: Object) {
-    const {onFileSelect} = this.props;
     if (data[window.google.picker.Response.ACTION] === window.google.picker.Action.PICKED) {
       const file = data[window.google.picker.Response.DOCUMENTS][0];
       const id = file[window.google.picker.Document.ID];
@@ -97,7 +87,7 @@ export default class UploadBtnGoogleDrive extends Component {
         'fileId': id
       });
       request.execute((response) => {
-        onFileSelect({
+        this.emit('fileSelected', {
           name: response.name,
           url: `https://www.googleapis.com/drive/v3/files/${id}?alt=media`,
           headers: {
@@ -109,6 +99,4 @@ export default class UploadBtnGoogleDrive extends Component {
   }
 }
 
-UploadBtnGoogleDrive.propTypes = {
-  onFileSelect: PropTypes.func.isRequired
-};
+export default UploadGoogleDrive;
