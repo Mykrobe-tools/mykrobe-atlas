@@ -63,11 +63,6 @@ class MetadataForm extends Component {
     // TODO: Error checking
 
     this.props.postMetadataForm(this.state);
-    this.props.showNotification({
-      category: NotificationCategories.MESSAGE,
-      content: 'The form has been submitted'
-    });
-    this.setState(this.props.metadata);
   }
 
   handleDateChange(date: moment) {
