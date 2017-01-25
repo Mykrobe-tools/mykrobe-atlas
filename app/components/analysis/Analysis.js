@@ -10,7 +10,6 @@ import Uploading from '../ui/Uploading';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
 import * as NodeActions from '../../actions/NodeActions';
 import MapStyle from './MapStyle';
-import type { Sample } from '../../types/Sample';
 import config from '../../config';
 
 class Analysis extends Component {
@@ -28,11 +27,13 @@ class Analysis extends Component {
 
   componentDidMount() {
     const {analyser} = this.props;
+    const sample = analyser.json;
     if (analyser.analysing) return;
-    this.loadMaps();
+    this.loadMaps(sample);
   }
 
-  loadMaps() {
+  loadMaps(sample: Object) {
+    const {experiments} = sample.geoDistance;
     GoogleMapsLoader.load((google) => {
       const options = {
         center: {lat: 51.5074, lng: 0.1278},
@@ -43,32 +44,39 @@ class Analysis extends Component {
       };
       this._google = google;
       this._map = new google.maps.Map(this._mapDiv, options);
-      this.updateMarkers(this.props.analyser.transformed.samples);
+      this.updateMarkers(sample, experiments);
     });
   }
 
-  getSampleWithId(nodeId): ?Sample {
-    const {samples} = this.props.analyser.transformed;
-    for (let sampleKey in samples) {
-      const sample = samples[sampleKey];
-      if (sample._id === nodeId) {
-        return sample;
+  getSampleWithId(nodeId) {
+    const sample = this.props.analyser.json;
+    const {experiments} = sample.geoDistance;
+    const samples = [sample].concat(experiments);
+    let selectedSample;
+    let isMain = false;
+    samples.forEach((sample, index) => {
+      if (sample.id === nodeId) {
+        selectedSample = sample;
+        if (index === 0) {
+          isMain = true;
+        }
       }
-    }
+    });
+    return {sample: selectedSample, isMain};
   }
 
   getSampleIds() {
-    const {samples} = this.props.analyser.transformed;
-    let nodeIds = [];
-    for (let sampleKey in samples) {
-      const sample = samples[sampleKey];
-      nodeIds.push(sample._id);
-    }
-    return nodeIds;
+    const sample = this.props.analyser.json;
+    const {experiments} = sample.geoDistance;
+    const samples = [sample].concat(experiments);
+    return samples.map(sample => {
+      return sample.id;
+    });
   }
 
-  updateMarkers(samples) {
+  updateMarkers(sample, experiments) {
     const {setNodeHighlighted} = this.props;
+    const samples = [sample].concat(experiments);
     if (this._markers) {
       for (let markerKey in this._markers) {
         const marker = this._markers[markerKey];
@@ -76,17 +84,15 @@ class Analysis extends Component {
       }
     }
     this._markers = {};
-    for (let sampleKey in samples) {
-      const sample = samples[sampleKey];
+    samples.forEach((sample, index) => {
       const lat = parseFloat(sample.location.lat);
       const lng = parseFloat(sample.location.long);
-      console.log('marker', lat, lng);
       const marker = new this._google.maps.Marker({
         icon: {
           path: this._google.maps.SymbolPath.CIRCLE,
           scale: 10,
           strokeWeight: 4,
-          fillColor: '#f90',
+          fillColor: (index === 0) ? '#c30042' : '#0f82d0',
           strokeColor: '#fff',
           fillOpacity: 1
         },
@@ -94,13 +100,13 @@ class Analysis extends Component {
         map: this._map
       });
       marker.addListener('mouseover', (e) => {
-        setNodeHighlighted(sample._id, true);
+        setNodeHighlighted(sample.id, true);
       });
       marker.addListener('mouseout', (e) => {
-        setNodeHighlighted(sample._id, false);
+        setNodeHighlighted(sample.id, false);
       });
-      this._markers[sample._id] = marker;
-    }
+      this._markers[sample.id] = marker;
+    });
     this.zoomToMarkers();
   }
 
@@ -129,23 +135,22 @@ class Analysis extends Component {
   componentWillReceiveProps(nextProps) {
     const {node} = nextProps;
     if (nextProps.analyser.analysing) return;
-    if (!this.props.analyser.transformed) {
-      this.loadMaps();
+    if (!this._map) {
+      this.loadMaps(nextProps.analyser.json);
     }
-    else if (this.props.analyser.transformed.samples !== nextProps.analyser.transformed.samples) {
-      this.updateMarkers(nextProps.analyser.transformed.samples);
+    else if (this.props.analyser.json.geoDistance.experiments !== nextProps.analyser.json.geoDistance.experiments) {
+      this.updateMarkers(nextProps.analyser.json, nextProps.analyser.json.geoDistance.experiments);
     }
     if (node.highlighted.length) {
-      console.log('node.highlighted', node.highlighted);
       const nodeId = node.highlighted[0];
       const marker = this.markerForNodeId(nodeId);
       if (marker) {
         const markerLocation = marker.getPosition();
         const screenPosition = this.fromLatLngToPoint(markerLocation);
         const boundingClientRect = this._mapDiv.getBoundingClientRect();
-        const sample = this.getSampleWithId(nodeId);
+        const {sample, isMain} = this.getSampleWithId(nodeId);
         if (sample) {
-          this._phyloCanvasTooltip.setNode(sample);
+          this._phyloCanvasTooltip.setNode(sample, isMain);
           this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
         }
       }
@@ -203,7 +208,7 @@ function mapDispatchToProps(dispatch) {
 
 Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
+  analyser: PropTypes.object,
   node: PropTypes.object.isRequired
 };
 

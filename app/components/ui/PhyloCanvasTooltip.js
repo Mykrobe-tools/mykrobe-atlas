@@ -8,6 +8,7 @@ import moment from 'moment';
 class PhyloCanvasTooltip extends Component {
   state: {
     visible: boolean,
+    isMain: boolean,
     node: ?Sample,
     x: number,
     y: number
@@ -17,6 +18,7 @@ class PhyloCanvasTooltip extends Component {
     super();
     this.state = {
       visible: false,
+      isMain: false,
       node: null,
       x: 0,
       y: 0
@@ -31,14 +33,15 @@ class PhyloCanvasTooltip extends Component {
     });
   }
 
-  setNode(node: Sample) {
+  setNode(node: Sample, isMain: boolean = false) {
     this.setState({
-      node
+      node,
+      isMain
     });
   }
 
   render() {
-    const {visible, node, x, y} = this.state;
+    const {visible, isMain, node, x, y} = this.state;
     if (!visible || !node) {
       return null;
     }
@@ -46,13 +49,13 @@ class PhyloCanvasTooltip extends Component {
       <div className={styles.tooltip} style={{left: x, top: y}}>
         <div className={styles.tooltipWrapper}>
           <div className={styles.tooltipContainer}>
-            <div className={styles.marker}><i className="fa fa-circle" style={{color: '#f90'}} /></div>
+            <div className={styles.marker}><i className="fa fa-circle" style={{color: isMain ? '#c30042' : '#0f82d0'}} /></div>
             <div className={styles.title}>Sample id</div>
-            <div>{node._id}</div>
+            <div>{node.id}</div>
             <div className={styles.title}>Location</div>
             <div>{node.location.name}</div>
             <div className={styles.title}>Date</div>
-            <div>{moment(node.collected_at).format('LLL')}</div>
+            <div>{moment(node.collected).format('LLL')}</div>
           </div>
         </div>
       </div>

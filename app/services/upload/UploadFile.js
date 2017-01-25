@@ -14,7 +14,7 @@ class UploadFile extends EventEmitter {
     super();
     this.acceptedExtensions = acceptedExtensions;
     this.resumable = new Resumablejs({
-      target: `${BASE_URL}/api/upload`,
+      target: `${BASE_URL}/api/experiments/upload`,
       maxFiles: 1,
       minFileSize: 0,
       fileType: this.acceptedExtensions,

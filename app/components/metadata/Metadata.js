@@ -40,7 +40,7 @@ class Metadata extends Component {
 }
 
 Metadata.propTypes = {
-  analyser: PropTypes.object.isRequired
+  analyser: PropTypes.object
 };
 
 export default Metadata;

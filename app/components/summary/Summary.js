@@ -41,7 +41,7 @@ class Summary extends Component {
 }
 
 Summary.propTypes = {
-  analyser: PropTypes.object.isRequired
+  analyser: PropTypes.object
 };
 
 export default Summary;
