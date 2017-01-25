@@ -4,6 +4,9 @@
 }
 
 .menuToggle {
+  display: block;
+  width: 30px;
+  height: 30px;
   margin-right: auto;
   color: var(--color-grey-mid);
 }
@@ -11,4 +14,48 @@
 .account {
   margin-left: auto;
   color: var(--color-grey-mid);
+}
+
+.menuIcon,
+.menuIcon::before,
+.menuIcon::after {
+  display: block;
+  background: var(--color-grey-dark);
+  position: relative;
+  width: 30px;
+  height: 2px;
+  opacity: 1;
+  transition: 0.3s ease-in-out;
+  transform-origin: left center;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  content: " ";
+}
+
+.menuIconOpen {
+  composes: menuIcon;
+}
+
+.menuIconOpen::before {
+  transform: translate(0, 7px);
+}
+
+.menuIconOpen::after {
+  transform: translate(0, 12px);
+}
+
+.menuIconClose {
+  composes: menuIcon;
+  transform: rotate(45deg);
+}
+
+.menuIconClose::before {
+  width: 0;
+  transform: rotate(-45deg) translate(5px, 5px);
+}
+
+.menuIconClose::after {
+  transform: rotate(-90deg) translate(-13px, 14px);
 }

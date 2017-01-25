@@ -6,6 +6,8 @@
   flex-direction: column;
   transform: translateX(-200px);
   transition: transform 0.3s;
+  position: relative;
+  z-index: 2;
 }
 
 .containerDisplayed {

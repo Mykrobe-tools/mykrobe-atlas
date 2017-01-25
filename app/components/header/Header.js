@@ -11,13 +11,14 @@ class Header extends Component {
   }
 
   render() {
+    const {displayMenu} = this.props;
     return (
       <div className={styles.container}>
-        <div className={styles.menuToggle}>
-          <a href="#" onClick={(e) => this.onMenuToggleClick(e)}>
-            <i className="fa fa-bars" />
-          </a>
-        </div>
+        <a href="#"
+          className={styles.menuToggle}
+          onClick={(e) => this.onMenuToggleClick(e)}>
+          <span className={displayMenu ? styles.menuIconClose : styles.menuIconOpen} />
+        </a>
         <div className={styles.account}>
           <i className="fa fa-user" /> Sign in &middot; Register
         </div>
@@ -27,6 +28,7 @@ class Header extends Component {
 }
 
 Header.propTypes = {
+  displayMenu: PropTypes.bool.isRequired,
   toggleMenu: PropTypes.func.isRequired
 };
 
