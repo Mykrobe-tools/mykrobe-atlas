@@ -187,7 +187,6 @@ class Phylogeny extends Component {
     if (AUTO_ZOOM_SAMPLES) {
       this.zoomSamples();
     }
-    console.log(this.props.analyser.transformed);
   }
 
   updateHighlightedSamples(samples) {

@@ -3,7 +3,6 @@
 import MykrobeConfig from '../MykrobeConfig';
 import _ from 'lodash';
 import * as TargetConstants from '../../constants/TargetConstants';
-// import type { Sample } from '../../types/Sample';
 
 class AnalyserJsonTransformer {
   config: MykrobeConfig;
@@ -205,20 +204,6 @@ class AnalyserJsonTransformer {
     // tree and neighbours
 
     model.tree = sourceModel.tree;
-
-    // let neighbourKeys = _.keys(sourceModel.neighbours);
-    // let samples = {};
-    // two samples for demo
-    // take one from samplesForTest and set the id
-    // for (let i = 0; i < 2; i++) {
-    //   const neighbour = sourceModel.neighbours[neighbourKeys[i]];
-    //   let keys = _.keys(neighbour);
-    //   let demoSampleModel = samplesForTest[i];
-    //   let sampleId: string = keys[0];
-    //   demoSampleModel._id = sampleId;
-    //   samples[sampleId] = demoSampleModel;
-    // }
-    // model.samples = samples;
 
     return model;
   }
