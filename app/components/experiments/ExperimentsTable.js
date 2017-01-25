@@ -29,8 +29,8 @@ class ExperimentsTable extends Component {
       );
     }
     else {
-      tableContent = experiments.samples.map((experiment, index) =>
-        <tr key={index}>
+      tableContent = experiments.samples.map((experiment) =>
+        <tr key={experiment.id}>
           <td className={styles.tableData}>
             {/*
               <Link to={`/sample/${experiment.id}`} className={styles.experimentLink}>

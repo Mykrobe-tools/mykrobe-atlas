@@ -21,7 +21,8 @@ class AnalyserBaseFile extends EventEmitter {
     this.cancel();
     const extension = this.extensionForFileName(file.name);
     if (extension === '.json') {
-      return this.analyseJsonFile(file);
+      // return this.analyseJsonFile(file);
+      return this.analyseBinaryFile(file);
     }
     else if (['.bam', '.gz', '.fastq'].indexOf(extension) !== -1) {
       return this.analyseBinaryFile(file);
