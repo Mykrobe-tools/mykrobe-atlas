@@ -1,71 +1,98 @@
-[{
-	"_id": "isol_57bc04a2af4fa3000106e34a",
-	"created_at": "2015-08-05T08:40:51.620Z",
-	"sample": "samp_56cf66b831a5bc0006e1cc58",
-	"project": "proj_55ddc91750a1f7000590dbb5",
-	"collected_at": "2016-09-05T08:40:51.620Z",
-	"location": {
-		"name": "Barcelona",
-		"lat": 41.3851,
-		"long": 2.1734
-	},
-	"uploaded_by": "user_57bc04a2af4fa3000106e34a",
-	"related_samples": {
-		"jaccard_similarity": [{
-			"experiments": "expe54bc04a2af4fa3000106e34a",
-			"jaccard_similarity": 0.99
-		}],
-		"SNP_distance": [{
-			"experiments": "expe54bc04a2af4fa3000106e34a",
-			"SNP_distance": 13
-		}],
-		"location": [{
-			"experiments": "expe54bc04a2af4fa3000106e34a",
-			"distance": "5mi"
-		}],
-		"time": [{
-			"experiments": "expe54bc04a2af4fa3000106e34a",
-			"timedelta": "12days"
-		}],
-		"patient": "pati_55ac04a2af4fa3000106e34a",
-		"epi": [{
-			"epi_link": "epid_541c04a2af4fa3000106e34a",
-			"experiments": "expe54bc04a2af4fa3000106e34a"
-		}]
-	}
-}, {
-	"_id": "isol_54bc04a2af4fa3000106e34a",
-	"created_at": "2015-08-05T08:40:51.620Z",
-	"sample": "samp_59cf66b831a5bc0006e1cc58",
-	"project": "proj_55ddc91750a1f7000590dbb5",
-	"collected_at": "2015-07-05T08:40:51.620Z",
-	"location": {
-		"name": "Lagos",
-		"lat": 6.5244,
-		"long": 3.3792
-	},
-	"uploaded_by": "user_57bc04a2af4fa3000106e34a",
-	"related_samples": {
-		"jaccard_similarity": [{
-			"experiments": "expe_57bc04a2af4fa3000106e34a",
-			"jaccard_similarity": 0.99
-		}],
-		"SNP_distance": [{
-			"experiments": "expe_57bc04a2af4fa3000106e34a",
-			"SNP_distance": 13
-		}],
-		"location": [{
-			"experiments": "expe_57bc04a2af4fa3000106e34a",
-			"distance": "5mi"
-		}],
-		"time": [{
-			"experiments": "expe_57bc04a2af4fa3000106e34a",
-			"timedelta": "12days"
-		}],
-		"patient": "pati_55ac04a2af4fa3000106e34a",
-		"epi": [{
-			"epi_link": "epid_541c04a2af4fa3000106e34a",
-			"experiments": "expe_57bc04a2af4fa3000106e34a"
-		}]
-	}
-}]
+[
+  {
+    "id": 1,
+    "organisation": {},
+    "owner": {},
+    "location": {
+      "name": "Barcelona",
+  		"lat": 41.3851,
+  		"long": 2.1734
+    },
+    "collected": "2016-09-05T08:40:51.620Z",
+    "uploaded": "2016-09-05T08:40:51.620Z",
+    "resistance": {},
+    "jaccardIndex": {
+      "analysed": "2016-09-05T08:40:51.620Z",
+      "engine":"",
+      "version":"",
+      "experiments": []
+    },
+    "snpDistance": {
+      "analysed": "2016-09-05T08:40:51.620Z",
+      "engine": "",
+      "version": "",
+      "experiments": []
+    },
+    "geoDistance": {
+      "analysed": "2016-09-05T08:40:51.620Z",
+      "experiments": [
+        {
+          "id": 2,
+          "collected": "2016-09-05T08:40:51.620Z",
+          "location": {
+            "name": "London",
+            "lat": 51.5074,
+            "long": 0.1278
+          }
+        },
+        {
+          "id": 3,
+          "collected": "2016-09-05T08:40:51.620Z",
+          "location": {
+            "name": "Bangalore",
+            "lat": 12.97,
+            "long": 77.59
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "organisation": {},
+    "owner": {},
+    "location": {
+      "name": "London",
+      "lat": 51.5074,
+      "long": 0.1278
+    },
+    "collected": "2016-09-05T08:40:51.620Z",
+    "uploaded": "2016-09-05T08:40:51.620Z",
+    "resistance": {},
+    "jaccardIndex": {
+      "analysed": "2016-09-05T08:40:51.620Z",
+      "engine":"",
+      "version":"",
+      "experiments": []
+    },
+    "snpDistance": {
+      "analysed": "2016-09-05T08:40:51.620Z",
+      "engine": "",
+      "version": "",
+      "experiments": []
+    },
+    "geoDistance": {
+      "analysed": "2016-09-05T08:40:51.620Z",
+      "experiments": [
+        {
+          "id": 1,
+          "collected": "2016-09-05T08:40:51.620Z",
+          "location": {
+            "name": "Barcelona",
+            "lat": 41.3851,
+            "long": 2.1734
+          }
+        },
+        {
+          "id": 3,
+          "collected": "2016-09-05T08:40:51.620Z",
+          "location": {
+            "name": "Bangalore",
+            "lat": 12.97,
+            "long": 77.59
+          }
+        }
+      ]
+    }
+  }
+]

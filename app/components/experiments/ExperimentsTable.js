@@ -30,18 +30,18 @@ class ExperimentsTable extends Component {
     }
     else {
       tableContent = experiments.samples.map((experiment) =>
-        <tr key={experiment._id}>
+        <tr key={experiment.id}>
           <td className={styles.tableData}>
             {/*
-              <Link to={`/sample/${experiment._id}`} className={styles.experimentLink}>
+              <Link to={`/sample/${experiment.id}`} className={styles.experimentLink}>
             */}
-            {experiment.sample}
+            {experiment.id}
             {/*
             </Link>
             */}
           </td>
-          <td className={styles.tableData}>{experiment.uploaded_by}</td>
-          <td className={styles.tableData}>{moment().to(experiment.collected_at)}</td>
+          <td className={styles.tableData}>...</td>
+          <td className={styles.tableData}>{moment().to(experiment.collected)}</td>
           <td className={styles.tableData}>{experiment.location.name}</td>
         </tr>
       );

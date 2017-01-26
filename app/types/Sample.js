@@ -1,8 +1,8 @@
 /* @flow */
 
 export type Sample = {
-  _id: string,
-  collected_at: string,
+  id: string,
+  collected: string,
   location: {
     name: string,
     lat: string,

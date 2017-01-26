@@ -9,11 +9,13 @@
   height: 30px;
   margin-right: auto;
   color: var(--color-grey-mid);
+  pointer-events: auto;
 }
 
 .account {
   margin-left: auto;
   color: var(--color-grey-mid);
+  pointer-events: auto;
 }
 
 .menuIcon,

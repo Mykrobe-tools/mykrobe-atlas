@@ -47,21 +47,21 @@ class Phylogeny extends Component {
   }
 
   nodeIsInSamplesToHighlight(node) {
-    const index = this.getSampleIds().indexOf(node._id);
+    const index = this.getSampleIds().indexOf(node.id);
     return index !== -1;
   }
 
   onNodeMouseOver(node) {
     const {setNodeHighlighted} = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
-      setNodeHighlighted(node._id, true);
+      setNodeHighlighted(node.id, true);
     }
   }
 
   onNodeMouseOut(node) {
     const {setNodeHighlighted} = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
-      setNodeHighlighted(node._id, false);
+      setNodeHighlighted(node.id, false);
     }
   }
 
@@ -159,7 +159,7 @@ class Phylogeny extends Component {
     const {samples} = analyser.transformed;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      if (sample._id === nodeId) {
+      if (sample.id === nodeId) {
         return sample;
       }
     }
@@ -171,7 +171,7 @@ class Phylogeny extends Component {
     let nodeIds = [];
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      nodeIds.push(sample._id);
+      nodeIds.push(sample.id);
     }
     return nodeIds;
   }
@@ -187,14 +187,13 @@ class Phylogeny extends Component {
     if (AUTO_ZOOM_SAMPLES) {
       this.zoomSamples();
     }
-    console.log(this.props.experiments);
   }
 
   updateHighlightedSamples(samples) {
     this._phyloCanvas.resetHighlightedNodes();
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      this._phyloCanvas.highlightNodeWithId(sample._id, '#f90');
+      this._phyloCanvas.highlightNodeWithId(sample.id, '#f90');
     }
   }
 
@@ -211,8 +210,7 @@ class Phylogeny extends Component {
 function mapStateToProps(state) {
   return {
     analyser: state.analyser,
-    node: state.node,
-    experiments: state.experiments
+    node: state.node
   };
 }
 
@@ -227,7 +225,6 @@ Phylogeny.propTypes = {
   analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
   controlsInset: PropTypes.number,
-  experiments: PropTypes.object.isRequired,
   setNodeHighlighted: PropTypes.func.isRequired,
   unsetNodeHighlightedAll: PropTypes.func.isRequired
 };

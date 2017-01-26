@@ -31,7 +31,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
 
   fetchDemoData() {
     const fileName = this._file.name;
-    fetch(`${BASE_URL}/treeplace?file=${fileName}`)
+    fetch(`${BASE_URL}/api/experiments/${fileName}`)
       .then((response) => {
         clearTimeout(this._timeout);
         if (response.ok) {

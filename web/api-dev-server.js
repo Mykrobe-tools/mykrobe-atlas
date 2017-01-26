@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 // Handle uploads through Resumable.js
-app.post('/api/upload', (req, res) => {
+app.post('/api/experiments/upload', (req, res) => {
   var postUpload = resumable.post(req);
   console.log('POST', postUpload);
   res.send(postUpload.complete);
@@ -40,10 +40,15 @@ app.post('/api/upload', (req, res) => {
 });
 
 // Handle status checks on chunks through Resumable.js
-app.get('/api/upload', (req, res) => {
+app.get('/api/experiments/upload', (req, res) => {
   var validateGetRequest = resumable.get(req);
   console.log('GET', validateGetRequest);
   res.status(validateGetRequest.valid ? 200 : 204).send(validateGetRequest);
+});
+
+// Serve experiment api fixture
+app.get('/api/experiments/:id', (req, res, next) => {
+  res.sendFile(path.resolve(__dirname, '../test/_fixtures/api/experiment.json'));
 });
 
 // Serve all other api fixtures
