@@ -9,7 +9,7 @@ import {showNotification} from './NotificationActions';
 export function postMetadataForm(metadata: Object) {
   return (dispatch: Function) => {
     return fetch(`${BASE_URL}/api/experiments/1`, {
-      method: 'post',
+      method: 'put',
       body: JSON.stringify(metadata)
     })
       .then(response => {

@@ -29,6 +29,7 @@ app.use(bodyParser.text());
 // Allow CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
 });
 
@@ -50,8 +51,8 @@ app.get('/api/experiments/upload', (req, res) => {
   res.status(validateGetRequest.valid ? 200 : 204).send(validateGetRequest);
 });
 
-// Handle Metadata API post
-app.post('/api/experiments/:id', (req, res) => {
+// Handle Metadata API data
+app.put('/api/experiments/:id', (req, res) => {
   console.log(JSON.parse(req.body));
   res.status(202).send({status: 'ok'});
 });
