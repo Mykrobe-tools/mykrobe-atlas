@@ -54,8 +54,9 @@
 }
 
 .menuIconClose::before {
+  opacity: 0;
   width: 0;
-  transform: rotate(-45deg) translate(5px, 5px);
+  transform: rotate(-45deg) translate(0, 7px);
 }
 
 .menuIconClose::after {

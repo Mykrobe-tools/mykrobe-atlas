@@ -4,6 +4,7 @@ const del = require('del');
 const multipart = require('connect-multiparty');
 const proxy = require('express-http-proxy');
 const resumable = require('./resumable-uploader');
+const bodyParser = require('body-parser');
 
 const app = express();
 const host = process.env.HOST || 'localhost';
@@ -22,9 +23,13 @@ del([`${uploadDirectory}/*`], {force: true}).then(paths => {
 // Handle form multipart data
 app.use(multipart());
 
+// parse application/json
+app.use(bodyParser.text());
+
 // Allow CORS
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
 });
 
@@ -44,6 +49,12 @@ app.get('/api/experiments/upload', (req, res) => {
   var validateGetRequest = resumable.get(req);
   console.log('GET', validateGetRequest);
   res.status(validateGetRequest.valid ? 200 : 204).send(validateGetRequest);
+});
+
+// Handle Metadata API data
+app.put('/api/experiments/:id', (req, res) => {
+  console.log(JSON.parse(req.body));
+  res.status(202).send({status: 'ok'});
 });
 
 // Serve experiment api fixture

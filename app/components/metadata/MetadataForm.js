@@ -9,8 +9,6 @@ import moment from 'moment';
 import styles from './MetadataForm.css';
 
 import * as MetadataActions from '../../actions/MetadataActions';
-import * as NotificationActions from '../../actions/NotificationActions';
-import * as NotificationCategories from '../../constants/NotificationCategories';
 
 import Form from '../form/Form';
 import FormRow from '../form/FormRow';
@@ -63,11 +61,6 @@ class MetadataForm extends Component {
     // TODO: Error checking
 
     this.props.postMetadataForm(this.state);
-    this.props.showNotification({
-      category: NotificationCategories.MESSAGE,
-      content: 'The form has been submitted'
-    });
-    this.setState(this.props.metadata);
   }
 
   handleDateChange(date: moment) {
@@ -284,8 +277,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     postMetadataForm: MetadataActions.postMetadataForm,
-    setMetadata: MetadataActions.setMetadata,
-    showNotification: NotificationActions.showNotification
+    setMetadata: MetadataActions.setMetadata
   }, dispatch);
 }
 
