@@ -16,17 +16,17 @@ const uploadService = new UploadService();
 export function monitorUpload() {
   return (dispatch: Function, getState: Function) => {
     uploadService.uploadFile
-      .on('check', () => {
-        dispatch(analyseFileCheck());
+      .on('prepare', (filename) => {
+        dispatch(analyseFilePrepare(filename));
       })
-      .on('upload', () => {
-        dispatch(analyseFileUpload());
+      .on('upload', (filename) => {
+        dispatch(analyseFileUpload(filename));
       })
       .on('progress', (progress) => {
         dispatch(analyseFileProgress(progress));
       })
       .on('done', (file: File) => {
-        dispatch(analyseFileProcess(file));
+        dispatch(analyseFile(file));
       })
       .on('error', (error) => {
         dispatch(analyseFileError(error));
@@ -34,22 +34,24 @@ export function monitorUpload() {
   };
 }
 
-function analyseFileCheck() {
+function analyseFilePrepare(filename: string) {
   return (dispatch: Function, getState: Function) => {
     dispatch(push('/sample'));
     dispatch({
-      type: ActionTypes.ANALYSE_FILE_CHECK
+      type: ActionTypes.ANALYSE_FILE_PREPARE,
+      filename
     });
   };
 }
 
-function analyseFileUpload() {
+function analyseFileUpload(filename: string) {
   return {
-    type: ActionTypes.ANALYSE_FILE_UPLOAD
+    type: ActionTypes.ANALYSE_FILE_UPLOAD,
+    filename
   };
 }
 
-function analyseFileProcess(file: File) {
+function analyseFile(file: File) {
   return (dispatch: Function, getState: Function) => {
     if (IS_ELECTRON) {
       // $FlowFixMe: Ignore Electron require
@@ -60,7 +62,8 @@ function analyseFileProcess(file: File) {
     }
 
     dispatch({
-      type: ActionTypes.ANALYSE_FILE_PROCESS
+      type: ActionTypes.ANALYSE_FILE_ANALYSE,
+      filename: file.name
     });
 
     analyserService.analyseFile(file)
@@ -69,7 +72,7 @@ function analyseFileProcess(file: File) {
       })
       .on('done', (result) => {
         const {json, transformed} = result;
-        dispatch(analyseFileSuccess(json, transformed));
+        dispatch(analyseFileSuccess(file.name, json, transformed));
       })
       .on('error', (error) => {
         dispatch(analyseFileError(error.description));
@@ -84,11 +87,11 @@ export function analyseFileCancel() {
   };
 }
 
-function analyseFileSuccess(json: Object, transformed: Object) {
+function analyseFileSuccess(filename: string, json: Object, transformed: Object) {
   return (dispatch: Function, getState: Function) => {
     dispatch(showNotification({
       category: NotificationCategories.SUCCESS,
-      content: 'File analysis complete'
+      content: `Sample ${filename} analysis complete`
     }));
     dispatch({
       type: ActionTypes.ANALYSE_FILE_SUCCESS,
@@ -123,7 +126,7 @@ export function analyseRemoteFile(file: Object) {
   return (dispatch: Function, getState: Function) => {
     dispatch(push('/sample'));
     dispatch({
-      type: ActionTypes.ANALYSE_FILE_PROCESS
+      type: ActionTypes.ANALYSE_FILE_ANALYSE
     });
     analyserService.analyseRemoteFile(file)
       .on('progress', (progress) => {
@@ -131,7 +134,7 @@ export function analyseRemoteFile(file: Object) {
       })
       .on('done', (result) => {
         const {json, transformed} = result;
-        dispatch(analyseFileSuccess(json, transformed));
+        dispatch(analyseFileSuccess(file.name, json, transformed));
       })
       .on('error', (error) => {
         dispatch(analyseFileError(error.description));

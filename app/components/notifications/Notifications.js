@@ -22,7 +22,7 @@ export class Notifications extends Component {
         {notifications.map(notification => {
           const {id, content, category} = notification;
           return (
-            <div key={id}>
+            <div className={styles.notification} key={id}>
               <Notification
                 content={content}
                 category={category.toLowerCase()}

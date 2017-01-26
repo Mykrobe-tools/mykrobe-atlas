@@ -34,7 +34,7 @@ class UploadFile extends EventEmitter {
       this.onUploadError(`There was an error with the upload: ${message}`);
     });
     this.resumable.on('fileAdded', (file) => {
-      this.emit('check');
+      this.emit('prepare', file.fileName);
       this.computeChecksums(file);
     });
     this.resumable.on('fileProgress', (file) => {
@@ -110,7 +110,7 @@ class UploadFile extends EventEmitter {
         this.computeChecksums(resumableFile, offset + 1, fileReader);
       }
       else {
-        this.emit('upload');
+        this.emit('upload', resumableFile.fileName);
         this.resumable.upload();
       }
     };

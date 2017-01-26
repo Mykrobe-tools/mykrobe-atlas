@@ -14,13 +14,33 @@ class Notification extends Component {
 
   render() {
     const {category, content} = this.props;
+    let icon;
+    switch (category) {
+      case 'success':
+        icon = 'fa fa-check-circle';
+        break;
+      case 'message':
+        icon = 'fa fa-info-circle';
+        break;
+      case 'error':
+        icon = 'fa fa-exclamation-circle';
+        break;
+    }
     return (
       <a
         className={styles[category]}
         onClick={event => this.onClick(event)}>
         <p className={styles.content}>
+          {icon &&
+            <span className={styles.icon}>
+              <i className={icon} />
+            </span>
+          }
           {content}
         </p>
+        <span className={styles.close}>
+          <i className="fa fa-times-circle" />
+        </span>
       </a>
     );
   }
