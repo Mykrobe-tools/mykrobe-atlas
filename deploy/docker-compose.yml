@@ -18,7 +18,7 @@ atlas-server:
   container_name: atlas-server
   restart: always
   ports:
-    - 3001:3000
+    - 3001:3001
   environment:
     - NODE_ENV=dev
     - HOST=0.0.0.0

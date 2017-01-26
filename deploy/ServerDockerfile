@@ -50,8 +50,8 @@ ADD . /app
 # move cached installs into the app
 RUN cp -a /tmp/node_modules /app/
 
-# run local api on 3000
-EXPOSE 3000
+# run local api on 3001
+EXPOSE 3001
 
 # run up the server
-CMD NODE_ENV=$NODE_ENV npm run web-hot-server
+CMD NODE_ENV=$NODE_ENV npm run web-api-server
