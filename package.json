@@ -185,6 +185,7 @@
     "phylocanvas": "^2.6.1",
     "postcss": "^5.1.0",
     "react": "^15.3.0",
+    "react-autosuggest": "^8.0.0",
     "react-datepicker": "^0.29.0",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
