@@ -14,6 +14,8 @@
   composes: containerAbsolute from "css/layout.css";
   bottom: auto;
   z-index: 4;
+  pointer-events: none;
+  width: 100%;
 }
 
 .headerContainer {

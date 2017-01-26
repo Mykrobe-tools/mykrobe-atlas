@@ -20,7 +20,7 @@ export function postMetadataForm(metadata: Object) {
                 type: ActionTypes.POST_METADATA_FORM
               });
               dispatch(showNotification({
-                category: NotificationCategories.MESSAGE,
+                category: NotificationCategories.SUCCESS,
                 content: 'Metadata saved'
               }));
             }, 1000);

@@ -22,9 +22,11 @@ class Analysing extends Component {
     return (
       <div className={styles.container}>
         {analyser.analysing &&
-          <div className={styles.header}>
-            <AnalysingProgressBar progress={analyser.progress} onCancel={(e) => this.onCancelClick(e)} />
-          </div>
+          <AnalysingProgressBar
+            progress={analyser.progress}
+            description={analyser.stepDescription}
+            filename={analyser.filename}
+            onCancel={(e) => this.onCancelClick(e)} />
         }
       </div>
     );

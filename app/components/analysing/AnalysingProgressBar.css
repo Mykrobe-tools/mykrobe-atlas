@@ -4,37 +4,18 @@
 
 .progressBarContainer {
   background-color: var(--color-tint-primary);
-  height: 16px;
+  height: 10px;
   transition: width 2s;
-  position: absolute;
 }
 
 .progressBarLabel {
+  composes: font from "css/typography.css";
+  composes: fontSizeSmall from "css/typography.css";
+  text-align: center;
+}
+
+.cancel {
   composes: fontSecondary from "css/typography.css";
-  font-size: 11px;
-  white-space: nowrap;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  padding: 2px 4px;
-}
-
-.progressBarLabelInside {
-  composes: progressBarLabel;
-  right: 0;
-  color: white;
-}
-
-.progressBarLabelOutside {
-  composes: progressBarLabel;
-  left: 100%;
-  color: var(--color-tint-primary);
-}
-
-.cancelInside {
-  color: white;
-}
-
-.cancelOutside {
-  color: var(--color-tint-primary);
+  pointer-events: auto;
+  color: var(--color-grey-dark);
 }
