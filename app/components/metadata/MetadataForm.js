@@ -9,8 +9,6 @@ import moment from 'moment';
 import styles from './MetadataForm.css';
 
 import * as MetadataActions from '../../actions/MetadataActions';
-import * as NotificationActions from '../../actions/NotificationActions';
-import * as NotificationCategories from '../../constants/NotificationCategories';
 
 import Form from '../form/Form';
 import FormRow from '../form/FormRow';
@@ -279,8 +277,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     postMetadataForm: MetadataActions.postMetadataForm,
-    setMetadata: MetadataActions.setMetadata,
-    showNotification: NotificationActions.showNotification
+    setMetadata: MetadataActions.setMetadata
   }, dispatch);
 }
 
