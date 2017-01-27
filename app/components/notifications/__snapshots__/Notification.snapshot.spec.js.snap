@@ -4,7 +4,17 @@ exports[`Notification component snapshot renders correctly 1`] = `
   onClick={[Function]}>
   <p
     className="content">
+    <span
+      className="icon">
+      <i
+        className="fa fa-check-circle" />
+    </span>
     Lorem Ipsum
   </p>
+  <span
+    className="close">
+    <i
+      className="fa fa-times-circle" />
+  </span>
 </a>
 `;
