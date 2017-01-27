@@ -14,7 +14,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
     console.error('TODO: upload file to API and report progress');
     this._progress = 0;
     this.demoUpdateProgress();
-    this.fetchDemoData();
+    this.fetchDemoData(this._file.name);
     return this;
   }
 
@@ -29,11 +29,10 @@ class AnalyserWebFile extends AnalyserBaseFile {
     }
   }
 
-  fetchDemoData() {
-    const fileName = this._file.name;
-    fetch(`${BASE_URL}/api/experiments/${fileName}`)
+  fetchDemoData(id: string) {
+    fetch(`${BASE_URL}/api/experiments/${id}`)
       .then((response) => {
-        clearTimeout(this._timeout);
+        this._timeout && clearTimeout(this._timeout);
         if (response.ok) {
           response.text().then((string) => {
             if (this._progress < 100) {
@@ -53,6 +52,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
           this.end();
         }
       });
+    return this;
   }
 
   handleDemoData(string: string) {

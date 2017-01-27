@@ -33,28 +33,36 @@ app.use((req, res, next) => {
   next();
 });
 
-// Handle uploads through Resumable.js
-app.post('/api/experiments/upload', (req, res) => {
-  var postUpload = resumable.post(req);
-  console.log('POST', postUpload);
-  res.send(postUpload.complete);
-  if (postUpload.complete) {
-    // file upload is complete, reassemble original file and process...
-    // ...
+// Handle new upload id creation
+let id = 1;
+app.post('/api/experiments/', (req, res) => {
+  res.status(200).send({id: id++});
+});
+
+// Handle upload updates
+app.put('/api/experiments/:id', (req, res) => {
+  // Handle uploads through Resumable.js
+  if (req.body.fileUpload) {
+    var postUpload = resumable.post(req);
+    console.log('PUT', postUpload);
+    res.send(postUpload.complete);
+    if (postUpload.complete) {
+      // file upload is complete, reassemble original file and process...
+      // ...
+    }
+  }
+  // Handle Metadata API data
+  else {
+    console.log(JSON.parse(req.body));
+    res.status(202).send({status: 'ok'});
   }
 });
 
 // Handle status checks on chunks through Resumable.js
-app.get('/api/experiments/upload', (req, res) => {
+app.get('/api/experiments/:id/upload-status', (req, res) => {
   var validateGetRequest = resumable.get(req);
   console.log('GET', validateGetRequest);
   res.status(validateGetRequest.valid ? 200 : 204).send(validateGetRequest);
-});
-
-// Handle Metadata API data
-app.put('/api/experiments/:id', (req, res) => {
-  console.log(JSON.parse(req.body));
-  res.status(202).send({status: 'ok'});
 });
 
 // Serve experiment api fixture

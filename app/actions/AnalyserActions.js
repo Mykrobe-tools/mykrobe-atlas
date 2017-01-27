@@ -19,8 +19,8 @@ export function monitorUpload() {
       .on('prepare', (filename) => {
         dispatch(analyseFilePrepare(filename));
       })
-      .on('upload', (filename) => {
-        dispatch(analyseFileUpload(filename));
+      .on('upload', () => {
+        dispatch(analyseFileUpload());
       })
       .on('progress', (progress) => {
         dispatch(analyseFileProgress(progress));
@@ -36,18 +36,26 @@ export function monitorUpload() {
 
 function analyseFilePrepare(filename: string) {
   return (dispatch: Function, getState: Function) => {
-    dispatch(push('/sample'));
-    dispatch({
-      type: ActionTypes.ANALYSE_FILE_PREPARE,
-      filename
-    });
+    return uploadService.prepare()
+      .then(id => {
+        if (id) {
+          dispatch({
+            type: ActionTypes.ANALYSE_FILE_PREPARE,
+            filename,
+            id
+          });
+          dispatch(push(`/sample/${id}`));
+        }
+        else {
+          dispatch(analyseFileError('Upload initialisation error'));
+        }
+      });
   };
 }
 
-function analyseFileUpload(filename: string) {
+function analyseFileUpload() {
   return {
-    type: ActionTypes.ANALYSE_FILE_UPLOAD,
-    filename
+    type: ActionTypes.ANALYSE_FILE_UPLOAD
   };
 }
 
@@ -62,8 +70,7 @@ function analyseFile(file: File) {
     }
 
     dispatch({
-      type: ActionTypes.ANALYSE_FILE_ANALYSE,
-      filename: file.name
+      type: ActionTypes.ANALYSE_FILE_ANALYSE
     });
 
     analyserService.analyseFile(file)
@@ -124,20 +131,44 @@ function analyseFileError(error: string) {
 
 export function analyseRemoteFile(file: Object) {
   return (dispatch: Function, getState: Function) => {
-    dispatch(push('/sample'));
-    dispatch({
-      type: ActionTypes.ANALYSE_FILE_ANALYSE
-    });
-    analyserService.analyseRemoteFile(file)
-      .on('progress', (progress) => {
-        dispatch(analyseFileProgress(progress));
-      })
+    return uploadService.prepare()
+      .then(id => {
+        if (id) {
+          dispatch(push(`/sample/${id}`));
+          dispatch({
+            type: ActionTypes.ANALYSE_FILE_ANALYSE,
+            filename: file.name,
+            id
+          });
+          analyserService.analyseRemoteFile(file)
+            .on('progress', (progress) => {
+              dispatch(analyseFileProgress(progress));
+            })
+            .on('done', (result) => {
+              const {json, transformed} = result;
+              dispatch(analyseFileSuccess(file.name, json, transformed));
+            })
+            .on('error', (error) => {
+              dispatch(analyseFileError(error.description));
+            });
+        }
+        else {
+          dispatch(analyseFileError('Upload initialisation error'));
+        }
+      });
+  };
+}
+
+export function fetchExperiment(id: string) {
+  return (dispatch: Function, getState: Function) => {
+    analyserService.fetchExperiment(id)
       .on('done', (result) => {
         const {json, transformed} = result;
-        dispatch(analyseFileSuccess(file.name, json, transformed));
-      })
-      .on('error', (error) => {
-        dispatch(analyseFileError(error.description));
+        dispatch({
+          type: ActionTypes.ANALYSE_FILE_SUCCESS,
+          json,
+          transformed
+        });
       });
   };
 }
