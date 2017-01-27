@@ -134,12 +134,12 @@ export function analyseRemoteFile(file: Object) {
     return uploadService.prepare()
       .then(id => {
         if (id) {
-          dispatch(push(`/sample/${id}`));
           dispatch({
             type: ActionTypes.ANALYSE_FILE_ANALYSE,
             filename: file.name,
             id
           });
+          dispatch(push(`/sample/${id}`));
           analyserService.analyseRemoteFile(file)
             .on('progress', (progress) => {
               dispatch(analyseFileProgress(progress));
