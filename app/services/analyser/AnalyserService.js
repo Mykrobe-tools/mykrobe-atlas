@@ -24,6 +24,10 @@ class AnalyserService {
   analyseRemoteFile(file: Object): AnalyserBaseFile {
     return new AnalyserWebFile(this.config).analyseBinaryFile(file);
   }
+
+  fetchExperiment(id: string) {
+    return new AnalyserWebFile(this.config).fetchDemoData(id);
+  }
 }
 
 export default AnalyserService;

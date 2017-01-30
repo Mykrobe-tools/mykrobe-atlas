@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { Route, IndexRoute, IndexRedirect } from 'react-router';
+import { Route, Redirect, IndexRoute, IndexRedirect } from 'react-router';
 import HomePage from './containers/HomePage';
 import LibraryPage from './containers/LibraryPage';
 import SamplePage from './containers/SamplePage';
@@ -22,7 +22,8 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
     <Route path="library" component={LibraryPage} />
-    <Route path="sample" component={SamplePage}>
+    <Redirect from="sample" to="/" />
+    <Route path="sample/:id" component={SamplePage}>
       <IndexRedirect to="metadata" />
       <Route path="metadata" component={Metadata} />
       <Route path="resistance" component={Resistance}>

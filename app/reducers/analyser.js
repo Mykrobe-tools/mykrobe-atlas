@@ -4,6 +4,7 @@ import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
   analysing: false,
+  id: null,
   filename: null,
   step: 0,
   stepDescription: null,
@@ -21,23 +22,20 @@ export default function analyser(state: Object = initialState, action: Object = 
         step: 0,
         stepDescription: 'Preparing',
         filename: action.filename,
+        id: action.id,
         analysing: true
       };
     case ActionTypes.ANALYSE_FILE_UPLOAD:
       return {
         ...state,
         step: 1,
-        stepDescription: 'Uploading',
-        filename: action.filename,
-        analysing: true
+        stepDescription: 'Uploading'
       };
     case ActionTypes.ANALYSE_FILE_ANALYSE:
       return {
         ...state,
         step: 2,
-        stepDescription: 'Analysing',
-        filename: action.filename,
-        analysing: true
+        stepDescription: 'Analysing'
       };
     case ActionTypes.ANALYSE_FILE_CANCEL:
       return initialState;
@@ -56,8 +54,7 @@ export default function analyser(state: Object = initialState, action: Object = 
       };
     case ActionTypes.ANALYSE_FILE_ERROR:
       return {
-        ...state,
-        analysing: false,
+        ...initialState,
         error: action.error
       };
     default:
