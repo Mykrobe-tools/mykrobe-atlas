@@ -25,8 +25,10 @@ describe('ExperimentActions', () => {
         {type: 'RECEIVE_EXPERIMENTS', data}
       ];
 
+      jest.useFakeTimers();
       return store.dispatch(ExperimentActions.fetchExperiments())
         .then(() => {
+          jest.runAllTimers();
           expect(store.getActions()).toEqual(expectedActions);
         });
     });
