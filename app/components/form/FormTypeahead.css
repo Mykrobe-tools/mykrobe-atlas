@@ -11,6 +11,8 @@
 
 .input {
   composes: input from "css/form.css";
+  position: relative;
+  z-index: 3;
 }
 
 .container {
@@ -19,6 +21,8 @@
 
 .suggestionsContainer {
   position: absolute;
+  top: 100%;
+  margin-top: -2px;
   display: block;
   border: 1px solid var(--color-grey-light);
   border-top: 0;
@@ -29,6 +33,10 @@
   width: 100%;
   max-height: 200px;
   overflow-y: scroll;
+}
+
+.suggestionsContainer:empty {
+  border: 0;
 }
 
 .suggestionsList {
