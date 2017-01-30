@@ -11,7 +11,8 @@ import * as TargetConstants from '../../constants/TargetConstants';
 class Resistance extends Component {
 
   render() {
-    const {analyser, children} = this.props;
+    const {analyser, id, children} = this.props;
+    const path = `/sample/${id}/resistance`;
     let content;
     const config = new MykrobeConfig();
 
@@ -24,17 +25,17 @@ class Resistance extends Component {
           <div className={styles.header}>
             {TargetConstants.SPECIES_TB === config.species ? (
               <div className={styles.navigation}>
-                <Link to="/sample/resistance/all" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>All</Link>
-                <Link to="/sample/resistance/drugs" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Drugs</Link>
-                <Link to="/sample/resistance/evidence" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Evidence</Link>
-                <Link to="/sample/resistance/species" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Species</Link>
+                <Link to={`${path}/all`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>All</Link>
+                <Link to={`${path}/drugs`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Drugs</Link>
+                <Link to={`${path}/evidence`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Evidence</Link>
+                <Link to={`${path}/species`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Species</Link>
               </div>
             ) : (
               <div className={styles.navigation}>
-                <Link to="/sample/resistance/all" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>All</Link>
-                <Link to="/sample/resistance/class" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Class</Link>
-                <Link to="/sample/resistance/evidence" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Evidence</Link>
-                <Link to="/sample/resistance/species" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Species</Link>
+                <Link to={`${path}/all`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>All</Link>
+                <Link to={`${path}/class`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Class</Link>
+                <Link to={`${path}/evidence`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Evidence</Link>
+                <Link to={`${path}/species`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Species</Link>
               </div>
             )}
           </div>
@@ -60,6 +61,7 @@ function mapStateToProps(state) {
 Resistance.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
   children: PropTypes.node
 };
 

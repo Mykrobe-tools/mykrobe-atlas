@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
-// import { Link } from 'react-router';
+import { Link } from 'react-router';
 import moment from 'moment';
 import styles from './ExperimentsTable.css';
 
@@ -32,13 +32,9 @@ class ExperimentsTable extends Component {
       tableContent = experiments.samples.map((experiment) =>
         <tr key={experiment.id}>
           <td className={styles.tableData}>
-            {/*
-              <Link to={`/sample/${experiment.id}`} className={styles.experimentLink}>
-            */}
-            {experiment.id}
-            {/*
+            <Link to={`/sample/${experiment.id}`} className={styles.experimentLink}>
+              {experiment.id}
             </Link>
-            */}
           </td>
           <td className={styles.tableData}>...</td>
           <td className={styles.tableData}>{moment().to(experiment.collected)}</td>

@@ -40,12 +40,13 @@ class AnalyserJsonTransformer {
     const sampleId = sampleIds[0];
 
     const sampleModel = sourceModel.snpDistance.newick[sampleId];
-    const transformedSampleModel = this.transformSampleModel(sampleModel);
+
+    const transformedSampleModel = this.transformSampleModel(sampleModel, sourceModel.geoDistance.experiments);
 
     return transformedSampleModel;
   }
 
-  transformSampleModel(sourceModel: Object) {
+  transformSampleModel(sourceModel: Object, relatedModels: Array<Object>) {
     let o;
     let susceptibilityModel;
     let key;
@@ -202,6 +203,17 @@ class AnalyserJsonTransformer {
     model.speciesPretty = speciesPretty;
 
     // tree and neighbours
+    let neighbourKeys = _.keys(sourceModel.neighbours);
+    let samples = {};
+    for (let i = 0; i < 2; i++) {
+      const neighbour = sourceModel.neighbours[neighbourKeys[i]];
+      let keys = _.keys(neighbour);
+      let neighbourSampleModel = relatedModels[i];
+      let sampleId: string = keys[0];
+      neighbourSampleModel.id = sampleId;
+      samples[sampleId] = neighbourSampleModel;
+    }
+    model.samples = samples;
 
     model.tree = sourceModel.tree;
 

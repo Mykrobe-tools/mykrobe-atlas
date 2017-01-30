@@ -1,5 +1,6 @@
 /* @flow */
 
+import { BASE_URL } from '../../constants/APIConstants';
 import UploadFile from './UploadFile';
 import UploadBox from './UploadBox';
 import UploadDropbox from './UploadDropbox';
@@ -26,6 +27,28 @@ class UploadService {
       instance = this;
     }
     return instance;
+  }
+
+  prepare() {
+    return fetch(`${BASE_URL}/api/experiments/`, {
+      method: 'POST'
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json().then((experiment) => {
+            this.setId(experiment.id);
+            return experiment.id;
+          });
+        }
+        return;
+      })
+      .catch(() => {
+        return;
+      });
+  }
+
+  setId(id: string) {
+    this.uploadFile.setId(id);
   }
 }
 

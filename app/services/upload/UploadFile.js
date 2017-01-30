@@ -9,17 +9,25 @@ class UploadFile extends EventEmitter {
   acceptedExtensions: Array<string>;
   resumable: Object;
   props: Object;
+  id: string;
 
   constructor(acceptedExtensions: Array<string>) {
     super();
     this.acceptedExtensions = acceptedExtensions;
     this.resumable = new Resumablejs({
-      target: `${BASE_URL}/api/experiments/upload`,
       maxFiles: 1,
       minFileSize: 0,
+      uploadMethod: 'PUT',
+      target: () => {
+        return `${BASE_URL}/api/experiments/${this.id}`;
+      },
+      testTarget: () => {
+        return `${BASE_URL}/api/experiments/${this.id}/upload-status`;
+      },
       fileType: this.acceptedExtensions,
       query: (resumableFile, resumableObj) => {
         return {
+          'fileUpload': true,
           'checksum': resumableFile.hashes[resumableObj.offset]
         };
       },
@@ -43,6 +51,10 @@ class UploadFile extends EventEmitter {
     this.resumable.on('fileSuccess', (file) => {
       this.onFileUploadComplete(file);
     });
+  }
+
+  setId(id: string) {
+    this.id = id;
   }
 
   bindUploader(dropzoneEl: Element, buttonEl: Element) {
@@ -79,6 +91,16 @@ class UploadFile extends EventEmitter {
     this.emit('done', file.file);
   }
 
+  startUpload() {
+    if (this.id) {
+      this.emit('upload');
+      this.resumable.upload();
+    }
+    else {
+      setTimeout(() => this.startUpload(), 1000);
+    }
+  }
+
   // Calculate md5 checksums for each chunk
   // Adapted from: https://github.com/23/resumable.js/issues/135#issuecomment-31123690
   computeChecksums(resumableFile: Object, offset: number = 0, fileReader: ?FileReader = null) {
@@ -110,8 +132,7 @@ class UploadFile extends EventEmitter {
         this.computeChecksums(resumableFile, offset + 1, fileReader);
       }
       else {
-        this.emit('upload', resumableFile.fileName);
-        this.resumable.upload();
+        this.startUpload();
       }
     };
     fileReader.readAsArrayBuffer(bytes);

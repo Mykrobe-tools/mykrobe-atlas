@@ -15,10 +15,10 @@ import FormRow from '../form/FormRow';
 import FormLabel from '../form/FormLabel';
 import FormInputText from '../form/FormInputText';
 import FormInputDate from '../form/FormInputDate';
-import FormSelect from '../form/FormSelect';
 import FormTextarea from '../form/FormTextarea';
 import FormInputRadio from '../form/FormInputRadio';
 import FormInputCheckbox from '../form/FormInputCheckbox';
+import FormTypeahead from '../form/FormTypeahead';
 import FormButton from '../form/FormButton';
 
 const locations = require('../../static/locations.json');
@@ -83,6 +83,13 @@ class MetadataForm extends Component {
     this.setState(state);
   }
 
+  handleTypeaheadChange(name: string, value: string) {
+    var state = {
+      [name]: value
+    };
+    this.setState(state);
+  }
+
   handleSusceptibilityChange(event: InputEvent) {
     var state = {};
     state.susceptibility = Object.assign({}, this.state.susceptibility, {
@@ -96,17 +103,17 @@ class MetadataForm extends Component {
     return (
       <Form onSubmit={(event) => this.handleSubmit(event)}>
         <FormRow>
-          <FormSelect
+          <FormTypeahead
             title="Collection Location"
             name="location"
-            selectedOption={location}
-            options={locations.map((location, index) => {
+            value={location}
+            suggestions={locations.map((location, index) => {
               return ({
                 value: location['alpha-2'],
                 label: location.name
               });
             })}
-            onChange={(event) => this.handleChange(event)}
+            onChange={(name, value) => this.handleTypeaheadChange(name, value)}
           />
         </FormRow>
         <FormRow>

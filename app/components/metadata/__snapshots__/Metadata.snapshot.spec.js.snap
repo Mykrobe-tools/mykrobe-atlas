@@ -1,8 +1,17 @@
 exports[`Metadata component snapshot renders correctly 1`] = `
 <div
   className="container">
-  <
-    single={true} />
+  <div
+    className="uploadingMessage">
+    <h2
+      className="uploadingMessageTitle">
+      Your sample is uploading
+    </h2>
+    <p
+      className="uploadingMessageText">
+      To help Atlas provide more accurate results, please provide any available metadata
+    </p>
+  </div>
   <div
     className="formContainer">
     <div
@@ -15,7 +24,7 @@ exports[`Metadata component snapshot renders correctly 1`] = `
         className="formHeaderActions">
         <div
           className="formHeaderAction">
-          Open template
+          Edit
         </div>
       </div>
     </div>
