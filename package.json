@@ -177,6 +177,7 @@
     "css-modules-require-hook": "^4.0.1",
     "electron-debug": "^1.0.1",
     "font-awesome": "^4.6.3",
+    "fuse.js": "^2.6.1",
     "google-maps": "^3.2.1",
     "isomorphic-fetch": "^2.2.1",
     "load-script": "^1.0.0",

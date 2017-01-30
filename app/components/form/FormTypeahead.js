@@ -2,6 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import Autosuggest from 'react-autosuggest';
+import Fuse from 'fuse.js';
 
 import FormLabel from './FormLabel';
 
@@ -11,10 +12,13 @@ const defaults = {
   // allow custom overriding of typeahead logic: filtering
   filterSuggestions: (suggestions, value) => {
     const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-    return inputLength === 0 ? [] : suggestions.filter(suggestion => {
-      return suggestion.label.toLowerCase().slice(0, inputLength) === inputValue;
-    });
+    const options = {
+      keys: ['value', 'label'],
+      shouldSort: true,
+      threshold: 0.3
+    };
+    const fuse = new Fuse(suggestions, options);
+    return fuse.search(inputValue);
   },
 
   // allow custom overriding of typeahead logic: value display
