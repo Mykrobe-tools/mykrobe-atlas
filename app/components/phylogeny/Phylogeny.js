@@ -193,7 +193,7 @@ class Phylogeny extends Component {
     this._phyloCanvas.resetHighlightedNodes();
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
-      this._phyloCanvas.highlightNodeWithId(sample.id, '#f90');
+      this._phyloCanvas.highlightNodeWithId(sample.id, '#0f82d0');
     }
   }
 
