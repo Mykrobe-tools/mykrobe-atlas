@@ -22,7 +22,7 @@ class FormInputDate extends Component {
         <DatePicker
           className={styles.input}
           name={name}
-          selected={value.length > 0 ? moment(value) : moment()}
+          selected={value && value.length > 0 ? moment(value) : moment()}
           onChange={(date) => onChange(date)}
         />
       </div>

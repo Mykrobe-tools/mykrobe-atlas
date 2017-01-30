@@ -11,6 +11,7 @@ import styles from './MetadataForm.css';
 import * as MetadataActions from '../../actions/MetadataActions';
 
 import Form from '../form/Form';
+import Fieldset from '../form/Fieldset';
 import FormRow from '../form/FormRow';
 import FormLabel from '../form/FormLabel';
 import FormInputText from '../form/FormInputText';
@@ -18,6 +19,7 @@ import FormInputDate from '../form/FormInputDate';
 import FormTextarea from '../form/FormTextarea';
 import FormInputRadio from '../form/FormInputRadio';
 import FormInputCheckbox from '../form/FormInputCheckbox';
+import FormSelect from '../form/FormSelect';
 import FormTypeahead from '../form/FormTypeahead';
 import FormButton from '../form/FormButton';
 
@@ -26,9 +28,25 @@ const drugs = require('../../static/drugs.json');
 
 class MetadataForm extends Component {
   state: {
+    patientId: string,
+    siteId: string,
+    genderAtBirth: string,
+    countryOfBirth: string,
+    bmi: number,
+    injectingDrugUse: string,
+    homeless: string,
+    imprisoned: string,
+    smoker: string,
+    diabetic: string,
+    hivStatus: string,
+    art: string,
+    labId: string,
+    isolateId: string,
+    collectionDate: string,
+    prospectiveIsolate: boolean,
+
     location: string,
     labId: string,
-    date: string,
     responsiblePersonId: string,
     responsiblePersonData: string,
     patientId: string,
@@ -63,9 +81,9 @@ class MetadataForm extends Component {
     this.props.postMetadataForm(this.state);
   }
 
-  handleDateChange(date: moment) {
+  handleDateChange(field: string, date: moment) {
     this.setState({
-      date: date.format()
+      [field]: date.format()
     });
   }
 
@@ -99,40 +117,251 @@ class MetadataForm extends Component {
   }
 
   render() {
-    const { location, labId, date, responsiblePersonId, responsiblePersonData, patientId, sampleId, sequencingMachine, patientHistory, sampleType, susceptibility, hivPositive, treatedForTB, shareSequence } = this.state;
+    const { patientId, siteId, genderAtBirth, countryOfBirth, bmi, injectingDrugUse, homeless, imprisoned, smoker, diabetic, hivStatus, art, labId, isolateId, collectionDate, prospectiveIsolate,
+      responsiblePersonId, responsiblePersonData, sampleId, sequencingMachine, patientHistory, sampleType, susceptibility, hivPositive, treatedForTB, shareSequence } = this.state;
     return (
       <Form onSubmit={(event) => this.handleSubmit(event)}>
-        <FormRow>
-          <FormTypeahead
-            title="Collection Location"
-            name="location"
-            value={location}
-            suggestions={locations.map((location, index) => {
-              return ({
-                value: location['alpha-2'],
-                label: location.name
-              });
-            })}
-            onChange={(name, value) => this.handleTypeaheadChange(name, value)}
-          />
-        </FormRow>
-        <FormRow>
-          <FormInputText
-            title="Lab ID"
-            name="labId"
-            type="text"
-            value={labId}
-            onChange={(event) => this.handleChange(event)}
-          />
-        </FormRow>
-        <FormRow>
-          <FormInputDate
-            title="Collection date"
-            name="date"
-            value={date}
-            onChange={(date) => this.handleDateChange(date)}
-          />
-        </FormRow>
+        <Fieldset legend="Patient">
+          <FormRow>
+            <FormInputText
+              title="Patient ID"
+              name="patientId"
+              type="text"
+              required
+              value={patientId}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormInputText
+              title="Site ID"
+              name="siteId"
+              type="text"
+              required
+              value={siteId}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormSelect
+              title="Gender at birth"
+              name="genderAtBirth"
+              value={genderAtBirth}
+              options={[
+                {
+                  value: 'male',
+                  label: 'Male'
+                },
+                {
+                  value: 'female',
+                  label: 'Female'
+                },
+                {
+                  value: 'other',
+                  label: 'Other or Intersex'
+                },
+                {
+                  value: 'unknown',
+                  label: 'Not known / unavailable'
+                }
+              ]}
+              onChange={(e) => this.handleChange(e)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormTypeahead
+              title="Country of birth"
+              name="countryOfBirth"
+              value={countryOfBirth}
+              suggestions={locations.map((location, index) => {
+                return ({
+                  value: location['alpha-2'],
+                  label: location.name
+                });
+              })}
+              onChange={(name, value) => this.handleTypeaheadChange(name, value)}
+            />
+          </FormRow>
+        </Fieldset>
+
+        <Fieldset legend="Patient characteristics at isolation">
+          <FormRow>
+            <FormInputText
+              title="BMI (kg/m2)"
+              name="bmi"
+              type="text"
+              value={bmi}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormInputRadio
+              title="Injecting drug use"
+              name="injectingDrugUse"
+              options={[
+                {value: 'yes', label: 'Yes'},
+                {value: 'no', label: 'No'},
+                {value: 'unknown', label: 'Not Known'}
+              ]}
+              selectedOption={injectingDrugUse}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormInputRadio
+              title="Homeless"
+              name="homeless"
+              options={[
+                {value: 'yes', label: 'Yes'},
+                {value: 'no', label: 'No'},
+                {value: 'unknown', label: 'Not Known'}
+              ]}
+              selectedOption={homeless}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormInputRadio
+              title="Imprisoned"
+              name="imprisoned"
+              options={[
+                {value: 'yes', label: 'Yes'},
+                {value: 'no', label: 'No'},
+                {value: 'unknown', label: 'Not Known'}
+              ]}
+              selectedOption={imprisoned}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormInputRadio
+              title="Smoker"
+              name="smoker"
+              options={[
+                {value: 'yes', label: 'Yes'},
+                {value: 'no', label: 'No'},
+                {value: 'unknown', label: 'Not Known'}
+              ]}
+              selectedOption={smoker}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormSelect
+              title="Diabetic"
+              name="diabetic"
+              value={diabetic}
+              options={[
+                {
+                  value: 'dietAlone',
+                  label: 'Diet alone'
+                },
+                {
+                  value: 'tablets',
+                  label: 'Tablets'
+                },
+                {
+                  value: 'insulin',
+                  label: 'Insulin'
+                },
+                {
+                  value: 'InsulinTablets',
+                  label: 'Insulin+tablets'
+                },
+                {
+                  value: 'notKnown',
+                  label: 'Not known'
+                }
+              ]}
+              onChange={(e) => this.handleChange(e)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormSelect
+              title="HIV status"
+              name="hivStatus"
+              value={hivStatus}
+              options={[
+                {
+                  value: 'testedNegative',
+                  label: 'Tested, negative'
+                },
+                {
+                  value: 'testedPositive',
+                  label: 'Tested, positive'
+                },
+                {
+                  value: 'notTested',
+                  label: 'Not tested'
+                },
+                {
+                  value: 'NotKnown',
+                  label: 'Not known'
+                }
+              ]}
+              onChange={(e) => this.handleChange(e)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormInputRadio
+              title="If HIV-positive, on ART at time of diagnosis?"
+              name="art"
+              options={[
+                {value: 'yes', label: 'Yes'},
+                {value: 'no', label: 'No'},
+                {value: 'unknown', label: 'Not Known'}
+              ]}
+              selectedOption={art}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </FormRow>
+        </Fieldset>
+
+        <Fieldset legend="Lab">
+          <FormRow>
+            <FormInputText
+              title="Lab ID"
+              name="labId"
+              type="text"
+              value={labId}
+              required
+              onChange={(event) => this.handleChange(event)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormInputText
+              title="Isolate ID"
+              name="isolateId"
+              type="text"
+              value={isolateId}
+              required
+              onChange={(event) => this.handleChange(event)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormInputDate
+              title="Collection date"
+              name="collectionDate"
+              value={collectionDate}
+              required
+              onChange={(date) => this.handleDateChange('collectionDate', date)}
+            />
+          </FormRow>
+          <FormRow>
+            <FormInputRadio
+              title="Has this isolate been collected prospectively?"
+              name="prospectiveIsolate"
+              options={[
+                {value: 'yes', label: 'Yes'},
+                {value: 'no', label: 'No'}
+              ]}
+              selectedOption={prospectiveIsolate}
+              onChange={(event) => this.handleChange(event)}
+            />
+          </FormRow>
+
+        </Fieldset>
+
         <FormRow>
           <FormInputText
             title="Responsible Person ID"
