@@ -18,7 +18,6 @@ class PopoverMenu extends Component {
 
   showPopover(e: Event) {
     e.preventDefault();
-    clearTimeout(this.timeout);
     this.setState({
       isActive: true
     });
@@ -26,12 +25,9 @@ class PopoverMenu extends Component {
 
   hidePopover(e: Event) {
     e.preventDefault();
-    clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
-      this.setState({
-        isActive: false
-      });
-    }, 1000);
+    this.setState({
+      isActive: false
+    });
   }
 
   render() {
@@ -49,10 +45,8 @@ class PopoverMenu extends Component {
     );
     return (
       <div className={styles.container}
-        onFocus={e => this.showPopover(e)}
-        onMouseOver={e => this.showPopover(e)}
         onBlur={e => this.hidePopover(e)}
-        onMouseOut={e => this.hidePopover(e)}>
+      >
         <a href="#"
           className={styles.toggle}
           onClick={e => this.showPopover(e)}>
