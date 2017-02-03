@@ -970,6 +970,9 @@ class MetadataForm extends Component {
         <Fieldset legend="Drugs ever taken outside of standard intensive/continuation phase">
           <FormRow>
             <div className={styles.susceptibilityWrap}>
+              <div className={styles.susceptibilityLabel}>
+                <FormLabel label="" />
+              </div>
               <div className={styles.susceptibilityRows}>
                 {drugs.outside.map((drug, index) => {
                   return (
