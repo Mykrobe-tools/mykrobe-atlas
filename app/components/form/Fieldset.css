@@ -1,0 +1,12 @@
+.fieldset {
+  border: 0;
+  padding: 0;
+}
+
+.legend {
+  composes: font from "css/typography.css";
+  composes: fontSizeNormal from "css/typography.css";
+  color: var(--color-grey-dark);
+  font-weight: bold;
+  margin-bottom: 5px;
+}
