@@ -4,7 +4,6 @@
 
 .susceptibilityLabel {
   composes: label from "css/form.css";
-  color: var(--color-grey-mid);
 }
 
 .susceptibilityRows {
