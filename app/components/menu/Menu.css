@@ -16,10 +16,14 @@
   transform: translateX(0);
 }
 
-.logo {
+.logoWrap {
   border-top: 1px solid var(--color-rule);
   margin: 84px 0 20px 30px;
   padding-top: 20px;
+}
+
+.logo {
+  width:133px;
 }
 
 .navigation {

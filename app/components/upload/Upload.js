@@ -102,8 +102,10 @@ class Upload extends Component {
         <AnimatedBackground />
         <div className={styles.contentContainer}>
           <div className={styles.content}>
-            <div className={styles.logo}>
-              <Logo />
+            <div className={styles.logoWrap}>
+              <div className={styles.logo}>
+                <Logo />
+              </div>
             </div>
             <div className={styles.title}>
               Outbreak and resistance analysis in minutes

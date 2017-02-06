@@ -1,31 +1,31 @@
 .predictor-enterics-logo {
-  width: 211px;
-  height: 60px;
   background: url(static/predictor-enterics-logo.svg);
   background-size: contain;
   background-repeat: no-repeat;
+  height: 0;
+  padding-bottom: calc(100%*60/211);
 }
 
 .predictor-s-aureus-logo {
-  width: 185px;
-  height: 60px;
   background: url(static/predictor-s-aureus-logo.svg);
   background-size: contain;
   background-repeat: no-repeat;
+  height: 0;
+  padding-bottom: calc(100%*60/185);
 }
 
 .predictor-tb-logo {
-  width: 184px;
-  height: 60px;
   background: url(static/predictor-tb-logo.svg);
   background-size: contain;
   background-repeat: no-repeat;
+  height: 0;
+  padding-bottom: calc(100%*60/184);
 }
 
 .atlas-tb-logo {
-  width: 133px;
-  height: 60px;
   background: url(static/atlas-tb-logo.svg);
   background-size: contain;
   background-repeat: no-repeat;
+  height: 0;
+  padding-bottom: calc(100%*60/133);
 }
