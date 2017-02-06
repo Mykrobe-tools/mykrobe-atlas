@@ -11,6 +11,13 @@
   color: white;
   background-color: var(--color-grey-mid);
   cursor: pointer;
+  border: none;
+  transition: all 0.1s;
+}
+
+.buttonPrimary {
+  composes: button;
+  background-color: var(--color-tint-primary);
 }
 
 .button:disabled {
