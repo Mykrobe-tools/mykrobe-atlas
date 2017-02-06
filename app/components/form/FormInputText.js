@@ -10,6 +10,7 @@ class FormInputText extends Component {
 
   render() {
     const {name, onChange, placeholder, title, type, value} = this.props;
+    const initialValue = value || ''; /* don't pass undefined value https://github.com/facebook/react/issues/6222  */
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
@@ -22,7 +23,7 @@ class FormInputText extends Component {
           id={name}
           name={name}
           type={type}
-          value={value}
+          value={initialValue}
           placeholder={placeholder}
           onChange={(event) => onChange(event)} />
       </div>

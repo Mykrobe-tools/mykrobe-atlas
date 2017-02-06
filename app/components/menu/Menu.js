@@ -10,8 +10,10 @@ class Menu extends Component {
     const {displayMenu} = this.props;
     return (
       <div className={displayMenu ? styles.containerDisplayed : styles.container}>
-        <div className={styles.logo}>
-          <Logo />
+        <div className={styles.logoWrap}>
+          <div className={styles.logo}>
+            <Logo />
+          </div>
         </div>
         <ul className={styles.navigation}>
           <li className={styles.navigationItem}>

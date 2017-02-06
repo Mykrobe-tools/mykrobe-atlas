@@ -3,6 +3,6 @@
 }
 
 .input {
-  composes: input from "css/form.css";
+  composes: buttonPrimary from "css/controls.css";
   cursor: pointer;
 }
