@@ -78,6 +78,8 @@ class MetadataForm extends Component {
     continuationStopDate: string,
     nonStandardTreatment: string,
     drugOutsidePhase: Object,
+    drugOutsidePhaseStartDate: Object,
+    drugOutsidePhaseEndDate: Object,
     sputumSmearConversion: string,
     sputumCultureConversion: string,
     whoOutcomeCategory: string,
@@ -157,8 +159,24 @@ class MetadataForm extends Component {
     this.setState(state);
   }
 
+  handleDrugOutsidePhaseStartDateChange(drug: string, date: moment) {
+    var state = {};
+    state.drugOutsidePhaseStartDate = Object.assign({}, this.state.drugOutsidePhaseStartDate, {
+      [drug]: date.format()
+    });
+    this.setState(state);
+  }
+
+  handleDrugOutsidePhaseEndDateChange(drug: string, date: moment) {
+    var state = {};
+    state.drugOutsidePhaseEndDate = Object.assign({}, this.state.drugOutsidePhaseEndDate, {
+      [drug]: date.format()
+    });
+    this.setState(state);
+  }
+
   render() {
-    const { patientId, siteId, genderAtBirth, countryOfBirth, bmi, injectingDrugUse, homeless, imprisoned, smoker, diabetic, hivStatus, art, labId, isolateId, collectionDate, prospectiveIsolate, patientAge, countryIsolate, cityIsolate, dateArrived, anatomicalOrigin, smear, wgsPlatform, wgsPlatformOther, otherGenotypeInformation, genexpert, hain, hainRif, hainInh, hainFl, hainAm, hainEth, phenotypeInformationFirstLineDrugs, phenotypeInformationOtherDrugs, susceptibility, susceptibilityNotTestedReason, previousTbinformation, recentMdrTb, priorTreatmentDate, tbProphylaxis, tbProphylaxisDate, currentTbinformation, startProgrammaticTreatment, intensiveStartDate, intensiveStopDate, startProgrammaticContinuationTreatment, continuationStartDate, continuationStopDate, nonStandardTreatment, sputumSmearConversion, sputumCultureConversion, whoOutcomeCategory, dateOfDeath, drugOutsidePhase } = this.state;
+    const { patientId, siteId, genderAtBirth, countryOfBirth, bmi, injectingDrugUse, homeless, imprisoned, smoker, diabetic, hivStatus, art, labId, isolateId, collectionDate, prospectiveIsolate, patientAge, countryIsolate, cityIsolate, dateArrived, anatomicalOrigin, smear, wgsPlatform, wgsPlatformOther, otherGenotypeInformation, genexpert, hain, hainRif, hainInh, hainFl, hainAm, hainEth, phenotypeInformationFirstLineDrugs, phenotypeInformationOtherDrugs, susceptibility, susceptibilityNotTestedReason, previousTbinformation, recentMdrTb, priorTreatmentDate, tbProphylaxis, tbProphylaxisDate, currentTbinformation, startProgrammaticTreatment, intensiveStartDate, intensiveStopDate, startProgrammaticContinuationTreatment, continuationStartDate, continuationStopDate, nonStandardTreatment, sputumSmearConversion, sputumCultureConversion, whoOutcomeCategory, dateOfDeath, drugOutsidePhase, drugOutsidePhaseStartDate, drugOutsidePhaseEndDate } = this.state;
     return (
       <Form onSubmit={(event) => this.handleSubmit(event)}>
         <Fieldset legend="Patient">
@@ -1024,6 +1042,12 @@ class MetadataForm extends Component {
               <div className={styles.susceptibilityRows}>
                 {drugs.outside.map((drug, index) => {
                   const selectedOption = drugOutsidePhase && drugOutsidePhase[drug] || '';
+                  const isYes = selectedOption === 'yes';
+                  let startDate, endDate;
+                  if (isYes) {
+                    startDate = drugOutsidePhaseStartDate && drugOutsidePhaseStartDate[drug] || '';
+                    endDate = drugOutsidePhaseEndDate && drugOutsidePhaseEndDate[drug] || '';
+                  }
                   return (
                     <div key={index} className={styles.susceptibilityRow}>
                       <FormInputRadio
@@ -1035,6 +1059,20 @@ class MetadataForm extends Component {
                         selectedOption={selectedOption}
                         onChange={(event) => this.handleDrugOutsidePhaseChange(drug, event)}
                       />
+                      {isYes && (
+                        <div>
+                          <FormInputDate
+                            title="Start date"
+                            value={startDate}
+                            onChange={(date) => this.handleDrugOutsidePhaseStartDateChange(drug, date)}
+                          />
+                          <FormInputDate
+                            title="End date"
+                            value={endDate}
+                            onChange={(date) => this.handleDrugOutsidePhaseEndDateChange(drug, date)}
+                          />
+                        </div>
+                      )}
                     </div>
                   );
                 })}
