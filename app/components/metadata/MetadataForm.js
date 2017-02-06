@@ -131,24 +131,25 @@ class MetadataForm extends Component {
     this.setState(state);
   }
 
-  handleSusceptibilityChange(event: InputEvent) {
+  handleSusceptibilityChange(drug: string, event: InputEvent) {
     var state = {};
     state.susceptibility = Object.assign({}, this.state.susceptibility, {
-      [event.target.name]: event.target.value
+      [drug]: event.target.value
     });
     this.setState(state);
   }
 
-  handleDrugOutsidePhaseChange(event: InputEvent) {
+  handleDrugOutsidePhaseChange(drug: string, event: InputEvent) {
     var state = {};
     state.drugOutsidePhase = Object.assign({}, this.state.drugOutsidePhase, {
-      [event.target.name]: event.target.value
+      [drug]: event.target.value
     });
     this.setState(state);
+    console.log('state:', this.state);
   }
 
   render() {
-    const { patientId, siteId, genderAtBirth, countryOfBirth, bmi, injectingDrugUse, homeless, imprisoned, smoker, diabetic, hivStatus, art, labId, isolateId, collectionDate, prospectiveIsolate, patientAge, countryIsolate, cityIsolate, dateArrived, anatomicalOrigin, smear, wgsPlatform, wgsPlatformOther, otherGenotypeInformation, genexpert, hain, hainRif, hainInh, hainFl, hainAm, hainEth, phenotypeInformationFirstLineDrugs, phenotypeInformationOtherDrugs, susceptibility, previousTbinformation, recentMdrTb, priorTreatmentDate, tbProphylaxis, tbProphylaxisDate, currentTbinformation, startProgrammaticTreatment, intensiveStartDate, intensiveStopDate, startProgrammaticContinuationTreatment, continuationStartDate, continuationStopDate, nonStandardTreatment, sputumSmearConversion, sputumCultureConversion, whoOutcomeCategory, dateOfDeath } = this.state;
+    const { patientId, siteId, genderAtBirth, countryOfBirth, bmi, injectingDrugUse, homeless, imprisoned, smoker, diabetic, hivStatus, art, labId, isolateId, collectionDate, prospectiveIsolate, patientAge, countryIsolate, cityIsolate, dateArrived, anatomicalOrigin, smear, wgsPlatform, wgsPlatformOther, otherGenotypeInformation, genexpert, hain, hainRif, hainInh, hainFl, hainAm, hainEth, phenotypeInformationFirstLineDrugs, phenotypeInformationOtherDrugs, susceptibility, previousTbinformation, recentMdrTb, priorTreatmentDate, tbProphylaxis, tbProphylaxisDate, currentTbinformation, startProgrammaticTreatment, intensiveStartDate, intensiveStopDate, startProgrammaticContinuationTreatment, continuationStartDate, continuationStopDate, nonStandardTreatment, sputumSmearConversion, sputumCultureConversion, whoOutcomeCategory, dateOfDeath, drugOutsidePhase } = this.state;
     return (
       <Form onSubmit={(event) => this.handleSubmit(event)}>
         <Fieldset legend="Patient">
@@ -762,7 +763,6 @@ class MetadataForm extends Component {
                     <div key={index} className={styles.susceptibilityRow}>
                       <FormInputRadio
                         title={drug}
-                        name={drug}
                         options={[
                           {value: 'S', label: 'Susceptible'},
                           {value: 'R', label: 'Resistant'},
@@ -770,7 +770,7 @@ class MetadataForm extends Component {
                           {value: 'U', label: 'Untested'}
                         ]}
                         selectedOption={susceptibility[drug]}
-                        onChange={(event) => this.handleSusceptibilityChange(event)}
+                        onChange={(event) => this.handleSusceptibilityChange(drug, event)}
                       />
                     </div>
                   );
@@ -802,7 +802,6 @@ class MetadataForm extends Component {
                     <div key={index} className={styles.susceptibilityRow}>
                       <FormInputRadio
                         title={drug}
-                        name={drug}
                         options={[
                           {value: 'S', label: 'Susceptible'},
                           {value: 'R', label: 'Resistant'},
@@ -810,7 +809,7 @@ class MetadataForm extends Component {
                           {value: 'U', label: 'Untested'}
                         ]}
                         selectedOption={susceptibility[drug]}
-                        onChange={(event) => this.handleSusceptibilityChange(event)}
+                        onChange={(event) => this.handleSusceptibilityChange(drug, event)}
                       />
                     </div>
                   );
@@ -975,16 +974,17 @@ class MetadataForm extends Component {
               </div>
               <div className={styles.susceptibilityRows}>
                 {drugs.outside.map((drug, index) => {
+                  const selectedOption = drugOutsidePhase && drugOutsidePhase[drug] || '';
                   return (
                     <div key={index} className={styles.susceptibilityRow}>
                       <FormInputRadio
                         title={drug}
-                        name={drug}
                         options={[
                           {value: 'yes', label: 'Yes'},
                           {value: 'no', label: 'No'}
                         ]}
-                        onChange={(event) => this.handleDrugOutsidePhaseChange(event)}
+                        selectedOption={selectedOption}
+                        onChange={(event) => this.handleDrugOutsidePhaseChange(drug, event)}
                       />
                     </div>
                   );
