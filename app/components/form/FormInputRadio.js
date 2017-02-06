@@ -40,7 +40,7 @@ class FormInputRadio extends Component {
 }
 
 FormInputRadio.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
   selectedOption: PropTypes.string,
