@@ -767,7 +767,7 @@ class MetadataForm extends Component {
                           {value: 'S', label: 'Susceptible'},
                           {value: 'R', label: 'Resistant'},
                           {value: 'I', label: 'Inconclusive'},
-                          {value: 'U', label: 'Untested'}
+                          {value: 'U', label: 'Not tested'}
                         ]}
                         selectedOption={susceptibility[drug]}
                         onChange={(event) => this.handleSusceptibilityChange(drug, event)}
@@ -806,7 +806,7 @@ class MetadataForm extends Component {
                           {value: 'S', label: 'Susceptible'},
                           {value: 'R', label: 'Resistant'},
                           {value: 'I', label: 'Inconclusive'},
-                          {value: 'U', label: 'Untested'}
+                          {value: 'U', label: 'Not tested'}
                         ]}
                         selectedOption={susceptibility[drug]}
                         onChange={(event) => this.handleSusceptibilityChange(drug, event)}
