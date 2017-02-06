@@ -63,6 +63,7 @@ class MetadataForm extends Component {
     phenotypeInformationFirstLineDrugs: boolean,
     phenotypeInformationOtherDrugs: boolean,
     susceptibility: Object,
+    susceptibilityNotTestedReason: Object,
     previousTbinformation: boolean,
     recentMdrTb: string,
     priorTreatmentDate: string,
@@ -139,17 +140,25 @@ class MetadataForm extends Component {
     this.setState(state);
   }
 
-  handleDrugOutsidePhaseChange(drug: string, event: InputEvent) {
+  handleSusceptibilityNotTestedChange(drug: string, event: InputEvent) {
     var state = {};
-    state.drugOutsidePhase = Object.assign({}, this.state.drugOutsidePhase, {
+    state.susceptibilityNotTestedReason = Object.assign({}, this.state.susceptibilityNotTestedReason, {
       [drug]: event.target.value
     });
     this.setState(state);
     console.log('state:', this.state);
   }
 
+  handleDrugOutsidePhaseChange(drug: string, event: InputEvent) {
+    var state = {};
+    state.drugOutsidePhase = Object.assign({}, this.state.drugOutsidePhase, {
+      [drug]: event.target.value
+    });
+    this.setState(state);
+  }
+
   render() {
-    const { patientId, siteId, genderAtBirth, countryOfBirth, bmi, injectingDrugUse, homeless, imprisoned, smoker, diabetic, hivStatus, art, labId, isolateId, collectionDate, prospectiveIsolate, patientAge, countryIsolate, cityIsolate, dateArrived, anatomicalOrigin, smear, wgsPlatform, wgsPlatformOther, otherGenotypeInformation, genexpert, hain, hainRif, hainInh, hainFl, hainAm, hainEth, phenotypeInformationFirstLineDrugs, phenotypeInformationOtherDrugs, susceptibility, previousTbinformation, recentMdrTb, priorTreatmentDate, tbProphylaxis, tbProphylaxisDate, currentTbinformation, startProgrammaticTreatment, intensiveStartDate, intensiveStopDate, startProgrammaticContinuationTreatment, continuationStartDate, continuationStopDate, nonStandardTreatment, sputumSmearConversion, sputumCultureConversion, whoOutcomeCategory, dateOfDeath, drugOutsidePhase } = this.state;
+    const { patientId, siteId, genderAtBirth, countryOfBirth, bmi, injectingDrugUse, homeless, imprisoned, smoker, diabetic, hivStatus, art, labId, isolateId, collectionDate, prospectiveIsolate, patientAge, countryIsolate, cityIsolate, dateArrived, anatomicalOrigin, smear, wgsPlatform, wgsPlatformOther, otherGenotypeInformation, genexpert, hain, hainRif, hainInh, hainFl, hainAm, hainEth, phenotypeInformationFirstLineDrugs, phenotypeInformationOtherDrugs, susceptibility, susceptibilityNotTestedReason, previousTbinformation, recentMdrTb, priorTreatmentDate, tbProphylaxis, tbProphylaxisDate, currentTbinformation, startProgrammaticTreatment, intensiveStartDate, intensiveStopDate, startProgrammaticContinuationTreatment, continuationStartDate, continuationStopDate, nonStandardTreatment, sputumSmearConversion, sputumCultureConversion, whoOutcomeCategory, dateOfDeath, drugOutsidePhase } = this.state;
     return (
       <Form onSubmit={(event) => this.handleSubmit(event)}>
         <Fieldset legend="Patient">
@@ -798,6 +807,12 @@ class MetadataForm extends Component {
               </div>
               <div className={styles.susceptibilityRows}>
                 {drugs.other.map((drug, index) => {
+                  const selectedOption = susceptibility && susceptibility[drug] || '';
+                  const notTested = selectedOption === 'U';
+                  let notTestedReason = '';
+                  if (notTested) {
+                    notTestedReason = susceptibilityNotTestedReason && susceptibilityNotTestedReason[drug] || '';
+                  }
                   return (
                     <div key={index} className={styles.susceptibilityRow}>
                       <FormInputRadio
@@ -811,6 +826,40 @@ class MetadataForm extends Component {
                         selectedOption={susceptibility[drug]}
                         onChange={(event) => this.handleSusceptibilityChange(drug, event)}
                       />
+                      {notTested && (
+                        <FormSelect
+                          title="Not tested reason"
+                          placeholder="Select reason"
+                          value={notTestedReason}
+                          options={[
+                            {
+                              value: 'MGIT',
+                              label: 'MGIT'
+                            },
+                            {
+                              value: 'LJ',
+                              label: 'LJ'
+                            },
+                            {
+                              value: 'Microtitre plate',
+                              label: 'Microtitre plate'
+                            },
+                            {
+                              value: 'MODS',
+                              label: 'MODS'
+                            },
+                            {
+                              value: 'Other',
+                              label: 'Other'
+                            },
+                            {
+                              value: 'Not known',
+                              label: 'Not known'
+                            }
+                          ]}
+                          onChange={(event) => this.handleSusceptibilityNotTestedChange(drug, event)}
+                        />
+                      )}
                     </div>
                   );
                 })}
