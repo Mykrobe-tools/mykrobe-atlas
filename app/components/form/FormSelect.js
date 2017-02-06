@@ -17,22 +17,24 @@ class FormSelect extends Component {
             htmlFor={name}
             label={title} />
         </div>
-        <select
-          className={styles.input}
-          name={name}
-          value={selectedOption}
-          onChange={(event) => onChange(event)}>
-          <option value="">{placeholder}</option>
-          {options.map(opt => {
-            return (
-              <option
-                key={opt.value}
-                value={opt.value}>
-                {opt.label}
-              </option>
-            );
-          })}
-        </select>
+        <div className={styles.inputWrap}>
+          <select
+            className={styles.input}
+            name={name}
+            value={selectedOption}
+            onChange={(event) => onChange(event)}>
+            <option value="">{placeholder}</option>
+            {options.map(opt => {
+              return (
+                <option
+                  key={opt.value}
+                  value={opt.value}>
+                  {opt.label}
+                </option>
+              );
+            })}
+          </select>
+        </div>
       </div>
     );
   }

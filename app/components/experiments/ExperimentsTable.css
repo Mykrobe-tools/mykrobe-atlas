@@ -4,14 +4,16 @@
 }
 
 .tableCell {
-  padding: 5px 10px;
+  padding: 10px 12px;
   text-align: left;
-  border-bottom: 1px solid var(--color-grey-mid);
+  border-bottom: 1px solid var(--color-rule);
 }
 
 .tableHeading {
   composes: tableCell;
-  background: var(--color-grey-light);
+  composes: subtitleSmall from "css/typography.css";
+  padding: 13px 12px;
+  background: var(--color-grey-panel);
 }
 
 .tableData {

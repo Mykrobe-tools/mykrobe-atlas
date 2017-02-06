@@ -28,8 +28,12 @@
   flex-direction: column;
 }
 
-.logo {
+.logoWrap {
   margin-bottom: 30px;
+}
+
+.logo {
+  width:192px;
 }
 
 .title {

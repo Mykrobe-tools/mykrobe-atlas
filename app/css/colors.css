@@ -5,14 +5,15 @@
 :root {
   /* colour definitions */
 
-  --color-tint-primary: #622268;
-  --color-tint-secondary: #d06192;
+  --color-tint-primary: #0D7DA0;
+  --color-tint-secondary: #FFAB2E;
   --color-blue: #71c7e6;
   --color-blue-text: darken(--color-blue, 5%);
   --color-light-green: #86c9b9;
   --color-dark-green: #3b9da7;
   --color-buff: #f7f6f1;
   --color-buff-dark: #efede4;
+  --color-grey-panel: #f4f4f4;
   --color-grey-light: #ceccc6;
   --color-grey-mid: #9a9893;
   --color-grey-dark: #676561;
