@@ -9,18 +9,21 @@ exports[`FormSelect component snapshot renders correctly with a single option 1`
       Lorem Ipsum
     </label>
   </div>
-  <select
-    className="input"
-    name="loremIpsum"
-    onChange={[Function]}
-    value="lorem">
-    <option
-      value="" />
-    <option
+  <div
+    className="inputWrap">
+    <select
+      className="input"
+      name="loremIpsum"
+      onChange={[Function]}
       value="lorem">
-      Lorem
-    </option>
-  </select>
+      <option
+        value="" />
+      <option
+        value="lorem">
+        Lorem
+      </option>
+    </select>
+  </div>
 </div>
 `;
 
@@ -35,25 +38,28 @@ exports[`FormSelect component snapshot renders correctly with multiple options 1
       Lorem Ipsum
     </label>
   </div>
-  <select
-    className="input"
-    name="loremIpsum"
-    onChange={[Function]}
-    value="dolorSitAmet">
-    <option
-      value="" />
-    <option
-      value="lorem">
-      Lorem
-    </option>
-    <option
-      value="ipsum">
-      Ipsum
-    </option>
-    <option
+  <div
+    className="inputWrap">
+    <select
+      className="input"
+      name="loremIpsum"
+      onChange={[Function]}
       value="dolorSitAmet">
-      Dolor Sit Amet
-    </option>
-  </select>
+      <option
+        value="" />
+      <option
+        value="lorem">
+        Lorem
+      </option>
+      <option
+        value="ipsum">
+        Ipsum
+      </option>
+      <option
+        value="dolorSitAmet">
+        Dolor Sit Amet
+      </option>
+    </select>
+  </div>
 </div>
 `;
