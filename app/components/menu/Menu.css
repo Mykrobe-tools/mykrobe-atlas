@@ -18,12 +18,12 @@
 
 .logo {
   border-top: 1px solid var(--color-rule);
-  margin: 84px 0 20px 40px;
+  margin: 84px 0 20px 30px;
   padding-top: 20px;
 }
 
 .navigation {
-  margin: 0 0 0 40px;
+  margin: 0 0 0 30px;
   padding: 0;
   border-bottom: 1px solid var(--color-rule);
 }

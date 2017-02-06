@@ -1,6 +1,6 @@
 .container {
   composes: container from "css/layout.css";
-  padding: 30px 40px;
+  padding: 30px;
 }
 
 .menuToggle {
