@@ -2,6 +2,10 @@
   composes: wrap from "css/form.css";
 }
 
+.wrap + .wrap {
+  margin-top: 8px;
+}
+
 .label {
   composes: label from "css/form.css";
 }

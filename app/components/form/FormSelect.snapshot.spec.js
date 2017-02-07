@@ -8,7 +8,7 @@ describe('FormSelect component snapshot', () => {
   const onChange = jest.fn();
 
   it('renders correctly with a single option', () => {
-    const selectedOption = 'lorem';
+    const value = 'lorem';
     const options = [
       {value: 'lorem', label: 'Lorem'}
     ];
@@ -17,7 +17,7 @@ describe('FormSelect component snapshot', () => {
         name={name}
         title={title}
         options={options}
-        selectedOption={selectedOption}
+        value={value}
         onChange={onChange} />
     );
     let tree = component.toJSON();
@@ -25,7 +25,7 @@ describe('FormSelect component snapshot', () => {
   });
 
   it('renders correctly with multiple options', () => {
-    const selectedOption = 'dolorSitAmet';
+    const value = 'dolorSitAmet';
     const options = [
       {value: 'lorem', label: 'Lorem'},
       {value: 'ipsum', label: 'Ipsum'},
@@ -36,7 +36,7 @@ describe('FormSelect component snapshot', () => {
         name={name}
         title={title}
         options={options}
-        selectedOption={selectedOption}
+        value={value}
         onChange={onChange} />
     );
     let tree = component.toJSON();

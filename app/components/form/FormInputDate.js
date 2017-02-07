@@ -31,7 +31,7 @@ class FormInputDate extends Component {
 }
 
 FormInputDate.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   value: PropTypes.string
