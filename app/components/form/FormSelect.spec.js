@@ -8,7 +8,7 @@ describe('FormSelect component', () => {
   const onChange = jest.fn();
 
   it('fires change events', () => {
-    const selectedOption = 'dolorSitAmet';
+    const value = 'dolorSitAmet';
     const options = [
       {value: 'lorem', label: 'Lorem'},
       {value: 'ipsum', label: 'Ipsum'},
@@ -19,7 +19,7 @@ describe('FormSelect component', () => {
         name={name}
         title={title}
         options={options}
-        selectedOption={selectedOption}
+        value={value}
         onChange={onChange} />
     );
     component.find('select').simulate('change', {target: {value: 'ipsum'}});

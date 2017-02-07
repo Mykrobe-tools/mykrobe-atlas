@@ -9,7 +9,7 @@ import styles from './FormSelect.css';
 class FormSelect extends Component {
 
   render() {
-    const {name, onChange, options, placeholder, selectedOption, title} = this.props;
+    const {name, onChange, options, placeholder, value, title} = this.props;
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
@@ -21,7 +21,7 @@ class FormSelect extends Component {
           <select
             className={styles.input}
             name={name}
-            value={selectedOption}
+            value={value}
             onChange={(event) => onChange(event)}>
             <option value="">{placeholder}</option>
             {options.map(opt => {
@@ -41,11 +41,11 @@ class FormSelect extends Component {
 }
 
 FormSelect.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
   placeholder: PropTypes.string,
-  selectedOption: PropTypes.string,
+  value: PropTypes.string,
   title: PropTypes.string.isRequired
 };
 
