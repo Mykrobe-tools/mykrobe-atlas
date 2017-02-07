@@ -785,23 +785,7 @@ class MetadataForm extends Component {
                 <FormLabel label="Phenotype resistance and method" />
               </div>
               <div className={styles.susceptibilityRows}>
-                {drugs.main.map((drug, index) => {
-                  return (
-                    <div key={index} className={styles.susceptibilityRow}>
-                      <FormInputRadio
-                        title={drug}
-                        options={[
-                          {value: 'S', label: 'Susceptible'},
-                          {value: 'R', label: 'Resistant'},
-                          {value: 'I', label: 'Inconclusive'},
-                          {value: 'U', label: 'Not tested'}
-                        ]}
-                        selectedOption={susceptibility[drug]}
-                        onChange={(event) => this.handleSusceptibilityChange(drug, event)}
-                      />
-                    </div>
-                  );
-                })}
+                {this.resistanceOptionsForDrugs(drugs.main)}
               </div>
             </div>
           </FormRow>
@@ -824,63 +808,7 @@ class MetadataForm extends Component {
                 <FormLabel label="Phenotype resistance" />
               </div>
               <div className={styles.susceptibilityRows}>
-                {drugs.other.map((drug, index) => {
-                  const selectedOption = susceptibility && susceptibility[drug] || '';
-                  const notTested = selectedOption === 'U';
-                  let notTestedReason = '';
-                  if (notTested) {
-                    notTestedReason = susceptibilityNotTestedReason && susceptibilityNotTestedReason[drug] || '';
-                  }
-                  return (
-                    <div key={index} className={styles.susceptibilityRow}>
-                      <FormInputRadio
-                        title={drug}
-                        options={[
-                          {value: 'S', label: 'Susceptible'},
-                          {value: 'R', label: 'Resistant'},
-                          {value: 'I', label: 'Inconclusive'},
-                          {value: 'U', label: 'Not tested'}
-                        ]}
-                        selectedOption={susceptibility[drug]}
-                        onChange={(event) => this.handleSusceptibilityChange(drug, event)}
-                      />
-                      {notTested && (
-                        <FormSelect
-                          title="Not tested reason"
-                          placeholder="Select reason"
-                          value={notTestedReason}
-                          options={[
-                            {
-                              value: 'MGIT',
-                              label: 'MGIT'
-                            },
-                            {
-                              value: 'LJ',
-                              label: 'LJ'
-                            },
-                            {
-                              value: 'Microtitre plate',
-                              label: 'Microtitre plate'
-                            },
-                            {
-                              value: 'MODS',
-                              label: 'MODS'
-                            },
-                            {
-                              value: 'Other',
-                              label: 'Other'
-                            },
-                            {
-                              value: 'Not known',
-                              label: 'Not known'
-                            }
-                          ]}
-                          onChange={(event) => this.handleSusceptibilityNotTestedChange(drug, event)}
-                        />
-                      )}
-                    </div>
-                  );
-                })}
+                {this.resistanceOptionsForDrugs(drugs.other)}
               </div>
             </div>
           </FormRow>
@@ -1185,6 +1113,67 @@ class MetadataForm extends Component {
         </FormRow>
       </Form>
     );
+  }
+
+  resistanceOptionsForDrugs(drugs: Object) {
+    const {susceptibility, susceptibilityNotTestedReason} = this.state;
+    return drugs.map((drug, index) => {
+      const selectedOption = susceptibility && susceptibility[drug] || '';
+      const notTested = selectedOption === 'U';
+      let notTestedReason = '';
+      if (notTested) {
+        notTestedReason = susceptibilityNotTestedReason && susceptibilityNotTestedReason[drug] || '';
+      }
+      return (
+        <div key={index} className={styles.susceptibilityRow}>
+          <FormInputRadio
+            title={drug}
+            options={[
+              {value: 'S', label: 'Susceptible'},
+              {value: 'R', label: 'Resistant'},
+              {value: 'I', label: 'Inconclusive'},
+              {value: 'U', label: 'Not tested'}
+            ]}
+            selectedOption={susceptibility[drug]}
+            onChange={(event) => this.handleSusceptibilityChange(drug, event)}
+          />
+          {notTested && (
+            <FormSelect
+              title="Not tested reason"
+              placeholder="Select reason"
+              value={notTestedReason}
+              options={[
+                {
+                  value: 'MGIT',
+                  label: 'MGIT'
+                },
+                {
+                  value: 'LJ',
+                  label: 'LJ'
+                },
+                {
+                  value: 'Microtitre plate',
+                  label: 'Microtitre plate'
+                },
+                {
+                  value: 'MODS',
+                  label: 'MODS'
+                },
+                {
+                  value: 'Other',
+                  label: 'Other'
+                },
+                {
+                  value: 'Not known',
+                  label: 'Not known'
+                }
+              ]}
+              onChange={(event) => this.handleSusceptibilityNotTestedChange(drug, event)}
+            />
+          )}
+        </div>
+      );
+    });
   }
 }
 
