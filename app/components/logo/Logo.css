@@ -3,7 +3,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   height: 0;
-  padding-bottom: calc(100%*60/211);
+  padding-bottom: calc(100% * 60 / 211);
 }
 
 .predictor-s-aureus-logo {
@@ -11,7 +11,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   height: 0;
-  padding-bottom: calc(100%*60/185);
+  padding-bottom: calc(100% * 60 / 185);
 }
 
 .predictor-tb-logo {
@@ -19,7 +19,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   height: 0;
-  padding-bottom: calc(100%*60/184);
+  padding-bottom: calc(100% * 60 / 184);
 }
 
 .atlas-tb-logo {
@@ -27,5 +27,5 @@
   background-size: contain;
   background-repeat: no-repeat;
   height: 0;
-  padding-bottom: calc(100%*60/133);
+  padding-bottom: calc(100% * 60 / 133);
 }

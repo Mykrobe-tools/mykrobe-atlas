@@ -5,8 +5,8 @@
 :root {
   /* colour definitions */
 
-  --color-tint-primary: #0D7DA0;
-  --color-tint-secondary: #FFAB2E;
+  --color-tint-primary: #0d7da0;
+  --color-tint-secondary: #ffab2e;
   --color-blue: #71c7e6;
   --color-blue-text: darken(--color-blue, 5%);
   --color-light-green: #86c9b9;
