@@ -12,8 +12,7 @@
 
 .inputWrap::after {
   position: absolute;
-  right:0;
-  content:'a';
+  right: 0;
   font-family: FontAwesome;
   content: "\f0d7";
   font-size: 19px;

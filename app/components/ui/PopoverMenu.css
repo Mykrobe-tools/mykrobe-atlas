@@ -43,7 +43,7 @@
   composes: popoverAbove;
   opacity: 0;
   visibility: hidden;
-  margin: 8px 0 8px 0;
+  margin: 8px 0;
 }
 
 .popoverAboveHidden {
@@ -97,7 +97,7 @@
   list-style: none;
 }
 
-.popoverItem + .popoverItem  {
+.popoverItem + .popoverItem {
   border-top: 1px solid var(--color-rule);
 }
 
