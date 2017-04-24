@@ -2,7 +2,7 @@
 
 export const BASE_URL = (
 	process.env.NODE_ENV === 'production'
-	? 'https://api.atlas-uat.makeandship.com'
+	? 'https://api.atlas-dev.makeandship.com'
 	: 'http://localhost:3001'
 	);
 
