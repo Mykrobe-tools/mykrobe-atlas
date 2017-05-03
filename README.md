@@ -94,6 +94,7 @@ To build apps for all platforms:
 Further information about the app can be found in the following files, located in the `/docs` directory:
 
 - [Coding standards](docs/coding-standards.md)
+- [Dependencies](docs/dependencies.md)
 - [Testing](docs/testing.md)
 - [Electron](docs/electron.md)
 
