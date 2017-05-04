@@ -76,10 +76,20 @@ app.get('/api/:endpoint', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../test/_fixtures/api', `${endpoint}.json`));
 });
 
-// Pass through any specific requests to the external API
+// Treeplace
 app.use('/treeplace', proxy('13.69.243.89:8000', {
   forwardPath: (req, res) => {
     return `/treeplace${require('url').parse(req.url).path.substr(1)}`;
+  }
+}));
+
+// Pass through all other requests to the API
+let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5MDlhNzhiZmU5YjNhMDAwZmY5MTgzYyIsImlhdCI6MTQ5MzgxNDM0MX0.hrIZQb8ERS40-i6ELcr_AFtgongZSCPk_3FXt2Cex00';
+app.use(proxy('api.atlas-dev.makeandship.com', {
+  https: true,
+  decorateRequest: function(proxyReqOpts, srcReq) {
+    proxyReqOpts.headers['Authorization'] = `Bearer ${token}`;
+    return proxyReqOpts;
   }
 }));
 
