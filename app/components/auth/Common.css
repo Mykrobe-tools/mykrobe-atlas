@@ -1,0 +1,76 @@
+.container {
+  composes: container from "css/layout.css";
+  flex-direction: column;
+}
+
+.header {
+  height: 130px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.title {
+  composes: font from "css/typography.css";
+  composes: fontSizeLarge from "css/typography.css";
+  width: 100%;
+  text-align: center;
+}
+
+.contentContainer {
+  composes: container from "css/layout.css";
+  padding: 20px 30px;
+  background: white;
+  flex: 1;
+}
+
+.formContainer {
+  composes: container from "css/layout.css";
+  flex-direction: column;
+}
+
+.formErrors {
+  padding-bottom: 20px;
+}
+
+.formRow {
+  composes: container from "css/layout.css";
+}
+
+.formRow + .formRow {
+  padding-top: 20px;
+}
+
+.label {
+  composes: label from "css/form.css";
+}
+
+.input {
+  composes: input from "css/form.css";
+  width: 50%;
+}
+
+.button {
+  composes: buttonPrimary from "css/controls.css";
+}
+
+.formActions {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px 0;
+  border-top: 1px solid var(--color-rule);
+}
+
+.formActions > * + * {
+  padding-left: 20px;
+}
+
+.formActions .destructiveAction {
+  margin-left: auto;
+}
+
+.formActions .destructiveAction a {
+  color: var(--color-app-red);
+}

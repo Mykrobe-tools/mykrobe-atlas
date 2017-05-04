@@ -1,6 +1,12 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import * as AuthActions from '../../actions/AuthActions';
+import type { AuthType } from '../../types/AuthTypes';
+import type { UserType } from '../../types/UserTypes';
 import styles from './Header.css';
 
 class Header extends Component {
@@ -11,7 +17,10 @@ class Header extends Component {
   }
 
   render() {
-    const {displayMenu} = this.props;
+    const {displayMenu, signOut} = this.props;
+    const auth: AuthType = this.props.auth;
+    const user: ?UserType = auth.user;
+    const {isAuthenticated} = auth;
     return (
       <div className={styles.container}>
         <a href="#"
@@ -20,16 +29,50 @@ class Header extends Component {
           <span className={displayMenu ? styles.menuIconClose : styles.menuIconOpen} />
         </a>
         <div className={styles.account}>
-          <i className="fa fa-user" /> Sign in &middot; Register
+          <i className="fa fa-user" />
+          {isAuthenticated ? (
+            <span>
+              {user &&
+                <Link to="/auth/profile" className={styles.authLink} activeClassName={styles.authLinkActive}>My account</Link>
+              }
+              <span className={styles.item}>
+                <a href="#" className={styles.authLink} onClick={(e) => {
+                  signOut();
+                }}>Sign out</a>
+              </span>
+            </span>
+          ) : (
+            <span>
+              <Link to="/auth/login" className={styles.authLink} activeClassName={styles.authLinkActive}>Log in</Link>
+              &middot;
+              <Link to="/auth/signup" className={styles.authLink} activeClassName={styles.authLinkActive}>Sign up</Link>
+            </span>
+          )}
         </div>
       </div>
     );
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    signUp: AuthActions.signIn,
+    signOut: AuthActions.signOut
+  }, dispatch);
+}
+
 Header.propTypes = {
+  auth: PropTypes.object.isRequired,
+  signUp: PropTypes.func.isRequired,
+  signOut: PropTypes.func.isRequired,
   displayMenu: PropTypes.bool.isRequired,
   toggleMenu: PropTypes.func.isRequired
 };
 
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

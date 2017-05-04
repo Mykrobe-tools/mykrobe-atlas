@@ -25,6 +25,7 @@ app.use(multipart());
 
 // parse application/json
 app.use(bodyParser.text());
+app.use(bodyParser.json());
 
 // Allow CORS
 app.use((req, res, next) => {
@@ -84,13 +85,8 @@ app.use('/treeplace', proxy('13.69.243.89:8000', {
 }));
 
 // Pass through all other requests to the API
-let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU5MDlhNzhiZmU5YjNhMDAwZmY5MTgzYyIsImlhdCI6MTQ5MzgxNDM0MX0.hrIZQb8ERS40-i6ELcr_AFtgongZSCPk_3FXt2Cex00';
 app.use(proxy('api.atlas-dev.makeandship.com', {
-  https: true,
-  decorateRequest: function(proxyReqOpts, srcReq) {
-    proxyReqOpts.headers['Authorization'] = `Bearer ${token}`;
-    return proxyReqOpts;
-  }
+  https: true
 }));
 
 // Start dev API server

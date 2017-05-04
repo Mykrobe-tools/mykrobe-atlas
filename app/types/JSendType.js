@@ -1,6 +1,6 @@
 /* @flow */
 
-export type JSend = {
+export type JSendType = {
   status: string,
   code?: number,
   data?: any,

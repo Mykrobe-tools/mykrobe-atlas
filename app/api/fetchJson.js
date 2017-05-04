@@ -1,7 +1,11 @@
 /* @flow */
 
 import fetch from 'isomorphic-fetch';
-import type { JSend } from '../types/JSend';
+import type { JSendType } from '../types/JSendType';
+import type { UserType } from '../types/UserTypes';
+import * as AuthActions from '../actions/AuthActions';
+
+import store from '../store/store';
 
 /**
  * Request and parse a JSend resource from the API
@@ -22,11 +26,19 @@ export default (url: string, options: any = {}): Promise<any> => {
     ...options.headers,
     'Accept': 'application/json'
   };
+  const user: UserType = store.getState().auth.user;
+  if (user && user.token) {
+    options.headers = {
+      ...options.headers,
+      'Authorization': `Bearer ${user.token}`
+    };
+  }
+  console.log('fetch options', options);
   return fetch(url, options)
   .then((response) => {
     if (response.ok) {
       return response.json()
-      .then((jsend: JSend) => {
+      .then((jsend: JSendType) => {
         const {status, message, data} = jsend;
         if (!status) {
           const json = JSON.stringify(jsend, null, 2);
@@ -46,7 +58,7 @@ export default (url: string, options: any = {}): Promise<any> => {
     }
     else {
       if (response.status === 401) {
-        console.log('401');
+        AuthActions.signOut()(store.dispatch);
       }
       return Promise.reject({
         status: response.status,

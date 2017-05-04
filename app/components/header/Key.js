@@ -3,15 +3,15 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './Key.css';
 import { connect } from 'react-redux';
-import type { Sample } from '../../types/Sample';
+import type { SampleType } from '../../types/SampleType';
 
 class Key extends Component {
 
-  getSampleWithId(nodeId: string): ?Sample {
+  getSampleWithId(nodeId: string): ?SampleType {
     const {analyser} = this.props;
     const {samples} = analyser.transformed;
     for (let sampleKey in samples) {
-      const sample: Sample = samples[sampleKey];
+      const sample: SampleType = samples[sampleKey];
       if (sample.id === nodeId) {
         return sample;
       }
@@ -24,7 +24,7 @@ class Key extends Component {
     const {samples} = analyser.transformed;
     let nodeIds: Array<string> = [];
     for (let sampleKey: string in samples) {
-      const sample: Sample = samples[sampleKey];
+      const sample: SampleType = samples[sampleKey];
       nodeIds.push(sample.id);
     }
     return nodeIds;
