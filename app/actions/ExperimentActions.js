@@ -27,16 +27,18 @@ export function fetchExperiments(filters: Object = {}) {
       .then((data) => {
         setTimeout(() => {
           dispatch(receiveExperiments(data));
+          return Promise.resolve(data);
         }, 3000);
       })
-      .catch((err) => {
-        const {statusText} = err;
+      .catch((error) => {
+        const {statusText} = error;
         dispatch(showNotification({
           category: NotificationCategories.ERROR,
           content: statusText,
           autoHide: false
         }));
         dispatch(receiveExperiments());
+        return Promise.reject(error);
       });
   };
 }

@@ -19,6 +19,7 @@ export function requestAllUsers() {
         type: ActionTypes.REQUEST_ALL_USERS_SUCCESS,
         data
       });
+      return Promise.resolve(data);
     })
     .catch((error) => {
       const {statusText} = error;
@@ -47,6 +48,7 @@ export function requestUser(id: string) {
           type: ActionTypes.REQUEST_USER_SUCCESS,
           data
         });
+        return Promise.resolve(data);
       })
       .catch((error) => {
         const {statusText} = error;
@@ -86,6 +88,7 @@ export function createUser(user: UserType) {
       });
       // replace the new id in the url
       dispatch(replace(data.id));
+      return Promise.resolve(data);
     })
     .catch((error) => {
       const {statusText} = error;
@@ -126,6 +129,7 @@ export function updateUser(user: UserType) {
         category: NotificationCategories.SUCCESS,
         content: 'Profile updated'
       }));
+      return Promise.resolve(data);
     })
     .catch((error) => {
       const {statusText} = error;
@@ -161,6 +165,7 @@ export function deleteUser(user: UserType) {
         category: NotificationCategories.SUCCESS,
         content: 'User deleted'
       }));
+      return Promise.resolve(data);
     })
     .catch((error) => {
       const {statusText} = error;
@@ -200,6 +205,7 @@ export function assignUserRole(user: UserType) {
         category: NotificationCategories.SUCCESS,
         content: 'Role updated'
       }));
+      return Promise.resolve(data);
     })
     .catch((error) => {
       const {statusText} = error;
@@ -226,5 +232,6 @@ export function newUser() {
       type: ActionTypes.NEW_USER
     });
     dispatch(push('/users/new'));
+    return Promise.resolve();
   };
 }

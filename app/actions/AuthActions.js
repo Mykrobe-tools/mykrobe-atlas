@@ -52,6 +52,7 @@ export function signOut() {
       content: 'You are now logged out'
     }));
     dispatch(push('/'));
+    return Promise.resolve();
   };
 }
 
@@ -82,6 +83,7 @@ export function signIn(user: UserType) {
         content: 'You are now logged in'
       }));
       dispatch(push('/'));
+      return Promise.resolve(data);
     })
     .catch((error) => {
       const {statusText} = error;
@@ -93,6 +95,7 @@ export function signIn(user: UserType) {
         category: NotificationCategories.ERROR,
         content: statusText
       }));
+      return Promise.reject(error);
     });
   };
 }
@@ -119,6 +122,7 @@ export function signUp(user: UserType) {
         user: data
       });
       dispatch(push('/auth/success'));
+      return Promise.resolve(data);
     })
     .catch((error) => {
       const {statusText} = error;
@@ -130,6 +134,7 @@ export function signUp(user: UserType) {
         category: NotificationCategories.ERROR,
         content: statusText
       }));
+      return Promise.reject(error);
     });
   };
 }
@@ -155,6 +160,7 @@ export function forgotPassword(user: UserType) {
         type: ActionTypes.AUTH_FORGOT_PASSWORD_SUCCESS
       });
       dispatch(push('/auth/forgotsuccess'));
+      return Promise.resolve(data);
     })
     .catch((error) => {
       const {statusText} = error;
@@ -166,6 +172,7 @@ export function forgotPassword(user: UserType) {
         category: NotificationCategories.ERROR,
         content: statusText
       }));
+      return Promise.reject(error);
     });
   };
 }
@@ -191,6 +198,7 @@ export function resetPassword(reset: AuthResetPasswordType) {
         type: ActionTypes.AUTH_RESET_PASSWORD_SUCCESS
       });
       dispatch(push('/auth/resetsuccess'));
+      return Promise.resolve(data);
     })
     .catch((error) => {
       const {statusText} = error;
@@ -202,6 +210,7 @@ export function resetPassword(reset: AuthResetPasswordType) {
         category: NotificationCategories.ERROR,
         content: statusText
       }));
+      return Promise.reject(error);
     });
   };
 }
@@ -216,6 +225,7 @@ export function updateFailureReason(failureReason: string) {
       type: ActionTypes.AUTH_UPDATE_FAILURE_REASON,
       failureReason
     });
+    return Promise.reject(failureReason);
   };
 }
 
@@ -224,6 +234,7 @@ export function deleteFailureReason() {
     dispatch({
       type: ActionTypes.AUTH_DELETE_FAILURE_REASON
     });
+    return Promise.reject();
   };
 }
 
@@ -315,6 +326,7 @@ export function deleteCurrentUser() {
         content: 'User deleted'
       }));
       dispatch(signOut());
+      return Promise.resolve(data);
     })
     .catch((error) => {
       const {statusText} = error;
