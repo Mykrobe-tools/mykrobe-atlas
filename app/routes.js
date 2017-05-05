@@ -27,6 +27,7 @@ import ForgotSuccess from './components/auth/ForgotSuccess';
 import Profile from './components/auth/Profile';
 import Reset from './components/auth/Reset';
 import ResetSuccess from './components/auth/ResetSuccess';
+import Verify from './components/auth/Verify';
 
 const requireAuth = (nextState, replace) => {
   const state = store.getState();
@@ -69,6 +70,7 @@ export default (
       <Route path="profile" onEnter={requireAuth} component={Profile} />
       <Route path="reset/:resetPasswordToken" component={Reset} />
       <Route path="resetsuccess" component={ResetSuccess} />
+      <Route path="verify/:verificationToken" component={Verify} />
     </Route>
   </Route>
 );
