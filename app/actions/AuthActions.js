@@ -9,7 +9,7 @@ import { push } from 'react-router-redux';
 
 import * as NotificationCategories from '../constants/NotificationCategories';
 import {showNotification} from './NotificationActions';
-import type { AuthResetPasswordType } from '../types/AuthTypes';
+import type { AuthResetPasswordType, AuthVerificationType } from '../types/AuthTypes';
 import type { UserType } from '../types/UserTypes';
 
 //
@@ -225,7 +225,6 @@ export function updateFailureReason(failureReason: string) {
       type: ActionTypes.AUTH_UPDATE_FAILURE_REASON,
       failureReason
     });
-    return Promise.reject(failureReason);
   };
 }
 
@@ -234,7 +233,6 @@ export function deleteFailureReason() {
     dispatch({
       type: ActionTypes.AUTH_DELETE_FAILURE_REASON
     });
-    return Promise.reject();
   };
 }
 
@@ -332,6 +330,44 @@ export function deleteCurrentUser() {
       const {statusText} = error;
       dispatch({
         type: ActionTypes.AUTH_DELETE_USER_FAIL,
+        statusText
+      });
+      dispatch(showNotification({
+        category: NotificationCategories.ERROR,
+        content: statusText
+      }));
+      return Promise.reject(error);
+    });
+  };
+}
+
+//
+// Verify
+//
+
+export function verify(verify: AuthVerificationType) {
+  return (dispatch: Function) => {
+    dispatch({
+      type: ActionTypes.AUTH_VERIFY
+    });
+    return fetchJson(`${BASE_URL}/auth/verify`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(verify)
+    })
+    .then((data) => {
+      dispatch({
+        type: ActionTypes.AUTH_VERIFY_SUCCESS,
+        user: data
+      });
+      return Promise.resolve(data);
+    })
+    .catch((error) => {
+      const {statusText} = error;
+      dispatch({
+        type: ActionTypes.AUTH_VERIFY_FAIL,
         statusText
       });
       dispatch(showNotification({
