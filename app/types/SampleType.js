@@ -1,6 +1,6 @@
 /* @flow */
 
-export type Sample = {
+export type SampleType = {
   id: string,
   collected: string,
   location: {

@@ -36,7 +36,8 @@ class ExperimentsTable extends Component {
               {experiment.id}
             </Link>
           </td>
-          <td className={styles.tableData}>...</td>
+          <td className={styles.tableData}>{experiment.owner}</td>
+          <td className={styles.tableData}>{experiment.organisation}</td>
           <td className={styles.tableData}>{moment().to(experiment.collected)}</td>
           <td className={styles.tableData}>{experiment.location.name}</td>
         </tr>
@@ -48,6 +49,7 @@ class ExperimentsTable extends Component {
           <tr>
             <th className={styles.tableHeading}>Sample</th>
             <th className={styles.tableHeading}>User</th>
+            <th className={styles.tableHeading}>Organisation</th>
             <th className={styles.tableHeading}>Collected</th>
             <th className={styles.tableHeading}>Location</th>
           </tr>

@@ -8,7 +8,7 @@ import * as NodeActions from '../../actions/NodeActions';
 
 import PhyloCanvasComponent from '../ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
-import type { Sample } from '../../types/Sample';
+import type { SampleType } from '../../types/SampleType';
 
 const treeTypes = ['radial', 'rectangular', 'circular', 'diagonal', 'hierarchy'];
 const AUTO_ZOOM_SAMPLES = true;
@@ -154,7 +154,7 @@ class Phylogeny extends Component {
     );
   }
 
-  getSampleWithId(nodeId): ?Sample {
+  getSampleWithId(nodeId): ?SampleType {
     const {analyser} = this.props;
     const {samples} = analyser.transformed;
     for (let sampleKey in samples) {

@@ -2,14 +2,14 @@
 
 import React, { Component } from 'react';
 import styles from './PhyloCanvasTooltip.css';
-import type { Sample } from '../../types/Sample';
+import type { SampleType } from '../../types/SampleType';
 import moment from 'moment';
 
 class PhyloCanvasTooltip extends Component {
   state: {
     visible: boolean,
     isMain: boolean,
-    node: ?Sample,
+    node: ?SampleType,
     x: number,
     y: number
   }
@@ -33,7 +33,7 @@ class PhyloCanvasTooltip extends Component {
     });
   }
 
-  setNode(node: Sample, isMain: boolean = false) {
+  setNode(node: SampleType, isMain: boolean = false) {
     this.setState({
       node,
       isMain

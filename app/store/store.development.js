@@ -31,14 +31,12 @@ const enhancer = composeEnhancers(
   applyMiddleware(thunk, router, logger)
 );
 
-export default function configureStore(initialState: Object) {
-  const store = createStore(rootReducer, initialState, enhancer);
+const store = createStore(rootReducer, enhancer);
 
-  if (module.hot) {
-    module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
-    );
-  }
-
-  return store;
+if (module.hot) {
+  module.hot.accept('../reducers', () =>
+    store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
+  );
 }
+
+export default store;

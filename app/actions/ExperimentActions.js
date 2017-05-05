@@ -1,6 +1,6 @@
 /* @flow */
 
-import fetch from 'isomorphic-fetch';
+import fetchJson from '../api/fetchJson';
 import { BASE_URL } from '../constants/APIConstants';
 import * as ActionTypes from '../constants/ActionTypes';
 import * as NotificationCategories from '../constants/NotificationCategories';
@@ -23,31 +23,22 @@ function receiveExperiments(data: Array<Object> = []) {
 export function fetchExperiments(filters: Object = {}) {
   return (dispatch: Function) => {
     dispatch(requestExperiments(filters));
-    return fetch(`${BASE_URL}/api/experiments`)
-      .then(response => {
-        if (response.ok) {
-          return response.json().then((data) => {
-            setTimeout(() => {
-              dispatch(receiveExperiments(data));
-            }, 3000);
-          });
-        }
-        else {
-          dispatch(showNotification({
-            category: NotificationCategories.ERROR,
-            content: response.statusText,
-            autoHide: false
-          }));
-          dispatch(receiveExperiments());
-        }
+    return fetchJson(`${BASE_URL}/experiments`)
+      .then((data) => {
+        setTimeout(() => {
+          dispatch(receiveExperiments(data));
+          return Promise.resolve(data);
+        }, 3000);
       })
-      .catch((err) => {
+      .catch((error) => {
+        const {statusText} = error;
         dispatch(showNotification({
           category: NotificationCategories.ERROR,
-          content: err,
+          content: statusText,
           autoHide: false
         }));
         dispatch(receiveExperiments());
+        return Promise.reject(error);
       });
   };
 }

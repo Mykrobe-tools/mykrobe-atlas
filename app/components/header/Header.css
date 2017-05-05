@@ -18,6 +18,17 @@
   pointer-events: auto;
 }
 
+.authLink {
+  color: var(--color-grey-mid);
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.authLinkActive {
+  composes: authLink;
+  color: var(--color-grey-dark);
+}
+
 .menuIcon,
 .menuIcon::before,
 .menuIcon::after {

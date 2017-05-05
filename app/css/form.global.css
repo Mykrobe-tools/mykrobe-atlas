@@ -1,29 +1,29 @@
 ::-webkit-input-placeholder {
-  color: var(--color-placeholder);
+  color: var(--color-placeholder-text);
 }
 
 ::-moz-placeholder {
-  color: var(--color-placeholder);
+  color: var(--color-placeholder-text);
 }
 
 :-moz-placeholder {
-  color: var(--color-placeholder);
+  color: var(--color-placeholder-text);
 }
 
 :-ms-input-placeholder {
-  color: var(--color-placeholder);
+  color: var(--color-placeholder-text);
 }
 
 ::-ms-input-placeholder {
-  color: var(--color-placeholder);
+  color: var(--color-placeholder-text);
 }
 
 ::placeholder {
-  color: var(--color-placeholder);
+  color: var(--color-placeholder-text);
 }
 
 .placeholder {
-  color: var(--color-placeholder);
+  color: var(--color-placeholder-text);
 }
 
 input[type="radio"] + label,

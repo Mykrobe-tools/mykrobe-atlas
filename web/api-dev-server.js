@@ -25,6 +25,7 @@ app.use(multipart());
 
 // parse application/json
 app.use(bodyParser.text());
+app.use(bodyParser.json());
 
 // Allow CORS
 app.use((req, res, next) => {
@@ -76,11 +77,16 @@ app.get('/api/:endpoint', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../test/_fixtures/api', `${endpoint}.json`));
 });
 
-// Pass through any specific requests to the external API
+// Treeplace
 app.use('/treeplace', proxy('13.69.243.89:8000', {
   forwardPath: (req, res) => {
     return `/treeplace${require('url').parse(req.url).path.substr(1)}`;
   }
+}));
+
+// Pass through all other requests to the API
+app.use(proxy('api.atlas-dev.makeandship.com', {
+  https: true
 }));
 
 // Start dev API server
