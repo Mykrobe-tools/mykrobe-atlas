@@ -1,0 +1,11 @@
+.header {
+  composes: container from "css/layout.css";
+}
+
+.filters {
+  margin-right: auto;
+}
+
+.count {
+  margin-left: auto;
+}

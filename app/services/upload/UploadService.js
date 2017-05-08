@@ -1,6 +1,7 @@
 /* @flow */
 
 import { BASE_URL } from '../../constants/APIConstants';
+import fetchJson from '../../api/fetchJson';
 import UploadFile from './UploadFile';
 import UploadBox from './UploadBox';
 import UploadDropbox from './UploadDropbox';
@@ -30,21 +31,19 @@ class UploadService {
   }
 
   prepare() {
-    return fetch(`${BASE_URL}/api/experiments/`, {
-      method: 'POST'
+    return fetchJson(`${BASE_URL}/experiments/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
-      .then(response => {
-        if (response.ok) {
-          return response.json().then((experiment) => {
-            this.setId(experiment.id);
-            return experiment.id;
-          });
-        }
-        return;
-      })
-      .catch(() => {
-        return;
-      });
+    .then((data) => {
+      this.setId(data.id);
+      return Promise.resolve(data);
+    })
+    .catch((error) => {
+      return Promise.reject(error);
+    });
   }
 
   setId(id: string) {

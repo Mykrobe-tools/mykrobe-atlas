@@ -37,18 +37,16 @@ export function monitorUpload() {
 function analyseFilePrepare(filename: string) {
   return (dispatch: Function, getState: Function) => {
     return uploadService.prepare()
-      .then(id => {
-        if (id) {
-          dispatch({
-            type: ActionTypes.ANALYSE_FILE_PREPARE,
-            filename,
-            id
-          });
-          dispatch(push(`/sample/${id}`));
-        }
-        else {
-          dispatch(analyseFileError('Upload initialisation error'));
-        }
+      .then((experiment) => {
+        dispatch({
+          type: ActionTypes.ANALYSE_FILE_PREPARE,
+          filename,
+          id: experiment.id
+        });
+        dispatch(push(`/sample/${experiment.id}`));
+      })
+      .catch((error) => {
+        dispatch(analyseFileError(error));
       });
   };
 }

@@ -18,7 +18,7 @@ class Library extends Component {
         <div className={styles.content}>
           <div className={styles.experiments}>
             <div className={styles.experimentsHeader}>
-              <ExperimentsHeader />
+              <ExperimentsHeader experiments={experiments} />
             </div>
             <div className={styles.experimentsBody}>
               <ExperimentsTable experiments={experiments} />
