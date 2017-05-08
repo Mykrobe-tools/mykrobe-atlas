@@ -11,7 +11,6 @@ import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
 import Notifications from '../components/notifications/Notifications';
 import * as AuthActions from '../actions/AuthActions';
-import type { AuthType } from '../types/AuthTypes';
 import Loading from '../components/ui/Loading';
 
 class App extends Component {
@@ -28,14 +27,12 @@ class App extends Component {
 
   componentWillMount() {
     const {loadAuth, fetchCurrentUser, signOut} = this.props;
-    const auth: AuthType = this.props.auth;
 
     loadAuth().then((user) => {
       if (user && user.token) {
         fetchCurrentUser().then(() => {
         })
         .catch((error) => { //eslint-disable-line
-          // if we can't fetch surgery or user, sign out
           signOut();
         });
       }

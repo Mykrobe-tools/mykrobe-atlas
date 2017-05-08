@@ -130,15 +130,16 @@ function analyseFileError(error: string) {
 export function analyseRemoteFile(file: Object) {
   return (dispatch: Function, getState: Function) => {
     return uploadService.prepare()
-      .then(id => {
-        if (id) {
-          dispatch({
-            type: ActionTypes.ANALYSE_FILE_ANALYSE,
-            filename: file.name,
-            id
-          });
-          dispatch(push(`/sample/${id}`));
-          analyserService.analyseRemoteFile(file)
+      .then((experiment) => {
+        dispatch(push(`/sample/${experiment.id}`));
+        uploadService.uploadRemoteFile(file)
+          .then((data) => {
+            dispatch({
+              type: ActionTypes.ANALYSE_FILE_ANALYSE,
+              filename: file.name,
+              id: experiment.id
+            });
+            analyserService.analyseRemoteFile(file)
             .on('progress', (progress) => {
               dispatch(analyseFileProgress(progress));
             })
@@ -149,10 +150,10 @@ export function analyseRemoteFile(file: Object) {
             .on('error', (error) => {
               dispatch(analyseFileError(error.description));
             });
-        }
-        else {
-          dispatch(analyseFileError('Upload initialisation error'));
-        }
+          });
+      })
+      .catch((error) => {
+        dispatch(analyseFileError(error));
       });
   };
 }

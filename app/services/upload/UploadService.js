@@ -12,6 +12,7 @@ const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 let instance = null;
 
 class UploadService {
+  id: string;
   uploadFile: UploadFile;
   uploadBox: UploadBox;
   uploadDropbox: UploadDropbox;
@@ -47,7 +48,18 @@ class UploadService {
   }
 
   setId(id: string) {
+    this.id = id;
     this.uploadFile.setId(id);
+  }
+
+  uploadRemoteFile(file: Object) {
+    return fetchJson(`${BASE_URL}/experiments/${this.id}/file`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(file)
+    });
   }
 }
 
