@@ -3,6 +3,8 @@
 import Resumablejs from 'resumablejs';
 import SparkMD5 from 'spark-md5';
 import EventEmitter from 'events';
+import store from '../../store/store';
+import type { UserType } from '../../types/UserTypes';
 import { BASE_URL } from '../../constants/APIConstants';
 
 class UploadFile extends EventEmitter {
@@ -18,11 +20,19 @@ class UploadFile extends EventEmitter {
       maxFiles: 1,
       minFileSize: 0,
       uploadMethod: 'PUT',
+      headers: () => {
+        const user: UserType = store.getState().auth.user;
+        if (user && user.token) {
+          return {
+            'Authorization': `Bearer ${user.token}`
+          };
+        }
+      },
       target: () => {
-        return `${BASE_URL}/api/experiments/${this.id}`;
+        return `${BASE_URL}/experiments/${this.id}/file`;
       },
       testTarget: () => {
-        return `${BASE_URL}/api/experiments/${this.id}/upload-status`;
+        return `${BASE_URL}/experiments/${this.id}/upload-status`;
       },
       fileType: this.acceptedExtensions,
       query: (resumableFile, resumableObj) => {

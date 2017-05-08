@@ -40,7 +40,8 @@ class UploadOneDrive extends EventEmitter {
   onFileSelect(files: Object) {
     this.emit('fileSelected', {
       name: files.value[0].name,
-      url: files.value[0]['@microsoft.graph.downloadUrl']
+      path: files.value[0]['@microsoft.graph.downloadUrl'],
+      provider: 'oneDrive'
     });
   }
 }

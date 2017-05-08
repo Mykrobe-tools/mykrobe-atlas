@@ -13,7 +13,7 @@ class ExperimentsTable extends Component {
     if (experiments.isFetching) {
       tableContent = (
         <tr>
-          <td className={styles.tableData} colSpan="4">
+          <td className={styles.tableData} colSpan="5">
             <i className="fa fa-cog fa-spin" /> Fetching results
           </td>
         </tr>
@@ -22,7 +22,7 @@ class ExperimentsTable extends Component {
     else if (experiments.samples.length === 0) {
       tableContent = (
         <tr>
-          <td className={styles.tableData} colSpan="4">
+          <td className={styles.tableData} colSpan="5">
             No results found
           </td>
         </tr>
@@ -36,10 +36,18 @@ class ExperimentsTable extends Component {
               {experiment.id}
             </Link>
           </td>
-          <td className={styles.tableData}>{experiment.owner}</td>
-          <td className={styles.tableData}>{experiment.organisation}</td>
-          <td className={styles.tableData}>{moment().to(experiment.collected)}</td>
-          <td className={styles.tableData}>{experiment.location.name}</td>
+          <td className={styles.tableData}>
+            {experiment.owner && <span>{experiment.owner.firstname} {experiment.owner.lastname}</span>}
+          </td>
+          <td className={styles.tableData}>
+            {experiment.organisation && <span>{experiment.organisation.name}</span>}
+          </td>
+          <td className={styles.tableData}>
+            {moment().to(experiment.collected)}
+          </td>
+          <td className={styles.tableData}>
+            {experiment.location && <span>{experiment.location.name}</span>}
+          </td>
         </tr>
       );
     }

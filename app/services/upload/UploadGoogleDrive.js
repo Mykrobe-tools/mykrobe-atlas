@@ -89,10 +89,9 @@ class UploadGoogleDrive extends EventEmitter {
       request.execute((response) => {
         this.emit('fileSelected', {
           name: response.name,
-          url: `https://www.googleapis.com/drive/v3/files/${id}?alt=media`,
-          headers: {
-            'Authorization': 'Bearer ' + window.gapi.auth.getToken().access_token
-          }
+          path: `https://www.googleapis.com/drive/v3/files/${id}?alt=media`,
+          accessToken: window.gapi.auth.getToken().access_token,
+          provider: 'googleDrive'
         });
       });
     }

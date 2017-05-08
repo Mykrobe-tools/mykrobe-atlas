@@ -45,7 +45,8 @@ class UploadBox extends EventEmitter {
   onFileSelect(files: Array<Object>) {
     this.emit('fileSelected', {
       name: files[0].name,
-      url: files[0].url
+      path: files[0].url,
+      provider: 'box'
     });
   }
 }

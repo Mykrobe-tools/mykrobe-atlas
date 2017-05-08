@@ -2,6 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import styles from './App.css';
 import Analysing from '../components/analysing/Analysing';
@@ -9,6 +10,8 @@ import Header from '../components/header/Header';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
 import Notifications from '../components/notifications/Notifications';
+import * as AuthActions from '../actions/AuthActions';
+import Loading from '../components/ui/Loading';
 
 class App extends Component {
   state = {
@@ -20,6 +23,20 @@ class App extends Component {
     this.state = {
       displayMenu: false
     };
+  }
+
+  componentWillMount() {
+    const {loadAuth, fetchCurrentUser, signOut} = this.props;
+
+    loadAuth().then((user) => {
+      if (user && user.token) {
+        fetchCurrentUser().then(() => {
+        })
+        .catch((error) => { //eslint-disable-line
+          signOut();
+        });
+      }
+    });
   }
 
   componentDidMount() {
@@ -38,8 +55,21 @@ class App extends Component {
   }
 
   render() {
-    const {children} = this.props;
+    const {auth, children} = this.props;
     const {displayMenu} = this.state;
+
+    let showLoadingView = false;
+    if (!auth.user) {
+      if (auth.isLoading || auth.isFetching) {
+        showLoadingView = true;
+      }
+    }
+
+    if (showLoadingView) {
+      return (
+        <Loading />
+      );
+    }
 
     return (
       <div className={styles.container}>
@@ -66,11 +96,24 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
+    auth: state.auth
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    loadAuth: AuthActions.loadAuth,
+    fetchCurrentUser: AuthActions.fetchCurrentUser,
+    signOut: AuthActions.signOut
+  }, dispatch);
+}
+
 App.propTypes = {
+  loadAuth: PropTypes.func.isRequired,
+  fetchCurrentUser: PropTypes.func.isRequired,
+  signOut: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
   children: PropTypes.element.isRequired
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,6 +1,9 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import type { AuthType } from '../../types/AuthTypes';
+
 import styles from './Upload.css';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
@@ -21,13 +24,21 @@ class Upload extends Component {
   }
 
   componentDidMount() {
+    const auth: AuthType = this.props.auth;
+    const {isAuthenticated} = auth;
     const {uploadFile} = this.props.service;
-    uploadFile.bindUploader(this._dropzone, this._uploadButton);
+    if (isAuthenticated) {
+      uploadFile.bindUploader(this._dropzone, this._uploadButton);
+    }
   }
 
   componentWillUnmount() {
+    const auth: AuthType = this.props.auth;
+    const {isAuthenticated} = auth;
     const {uploadFile} = this.props.service;
-    uploadFile.unbindUploader(this._dropzone, this._uploadButton);
+    if (isAuthenticated) {
+      uploadFile.unbindUploader(this._dropzone, this._uploadButton);
+    }
   }
 
   onDragOver() {
@@ -87,9 +98,11 @@ class Upload extends Component {
 
   render() {
     const {isDragActive} = this.state;
+    const auth: AuthType = this.props.auth;
+    const {isAuthenticated} = auth;
     return (
       <div
-        className={isDragActive ? styles.containerDragActive : styles.container}
+        className={isDragActive && isAuthenticated ? styles.containerDragActive : styles.container}
         onDragOver={(e) => {
           this.onDragOver(e);
         }}
@@ -110,17 +123,19 @@ class Upload extends Component {
             <div className={styles.title}>
               Outbreak and resistance analysis in minutes
             </div>
-            <div className={styles.buttonContainer}>
-              <button
-                type="button"
-                className={styles.buttonOffscreen}
-                ref={(ref) => {
-                  this._uploadButton = ref;
-                }} />
-              <PopoverMenu
-                toggleText="Analyse Sample"
-                links={this.popoverMenuLinks()} />
-            </div>
+            {isAuthenticated &&
+              <div className={styles.buttonContainer}>
+                <button
+                  type="button"
+                  className={styles.buttonOffscreen}
+                  ref={(ref) => {
+                    this._uploadButton = ref;
+                  }} />
+                <PopoverMenu
+                  toggleText="Analyse Sample"
+                  links={this.popoverMenuLinks()} />
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -128,8 +143,15 @@ class Upload extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  };
+}
+
 Upload.propTypes = {
-  service: PropTypes.object.isRequired
+  service: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
-export default Upload;
+export default connect(mapStateToProps)(Upload);

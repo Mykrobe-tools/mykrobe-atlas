@@ -11,7 +11,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
   analyseBinaryFile(file: File): AnalyserWebFile {
     this._file = file;
     console.log('analyseBinaryFile', file);
-    console.error('TODO: upload file to API and report progress');
+    console.error('TODO: retrieve analysis data for uploaded file from API');
     this._progress = 0;
     this.demoUpdateProgress();
     this.fetchDemoData(this._file.name);

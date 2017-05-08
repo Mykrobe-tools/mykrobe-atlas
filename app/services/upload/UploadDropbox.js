@@ -50,7 +50,8 @@ class UploadDropbox extends EventEmitter {
   onFileSelect(files: Array<Object>) {
     this.emit('fileSelected', {
       name: files[0].name,
-      url: files[0].link
+      path: files[0].link,
+      provider: 'dropbox'
     });
   }
 }
