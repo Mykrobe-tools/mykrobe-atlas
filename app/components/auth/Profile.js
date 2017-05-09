@@ -13,28 +13,10 @@ import Loading from '../ui/Loading';
 
 class Profile extends React.Component {
 
-  state: {
-    organisations: Array<Object>
-  }
-
-  constructor(props: Object) {
-    super(props);
-    this.state = {
-      organisations: []
-    };
-  }
-
   componentWillMount() {
-    const {requestAllOrganisations} = this.props;
-    requestAllOrganisations()
-      .then((organisations) => {
-        this.setState({organisations});
-      });
-  }
-
-  componentDidMount() {
-    const { fetchCurrentUser } = this.props;
+    const {fetchCurrentUser, requestAllOrganisations} = this.props;
     fetchCurrentUser();
+    requestAllOrganisations();
   }
 
   componentWillUnmount() {
@@ -64,14 +46,13 @@ class Profile extends React.Component {
 
   render() {
     const {failureReason} = this.props.auth;
-    const {signOut} = this.props;
-    const {organisations} = this.state;
+    const {signOut, organisations} = this.props;
     const auth: AuthType = this.props.auth;
     const user: ?UserType = auth.user;
     if (!user) {
       return null;
     }
-    if (auth.isFetching) {
+    if (auth.isFetching || organisations.isFetching) {
       return (
         <div className={styles.container}>
           <div className={styles.header}>
@@ -135,7 +116,7 @@ class Profile extends React.Component {
                 <div className={styles.selectWrap}>
                   <select className={styles.select} ref="organisation" id="organisation" value={organisation}>
                     <option />
-                    {organisations.map((organisation) => {
+                    {organisations.data.allOrganisations && organisations.data.allOrganisations.map((organisation) => {
                       return (
                         <option key={organisation.id} value={organisation.id}>
                           {organisation.name}
@@ -168,7 +149,8 @@ class Profile extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+    auth: state.auth,
+    organisations: state.organisations
   };
 }
 
@@ -185,6 +167,7 @@ function mapDispatchToProps(dispatch) {
 
 Profile.propTypes = {
   auth: PropTypes.object.isRequired,
+  organisations: PropTypes.object.isRequired,
   signOut: PropTypes.func.isRequired,
   fetchCurrentUser: PropTypes.func.isRequired,
   updateCurrentUser: PropTypes.func.isRequired,
