@@ -7,5 +7,6 @@ export type UserType = {
   lastname?: string,
   password?: string,
   phone?: string,
+  organisation?: string,
   token?: string
 };
