@@ -17,15 +17,15 @@ class AnalyserBaseFile extends EventEmitter {
     return extension.toLowerCase();
   }
 
-  analyseFile(file: File): AnalyserBaseFile {
+  analyseFile(file: File, id: string = ''): AnalyserBaseFile {
     this.cancel();
     const extension = this.extensionForFileName(file.name);
     if (extension === '.json') {
       // return this.analyseJsonFile(file);
-      return this.analyseBinaryFile(file);
+      return this.analyseBinaryFile(file, id);
     }
     else if (['.bam', '.gz', '.fastq'].indexOf(extension) !== -1) {
-      return this.analyseBinaryFile(file);
+      return this.analyseBinaryFile(file, id);
     }
     else {
       this.failWithError(`Can only process files with extension: .json, .bam, .gz, .fastq - not ${extension}`);

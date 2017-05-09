@@ -17,8 +17,8 @@ class AnalyserService {
     return instance;
   }
 
-  analyseFile(file: File): AnalyserBaseFile {
-    return new AnalyserWebFile(this.config).analyseFile(file);
+  analyseFile(file: File, id: string): AnalyserBaseFile {
+    return new AnalyserWebFile(this.config).analyseFile(file, id);
   }
 
   analyseRemoteFile(file: Object): AnalyserBaseFile {
@@ -26,7 +26,7 @@ class AnalyserService {
   }
 
   fetchExperiment(id: string) {
-    return new AnalyserWebFile(this.config).fetchDemoData(id);
+    return new AnalyserWebFile(this.config).fetchExperiment(id);
   }
 }
 

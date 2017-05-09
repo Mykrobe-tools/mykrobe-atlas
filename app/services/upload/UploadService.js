@@ -52,6 +52,10 @@ class UploadService {
     this.uploadFile.setId(id);
   }
 
+  getId() {
+    return this.id;
+  }
+
   uploadRemoteFile(file: Object) {
     return fetchJson(`${BASE_URL}/experiments/${this.id}/file`, {
       method: 'PUT',

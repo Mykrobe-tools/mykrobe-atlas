@@ -86,7 +86,7 @@ class Analysis extends Component {
     this._markers = {};
     samples.forEach((sample, index) => {
       const lat = parseFloat(sample.location.lat);
-      const lng = parseFloat(sample.location.long);
+      const lng = parseFloat(sample.location.lng);
       const marker = new this._google.maps.Marker({
         icon: {
           path: this._google.maps.SymbolPath.CIRCLE,
