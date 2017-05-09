@@ -8,9 +8,29 @@ import styles from './Common.css';
 import * as AuthActions from '../../actions/AuthActions';
 import type { AuthType } from '../../types/AuthTypes';
 import type { UserType } from '../../types/UserTypes';
+import * as OrganisationActions from '../../actions/OrganisationActions.js';
 import Loading from '../ui/Loading';
 
 class Profile extends React.Component {
+
+  state: {
+    organisations: Array<Object>
+  }
+
+  constructor(props: Object) {
+    super(props);
+    this.state = {
+      organisations: []
+    };
+  }
+
+  componentWillMount() {
+    const {requestAllOrganisations} = this.props;
+    requestAllOrganisations()
+      .then((organisations) => {
+        this.setState({organisations});
+      });
+  }
 
   componentDidMount() {
     const { fetchCurrentUser } = this.props;
@@ -29,7 +49,8 @@ class Profile extends React.Component {
       email: this.refs.email.value,
       firstname: this.refs.firstname.value,
       lastname: this.refs.lastname.value,
-      phone: this.refs.phone.value
+      phone: this.refs.phone.value,
+      organisation: this.refs.organisation.value
     };
     updateCurrentUser(userObject);
   }
@@ -44,6 +65,7 @@ class Profile extends React.Component {
   render() {
     const {failureReason} = this.props.auth;
     const {signOut} = this.props;
+    const {organisations} = this.state;
     const auth: AuthType = this.props.auth;
     const user: ?UserType = auth.user;
     if (!user) {
@@ -65,7 +87,7 @@ class Profile extends React.Component {
         </div>
       );
     }
-    const {email, firstname, lastname, phone} = user;
+    const {email, firstname, lastname, phone, organisation} = user;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -108,6 +130,21 @@ class Profile extends React.Component {
                   defaultValue={phone}
                 />
               </div>
+              <div className={styles.formRow}>
+                <label className={styles.label} htmlFor="organisation">Organisation</label>
+                <div className={styles.selectWrap}>
+                  <select className={styles.select} ref="organisation" id="organisation" value={organisation}>
+                    <option />
+                    {organisations.map((organisation) => {
+                      return (
+                        <option key={organisation.id} value={organisation.id}>
+                          {organisation.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
               <div className={styles.formActions}>
                 <button className={styles.button} type="submit">
                   <span><i className="fa fa-chevron-circle-right" /> Update profile</span>
@@ -141,7 +178,8 @@ function mapDispatchToProps(dispatch) {
     fetchCurrentUser: AuthActions.fetchCurrentUser,
     updateCurrentUser: AuthActions.updateCurrentUser,
     deleteFailureReason: AuthActions.deleteFailureReason,
-    deleteCurrentUser: AuthActions.deleteCurrentUser
+    deleteCurrentUser: AuthActions.deleteCurrentUser,
+    requestAllOrganisations: OrganisationActions.requestAllOrganisations
   }, dispatch);
 }
 
@@ -151,7 +189,8 @@ Profile.propTypes = {
   fetchCurrentUser: PropTypes.func.isRequired,
   updateCurrentUser: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
-  deleteCurrentUser: PropTypes.func.isRequired
+  deleteCurrentUser: PropTypes.func.isRequired,
+  requestAllOrganisations: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

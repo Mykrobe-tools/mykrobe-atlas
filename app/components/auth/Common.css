@@ -51,6 +51,30 @@
   width: 50%;
 }
 
+.selectWrap {
+  position: relative;
+  width: 50%;
+}
+
+.selectWrap::after {
+  position: absolute;
+  right: 0;
+  font-family: FontAwesome;
+  content: "\f0d7";
+  font-size: 19px;
+  line-height: 24px;
+  color: var(--color-grey-mid);
+  padding: 5px 8px;
+  pointer-events: none;
+}
+
+.select {
+  composes: input;
+  width: 100%;
+  padding-right: 24px;
+}
+
+
 .button {
   composes: buttonPrimary from "css/controls.css";
 }
