@@ -59,6 +59,73 @@ function organisationsRawState(state, action: Object) {
           allOrganisations: action.data
         }
       };
+    case ActionTypes.REQUEST_ORGANISATION:
+      return {
+        ...state,
+        isFetching: true,
+        data: {
+          ...state.data,
+          organisation: undefined
+        }
+      };
+    case ActionTypes.REQUEST_ORGANISATION_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        data: {
+          ...state.data,
+          organisation: action.data
+        }
+      };
+    case ActionTypes.CREATE_ORGANISATION_SUCCESS:
+      return {
+        ...state,
+        isSaving: false,
+        data: {
+          ...state.data,
+          organisation: action.data
+        }
+      };
+    case ActionTypes.UPDATE_ORGANISATION_SUCCESS:
+      return {
+        ...state,
+        isSaving: false,
+        data: {
+          ...state.data,
+          organisation: action.data
+        }
+      };
+    //
+    //
+    //
+    case ActionTypes.NEW_ORGANISATION:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          organisation: {}
+        }
+      };
+    case ActionTypes.CREATE_ORGANISATION:
+      return {
+        ...state,
+        isSaving: true
+      };
+    case ActionTypes.UPDATE_ORGANISATION:
+      return {
+        ...state,
+        isSaving: true
+      };
+    case ActionTypes.ORGANISATION_UPDATE_FAILURE_REASON:
+      return {
+        ...state,
+        failureReason: action.failureReason
+      };
+    case ActionTypes.ORGANISATION_DELETE_FAILURE_REASON:
+      return {
+        ...state,
+        failureReason: undefined
+      };
     default:
       return state;
   }
