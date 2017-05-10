@@ -131,7 +131,14 @@ export function analyseRemoteFile(file: Object) {
   return (dispatch: Function, getState: Function) => {
     return uploadService.prepare()
       .then((experiment) => {
+        dispatch({
+          type: ActionTypes.ANALYSE_FILE_PREPARE,
+          filename: file.name,
+          id: experiment.id
+        });
+
         dispatch(push(`/sample/${experiment.id}`));
+
         uploadService.uploadRemoteFile(file)
           .then((data) => {
             dispatch({
@@ -139,17 +146,18 @@ export function analyseRemoteFile(file: Object) {
               filename: file.name,
               id: experiment.id
             });
+
             analyserService.analyseRemoteFile(file)
-            .on('progress', (progress) => {
-              dispatch(analyseFileProgress(progress));
-            })
-            .on('done', (result) => {
-              const {json, transformed} = result;
-              dispatch(analyseFileSuccess(file.name, json, transformed));
-            })
-            .on('error', (error) => {
-              dispatch(analyseFileError(error.description));
-            });
+              .on('progress', (progress) => {
+                dispatch(analyseFileProgress(progress));
+              })
+              .on('done', (result) => {
+                const {json, transformed} = result;
+                dispatch(analyseFileSuccess(file.name, json, transformed));
+              })
+              .on('error', (error) => {
+                dispatch(analyseFileError(error.description));
+              });
           });
       })
       .catch((error) => {
