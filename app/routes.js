@@ -29,6 +29,11 @@ import Reset from './components/auth/Reset';
 import ResetSuccess from './components/auth/ResetSuccess';
 import Verify from './components/auth/Verify';
 
+import OrganisationPage from './containers/OrganisationPage';
+import List from './components/organisation/List';
+import Add from './components/organisation/Add';
+import Edit from './components/organisation/Edit';
+
 const requireAuth = (nextState, replace) => {
   const state = store.getState();
   const { auth } = state;
@@ -71,6 +76,12 @@ export default (
       <Route path="reset/:resetPasswordToken" component={Reset} />
       <Route path="resetsuccess" component={ResetSuccess} />
       <Route path="verify/:verificationToken" component={Verify} />
+    </Route>
+    <Route path="organisation" onEnter={requireAuth} component={OrganisationPage}>
+      <IndexRedirect to="list" />
+      <Route path="list" component={List} />
+      <Route path="add" component={Add} />
+      <Route path="edit/:id" component={Edit} />
     </Route>
   </Route>
 );
