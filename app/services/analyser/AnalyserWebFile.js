@@ -48,16 +48,11 @@ class AnalyserWebFile extends AnalyserBaseFile {
   fetchExperiment(id: string) {
     return fetchJson(`${BASE_URL}/experiments/${id}`)
       .then((json) => {
-        if (json.geoDistance && json.snpDistance) {
-          json = this.addExtraData(json);
-          const transformer = new AnalyserJsonTransformer();
-          const transformed = transformer.transformModel(json);
-          const result = {json, transformed};
-          return Promise.resolve(result);
-        }
-        else {
-          return Promise.resolve({json, transformed: json});
-        }
+        json = this.addExtraData(json);
+        const transformer = new AnalyserJsonTransformer();
+        const transformed = transformer.transformModel(json);
+        const result = {json, transformed};
+        return Promise.resolve(result);
       })
       .catch((error) => {
         return Promise.reject({description: error});
@@ -65,9 +60,22 @@ class AnalyserWebFile extends AnalyserBaseFile {
   }
 
   addExtraData(json: Object) {
-    const testData = require('../../../test/_fixtures/api/experiment-extras.json');
-    json.geoDistance.experiments = testData.experiments;
-    json.snpDistance.newick = testData.newick;
+    const testData = require('../../../test/_fixtures/api/experiment.json');
+    if (!json.location) {
+      json.location = testData.location;
+    }
+    if (!json.geoDistance) {
+      json.geoDistance = testData.geoDistance;
+    }
+    if (json.geoDistance.experiments.length === 0) {
+      json.geoDistance.experiments = testData.geoDistance.experiments;
+    }
+    if (!json.snpDistance) {
+      json.snpDistance = testData.snpDistance;
+    }
+    if (!json.snpDistance.newick) {
+      json.snpDistance.newick = testData.newick;
+    }
     return json;
   }
 }
