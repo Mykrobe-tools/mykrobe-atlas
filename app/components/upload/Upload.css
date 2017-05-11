@@ -37,8 +37,7 @@
 }
 
 .title {
-  composes: fontPrimary from "css/typography.css";
-  composes: fontSizeLarge from "css/typography.css";
+  font-size: 24px; /* composes: fontSizeLarge from "css/typography.css"; */
   text-align: center;
   margin-bottom: 30px;
 }
