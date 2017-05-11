@@ -9,3 +9,4 @@ atlas-client:
     - NODE_ENV=production
     - HOST=0.0.0.0
     - PORT=3000
+    - TARGET_ENVIRONMENT={{TARGET_ENVIRONMENT}}

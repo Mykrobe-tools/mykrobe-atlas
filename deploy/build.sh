@@ -15,4 +15,5 @@ docker rm -f atlas-client || true
 docker images -q --filter "dangling=true" | xargs --no-run-if-empty docker rmi
 
 # build the target container
+subber deploy/docker-compose.yml
 docker-compose -f deploy/docker-compose.yml build
