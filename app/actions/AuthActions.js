@@ -1,7 +1,7 @@
 /* @flow */
 
 import fetchJson from '../api/fetchJson';
-import * as CookieHelpers from '../helpers/CookieHelpers';
+import * as CredentialsHelpers from '../helpers/CredentialsHelpers';
 import * as ActionTypes from '../constants/ActionTypes';
 import { BASE_URL } from '../constants/APIConstants.js';
 import { push } from 'react-router-redux';
@@ -20,7 +20,7 @@ export function loadAuth() {
     dispatch({
       type: ActionTypes.AUTH_INITIALISE
     });
-    const user = CookieHelpers.loadPersistedUser();
+    const user = CredentialsHelpers.loadUser();
     dispatch({
       type: ActionTypes.AUTH_INITIALISE_SUCCESS,
       user
@@ -38,7 +38,7 @@ export function signOut() {
     dispatch({
       type: ActionTypes.AUTH_SIGNOUT
     });
-    CookieHelpers.deletePersistedUser();
+    CredentialsHelpers.deleteUser();
     dispatch({
       type: ActionTypes.AUTH_SIGNOUT_SUCCESS
     });
@@ -68,7 +68,7 @@ export function signIn(user: UserType) {
       body: JSON.stringify(user)
     })
     .then((data: UserType) => {
-      CookieHelpers.savePersistedUser(data);
+      CredentialsHelpers.saveUser(data);
       dispatch({
         type: ActionTypes.AUTH_SIGNIN_SUCCESS,
         user: data
