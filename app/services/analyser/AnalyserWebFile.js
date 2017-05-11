@@ -74,7 +74,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
       json.snpDistance = testData.snpDistance;
     }
     if (!json.snpDistance.newick) {
-      json.snpDistance.newick = testData.newick;
+      json.snpDistance.newick = testData.snpDistance.newick;
     }
     return json;
   }

@@ -1,43 +1,32 @@
 /* @flow */
 
-import fetch from 'isomorphic-fetch';
+import fetchJson from '../api/fetchJson';
 import { BASE_URL } from '../constants/APIConstants';
 import * as ActionTypes from '../constants/ActionTypes';
 import * as NotificationCategories from '../constants/NotificationCategories';
 import {showNotification} from './NotificationActions';
 
-export function postMetadataForm(metadata: Object) {
+export function postMetadataForm(id: string, metadata: Object) {
   return (dispatch: Function) => {
-    return fetch(`${BASE_URL}/api/experiments/1`, {
-      method: 'put',
+    return fetchJson(`${BASE_URL}/experiments/${id}`, {
+      method: 'PUT',
       body: JSON.stringify(metadata)
     })
-      .then(response => {
-        if (response.ok) {
-          return response.json().then((data) => {
-            setTimeout(() => {
-              dispatch({
-                type: ActionTypes.POST_METADATA_FORM
-              });
-              dispatch(showNotification({
-                category: NotificationCategories.SUCCESS,
-                content: 'Metadata saved'
-              }));
-            }, 1000);
-          });
-        }
-        else {
+      .then((data) => {
+        dispatch({
+          type: ActionTypes.POST_METADATA_FORM
+        });
+        setTimeout(() => {
           dispatch(showNotification({
-            category: NotificationCategories.ERROR,
-            content: response.statusText,
-            autoHide: false
+            category: NotificationCategories.SUCCESS,
+            content: 'Metadata saved'
           }));
-        }
+        }, 1000);
       })
-      .catch((err) => {
+      .catch((error) => {
         dispatch(showNotification({
           category: NotificationCategories.ERROR,
-          content: err,
+          content: error.statusText,
           autoHide: false
         }));
       });
@@ -48,5 +37,16 @@ export function setMetadata(metadata: Object) {
   return {
     type: ActionTypes.SET_METADATA,
     metadata
+  };
+}
+
+export function fetchTemplate(id: string) {
+  return (dispatch: Function) => {
+    // todo - integrate with API
+    const testData = require('../../test/_fixtures/api/template.json');
+    dispatch({
+      type: ActionTypes.SET_METADATA_TEMPLATE,
+      template: testData
+    });
   };
 }

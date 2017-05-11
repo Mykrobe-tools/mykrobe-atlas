@@ -96,15 +96,17 @@ class MetadataForm extends Component {
   }
 
   componentWillUnmount() {
-    this.props.setMetadata(this.state);
+    const {setMetadata} = this.props;
+    setMetadata(this.state);
   }
 
   handleSubmit(event: Event) {
     event.preventDefault();
+    const {id, postMetadataForm} = this.props;
 
     // TODO: Error checking
 
-    this.props.postMetadataForm(this.state);
+    postMetadataForm(id, this.state);
   }
 
   handleDateChange(field: string, date: moment) {
@@ -177,55 +179,63 @@ class MetadataForm extends Component {
 
   render() {
     const { patientId, siteId, genderAtBirth, countryOfBirth, bmi, injectingDrugUse, homeless, imprisoned, smoker, diabetic, hivStatus, art, labId, isolateId, collectionDate, prospectiveIsolate, patientAge, countryIsolate, cityIsolate, dateArrived, anatomicalOrigin, smear, wgsPlatform, wgsPlatformOther, otherGenotypeInformation, genexpert, hain, hainRif, hainInh, hainFl, hainAm, hainEth, phenotypeInformationFirstLineDrugs, phenotypeInformationOtherDrugs, previousTbinformation, recentMdrTb, priorTreatmentDate, tbProphylaxis, tbProphylaxisDate, currentTbinformation, startProgrammaticTreatment, intensiveStartDate, intensiveStopDate, startProgrammaticContinuationTreatment, continuationStartDate, continuationStopDate, nonStandardTreatment, sputumSmearConversion, sputumCultureConversion, whoOutcomeCategory, dateOfDeath, drugOutsidePhase, drugOutsidePhaseStartDate, drugOutsidePhaseEndDate } = this.state;
+    const {template} = this.props;
+
     return (
       <Form onSubmit={(event) => this.handleSubmit(event)}>
         <Fieldset legend="Patient">
-          <FormRow>
-            <FormInputText
-              title="Patient ID"
-              name="patientId"
-              type="text"
-              required
-              value={patientId}
-              onChange={(event) => this.handleChange(event)}
-            />
-          </FormRow>
-          <FormRow>
-            <FormInputText
-              title="Site ID"
-              name="siteId"
-              type="text"
-              required
-              value={siteId}
-              onChange={(event) => this.handleChange(event)}
-            />
-          </FormRow>
-          <FormRow>
-            <FormSelect
-              title="Gender at birth"
-              name="genderAtBirth"
-              value={genderAtBirth}
-              options={[
-                {
-                  value: 'male',
-                  label: 'Male'
-                },
-                {
-                  value: 'female',
-                  label: 'Female'
-                },
-                {
-                  value: 'other',
-                  label: 'Other or Intersex'
-                },
-                {
-                  value: 'unknown',
-                  label: 'Not known / unavailable'
-                }
-              ]}
-              onChange={(e) => this.handleChange(e)}
-            />
-          </FormRow>
+          {template.includes('patientId') &&
+            <FormRow>
+              <FormInputText
+                title="Patient ID"
+                name="patientId"
+                type="text"
+                required
+                value={patientId}
+                onChange={(event) => this.handleChange(event)}
+              />
+            </FormRow>
+          }
+          {template.includes('siteId') &&
+            <FormRow>
+              <FormInputText
+                title="Site ID"
+                name="siteId"
+                type="text"
+                required
+                value={siteId}
+                onChange={(event) => this.handleChange(event)}
+              />
+            </FormRow>
+          }
+          {template.includes('genderAtBirth') &&
+            <FormRow>
+              <FormSelect
+                title="Gender at birth"
+                name="genderAtBirth"
+                value={genderAtBirth}
+                options={[
+                  {
+                    value: 'male',
+                    label: 'Male'
+                  },
+                  {
+                    value: 'female',
+                    label: 'Female'
+                  },
+                  {
+                    value: 'other',
+                    label: 'Other or Intersex'
+                  },
+                  {
+                    value: 'unknown',
+                    label: 'Not known / unavailable'
+                  }
+                ]}
+                onChange={(e) => this.handleChange(e)}
+              />
+            </FormRow>
+          }
           <FormRow>
             <FormTypeahead
               title="Country of birth"
@@ -1179,7 +1189,8 @@ class MetadataForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    metadata: state.metadata
+    metadata: state.metadata.metadata,
+    template: state.metadata.template
   };
 }
 
