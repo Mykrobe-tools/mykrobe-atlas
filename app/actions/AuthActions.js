@@ -38,7 +38,7 @@ export function signOut() {
     dispatch({
       type: ActionTypes.AUTH_SIGNOUT
     });
-    CookieHelpers.deletePersistsedUser();
+    CookieHelpers.deletePersistedUser();
     dispatch({
       type: ActionTypes.AUTH_SIGNOUT_SUCCESS
     });

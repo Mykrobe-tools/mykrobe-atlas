@@ -23,7 +23,7 @@ export function loadPersistedUser(): ?UserType {
   return user;
 }
 
-export function deletePersistsedUser() {
+export function deletePersistedUser() {
   cookie.remove(USER_COOKIE_NAME, { path: '/' });
 }
 
