@@ -28,6 +28,8 @@ import Profile from './components/auth/Profile';
 import Reset from './components/auth/Reset';
 import ResetSuccess from './components/auth/ResetSuccess';
 import Verify from './components/auth/Verify';
+import VerifySuccess from './components/auth/VerifySuccess';
+import VerifyFailure from './components/auth/VerifyFailure';
 
 import OrganisationPage from './containers/OrganisationPage';
 import List from './components/organisation/List';
@@ -76,6 +78,8 @@ export default (
       <Route path="reset/:resetPasswordToken" component={Reset} />
       <Route path="resetsuccess" component={ResetSuccess} />
       <Route path="verify/:verificationToken" component={Verify} />
+      <Route path="verifysuccess" component={VerifySuccess} />
+      <Route path="verifyfailure" component={VerifyFailure} />
     </Route>
     <Route path="organisation" onEnter={requireAuth} component={OrganisationPage}>
       <IndexRedirect to="list" />
