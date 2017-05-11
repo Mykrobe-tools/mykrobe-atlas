@@ -39,7 +39,8 @@ const config = merge(baseConfig('production'), {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.TARGET_ENVIRONMENT': JSON.stringify(process.env.TARGET_ENVIRONMENT)
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
