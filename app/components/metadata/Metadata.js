@@ -8,7 +8,7 @@ import MetadataForm from './MetadataForm';
 class Metadata extends Component {
 
   render() {
-    const {analyser} = this.props;
+    const {analyser, id} = this.props;
     return (
       <div className={styles.container}>
         {analyser.analysing &&
@@ -32,7 +32,7 @@ class Metadata extends Component {
               </div>
             </div>
           </div>
-          <MetadataForm />
+          <MetadataForm id={id} />
         </div>
       </div>
     );
@@ -40,7 +40,8 @@ class Metadata extends Component {
 }
 
 Metadata.propTypes = {
-  analyser: PropTypes.object
+  analyser: PropTypes.object,
+  id: PropTypes.string
 };
 
 export default Metadata;

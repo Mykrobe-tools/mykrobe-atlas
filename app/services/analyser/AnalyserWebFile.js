@@ -61,6 +61,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
 
   addExtraData(json: Object) {
     const testData = require('../../../test/_fixtures/api/experiment.json');
+    console.log(json);
     if (!json.location) {
       json.location = testData.location;
     }
@@ -74,7 +75,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
       json.snpDistance = testData.snpDistance;
     }
     if (!json.snpDistance.newick) {
-      json.snpDistance.newick = testData.newick;
+      json.snpDistance.newick = testData.snpDistance.newick;
     }
     return json;
   }

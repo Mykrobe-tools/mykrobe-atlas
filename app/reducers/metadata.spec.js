@@ -2,20 +2,23 @@ import reducer from './metadata';
 import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
-  location: 'GB',
-  labId: '',
-  date: '',
-  responsiblePersonId: '',
-  responsiblePersonData: '',
-  patientId: '',
-  sampleId: '',
-  sequencingMachine: '',
-  patientHistory: '',
-  sampleType: '',
-  susceptibility: {},
-  hivPositive: '',
-  treatedForTB: '',
-  shareSequence: true
+  template: [],
+  metadata: {
+    location: 'GB',
+    labId: '',
+    date: '',
+    responsiblePersonId: '',
+    responsiblePersonData: '',
+    patientId: '',
+    sampleId: '',
+    sequencingMachine: '',
+    patientHistory: '',
+    sampleType: '',
+    susceptibility: {},
+    hivPositive: '',
+    treatedForTB: '',
+    shareSequence: true
+  }
 };
 
 describe('metadata reducer', () => {
@@ -43,8 +46,9 @@ describe('metadata reducer', () => {
         type: ActionTypes.SET_METADATA,
         metadata: {lorem: 'ipsum'}
       })
-    ).toEqual(
-      {lorem: 'ipsum'}
-    );
+    ).toEqual({
+      template: [],
+      metadata: {lorem: 'ipsum'}
+    });
   });
 });
