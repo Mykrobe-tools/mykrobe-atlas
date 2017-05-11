@@ -42,6 +42,7 @@ export function setMetadata(metadata: Object) {
 
 export function fetchTemplate(id: string) {
   return (dispatch: Function) => {
+    // todo - integrate with API
     const testData = require('../../test/_fixtures/api/template.json');
     dispatch({
       type: ActionTypes.SET_METADATA_TEMPLATE,
