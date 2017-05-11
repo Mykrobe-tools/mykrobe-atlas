@@ -352,24 +352,26 @@ export function verify(verify: AuthVerificationType) {
       },
       body: JSON.stringify(verify)
     })
-    .then((data) => {
-      dispatch({
-        type: ActionTypes.AUTH_VERIFY_SUCCESS,
-        user: data
+      .then((data) => {
+        dispatch({
+          type: ActionTypes.AUTH_VERIFY_SUCCESS,
+          user: data
+        });
+        dispatch(push('/auth/verifysuccess'));
+        return Promise.resolve(data);
+      })
+      .catch((error) => {
+        const {statusText} = error;
+        dispatch({
+          type: ActionTypes.AUTH_VERIFY_FAIL,
+          statusText
+        });
+        dispatch(showNotification({
+          category: NotificationCategories.ERROR,
+          content: statusText
+        }));
+        dispatch(push('/auth/verifyfailure'));
+        return Promise.reject(error);
       });
-      return Promise.resolve(data);
-    })
-    .catch((error) => {
-      const {statusText} = error;
-      dispatch({
-        type: ActionTypes.AUTH_VERIFY_FAIL,
-        statusText
-      });
-      dispatch(showNotification({
-        category: NotificationCategories.ERROR,
-        content: statusText
-      }));
-      return Promise.reject(error);
-    });
   };
 }

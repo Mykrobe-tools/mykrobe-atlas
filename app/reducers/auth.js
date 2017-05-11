@@ -140,23 +140,6 @@ function authRawState(state: AuthType, action: Object) {
         isFetching: false,
         failureReason: action.statusText
       };
-    case types.AUTH_VERIFY:
-      return {
-        ...state,
-        isFetching: true,
-        failureReason: undefined
-      };
-    case types.AUTH_VERIFY_SUCCESS:
-      return {
-        ...state,
-        isFetching: false
-      };
-    case types.AUTH_VERIFY_FAIL:
-      return {
-        ...state,
-        isFetching: false,
-        failureReason: action.statusText
-      };
     default:
       return state;
   }
