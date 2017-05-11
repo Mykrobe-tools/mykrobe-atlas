@@ -1,10 +1,9 @@
 /* @flow */
 
 import fetchJson from '../api/fetchJson';
+import * as CookieHelpers from '../helpers/CookieHelpers';
 import * as ActionTypes from '../constants/ActionTypes';
-import { USER_COOKIE_NAME, BASE_URL } from '../constants/APIConstants.js';
-import cookie from 'react-cookie';
-import jwtDecode from 'jwt-decode';
+import { BASE_URL } from '../constants/APIConstants.js';
 import { push } from 'react-router-redux';
 
 import * as NotificationCategories from '../constants/NotificationCategories';
@@ -21,11 +20,7 @@ export function loadAuth() {
     dispatch({
       type: ActionTypes.AUTH_INITIALISE
     });
-    const user: UserType = cookie.load(USER_COOKIE_NAME);
-    if (user && user.token) {
-      const decode = jwtDecode(user.token);
-      console.log('user.token decode:', decode);
-    }
+    const user = CookieHelpers.loadPersistedUser();
     dispatch({
       type: ActionTypes.AUTH_INITIALISE_SUCCESS,
       user
@@ -43,7 +38,7 @@ export function signOut() {
     dispatch({
       type: ActionTypes.AUTH_SIGNOUT
     });
-    cookie.remove(USER_COOKIE_NAME);
+    CookieHelpers.deletePersistsedUser();
     dispatch({
       type: ActionTypes.AUTH_SIGNOUT_SUCCESS
     });
@@ -73,7 +68,7 @@ export function signIn(user: UserType) {
       body: JSON.stringify(user)
     })
     .then((data: UserType) => {
-      cookie.save(USER_COOKIE_NAME, data);
+      CookieHelpers.savePersistedUser(data);
       dispatch({
         type: ActionTypes.AUTH_SIGNIN_SUCCESS,
         user: data
@@ -93,7 +88,7 @@ export function signIn(user: UserType) {
       });
       dispatch(showNotification({
         category: NotificationCategories.ERROR,
-        content: statusText
+        content: 'Sorry, your email/password was incorrect'
       }));
       return Promise.reject(error);
     });
