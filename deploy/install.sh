@@ -1,9 +1,8 @@
-export CURRENT_VERSION=`cat /var/go/releases/CURRENT_VERSION`
-export PREVIOUS_VERSION=`cat /var/go/releases/PREVIOUS_VERSION`
+export CURRENT_VERSION=`cat /var/go/releases/client/CURRENT_VERSION`
+export PREVIOUS_VERSION=`cat /var/go/releases/client/PREVIOUS_VERSION`
 
 # remove unwanted containers
-docker ps -a -q | xargs --no-run-if-empty docker rm -f	
-cd /var/go/releases/$CURRENT_VERSION
+cd /var/go/releases/client/$CURRENT_VERSION
 
 # provide environment variables to docker-compose and run it up
 subber deploy/docker-compose.yml 
@@ -12,11 +11,8 @@ docker-compose -f deploy/docker-compose.yml up -d
 # clean containers down
 deploy/dkcleanup.sh
 
-# restart the reverse proxy
-sudo service nginx restart
-
 # remove the previous image
-docker images | grep $PREVIOUS_VERSION | awk '{print $1}' | xargs docker rmi
+docker volume ls -qf dangling=true | xargs -r docker volume rm
 
 # all ok set PREVIOUS_VERSION
-echo $CURRENT_VERSION > /var/go/releases/PREVIOUS_VERSION
+echo $CURRENT_VERSION > /var/go/releases/client/PREVIOUS_VERSION
