@@ -36,6 +36,13 @@
   background: none;
 }
 
+.buttonBorderless {
+  composes: button;
+  border: none;
+  color: var(--color-tint-primary);
+  background: none;
+}
+
 .buttonOutlineLarge {
   composes: buttonOutline;
   height: 44px;

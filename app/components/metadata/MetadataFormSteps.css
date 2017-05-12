@@ -1,0 +1,130 @@
+.wrap {
+  display: block;
+}
+
+/* header */
+
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.percent {
+  composes: fontSecondary from "css/typography.css";
+  border: 10px solid var(--color-grey-panel);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 20px;
+  position: relative;
+  padding: 45px;
+}
+
+.percentContent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.percentValue {
+  composes: fontSizeExtraLarge from "css/typography.css";
+  position: relative;
+  z-index: 2;
+}
+
+.percentSign {
+  position: relative;
+  z-index: 2;
+}
+
+.titleHead {
+  color: var(--color-grey-dark);
+  margin: 0;
+}
+
+.titleSubhead {
+  color: var(--color-grey-mid);
+  margin: 0;
+}
+
+/* tabs */
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+}
+
+.tab {
+  composes: fontSecondary from "css/typography.css";
+  border-bottom: 3px solid var(--color-blue);
+  flex: 1;
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+.tabActive {
+  composes: tab;
+  border-bottom-color: var(--color-tint-primary);
+  color: var(--color-tint-primary);
+}
+
+/* controls */
+
+.controlsTop {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.controlsBottom {
+  align-items: center;
+  border-top: 1px solid var(--color-grey-light);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 20px 0;
+}
+
+.controls {
+  align-items: center;
+  display: flex;
+  margin-left: auto;
+}
+
+.controls > * + * {
+  margin-left: 20px;
+}
+
+.buttonBorderless {
+  composes: buttonBorderless from "css/controls.css";
+}
+
+.buttonOutline {
+  composes: buttonOutline from "css/controls.css";
+}
+
+.buttonPrimary {
+  composes: buttonPrimary from "css/controls.css";
+}
+
+/* steps */
+
+.stepTitle {
+  composes: fontSizeExtraLarge from "css/typography.css";
+  margin: 0;
+}
+
+.step {
+  display: none;
+}
+
+.stepActive {
+  display: block;
+}

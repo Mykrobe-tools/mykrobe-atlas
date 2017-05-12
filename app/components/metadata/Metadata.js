@@ -1,11 +1,19 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
+import ReactDom from 'react-dom';
 import styles from './Metadata.css';
 
 import MetadataForm from './MetadataForm';
 
 class Metadata extends Component {
+
+  resetScroll = () => {
+    const element = ReactDom.findDOMNode(this);
+    if (element instanceof HTMLElement) {
+      element.scrollTop = 0;
+    }
+  }
 
   render() {
     const {analyser, id} = this.props;
@@ -22,17 +30,7 @@ class Metadata extends Component {
           </div>
         }
         <div className={styles.formContainer}>
-          <div className={styles.formHeader}>
-            <div className={styles.formHeaderTitle}>
-              Metadata
-            </div>
-            <div className={styles.formHeaderActions}>
-              <div className={styles.formHeaderAction}>
-                Edit
-              </div>
-            </div>
-          </div>
-          <MetadataForm id={id} />
+          <MetadataForm id={id} resetScroll={this.resetScroll} />
         </div>
       </div>
     );
