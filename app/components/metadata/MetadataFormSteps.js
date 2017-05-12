@@ -53,10 +53,12 @@ class MetadataFormSteps extends Component {
     return (
       <div className={styles.wrap}>
         <div className={styles.header}>
-          <p className={styles.percent}>
-            <span className={styles.percentValue}>{percent}</span>
-            %
-          </p>
+          <div className={styles.percent}>
+            <p className={styles.percentContent}>
+              <span className={styles.percentValue}>{percent}</span>
+              <span className={styles.percentSign}>%</span>
+            </p>
+          </div>
           <div className={styles.title}>
             <p className={styles.titleHead}>Complete metadata benefits everyone</p>
             <p className={styles.titleSubhead}>Help Atlas provide more accurate results</p>
