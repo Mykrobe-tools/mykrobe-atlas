@@ -8,7 +8,7 @@ import MetadataForm from './MetadataForm';
 
 class Metadata extends Component {
 
-  resetScroll() {
+  resetScroll = () => {
     const element = ReactDom.findDOMNode(this);
     if (element instanceof HTMLElement) {
       element.scrollTop = 0;
@@ -30,7 +30,7 @@ class Metadata extends Component {
           </div>
         }
         <div className={styles.formContainer}>
-          <MetadataForm id={id} resetScroll={() => this.resetScroll()} />
+          <MetadataForm id={id} resetScroll={this.resetScroll} />
         </div>
       </div>
     );
