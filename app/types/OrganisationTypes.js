@@ -2,5 +2,6 @@
 
 export type OrganisationType = {
   id?: string,
-  name?: string
+  name?: string,
+  template?: string
 };

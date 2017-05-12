@@ -1,4 +1,79 @@
-[
+{
+  "MGIT": [
+    "patientId",
+
+    "bmi",
+
+    "labId",
+
+    "wgsPlatform",
+
+    "phenotypeInformationFirstLineDrugs",
+
+    "previousTbinformation",
+
+    "currentTbinformation",
+
+    "whoOutcomeCategory"
+  ],
+  "LJ": [
+    "patientId",
+    "siteId",
+
+    "bmi",
+    "injectingDrugUse",
+
+    "labId",
+    "isolateId",
+
+    "wgsPlatform",
+    "wgsPlatformOther",
+
+    "phenotypeInformationFirstLineDrugs",
+    "phenotypeInformationOtherDrugs",
+
+    "previousTbinformation",
+    "recentMdrTb",
+
+    "currentTbinformation",
+    "startProgrammaticTreatment",
+
+    "whoOutcomeCategory",
+    "dateOfDeath"
+  ],
+  "Microtitre plate": [
+    "patientId",
+    "siteId",
+    "genderAtBirth",
+
+    "bmi",
+    "injectingDrugUse",
+    "homeless",
+
+    "labId",
+    "isolateId",
+    "collectionDate",
+
+    "wgsPlatform",
+    "wgsPlatformOther",
+    "otherGenotypeInformation",
+
+    "phenotypeInformationFirstLineDrugs",
+    "phenotypeInformationOtherDrugs",
+
+    "previousTbinformation",
+    "recentMdrTb",
+    "priorTreatmentDate",
+
+    "currentTbinformation",
+    "startProgrammaticTreatment",
+    "intensiveStartDate",
+
+    "whoOutcomeCategory",
+    "dateOfDeath",
+    "drugOutsidePhase"
+  ],
+  "MODS": [
     "patientId",
     "siteId",
     "genderAtBirth",
@@ -53,4 +128,5 @@
     "drugOutsidePhase",
     "drugOutsidePhaseStartDate",
     "drugOutsidePhaseEndDate"
-]
+  ]
+}

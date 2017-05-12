@@ -30,7 +30,8 @@ class Edit extends React.Component {
     const { updateOrganisation } = this.props;
     const organisationObject: OrganisationType = {
       id: this.id,
-      name: this.refs.name.value
+      name: this.refs.name.value,
+      template: this.refs.template.value
     };
     updateOrganisation(organisationObject);
   }
@@ -69,7 +70,7 @@ class Edit extends React.Component {
     if (!organisation) {
       return null;
     }
-    const {name} = organisation;
+    const {name, template} = organisation;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -94,8 +95,12 @@ class Edit extends React.Component {
               <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="organisation">Template</label>
                 <div className={styles.selectWrap}>
-                  <select className={styles.select} ref="template" id="template" value="">
+                  <select className={styles.select} ref="template" id="template" defaultValue={template}>
                     <option />
+                    <option>MGIT</option>
+                    <option>LJ</option>
+                    <option>Microtitre plate</option>
+                    <option>MODS</option>
                   </select>
                 </div>
               </div>

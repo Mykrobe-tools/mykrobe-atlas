@@ -69,6 +69,7 @@ class Profile extends React.Component {
       );
     }
     const {email, firstname, lastname, phone, organisation} = user;
+    const selectedOrganisation = organisation && organisation.id || '';
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -114,12 +115,12 @@ class Profile extends React.Component {
               <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="organisation">Organisation</label>
                 <div className={styles.selectWrap}>
-                  <select className={styles.select} ref="organisation" id="organisation" value={organisation}>
+                  <select disabled className={styles.select} ref="organisation" id="organisation" defaultValue={selectedOrganisation}>
                     <option />
-                    {organisations.data.allOrganisations && organisations.data.allOrganisations.map((organisation) => {
+                    {organisations.data.allOrganisations && organisations.data.allOrganisations.map((org) => {
                       return (
-                        <option key={organisation.id} value={organisation.id}>
-                          {organisation.name}
+                        <option key={org.id} value={org.id}>
+                          {org.name}
                         </option>
                       );
                     })}

@@ -74,6 +74,10 @@
   padding-right: 24px;
 }
 
+.select:disabled {
+  opacity: 0.5;
+}
+
 .button {
   composes: buttonPrimary from "css/controls.css";
 }
