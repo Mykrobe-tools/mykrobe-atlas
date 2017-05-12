@@ -8,20 +8,18 @@ import {showNotification} from './NotificationActions';
 
 export function postMetadataForm(id: string, metadata: Object) {
   return (dispatch: Function) => {
+    dispatch({
+      type: ActionTypes.POST_METADATA_FORM
+    });
     return fetchJson(`${BASE_URL}/experiments/${id}`, {
       method: 'PUT',
       body: JSON.stringify(metadata)
     })
       .then((data) => {
-        dispatch({
-          type: ActionTypes.POST_METADATA_FORM
-        });
-        setTimeout(() => {
-          dispatch(showNotification({
-            category: NotificationCategories.SUCCESS,
-            content: 'Metadata saved'
-          }));
-        }, 1000);
+        dispatch(showNotification({
+          category: NotificationCategories.SUCCESS,
+          content: 'Metadata saved'
+        }));
       })
       .catch((error) => {
         dispatch(showNotification({

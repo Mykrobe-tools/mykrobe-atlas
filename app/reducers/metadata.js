@@ -25,7 +25,10 @@ const initialState = {
 export default function metadata(state: Object = initialState, action: Object = {}) {
   switch (action.type) {
     case ActionTypes.POST_METADATA_FORM:
-      return initialState;
+      return {
+        template: state.template,
+        metadata: initialState.metadata
+      };
     case ActionTypes.SET_METADATA_TEMPLATE:
       return {
         template: action.template,
