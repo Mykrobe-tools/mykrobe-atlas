@@ -49,6 +49,7 @@ class MetadataFormSteps extends Component {
   render() {
     const {step, steps} = this.state;
     const percent = Math.round(((step + 1) / steps) * 100);
+    const isLastStep = !!(step < steps - 1);
     return (
       <div className={styles.wrap}>
         <div className={styles.header}>
@@ -69,7 +70,7 @@ class MetadataFormSteps extends Component {
             {this.stepTitle()}
           </h3>
 
-          {step < steps - 1 &&
+          {isLastStep &&
             <div className={styles.controls}>
               <a className={styles.buttonBorderless} href="#" onClick={(e) => this.onNextClick(e)}>
                 <span><i className="fa fa-chevron-circle-right" /> Skip</span>
@@ -89,7 +90,7 @@ class MetadataFormSteps extends Component {
               <span><i className="fa fa-chevron-circle-left" /> Back</span>
             </a>
           }
-          {step < steps - 1 ? (
+          {isLastStep ? (
             <div className={styles.controls}>
               <a className={styles.buttonBorderless} href="#" onClick={(e) => this.onNextClick(e)}>
                 <span><i className="fa fa-chevron-circle-right" /> Skip</span>
