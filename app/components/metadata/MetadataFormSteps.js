@@ -68,9 +68,9 @@ class MetadataFormSteps extends Component {
           {this.createTabs()}
         </div>
         <div className={styles.controlsTop}>
-          <h3 className={styles.stepTitle}>
+          <div className={styles.stepTitle}>
             {this.stepTitle()}
-          </h3>
+          </div>
 
           {isLastStep &&
             <div className={styles.controls}>
@@ -123,9 +123,9 @@ class MetadataFormSteps extends Component {
     return children.map((child, index) => {
       let {label} = child.props;
       return (
-        <p key={index} className={index === step ? styles.tabActive : styles.tab}>
+        <div key={index} className={index === step ? styles.tabActive : styles.tab}>
           {label}
-        </p>
+        </div>
       );
     });
   }

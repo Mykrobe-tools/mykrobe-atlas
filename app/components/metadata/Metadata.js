@@ -21,9 +21,9 @@ class Metadata extends Component {
       <div className={styles.container}>
         {analyser.analysing &&
           <div className={styles.uploadingMessage}>
-            <h2 className={styles.uploadingMessageTitle}>
+            <div className={styles.uploadingMessageTitle}>
               Your sample is uploading
-            </h2>
+            </div>
             <p className={styles.uploadingMessageText}>
               To help Atlas provide more accurate results, please provide any available metadata
             </p>
