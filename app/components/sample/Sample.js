@@ -12,15 +12,15 @@ class Sample extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1 className={styles.title}>
+          <div className={styles.title}>
             (Name of sample)
-          </h1>
-          <div className={styles.navigation}>
-            <Link to={`${path}/metadata`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Metadata</Link>
-            <Link to={`${path}/resistance`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Resistance</Link>
-            <Link to={`${path}/analysis`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Analysis</Link>
-            <Link to={`${path}/summary`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Summary</Link>
           </div>
+        </div>
+        <div className={styles.navigation}>
+          <Link to={`${path}/metadata`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Metadata</Link>
+          <Link to={`${path}/resistance`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Resistance</Link>
+          <Link to={`${path}/analysis`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Analysis</Link>
+          <Link to={`${path}/summary`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Summary</Link>
         </div>
         {children && React.cloneElement(children, {analyser, id})}
       </div>
