@@ -5,6 +5,12 @@
   flex: 1;
 }
 
+.containerCenterContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .containerAbsolute {
   position: absolute;
   display: flex;

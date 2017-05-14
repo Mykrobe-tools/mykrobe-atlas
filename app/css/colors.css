@@ -17,9 +17,11 @@
   --color-grey-light: #ceccc6;
   --color-grey-mid: #9a9893;
   --color-grey-dark: #676561;
-  --color-app-red: #c30042;
-  --color-app-green: #9eab60;
-  --color-app-blue: #0f82d0;
+
+  --color-app-red: #FF3300;
+  --color-app-green: #54B100;
+  --color-app-blue: #0D7DA0;
+  --color-app-amber: #FF9900;
 
   /* colour uses */
 
@@ -38,6 +40,8 @@
   --color-susceptible: var(--color-app-green);
   --color-resistant: var(--color-app-red);
   --color-inconclusive: var(--color-grey-mid);
+
+  --color-transparent: rgba(255,255,255,0);
 }
 
 /*
