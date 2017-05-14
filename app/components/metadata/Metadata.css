@@ -50,5 +50,5 @@
 .formHeaderAction {
   composes: fontSecondary from "css/typography.css";
   composes: fontSecondarySizeNormal from "css/typography.css";
-  color: var(--color-tint-secondary);
+  color: var(--color-tint-primary);
 }

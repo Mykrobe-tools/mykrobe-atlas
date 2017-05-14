@@ -20,7 +20,7 @@
 
 .input:focus {
   outline: none;
-  border-color: var(--color-tint-secondary);
+  border-color: var(--color-tint-primary);
 }
 
 .label {

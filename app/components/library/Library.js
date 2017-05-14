@@ -11,9 +11,9 @@ class Library extends Component {
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1 className={styles.title}>
+          <div className={styles.title}>
             Library
-          </h1>
+          </div>
         </div>
         <div className={styles.content}>
           <div className={styles.experiments}>

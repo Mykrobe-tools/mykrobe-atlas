@@ -416,7 +416,7 @@ class MetadataForm extends Component {
           </MetadataFormStep>
 
           <MetadataFormStep label="Lab">
-            <Fieldset legend="Lab">
+            <Fieldset>
               {template.includes('labId') &&
                 <FormRow>
                   <FormInputText

@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
 import styles from './ExperimentsTable.css';
+import Loading from '../ui/Loading';
 
 class ExperimentsTable extends Component {
   render() {
@@ -11,13 +12,7 @@ class ExperimentsTable extends Component {
     let tableContent;
 
     if (experiments.isFetching) {
-      tableContent = (
-        <tr>
-          <td className={styles.tableData} colSpan="5">
-            <i className="fa fa-cog fa-spin" /> Fetching results
-          </td>
-        </tr>
-      );
+      return <Loading />;
     }
     else if (experiments.samples.length === 0) {
       tableContent = (

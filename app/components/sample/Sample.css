@@ -4,9 +4,9 @@
 }
 
 .header {
-  height: 130px;
-  padding-top: 20px;
+  height: var(--header-height);
   display: flex;
+  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -14,14 +14,13 @@
 .title {
   composes: font from "css/typography.css";
   composes: fontSizeLarge from "css/typography.css";
-  width: 100%;
-  text-align: center;
 }
 
 .navigation {
-  align-self: flex-end;
   display: flex;
   padding-bottom: 20px;
+  align-items: center;
+  justify-content: center;
 }
 
 .navigationItem {

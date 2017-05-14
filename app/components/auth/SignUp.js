@@ -34,9 +34,9 @@ class SignUp extends React.Component {
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1 className={styles.title}>
+          <div className={styles.title}>
             Sign up
-          </h1>
+          </div>
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>

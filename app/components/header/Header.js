@@ -28,27 +28,21 @@ class Header extends Component {
           onClick={(e) => this.onMenuToggleClick(e)}>
           <span className={displayMenu ? styles.menuIconClose : styles.menuIconOpen} />
         </a>
-        <div className={styles.account}>
-          <i className="fa fa-user" />
-          {isAuthenticated ? (
-            <span>
-              {user &&
-                <Link to="/auth/profile" className={styles.authLink} activeClassName={styles.authLinkActive}>My account</Link>
-              }
-              <span className={styles.item}>
-                <a href="#" className={styles.authLink} onClick={(e) => {
-                  signOut();
-                }}>Sign out</a>
-              </span>
-            </span>
-          ) : (
-            <span>
-              <Link to="/auth/login" className={styles.authLink} activeClassName={styles.authLinkActive}>Log in</Link>
-              &middot;
-              <Link to="/auth/signup" className={styles.authLink} activeClassName={styles.authLinkActive}>Sign up</Link>
-            </span>
-          )}
-        </div>
+        {isAuthenticated ? (
+          <div className={styles.account}>
+            {user &&
+              <Link to="/auth/profile" className={styles.authLink} activeClassName={styles.authLinkActive}><i className="fa fa-user" /> My account</Link>
+            }
+            <a href="#" className={styles.authLink} onClick={(e) => {
+              signOut();
+            }}>Sign out</a>
+          </div>
+        ) : (
+          <div className={styles.account}>
+            <Link to="/auth/login" className={styles.authLink} activeClassName={styles.authLinkActive}><i className="fa fa-user" /> Log in</Link>
+            <Link to="/auth/signup" className={styles.authLink} activeClassName={styles.authLinkActive}>Sign up</Link>
+          </div>
+        )}
       </div>
     );
   }

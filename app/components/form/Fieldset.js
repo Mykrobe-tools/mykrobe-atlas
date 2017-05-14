@@ -10,11 +10,13 @@ class Fieldset extends Component {
     const {children, legend} = this.props;
     return (
       <fieldset className={styles.fieldset}>
-        {legend &&
-          <legend className={styles.legend}>
+        {legend ? (
+          <div className={styles.legend}>
             {legend}
-          </legend>
-        }
+          </div>
+        ) : (
+          <div className={styles.ruleTop} />
+        )}
         {children}
       </fieldset>
     );
