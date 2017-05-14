@@ -10,7 +10,7 @@ body {
 }
 
 a {
-  color: var(--color-tint-secondary);
+  color: var(--color-tint-primary);
   text-decoration: none;
   transition: all 0.1s;
 }
