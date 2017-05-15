@@ -8,6 +8,9 @@ cd /var/go/releases/client/$CURRENT_VERSION
 subber deploy/docker-compose.yml 
 docker-compose -f deploy/docker-compose.yml up -d
 
+# generate bundle.js - find reason for lost environment variable
+docker exec atlas-client bash -c 'npm run web-build'
+
 # clean containers down
 deploy/dkcleanup.sh
 
