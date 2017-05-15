@@ -19,31 +19,36 @@ class MetadataFormSteps extends Component {
   }
 
   onBackClick(e: Object) {
+    const {onStepChange} = this.props;
     let {step} = this.state;
     e.preventDefault();
     if (step > 0) {
       step--;
     }
     this.setState({step});
+    onStepChange();
   }
 
   onNextClick(e: Object) {
+    const {onStepChange} = this.props;
     let {step, steps} = this.state;
     e.preventDefault();
     if (step < steps - 1) {
       step++;
     }
     this.setState({step});
+    onStepChange();
   }
 
   onSaveClick(e: Event) {
     const {onSubmit} = this.props;
     onSubmit(e);
+    this.setState({step: 0});
   }
 
   componentDidUpdate() {
-    const {onChange} = this.props;
-    onChange();
+    const {onFormChange} = this.props;
+    onFormChange();
   }
 
   render() {
@@ -145,7 +150,8 @@ class MetadataFormSteps extends Component {
 
 MetadataFormSteps.propTypes = {
   children: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onFormChange: PropTypes.func.isRequired,
+  onStepChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired
 };
 

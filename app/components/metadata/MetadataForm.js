@@ -102,18 +102,23 @@ class MetadataForm extends Component {
   }
 
   handleFormChange() {
-    const {setMetadata, resetScroll} = this.props;
+    const {setMetadata} = this.props;
     setMetadata(this.state);
+  }
+
+  handleStepChange() {
+    const {resetScroll} = this.props;
     resetScroll();
   }
 
   handleSubmit(event: Event) {
     event.preventDefault();
-    const {id, postMetadataForm} = this.props;
+    const {id, postMetadataForm, resetScroll} = this.props;
 
     // TODO: Error checking
 
     postMetadataForm(id, this.state);
+    resetScroll();
   }
 
   handleDateChange(field: string, date: moment) {
@@ -191,7 +196,8 @@ class MetadataForm extends Component {
       <Form onSubmit={(event) => this.handleSubmit(event)}>
 
         <MetadataFormSteps
-          onChange={() => this.handleFormChange()}
+          onFormChange={() => this.handleFormChange()}
+          onStepChange={() => this.handleStepChange()}
           onSubmit={(event) => this.handleSubmit(event)}>
           <MetadataFormStep label="Patient">
             <Fieldset legend="Patient">
