@@ -79,6 +79,9 @@ class Profile extends React.Component {
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>
+            <div className={styles.contentTitle}>
+              Profile
+            </div>
             <form onSubmit={(e) => {
               this.handleSubmit(e);
             }}>
@@ -132,7 +135,7 @@ class Profile extends React.Component {
                   <span><i className="fa fa-chevron-circle-right" /> Update profile</span>
                 </button>
                 <div>
-                  <a onClick={(e) => {
+                  <a className={styles.buttonBorderless} onClick={(e) => {
                     signOut();
                   }}>Sign out</a>
                 </div>

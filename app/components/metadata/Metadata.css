@@ -15,6 +15,8 @@
   composes: font from "css/typography.css";
   composes: fontSizeExtraLarge from "css/typography.css";
   color: var(--color-tint-primary);
+  line-height: 1;
+  padding-top: 30px;
 }
 
 .uploadingMessageText {

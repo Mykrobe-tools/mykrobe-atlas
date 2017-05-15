@@ -12,7 +12,7 @@ class VerifySuccess extends React.Component {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.title}>
-            Verification failed
+            Account
           </div>
         </div>
         <div className={styles.contentContainer}>

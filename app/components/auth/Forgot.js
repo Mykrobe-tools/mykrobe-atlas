@@ -32,11 +32,14 @@ class Forgot extends React.Component {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.title}>
-            Forgot password
+            Account
           </div>
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>
+            <div className={styles.contentTitle}>
+              Forgot password
+            </div>
             <form onSubmit={(e) => this.handleSubmit(e)}>
               {failureReason && (
                 <div className={styles.formErrors}>
@@ -52,10 +55,10 @@ class Forgot extends React.Component {
                   <span><i className="fa fa-chevron-circle-right" /> Get new password</span>
                 </button>
                 <div>
-                  <Link to="/auth/login">Log in</Link>
+                  <Link className={styles.buttonBorderless} to="/auth/login">Log in</Link>
                 </div>
                 <div>
-                  <Link to="/auth/signup">Sign up</Link>
+                  <Link className={styles.buttonBorderless} to="/auth/signup">Sign up</Link>
                 </div>
               </div>
             </form>

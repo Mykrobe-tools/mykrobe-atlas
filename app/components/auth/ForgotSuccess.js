@@ -12,16 +12,19 @@ class SignUpSuccess extends React.Component {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.title}>
-            Forgot password
+            Account
           </div>
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>
+            <div className={styles.contentTitle}>
+              Forgot password
+            </div>
             <div>
               Password reset instructions have been sent
             </div>
             <div className={styles.formActions}>
-              <Link to="/">Home</Link>
+              <Link className={styles.button} to="/">Home</Link>
             </div>
           </div>
         </div>
