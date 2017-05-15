@@ -15,7 +15,7 @@ for d in /var/go/releases/client/*/ ; do
 done
 
 for d in /var/go/releases/server/*/ ; do
-        if [ "${d}" != "/var/go/releases/client/${SERVER_CURRENT_VERSION}/" ] && [ "${d}" != "/var/go/releases/client/${SERVER_PREVIOUS_VERSION}/" ]; then
+        if [ "${d}" != "/var/go/releases/server/${SERVER_CURRENT_VERSION}/" ] && [ "${d}" != "/var/go/releases/server/${SERVER_PREVIOUS_VERSION}/" ]; then
         		echo "Removing: ${d}"
                 rm -rf "${d}"
         fi
