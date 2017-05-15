@@ -35,11 +35,14 @@ class SignUp extends React.Component {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.title}>
-            Sign up
+            Account
           </div>
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>
+            <div className={styles.contentTitle}>
+              Sign up
+            </div>
             <form onSubmit={(e) => {
               this.handleSubmit(e);
             }}>
@@ -69,7 +72,7 @@ class SignUp extends React.Component {
                   <span><i className="fa fa-chevron-circle-right" /> Sign up</span>
                 </button>
                 <div>
-                  <Link to="/auth/login">Log in</Link>
+                  <Link className={styles.buttonBorderless} to="/auth/login">Log in</Link>
                 </div>
               </div>
             </form>

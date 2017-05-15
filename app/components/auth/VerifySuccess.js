@@ -12,15 +12,18 @@ class VerifySuccess extends React.Component {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.title}>
-            Verify
+            Account
           </div>
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>
+            <div className={styles.contentTitle}>
+              Verification
+            </div>
             <div>
               You have been verified, you may now <Link to="/auth/login">log in</Link>
               <div className={styles.formActions}>
-                <Link to="/auth/login">Log in</Link>
+                <Link className={styles.button} to="/auth/login">Log in</Link>
               </div>
             </div>
           </div>

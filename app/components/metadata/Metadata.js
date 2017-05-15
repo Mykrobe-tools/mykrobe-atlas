@@ -24,9 +24,6 @@ class Metadata extends Component {
             <div className={styles.uploadingMessageTitle}>
               Your sample is uploading
             </div>
-            <p className={styles.uploadingMessageText}>
-              To help Atlas provide more accurate results, please provide any available metadata
-            </p>
           </div>
         }
         <div className={styles.formContainer}>

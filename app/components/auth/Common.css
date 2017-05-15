@@ -12,7 +12,6 @@
 }
 
 .title {
-  composes: font from "css/typography.css";
   composes: fontSizeLarge from "css/typography.css";
 }
 
@@ -21,6 +20,14 @@
   padding: 30px 40px;
   background: white;
   flex: 1;
+}
+
+.contentTitle {
+  composes: fontSizeExtraLarge from "css/typography.css";
+  line-height: 1;
+  border-bottom: 1px solid var(--color-grey-light);
+  padding-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .formContainer {
@@ -80,6 +87,18 @@
   composes: buttonPrimary from "css/controls.css";
 }
 
+.buttonBorderless {
+  composes: buttonBorderless from "css/controls.css";
+}
+
+.buttonOutline {
+  composes: buttonOutline from "css/controls.css";
+}
+
+.buttonPrimary {
+  composes: buttonPrimary from "css/controls.css";
+}
+
 .formActions {
   display: flex;
   align-items: center;
@@ -88,15 +107,12 @@
   border-top: 1px solid var(--color-rule);
 }
 
-.formActions > * + * {
-  padding-left: 20px;
-}
-
-.formActions .destructiveAction {
+.destructiveAction {
+  composes: buttonBorderless from "css/controls.css";
   margin-left: auto;
+  padding: 0;
 }
 
-.formActions .destructiveAction a {
-  cursor: pointer;
+.destructiveAction a {
   color: var(--color-app-red);
 }

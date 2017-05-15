@@ -1,8 +1,15 @@
-body {
-  font-kerning: normal;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
+html, input {
   text-rendering: optimizeLegibility;
+  -webkit-font-variant-ligatures: common-ligatures;
+  font-variant-ligatures: common-ligatures;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: normal;
+  font-variant-numeric: proportional-nums;
+  font-feature-settings: "pnum";
+}
+
+body {
   font-family: "Minion-Regular", serif;
   font-size: 19px;
   line-height: calc(1 * 24 / 19);

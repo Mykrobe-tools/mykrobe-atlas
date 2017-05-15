@@ -33,11 +33,14 @@ class Login extends React.Component {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.title}>
-            Log in
+            Account
           </div>
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>
+            <div className={styles.contentTitle}>
+              Log in
+            </div>
             <form onSubmit={(e) => this.handleSubmit(e)}>
               {failureReason && (
                 <div className={styles.formErrors}>
@@ -57,10 +60,10 @@ class Login extends React.Component {
                   <span><i className="fa fa-chevron-circle-right" /> Log in</span>
                 </button>
                 <div>
-                  <Link to="/auth/signup">Sign up</Link>
+                  <Link className={styles.buttonBorderless} to="/auth/signup">Sign up</Link>
                 </div>
                 <div>
-                  <Link to="/auth/forgot">Forgot password</Link>
+                  <Link className={styles.buttonBorderless} to="/auth/forgot">Forgot password</Link>
                 </div>
               </div>
             </form>

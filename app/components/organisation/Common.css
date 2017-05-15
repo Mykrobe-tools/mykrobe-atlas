@@ -4,9 +4,9 @@
 }
 
 .header {
-  height: 130px;
-  padding-top: 20px;
+  height: var(--header-height);
   display: flex;
+  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -14,13 +14,11 @@
 .title {
   composes: font from "css/typography.css";
   composes: fontSizeLarge from "css/typography.css";
-  width: 100%;
-  text-align: center;
 }
 
 .contentContainer {
   composes: container from "css/layout.css";
-  padding: 20px 30px;
+  padding: 30px 40px;
   background: white;
   flex: 1;
   overflow-y: auto;
