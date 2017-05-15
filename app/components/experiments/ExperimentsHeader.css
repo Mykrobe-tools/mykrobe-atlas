@@ -1,11 +1,42 @@
 .header {
   composes: container from "css/layout.css";
+  align-items: center;
+  justify-content: space-between;
 }
 
 .filters {
-  margin-right: auto;
+  flex: 1 0 75%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+}
+
+.subFilter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subFilterLabel {
+  margin: 0 10px;
+}
+
+.clearFilters {
+  composes: fontSecondary from "css/typography.css";
+  composes: fontSizeSmall from "css/typography.css";
+  color: var(--color-grey-dark);
+  text-transform: uppercase;
+  display: block;
+  padding: 5px 10px;
+  white-space: nowrap;
 }
 
 .count {
-  margin-left: auto;
+  flex: 1 0 25%;
+  text-align: right;
 }

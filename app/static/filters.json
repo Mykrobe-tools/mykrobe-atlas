@@ -1,0 +1,22 @@
+[
+  {
+    "value": "diabetic",
+    "label": "Diabetic"
+  },
+  {
+    "value": "hivStatus",
+    "label": "HIV status"
+  },
+  {
+    "value": "anatomicalOrigin",
+    "label": "Anatomical Origin"
+  },
+  {
+    "value": "wgsPlatform",
+    "label": "WGS Platform"
+  },
+  {
+    "value": "whoOutcomeCategory",
+    "label": "WHO outcome category"
+  }
+]
