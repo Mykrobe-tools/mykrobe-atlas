@@ -12,11 +12,13 @@ class FormSelect extends Component {
     const {name, onChange, options, placeholder, value, title} = this.props;
     return (
       <div className={styles.wrap}>
-        <div className={styles.label}>
-          <FormLabel
-            htmlFor={name}
-            label={title} />
-        </div>
+        {title &&
+          <div className={styles.label}>
+            <FormLabel
+              htmlFor={name}
+              label={title} />
+          </div>
+        }
         <div className={styles.inputWrap}>
           <select
             className={styles.input}
@@ -46,7 +48,7 @@ FormSelect.propTypes = {
   options: PropTypes.array.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string
 };
 
 export default FormSelect;
