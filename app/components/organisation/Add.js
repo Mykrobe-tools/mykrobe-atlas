@@ -32,11 +32,14 @@ class Add extends React.Component {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.title}>
-            Add organisation
+            Organisations
           </div>
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>
+            <div className={styles.contentTitle}>
+              Add organisation
+            </div>
             <form onSubmit={(e) => {
               this.handleSubmit(e);
             }}>

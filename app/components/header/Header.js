@@ -31,7 +31,7 @@ class Header extends Component {
         {isAuthenticated ? (
           <div className={styles.account}>
             {user &&
-              <Link to="/auth/profile" className={styles.authLink}><i className="fa fa-user" /> My account</Link>
+              <Link to="/auth/profile" className={styles.authLink}><i className="fa fa-user" /> My profile</Link>
             }
             <a href="#" className={styles.authLink} onClick={(e) => {
               signOut();
