@@ -22,6 +22,9 @@ class Menu extends Component {
           <li className={styles.navigationItem}>
             <Link to="/library" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Library</Link>
           </li>
+          <li className={styles.navigationItem}>
+            <Link to="/organisation" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Organisations</Link>
+          </li>
         </ul>
       </div>
     );

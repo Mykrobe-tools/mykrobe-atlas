@@ -1,6 +1,7 @@
 /* @flow */
 
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -69,7 +70,6 @@ class Profile extends React.Component {
       );
     }
     const {email, firstname, lastname, phone, organisation} = user;
-    const selectedOrganisation = organisation && organisation.id || '';
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -117,6 +117,7 @@ class Profile extends React.Component {
               </div>
               <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="organisation">Organisation</label>
+                {/*
                 <div className={styles.selectWrap}>
                   <select disabled className={styles.select} ref="organisation" id="organisation" defaultValue={selectedOrganisation}>
                     <option />
@@ -129,6 +130,10 @@ class Profile extends React.Component {
                     })}
                   </select>
                 </div>
+                */}
+                {organisation && organisation.id && (
+                  <Link to={`/organisation/edit/${organisation.id}`}><i className="fa fa-chevron-circle-right" /> {organisation.name}</Link>
+                )}
               </div>
               <div className={styles.formActions}>
                 <button className={styles.button} type="submit">

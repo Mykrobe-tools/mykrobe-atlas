@@ -55,7 +55,7 @@ class Edit extends React.Component {
         <div className={styles.container}>
           <div className={styles.header}>
             <div className={styles.title}>
-              Edit Organisation
+              Organisation
             </div>
           </div>
           <div className={styles.contentContainer}>
@@ -75,11 +75,14 @@ class Edit extends React.Component {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.title}>
-            Edit Organisation
+            Organisations
           </div>
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>
+            <div className={styles.contentTitle}>
+              Edit organisation
+            </div>
             <form onSubmit={(e) => {
               this.handleSubmit(e);
             }}>

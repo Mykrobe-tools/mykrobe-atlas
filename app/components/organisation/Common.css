@@ -12,7 +12,6 @@
 }
 
 .title {
-  composes: font from "css/typography.css";
   composes: fontSizeLarge from "css/typography.css";
 }
 
@@ -22,6 +21,14 @@
   background: white;
   flex: 1;
   overflow-y: auto;
+}
+
+.contentTitle {
+  composes: fontSizeExtraLarge from "css/typography.css";
+  line-height: 1;
+  border-bottom: 1px solid var(--color-grey-light);
+  padding-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .formContainer {
