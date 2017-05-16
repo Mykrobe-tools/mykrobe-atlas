@@ -1,0 +1,60 @@
+
+.container {
+  composes: container from "css/layout.css";
+  flex-direction: column;
+}
+
+.header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.title {
+  composes: fontSizeLarge from "css/typography.css";
+}
+
+.contentContainer {
+  composes: container from "css/layout.css";
+  padding: 30px 40px;
+  background: white;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.contentTitle {
+  composes: fontSizeExtraLarge from "css/typography.css";
+  line-height: 1;
+  border-bottom: 1px solid var(--color-grey-light);
+  padding-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+.searchInput {
+  composes: input from "css/form.css";
+}
+
+.resultsContainer {
+  composes: container from "css/layout.css";
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 0;
+}
+
+.resultsTitle {
+  composes: fontSizeLarge from "css/typography.css";
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.resultsItemsContainer {
+  composes: container from "css/layout.css";
+  flex-direction: column;
+  align-items: center;
+}
+
+.resultItemContainer {
+  padding-bottom: 4px;
+}

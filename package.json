@@ -22,7 +22,7 @@
     "electron-package": "cross-env NODE_ENV=production node -r babel-register electron/package.js",
     "electron-package-all": "npm run package -- --all",
     "electron-postinstall": "concurrently \"install-app-deps\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\"",
-    "electron-dev": "concurrently --kill-others \"npm run electron-hot-server\" \"npm run electron-start-hot\"",
+    "electron-dev": "concurrently \"npm run electron-hot-server\" \"npm run electron-start-hot\"",
     "electron-dist": "electron-build",
     "electron-compile": "npm run electron-build-renderer && npm run electron-build-main",
     "builder": "npm run electron-compile && npm run dist",
@@ -33,11 +33,11 @@
     "generate-icons": "node scripts/generate-icons.js",
     "web-api-server": "node -r babel-register web/api-dev-server.js",
     "web-hot-server": "node -r babel-register web/dev-server.js",
-    "web-dev": "concurrently --kill-others \"npm run web-hot-server\" \"npm run web-api-server\" \"npm run web-open\"",
+    "web-dev": "concurrently \"npm run web-hot-server\" \"npm run web-api-server\" \"npm run web-open\"",
     "web-open": "open http://localhost:3000",
     "web-build": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config web/webpack.config.production.js --progress --profile --colors",
     "web-build-server": "node -r babel-register web/build/simple-server.js",
-    "web-build-simple-server": "concurrently --kill-others \"npm run web-build-server\" \"npm run web-open\""
+    "web-build-simple-server": "concurrently \"npm run web-build-server\" \"npm run web-open\""
   },
   "build": {
     "asar": false,

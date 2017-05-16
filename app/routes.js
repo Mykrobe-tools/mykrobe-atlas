@@ -36,6 +36,8 @@ import List from './components/organisation/List';
 import Add from './components/organisation/Add';
 import Edit from './components/organisation/Edit';
 
+import SearchDemoPage from './containers/SearchDemoPage';
+
 const requireAuth = (nextState, replace) => {
   const state = store.getState();
   const { auth } = state;
@@ -87,5 +89,6 @@ export default (
       <Route path="add" component={Add} />
       <Route path="edit/:id" component={Edit} />
     </Route>
+    <Route path="searchdemo" component={SearchDemoPage} />
   </Route>
 );
