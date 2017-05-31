@@ -10,10 +10,6 @@ cd /var/go/releases/client/$CURRENT_VERSION
 
 cp -rf /var/lib/go-agent/pipelines/${TARGET_ENVIRONMENT}-atlas/. .
 
-# remove current images
-docker rm -f atlas-client || true
-docker images -q --filter "dangling=true" | xargs --no-run-if-empty docker rmi
-
 # build the target container
 subber deploy/docker-compose.yml
 docker-compose -f deploy/docker-compose.yml build
