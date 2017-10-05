@@ -7,7 +7,7 @@ let filepath;
 let ready = false;
 
 const SHOW_DEV_TOOLS = (process.env.NODE_ENV === 'development');
-// const SHOW_DEV_TOOLS = true
+// const SHOW_DEV_TOOLS = true;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support') // eslint-disable-line
@@ -64,7 +64,7 @@ app.on('ready', async () => {
     height: 728
   });
 
-  mainWindow.loadURL(`file://${__dirname}/../electron/index.html`);
+  mainWindow.loadURL(`file://${__dirname}/../app/index.html`);
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();

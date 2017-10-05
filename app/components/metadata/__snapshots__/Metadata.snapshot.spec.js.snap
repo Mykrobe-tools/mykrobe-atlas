@@ -3,32 +3,16 @@ exports[`Metadata component snapshot renders correctly 1`] = `
   className="container">
   <div
     className="uploadingMessage">
-    <h2
+    <div
       className="uploadingMessageTitle">
       Your sample is uploading
-    </h2>
-    <p
-      className="uploadingMessageText">
-      To help Atlas provide more accurate results, please provide any available metadata
-    </p>
+    </div>
   </div>
   <div
     className="formContainer">
-    <div
-      className="formHeader">
-      <div
-        className="formHeaderTitle">
-        Metadata
-      </div>
-      <div
-        className="formHeaderActions">
-        <div
-          className="formHeaderAction">
-          Edit
-        </div>
-      </div>
-    </div>
-    < />
+    <
+      id={undefined}
+      resetScroll={[Function]} />
   </div>
 </div>
 `;

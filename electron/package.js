@@ -1,10 +1,9 @@
 /* @flow */
 
-require('babel-polyfill');
-
 const os = require('os');
 const webpack = require('webpack');
-const electronCfg = require('./webpack.config.electron').default;
+const gutil = require('gulp-util');
+const electronCfg = require('./webpack.config.electron');
 const cfg = require('./webpack.config.production');
 const packager = require('electron-packager');
 const del = require('del');
@@ -31,6 +30,7 @@ const DEFAULT_OPTS = {
     '^/test($|/)',
     '^/release($|/)',
     '^/main.development.js',
+    '^/(.*).map',
     'skeleton.k15.ctx'
   ].concat(devDeps.map((name) => `/node_modules/${name}($|/)`))
   .concat(
@@ -64,8 +64,13 @@ else {
 
 function build(cfg) {
   return new Promise((resolve, reject) => {
+    console.log('build', JSON.stringify(cfg, null, 2));
     webpack(cfg, (err, stats) => {
       if (err) return reject(err);
+      gutil.log('[webpack:build]', stats.toString({
+        chunks: false, // Makes the build much quieter
+        colors: true
+      }));
       resolve(stats);
     });
   });
@@ -110,7 +115,7 @@ function pack(plat, arch, cb) {
       if (plat === 'darwin') {
         extension = '.icns';
       }
-      else if (plat === 'win32') {
+      else if (plat === 'win32' || plat === 'win64') {
         extension = '.ico';
       }
       return extension;
@@ -125,7 +130,7 @@ function pack(plat, arch, cb) {
     out: path.resolve(__dirname, `release/${plat}-${arch}`)
   });
 
-  console.log(JSON.stringify(opts, null, 2));
+  // console.log(JSON.stringify(opts, null, 2));
 
   packager(opts, cb);
 }

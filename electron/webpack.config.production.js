@@ -10,14 +10,13 @@ const config = merge(baseConfig, {
   entry: path.resolve(__dirname, '../app/index'),
 
   output: {
-    path: path.resolve(__dirname, 'static'),
-    publicPath: 'static'
+    path: path.resolve(__dirname, 'static')
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'electron.html',
-      template: path.resolve(__dirname, '../app/electron.html'),
+      filename: 'index.html',
+      template: path.resolve(__dirname, '../electron/index.html'),
       inject: false
     }),
     new webpack.DefinePlugin({
