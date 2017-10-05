@@ -6,9 +6,8 @@ let mainWindow = null;
 let filepath;
 let ready = false;
 
-// FIXME switch back once build is working
-// const SHOW_DEV_TOOLS = (process.env.NODE_ENV === 'development');
-const SHOW_DEV_TOOLS = true;
+const SHOW_DEV_TOOLS = (process.env.NODE_ENV === 'development');
+// const SHOW_DEV_TOOLS = true;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support') // eslint-disable-line
