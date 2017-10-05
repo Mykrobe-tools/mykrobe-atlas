@@ -30,6 +30,7 @@ const DEFAULT_OPTS = {
     '^/test($|/)',
     '^/release($|/)',
     '^/main.development.js',
+    '^/(.*).map',
     'skeleton.k15.ctx'
   ].concat(devDeps.map((name) => `/node_modules/${name}($|/)`))
   .concat(

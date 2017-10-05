@@ -10,8 +10,7 @@ const config = merge(baseConfig, {
   entry: path.resolve(__dirname, '../app/index'),
 
   output: {
-    path: path.resolve(__dirname, 'static'),
-    publicPath: 'static'
+    path: path.resolve(__dirname, 'static')
   },
 
   plugins: [
