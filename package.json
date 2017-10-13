@@ -125,7 +125,7 @@
     "devtron": "^1.2.1",
     "electron": "^1.7.9",
     "electron-devtools-installer": "^2.0.1",
-    "electron-packager": "^7.3.0",
+    "electron-packager": "^9.1.0",
     "electron-rebuild": "^1.1.5",
     "enzyme": "^2.6.0",
     "eslint": "^3.2.2",
