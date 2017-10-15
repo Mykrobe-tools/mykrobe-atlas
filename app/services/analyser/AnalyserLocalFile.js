@@ -200,7 +200,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
         pathToBin = path.join(
           dirToBin,
-          'mykrobe_predictor'
+          platform === 'win32' ? 'mykrobe_predictor.exe' : 'mykrobe_predictor'
         );
       }
       else {
