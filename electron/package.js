@@ -29,7 +29,7 @@ const DEFAULT_OPTS = {
   ignore: [
     '^/test($|/)',
     '^/release($|/)',
-    '^/main.development.js',
+    '^/index.electron.js',
     '^/(.*).map',
     'skeleton.k15.ctx'
   ].concat(devDeps.map((name) => `/node_modules/${name}($|/)`))

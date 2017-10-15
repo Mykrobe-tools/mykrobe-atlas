@@ -1,5 +1,10 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
 
+// Handle creating/removing shortcuts on Windows when installing/uninstalling.
+if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
+  app.quit();
+}
+
 let menu;
 let template;
 let mainWindow = null;
