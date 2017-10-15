@@ -15,7 +15,7 @@
     "lint:js": "eslint app/**/*.js",
     "lint:js:fix": "eslint --fix app/**/*.js",
     "precommit": "npm run lint:css:fix && npm run lint:js:fix",
-    "electron-hot-server": "node -r babel-register electron/dev-server.js",
+    "electron-hot-server": "babel-node electron/dev-server.js",
     "electron-build-main": "cross-env NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config electron/webpack.config.electron.js --progress --profile --colors",
     "electron-build-renderer": "cross-env NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config electron/webpack.config.production.js --progress --profile --colors",
     "electron-build": "npm run electron-build-main && npm run electron-build-renderer",

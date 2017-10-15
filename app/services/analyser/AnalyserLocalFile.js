@@ -59,11 +59,15 @@ class AnalyserLocalFile extends AnalyserBaseFile {
   analyseBinaryFile(file: File): AnalyserLocalFile {
     // in Electron we get the full local file path
     // $FlowFixMe: Ignore missing type values
+    debugger
     const filePath = file.path;
 
     this.removeSkeletonFiles();
 
     console.log('analyseBinaryFile', filePath);
+
+    const skeletonDir = path.join(process.cwd(), 'skeleton');
+    const fileName = path.parse(filePath).name;
 
     this.jsonBuffer = '';
     this.isBufferingJson = false;
@@ -72,15 +76,19 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     const pathToBin = this.pathToBin();
     const dirToBin = path.join(this.dirToBin(), this.targetConfig.targetName);
     const args = [
-      '--file',
+      'predict',
+      fileName,
+      'tb',
+      '-1',
       filePath,
-      '--install_dir',
-      dirToBin,
-      '--format',
-      'JSON',
-      '--progress'
+      '--skeleton_dir',
+      skeletonDir,
     ];
+
+    console.log('Spawning executable at path:', pathToBin);
+    console.log('With arguments:', args);
     this.child = spawn(pathToBin, args);
+
     if (!this.child) {
       this.failWithError('Failed to start child process');
       return this;

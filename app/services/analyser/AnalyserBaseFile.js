@@ -18,6 +18,7 @@ class AnalyserBaseFile extends EventEmitter {
   }
 
   analyseFile(file: File, id: string = ''): AnalyserBaseFile {
+    debugger
     this.cancel();
     const extension = this.extensionForFileName(file.name);
     if (extension === '.json') {

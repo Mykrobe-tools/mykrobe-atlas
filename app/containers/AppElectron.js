@@ -1,13 +1,11 @@
 /* @flow */
 
-/* eslint-disable */
-
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import fs from 'fs';
-// import * as AnalyserActions from '../actions/AnalyserActions';
+import path from 'path';
+import * as AnalyserActions from '../actions/AnalyserActions';
 import * as UIHelpers from '../helpers/UIHelpers';
-import * as FileHelpers from '../helpers/FileHelpers';
 import { push } from 'react-router-redux';
 import App from './App';
 
@@ -20,34 +18,30 @@ class AppElectron extends Component {
     ipcRenderer.on('open-file', (e, filePath) => {
       console.log('App open-file');
       if (filePath) {
-        FileHelpers.getFileObject(filePath)
-          .then(fileObject => {
-            // dispatch(AnalyserActions.analyseFile(fileObject));
-          })
-          .catch(error => {
-            console.error(error);
-          });
+        const fileObject = {
+          path: filePath,
+          name: path.parse(filePath).base,
+        };
+        dispatch(AnalyserActions.analyseFile(fileObject));
       }
     });
 
-    ipcRenderer.on('menu-file-new', e => {
+    ipcRenderer.on('menu-file-new', () => {
       dispatch(push('/'));
     });
 
-    ipcRenderer.on('menu-file-open', e => {
+    ipcRenderer.on('menu-file-open', () => {
       const filePath = UIHelpers.openFileDialog();
       if (filePath) {
-        FileHelpers.getFileObject(filePath)
-          .then(fileObject => {
-            // dispatch(AnalyserActions.analyseFile(fileObject));
-          })
-          .catch(error => {
-            console.error(error);
-          });
+        const fileObject = {
+          path: filePath,
+          name: path.parse(filePath).base,
+        };
+        dispatch(AnalyserActions.analyseFile(fileObject));
       }
     });
 
-    ipcRenderer.on('menu-file-save-as', e => {
+    ipcRenderer.on('menu-file-save-as', () => {
       const filePath = UIHelpers.saveFileDialog('mykrobe.json');
       if (filePath) {
         const { analyser } = this.props;

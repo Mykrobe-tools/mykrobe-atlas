@@ -60,7 +60,7 @@ function analyseFileUpload() {
   };
 }
 
-function analyseFile(file: File, id: string) {
+export function analyseFile(file: File, id?: string) {
   return (dispatch: Function) => {
     if (IS_ELECTRON) {
       // $FlowFixMe: Ignore Electron require
