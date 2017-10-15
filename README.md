@@ -7,7 +7,7 @@ Web or [Electron](http://electron.atom.io/) application based on [React](https:/
 First, clone the repo then install dependencies.
 
 ```
-$ npm install
+$ yarn
 ```
 
 ## Dependencies
@@ -29,7 +29,7 @@ $ npm install
 Selects which version of the app you will target for development, test or package. Targets are defined in `/targets.json`
 
 ```
-$ npm run set-target
+$ yarn set-target
 ```
 
 ## Run development version
@@ -41,7 +41,7 @@ This will launch a local dev server and instance of the app. This has DevTools e
 This will initially show a 'not found' page while the initial build takes place, after which it will auto-refresh.
 
 ```
-$ npm run web-dev
+$ yarn web-dev
 ```
 
 ### Electron
@@ -49,19 +49,19 @@ $ npm run web-dev
 Note the window will not appear until the initial bundle is compiled which can take up to one minute.
 
 ```
-$ npm run electron-dev
+$ yarn electron-dev
 ```
 
 ## Web production build
 
 ```
-$ npm run web-build
+$ yarn web-build
 ```
 
 After build, you will find files in `web/build` folder. To run a simple production server:
 
 ```
-$ npm run web-build-simple-server
+$ yarn web-build-simple-server
 ```
 
 ## Electron production build
@@ -75,17 +75,17 @@ $ npm run web-build-simple-server
 2. Package
 
 	Build for current platform:
-	
+
 	```
-	$ npm run electron-package
-	$ npm run electron-dist
+	$ yarn electron-package
+	$ yarn electron-dist
 	```
-	
+
 	To build apps for all platforms:
-	
+
 	```
-	$ npm run electron-package:all
-	$ npm run electron-dist:all
+	$ yarn electron-package:all
+	$ yarn electron-dist:all
 	```
 3. After build, you will find files in `electron/dist` folder.
 
