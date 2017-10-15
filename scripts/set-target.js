@@ -64,6 +64,7 @@ function setTarget(targetName) {
   rootPackageJson.displayVersion = appDisplayVersion;
   rootPackageJson.build.appId = appId;
   rootPackageJson.build.mac.icon = `./electron/resources/icon/${targetName}/icon.icns`;
+  rootPackageJson.build.win.icon = `./electron/resources/icon/${targetName}/icon.ico`;
   json = JSON.stringify(rootPackageJson, null, 2);
   filePath = path.resolve(__dirname, '../package.json');
   writeJsonToFile(filePath, json)
