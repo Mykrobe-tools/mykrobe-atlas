@@ -10,9 +10,9 @@ describe('FormInputRadio component', () => {
   it('fires change events', () => {
     const selectedOption = 'dolorSitAmet';
     const options = [
-      {value: 'lorem', label: 'Lorem'},
-      {value: 'ipsum', label: 'Ipsum'},
-      {value: 'dolorSitAmet', label: 'Dolor Sit Amet'}
+      { value: 'lorem', label: 'Lorem' },
+      { value: 'ipsum', label: 'Ipsum' },
+      { value: 'dolorSitAmet', label: 'Dolor Sit Amet' },
     ];
     const component = mount(
       <FormInputRadio
@@ -20,9 +20,12 @@ describe('FormInputRadio component', () => {
         title={title}
         options={options}
         selectedOption={selectedOption}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
-    component.find('input[value="ipsum"]').simulate('change', {target: {checked: true}});
+    component
+      .find('input[value="ipsum"]')
+      .simulate('change', { target: { checked: true } });
     expect(onChange).toBeCalled();
   });
 });

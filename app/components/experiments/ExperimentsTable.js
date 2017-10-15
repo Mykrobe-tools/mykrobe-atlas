@@ -8,13 +8,12 @@ import Loading from '../ui/Loading';
 
 class ExperimentsTable extends Component {
   render() {
-    const {experiments} = this.props;
+    const { experiments } = this.props;
     let tableContent;
 
     if (experiments.isFetching) {
       return <Loading />;
-    }
-    else if (experiments.samples.length === 0) {
+    } else if (experiments.samples.length === 0) {
       tableContent = (
         <tr>
           <td className={styles.tableData} colSpan="5">
@@ -22,20 +21,28 @@ class ExperimentsTable extends Component {
           </td>
         </tr>
       );
-    }
-    else {
-      tableContent = experiments.samples.map((experiment) =>
+    } else {
+      tableContent = experiments.samples.map(experiment => (
         <tr key={experiment.id}>
           <td className={styles.tableData}>
-            <Link to={`/sample/${experiment.id}`} className={styles.experimentLink}>
+            <Link
+              to={`/sample/${experiment.id}`}
+              className={styles.experimentLink}
+            >
               {experiment.id}
             </Link>
           </td>
           <td className={styles.tableData}>
-            {experiment.owner && <span>{experiment.owner.firstname} {experiment.owner.lastname}</span>}
+            {experiment.owner && (
+              <span>
+                {experiment.owner.firstname} {experiment.owner.lastname}
+              </span>
+            )}
           </td>
           <td className={styles.tableData}>
-            {experiment.organisation && <span>{experiment.organisation.name}</span>}
+            {experiment.organisation && (
+              <span>{experiment.organisation.name}</span>
+            )}
           </td>
           <td className={styles.tableData}>
             {moment().to(experiment.collected)}
@@ -44,7 +51,7 @@ class ExperimentsTable extends Component {
             {experiment.location && <span>{experiment.location.name}</span>}
           </td>
         </tr>
-      );
+      ));
     }
     return (
       <table className={styles.table}>
@@ -57,16 +64,14 @@ class ExperimentsTable extends Component {
             <th className={styles.tableHeading}>Location</th>
           </tr>
         </thead>
-        <tbody>
-          {tableContent}
-        </tbody>
+        <tbody>{tableContent}</tbody>
       </table>
     );
   }
 }
 
 ExperimentsTable.propTypes = {
-  experiments: PropTypes.object.isRequired
+  experiments: PropTypes.object.isRequired,
 };
 
 export default ExperimentsTable;

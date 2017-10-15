@@ -18,7 +18,8 @@ describe('FormInputDate component snapshot', () => {
         name={name}
         title={title}
         value={value}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();

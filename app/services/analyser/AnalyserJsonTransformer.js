@@ -13,7 +13,7 @@ class AnalyserJsonTransformer {
 
   transform(jsonString: string) {
     return new Promise((resolve, reject) => {
-      this.stringToJson(jsonString).then((transformed) => {
+      this.stringToJson(jsonString).then(transformed => {
         resolve(transformed);
       });
     });
@@ -26,11 +26,14 @@ class AnalyserJsonTransformer {
       const last = string.lastIndexOf('}');
       let extracted = string.substr(first, 1 + last - first);
       // replace escaped tabs, quotes, newlines
-      extracted = extracted.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"');
+      extracted = extracted
+        .replace(/\\n/g, '\n')
+        .replace(/\\t/g, '\t')
+        .replace(/\\"/g, '"');
       // console.log(extracted);
       const json = JSON.parse(extracted);
       const transformed = this.transformModel(json);
-      resolve({json, transformed});
+      resolve({ json, transformed });
     });
   }
 
@@ -41,7 +44,10 @@ class AnalyserJsonTransformer {
 
     const sampleModel = sourceModel.snpDistance.newick[sampleId];
 
-    const transformedSampleModel = this.transformSampleModel(sampleModel, sourceModel.geoDistance.experiments);
+    const transformedSampleModel = this.transformSampleModel(
+      sampleModel,
+      sourceModel.geoDistance.experiments
+    );
 
     return transformedSampleModel;
   }
@@ -79,15 +85,14 @@ class AnalyserJsonTransformer {
       o = [];
       if (model.evidence[title]) {
         o = model.evidence[title];
-      }
-      else {
+      } else {
         // initialise
         model.evidence[title] = o;
       }
       o.push([
         'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
-        'Resistant allele seen ' + (mutation['R_median_cov']) + ' times',
-        'Susceptible allele seen ' + (mutation['S_median_cov']) + ' times'
+        'Resistant allele seen ' + mutation['R_median_cov'] + ' times',
+        'Susceptible allele seen ' + mutation['S_median_cov'] + ' times',
       ]);
     }
 
@@ -98,15 +103,14 @@ class AnalyserJsonTransformer {
       o = [];
       if (model.evidence[title]) {
         o = model.evidence[title];
-      }
-      else {
+      } else {
         // initialise
         model.evidence[title] = o;
       }
       o.push([
         key + ' gene found',
         'Percent recovered: ' + spot['per_cov'] + '%',
-        'Median coverage: ' + spot['median_cov']
+        'Median coverage: ' + spot['median_cov'],
       ]);
     }
 
@@ -148,13 +152,12 @@ class AnalyserJsonTransformer {
       isInducible = predict.indexOf('INDUCIBLE') !== -1;
       if (value === 'S') {
         model.susceptible.push(key);
-      }
-      else if (value === 'R') {
+      } else if (value === 'R') {
         model.resistant.push(key);
-      }
-      else if (value === 'N') {
+      } else if (value === 'N') {
         model.inconclusive.push(key);
-      } if (isInducible) {
+      }
+      if (isInducible) {
         model.inducible.push(key);
       }
     }
@@ -165,8 +168,7 @@ class AnalyserJsonTransformer {
         value = virulenceModel[key].toUpperCase();
         if (value === 'POSITIVE') {
           model.positive.push(key);
-        }
-        else if (value === 'NEGATIVE') {
+        } else if (value === 'NEGATIVE') {
           model.negative.push(key);
         }
       }
@@ -174,16 +176,23 @@ class AnalyserJsonTransformer {
 
     let drugsResistance = {
       mdr: false,
-      xdr: false
+      xdr: false,
     };
 
-    if (model.resistant.indexOf('Isoniazid') !== -1 && model.resistant.indexOf('Rifampicin') !== -1) {
+    if (
+      model.resistant.indexOf('Isoniazid') !== -1 &&
+      model.resistant.indexOf('Rifampicin') !== -1
+    ) {
       drugsResistance.mdr = true;
-        /*
+      /*
         If MDR AND R to both fluoroquinolones and one of the other these 3 (Amikacin, Kanamycin, Capreomycin), then call it XDR (Extensively Drug Resistant)
         */
       if (model.resistant.indexOf('Quinolones')) {
-        if (model.resistant.indexOf('Amikacin') !== -1 || model.resistant.indexOf('Kanamycin') !== -1 || model.resistant.indexOf('Capreomycin') !== -1) {
+        if (
+          model.resistant.indexOf('Amikacin') !== -1 ||
+          model.resistant.indexOf('Kanamycin') !== -1 ||
+          model.resistant.indexOf('Capreomycin') !== -1
+        ) {
           drugsResistance.xdr = true;
         }
       }
@@ -194,9 +203,12 @@ class AnalyserJsonTransformer {
     let speciesPretty = '';
 
     if (TargetConstants.SPECIES_TB === this.config.species) {
-      speciesPretty = model.species.join(' / ') + ' (lineage: ' + model.lineage.join(', ') + ')';
-    }
-    else {
+      speciesPretty =
+        model.species.join(' / ') +
+        ' (lineage: ' +
+        model.lineage.join(', ') +
+        ')';
+    } else {
       speciesPretty = model.species.join(' / ');
     }
 

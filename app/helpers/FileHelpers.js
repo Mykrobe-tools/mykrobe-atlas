@@ -7,7 +7,7 @@ import path from 'path';
 
 export function getFileObject(filePathOrUrl: string): Promise<File> {
   return new Promise((resolve, reject) => {
-    getFileBlob(filePathOrUrl).then((blob) => {
+    getFileBlob(filePathOrUrl).then(blob => {
       const fileObject = blobToFile(blob, path.basename(filePathOrUrl));
       resolve(fileObject);
     });

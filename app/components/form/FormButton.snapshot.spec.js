@@ -9,10 +9,7 @@ describe('FormButton component snapshot', () => {
 
   it('renders correctly', () => {
     const component = renderer.create(
-      <FormButton
-        label={label}
-        type={type}
-        onClick={onClick} />
+      <FormButton label={label} type={type} onClick={onClick} />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -20,14 +17,11 @@ describe('FormButton component snapshot', () => {
 
   it('runs click event', () => {
     const component = renderer.create(
-      <FormButton
-        label={label}
-        type={type}
-        onClick={onClick} />
+      <FormButton label={label} type={type} onClick={onClick} />
     );
     let tree = component.toJSON();
     const btn = tree.children[0];
-    btn.props.onClick({preventDefault: jest.fn()});
+    btn.props.onClick({ preventDefault: jest.fn() });
     expect(onClick).toBeCalled();
   });
 });

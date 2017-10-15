@@ -26,21 +26,21 @@ class Analysis extends Component {
   }
 
   componentDidMount() {
-    const {analyser} = this.props;
+    const { analyser } = this.props;
     const sample = analyser.json;
     if (analyser.analysing) return;
     this.loadMaps(sample);
   }
 
   loadMaps(sample: Object) {
-    const {experiments} = sample.geoDistance;
-    GoogleMapsLoader.load((google) => {
+    const { experiments } = sample.geoDistance;
+    GoogleMapsLoader.load(google => {
       const options = {
-        center: {lat: 51.5074, lng: 0.1278},
+        center: { lat: 51.5074, lng: 0.1278 },
         maxZoom: 7,
         zoom: 3,
         backgroundColor: '#e2e1dc',
-        styles: MapStyle
+        styles: MapStyle,
       };
       this._google = google;
       this._map = new google.maps.Map(this._mapDiv, options);
@@ -50,7 +50,7 @@ class Analysis extends Component {
 
   getSampleWithId(nodeId) {
     const sample = this.props.analyser.json;
-    const {experiments} = sample.geoDistance;
+    const { experiments } = sample.geoDistance;
     const samples = [sample].concat(experiments);
     let selectedSample;
     let isMain = false;
@@ -62,12 +62,12 @@ class Analysis extends Component {
         }
       }
     });
-    return {sample: selectedSample, isMain};
+    return { sample: selectedSample, isMain };
   }
 
   getSampleIds() {
     const sample = this.props.analyser.json;
-    const {experiments} = sample.geoDistance;
+    const { experiments } = sample.geoDistance;
     const samples = [sample].concat(experiments);
     return samples.map(sample => {
       return sample.id;
@@ -75,7 +75,7 @@ class Analysis extends Component {
   }
 
   updateMarkers(sample, experiments) {
-    const {setNodeHighlighted} = this.props;
+    const { setNodeHighlighted } = this.props;
     const samples = [sample].concat(experiments);
     if (this._markers) {
       for (let markerKey in this._markers) {
@@ -92,17 +92,17 @@ class Analysis extends Component {
           path: this._google.maps.SymbolPath.CIRCLE,
           scale: 10,
           strokeWeight: 4,
-          fillColor: (index === 0) ? '#c30042' : '#0f82d0',
+          fillColor: index === 0 ? '#c30042' : '#0f82d0',
           strokeColor: '#fff',
-          fillOpacity: 1
+          fillOpacity: 1,
         },
-        position: {lat, lng},
-        map: this._map
+        position: { lat, lng },
+        map: this._map,
       });
-      marker.addListener('mouseover', (e) => {
+      marker.addListener('mouseover', e => {
         setNodeHighlighted(sample.id, true);
       });
-      marker.addListener('mouseout', (e) => {
+      marker.addListener('mouseout', e => {
         setNodeHighlighted(sample.id, false);
       });
       this._markers[sample.id] = marker;
@@ -115,13 +115,17 @@ class Analysis extends Component {
   }
 
   fromLatLngToPoint(latLng) {
-    const topRight = this._map.getProjection().fromLatLngToPoint(this._map.getBounds().getNorthEast());
-    const bottomLeft = this._map.getProjection().fromLatLngToPoint(this._map.getBounds().getSouthWest());
+    const topRight = this._map
+      .getProjection()
+      .fromLatLngToPoint(this._map.getBounds().getNorthEast());
+    const bottomLeft = this._map
+      .getProjection()
+      .fromLatLngToPoint(this._map.getBounds().getSouthWest());
     const scale = Math.pow(2, this._map.getZoom());
     const worldPoint = this._map.getProjection().fromLatLngToPoint(latLng);
     const x = (worldPoint.x - bottomLeft.x) * scale;
     const y = (worldPoint.y - topRight.y) * scale;
-    return {x, y};
+    return { x, y };
   }
 
   zoomToMarkers() {
@@ -133,13 +137,18 @@ class Analysis extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {node} = nextProps;
+    const { node } = nextProps;
     if (nextProps.analyser.analysing) return;
     if (!this._map) {
       this.loadMaps(nextProps.analyser.json);
-    }
-    else if (this.props.analyser.json.geoDistance.experiments !== nextProps.analyser.json.geoDistance.experiments) {
-      this.updateMarkers(nextProps.analyser.json, nextProps.analyser.json.geoDistance.experiments);
+    } else if (
+      this.props.analyser.json.geoDistance.experiments !==
+      nextProps.analyser.json.geoDistance.experiments
+    ) {
+      this.updateMarkers(
+        nextProps.analyser.json,
+        nextProps.analyser.json.geoDistance.experiments
+      );
     }
     if (node.highlighted.length) {
       const nodeId = node.highlighted[0];
@@ -148,14 +157,17 @@ class Analysis extends Component {
         const markerLocation = marker.getPosition();
         const screenPosition = this.fromLatLngToPoint(markerLocation);
         const boundingClientRect = this._mapDiv.getBoundingClientRect();
-        const {sample, isMain} = this.getSampleWithId(nodeId);
+        const { sample, isMain } = this.getSampleWithId(nodeId);
         if (sample) {
           this._phyloCanvasTooltip.setNode(sample, isMain);
-          this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
+          this._phyloCanvasTooltip.setVisible(
+            true,
+            boundingClientRect.left + screenPosition.x,
+            boundingClientRect.top + screenPosition.y
+          );
         }
       }
-    }
-    else {
+    } else {
       if (this._phyloCanvasTooltip) {
         this._phyloCanvasTooltip.setVisible(false);
       }
@@ -163,22 +175,26 @@ class Analysis extends Component {
   }
 
   render() {
-    const {analyser} = this.props;
+    const { analyser } = this.props;
     let content;
     if (analyser.analysing) {
       content = <Uploading sectionName="Analysis" />;
-    }
-    else {
+    } else {
       content = (
         <div className={styles.content}>
           <div className={styles.mapAndPhylogenyContainer}>
             <div className={styles.mapContainer}>
-              <div ref={(ref) => {
-                this._mapDiv = ref;
-              }} className={styles.map} />
-              <PhyloCanvasTooltip ref={(ref) => {
-                this._phyloCanvasTooltip = ref;
-              }} />
+              <div
+                ref={ref => {
+                  this._mapDiv = ref;
+                }}
+                className={styles.map}
+              />
+              <PhyloCanvasTooltip
+                ref={ref => {
+                  this._phyloCanvasTooltip = ref;
+                }}
+              />
             </div>
             <Phylogeny className={styles.phylogenyContainer} />
           </div>
@@ -186,30 +202,29 @@ class Analysis extends Component {
       );
     }
 
-    return (
-      <div className={styles.container}>
-        {content}
-      </div>
-    );
+    return <div className={styles.container}>{content}</div>;
   }
 }
 
 function mapStateToProps(state) {
   return {
-    node: state.node
+    node: state.node,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    setNodeHighlighted: NodeActions.setNodeHighlighted
-  }, dispatch);
+  return bindActionCreators(
+    {
+      setNodeHighlighted: NodeActions.setNodeHighlighted,
+    },
+    dispatch
+  );
 }
 
 Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
   analyser: PropTypes.object,
-  node: PropTypes.object.isRequired
+  node: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Analysis);

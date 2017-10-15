@@ -24,56 +24,53 @@ export default (url: string, options: any = {}): Promise<any> => {
   }
   options.headers = {
     ...options.headers,
-    'Accept': 'application/json'
+    Accept: 'application/json',
   };
   const user: UserType = store.getState().auth.user;
   if (user && user.token) {
     options.headers = {
       ...options.headers,
-      'Authorization': `Bearer ${user.token}`
+      Authorization: `Bearer ${user.token}`,
     };
   }
   console.log('fetch options', options);
   return fetch(url, options)
-  .then((response) => {
-    if (response.ok) {
-      return response.json()
-      .then((jsend: JSendType) => {
-        const {status, message, data} = jsend;
-        if (!status) {
-          const json = JSON.stringify(jsend, null, 2);
+    .then(response => {
+      if (response.ok) {
+        return response.json().then((jsend: JSendType) => {
+          const { status, message, data } = jsend;
+          if (!status) {
+            const json = JSON.stringify(jsend, null, 2);
+            return Promise.reject({
+              status: response.status,
+              statusText: `Invalid JSend response ${json}`,
+            });
+          } else if (status === 'success') {
+            return Promise.resolve(data);
+          }
           return Promise.reject({
             status: response.status,
-            statusText: `Invalid JSend response ${json}`
+            statusText: message,
           });
-        }
-        else if (status === 'success') {
-          return Promise.resolve(data);
+        });
+      } else {
+        if (response.status === 401) {
+          AuthActions.signOut()(store.dispatch);
         }
         return Promise.reject({
           status: response.status,
-          statusText: message
+          statusText: response.statusText,
         });
-      });
-    }
-    else {
-      if (response.status === 401) {
-        AuthActions.signOut()(store.dispatch);
       }
+    })
+    .catch(error => {
+      // An error we generated
+      if (error.statusText) {
+        return Promise.reject(error);
+      }
+      // An error from underlying network, e.g. failed preflight check
       return Promise.reject({
-        status: response.status,
-        statusText: response.statusText
+        statusText: error.message,
       });
-    }
-  })
-  .catch((error) => {
-    // An error we generated
-    if (error.statusText) {
-      return Promise.reject(error);
-    }
-    // An error from underlying network, e.g. failed preflight check
-    return Promise.reject({
-      statusText: error.message
     });
-  });
 };

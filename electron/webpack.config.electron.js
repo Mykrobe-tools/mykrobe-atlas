@@ -10,7 +10,7 @@ export default merge(baseConfig, {
 
   entry: [
     'babel-polyfill',
-    path.resolve(__dirname, '../app/index.electron')
+    path.resolve(__dirname, '../electron/index.electron')
   ],
 
   output: {

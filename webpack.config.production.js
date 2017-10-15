@@ -12,26 +12,23 @@ const config = merge(baseConfig('production'), {
     loaders: [
       {
         test: /\.global\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader'
-        )
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
       },
       {
         test: /^((?!\.global).)*\.css$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
-        )
+        ),
       },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loaders: [
-          'strip-loader?strip[]=debug,strip[]=debugger,strip[]=console.log'
-        ]
-      }
-    ]
+          'strip-loader?strip[]=debug,strip[]=debugger,strip[]=console.log',
+        ],
+      },
+    ],
   },
 
   plugins: [
@@ -40,16 +37,16 @@ const config = merge(baseConfig('production'), {
     new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
-      'process.env.API_URL': JSON.stringify(process.env.API_URL)
+      'process.env.API_URL': JSON.stringify(process.env.API_URL),
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         screw_ie8: true,
-        warnings: false
-      }
+        warnings: false,
+      },
     }),
-    new ExtractTextPlugin('style.css', { allChunks: true })
-  ]
+    new ExtractTextPlugin('style.css', { allChunks: true }),
+  ],
 });
 
 export default config;

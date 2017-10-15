@@ -5,9 +5,9 @@ require('babel-register');
 
 module.exports = {
   output: {
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'commonjs2',
   },
   module: {
-    loaders: []
-  }
+    loaders: [],
+  },
 };

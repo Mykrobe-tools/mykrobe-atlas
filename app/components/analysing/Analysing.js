@@ -9,31 +9,32 @@ import AnalysingProgressBar from './AnalysingProgressBar';
 
 class Analysing extends Component {
   componentDidMount() {
-    const {monitorUpload} = this.props;
+    const { monitorUpload } = this.props;
     monitorUpload();
   }
 
   render() {
-    const {analyser} = this.props;
+    const { analyser } = this.props;
     if (IS_ELECTRON) {
       const UIHelpers = require('../../helpers/UIHelpers');
       UIHelpers.setProgress(analyser.progress);
     }
     return (
       <div className={styles.container}>
-        {analyser.analysing &&
+        {analyser.analysing && (
           <AnalysingProgressBar
             progress={analyser.progress}
             description={analyser.stepDescription}
             filename={analyser.filename}
-            onCancel={(e) => this.onCancelClick(e)} />
-        }
+            onCancel={e => this.onCancelClick(e)}
+          />
+        )}
       </div>
     );
   }
 
   onCancelClick(e: Event) {
-    const {analyseFileCancel} = this.props;
+    const { analyseFileCancel } = this.props;
     analyseFileCancel();
   }
 }
@@ -41,20 +42,23 @@ class Analysing extends Component {
 Analysing.propTypes = {
   analyser: PropTypes.object.isRequired,
   monitorUpload: PropTypes.func.isRequired,
-  analyseFileCancel: PropTypes.func.isRequired
+  analyseFileCancel: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    monitorUpload: AnalyserActions.monitorUpload,
-    analyseFileCancel: AnalyserActions.analyseFileCancel
-  }, dispatch);
+  return bindActionCreators(
+    {
+      monitorUpload: AnalyserActions.monitorUpload,
+      analyseFileCancel: AnalyserActions.analyseFileCancel,
+    },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Analysing);

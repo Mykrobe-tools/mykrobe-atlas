@@ -10,7 +10,10 @@ import store from './store/store';
 import './app.global.css';
 import './css/main.css';
 
-const history = syncHistoryWithStore(IS_ELECTRON ? hashHistory : browserHistory, store);
+const history = syncHistoryWithStore(
+  IS_ELECTRON ? hashHistory : browserHistory,
+  store
+);
 
 render(
   <Provider store={store}>

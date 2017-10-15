@@ -15,13 +15,13 @@ export default (url: string, options: any = {}): Promise<any> => {
   }
   options.headers = {
     ...options.headers,
-    'Accept': 'application/json'
+    Accept: 'application/json',
   };
   const user: UserType = store.getState().auth.user;
   if (user && user.token) {
     options.headers = {
       ...options.headers,
-      'Authorization': `Bearer ${user.token}`
+      Authorization: `Bearer ${user.token}`,
     };
   }
   console.log('fetch options', options);

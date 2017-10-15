@@ -15,8 +15,7 @@ export function loadUser(): ?UserType {
         const decode = jwtDecode(user.token);
         console.log('user.token decode:', decode);
       }
-    }
-    catch (err) {
+    } catch (err) {
       // invalid json, just don't authenticate
     }
   }
@@ -30,7 +29,7 @@ export function deleteUser() {
 export function saveUser(user: UserType) {
   // only save token
   const userObject = {
-    token: user.token
+    token: user.token,
   };
   cookie.save(USER_COOKIE_NAME, JSON.stringify(userObject), { path: '/' });
 }

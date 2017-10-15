@@ -18,9 +18,10 @@ describe('FormInputText component', () => {
         value={value}
         placeholder={placeholder}
         type={type}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
-    component.find('input').simulate('change', {target: {value: 'Lorem'}});
+    component.find('input').simulate('change', { target: { value: 'Lorem' } });
     expect(onChange).toBeCalled();
   });
 });

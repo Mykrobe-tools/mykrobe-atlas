@@ -14,7 +14,8 @@ describe('Notification component snapshot', () => {
         id={id}
         category={category}
         content={content}
-        onClick={onClick} />
+        onClick={onClick}
+      />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -26,10 +27,11 @@ describe('Notification component snapshot', () => {
         id={id}
         category={category}
         content={content}
-        onClick={onClick} />
+        onClick={onClick}
+      />
     );
     let tree = component.toJSON();
-    tree.props.onClick({preventDefault: jest.fn()});
+    tree.props.onClick({ preventDefault: jest.fn() });
     expect(onClick).toBeCalledWith(1);
   });
 });

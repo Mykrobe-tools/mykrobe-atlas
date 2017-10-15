@@ -7,30 +7,26 @@ import FormLabel from './FormLabel';
 import styles from './FormSelect.css';
 
 class FormSelect extends Component {
-
   render() {
-    const {name, onChange, options, placeholder, value, title} = this.props;
+    const { name, onChange, options, placeholder, value, title } = this.props;
     return (
       <div className={styles.wrap}>
-        {title &&
+        {title && (
           <div className={styles.label}>
-            <FormLabel
-              htmlFor={name}
-              label={title} />
+            <FormLabel htmlFor={name} label={title} />
           </div>
-        }
+        )}
         <div className={styles.inputWrap}>
           <select
             className={styles.input}
             name={name}
             value={value}
-            onChange={(event) => onChange(event)}>
+            onChange={event => onChange(event)}
+          >
             <option value="">{placeholder}</option>
             {options.map(opt => {
               return (
-                <option
-                  key={opt.value}
-                  value={opt.value}>
+                <option key={opt.value} value={opt.value}>
                   {opt.label}
                 </option>
               );
@@ -48,7 +44,7 @@ FormSelect.propTypes = {
   options: PropTypes.array.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default FormSelect;

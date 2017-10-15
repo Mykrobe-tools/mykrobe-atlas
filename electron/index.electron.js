@@ -1,3 +1,5 @@
+/* @flow */
+
 import { app, BrowserWindow, Menu, shell } from 'electron';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -69,7 +71,7 @@ app.on('ready', async () => {
     height: 728
   });
 
-  mainWindow.loadURL(`file://${__dirname}/../app/index.html`);
+  mainWindow.loadURL(`file://${__dirname}/index.html`);
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();

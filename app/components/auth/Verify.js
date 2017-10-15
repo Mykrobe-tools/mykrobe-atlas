@@ -11,12 +11,11 @@ import Loading from '../ui/Loading';
 import styles from './Common.css';
 
 class Verify extends React.Component {
-
   componentWillMount() {
-    const {verify} = this.props;
-    const {verificationToken} = this.props.params;
+    const { verify } = this.props;
+    const { verificationToken } = this.props.params;
     const userObject: AuthVerificationType = {
-      verificationToken
+      verificationToken,
     };
     verify(userObject);
   }
@@ -25,9 +24,7 @@ class Verify extends React.Component {
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <div className={styles.title}>
-            Verify
-          </div>
+          <div className={styles.title}>Verify</div>
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>
@@ -40,19 +37,21 @@ class Verify extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {
-  };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    verify: AuthActions.verify
-  }, dispatch);
+  return bindActionCreators(
+    {
+      verify: AuthActions.verify,
+    },
+    dispatch
+  );
 }
 
 Verify.propTypes = {
   verify: PropTypes.func.isRequired,
-  params: PropTypes.object.isRequired
+  params: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Verify);

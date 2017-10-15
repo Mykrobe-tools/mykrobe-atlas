@@ -13,20 +13,20 @@ class Upload extends Component {
   _uploadButton: HTMLAnchorElement;
   _dropzone: Element;
   state: {
-    isDragActive: boolean
+    isDragActive: boolean,
   };
 
   constructor(props: Object) {
     super(props);
     this.state = {
-      isDragActive: false
+      isDragActive: false,
     };
   }
 
   componentDidMount() {
     const auth: AuthType = this.props.auth;
-    const {isAuthenticated} = auth;
-    const {uploadFile} = this.props.service;
+    const { isAuthenticated } = auth;
+    const { uploadFile } = this.props.service;
     if (isAuthenticated) {
       uploadFile.bindUploader(this._dropzone, this._uploadButton);
     }
@@ -34,8 +34,8 @@ class Upload extends Component {
 
   componentWillUnmount() {
     const auth: AuthType = this.props.auth;
-    const {isAuthenticated} = auth;
-    const {uploadFile} = this.props.service;
+    const { isAuthenticated } = auth;
+    const { uploadFile } = this.props.service;
     if (isAuthenticated) {
       uploadFile.unbindUploader(this._dropzone, this._uploadButton);
     }
@@ -43,18 +43,23 @@ class Upload extends Component {
 
   onDragOver() {
     this.setState({
-      isDragActive: true
+      isDragActive: true,
     });
   }
 
   onDragLeave() {
     this.setState({
-      isDragActive: false
+      isDragActive: false,
     });
   }
 
   popoverMenuLinks() {
-    const {uploadBox, uploadDropbox, uploadGoogleDrive, uploadOneDrive} = this.props.service;
+    const {
+      uploadBox,
+      uploadDropbox,
+      uploadGoogleDrive,
+      uploadOneDrive,
+    } = this.props.service;
     return [
       {
         text: 'Computer',
@@ -63,55 +68,60 @@ class Upload extends Component {
           if (this._uploadButton) {
             this._uploadButton.click();
           }
-        }
+        },
       },
       {
         text: 'Dropbox',
         onClick: (e: Event) => {
           e.preventDefault();
           uploadDropbox.trigger();
-        }
+        },
       },
       {
         text: 'Box',
         onClick: (e: Event) => {
           e.preventDefault();
           uploadBox.trigger();
-        }
+        },
       },
       {
         text: 'Google Drive',
         onClick: (e: Event) => {
           e.preventDefault();
           uploadGoogleDrive.trigger();
-        }
+        },
       },
       {
         text: 'OneDrive',
         onClick: (e: Event) => {
           e.preventDefault();
           uploadOneDrive.trigger();
-        }
-      }
+        },
+      },
     ];
   }
 
   render() {
-    const {isDragActive} = this.state;
+    const { isDragActive } = this.state;
     const auth: AuthType = this.props.auth;
-    const {isAuthenticated} = auth;
+    const { isAuthenticated } = auth;
     return (
       <div
-        className={isDragActive && isAuthenticated ? styles.containerDragActive : styles.container}
-        onDragOver={(e) => {
+        className={
+          isDragActive && isAuthenticated
+            ? styles.containerDragActive
+            : styles.container
+        }
+        onDragOver={e => {
           this.onDragOver(e);
         }}
-        onDragLeave={(e) => {
+        onDragLeave={e => {
           this.onDragLeave(e);
         }}
-        ref={(ref) => {
+        ref={ref => {
           this._dropzone = ref;
-        }}>
+        }}
+      >
         <AnimatedBackground />
         <div className={styles.contentContainer}>
           <div className={styles.content}>
@@ -123,19 +133,21 @@ class Upload extends Component {
             <div className={styles.title}>
               Outbreak and resistance analysis in minutes
             </div>
-            {isAuthenticated &&
+            {isAuthenticated && (
               <div className={styles.buttonContainer}>
                 <button
                   type="button"
                   className={styles.buttonOffscreen}
-                  ref={(ref) => {
+                  ref={ref => {
                     this._uploadButton = ref;
-                  }} />
+                  }}
+                />
                 <PopoverMenu
                   toggleText="Analyse Sample"
-                  links={this.popoverMenuLinks()} />
+                  links={this.popoverMenuLinks()}
+                />
               </div>
-            }
+            )}
           </div>
         </div>
       </div>
@@ -145,13 +157,13 @@ class Upload extends Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+    auth: state.auth,
   };
 }
 
 Upload.propTypes = {
   service: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps)(Upload);

@@ -1,8 +1,12 @@
 {
   "parser": "babel-eslint",
   "extends": [
-    "standard",
-    "standard-react",
+    "eslint:recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/react",
     "plugin:flowtype/recommended"
   ],
   "env": {
@@ -13,22 +17,33 @@
   },
   "plugins": [
     "import",
+    "prettier",
     "react",
     "flowtype"
   ],
   "rules": {
-    "semi": ["error", "always"],
-    "space-before-function-paren": ["error", "never"],
-    "brace-style": ["error", "stroustrup"],
-    "react/jsx-no-bind": ["error", {
-      "allowArrowFunctions": true
-    }]
+    // Use prettier for whitespace and max-line enforcement
+    "prettier/prettier": ["error", {
+      "singleQuote": true,
+      "semi": true,
+      "trailingComma": "es5"
+    }],
+    // Don't require display names
+    "react/display-name": ["off"],
+    "no-console": ["off"],
+    "no-constant-condition": ["off"]
   },
   "settings": {
     "import/resolver": {
-      "webpack": {
-        "config": "webpack.config.eslint.js"
+      "node": {
+        "extensions": [
+          ".js"
+        ]
       }
+    },
+    "import/ignore": [".css$","node_modules/*"],
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
     }
   },
   "globals": {

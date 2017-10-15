@@ -10,9 +10,9 @@ describe('FormInputCheckbox component', () => {
   it('fires change events', () => {
     const selectedOptions = ['lorem', 'dolorSitAmet'];
     const options = [
-      {value: 'lorem', label: 'Lorem'},
-      {value: 'ipsum', label: 'Ipsum'},
-      {value: 'dolorSitAmet', label: 'Dolor Sit Amet'}
+      { value: 'lorem', label: 'Lorem' },
+      { value: 'ipsum', label: 'Ipsum' },
+      { value: 'dolorSitAmet', label: 'Dolor Sit Amet' },
     ];
     const component = mount(
       <FormInputCheckbox
@@ -20,9 +20,12 @@ describe('FormInputCheckbox component', () => {
         title={title}
         options={options}
         selectedOptions={selectedOptions}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
-    component.find('input[value="ipsum"]').simulate('change', {target: {checked: true}});
+    component
+      .find('input[value="ipsum"]')
+      .simulate('change', { target: { checked: true } });
     expect(onChange).toBeCalled();
   });
 });

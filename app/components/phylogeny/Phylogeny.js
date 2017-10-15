@@ -10,12 +10,18 @@ import PhyloCanvasComponent from '../ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
 import type { SampleType } from '../../types/SampleType';
 
-const treeTypes = ['radial', 'rectangular', 'circular', 'diagonal', 'hierarchy'];
+const treeTypes = [
+  'radial',
+  'rectangular',
+  'circular',
+  'diagonal',
+  'hierarchy',
+];
 const AUTO_ZOOM_SAMPLES = true;
 
 class Phylogeny extends Component {
   state: {
-    treeType: string
+    treeType: string,
   };
   _phyloCanvas: PhyloCanvasComponent;
   _phyloCanvasTooltip: PhyloCanvasTooltip;
@@ -42,7 +48,7 @@ class Phylogeny extends Component {
 
     // radial, rectangular, circular, diagonal and hierarchy
     this.state = {
-      treeType: 'radial'
+      treeType: 'radial',
     };
   }
 
@@ -52,14 +58,14 @@ class Phylogeny extends Component {
   }
 
   onNodeMouseOver(node) {
-    const {setNodeHighlighted} = this.props;
+    const { setNodeHighlighted } = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
       setNodeHighlighted(node.id, true);
     }
   }
 
   onNodeMouseOut(node) {
-    const {setNodeHighlighted} = this.props;
+    const { setNodeHighlighted } = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
       setNodeHighlighted(node.id, false);
     }
@@ -70,8 +76,11 @@ class Phylogeny extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {node} = nextProps;
-    if (this.props.analyser.transformed.samples !== nextProps.analyser.transformed.samples) {
+    const { node } = nextProps;
+    if (
+      this.props.analyser.transformed.samples !==
+      nextProps.analyser.transformed.samples
+    ) {
       // new samples
       setTimeout(() => {
         this.updateHighlightedSamples(nextProps.analyser.transformed.samples);
@@ -89,35 +98,41 @@ class Phylogeny extends Component {
         const sample = this.getSampleWithId(nodeId);
         if (sample) {
           this._phyloCanvasTooltip.setNode(sample);
-          this._phyloCanvasTooltip.setVisible(true, boundingClientRect.left + screenPosition.x, boundingClientRect.top + screenPosition.y);
+          this._phyloCanvasTooltip.setVisible(
+            true,
+            boundingClientRect.left + screenPosition.x,
+            boundingClientRect.top + screenPosition.y
+          );
         }
       }
-    }
-    else {
+    } else {
       this._phyloCanvasTooltip.setVisible(false);
     }
   }
 
   render() {
-    const {analyser, controlsInset} = this.props;
-    const {treeType} = this.state;
+    const { analyser, controlsInset } = this.props;
+    const { treeType } = this.state;
     const newick = analyser.transformed.tree;
-    const insetStyle = {margin: `${controlsInset}px`};
+    const insetStyle = { margin: `${controlsInset}px` };
     return (
       <div className={styles.container}>
-        <div className={styles.contentContainer} ref={(ref) => {
-          this._container = ref;
-        }}>
+        <div
+          className={styles.contentContainer}
+          ref={ref => {
+            this._container = ref;
+          }}
+        >
           <PhyloCanvasComponent
-            ref={(ref) => {
+            ref={ref => {
               this._phyloCanvas = ref;
             }}
             treeType={treeType}
             data={newick}
-            onNodeMouseOver={(node) => {
+            onNodeMouseOver={node => {
               this.onNodeMouseOver(node);
             }}
-            onNodeMouseOut={(node) => {
+            onNodeMouseOut={node => {
               this.onNodeMouseOut(node);
             }}
             onLoad={() => {
@@ -126,37 +141,53 @@ class Phylogeny extends Component {
             controlsInset={controlsInset}
           />
           <div className={styles.controlsContainer} style={insetStyle}>
-            <div className={styles.zoomControl} onClick={(e) => {
-              e.preventDefault(); this.zoomSamples();
-            }}>
+            <div
+              className={styles.zoomControl}
+              onClick={e => {
+                e.preventDefault();
+                this.zoomSamples();
+              }}
+            >
               <i className="fa fa-search" />
               <div className={styles.zoomControlText}>Fit samples</div>
             </div>
           </div>
           <div className={styles.demoTreeTypeContainer} style={insetStyle}>
-            {treeTypes.map((thisTreeType, index) =>
-              <div className={thisTreeType === treeType ? styles.demoTreeTypeSelected : styles.demoTreeType} key={index} onClick={(e) => {
-                this.setState({treeType: thisTreeType});
-                setTimeout(() => {
-                  this.updateHighlightedSamples(analyser.transformed.samples);
-                  if (AUTO_ZOOM_SAMPLES) {
-                    this.zoomSamples();
-                  }
-                }, 0);
-              }}>{thisTreeType}</div>
-            )}
+            {treeTypes.map((thisTreeType, index) => (
+              <div
+                className={
+                  thisTreeType === treeType
+                    ? styles.demoTreeTypeSelected
+                    : styles.demoTreeType
+                }
+                key={index}
+                onClick={e => {
+                  this.setState({ treeType: thisTreeType });
+                  setTimeout(() => {
+                    this.updateHighlightedSamples(analyser.transformed.samples);
+                    if (AUTO_ZOOM_SAMPLES) {
+                      this.zoomSamples();
+                    }
+                  }, 0);
+                }}
+              >
+                {thisTreeType}
+              </div>
+            ))}
           </div>
-          <PhyloCanvasTooltip ref={(ref) => {
-            this._phyloCanvasTooltip = ref;
-          }} />
+          <PhyloCanvasTooltip
+            ref={ref => {
+              this._phyloCanvasTooltip = ref;
+            }}
+          />
         </div>
       </div>
     );
   }
 
   getSampleWithId(nodeId): ?SampleType {
-    const {analyser} = this.props;
-    const {samples} = analyser.transformed;
+    const { analyser } = this.props;
+    const { samples } = analyser.transformed;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
       if (sample.id === nodeId) {
@@ -166,8 +197,8 @@ class Phylogeny extends Component {
   }
 
   getSampleIds(): Array<string> {
-    const {analyser} = this.props;
-    const {samples} = analyser.transformed;
+    const { analyser } = this.props;
+    const { samples } = analyser.transformed;
     let nodeIds = [];
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
@@ -181,8 +212,8 @@ class Phylogeny extends Component {
   }
 
   componentDidMount() {
-    const {analyser} = this.props;
-    const {samples} = analyser.transformed;
+    const { analyser } = this.props;
+    const { samples } = analyser.transformed;
     this.updateHighlightedSamples(samples);
     if (AUTO_ZOOM_SAMPLES) {
       this.zoomSamples();
@@ -198,27 +229,30 @@ class Phylogeny extends Component {
   }
 
   componentWillUnmount() {
-    const {unsetNodeHighlightedAll} = this.props;
+    const { unsetNodeHighlightedAll } = this.props;
     unsetNodeHighlightedAll();
   }
 
   static defaultProps = {
-    controlsInset: 30
+    controlsInset: 30,
   };
 }
 
 function mapStateToProps(state) {
   return {
     analyser: state.analyser,
-    node: state.node
+    node: state.node,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    setNodeHighlighted: NodeActions.setNodeHighlighted,
-    unsetNodeHighlightedAll: NodeActions.unsetNodeHighlightedAll
-  }, dispatch);
+  return bindActionCreators(
+    {
+      setNodeHighlighted: NodeActions.setNodeHighlighted,
+      unsetNodeHighlightedAll: NodeActions.unsetNodeHighlightedAll,
+    },
+    dispatch
+  );
 }
 
 Phylogeny.propTypes = {
@@ -226,7 +260,7 @@ Phylogeny.propTypes = {
   node: PropTypes.object.isRequired,
   controlsInset: PropTypes.number,
   setNodeHighlighted: PropTypes.func.isRequired,
-  unsetNodeHighlightedAll: PropTypes.func.isRequired
+  unsetNodeHighlightedAll: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Phylogeny);

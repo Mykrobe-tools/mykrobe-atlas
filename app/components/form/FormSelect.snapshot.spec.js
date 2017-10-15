@@ -9,16 +9,15 @@ describe('FormSelect component snapshot', () => {
 
   it('renders correctly with a single option', () => {
     const value = 'lorem';
-    const options = [
-      {value: 'lorem', label: 'Lorem'}
-    ];
+    const options = [{ value: 'lorem', label: 'Lorem' }];
     const component = renderer.create(
       <FormSelect
         name={name}
         title={title}
         options={options}
         value={value}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -27,9 +26,9 @@ describe('FormSelect component snapshot', () => {
   it('renders correctly with multiple options', () => {
     const value = 'dolorSitAmet';
     const options = [
-      {value: 'lorem', label: 'Lorem'},
-      {value: 'ipsum', label: 'Ipsum'},
-      {value: 'dolorSitAmet', label: 'Dolor Sit Amet'}
+      { value: 'lorem', label: 'Lorem' },
+      { value: 'ipsum', label: 'Ipsum' },
+      { value: 'dolorSitAmet', label: 'Dolor Sit Amet' },
     ];
     const component = renderer.create(
       <FormSelect
@@ -37,7 +36,8 @@ describe('FormSelect component snapshot', () => {
         title={title}
         options={options}
         value={value}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();

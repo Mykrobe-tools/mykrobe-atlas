@@ -15,9 +15,7 @@ class Logo extends Component {
   render() {
     const logoClassName = `${this.mykrobeConfig.targetName}-logo`;
 
-    return (
-      <div className={styles[logoClassName]} />
-    );
+    return <div className={styles[logoClassName]} />;
   }
 }
 

@@ -2,7 +2,7 @@
 
 import path from 'path';
 import fs from 'fs';
-import {spawn} from 'child_process';
+import { spawn } from 'child_process';
 import * as TargetConstants from '../../constants/TargetConstants';
 import AnalyserBaseFile from './AnalyserBaseFile';
 import MykrobeConfig from '../MykrobeConfig';
@@ -29,23 +29,21 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     const dirToBin = this.dirToBin();
     const filesToDelete = [
       'predictor-tb/data/skeleton_binary/tb/skeleton.k15.ctx',
-      'predictor-s-aureus/data/skeleton_binary/staph/skeleton.k15.ctx'
+      'predictor-s-aureus/data/skeleton_binary/staph/skeleton.k15.ctx',
     ];
-    filesToDelete.forEach((filePath) => {
+    filesToDelete.forEach(filePath => {
       const fullPath = path.join(dirToBin, filePath);
       fs.stat(fullPath, (statErr, stat) => {
         if (statErr === null) {
           console.log('Skeleton file exists, removing.');
-          fs.unlink(fullPath, (unlinkErr) => {
+          fs.unlink(fullPath, unlinkErr => {
             if (unlinkErr) {
               console.log('error deleting', unlinkErr);
-            }
-            else {
+            } else {
               console.log('deleted', fullPath);
             }
           });
-        }
-        else {
+        } else {
           console.log('This file does not exist', fullPath);
         }
       });
@@ -68,19 +66,27 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
     const pathToBin = this.pathToBin();
     const dirToBin = path.join(this.dirToBin(), this.targetConfig.targetName);
-    const args = ['--file', filePath, '--install_dir', dirToBin, '--format', 'JSON', '--progress'];
+    const args = [
+      '--file',
+      filePath,
+      '--install_dir',
+      dirToBin,
+      '--format',
+      'JSON',
+      '--progress',
+    ];
     this.child = spawn(pathToBin, args);
     if (!this.child) {
       this.failWithError('Failed to start child process');
       return this;
     }
 
-    this.child.on('error', (err) => {
+    this.child.on('error', err => {
       console.log('Failed to start child process.', err);
       this.failWithError(err);
     });
 
-    this.child.stdout.on('data', (data) => {
+    this.child.stdout.on('data', data => {
       if (this.didReceiveError) {
         return;
       }
@@ -98,15 +104,14 @@ class AnalyserLocalFile extends AnalyserBaseFile {
           // console.log('total:'+total);
           this.emit('progress', {
             progress,
-            total
+            total,
           });
         }
       }
 
       if (this.isBufferingJson) {
         this.jsonBuffer += dataString;
-      }
-      else if (dataString.indexOf('{') !== -1) {
+      } else if (dataString.indexOf('{') !== -1) {
         // start collecting as soon as we see { in the buffer
         this.isBufferingJson = true;
         this.jsonBuffer = dataString;
@@ -121,13 +126,13 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       }
     });
 
-    this.child.stderr.on('data', (data) => {
+    this.child.stderr.on('data', data => {
       this.didReceiveError = true;
       console.log('ERROR: ' + data);
       this.failWithError(data);
     });
 
-    this.child.on('exit', (code) => {
+    this.child.on('exit', code => {
       console.log('Processing exited with code: ' + code);
       // this.child = null;
       // deferring seems to allow the spawn to exit cleanly
@@ -151,14 +156,14 @@ class AnalyserLocalFile extends AnalyserBaseFile {
   }
 
   dirToBin() {
-    const rootDir = (process.env.NODE_ENV === 'development') ? process.cwd() : app.getAppPath();
+    const rootDir =
+      process.env.NODE_ENV === 'development' ? process.cwd() : app.getAppPath();
     console.log('rootDir', rootDir);
 
     let dirToBin = '';
     if (process.env.NODE_ENV === 'development') {
       dirToBin = path.join(rootDir, 'static', 'bin');
-    }
-    else {
+    } else {
       dirToBin = path.join(rootDir, 'bin');
     }
     console.log('dirToBin', dirToBin);
@@ -176,7 +181,10 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       platformFolder = 'osx';
     }
 
-    const UnsupportedError = new Error({message: 'Unsupported configuration', config: this.targetConfig});
+    const UnsupportedError = new Error({
+      message: 'Unsupported configuration',
+      config: this.targetConfig,
+    });
 
     const dirToBin = this.dirToBin();
 
@@ -184,26 +192,36 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
     if (TargetConstants.TYPE_PREDICTOR === this.targetConfig.type) {
       if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
-        pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.predictor.tb');
-      }
-      else if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
-        pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.predictor.tb');
-      }
-      else {
+        pathToBin = path.join(
+          dirToBin,
+          this.targetConfig.targetName,
+          platformFolder,
+          'Mykrobe.predictor.tb'
+        );
+      } else if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
+        pathToBin = path.join(
+          dirToBin,
+          this.targetConfig.targetName,
+          platformFolder,
+          'Mykrobe.predictor.tb'
+        );
+      } else {
         // unsupported configuration
         throw UnsupportedError;
       }
-    }
-    else if (TargetConstants.TYPE_ATLAS === this.targetConfig.type) {
+    } else if (TargetConstants.TYPE_ATLAS === this.targetConfig.type) {
       if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
-        pathToBin = path.join(dirToBin, this.targetConfig.targetName, platformFolder, 'Mykrobe.atlas.tb');
-      }
-      else {
+        pathToBin = path.join(
+          dirToBin,
+          this.targetConfig.targetName,
+          platformFolder,
+          'Mykrobe.atlas.tb'
+        );
+      } else {
         // unsupported configuration
         throw UnsupportedError;
       }
-    }
-    else {
+    } else {
       // unsupported configuration
       throw UnsupportedError;
     }

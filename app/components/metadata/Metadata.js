@@ -7,25 +7,24 @@ import styles from './Metadata.css';
 import MetadataForm from './MetadataForm';
 
 class Metadata extends Component {
-
   resetScroll = () => {
     const element = ReactDom.findDOMNode(this);
     if (element instanceof HTMLElement) {
       element.scrollTop = 0;
     }
-  }
+  };
 
   render() {
-    const {analyser, id} = this.props;
+    const { analyser, id } = this.props;
     return (
       <div className={styles.container}>
-        {analyser.analysing &&
+        {analyser.analysing && (
           <div className={styles.uploadingMessage}>
             <div className={styles.uploadingMessageTitle}>
               Your sample is uploading
             </div>
           </div>
-        }
+        )}
         <div className={styles.formContainer}>
           <MetadataForm id={id} resetScroll={this.resetScroll} />
         </div>
@@ -36,7 +35,7 @@ class Metadata extends Component {
 
 Metadata.propTypes = {
   analyser: PropTypes.object,
-  id: PropTypes.string
+  id: PropTypes.string,
 };
 
 export default Metadata;

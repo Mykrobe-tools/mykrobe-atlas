@@ -4,7 +4,11 @@ import * as ActionTypes from '../constants/ActionTypes';
 
 let nextNotificationId = 0;
 
-export function showNotification({category, content, autoHide = true}: Object) {
+export function showNotification({
+  category,
+  content,
+  autoHide = true,
+}: Object) {
   return (dispatch: Function) => {
     const id = nextNotificationId++;
     dispatch(show(id, category, content, autoHide));
@@ -34,19 +38,19 @@ function show(id, category, content, autoHide) {
     id,
     category,
     content,
-    autoHide
+    autoHide,
   };
 }
 
 function hide(id) {
   return {
     type: ActionTypes.HIDE_NOTIFICATION,
-    id
+    id,
   };
 }
 
 function hideAll() {
   return {
-    type: ActionTypes.HIDE_ALL_NOTIFICATIONS
+    type: ActionTypes.HIDE_ALL_NOTIFICATIONS,
   };
 }

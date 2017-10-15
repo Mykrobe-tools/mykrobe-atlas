@@ -10,12 +10,11 @@ import SummaryVariants from './SummaryVariants';
 
 class Summary extends Component {
   render() {
-    const {analyser} = this.props;
+    const { analyser } = this.props;
     let content;
     if (analyser.analysing) {
       content = <Uploading sectionName="Summary" />;
-    }
-    else {
+    } else {
       content = (
         <div className={styles.content}>
           <div className={styles.summaryContainer}>
@@ -32,16 +31,12 @@ class Summary extends Component {
         </div>
       );
     }
-    return (
-      <div className={styles.container}>
-        {content}
-      </div>
-    );
+    return <div className={styles.container}>{content}</div>;
   }
 }
 
 Summary.propTypes = {
-  analyser: PropTypes.object
+  analyser: PropTypes.object,
 };
 
 export default Summary;

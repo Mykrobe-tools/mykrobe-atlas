@@ -15,7 +15,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
     this._progress = 0;
     this.updateProgress();
     this.fetchExperiment(id)
-      .then((result) => {
+      .then(result => {
         this._timeout && clearTimeout(this._timeout);
         if (this._progress < 100) {
           this._progress = 100;
@@ -23,12 +23,11 @@ class AnalyserWebFile extends AnalyserBaseFile {
           this._timeout = setTimeout(() => {
             this.emit('done', result);
           }, 3000);
-        }
-        else {
+        } else {
           this.emit('done', result);
         }
       })
-      .catch((error) => {
+      .catch(error => {
         this.emit('error', error);
       });
     return this;
@@ -47,15 +46,15 @@ class AnalyserWebFile extends AnalyserBaseFile {
 
   fetchExperiment(id: string) {
     return fetchJson(`${BASE_URL}/experiments/${id}`)
-      .then((json) => {
+      .then(json => {
         json = this.addExtraData(json);
         const transformer = new AnalyserJsonTransformer();
         const transformed = transformer.transformModel(json);
-        const result = {json, transformed};
+        const result = { json, transformed };
         return Promise.resolve(result);
       })
-      .catch((error) => {
-        return Promise.reject({description: error});
+      .catch(error => {
+        return Promise.reject({ description: error });
       });
   }
 

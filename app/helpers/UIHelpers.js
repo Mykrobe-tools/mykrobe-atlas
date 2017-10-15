@@ -1,7 +1,7 @@
 /* @flow */
 
 export function openFileDialog() {
-  const {dialog, BrowserWindow} = require('electron').remote;
+  const { dialog, BrowserWindow } = require('electron').remote;
   const browserWindow = BrowserWindow.getFocusedWindow();
 
   const files = dialog.showOpenDialog(browserWindow, {
@@ -10,9 +10,9 @@ export function openFileDialog() {
     filters: [
       {
         name: 'Extensions',
-        extensions: ['json', 'bam', 'gz', 'fastq']
-      }
-    ]
+        extensions: ['json', 'bam', 'gz', 'fastq'],
+      },
+    ],
   });
 
   if (files && files.length) {
@@ -23,12 +23,12 @@ export function openFileDialog() {
 }
 
 export function saveFileDialog(defaultPath: string = 'mykrobe.json') {
-  const {dialog, BrowserWindow} = require('electron').remote;
+  const { dialog, BrowserWindow } = require('electron').remote;
   const browserWindow = BrowserWindow.getFocusedWindow();
 
   const filePath = dialog.showSaveDialog(browserWindow, {
     title: 'Save',
-    defaultPath
+    defaultPath,
   });
 
   return filePath || false;

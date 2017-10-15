@@ -31,7 +31,9 @@ class SummaryMetadata extends Component {
             <tbody>
               <tr>
                 <td>Species</td>
-                <td><em>M. tuberculosis / M. abscessus</em></td>
+                <td>
+                  <em>M. tuberculosis / M. abscessus</em>
+                </td>
               </tr>
               <tr>
                 <td>TB Lineage</td>
@@ -39,7 +41,12 @@ class SummaryMetadata extends Component {
               </tr>
               <tr>
                 <td>Closest relative</td>
-                <td><a href="#"><i className="fa fa-chevron-circle-right" /> :sampleid:</a> - X SNPs apart</td>
+                <td>
+                  <a href="#">
+                    <i className="fa fa-chevron-circle-right" /> :sampleid:
+                  </a>{' '}
+                  - X SNPs apart
+                </td>
               </tr>
             </tbody>
           </table>
@@ -51,12 +58,12 @@ class SummaryMetadata extends Component {
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
   };
 }
 
 SummaryMetadata.propTypes = {
-  analyser: PropTypes.object.isRequired
+  analyser: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps)(SummaryMetadata);

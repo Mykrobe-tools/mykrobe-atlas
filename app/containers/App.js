@@ -15,26 +15,26 @@ import Loading from '../components/ui/Loading';
 
 class App extends Component {
   state = {
-    displayMenu: Boolean
+    displayMenu: Boolean,
   };
 
   constructor(props: Object) {
     super(props);
     this.state = {
-      displayMenu: false
+      displayMenu: false,
     };
   }
 
   componentWillMount() {
-    const {loadAuth, fetchCurrentUser, signOut} = this.props;
+    const { loadAuth, fetchCurrentUser, signOut } = this.props;
 
-    loadAuth().then((user) => {
+    loadAuth().then(user => {
       if (user && user.token) {
-        fetchCurrentUser().then(() => {
-        })
+        fetchCurrentUser()
+          .then(() => {})
         .catch((error) => { //eslint-disable-line
-          signOut();
-        });
+            signOut();
+          });
       }
     });
   }
@@ -42,21 +42,21 @@ class App extends Component {
   componentDidMount() {
     browserHistory.listen(location => {
       this.setState({
-        displayMenu: false
+        displayMenu: false,
       });
     });
   }
 
   toggleMenu() {
-    const {displayMenu} = this.state;
+    const { displayMenu } = this.state;
     this.setState({
-      displayMenu: !displayMenu
+      displayMenu: !displayMenu,
     });
   }
 
   render() {
-    const {auth, children} = this.props;
-    const {displayMenu} = this.state;
+    const { auth, children } = this.props;
+    const { displayMenu } = this.state;
 
     let showLoadingView = false;
     if (!auth.user) {
@@ -66,9 +66,7 @@ class App extends Component {
     }
 
     if (showLoadingView) {
-      return (
-        <Loading />
-      );
+      return <Loading />;
     }
 
     return (
@@ -80,15 +78,19 @@ class App extends Component {
           <Notifications />
         </div>
         <div className={styles.headerContainer}>
-          <Header displayMenu={displayMenu} toggleMenu={() => this.toggleMenu()} />
+          <Header
+            displayMenu={displayMenu}
+            toggleMenu={() => this.toggleMenu()}
+          />
         </div>
         <div className={styles.menuContainer}>
           <Menu displayMenu={displayMenu} />
-          <MenuBg displayMenu={displayMenu} toggleMenu={() => this.toggleMenu()} />
+          <MenuBg
+            displayMenu={displayMenu}
+            toggleMenu={() => this.toggleMenu()}
+          />
         </div>
-        <div className={styles.contentContainer}>
-          {children}
-        </div>
+        <div className={styles.contentContainer}>{children}</div>
       </div>
     );
   }
@@ -96,16 +98,19 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+    auth: state.auth,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    loadAuth: AuthActions.loadAuth,
-    fetchCurrentUser: AuthActions.fetchCurrentUser,
-    signOut: AuthActions.signOut
-  }, dispatch);
+  return bindActionCreators(
+    {
+      loadAuth: AuthActions.loadAuth,
+      fetchCurrentUser: AuthActions.fetchCurrentUser,
+      signOut: AuthActions.signOut,
+    },
+    dispatch
+  );
 }
 
 App.propTypes = {
@@ -113,7 +118,7 @@ App.propTypes = {
   fetchCurrentUser: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

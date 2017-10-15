@@ -7,13 +7,11 @@ import ExperimentsHeader from '../experiments/ExperimentsHeader';
 
 class Library extends Component {
   render() {
-    const {experiments} = this.props;
+    const { experiments } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <div className={styles.title}>
-            Library
-          </div>
+          <div className={styles.title}>Library</div>
         </div>
         <div className={styles.content}>
           <div className={styles.experiments}>
@@ -31,7 +29,7 @@ class Library extends Component {
 }
 
 Library.propTypes = {
-  experiments: PropTypes.object.isRequired
+  experiments: PropTypes.object.isRequired,
 };
 
 export default Library;

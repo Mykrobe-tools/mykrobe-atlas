@@ -6,13 +6,28 @@ import styles from './ResistanceProfile.css';
 
 class ResistanceProfile extends Component {
   render() {
-    const {analyser} = this.props;
-    const {resistant, susceptible, inconclusive} = analyser.transformed;
+    const { analyser } = this.props;
+    const { resistant, susceptible, inconclusive } = analyser.transformed;
     return (
       <div className={styles.container}>
-        {this.column(styles.columnTitleSusceptible, 'fa-check-circle', 'Susceptible', susceptible)}
-        {this.column(styles.columnTitleResistant, 'fa-exclamation-triangle', 'Resistant', resistant)}
-        {this.column(styles.columnTitleInconclusive, 'fa-minus-square', 'Inconclusive', inconclusive)}
+        {this.column(
+          styles.columnTitleSusceptible,
+          'fa-check-circle',
+          'Susceptible',
+          susceptible
+        )}
+        {this.column(
+          styles.columnTitleResistant,
+          'fa-exclamation-triangle',
+          'Resistant',
+          resistant
+        )}
+        {this.column(
+          styles.columnTitleInconclusive,
+          'fa-minus-square',
+          'Inconclusive',
+          inconclusive
+        )}
       </div>
     );
   }
@@ -26,10 +41,8 @@ class ResistanceProfile extends Component {
         <div className={titleStyle}>
           <i className={`fa ${icon}`} /> {title}
         </div>
-        {elements.map((element) => {
-          return (
-            <div key={`ELEMENT_${element}`}>{element}</div>
-          );
+        {elements.map(element => {
+          return <div key={`ELEMENT_${element}`}>{element}</div>;
         })}
       </div>
     );
@@ -38,13 +51,13 @@ class ResistanceProfile extends Component {
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
   };
 }
 
 ResistanceProfile.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired
+  analyser: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps)(ResistanceProfile);

@@ -24,13 +24,13 @@ class ResistanceAll extends Component {
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
   };
 }
 
 ResistanceAll.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired
+  analyser: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps)(ResistanceAll);

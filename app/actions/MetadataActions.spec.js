@@ -16,40 +16,39 @@ describe('MetadataActions', () => {
       const store = mockStore({});
       nock(BASE_URL)
         .put('/api/experiments/1')
-        .reply(200, {status: 'ok'});
+        .reply(200, { status: 'ok' });
       const expectedActions = [
         {
-          type: 'POST_METADATA_FORM'
+          type: 'POST_METADATA_FORM',
         },
         {
-          'autoHide': true,
-          'category': 'SUCCESS',
-          'content': 'Metadata saved',
-          'id': 0,
-          'type': 'SHOW_NOTIFICATION'
+          autoHide: true,
+          category: 'SUCCESS',
+          content: 'Metadata saved',
+          id: 0,
+          type: 'SHOW_NOTIFICATION',
         },
         {
-          'id': 0,
-          'type': 'HIDE_NOTIFICATION'
-        }
+          id: 0,
+          type: 'HIDE_NOTIFICATION',
+        },
       ];
       jest.useFakeTimers();
-      return store.dispatch(MetadataActions.postMetadataForm({}))
-        .then(() => {
-          jest.runAllTimers();
-          expect(store.getActions()).toEqual(expectedActions);
-        });
+      return store.dispatch(MetadataActions.postMetadataForm({})).then(() => {
+        jest.runAllTimers();
+        expect(store.getActions()).toEqual(expectedActions);
+      });
     });
   });
 
   describe('setMetadata', () => {
     it('should create a "SET_METADATA" action', () => {
       const metadata = {
-        lorem: 'ipsum'
+        lorem: 'ipsum',
       };
       const expectedAction = {
         type: 'SET_METADATA',
-        metadata
+        metadata,
       };
       expect(MetadataActions.setMetadata(metadata)).toEqual(expectedAction);
     });

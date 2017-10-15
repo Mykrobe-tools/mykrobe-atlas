@@ -7,24 +7,20 @@ import { connect } from 'react-redux';
 
 class ResistanceClass extends Component {
   render() {
-    return (
-      <div>
-        ResistanceClass
-      </div>
-    );
+    return <div>ResistanceClass</div>;
   }
 }
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
   };
 }
 
 ResistanceClass.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default connect(mapStateToProps)(ResistanceClass);

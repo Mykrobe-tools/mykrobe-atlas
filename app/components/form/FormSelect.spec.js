@@ -10,9 +10,9 @@ describe('FormSelect component', () => {
   it('fires change events', () => {
     const value = 'dolorSitAmet';
     const options = [
-      {value: 'lorem', label: 'Lorem'},
-      {value: 'ipsum', label: 'Ipsum'},
-      {value: 'dolorSitAmet', label: 'Dolor Sit Amet'}
+      { value: 'lorem', label: 'Lorem' },
+      { value: 'ipsum', label: 'Ipsum' },
+      { value: 'dolorSitAmet', label: 'Dolor Sit Amet' },
     ];
     const component = mount(
       <FormSelect
@@ -20,9 +20,10 @@ describe('FormSelect component', () => {
         title={title}
         options={options}
         value={value}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
-    component.find('select').simulate('change', {target: {value: 'ipsum'}});
+    component.find('select').simulate('change', { target: { value: 'ipsum' } });
     expect(onChange).toBeCalled();
   });
 });

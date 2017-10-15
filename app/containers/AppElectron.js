@@ -12,47 +12,48 @@ import App from './App';
 class AppElectron extends Component {
   constructor(props) {
     super(props);
-    const {dispatch} = props;
+    const { dispatch } = props;
     const ipcRenderer = require('electron').ipcRenderer;
 
     ipcRenderer.on('open-file', (e, filePath) => {
       console.log('App open-file');
       if (filePath) {
-        FileHelpers.getFileObject(filePath).then((fileObject) => {
-          // dispatch(AnalyserActions.analyseFile(fileObject));
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        FileHelpers.getFileObject(filePath)
+          .then(fileObject => {
+            // dispatch(AnalyserActions.analyseFile(fileObject));
+          })
+          .catch(error => {
+            console.error(error);
+          });
       }
     });
 
-    ipcRenderer.on('menu-file-new', (e) => {
+    ipcRenderer.on('menu-file-new', e => {
       dispatch(push('/'));
     });
 
-    ipcRenderer.on('menu-file-open', (e) => {
+    ipcRenderer.on('menu-file-open', e => {
       const filePath = UIHelpers.openFileDialog();
       if (filePath) {
-        FileHelpers.getFileObject(filePath).then((fileObject) => {
-          // dispatch(AnalyserActions.analyseFile(fileObject));
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        FileHelpers.getFileObject(filePath)
+          .then(fileObject => {
+            // dispatch(AnalyserActions.analyseFile(fileObject));
+          })
+          .catch(error => {
+            console.error(error);
+          });
       }
     });
 
-    ipcRenderer.on('menu-file-save-as', (e) => {
+    ipcRenderer.on('menu-file-save-as', e => {
       const filePath = UIHelpers.saveFileDialog('mykrobe.json');
       if (filePath) {
-        const {analyser} = this.props;
+        const { analyser } = this.props;
         const json = JSON.stringify(analyser.json, null, 2);
-        fs.writeFile(filePath, json, (err) => {
+        fs.writeFile(filePath, json, err => {
           if (err) {
             console.error(err);
-          }
-          else {
+          } else {
             console.log('JSON saved to ', filePath);
           }
         });
@@ -62,7 +63,7 @@ class AppElectron extends Component {
   }
 
   render() {
-    const {analyser, children} = this.props;
+    const { analyser, children } = this.props;
 
     /*
     Get application menu and disable save as...
@@ -73,26 +74,24 @@ class AppElectron extends Component {
     const remote = require('electron').remote;
     const menu = remote.Menu.getApplicationMenu();
     if (process.platform === 'darwin') {
-      const canSave = (analyser.json !== false);
+      const canSave = analyser.json !== false;
       menu.items[1].submenu.items[4].enabled = canSave;
     }
 
-    return (
-      <App children={children} />
-    );
+    return <App children={children} />;
   }
 }
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
   };
 }
 
 AppElectron.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  children: PropTypes.element.isRequired
+  children: PropTypes.element.isRequired,
 };
 
 export default connect(mapStateToProps)(AppElectron);

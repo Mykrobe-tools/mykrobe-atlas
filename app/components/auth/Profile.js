@@ -13,15 +13,14 @@ import * as OrganisationActions from '../../actions/OrganisationActions.js';
 import Loading from '../ui/Loading';
 
 class Profile extends React.Component {
-
   componentWillMount() {
-    const {fetchCurrentUser, requestAllOrganisations} = this.props;
+    const { fetchCurrentUser, requestAllOrganisations } = this.props;
     fetchCurrentUser();
     requestAllOrganisations();
   }
 
   componentWillUnmount() {
-    const {deleteFailureReason} = this.props;
+    const { deleteFailureReason } = this.props;
     deleteFailureReason();
   }
 
@@ -33,21 +32,21 @@ class Profile extends React.Component {
       firstname: this.refs.firstname.value,
       lastname: this.refs.lastname.value,
       phone: this.refs.phone.value,
-      organisation: this.refs.organisation.value
+      organisation: this.refs.organisation.value,
     };
     updateCurrentUser(userObject);
   }
 
-  deleteAccount = (e) => {
-    const {deleteCurrentUser} = this.props;
+  deleteAccount = e => {
+    const { deleteCurrentUser } = this.props;
     if (confirm('Delete account?')) {
       deleteCurrentUser();
     }
-  }
+  };
 
   render() {
-    const {failureReason} = this.props.auth;
-    const {signOut, organisations} = this.props;
+    const { failureReason } = this.props.auth;
+    const { signOut, organisations } = this.props;
     const auth: AuthType = this.props.auth;
     const user: ?UserType = auth.user;
     if (!user) {
@@ -57,9 +56,7 @@ class Profile extends React.Component {
       return (
         <div className={styles.container}>
           <div className={styles.header}>
-            <div className={styles.title}>
-              Profile
-            </div>
+            <div className={styles.title}>Profile</div>
           </div>
           <div className={styles.contentContainer}>
             <div className={styles.formContainer}>
@@ -69,38 +66,61 @@ class Profile extends React.Component {
         </div>
       );
     }
-    const {email, firstname, lastname, phone, organisation} = user;
+    const { email, firstname, lastname, phone, organisation } = user;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
-          <div className={styles.title}>
-            Profile
-          </div>
+          <div className={styles.title}>Profile</div>
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>
-            <div className={styles.contentTitle}>
-              Profile
-            </div>
-            <form onSubmit={(e) => {
-              this.handleSubmit(e);
-            }}>
+            <div className={styles.contentTitle}>Profile</div>
+            <form
+              onSubmit={e => {
+                this.handleSubmit(e);
+              }}
+            >
               {failureReason && (
-                <div className={styles.formErrors}>
-                  {failureReason}
-                </div>
+                <div className={styles.formErrors}>{failureReason}</div>
               )}
               <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="email">Email</label>
-                <input className={styles.input} type="email" id="email" ref="email" placeholder="sam.smith@example.com" defaultValue={email} />
+                <label className={styles.label} htmlFor="email">
+                  Email
+                </label>
+                <input
+                  className={styles.input}
+                  type="email"
+                  id="email"
+                  ref="email"
+                  placeholder="sam.smith@example.com"
+                  defaultValue={email}
+                />
               </div>
               <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="firstname">First name</label>
-                <input className={styles.input} type="text" id="firstname" ref="firstname" placeholder="Sam" defaultValue={firstname} />
+                <label className={styles.label} htmlFor="firstname">
+                  First name
+                </label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  id="firstname"
+                  ref="firstname"
+                  placeholder="Sam"
+                  defaultValue={firstname}
+                />
               </div>
               <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="lastname">Last name</label>
-                <input className={styles.input} type="text" id="lastname" ref="lastname" placeholder="Smith" defaultValue={lastname} />
+                <label className={styles.label} htmlFor="lastname">
+                  Last name
+                </label>
+                <input
+                  className={styles.input}
+                  type="text"
+                  id="lastname"
+                  ref="lastname"
+                  placeholder="Smith"
+                  defaultValue={lastname}
+                />
               </div>
               <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="phone">
@@ -116,7 +136,9 @@ class Profile extends React.Component {
                 />
               </div>
               <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="organisation">Organisation</label>
+                <label className={styles.label} htmlFor="organisation">
+                  Organisation
+                </label>
                 {/*
                 <div className={styles.selectWrap}>
                   <select disabled className={styles.select} ref="organisation" id="organisation" defaultValue={selectedOrganisation}>
@@ -131,21 +153,34 @@ class Profile extends React.Component {
                   </select>
                 </div>
                 */}
-                {organisation && organisation.id && (
-                  <Link to={`/organisation/edit/${organisation.id}`}><i className="fa fa-chevron-circle-right" /> {organisation.name}</Link>
-                )}
+                {organisation &&
+                  organisation.id && (
+                    <Link to={`/organisation/edit/${organisation.id}`}>
+                      <i className="fa fa-chevron-circle-right" />{' '}
+                      {organisation.name}
+                    </Link>
+                  )}
               </div>
               <div className={styles.formActions}>
                 <button className={styles.button} type="submit">
-                  <span><i className="fa fa-chevron-circle-right" /> Update profile</span>
+                  <span>
+                    <i className="fa fa-chevron-circle-right" /> Update profile
+                  </span>
                 </button>
                 <div>
-                  <a className={styles.buttonBorderless} onClick={(e) => {
-                    signOut();
-                  }}>Sign out</a>
+                  <a
+                    className={styles.buttonBorderless}
+                    onClick={e => {
+                      signOut();
+                    }}
+                  >
+                    Sign out
+                  </a>
                 </div>
                 <div className={styles.destructiveAction}>
-                  <a onClick={this.deleteAccount}><i className="fa fa-trash" /> Delete account</a>
+                  <a onClick={this.deleteAccount}>
+                    <i className="fa fa-trash" /> Delete account
+                  </a>
                 </div>
               </div>
             </form>
@@ -159,19 +194,22 @@ class Profile extends React.Component {
 function mapStateToProps(state) {
   return {
     auth: state.auth,
-    organisations: state.organisations
+    organisations: state.organisations,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    signOut: AuthActions.signOut,
-    fetchCurrentUser: AuthActions.fetchCurrentUser,
-    updateCurrentUser: AuthActions.updateCurrentUser,
-    deleteFailureReason: AuthActions.deleteFailureReason,
-    deleteCurrentUser: AuthActions.deleteCurrentUser,
-    requestAllOrganisations: OrganisationActions.requestAllOrganisations
-  }, dispatch);
+  return bindActionCreators(
+    {
+      signOut: AuthActions.signOut,
+      fetchCurrentUser: AuthActions.fetchCurrentUser,
+      updateCurrentUser: AuthActions.updateCurrentUser,
+      deleteFailureReason: AuthActions.deleteFailureReason,
+      deleteCurrentUser: AuthActions.deleteCurrentUser,
+      requestAllOrganisations: OrganisationActions.requestAllOrganisations,
+    },
+    dispatch
+  );
 }
 
 Profile.propTypes = {
@@ -182,7 +220,7 @@ Profile.propTypes = {
   updateCurrentUser: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
   deleteCurrentUser: PropTypes.func.isRequired,
-  requestAllOrganisations: PropTypes.func.isRequired
+  requestAllOrganisations: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

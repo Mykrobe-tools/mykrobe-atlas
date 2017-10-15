@@ -6,6 +6,6 @@ export type SampleType = {
   location: {
     name: string,
     lat: string,
-    long: string
-  }
+    long: string,
+  },
 };

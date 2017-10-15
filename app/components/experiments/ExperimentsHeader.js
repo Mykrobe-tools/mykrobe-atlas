@@ -16,29 +16,29 @@ class ExperimentsHeader extends Component {
     filterFields: Array<Object>,
     filterValues?: Array<Object>,
     selectedFilterField?: string,
-    selectedFilterValue?: string
-  }
+    selectedFilterValue?: string,
+  };
 
   constructor(props: Object) {
     super(props);
     this.state = {
-      filterFields: filters
+      filterFields: filters,
     };
   }
 
   onClearFiltersClick = (e: Event) => {
-    const {fetchExperiments} = this.props;
+    const { fetchExperiments } = this.props;
     e.preventDefault();
     this.setState({
       filterValues: [],
       selectedFilterField: '',
-      selectedFilterValue: ''
+      selectedFilterValue: '',
     });
     fetchExperiments();
   };
 
   handleFilterFieldSelection(event: InputEvent) {
-    const {fetchFilterValues} = this.props;
+    const { fetchFilterValues } = this.props;
     const filter = event.target.value;
     this.updateFilterState(event);
     if (filter) {
@@ -47,11 +47,11 @@ class ExperimentsHeader extends Component {
   }
 
   handleFilterValueSelection(event: InputEvent) {
-    const {fetchExperiments} = this.props;
-    const {selectedFilterField} = this.state;
+    const { fetchExperiments } = this.props;
+    const { selectedFilterField } = this.state;
     if (!selectedFilterField) return;
     const params = {
-      [selectedFilterField]: event.target.value
+      [selectedFilterField]: event.target.value,
     };
     this.updateFilterState(event);
     fetchExperiments(params);
@@ -59,15 +59,19 @@ class ExperimentsHeader extends Component {
 
   updateFilterState(event: InputEvent) {
     var state = {
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     };
     this.setState(state);
   }
 
   render() {
-    const {filterFields, selectedFilterField, selectedFilterValue} = this.state;
-    const {experiments} = this.props;
-    const {filterValues} = experiments;
+    const {
+      filterFields,
+      selectedFilterField,
+      selectedFilterValue,
+    } = this.state;
+    const { experiments } = this.props;
+    const { filterValues } = experiments;
     return (
       <div className={styles.header}>
         <div className={styles.filters}>
@@ -77,33 +81,35 @@ class ExperimentsHeader extends Component {
               name="selectedFilterField"
               value={selectedFilterField}
               options={filterFields}
-              onChange={(e) => this.handleFilterFieldSelection(e)}
+              onChange={e => this.handleFilterFieldSelection(e)}
             />
-            {selectedFilterField &&
+            {selectedFilterField && (
               <div className={styles.subFilter}>
                 <div className={styles.subFilterLabel}>
-                  <FormLabel
-                    htmlFor={selectedFilterValue}
-                    label="is" />
+                  <FormLabel htmlFor={selectedFilterValue} label="is" />
                 </div>
                 <FormSelect
                   name="selectedFilterValue"
                   value={selectedFilterValue}
                   options={filterValues}
-                  onChange={(e) => this.handleFilterValueSelection(e)}
+                  onChange={e => this.handleFilterValueSelection(e)}
                 />
-                <a href="#" className={styles.clearFilters} onClick={this.onClearFiltersClick}>
-                  <span><i className="fa fa-times-circle" /> Clear filters</span>
+                <a
+                  href="#"
+                  className={styles.clearFilters}
+                  onClick={this.onClearFiltersClick}
+                >
+                  <span>
+                    <i className="fa fa-times-circle" /> Clear filters
+                  </span>
                 </a>
               </div>
-            }
+            )}
           </div>
         </div>
-        {experiments.total &&
-          <div className={styles.count}>
-            {experiments.total} found
-          </div>
-        }
+        {experiments.total && (
+          <div className={styles.count}>{experiments.total} found</div>
+        )}
       </div>
     );
   }
@@ -112,7 +118,7 @@ class ExperimentsHeader extends Component {
 ExperimentsHeader.propTypes = {
   experiments: PropTypes.object.isRequired,
   fetchFilterValues: PropTypes.func.isRequired,
-  fetchExperiments: PropTypes.func.isRequired
+  fetchExperiments: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -120,10 +126,13 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    fetchFilterValues: ExperimentActions.fetchFilterValues,
-    fetchExperiments: ExperimentActions.fetchExperiments
-  }, dispatch);
+  return bindActionCreators(
+    {
+      fetchFilterValues: ExperimentActions.fetchFilterValues,
+      fetchExperiments: ExperimentActions.fetchExperiments,
+    },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExperimentsHeader);

@@ -6,12 +6,12 @@ export function setNodeHighlighted(node: string, highlighted: boolean) {
   return {
     type: ActionTypes.SET_NODE_HIGHLIGHTED,
     node,
-    highlighted
+    highlighted,
   };
 }
 
 export function unsetNodeHighlightedAll() {
   return {
-    type: ActionTypes.UNSET_NODE_HIGHLIGHTED_ALL
+    type: ActionTypes.UNSET_NODE_HIGHLIGHTED_ALL,
   };
 }

@@ -7,15 +7,13 @@ import Panel from '../ui/Panel';
 
 class ResistanceSpecies extends Component {
   render() {
-    const {analyser} = this.props;
-    const {speciesPretty} = analyser.transformed;
+    const { analyser } = this.props;
+    const { speciesPretty } = analyser.transformed;
 
     return (
       <div className={styles.container}>
         <Panel title="Species" columns={8}>
-          <div className={styles.species}>
-            {speciesPretty}
-          </div>
+          <div className={styles.species}>{speciesPretty}</div>
         </Panel>
       </div>
     );
@@ -24,14 +22,14 @@ class ResistanceSpecies extends Component {
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
   };
 }
 
 ResistanceSpecies.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default connect(mapStateToProps)(ResistanceSpecies);

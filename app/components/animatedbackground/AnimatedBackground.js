@@ -8,7 +8,7 @@ import lozengeStyles from './Lozenge.css';
 class AnimatedBackground extends Component {
   state: {
     width: number,
-    height: number
+    height: number,
   };
   _resize: (e: Event) => void;
   _container: Element;
@@ -17,9 +17,9 @@ class AnimatedBackground extends Component {
     super(props);
     this.state = {
       width: 0,
-      height: 0
+      height: 0,
     };
-    this._resize = (e) => this.resize(e);
+    this._resize = e => this.resize(e);
   }
 
   componentDidMount() {
@@ -39,26 +39,57 @@ class AnimatedBackground extends Component {
 
   measureContainer() {
     const boundingClientRect = this._container.getBoundingClientRect();
-    const {width, height} = boundingClientRect;
+    const { width, height } = boundingClientRect;
     this.setState({
       width,
-      height
+      height,
     });
   }
 
   render() {
-    const {width, height} = this.state;
+    const { width, height } = this.state;
     return (
-      <div ref={(ref) => {
-        this._container = ref;
-      }} className={styles.container}>
-        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
-        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
-        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
-        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
-        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
-        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
-        <Lozenge containerWidth={width} containerHeight={height} lozengeClassName={lozengeStyles.lozengeYellow} />
+      <div
+        ref={ref => {
+          this._container = ref;
+        }}
+        className={styles.container}
+      >
+        <Lozenge
+          containerWidth={width}
+          containerHeight={height}
+          lozengeClassName={lozengeStyles.lozengeYellow}
+        />
+        <Lozenge
+          containerWidth={width}
+          containerHeight={height}
+          lozengeClassName={lozengeStyles.lozengeYellow}
+        />
+        <Lozenge
+          containerWidth={width}
+          containerHeight={height}
+          lozengeClassName={lozengeStyles.lozengeYellow}
+        />
+        <Lozenge
+          containerWidth={width}
+          containerHeight={height}
+          lozengeClassName={lozengeStyles.lozengeYellow}
+        />
+        <Lozenge
+          containerWidth={width}
+          containerHeight={height}
+          lozengeClassName={lozengeStyles.lozengeYellow}
+        />
+        <Lozenge
+          containerWidth={width}
+          containerHeight={height}
+          lozengeClassName={lozengeStyles.lozengeYellow}
+        />
+        <Lozenge
+          containerWidth={width}
+          containerHeight={height}
+          lozengeClassName={lozengeStyles.lozengeYellow}
+        />
         <Lozenge containerWidth={width} containerHeight={height} />
         <Lozenge containerWidth={width} containerHeight={height} />
         <Lozenge containerWidth={width} containerHeight={height} />

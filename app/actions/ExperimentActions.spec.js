@@ -21,30 +21,28 @@ describe('ExperimentActions', () => {
         .reply(200, data);
 
       const expectedActions = [
-        {type: 'REQUEST_EXPERIMENTS', filters: {}},
-        {type: 'RECEIVE_EXPERIMENTS', data}
+        { type: 'REQUEST_EXPERIMENTS', filters: {} },
+        { type: 'RECEIVE_EXPERIMENTS', data },
       ];
 
       jest.useFakeTimers();
-      return store.dispatch(ExperimentActions.fetchExperiments())
-        .then(() => {
-          jest.runAllTimers();
-          expect(store.getActions()).toEqual(expectedActions);
-        });
+      return store.dispatch(ExperimentActions.fetchExperiments()).then(() => {
+        jest.runAllTimers();
+        expect(store.getActions()).toEqual(expectedActions);
+      });
     });
 
     it('should create an empty "RECEIVE_EXPERIMENTS" action on API error', () => {
       const store = mockStore({});
       nock(BASE_URL)
         .get('/api/experiments')
-        .replyWithError({'message': 'Something went wrong'});
+        .replyWithError({ message: 'Something went wrong' });
 
-      const expectedAction = {type: 'RECEIVE_EXPERIMENTS', data: []};
+      const expectedAction = { type: 'RECEIVE_EXPERIMENTS', data: [] };
 
-      return store.dispatch(ExperimentActions.fetchExperiments())
-        .then(() => {
-          expect(store.getActions()).toContainEqual(expectedAction);
-        });
+      return store.dispatch(ExperimentActions.fetchExperiments()).then(() => {
+        expect(store.getActions()).toContainEqual(expectedAction);
+      });
     });
   });
 });

@@ -18,9 +18,12 @@ describe('FormTextarea component', () => {
         value={value}
         placeholder={placeholder}
         rows={rows}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
-    component.find('textarea').simulate('change', {target: {value: 'Lorem'}});
+    component
+      .find('textarea')
+      .simulate('change', { target: { value: 'Lorem' } });
     expect(onChange).toBeCalled();
   });
 });

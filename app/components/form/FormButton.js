@@ -5,9 +5,8 @@ import React, { Component, PropTypes } from 'react';
 import styles from './FormButton.css';
 
 class FormButton extends Component {
-
   onClick(event: Event) {
-    const {onClick} = this.props;
+    const { onClick } = this.props;
     if (onClick) {
       event.preventDefault();
       onClick(event);
@@ -15,13 +14,14 @@ class FormButton extends Component {
   }
 
   render() {
-    const {label, type} = this.props;
+    const { label, type } = this.props;
     return (
       <div className={styles.wrap}>
         <button
           className={styles.input}
-          onClick={(event) => this.onClick(event)}
-          type={type}>
+          onClick={event => this.onClick(event)}
+          type={type}
+        >
           {label}
         </button>
       </div>
@@ -32,7 +32,7 @@ class FormButton extends Component {
 FormButton.propTypes = {
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func,
-  type: PropTypes.oneOf(['submit', 'button', 'reset']).isRequired
+  type: PropTypes.oneOf(['submit', 'button', 'reset']).isRequired,
 };
 
 export default FormButton;
