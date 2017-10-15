@@ -36,7 +36,7 @@ class Edit extends React.Component {
     updateOrganisation(organisationObject);
   }
 
-  deleteOrganisation = e => {
+  deleteOrganisation = () => {
     const { deleteOrganisation } = this.props;
     const organisationObject: OrganisationType = {
       id: this.id,

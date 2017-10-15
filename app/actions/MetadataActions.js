@@ -16,7 +16,7 @@ export function postMetadataForm(id: string, metadata: Object) {
       method: 'PUT',
       body: JSON.stringify(metadata),
     })
-      .then(data => {
+      .then(() => {
         dispatch(
           showNotification({
             category: NotificationCategories.SUCCESS,

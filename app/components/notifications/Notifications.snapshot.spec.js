@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { Notifications } from './Notifications';
+import Notifications from './Notifications';
 
 describe('Notifications component snapshot', () => {
   const notifications = [

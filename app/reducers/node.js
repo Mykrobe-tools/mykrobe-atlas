@@ -11,7 +11,7 @@ export default function analyser(
   action: Object = {}
 ) {
   switch (action.type) {
-    case ActionTypes.SET_NODE_HIGHLIGHTED:
+    case ActionTypes.SET_NODE_HIGHLIGHTED: {
       // clone the current array
       let highlighted = state.highlighted.slice();
       const index = highlighted.indexOf(action.node);
@@ -31,6 +31,7 @@ export default function analyser(
         ...state,
         highlighted,
       };
+    }
     case ActionTypes.UNSET_NODE_HIGHLIGHTED_ALL:
       return initialState;
     default:

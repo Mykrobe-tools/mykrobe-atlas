@@ -3,7 +3,7 @@
 import Resumablejs from 'resumablejs';
 import SparkMD5 from 'spark-md5';
 import EventEmitter from 'events';
-import store from '../../store/store';
+import store from '../../store/store'; // eslint-disable-line import/default
 import type { UserType } from '../../types/UserTypes';
 import { BASE_URL } from '../../constants/APIConstants';
 
@@ -44,7 +44,7 @@ class UploadFile extends EventEmitter {
       maxFilesErrorCallback: () => {
         this.onUploadError('Please upload one file at a time');
       },
-      fileTypeErrorCallback: (file, errorCount) => {
+      fileTypeErrorCallback: () => {
         this.onUploadError('This filetype is unsupported');
       },
     });
@@ -55,7 +55,7 @@ class UploadFile extends EventEmitter {
       this.emit('prepare', file.fileName);
       this.computeChecksums(file);
     });
-    this.resumable.on('fileProgress', file => {
+    this.resumable.on('fileProgress', () => {
       this.onUploadProgress();
     });
     this.resumable.on('fileSuccess', file => {

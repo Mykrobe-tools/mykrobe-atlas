@@ -3,7 +3,7 @@
 import fetch from 'isomorphic-fetch';
 import type { UserType } from '../types/UserTypes';
 
-import store from '../store/store';
+import store from '../store/store'; // eslint-disable-line import/default
 
 /**
  * Adds Authorization token

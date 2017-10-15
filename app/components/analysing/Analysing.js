@@ -26,17 +26,17 @@ class Analysing extends Component {
             progress={analyser.progress}
             description={analyser.stepDescription}
             filename={analyser.filename}
-            onCancel={e => this.onCancelClick(e)}
+            onCancel={this.onCancelClick}
           />
         )}
       </div>
     );
   }
 
-  onCancelClick(e: Event) {
+  onCancelClick = () => {
     const { analyseFileCancel } = this.props;
     analyseFileCancel();
-  }
+  };
 }
 
 Analysing.propTypes = {

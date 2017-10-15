@@ -1,6 +1,6 @@
 # Coding standards
 
-Coding standards to follow when working on the app, to ensure consistency and quality.
+Coding standards to follow when working on the app, to ensure consistency and quality. Code is automatically formatted on commit.
 
 ## JavaScript
 
@@ -8,61 +8,6 @@ Follow the [standardjs.com](http://standardjs.com) conventions, unless otherwise
 
 Check the `rules` block of the `.eslintrc` config file in the project root to see which options differ from the stadardjs documentation:
 
-
-### Semi-colons
-
-Use semi-colons.
-
-_eslint rule: `semi: "always"`_
-
-```
-// bad
-const lorem = 'ipsum'
-
-// good
-const lorem = 'ipsum';
-```
-
-### Space before function parenthesis
-
-No space between function name and function parenthesis.
-
-_eslint rule: `space-before-function-paren: "never"`_
-
-```
-// bad
-function withSpace (x) {
-    // ...
-}
-
-// good
-function withoutSpace(x) {
-	// ...
-}
-```
-
-### "stroustrup" style braces
-
-Put `else` statements on a new line.
-
-_eslint rule: `brace-style: "stroustrup"`_
-
-```
-// bad
-if (foo) {
-  bar();
-} else {
-  baz();
-}
-
-// good
-if (foo) {
-  bar();
-}
-else {
-  baz();
-}
-```
 
 ### Avoid bind
 

@@ -59,7 +59,7 @@ class AnalyserBaseFile extends EventEmitter {
   analyseJsonFile(file: File): AnalyserBaseFile {
     const reader = new FileReader();
 
-    reader.onload = e => {
+    reader.onload = () => {
       const dataString = reader.result;
       this.doneWithJsonString(dataString);
     };

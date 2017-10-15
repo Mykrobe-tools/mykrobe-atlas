@@ -33,7 +33,7 @@ class PhyloCanvasComponent extends Component {
 
   constructor() {
     super();
-    this._resize = e => this.resize();
+    this._resize = () => this.resize();
     this._mouseMove = e => this.mouseMove(e);
     this._currentNodeHover = null;
     this._highlightedNodes = {};
@@ -54,13 +54,13 @@ class PhyloCanvasComponent extends Component {
     this._tree.showLabels = false;
     this._tree.branchColour = Colors.COLOR_GREY_MID;
     this._tree.hoverLabel = false;
-    this._tree.on('loaded', e => {
+    this._tree.on('loaded', () => {
       console.log('loaded');
       if (onLoad) {
         onLoad();
       }
     });
-    this._tree.on('draw', e => {
+    this._tree.on('draw', () => {
       this.afterDraw();
     });
     this._tree.load(this.props.data);
@@ -117,7 +117,7 @@ class PhyloCanvasComponent extends Component {
     ids: Array<string>,
     color = Colors.COLOR_TINT_SECONDARY
   ) {
-    ids.forEach((id, index) => {
+    ids.forEach(id => {
       this.highlightNodeWithId(id, color);
     });
     return this;

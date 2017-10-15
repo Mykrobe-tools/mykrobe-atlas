@@ -326,7 +326,7 @@ class MetadataForm extends Component {
                     title="Country of birth"
                     name="countryOfBirth"
                     value={countryOfBirth}
-                    suggestions={locations.map((location, index) => {
+                    suggestions={locations.map(location => {
                       return {
                         value: location['alpha-2'],
                         label: location.name,
@@ -559,7 +559,7 @@ class MetadataForm extends Component {
                     name="countryIsolate"
                     value={countryIsolate}
                     required
-                    suggestions={locations.map((location, index) => {
+                    suggestions={locations.map(location => {
                       return {
                         value: location['alpha-2'],
                         label: location.name,

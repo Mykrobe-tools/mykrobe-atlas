@@ -5,7 +5,7 @@ import type { JSendType } from '../types/JSendType';
 import type { UserType } from '../types/UserTypes';
 import * as AuthActions from '../actions/AuthActions';
 
-import store from '../store/store';
+import store from '../store/store'; // eslint-disable-line import/default
 
 /**
  * Request and parse a JSend resource from the API

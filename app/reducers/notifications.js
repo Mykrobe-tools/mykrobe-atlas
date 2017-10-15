@@ -9,7 +9,7 @@ export default function notifications(
   action: Object = {}
 ) {
   switch (action.type) {
-    case ActionTypes.SHOW_NOTIFICATION:
+    case ActionTypes.SHOW_NOTIFICATION: {
       const { id, category, content, autoHide } = action;
       let notification = {
         id,
@@ -18,6 +18,7 @@ export default function notifications(
         autoHide,
       };
       return [...state, notification];
+    }
 
     case ActionTypes.HIDE_NOTIFICATION:
       return state.filter(notification => {

@@ -127,7 +127,7 @@ function authRawState(state: AuthType, action: Object) {
         isFetching: true,
         failureReason: undefined,
       };
-    case types.AUTH_REQUEST_USER_SUCCESS:
+    case types.AUTH_REQUEST_USER_SUCCESS: {
       const user = {
         ...state.user,
         ...action.user,
@@ -137,6 +137,7 @@ function authRawState(state: AuthType, action: Object) {
         user,
         isFetching: false,
       };
+    }
     case types.AUTH_REQUEST_USER_FAIL:
       return {
         ...state,

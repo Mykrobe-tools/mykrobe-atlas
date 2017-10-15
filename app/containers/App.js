@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    browserHistory.listen(location => {
+    browserHistory.listen(() => {
       this.setState({
         displayMenu: false,
       });

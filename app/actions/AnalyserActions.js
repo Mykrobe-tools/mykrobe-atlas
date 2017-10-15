@@ -16,7 +16,7 @@ const analyserService = new AnalyserService();
 const uploadService = new UploadService();
 
 export function monitorUpload() {
-  return (dispatch: Function, getState: Function) => {
+  return (dispatch: Function) => {
     uploadService.uploadFile
       .on('prepare', filename => {
         dispatch(analyseFilePrepare(filename));
@@ -37,7 +37,7 @@ export function monitorUpload() {
 }
 
 function analyseFilePrepare(filename: string) {
-  return (dispatch: Function, getState: Function) => {
+  return (dispatch: Function) => {
     return uploadService
       .prepare()
       .then(experiment => {
@@ -61,7 +61,7 @@ function analyseFileUpload() {
 }
 
 function analyseFile(file: File, id: string) {
-  return (dispatch: Function, getState: Function) => {
+  return (dispatch: Function) => {
     if (IS_ELECTRON) {
       // $FlowFixMe: Ignore Electron require
       const { app } = require('electron').remote;
@@ -101,7 +101,7 @@ function analyseFileSuccess(
   json: Object,
   transformed: Object
 ) {
-  return (dispatch: Function, getState: Function) => {
+  return (dispatch: Function) => {
     dispatch(
       showNotification({
         category: NotificationCategories.SUCCESS,
@@ -124,7 +124,7 @@ function analyseFileProgress(progress: number) {
 }
 
 function analyseFileError(error: string) {
-  return (dispatch: Function, getState: Function) => {
+  return (dispatch: Function) => {
     dispatch(
       showNotification({
         category: NotificationCategories.ERROR,
@@ -140,7 +140,7 @@ function analyseFileError(error: string) {
 }
 
 export function analyseRemoteFile(file: Object) {
-  return (dispatch: Function, getState: Function) => {
+  return (dispatch: Function) => {
     return uploadService
       .prepare()
       .then(experiment => {
@@ -152,7 +152,7 @@ export function analyseRemoteFile(file: Object) {
 
         dispatch(push(`/sample/${experiment.id}`));
 
-        uploadService.uploadRemoteFile(file).then(data => {
+        uploadService.uploadRemoteFile(file).then(() => {
           dispatch({
             type: ActionTypes.ANALYSE_FILE_ANALYSE,
             filename: file.name,
@@ -180,7 +180,7 @@ export function analyseRemoteFile(file: Object) {
 }
 
 export function fetchExperiment(id: string) {
-  return (dispatch: Function, getState: Function) => {
+  return (dispatch: Function) => {
     analyserService
       .fetchExperiment(id)
       .then(result => {

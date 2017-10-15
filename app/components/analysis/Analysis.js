@@ -99,10 +99,10 @@ class Analysis extends Component {
         position: { lat, lng },
         map: this._map,
       });
-      marker.addListener('mouseover', e => {
+      marker.addListener('mouseover', () => {
         setNodeHighlighted(sample.id, true);
       });
-      marker.addListener('mouseout', e => {
+      marker.addListener('mouseout', () => {
         setNodeHighlighted(sample.id, false);
       });
       this._markers[sample.id] = marker;

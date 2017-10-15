@@ -161,7 +161,7 @@ class Phylogeny extends Component {
                     : styles.demoTreeType
                 }
                 key={index}
-                onClick={e => {
+                onClick={() => {
                   this.setState({ treeType: thisTreeType });
                   setTimeout(() => {
                     this.updateHighlightedSamples(analyser.transformed.samples);

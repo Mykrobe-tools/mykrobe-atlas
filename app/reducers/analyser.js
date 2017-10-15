@@ -42,7 +42,7 @@ export default function analyser(
       };
     case ActionTypes.ANALYSE_FILE_CANCEL:
       return initialState;
-    case ActionTypes.ANALYSE_FILE_PROGRESS:
+    case ActionTypes.ANALYSE_FILE_PROGRESS: {
       const progress = Math.max(
         state.progress,
         Math.ceil(action.progress / 3 + state.step * 33)
@@ -51,6 +51,7 @@ export default function analyser(
         ...state,
         progress,
       };
+    }
     case ActionTypes.ANALYSE_FILE_SUCCESS:
       return {
         ...state,

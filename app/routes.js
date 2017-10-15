@@ -6,7 +6,7 @@ import HomePage from './containers/HomePage';
 import LibraryPage from './containers/LibraryPage';
 import SamplePage from './containers/SamplePage';
 
-import store from './store/store';
+import store from './store/store'; // eslint-disable-line import/default
 
 import Analysis from './components/analysis/Analysis';
 import Metadata from './components/metadata/Metadata';

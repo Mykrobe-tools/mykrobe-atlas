@@ -64,19 +64,28 @@ $ npm run web-build-simple-server
 
 ## Electron production build
 
-Build for current platform:
+1. Install Wine to build Windows app on mac
 
-```
-$ npm run electron-dist
-```
+	```
+	$ brew install wine
+	```
 
-To build apps for all platforms:
+2. Package
 
-```
-$ npm run electron-dist:all
-```
-
-After build, you will find files in `electron/dist` folder.
+	Build for current platform:
+	
+	```
+	$ npm run electron-package
+	$ npm run electron-dist
+	```
+	
+	To build apps for all platforms:
+	
+	```
+	$ npm run electron-package:all
+	$ npm run electron-dist:all
+	```
+3. After build, you will find files in `electron/dist` folder.
 
 ## Further Reading
 

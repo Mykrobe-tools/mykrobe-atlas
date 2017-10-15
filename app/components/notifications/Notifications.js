@@ -9,7 +9,7 @@ import * as NotificationActions from '../../actions/NotificationActions';
 import Notification from './Notification';
 import styles from './Notifications.css';
 
-export class Notifications extends Component {
+class Notifications extends Component {
   onClick(id: Number) {
     const { hideNotification } = this.props;
     hideNotification(id);
@@ -27,7 +27,7 @@ export class Notifications extends Component {
                 content={content}
                 category={category.toLowerCase()}
                 id={id}
-                onClick={event => this.onClick(id)}
+                onClick={() => this.onClick(id)}
               />
             </div>
           );

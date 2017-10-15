@@ -12,7 +12,7 @@ class AnalyserJsonTransformer {
   }
 
   transform(jsonString: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       this.stringToJson(jsonString).then(transformed => {
         resolve(transformed);
       });
@@ -20,7 +20,7 @@ class AnalyserJsonTransformer {
   }
 
   stringToJson(string: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       // extract just the portion in curly braces {}
       const first = string.indexOf('{');
       const last = string.lastIndexOf('}');

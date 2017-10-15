@@ -42,7 +42,7 @@ class Header extends Component {
             <a
               href="#"
               className={styles.authLink}
-              onClick={e => {
+              onClick={() => {
                 signOut();
               }}
             >

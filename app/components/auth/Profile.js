@@ -37,7 +37,7 @@ class Profile extends React.Component {
     updateCurrentUser(userObject);
   }
 
-  deleteAccount = e => {
+  deleteAccount = () => {
     const { deleteCurrentUser } = this.props;
     if (confirm('Delete account?')) {
       deleteCurrentUser();
@@ -170,7 +170,7 @@ class Profile extends React.Component {
                 <div>
                   <a
                     className={styles.buttonBorderless}
-                    onClick={e => {
+                    onClick={() => {
                       signOut();
                     }}
                   >
