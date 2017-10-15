@@ -21,17 +21,7 @@ class AnalyserJsonTransformer {
 
   stringToJson(string: string) {
     return new Promise(resolve => {
-      // extract just the portion in curly braces {}
-      const first = string.indexOf('{');
-      const last = string.lastIndexOf('}');
-      let extracted = string.substr(first, 1 + last - first);
-      // replace escaped tabs, quotes, newlines
-      extracted = extracted
-        .replace(/\\n/g, '\n')
-        .replace(/\\t/g, '\t')
-        .replace(/\\"/g, '"');
-      // console.log(extracted);
-      const json = JSON.parse(extracted);
+      const json = JSON.parse(string);
       const transformed = this.transformModel(json);
       resolve({ json, transformed });
     });

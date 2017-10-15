@@ -111,16 +111,17 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       else {
         console.log('Received json, muted');
       }
-      if (dataString.indexOf('Progress') === 0) {
+      if (dataString.indexOf('Progress:') >= 0) {
         console.log('progress');
-        // we get a string like "Progress: 170,000/454,797"
+        // we get a string like "[15 Oct 2017 16:19:47-Kac] Progress: 130,000/454,797"
         // extract groups of digits
-        const digitGroups = dataString.match(/\d+/g);
+        const trimmed = dataString.substr(dataString.indexOf('Progress:'));
+        const digitGroups = trimmed.replace(/,/g,'').match(/\d+/g);
         if (digitGroups.length > 1) {
           const progress = parseInt(digitGroups[0]);
           const total = parseInt(digitGroups[1]);
-          // console.log('progress:'+progress);
-          // console.log('total:'+total);
+          console.log('progress:'+progress);
+          console.log('total:'+total);
           this.emit('progress', {
             progress,
             total
