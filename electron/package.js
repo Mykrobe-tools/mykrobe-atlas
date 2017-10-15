@@ -30,13 +30,16 @@ const DEFAULT_OPTS = {
     '^/test($|/)',
     '^/release($|/)',
     '^/index.electron.js',
+    '^/package-lock.json',
     '^/(.*).map',
-    'skeleton.k15.ctx'
-  ].concat(devDeps.map((name) => `/node_modules/${name}($|/)`))
-  .concat(
-    deps.filter((name) => !electronCfg.externals.includes(name))
-      .map((name) => `/node_modules/${name}($|/)`)
-  )
+    'skeleton.k15.ctx',
+  ]
+    .concat(devDeps.map(name => `/node_modules/${name}($|/)`))
+    .concat(
+      deps
+        .filter(name => !electronCfg.externals.includes(name))
+        .map(name => `/node_modules/${name}($|/)`)
+    ),
 };
 
 // this is the version of Electron to use
@@ -45,15 +48,13 @@ const version = argv.version || argv.v;
 if (version) {
   DEFAULT_OPTS.version = version;
   startPack();
-}
-else {
+} else {
   // use the same version as the currently-installed electron-prebuilt
   exec('npm list electron-prebuilt --json --dev', (error, stdout, stderr) => {
     if (error) {
       console.error('error', error, stderr, stdout);
       DEFAULT_OPTS.version = '1.3.3';
-    }
-    else {
+    } else {
       const json = JSON.parse(stdout);
       const version = json.dependencies['electron-prebuilt'].version;
       DEFAULT_OPTS.version = version;
@@ -67,10 +68,13 @@ function build(cfg) {
     console.log('build', JSON.stringify(cfg, null, 2));
     webpack(cfg, (err, stats) => {
       if (err) return reject(err);
-      gutil.log('[webpack:build]', stats.toString({
-        chunks: false, // Makes the build much quieter
-        colors: true
-      }));
+      gutil.log(
+        '[webpack:build]',
+        stats.toString({
+          chunks: false, // Makes the build much quieter
+          colors: true,
+        })
+      );
       resolve(stats);
     });
   });
@@ -81,24 +85,23 @@ function startPack() {
   build(electronCfg)
     .then(() => build(cfg))
     .then(() => del(path.resolve(__dirname, 'release')))
-    .then((paths) => {
+    .then(paths => {
       if (shouldBuildAll) {
         // build for all platforms
         const archs = ['ia32', 'x64'];
         const platforms = ['linux', 'win32', 'darwin'];
 
-        platforms.forEach((plat) => {
-          archs.forEach((arch) => {
+        platforms.forEach(plat => {
+          archs.forEach(arch => {
             pack(plat, arch, log(plat, arch));
           });
         });
-      }
-      else {
+      } else {
         // build for current platform only
         pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
       }
     })
-    .catch((err) => {
+    .catch(err => {
       console.error(err);
     });
 }
@@ -110,16 +113,17 @@ function pack(plat, arch, cb) {
   }
 
   const iconObj = {
-    icon: DEFAULT_OPTS.icon + (() => {
-      let extension = '.png';
-      if (plat === 'darwin') {
-        extension = '.icns';
-      }
-      else if (plat === 'win32' || plat === 'win64') {
-        extension = '.ico';
-      }
-      return extension;
-    })()
+    icon:
+      DEFAULT_OPTS.icon +
+      (() => {
+        let extension = '.png';
+        if (plat === 'darwin') {
+          extension = '.icns';
+        } else if (plat === 'win32' || plat === 'win64') {
+          extension = '.ico';
+        }
+        return extension;
+      })(),
   };
 
   const opts = Object.assign({}, DEFAULT_OPTS, iconObj, {
@@ -127,7 +131,7 @@ function pack(plat, arch, cb) {
     arch,
     prune: true,
     'app-version': pkg.version || DEFAULT_OPTS.version,
-    out: path.resolve(__dirname, `release/${plat}-${arch}`)
+    out: path.resolve(__dirname, `release/${plat}-${arch}`),
   });
 
   // console.log(JSON.stringify(opts, null, 2));

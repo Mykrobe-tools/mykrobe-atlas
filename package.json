@@ -1,6 +1,6 @@
 {
   "name": "mykrobe-atlas",
-  "productName": "Mykrobe Atlas TB",
+  "productName": "Mykrobe Predictor TB",
   "version": "0.2.0",
   "description": "Mykrobe Atlas UI",
   "private": true,
@@ -22,7 +22,7 @@
     "electron-package": "cross-env NODE_ENV=production babel-node ./electron/package.js",
     "electron-package-all": "npm run electron-package -- --all",
     "electron-dev": "concurrently --kill-others \"npm run electron-hot-server\" \"npm run electron-start-hot\"",
-    "set-target": "node scripts/set-target.js",
+    "set-target": "babel-node scripts/set-target.js",
     "generate-icons": "node scripts/generate-icons.js",
     "web-api-server": "node -r babel-register web/api-dev-server.js",
     "web-hot-server": "node -r babel-register web/dev-server.js",
@@ -34,7 +34,7 @@
   },
   "build": {
     "asar": false,
-    "appId": "com.mykrobe.atlas-tb",
+    "appId": "com.mykrobe.predictor-tb",
     "app-category-type": "public.app-category.tools",
     "files": [
       "**/*",
@@ -202,7 +202,7 @@
     "node": "4.x || 5.x || 6.x",
     "npm": "2.x || 3.x"
   },
-  "targetName": "atlas-tb",
+  "targetName": "predictor-tb",
   "displayVersion": "0.2.0 (beta)",
   "jest": {
     "moduleNameMapper": {

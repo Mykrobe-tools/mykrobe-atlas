@@ -1,7 +1,5 @@
 /* @flow */
 
-require('babel-polyfill');
-
 const inquirer = require('inquirer');
 const targets = require('../targets.json');
 const rootPackageJson = require('../package.json');
@@ -17,17 +15,16 @@ const questions = [
     type: 'list',
     message: 'Select target app',
     default: defaultTargetName,
-    choices: targets
-  }
+    choices: targets,
+  },
 ];
 
 let targetName = argv.value || argv.v || false;
 
 if (targetName) {
   setTarget(targetName);
-}
-else {
-  inquirer.prompt(questions).then((results) => {
+} else {
+  inquirer.prompt(questions).then(results => {
     const targetName = results.targetName;
     setTarget(targetName);
   });
@@ -52,7 +49,9 @@ function setTarget(targetName) {
   }
 
   if (!isValidTarget) {
-    return console.error(`Target with value '${targetName}' not found in targets.json`);
+    return console.error(
+      `Target with value '${targetName}' not found in targets.json`
+    );
   }
 
   const electronHtmlPath = path.resolve(__dirname, '../electron/index.html');
@@ -67,28 +66,42 @@ function setTarget(targetName) {
   json = JSON.stringify(rootPackageJson, null, 2);
   filePath = path.resolve(__dirname, '../package.json');
   writeJsonToFile(filePath, json)
-  .then(() => {
-    return setTitleInHtmlFile(electronHtmlPath, productName);
-  })
-  .then(() => {
-    return setTitleInHtmlFile(webHtmlPath, productName);
-  })
-  .then(() => {
-    const filePath = path.resolve(__dirname, `../app/css/target/${targetName}.css`);
-    const copyPath = path.resolve(__dirname, '../app/css/target/current.css');
-    return copyFile(filePath, copyPath);
-  })
-  .then(() => {
-    console.log(`Target changed to ${productName}`);
-  })
-  .catch((err) => {
-    return console.error(err);
-  });
+    .then(() => {
+      // change the bundled settings in /electron/static/package.json
+      const staticPackageJson = require('../electron/static/package.json');
+      staticPackageJson.targetName = targetName;
+      staticPackageJson.productName = productName;
+      staticPackageJson.version = appVersion;
+      staticPackageJson.displayVersion = appDisplayVersion;
+      json = JSON.stringify(staticPackageJson, null, 2);
+      filePath = path.resolve(__dirname, '../electron/static/package.json');
+      return writeJsonToFile(filePath, json);
+    })
+    .then(() => {
+      return setTitleInHtmlFile(electronHtmlPath, productName);
+    })
+    .then(() => {
+      return setTitleInHtmlFile(webHtmlPath, productName);
+    })
+    .then(() => {
+      const filePath = path.resolve(
+        __dirname,
+        `../app/css/target/${targetName}.css`
+      );
+      const copyPath = path.resolve(__dirname, '../app/css/target/current.css');
+      return copyFile(filePath, copyPath);
+    })
+    .then(() => {
+      console.log(`Target changed to ${productName}`);
+    })
+    .catch(err => {
+      return console.error(err);
+    });
 }
 
 function writeJsonToFile(filePath, json) {
   return new Promise((resolve, reject) => {
-    fs.writeFile(filePath, json, (err) => {
+    fs.writeFile(filePath, json, err => {
       if (err) {
         return reject(err);
       }
@@ -103,8 +116,11 @@ function setTitleInHtmlFile(filePath, title) {
       if (err) {
         return reject(err);
       }
-      const html = data.replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`);
-      fs.writeFile(filePath, html, 'utf8', (err) => {
+      const html = data.replace(
+        /<title>[\s\S]*?<\/title>/,
+        `<title>${title}</title>`
+      );
+      fs.writeFile(filePath, html, 'utf8', err => {
         if (err) {
           return reject(err);
         }
@@ -119,9 +135,7 @@ function copyFile(filePath, copyPath) {
     let stat = false;
     try {
       stat = fs.statSync(copyPath);
-    }
-    catch (err) {
-    }
+    } catch (err) {}
     if (stat) {
       fs.unlink(copyPath);
     }
