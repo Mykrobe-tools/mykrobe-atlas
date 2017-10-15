@@ -10,6 +10,12 @@ import store from './store/store'; // eslint-disable-line import/default
 import './app.global.css';
 import './css/main.css';
 
+import AnalyserLocalFile from './services/analyser/AnalyserLocalFile';
+import MykrobeConfig from './services/MykrobeConfig';
+
+const analyser = new AnalyserLocalFile(new MykrobeConfig());
+console.log(analyser.dirToBin());
+
 const history = syncHistoryWithStore(
   IS_ELECTRON ? hashHistory : browserHistory,
   store

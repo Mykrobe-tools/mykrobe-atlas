@@ -4,6 +4,7 @@
 
 import path from 'path';
 import fs from 'fs';
+import os from 'os';
 import { spawn } from 'child_process';
 import * as TargetConstants from '../../constants/TargetConstants';
 import AnalyserBaseFile from './AnalyserBaseFile';
@@ -11,6 +12,8 @@ import MykrobeConfig from '../MykrobeConfig';
 
 // $FlowFixMe: Ignore Electron require
 const app = require('electron').remote.app;
+const platform = os.platform(); // eslint-disable-line global-require
+const arch = os.arch();
 
 class AnalyserLocalFile extends AnalyserBaseFile {
   jsonBuffer: string;
@@ -31,7 +34,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     const dirToBin = this.dirToBin();
     const filesToDelete = [
       'predictor-tb/data/skeleton_binary/tb/skeleton.k15.ctx',
-      'predictor-s-aureus/data/skeleton_binary/staph/skeleton.k15.ctx',
+      'predictor-s-aureus/data/skeleton_binary/staph/skeleton.k15.ctx'
     ];
     filesToDelete.forEach(filePath => {
       const fullPath = path.join(dirToBin, filePath);
@@ -75,7 +78,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       dirToBin,
       '--format',
       'JSON',
-      '--progress',
+      '--progress'
     ];
     this.child = spawn(pathToBin, args);
     if (!this.child) {
@@ -106,7 +109,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
           // console.log('total:'+total);
           this.emit('progress', {
             progress,
-            total,
+            total
           });
         }
       }
@@ -164,28 +167,21 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
     let dirToBin = '';
     if (process.env.NODE_ENV === 'development') {
-      dirToBin = path.join(rootDir, 'static', 'bin');
+      dirToBin = path.join(
+        rootDir,
+        `electron/resources/bin/${this.targetConfig.targetName}/${platform}-${arch}/bin`
+      );
     } else {
-      dirToBin = path.join(rootDir, 'bin');
+      dirToBin = path.join(rootDir, '../bin');
     }
     console.log('dirToBin', dirToBin);
     return dirToBin;
   }
 
   pathToBin() {
-    // will be 'darwin', 'win64' or 'win64'
-    const platform = require('os').platform(); // eslint-disable-line global-require
-    // FIXME: not tested for Linux
-    let platformFolder = platform;
-
-    // use 'osx' folder for Mac
-    if (platform === 'darwin') {
-      platformFolder = 'osx';
-    }
-
     const UnsupportedError = new Error({
       message: 'Unsupported configuration',
-      config: this.targetConfig,
+      config: this.targetConfig
     });
 
     const dirToBin = this.dirToBin();
@@ -196,30 +192,10 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
         pathToBin = path.join(
           dirToBin,
-          this.targetConfig.targetName,
-          platformFolder,
-          'Mykrobe.predictor.tb'
+          'mykrobe_predictor'
         );
-      } else if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
-        pathToBin = path.join(
-          dirToBin,
-          this.targetConfig.targetName,
-          platformFolder,
-          'Mykrobe.predictor.tb'
-        );
-      } else {
-        // unsupported configuration
-        throw UnsupportedError;
       }
-    } else if (TargetConstants.TYPE_ATLAS === this.targetConfig.type) {
-      if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
-        pathToBin = path.join(
-          dirToBin,
-          this.targetConfig.targetName,
-          platformFolder,
-          'Mykrobe.atlas.tb'
-        );
-      } else {
+      else {
         // unsupported configuration
         throw UnsupportedError;
       }
@@ -230,7 +206,6 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
     console.log('pathToBin', pathToBin);
 
-    // chmodSync(pathToBin, 755);
     return pathToBin;
   }
 }

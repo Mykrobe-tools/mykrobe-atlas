@@ -46,6 +46,8 @@ $ npm run web-dev
 
 ### Electron
 
+Note the window will not appear until the initial bundle is compiled which can take up to one minute.
+
 ```
 $ npm run electron-dev
 ```

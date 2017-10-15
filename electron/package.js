@@ -25,7 +25,7 @@ const DEFAULT_OPTS = {
   icon: icon,
   asar: shouldUseAsar,
   version: '',
-  'extend-info': path.resolve(__dirname, './resources/plist/extend-info.plist'),
+  'extend-info': path.resolve(__dirname, 'resources/plist/extend-info.plist'),
   ignore: [
     '^/test($|/)',
     '^/release($|/)',
@@ -119,7 +119,7 @@ function pack(plat, arch, cb) {
         let extension = '.png';
         if (plat === 'darwin') {
           extension = '.icns';
-        } else if (plat === 'win32' || plat === 'win64') {
+        } else if (plat === 'win32') {
           extension = '.ico';
         }
         return extension;
@@ -132,6 +132,10 @@ function pack(plat, arch, cb) {
     prune: true,
     'app-version': pkg.version || DEFAULT_OPTS.version,
     out: path.resolve(__dirname, `release/${plat}-${arch}`),
+    extraResource: path.resolve(
+      __dirname,
+      `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
+    ),
   });
 
   // console.log(JSON.stringify(opts, null, 2));

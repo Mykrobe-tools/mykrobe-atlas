@@ -7,24 +7,26 @@ import baseConfig from '../webpack.config.production';
 import path from 'path';
 
 const config = merge(baseConfig, {
+  devtool: null,
+
   entry: path.resolve(__dirname, '../app/index'),
 
   output: {
-    path: path.resolve(__dirname, 'static')
+    path: path.resolve(__dirname, 'static'),
   },
 
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../electron/index.html'),
-      inject: false
+      inject: false,
     }),
     new webpack.DefinePlugin({
-      IS_ELECTRON: JSON.stringify(true)
-    })
+      IS_ELECTRON: JSON.stringify(true),
+    }),
   ],
 
-  target: 'electron-renderer'
+  target: 'electron-renderer',
 });
 
 export default config;
