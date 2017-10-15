@@ -22,6 +22,13 @@
     "electron-package": "cross-env NODE_ENV=production babel-node ./electron/package.js",
     "electron-package-all": "npm run electron-package -- --all",
     "electron-dev": "concurrently --kill-others \"npm run electron-hot-server\" \"npm run electron-start-hot\"",
+    "electron-dist": "electron-builder",
+    "electron-compile": "npm run electron-build-renderer && npm run electron-build-main",
+    "postinstall": "electron-builder install-app-deps",
+    "builder": "npm run electron-compile && npm run electron-dist",
+    "builder:win": "npm run electron-compile && build --win --x64",
+    "builder:linux": "npm run electron-compile && build --linux",
+    "builder:all": "npm run electron-compile && build -mwl",
     "set-target": "babel-node scripts/set-target.js",
     "generate-icons": "node scripts/generate-icons.js",
     "web-api-server": "node -r babel-register web/api-dev-server.js",
@@ -35,7 +42,9 @@
   "build": {
     "asar": false,
     "appId": "com.mykrobe.predictor-tb",
-    "app-category-type": "public.app-category.tools",
+    "mac": {
+      "category": "public.app-category.tools"
+    },
     "files": [
       "**/*",
       "!**/*.ctx"
@@ -56,8 +65,8 @@
       ]
     },
     "win": {
-      "iconUrl": "",
-      "remoteReleases": true
+      "target": "squirrel",
+      "icon": ""
     },
     "linux": {
       "target": [
@@ -82,12 +91,12 @@
         "ext": "fastq",
         "name": "fastq"
       }
-    ]
-  },
-  "directories": {
-    "buildResources": "build",
-    "output": "electron/dist",
-    "app": "electron/static"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "electron/dist",
+      "app": "electron/static"
+    }
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -121,9 +130,9 @@
     "del": "^2.2.2",
     "devtron": "^1.2.1",
     "electron": "^1.7.9",
+    "electron-builder": "^19.37.2",
     "electron-devtools-installer": "^2.0.1",
     "electron-packager": "^9.1.0",
-    "electron-rebuild": "^1.1.5",
     "enzyme": "^2.6.0",
     "eslint": "^3.2.2",
     "eslint-config-airbnb": "^10.0.0",
