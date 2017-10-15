@@ -67,27 +67,16 @@ $ npm run web-build-simple-server
 Build for current platform:
 
 ```
-$ npm run electron-package
+$ npm run electron-dist
 ```
 
 To build apps for all platforms:
 
-1. Install Wine to build Windows app on mac
+```
+$ npm run electron-dist:all
+```
 
-	```
-	$ brew install wine
-	```
-
-2. Package
-
-	```
-	$ npm run electron-package-all
-	```
-
-3. After build, you will find them in `electron/release` folder. Otherwise, you will only find one for your os.
-
-> **Note:** `test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
-
+After build, you will find files in `electron/dist` folder.
 
 ## Further Reading
 

@@ -23,6 +23,7 @@
     "electron-package-all": "npm run electron-package -- --all",
     "electron-dev": "concurrently --kill-others \"npm run electron-hot-server\" \"npm run electron-start-hot\"",
     "electron-dist": "electron-builder --x64",
+    "electron-dist:win": "electron-builder -w --x64",
     "electron-dist:all": "electron-builder -mwl --x64",
     "electron-compile": "npm run electron-build-renderer && npm run electron-build-main",
     "postinstall": "electron-builder install-app-deps",
@@ -62,8 +63,11 @@
       ]
     },
     "win": {
-      "target": "squirrel",
+      "target": "nsis",
       "icon": "./electron/resources/icon/predictor-tb/icon.ico"
+    },
+    "nsis": {
+      "perMachine": true
     },
     "linux": {
       "target": [
@@ -128,7 +132,6 @@
     "devtron": "^1.2.1",
     "electron": "^1.7.9",
     "electron-builder": "^19.37.2",
-    "electron-builder-squirrel-windows": "^19.37.0",
     "electron-devtools-installer": "^2.0.1",
     "electron-packager": "^9.1.0",
     "enzyme": "^2.6.0",
@@ -180,7 +183,6 @@
   "dependencies": {
     "css-modules-require-hook": "^4.0.1",
     "electron-debug": "^1.0.1",
-    "electron-squirrel-startup": "^1.0.0",
     "font-awesome": "^4.6.3",
     "fuse.js": "^2.6.1",
     "google-maps": "^3.2.1",
