@@ -3,6 +3,7 @@
 import EventEmitter from 'events';
 import AnalyserJsonTransformer from './AnalyserJsonTransformer';
 import MykrobeConfig from '../MykrobeConfig';
+import fs from 'fs';
 
 class AnalyserBaseFile extends EventEmitter {
   targetConfig: MykrobeConfig;
@@ -18,7 +19,6 @@ class AnalyserBaseFile extends EventEmitter {
   }
 
   analyseFile(file: File, id: string = ''): AnalyserBaseFile {
-    debugger
     this.cancel();
     const extension = this.extensionForFileName(file.name);
     if (extension === '.json') {
@@ -43,13 +43,14 @@ class AnalyserBaseFile extends EventEmitter {
   }
 
   doneWithJsonString(jsonString: string) {
+    fs.writeFileSync('doneWithJsonString.json', jsonString);
     const transformer = new AnalyserJsonTransformer();
     transformer
       .transform(jsonString)
       .then(result => {
         const { json, transformed } = result;
-        console.log('json', json);
-        console.log('transformed', transformed);
+        // console.log('json', json);
+        // console.log('transformed', transformed);
         this.emit('done', result);
       })
       .catch(err => {

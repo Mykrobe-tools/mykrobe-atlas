@@ -59,7 +59,6 @@ class AnalyserLocalFile extends AnalyserBaseFile {
   analyseBinaryFile(file: File): AnalyserLocalFile {
     // in Electron we get the full local file path
     // $FlowFixMe: Ignore missing type values
-    debugger
     const filePath = file.path;
 
     this.removeSkeletonFiles();
@@ -77,6 +76,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     const dirToBin = path.join(this.dirToBin(), this.targetConfig.targetName);
     const args = [
       'predict',
+      '--force',
       fileName,
       'tb',
       '-1',
@@ -87,6 +87,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
     console.log('Spawning executable at path:', pathToBin);
     console.log('With arguments:', args);
+    console.log('Guess at command line:', pathToBin, args.join(' '));
     this.child = spawn(pathToBin, args);
 
     if (!this.child) {
@@ -104,10 +105,15 @@ class AnalyserLocalFile extends AnalyserBaseFile {
         return;
       }
       const dataString = data.toString('utf8');
-      console.log(dataString);
+      if ( !this.isBufferingJson ) {
+        console.log(dataString);
+      }
+      else {
+        console.log('Received json, muted');
+      }
       if (dataString.indexOf('Progress') === 0) {
-        // console.log('progress');
-        // we get a string like "Progress 1000000/1660554"
+        console.log('progress');
+        // we get a string like "Progress: 170,000/454,797"
         // extract groups of digits
         const digitGroups = dataString.match(/\d+/g);
         if (digitGroups.length > 1) {
@@ -133,7 +139,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       // sometimes receive json after process has exited
       if (this.isBufferingJson && this.processExited) {
         if (this.jsonBuffer.length) {
-          console.log('done', this.jsonBuffer);
+          console.log('done');
           this.doneWithJsonString(this.jsonBuffer);
         }
       }
@@ -151,7 +157,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       // deferring seems to allow the spawn to exit cleanly
       if (code === 0) {
         if (this.jsonBuffer.length) {
-          console.log('done', this.jsonBuffer);
+          console.log('done');
           this.doneWithJsonString(this.jsonBuffer);
         }
       }
