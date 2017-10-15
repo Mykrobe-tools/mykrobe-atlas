@@ -30,7 +30,7 @@
     "builder:linux": "npm run electron-compile && build --linux",
     "builder:all": "npm run electron-compile && build -mwl",
     "set-target": "babel-node scripts/set-target.js",
-    "generate-icons": "node scripts/generate-icons.js",
+    "generate-icons": "babel-node scripts/generate-icons.js",
     "web-api-server": "node -r babel-register web/api-dev-server.js",
     "web-hot-server": "node -r babel-register web/dev-server.js",
     "web-dev": "concurrently --kill-others \"npm run web-hot-server\" \"npm run web-api-server\" \"npm run web-open\"",
@@ -40,10 +40,10 @@
     "web-build-simple-server": "concurrently --kill-others \"npm run web-build-server\" \"npm run web-open\""
   },
   "build": {
-    "asar": false,
     "appId": "com.mykrobe.predictor-tb",
     "mac": {
-      "category": "public.app-category.tools"
+      "category": "public.app-category.tools",
+      "icon": "./electron/resources/icon/predictor-tb/icon.icns"
     },
     "files": [
       "**/*",
