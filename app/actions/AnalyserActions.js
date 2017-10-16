@@ -89,7 +89,21 @@ export function analyseFile(file: File, id?: string) {
   };
 }
 
+// TODO rename methods
+
 export function analyseFileCancel() {
+  if (IS_ELECTRON) {
+    return dispatch => {
+      if (this.analyser) {
+        this.analyser.cancel();
+        this.analyser = null;
+      }
+      dispatch(push('/'));
+      dispatch({
+        type: ActionTypes.ANALYSE_FILE_CANCEL,
+      });
+    };
+  }
   uploadService.uploadFile.cancel();
   return {
     type: ActionTypes.ANALYSE_FILE_CANCEL,

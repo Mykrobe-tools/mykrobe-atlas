@@ -8,26 +8,37 @@ import UploadElectron from '../components/upload/UploadElectron';
 
 class HomePage extends Component {
   render() {
-    const { analyseFile } = this.props;
-    return <UploadElectron analyseFile={analyseFile} />;
+    const { analyseFile, analyseFileCancel, analyser } = this.props;
+    return (
+      <UploadElectron
+        analyseFile={analyseFile}
+        analyseFileCancel={analyseFileCancel}
+        analyser={analyser}
+      />
+    );
   }
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    analyser: state.analyser,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       analyseFile: AnalyserActions.analyseFile,
+      analyseFileCancel: AnalyserActions.analyseFileCancel,
     },
     dispatch
   );
 }
 
 HomePage.propTypes = {
+  analyser: PropTypes.object.isRequired,
   analyseFile: PropTypes.func.isRequired,
+  analyseFileCancel: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
