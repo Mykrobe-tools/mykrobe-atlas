@@ -57,3 +57,7 @@
   left: -9999px;
   top: -9999px;
 }
+
+.button {
+  composes: buttonOutlineLarge from "css/controls.css";
+}

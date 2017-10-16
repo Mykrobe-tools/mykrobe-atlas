@@ -2,7 +2,6 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import path from 'path';
 
 import type { AuthType } from '../../types/AuthTypes';
 
@@ -10,8 +9,6 @@ import styles from './Upload.css';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
 import PopoverMenu from '../ui/PopoverMenu';
-import * as AnalyserActions from '../../actions/AnalyserActions';
-import * as UIHelpers from '../../helpers/UIHelpers';
 
 class Upload extends Component {
   _uploadButton: HTMLAnchorElement;
@@ -26,18 +23,6 @@ class Upload extends Component {
       isDragActive: false,
     };
   }
-
-  onDevOpenFile = () => {
-    const { dispatch } = this.props;
-    const filePath = UIHelpers.openFileDialog();
-    if (filePath) {
-      const fileObject = {
-        path: filePath,
-        name: path.parse(filePath).base,
-      };
-      dispatch(AnalyserActions.analyseFile(fileObject));
-    }
-  };
 
   componentDidMount() {
     const auth: AuthType = this.props.auth;
@@ -149,7 +134,6 @@ class Upload extends Component {
             <div className={styles.title}>
               Outbreak and resistance analysis in minutes
             </div>
-            <div onClick={this.onDevOpenFile}>DEV OPEN FILE</div>
             {isAuthenticated && (
               <div className={styles.buttonContainer}>
                 <button

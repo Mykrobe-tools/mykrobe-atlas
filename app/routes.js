@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Route, Redirect, IndexRoute, IndexRedirect } from 'react-router';
-import HomePage from './containers/HomePage';
 import LibraryPage from './containers/LibraryPage';
 import SamplePage from './containers/SamplePage';
 
@@ -49,6 +48,10 @@ const requireAuth = (nextState, replace) => {
 const App = IS_ELECTRON
   ? require('./containers/AppElectron')
   : require('./containers/App');
+
+const HomePage = IS_ELECTRON
+  ? require('./containers/HomePageElectron')
+  : require('./containers/HomePage');
 
 export default (
   <Route path="/" component={App}>
