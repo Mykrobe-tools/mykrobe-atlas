@@ -26,6 +26,7 @@
     "electron-dist": "electron-builder --x64",
     "electron-dist:win": "electron-builder -w --x64",
     "electron-dist:all": "electron-builder -mwl --x64",
+    "electron-dist-dev": "babel-node ./electron/build.js",
     "electron-compile": "yarn electron-build-renderer && yarn electron-build-main",
     "postinstall": "electron-builder install-app-deps",
     "set-target": "babel-node scripts/set-target.js",
@@ -66,8 +67,7 @@
     },
     "win": {
       "target": [
-        "nsis",
-        "portable"
+        "nsis"
       ],
       "icon": "./electron/resources/icon/predictor-tb/icon.ico"
     },
