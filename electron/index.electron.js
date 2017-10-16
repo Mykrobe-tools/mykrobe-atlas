@@ -8,8 +8,8 @@ let mainWindow: BrowserWindow;
 let filepath;
 let ready = false;
 
-const SHOW_DEV_TOOLS = process.env.NODE_ENV === 'development';
-// const SHOW_DEV_TOOLS = true;
+// const SHOW_DEV_TOOLS = process.env.NODE_ENV === 'development';
+const SHOW_DEV_TOOLS = true;
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support') // eslint-disable-line
@@ -66,6 +66,7 @@ app.on('ready', async () => {
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 
   mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.openDevTools();
     mainWindow.show();
     mainWindow.focus();
   });
@@ -75,7 +76,7 @@ app.on('ready', async () => {
   });
 
   if (SHOW_DEV_TOOLS) {
-    mainWindow.openDevTools();
+    mainWindow.webContents.openDevTools();
     mainWindow.webContents.on('context-menu', (e, props) => {
       const { x, y } = props;
 
@@ -318,40 +319,39 @@ app.on('ready', async () => {
       },
       {
         label: '&View',
-        submenu:
-          process.env.NODE_ENV === 'development'
-            ? [
-                {
-                  label: '&Reload',
-                  accelerator: 'Ctrl+R',
-                  click() {
-                    mainWindow.webContents.reload();
-                  },
+        submenu: process.env.NODE_ENV === 'development'
+          ? [
+              {
+                label: '&Reload',
+                accelerator: 'Ctrl+R',
+                click() {
+                  mainWindow.webContents.reload();
                 },
-                {
-                  label: 'Toggle &Full Screen',
-                  accelerator: 'F11',
-                  click() {
-                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                  },
+              },
+              {
+                label: 'Toggle &Full Screen',
+                accelerator: 'F11',
+                click() {
+                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
                 },
-                {
-                  label: 'Toggle &Developer Tools',
-                  accelerator: 'Alt+Ctrl+I',
-                  click() {
-                    mainWindow.toggleDevTools();
-                  },
+              },
+              {
+                label: 'Toggle &Developer Tools',
+                accelerator: 'Alt+Ctrl+I',
+                click() {
+                  mainWindow.toggleDevTools();
                 },
-              ]
-            : [
-                {
-                  label: 'Toggle &Full Screen',
-                  accelerator: 'F11',
-                  click() {
-                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                  },
+              },
+            ]
+          : [
+              {
+                label: 'Toggle &Full Screen',
+                accelerator: 'F11',
+                click() {
+                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
                 },
-              ],
+              },
+            ],
       },
       {
         label: 'Help',

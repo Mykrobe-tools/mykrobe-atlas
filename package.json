@@ -39,15 +39,16 @@
     "web-build-simple-server": "concurrently \"yarn web-build-server\" \"yarn web-open\""
   },
   "build": {
+    "asar": false,
     "appId": "com.mykrobe.predictor-tb",
     "mac": {
       "category": "public.app-category.tools",
       "icon": "./electron/resources/icon/predictor-tb/icon.icns"
     },
-    "files": [
-      "**/*",
-      "!**/*.ctx"
-    ],
+    "extraResources": {
+      "from": "/Applications/MAMP/htdocs/mykrobe-atlas/electron/resources/bin/predictor-tb/win32-x64/bin",
+      "to": "bin"
+    },
     "dmg": {
       "contents": [
         {
@@ -64,7 +65,10 @@
       ]
     },
     "win": {
-      "target": "nsis",
+      "target": [
+        "nsis",
+        "portable"
+      ],
       "icon": "./electron/resources/icon/predictor-tb/icon.ico"
     },
     "nsis": {
@@ -155,7 +159,7 @@
     "fbjs-scripts": "^0.7.1",
     "file-loader": "^0.9.0",
     "flow-bin": "^0.37.0",
-    "fs-extra": "^0.30.0",
+    "fs-extra": "^4.0.2",
     "gulp-util": "^3.0.8",
     "html-webpack-plugin": "^2.22.0",
     "husky": "^0.14.3",
