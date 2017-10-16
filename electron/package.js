@@ -16,8 +16,8 @@ const path = require('path');
 const deps = Object.keys(pkg.dependencies);
 const devDeps = Object.keys(pkg.devDependencies);
 
-const shouldUseAsar = argv.asar || argv.a || false;
-const shouldBuildAll = argv.all || false;
+import archPlatArgs from './util/archPlatArgs';
+const { platforms, archs } = archPlatArgs();
 
 const icon = path.resolve(__dirname, `resources/icon/${pkg.targetName}/icon`);
 
@@ -25,7 +25,6 @@ const DEFAULT_OPTS = {
   dir: path.resolve(__dirname, './static'),
   name: pkg.productName,
   icon: icon,
-  asar: shouldUseAsar,
   version: '',
   'extend-info': path.resolve(__dirname, 'resources/plist/extend-info.plist'),
   ignore: [
@@ -88,25 +87,11 @@ function startPack() {
     .then(() => build(cfg))
     .then(() => del(path.resolve(__dirname, 'release')))
     .then(paths => {
-      if (shouldBuildAll) {
-        // build for all platforms
-        // const archs = ['ia32', 'x64'];
-        // const platforms = ['linux', 'win32', 'darwin'];
-
-        console.error('REMOVE HACK JUST BUILDING WINDOWS');
-
-        const archs = ['x64'];
-        const platforms = ['win32'];
-
-        platforms.forEach(plat => {
-          archs.forEach(arch => {
-            pack(plat, arch, log(plat, arch));
-          });
+      platforms.forEach(plat => {
+        archs.forEach(arch => {
+          pack(plat, arch, log(plat, arch));
         });
-      } else {
-        // build for current platform only
-        pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
-      }
+      });
     })
     .catch(err => {
       console.error(err);

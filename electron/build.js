@@ -3,50 +3,14 @@
 // https://github.com/electron-userland/electron-builder
 
 import path from 'path';
-import os from 'os';
 const builder = require('electron-builder');
 const pkg = require('../package.json');
-const argv = require('minimist')(process.argv.slice(2));
-const sequential = require('promise-sequential');
 
-console.log('argv', JSON.stringify(argv, null, 2));
+import archPlatArgs from './util/archPlatArgs';
 
-let archs;
-let platforms;
+const { platforms, archs } = archPlatArgs();
 
-if (argv.all) {
-  archs = ['ia32', 'x64'];
-  platforms = ['linux', 'win32', 'darwin'];
-} else {
-  platforms = [];
-  archs = ['ia32', 'x64'];
-  if (argv.mac) {
-    platforms.push('darwin');
-  }
-  if (argv.win) {
-    platforms.push('win32');
-    if (argv.x64 && !argv.ia32) {
-      archs = ['x64'];
-    }
-  }
-  if (argv.linux) {
-    platforms.push('linux');
-  }
-}
-
-if (!platforms.length) {
-  platforms = [os.platform()];
-}
-
-if (!archs.length) {
-  archs = [os.arch()];
-}
-
-console.log('platforms', JSON.stringify(platforms, null, 2));
-
-console.log('archs', JSON.stringify(archs, null, 2));
-
-const build = (plat, arch, cb) => {
+const build = (plat, arch) => {
   // there is no darwin ia32 electron
   if (plat === 'darwin' && arch === 'ia32') {
     return;
