@@ -1,8 +1,5 @@
 /* @flow */
 
-import fs from 'fs-extra';
-
-const os = require('os');
 const webpack = require('webpack');
 const gutil = require('gulp-util');
 const electronCfg = require('./webpack.config.electron');
@@ -117,21 +114,6 @@ function pack(plat, arch, cb) {
       })(),
   };
 
-  // const opts = Object.assign({}, DEFAULT_OPTS, iconObj, {
-  //   platform: plat,
-  //   arch,
-  //   prune: true,
-  //   'app-version': pkg.version || DEFAULT_OPTS.version,
-  //   out: path.resolve(__dirname, `release/${plat}-${arch}`),
-  //   extraResource: path.resolve(
-  //     __dirname,
-  //     `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
-  //   ),
-  // });
-
-  // extraResource gets ignored by the windows builder
-  // so we copy each respective bin to the app folder directly
-
   const opts = Object.assign({}, DEFAULT_OPTS, iconObj, {
     platform: plat,
     arch,
@@ -142,19 +124,7 @@ function pack(plat, arch, cb) {
   console.log('opts:', JSON.stringify(opts, null, 2));
 
   return packager(opts).then(appPaths => {
-    console.log('appPaths', appPaths);
-    const appPath = appPaths[0];
-    const sourceDir = path.resolve(
-      __dirname,
-      `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
-    );
-    const destDir = path.resolve(appPath, 'resources/app/bin');
-    console.log('Copying bin sourceDir', sourceDir, 'destDir', destDir);
-    fs.copy(sourceDir, destDir, err => {
-      if (err) throw err;
-      console.log('success!');
-      cb(null, appPaths);
-    });
+    cb(null, appPaths);
   });
 }
 

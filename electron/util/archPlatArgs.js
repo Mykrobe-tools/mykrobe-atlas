@@ -3,9 +3,9 @@
 import os from 'os';
 const argv = require('minimist')(process.argv.slice(2));
 
-export default () => {
-  console.log('argv', JSON.stringify(argv, null, 2));
+// dtermine arch and platforms from command line arguments
 
+export default () => {
   let archs;
   let platforms;
 
@@ -36,10 +36,6 @@ export default () => {
   if (!archs.length) {
     archs = [os.arch()];
   }
-
-  console.log('platforms', JSON.stringify(platforms, null, 2));
-
-  console.log('archs', JSON.stringify(archs, null, 2));
 
   return { platforms, archs };
 };
