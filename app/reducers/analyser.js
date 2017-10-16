@@ -39,18 +39,27 @@ export default function analyser(
         ...state,
         step: 2,
         stepDescription: 'Analysing',
+        analysing: true,
       };
     case ActionTypes.ANALYSE_FILE_CANCEL:
       return initialState;
     case ActionTypes.ANALYSE_FILE_PROGRESS: {
-      const progress = Math.max(
-        state.progress,
-        Math.ceil(action.progress / 3 + state.step * 33)
-      );
-      return {
-        ...state,
-        progress,
-      };
+      if (IS_ELECTRON) {
+        const { progress, total } = action.progress;
+        return {
+          ...state,
+          progress: Math.round(100 * progress / total),
+        };
+      } else {
+        const progress = Math.max(
+          state.progress,
+          Math.ceil(action.progress / 3 + state.step * 33)
+        );
+        return {
+          ...state,
+          progress,
+        };
+      }
     }
     case ActionTypes.ANALYSE_FILE_SUCCESS:
       return {

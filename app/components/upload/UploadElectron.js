@@ -87,15 +87,13 @@ class Upload extends Component {
     }
     return (
       <div className={styles.content}>
-        {0 === progress || 100 === progress ? (
-          <div className={styles.dots}>
-            <div className={styles.dotOne} />
-            <div className={styles.dotTwo} />
-            <div className={styles.dotThree} />
-          </div>
-        ) : (
-          <div className={styles.progressTitle}>{analyser.progress}%</div>
-        )}
+        {0 === progress || 100 === progress
+          ? <div className={styles.dots}>
+              <div className={styles.dotOne} />
+              <div className={styles.dotTwo} />
+              <div className={styles.dotThree} />
+            </div>
+          : <div className={styles.progressTitle}>{analyser.progress}%</div>}
         <CircularProgress percentage={progress} />
         <div className={styles.progressStatus}>{statusText}</div>
         <div className={styles.buttonContainer}>
@@ -122,7 +120,7 @@ class Upload extends Component {
       >
         <AnimatedBackground />
         <div className={styles.contentContainer}>
-          {true || analyser.analysing
+          {analyser.analysing
             ? this.renderContentAnalysing()
             : this.renderContentDefault()}
         </div>
