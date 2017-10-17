@@ -9,6 +9,7 @@ import { spawn } from 'child_process';
 import * as TargetConstants from '../../constants/TargetConstants';
 import AnalyserBaseFile from './AnalyserBaseFile';
 import MykrobeConfig from '../MykrobeConfig';
+const tmp = require('tmp');
 
 // $FlowFixMe: Ignore Electron require
 const app = require('electron').remote.app;
@@ -19,8 +20,9 @@ class AnalyserLocalFile extends AnalyserBaseFile {
   jsonBuffer: string;
   isBufferingJson: boolean;
   processExited: boolean;
-  child: child_process$ChildProcess; // eslint-disable-line camelcase
+  child: ?child_process$ChildProcess; // eslint-disable-line camelcase
   didReceiveError: boolean;
+  tmpObj: ?Object;
 
   constructor(targetConfig: MykrobeConfig) {
     super(targetConfig);
@@ -30,42 +32,16 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     });
   }
 
-  removeSkeletonFiles() {
-    const dirToBin = this.dirToBin();
-    const filesToDelete = [
-      'predictor-tb/data/skeleton_binary/tb/skeleton.k15.ctx',
-      'predictor-s-aureus/data/skeleton_binary/staph/skeleton.k15.ctx'
-    ];
-    filesToDelete.forEach(filePath => {
-      const fullPath = path.join(dirToBin, filePath);
-      fs.stat(fullPath, (statErr, stat) => {
-        if (statErr === null) {
-          console.log('Skeleton file exists, removing.');
-          fs.unlink(fullPath, unlinkErr => {
-            if (unlinkErr) {
-              console.log('error deleting', unlinkErr);
-            } else {
-              console.log('deleted', fullPath);
-            }
-          });
-        } else {
-          console.log('This file does not exist', fullPath);
-        }
-      });
-    });
-    return this;
-  }
-
   analyseBinaryFile(file: File): AnalyserLocalFile {
     // in Electron we get the full local file path
     // $FlowFixMe: Ignore missing type values
     const filePath = file.path;
 
-    this.removeSkeletonFiles();
-
     console.log('analyseBinaryFile', filePath);
 
-    const skeletonDir = path.join(process.cwd(), 'skeleton');
+    this.tmpObj = tmp.dirSync();
+    const skeletonDir = path.join(this.tmpObj.name, 'skeleton');
+
     const fileName = path.parse(filePath).name;
 
     this.jsonBuffer = '';
@@ -173,6 +149,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       this.child.kill();
       delete this.child;
     }
+    this.tmpObj && this.tmpObj.removeCallback();
   }
 
   dirToBin() {
@@ -181,6 +158,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     console.log('rootDir', rootDir);
 
     let dirToBin = '';
+
     if (process.env.NODE_ENV === 'development') {
       dirToBin = path.join(
         rootDir,
