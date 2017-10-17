@@ -24,6 +24,11 @@ module.exports = function() {
             pathLib.dirname(source)
           );
           const extension = pathLib.extname(source) || '.js';
+
+          // TODO: here we should check if there is no extension and the import is a folder
+          // if it is, then add 'index.js' and check for 'index.electron.js'
+          // if not, then imply that the extension is a file with extension 'js'
+
           const basename = pathLib.parse(source).name;
 
           const electronFilePath = pathLib.resolve(
@@ -39,6 +44,16 @@ module.exports = function() {
           console.log('electronFilePath', electronFilePath);
           if (fs.existsSync(electronFilePath)) {
             console.log('Use: ', electronFilePath);
+            console.log('source dirname', pathLib.dirname(source));
+            const originalExtension = pathLib.extname(source);
+            let pathElements = source.split('/');
+            pathElements.pop();
+            const importDir = pathElements.join('/');
+            const electronImportPath = pathLib.join(
+              importDir,
+              `${basename}.electron${originalExtension}`
+            );
+            console.log('electronImportPath', electronImportPath);
           }
         }
       },
