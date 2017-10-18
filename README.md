@@ -72,13 +72,24 @@ $ yarn web-build-simple-server
 	$ brew install wine
 	```
 
-2. Package
+2. Package and distribute
+
+	`electron-package` builds and packages a standalone app inside the `electroon/releases` folder. At this stage the app is a folder full of files.
+	
+	`electron-dist` takes the folder(s) created by `electron-package` and combines into single individual self-contained apps / images / installers for specified platforms, signed and ready for distribution.
 
 	Build for current platform:
 
 	```
 	$ yarn electron-package
 	$ yarn electron-dist
+	```
+	
+	Build for single Windows platform:
+
+	```
+	$ yarn electron-package:win
+	$ yarn electron-dist:win
 	```
 
 	To build apps for all platforms:

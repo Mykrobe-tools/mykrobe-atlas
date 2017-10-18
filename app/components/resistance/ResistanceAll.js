@@ -11,7 +11,7 @@ class ResistanceAll extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <Panel title="Resistance Profile" columns={3}>
+        <Panel title="Resistance Profile" columns={IS_ELECTRON ? undefined : 3}>
           <ResistanceProfile />
         </Panel>
         {!IS_ELECTRON && (

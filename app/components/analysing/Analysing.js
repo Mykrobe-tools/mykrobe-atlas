@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import * as AnalyserActions from '../../actions/AnalyserActions';
 import styles from './Analysing.css';
 import AnalysingProgressBar from './AnalysingProgressBar';
+import * as UIHelpers from '../helpers/UIHelpers';
 
 class Analysing extends Component {
   componentDidMount() {
@@ -16,7 +17,6 @@ class Analysing extends Component {
   render() {
     const { analyser } = this.props;
     if (IS_ELECTRON) {
-      const UIHelpers = require('../../helpers/UIHelpers');
       UIHelpers.setProgress(analyser.progress);
     }
     return (

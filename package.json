@@ -67,7 +67,8 @@
     },
     "win": {
       "target": [
-        "nsis"
+        "nsis",
+        "portable"
       ],
       "icon": "./electron/resources/icon/predictor-tb/icon.ico"
     },

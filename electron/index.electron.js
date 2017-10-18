@@ -62,6 +62,8 @@ app.on('ready', async () => {
     show: false,
     width: 1024,
     height: 728,
+    minWidth: 800,
+    minHeight: 600,
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);

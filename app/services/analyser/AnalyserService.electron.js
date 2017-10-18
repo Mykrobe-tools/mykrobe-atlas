@@ -3,7 +3,6 @@
 import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
 
-
 import AnalyserSimulateLocalFile from './AnalyserSimulateLocalFile';
 
 let instance = null;
@@ -20,8 +19,11 @@ class AnalyserService {
   }
 
   analyseFile(file: File) {
-    // return new AnalyserLocalFile(this.config).analyseFile(file);
-    return new AnalyserSimulateLocalFile(this.config).analyseFile(file);
+    if (process.env.NODE_ENV === 'development') {
+      return new AnalyserSimulateLocalFile(this.config).analyseFile(file);
+    } else {
+      return new AnalyserLocalFile(this.config).analyseFile(file);
+    }
   }
 }
 

@@ -7,7 +7,7 @@ import * as NotificationCategories from '../constants/NotificationCategories';
 import { showNotification } from './NotificationActions';
 import UploadService from '../services/upload/UploadService';
 import AnalyserService from '../services/analyser/AnalyserService';
-import * as UIHelpers from '../helpers/UIHelpers';
+import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
 // $FlowFixMe: Ignore missing require().default
 const analyserService = new AnalyserService();
@@ -230,7 +230,7 @@ export function analyseFileSave() {
     if (IS_ELECTRON) {
       const state = getState();
       const fs = require('fs');
-      const filePath = UIHelpers.saveFileDialog('mykrobe.json');
+      const filePath = UIHelpers.saveFileDialog('mykrobe.json'); // eslint-disable-line import/namespace
       if (filePath) {
         const { analyser } = state;
         const json = JSON.stringify(analyser.json, null, 2);

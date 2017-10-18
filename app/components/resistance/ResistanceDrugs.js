@@ -21,16 +21,33 @@ const secondLineDrugs = [
 ];
 
 class ResistanceDrugs extends Component {
+  renderDrugResistance() {
+    const { analyser } = this.props;
+    const { drugsResistance: { xdr, mdr } } = analyser.transformed;
+    if (mdr || xdr) {
+      return (
+        <Panel title="Resistance" columns={4}>
+          <div className={styles.drugs}>
+            {xdr && <div>Extensively Drug Resistant (XDR)</div>}
+            {mdr && <div>Multi-Drug Resistant (MDR)</div>}
+          </div>
+        </Panel>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
-    // TODO: need to display XDR / MDR status here?
     return (
       <div className={styles.container}>
-        <Panel title="First line drugs" columns={4}>
+        <Panel title="First line drugs">
           {this.listDrugsWithIndicators(firstLineDrugs)}
         </Panel>
-        <Panel title="Second line drugs" columns={4}>
+        <Panel title="Second line drugs">
           {this.listDrugsWithIndicators(secondLineDrugs)}
         </Panel>
+        {this.renderDrugResistance()}
       </div>
     );
   }

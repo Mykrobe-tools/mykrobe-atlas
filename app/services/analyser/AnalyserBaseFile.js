@@ -3,7 +3,6 @@
 import EventEmitter from 'events';
 import AnalyserJsonTransformer from './AnalyserJsonTransformer';
 import MykrobeConfig from '../MykrobeConfig';
-import fs from 'fs';
 
 class AnalyserBaseFile extends EventEmitter {
   targetConfig: MykrobeConfig;
@@ -43,6 +42,7 @@ class AnalyserBaseFile extends EventEmitter {
   }
 
   doneWithJsonString(jsonString: string) {
+    // const fs = require('fs');
     // fs.writeFileSync('doneWithJsonString.json', jsonString);
     const transformer = new AnalyserJsonTransformer();
     transformer

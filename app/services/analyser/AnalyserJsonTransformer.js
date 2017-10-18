@@ -147,6 +147,34 @@ class AnalyserJsonTransformer {
       // }
     }
 
+    /*
+It should be I491F in rpoB – it shouldn't be repeated like that in the output, sorry!
+
+Otherwise the "Resistant" allele N times is in [alternate][median_depth]
+and  the "Susceptible" allele N times is in [reference][median_depth]
+
+by default.
+
+However, as Zam mentioned, this changes to:
+
+[alternate][kmer_count]
+and
+[reference][kmer_count]
+
+for another data type (which we now support but didn't previously).
+
+I'll have to add another k,v in the output which specifies whether to use "median_depth" or "kmer_count".
+
+The phrasing would also change from
+"has been seen X times" to something like "X kmers from the resistance/susceptible allele"
+
+    */
+
+    // TODO: json should tell us whether to use median_depth or kmer_count
+
+    // const countKey = 'median_depth';
+    const countKey = 'kmer_count';
+
     for (key in susceptibilityModel) {
       const predict = susceptibilityModel[key]['predict'].toUpperCase();
       value = predict.substr(0, 1);
@@ -173,18 +201,31 @@ class AnalyserJsonTransformer {
             model.evidence[key] = o;
           }
           const genes = calledByKey.split('_');
+          // if in format I491F-I491F, split and take just I491F
+          if (genes[1].indexOf('-') > 0) {
+            genes[1] = genes[1].split('-')[0];
+          }
           const info = calledBy[calledByKey]['info'];
+          const alternate = info['coverage']['alternate'];
           const reference = info['coverage']['reference'];
           // o.push([
           //   key + ' gene found',
           //   'Percent recovered: ' + reference['per_cov'] + '%',
           //   'Median coverage: ' + reference['median_cov'],
           // ]);
-          o.push([
-            'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
-            'Resistant allele seen ' + reference['kmer_count'] + ' times',
-            'Susceptible allele seen ' + reference['median_depth'] + ' times',
-          ]);
+          if (countKey === 'median_depth') {
+            o.push([
+              'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
+              'Resistant allele seen ' + alternate[countKey] + ' times',
+              'Susceptible allele seen ' + reference[countKey] + ' times',
+            ]);
+          } else {
+            o.push([
+              'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
+              alternate[countKey] + ' kmers from the resistant allele',
+              reference[countKey] + ' kmers from the susceptible allele',
+            ]);
+          }
         }
       }
     }

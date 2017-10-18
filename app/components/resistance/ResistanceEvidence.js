@@ -15,11 +15,9 @@ class ResistanceEvidence extends Component {
     for (let title in evidence) {
       const values = evidence[title][0];
       panels.push(
-        <Panel title={title} columns={4}>
+        <Panel key={panels.length} title={title} columns={4}>
           <div className={styles.evidence}>
-            {values.map((value, index) => (
-              <div key={`ELEMENT_${index}`}>{value}</div>
-            ))}
+            {values.map((value, index) => <div key={index}>{value}</div>)}
           </div>
         </Panel>
       );

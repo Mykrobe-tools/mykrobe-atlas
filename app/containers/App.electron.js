@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import path from 'path';
 import * as AnalyserActions from '../actions/AnalyserActions';
-import * as UIHelpers from '../helpers/UIHelpers';
+import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
 import styles from './App.css';
 
@@ -31,7 +31,7 @@ class App extends Component {
     });
 
     ipcRenderer.on('menu-file-open', () => {
-      const filePath = UIHelpers.openFileDialog();
+      const filePath = UIHelpers.openFileDialog(); // eslint-disable-line import/namespace
       if (filePath) {
         const fileObject = {
           path: filePath,
