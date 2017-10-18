@@ -11,7 +11,7 @@ import * as TargetConstants from '../../constants/TargetConstants';
 class Resistance extends Component {
   render() {
     const { analyser, id, children } = this.props;
-    const path = `/sample/${id}/resistance`;
+    const path = IS_ELECTRON ? '/resistance' : `/sample/${id}/resistance`;
     let content;
     const config = new MykrobeConfig();
 
@@ -103,7 +103,7 @@ function mapStateToProps(state) {
 Resistance.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   children: PropTypes.node,
 };
 

@@ -8,10 +8,6 @@ import { showNotification } from './NotificationActions';
 import UploadService from '../services/upload/UploadService';
 import AnalyserService from '../services/analyser/AnalyserService';
 
-// const AnalyserService = IS_ELECTRON
-//   ? require('../services/analyser/AnalyserServiceElectron')
-//   : require('../services/analyser/AnalyserService');
-
 // $FlowFixMe: Ignore missing require().default
 const analyserService = new AnalyserService();
 const uploadService = new UploadService();
@@ -75,6 +71,8 @@ export function analyseFile(file: File, id?: string) {
       type: ActionTypes.ANALYSE_FILE_ANALYSE,
     });
 
+    IS_ELECTRON && dispatch(push('/'));
+
     analyserService
       .analyseFile(file, id)
       .on('progress', progress => {
@@ -83,6 +81,7 @@ export function analyseFile(file: File, id?: string) {
       .on('done', result => {
         const { json, transformed } = result;
         dispatch(analyseFileSuccess(file.name, json, transformed));
+        IS_ELECTRON && dispatch(push('/results'));
       })
       .on('error', error => {
         dispatch(analyseFileError(error.description));
