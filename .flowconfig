@@ -2,6 +2,9 @@
 
 .*/node_modules/npm/
 .*/node_modules/stylelint/
+.*/electron/static
+.*/electron/dist
+.*/electron/release
 
 [include]
 

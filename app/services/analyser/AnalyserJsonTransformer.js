@@ -51,7 +51,7 @@ class AnalyserJsonTransformer {
     }
   }
 
-  transformSampleModel(sourceModel: Object, relatedModels: Array<Object>) {
+  transformSampleModel(sourceModel: Object, relatedModels: ?Array<Object>) {
     let o;
     let susceptibilityModel;
     let key;

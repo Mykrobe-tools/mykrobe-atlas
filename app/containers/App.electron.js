@@ -7,9 +7,10 @@ import path from 'path';
 import * as AnalyserActions from '../actions/AnalyserActions';
 import * as UIHelpers from '../helpers/UIHelpers';
 import { push } from 'react-router-redux';
-import App from './App';
 
-class AppElectron extends Component {
+import styles from './App.css';
+
+class App extends Component {
   constructor(props) {
     super(props);
     const { dispatch } = props;
@@ -74,7 +75,11 @@ class AppElectron extends Component {
       menu.items[1].submenu.items[4].enabled = canSave;
     }
 
-    return <App children={children} />;
+    return (
+      <div className={styles.container}>
+        <div className={styles.contentContainer}>{children}</div>
+      </div>
+    );
   }
 }
 
@@ -84,10 +89,10 @@ function mapStateToProps(state) {
   };
 }
 
-AppElectron.propTypes = {
+App.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
   children: PropTypes.element.isRequired,
 };
 
-export default connect(mapStateToProps)(AppElectron);
+export default connect(mapStateToProps)(App);
