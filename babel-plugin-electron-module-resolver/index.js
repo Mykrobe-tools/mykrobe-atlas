@@ -38,7 +38,7 @@ const resolveImport = (path, state) => {
     }
     if (isDirectory) {
       // if it is, then add 'index.js'
-      originalImportFilePathResolved = path.join(
+      originalImportFilePathResolved = pathLib.join(
         originalImportFilePathParsed.dir,
         originalImportFilePathParsed.name,
         'index.js'
