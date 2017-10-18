@@ -42,6 +42,7 @@ export default function analyser(
         analysing: true,
       };
     case ActionTypes.ANALYSE_FILE_CANCEL:
+    case ActionTypes.ANALYSE_FILE_NEW:
       return initialState;
     case ActionTypes.ANALYSE_FILE_PROGRESS: {
       if (IS_ELECTRON) {

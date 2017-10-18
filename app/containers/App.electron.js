@@ -2,11 +2,9 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import fs from 'fs';
 import path from 'path';
 import * as AnalyserActions from '../actions/AnalyserActions';
 import * as UIHelpers from '../helpers/UIHelpers';
-import { push } from 'react-router-redux';
 
 import styles from './App.css';
 
@@ -28,7 +26,8 @@ class App extends Component {
     });
 
     ipcRenderer.on('menu-file-new', () => {
-      dispatch(push('/'));
+      const { dispatch } = props;
+      dispatch(AnalyserActions.analyseFileNew());
     });
 
     ipcRenderer.on('menu-file-open', () => {
@@ -43,20 +42,8 @@ class App extends Component {
     });
 
     ipcRenderer.on('menu-file-save-as', () => {
-      const filePath = UIHelpers.saveFileDialog('mykrobe.json');
-      if (filePath) {
-        const { analyser } = this.props;
-        const json = JSON.stringify(analyser.json, null, 2);
-        fs.writeFile(filePath, json, err => {
-          if (err) {
-            console.error(err);
-          } else {
-            console.log('JSON saved to ', filePath);
-          }
-        });
-      }
+      dispatch(AnalyserActions.analyseFileSave());
     });
-    console.log('onSaveClick');
   }
 
   render() {

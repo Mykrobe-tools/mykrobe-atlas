@@ -7,6 +7,7 @@ import * as NotificationCategories from '../constants/NotificationCategories';
 import { showNotification } from './NotificationActions';
 import UploadService from '../services/upload/UploadService';
 import AnalyserService from '../services/analyser/AnalyserService';
+import * as UIHelpers from '../helpers/UIHelpers';
 
 // $FlowFixMe: Ignore missing require().default
 const analyserService = new AnalyserService();
@@ -208,5 +209,39 @@ export function fetchExperiment(id: string) {
       .catch(error => {
         dispatch(analyseFileError(error));
       });
+  };
+}
+
+export function analyseFileNew() {
+  return (dispatch, getState) => {
+    const state = getState();
+    if (state.analyser) {
+      state.analyser.cancel && state.analyser.cancel();
+    }
+    dispatch(push('/'));
+    dispatch({
+      type: ActionTypes.ANALYSE_FILE_NEW,
+    });
+  };
+}
+
+export function analyseFileSave() {
+  return (dispatch, getState) => {
+    if (IS_ELECTRON) {
+      const state = getState();
+      const fs = require('fs');
+      const filePath = UIHelpers.saveFileDialog('mykrobe.json');
+      if (filePath) {
+        const { analyser } = state;
+        const json = JSON.stringify(analyser.json, null, 2);
+        fs.writeFile(filePath, json, err => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.log('JSON saved to ', filePath);
+          }
+        });
+      }
+    }
   };
 }

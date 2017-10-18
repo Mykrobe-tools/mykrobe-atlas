@@ -13,9 +13,7 @@ class Resistance extends Component {
 
   render() {
     const { analyser, id, children } = this.props;
-    const path = IS_ELECTRON
-      ? '/results/resistance'
-      : `/sample/${id}/resistance`;
+    const path = `/sample/${id}/resistance`;
     let content;
     const config = new MykrobeConfig();
 

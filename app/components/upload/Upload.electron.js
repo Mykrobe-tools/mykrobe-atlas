@@ -2,6 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import path from 'path';
+import Dropzone from 'react-dropzone';
 
 import styles from './Upload.css';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
@@ -10,7 +11,6 @@ import Logo from '../logo/Logo';
 import * as UIHelpers from '../../helpers/UIHelpers';
 
 class Upload extends Component {
-  _dropzone: Element;
   state: {
     isDragActive: boolean,
   };
@@ -40,13 +40,32 @@ class Upload extends Component {
     analyseFileCancel();
   };
 
-  onDragOver = () => {
+  onDragEnter = e => {
     this.setState({
       isDragActive: true,
     });
   };
 
   onDragLeave = () => {
+    this.setState({
+      isDragActive: false,
+    });
+  };
+
+  onDropAccepted = files => {
+    const { analyseFile } = this.props;
+    console.log('onDropAccepted', files);
+    this.setState({
+      isDragActive: false,
+    });
+    if (!files.length) {
+      return;
+    }
+    analyseFile(files[0]);
+  };
+
+  onDropRejected = files => {
+    console.log('onDropRejected', files);
     this.setState({
       isDragActive: false,
     });
@@ -87,13 +106,15 @@ class Upload extends Component {
     }
     return (
       <div className={styles.content}>
-        {0 === progress || 100 === progress
-          ? <div className={styles.dots}>
-              <div className={styles.dotOne} />
-              <div className={styles.dotTwo} />
-              <div className={styles.dotThree} />
-            </div>
-          : <div className={styles.progressTitle}>{analyser.progress}%</div>}
+        {0 === progress || 100 === progress ? (
+          <div className={styles.dots}>
+            <div className={styles.dotOne} />
+            <div className={styles.dotTwo} />
+            <div className={styles.dotThree} />
+          </div>
+        ) : (
+          <div className={styles.progressTitle}>{analyser.progress}%</div>
+        )}
         <CircularProgress percentage={progress} />
         <div className={styles.progressStatus}>{statusText}</div>
         <div className={styles.buttonContainer}>
@@ -113,10 +134,15 @@ class Upload extends Component {
     const { isDragActive } = this.state;
     const { analyser } = this.props;
     return (
-      <div
+      <Dropzone
         className={isDragActive ? styles.containerDragActive : styles.container}
-        onDragOver={this.onDragOver}
+        onDropAccepted={this.onDropAccepted}
+        onDropRejected={this.onDropRejected}
         onDragLeave={this.onDragLeave}
+        onDragEnter={this.onDragEnter}
+        disableClick
+        multiple={false}
+        accept=".json,.bam,.gz,.fastq"
       >
         <AnimatedBackground />
         <div className={styles.contentContainer}>
@@ -124,7 +150,7 @@ class Upload extends Component {
             ? this.renderContentAnalysing()
             : this.renderContentDefault()}
         </div>
-      </div>
+      </Dropzone>
     );
   }
 }

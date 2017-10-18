@@ -43,12 +43,12 @@ class AnalyserBaseFile extends EventEmitter {
   }
 
   doneWithJsonString(jsonString: string) {
-    fs.writeFileSync('doneWithJsonString.json', jsonString);
+    // fs.writeFileSync('doneWithJsonString.json', jsonString);
     const transformer = new AnalyserJsonTransformer();
     transformer
       .transform(jsonString)
       .then(result => {
-        const { json, transformed } = result;
+        // const { json, transformed } = result;
         // console.log('json', json);
         // console.log('transformed', transformed);
         this.emit('done', result);

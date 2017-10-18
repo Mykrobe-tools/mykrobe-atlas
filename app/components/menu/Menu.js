@@ -13,9 +13,7 @@ class Menu extends Component {
         className={displayMenu ? styles.containerDisplayed : styles.container}
       >
         <div className={styles.logoWrap}>
-          <div className={styles.logo}>
-            <Logo />
-          </div>
+          <Logo />
         </div>
         <ul className={styles.navigation}>
           <li className={styles.navigationItem}>
