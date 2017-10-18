@@ -20,8 +20,8 @@ class AnalyserService {
   }
 
   analyseFile(file: File) {
-    return new AnalyserLocalFile(this.config).analyseFile(file);
-    // return new AnalyserSimulateLocalFile(this.config).analyseFile(file);
+    // return new AnalyserLocalFile(this.config).analyseFile(file);
+    return new AnalyserSimulateLocalFile(this.config).analyseFile(file);
   }
 }
 

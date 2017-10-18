@@ -30,8 +30,9 @@ class AnalyserSimulateLocalFile extends AnalyserBaseFile {
   }
 
   analyseBinaryFile(file: File): AnalyserSimulateLocalFile {
-    this._progress = 0;
-    setTimeout(this.incrementProgress, 2000);
+    // this._progress = 0;
+    // setTimeout(this.incrementProgress, 2000);
+    this.sendResult();
     return this;
   }
 }

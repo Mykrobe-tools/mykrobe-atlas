@@ -4,13 +4,13 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AnalyserActions from '../actions/AnalyserActions';
-import UploadElectron from '../components/upload/UploadElectron';
+import Upload from '../components/upload/Upload';
 
 class HomePage extends Component {
   render() {
     const { analyseFile, analyseFileCancel, analyser } = this.props;
     return (
-      <UploadElectron
+      <Upload
         analyseFile={analyseFile}
         analyseFileCancel={analyseFileCancel}
         analyser={analyser}

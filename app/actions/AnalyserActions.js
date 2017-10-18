@@ -6,10 +6,11 @@ import * as ActionTypes from '../constants/ActionTypes';
 import * as NotificationCategories from '../constants/NotificationCategories';
 import { showNotification } from './NotificationActions';
 import UploadService from '../services/upload/UploadService';
+import AnalyserService from '../services/analyser/AnalyserService';
 
-const AnalyserService = IS_ELECTRON
-  ? require('../services/analyser/AnalyserServiceElectron')
-  : require('../services/analyser/AnalyserService');
+// const AnalyserService = IS_ELECTRON
+//   ? require('../services/analyser/AnalyserServiceElectron')
+//   : require('../services/analyser/AnalyserService');
 
 // $FlowFixMe: Ignore missing require().default
 const analyserService = new AnalyserService();

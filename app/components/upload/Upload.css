@@ -43,15 +43,11 @@
 }
 
 .buttonContainer {
-  width: 100%;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
-  flex-wrap: wrap;
-  position: relative;
-  align-self: flex-end;
-  margin-top: auto;
+  bottom: 60px;
 }
 
 .buttonOffscreen {

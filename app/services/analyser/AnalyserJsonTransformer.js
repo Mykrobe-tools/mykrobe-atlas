@@ -28,18 +28,27 @@ class AnalyserJsonTransformer {
   }
 
   transformModel(sourceModel: Object) {
-    // just do the first one for now
-    const sampleIds = _.keys(sourceModel.snpDistance.newick);
-    const sampleId = sampleIds[0];
+    if (sourceModel.snpDistance) {
+      // just do the first one for now
+      const sampleIds = _.keys(sourceModel.snpDistance.newick);
+      const sampleId = sampleIds[0];
 
-    const sampleModel = sourceModel.snpDistance.newick[sampleId];
+      const sampleModel = sourceModel.snpDistance.newick[sampleId];
 
-    const transformedSampleModel = this.transformSampleModel(
-      sampleModel,
-      sourceModel.geoDistance.experiments
-    );
+      const transformedSampleModel = this.transformSampleModel(
+        sampleModel,
+        sourceModel.geoDistance.experiments
+      );
 
-    return transformedSampleModel;
+      return transformedSampleModel;
+    } else {
+      // only one sample from Predictor
+      const sampleIds = Object.keys(sourceModel);
+      const sampleId = sampleIds[0];
+      const sampleModel = sourceModel[sampleId];
+      const transformedSampleModel = this.transformSampleModel(sampleModel);
+      return transformedSampleModel;
+    }
   }
 
   transformSampleModel(sourceModel: Object, relatedModels: Array<Object>) {
@@ -205,19 +214,21 @@ class AnalyserJsonTransformer {
     model.speciesPretty = speciesPretty;
 
     // tree and neighbours
-    let neighbourKeys = _.keys(sourceModel.neighbours);
-    let samples = {};
-    for (let i = 0; i < 2; i++) {
-      const neighbour = sourceModel.neighbours[neighbourKeys[i]];
-      let keys = _.keys(neighbour);
-      let neighbourSampleModel = relatedModels[i];
-      let sampleId: string = keys[0];
-      neighbourSampleModel.id = sampleId;
-      samples[sampleId] = neighbourSampleModel;
-    }
-    model.samples = samples;
+    if (sourceModel.neighbours) {
+      let neighbourKeys = _.keys(sourceModel.neighbours);
+      let samples = {};
+      for (let i = 0; i < 2; i++) {
+        const neighbour = sourceModel.neighbours[neighbourKeys[i]];
+        let keys = _.keys(neighbour);
+        let neighbourSampleModel = relatedModels[i];
+        let sampleId: string = keys[0];
+        neighbourSampleModel.id = sampleId;
+        samples[sampleId] = neighbourSampleModel;
+      }
+      model.samples = samples;
 
-    model.tree = sourceModel.tree;
+      model.tree = sourceModel.tree;
+    }
 
     return model;
   }
