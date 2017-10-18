@@ -3,19 +3,23 @@
 import pathLib from 'path';
 import fs from 'fs';
 
+// This plugin will modify imports to import sources with a '.electron' suffix
+// Only if process.PLATFORM === 'electron'
+
+const DEBUG = false;
+
 const resolveImport = (path, state) => {
-  // https://github.com/babel/babel/tree/master/packages/babel-types#timportdeclarationspecifiers-source
-
-  // path.node has properties 'source' and 'specifiers' attached.
-  // path.node.source is the library/module name, aka 'react-bootstrap'.
-  // path.node.specifiers is an array of ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier
-
   var source = path.node.source.value;
-  console.log('source', source);
+
+  if (process.env.PLATFORM !== 'electron') {
+    return;
+  }
+
   // ignore anything which is not a relative import
   if (!source.startsWith('./') && !source.startsWith('../')) {
     return;
   }
+  DEBUG && console.log('source', source);
 
   const originalImportFilePath = pathLib.resolve(
     pathLib.dirname(state.file.opts.filename),
@@ -49,15 +53,20 @@ const resolveImport = (path, state) => {
     }
   }
 
-  console.log('originalImportFilePathResolved', originalImportFilePathResolved);
+  DEBUG &&
+    console.log(
+      'originalImportFilePathResolved',
+      originalImportFilePathResolved
+    );
 
   const originalImportFilePathResolvedParsed = pathLib.parse(
     originalImportFilePathResolved
   );
-  console.log(
-    'originalImportFilePathResolved',
-    JSON.stringify(originalImportFilePathResolvedParsed, null, 2)
-  );
+  DEBUG &&
+    console.log(
+      'originalImportFilePathResolved',
+      JSON.stringify(originalImportFilePathResolvedParsed, null, 2)
+    );
 
   const electronImportFilePath = pathLib.resolve(
     originalImportFilePathResolvedParsed.dir,
@@ -65,9 +74,9 @@ const resolveImport = (path, state) => {
   );
 
   if (fs.existsSync(electronImportFilePath)) {
-    console.log('******** Use: ', electronImportFilePath);
+    DEBUG && console.log('******** Use: ', electronImportFilePath);
     const sourceFolder = pathLib.dirname(state.file.opts.filename);
-    console.log('******** sourceFolder: ', sourceFolder);
+    DEBUG && console.log('******** sourceFolder: ', sourceFolder);
     let relativeImportPath = pathLib.relative(
       sourceFolder,
       electronImportFilePath
@@ -79,7 +88,7 @@ const resolveImport = (path, state) => {
       // ensure path starts with './'
       relativeImportPath = `./${relativeImportPath}`;
     }
-    console.log('******** relativeImportPath: ', relativeImportPath);
+    DEBUG && console.log('******** relativeImportPath: ', relativeImportPath);
     path.node.source.value = relativeImportPath;
   }
   // return path;

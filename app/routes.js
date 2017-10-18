@@ -7,6 +7,8 @@ import SamplePage from './containers/SamplePage';
 
 import store from './store/store'; // eslint-disable-line import/default
 
+import HomePage from './containers/HomePage';
+
 import Analysis from './components/analysis/Analysis';
 import Metadata from './components/metadata/Metadata';
 import Resistance from './components/resistance/Resistance';
@@ -49,9 +51,9 @@ const App = IS_ELECTRON
   ? require('./containers/AppElectron')
   : require('./containers/App');
 
-const HomePage = IS_ELECTRON
-  ? require('./containers/HomePageElectron')
-  : require('./containers/HomePage');
+// const HomePage = IS_ELECTRON
+//   ? require('./containers/HomePageElectron')
+//   : require('./containers/HomePage');
 
 export default (
   <Route path="/" component={App}>
