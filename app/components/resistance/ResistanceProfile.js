@@ -7,6 +7,9 @@ import styles from './ResistanceProfile.css';
 class ResistanceProfile extends Component {
   render() {
     const { analyser } = this.props;
+    if (!analyser.transformed) {
+      return null;
+    }
     const { resistant, susceptible, inconclusive } = analyser.transformed;
     return (
       <div className={styles.container}>

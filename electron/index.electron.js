@@ -11,13 +11,16 @@ let ready = false;
 // const SHOW_DEV_TOOLS = process.env.NODE_ENV === 'development';
 const SHOW_DEV_TOOLS = true;
 
-if (process.env.NODE_ENV === 'production') {
-  const sourceMapSupport = require('source-map-support') // eslint-disable-line
-  sourceMapSupport.install();
-}
+// if (process.env.NODE_ENV === 'production') {
+//   const sourceMapSupport = require('source-map-support') // eslint-disable-line
+//   sourceMapSupport.install();
+// }
 
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
+  const path = require('path');
+  const p = path.join(__dirname, '..', 'app', 'node_modules');
+  require('module').globalPaths.push(p);
 }
 
 app.on('window-all-closed', () => {
@@ -25,17 +28,13 @@ app.on('window-all-closed', () => {
 });
 
 const installExtensions = async () => {
-  if (process.env.NODE_ENV === 'development') {
-    const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
+  const installer = require('electron-devtools-installer');
+  const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
 
-    const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
-    const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-    for (const name of extensions) {
-      try {
-        await installer.default(installer[name], forceDownload);
-      } catch (e) {} // eslint-disable-line
-    }
-  }
+  return Promise.all(
+    extensions.map(name => installer.default(installer[name], forceDownload))
+  ).catch(console.log);
 };
 
 // TODO: this is not yet working - perhaps need to set file associations in mac info.plist
@@ -53,7 +52,9 @@ app.on('will-finish-launching', () => {
 });
 
 app.on('ready', async () => {
-  await installExtensions();
+  if (process.env.NODE_ENV === 'development') {
+    await installExtensions();
+  }
 
   // const packageJson = require('./package.json');
 
@@ -319,39 +320,40 @@ app.on('ready', async () => {
       },
       {
         label: '&View',
-        submenu: process.env.NODE_ENV === 'development'
-          ? [
-              {
-                label: '&Reload',
-                accelerator: 'Ctrl+R',
-                click() {
-                  mainWindow.webContents.reload();
+        submenu:
+          process.env.NODE_ENV === 'development'
+            ? [
+                {
+                  label: '&Reload',
+                  accelerator: 'Ctrl+R',
+                  click() {
+                    mainWindow.webContents.reload();
+                  },
                 },
-              },
-              {
-                label: 'Toggle &Full Screen',
-                accelerator: 'F11',
-                click() {
-                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
+                {
+                  label: 'Toggle &Full Screen',
+                  accelerator: 'F11',
+                  click() {
+                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
+                  },
                 },
-              },
-              {
-                label: 'Toggle &Developer Tools',
-                accelerator: 'Alt+Ctrl+I',
-                click() {
-                  mainWindow.toggleDevTools();
+                {
+                  label: 'Toggle &Developer Tools',
+                  accelerator: 'Alt+Ctrl+I',
+                  click() {
+                    mainWindow.toggleDevTools();
+                  },
                 },
-              },
-            ]
-          : [
-              {
-                label: 'Toggle &Full Screen',
-                accelerator: 'F11',
-                click() {
-                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
+              ]
+            : [
+                {
+                  label: 'Toggle &Full Screen',
+                  accelerator: 'F11',
+                  click() {
+                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
+                  },
                 },
-              },
-            ],
+              ],
       },
       {
         label: 'Help',

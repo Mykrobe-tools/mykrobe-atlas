@@ -9,9 +9,13 @@ import MykrobeConfig from '../../services/MykrobeConfig';
 import * as TargetConstants from '../../constants/TargetConstants';
 
 class Resistance extends Component {
+  componen;
+
   render() {
     const { analyser, id, children } = this.props;
-    const path = IS_ELECTRON ? '/resistance' : `/sample/${id}/resistance`;
+    const path = IS_ELECTRON
+      ? '/results/resistance'
+      : `/sample/${id}/resistance`;
     let content;
     const config = new MykrobeConfig();
 
@@ -95,6 +99,7 @@ class Resistance extends Component {
 }
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
     analyser: state.analyser,
   };

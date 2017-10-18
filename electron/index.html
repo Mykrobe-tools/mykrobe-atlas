@@ -10,17 +10,18 @@
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = font;
-        document.write(link.outerHTML);
+        // document.write(link.outerHTML);
+        document.getElementsByTagName('head')[0].appendChild(link);
       }());
     </script>
-
     <script>
       (function() {
         if (!process.env.HOT) {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = './style.css';
-          document.write(link.outerHTML);
+          // document.write(link.outerHTML);
+          document.getElementsByTagName('head')[0].appendChild(link);
         }
       }());
     </script>
@@ -30,6 +31,7 @@
     <script>
       (function() {
         const script = document.createElement('script');
+        script.defer = true;
         script.src = (process.env.HOT) ? 'http://localhost:3000/static/bundle.js' : './bundle.js';
         document.write(script.outerHTML);
       }());

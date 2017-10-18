@@ -14,9 +14,11 @@ class ResistanceAll extends Component {
         <Panel title="Resistance Profile" columns={3}>
           <ResistanceProfile />
         </Panel>
-        <Panel title="Phylogeny" columns={5}>
-          <Phylogeny controlsInset={0} />
-        </Panel>
+        {!IS_ELECTRON && (
+          <Panel title="Phylogeny" columns={5}>
+            <Phylogeny controlsInset={0} />
+          </Panel>
+        )}
       </div>
     );
   }
