@@ -71,11 +71,12 @@ class AnalyserJsonTransformer {
 
     susceptibilityModel = sourceModel['susceptibility'];
 
-    calledVariants = sourceModel['called_variants'];
-    calledGenes = sourceModel['called_genes'];
+    // calledVariants = sourceModel['called_variants'];
+    // calledGenes = sourceModel['called_genes'];
 
     model.evidence = {};
 
+    /*
     for (key in calledVariants) {
       const mutation = calledVariants[key];
       const title = mutation['induced_resistance'];
@@ -112,6 +113,7 @@ class AnalyserJsonTransformer {
         'Median coverage: ' + spot['median_cov'],
       ]);
     }
+    */
 
     model.evidence = this._sortObject(model.evidence);
 
@@ -158,6 +160,32 @@ class AnalyserJsonTransformer {
       }
       if (isInducible) {
         model.inducible.push(key);
+      }
+      if ('called_by' in susceptibilityModel[key]) {
+        const calledBy = susceptibilityModel[key]['called_by'];
+        for (let calledByKey in calledBy) {
+          // group by title
+          o = [];
+          if (model.evidence[key]) {
+            o = model.evidence[key];
+          } else {
+            // initialise
+            model.evidence[key] = o;
+          }
+          const genes = calledByKey.split('_');
+          const info = calledBy[calledByKey]['info'];
+          const reference = info['coverage']['reference'];
+          // o.push([
+          //   key + ' gene found',
+          //   'Percent recovered: ' + reference['per_cov'] + '%',
+          //   'Median coverage: ' + reference['median_cov'],
+          // ]);
+          o.push([
+            'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
+            'Resistant allele seen ' + reference['kmer_count'] + ' times',
+            'Susceptible allele seen ' + reference['median_depth'] + ' times',
+          ]);
+        }
       }
     }
 
