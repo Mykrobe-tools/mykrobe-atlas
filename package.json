@@ -40,7 +40,6 @@
     "web-build-simple-server": "concurrently \"yarn web-build-server\" \"yarn web-open\""
   },
   "build": {
-    "asar": false,
     "appId": "com.mykrobe.predictor-tb",
     "mac": {
       "category": "public.app-category.tools",
