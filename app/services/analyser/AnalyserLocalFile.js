@@ -47,11 +47,11 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     this.processExited = false;
 
     const pathToBin = this.pathToBin();
-    const dirToBin = path.join(this.dirToBin(), this.targetConfig.targetName);
+
     const args = [
       'predict',
       '--force',
-      `"${fileName}"`,
+      `'${fileName}'`,
       'tb',
       '-1',
       `"${filePath}"`,
