@@ -1,15 +1,19 @@
 {
   "presets": ["es2015", "stage-0", "react"],
-  "plugins": ["add-module-exports", "transform-runtime", "transform-flow-strip-types", "./babel-plugin-electron-module-resolver"],
+  "plugins": ["add-module-exports", "transform-runtime", "transform-flow-strip-types"],
   "env": {
     "production": {
       "presets": ["react-optimize"],
       "plugins": [
-        "babel-plugin-dev-expression"
+        "babel-plugin-dev-expression",
+        "./babel-plugin-electron-module-resolver"
       ]
     },
     "development": {
-      "presets": ["react-hmre"]
+      "presets": ["react-hmre"],
+      "plugins": [
+        "./babel-plugin-electron-module-resolver"
+      ]
     },
     "test": {
       "plugins": [

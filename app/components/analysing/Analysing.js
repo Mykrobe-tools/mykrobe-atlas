@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as AnalyserActions from '../../actions/AnalyserActions';
 import styles from './Analysing.css';
 import AnalysingProgressBar from './AnalysingProgressBar';
-import * as UIHelpers from '../helpers/UIHelpers';
+import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
 class Analysing extends Component {
   componentDidMount() {
@@ -17,7 +17,7 @@ class Analysing extends Component {
   render() {
     const { analyser } = this.props;
     if (IS_ELECTRON) {
-      UIHelpers.setProgress(analyser.progress);
+      UIHelpers.setProgress(analyser.progress); // eslint-disable-line import/namespace
     }
     return (
       <div className={styles.container}>
