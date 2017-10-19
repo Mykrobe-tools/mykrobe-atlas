@@ -20,7 +20,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
   jsonBuffer: string;
   isBufferingJson: boolean;
   processExited: boolean;
-  child: ?child_process$ChildProcess; // eslint-disable-line camelcase
+  child: child_process$ChildProcess; // eslint-disable-line camelcase
   didReceiveError: boolean;
   tmpObj: ?Object;
 
@@ -53,12 +53,12 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     const args = [
       'predict',
       '--force',
-      fileName,
+      `"${fileName}"`,
       'tb',
       '-1',
-      filePath,
+      `"${filePath}"`,
       '--skeleton_dir',
-      skeletonDir,
+      `"${skeletonDir}"`,
     ];
 
     console.log('Spawning executable at path:', pathToBin);
@@ -123,9 +123,14 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     });
 
     this.child.stderr.on('data', data => {
+      const dataString = data.toString('utf8');
+      if ( dataString.startsWith('DEBUG') || dataString.startsWith('INFO') ) {
+        console.log('IGNORING ERROR: ' + dataString);
+        return;
+      }
       this.didReceiveError = true;
-      console.log('ERROR: ' + data);
-      this.failWithError(data);
+      console.log('ERROR: ' + dataString);
+      this.failWithError(dataString);
     });
 
     this.child.on('exit', code => {
