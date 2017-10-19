@@ -51,10 +51,10 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     const args = [
       'predict',
       '--force',
-      `'${fileName}'`,
+      fileName,
       'tb',
       '-1',
-      `"${filePath}"`,
+      filePath,
       '--skeleton_dir',
       skeletonDir,
     ];
