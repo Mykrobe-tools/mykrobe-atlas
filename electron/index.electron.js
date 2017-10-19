@@ -19,7 +19,7 @@ const SHOW_DEV_TOOLS = true;
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
   const path = require('path');
-  const p = path.join(__dirname, '..', 'app', 'node_modules');
+  const p = path.join(__dirname, '../node_modules');
   require('module').globalPaths.push(p);
 }
 
@@ -95,12 +95,13 @@ app.on('ready', async () => {
   }
 
   if (process.platform === 'darwin') {
+    const name = app.getName();
     template = [
       {
         label: 'Electron',
         submenu: [
           {
-            label: 'About ElectronReact',
+            label: `About ${name}`,
             selector: 'orderFrontStandardAboutPanel:',
           },
           {
@@ -114,7 +115,7 @@ app.on('ready', async () => {
             type: 'separator',
           },
           {
-            label: 'Hide ElectronReact',
+            label: `Hide ${name}`,
             accelerator: 'Command+H',
             selector: 'hide:',
           },

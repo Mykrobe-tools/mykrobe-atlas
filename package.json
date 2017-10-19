@@ -166,6 +166,7 @@
     "jest": "^18.1.0",
     "json-loader": "^0.5.4",
     "minimist": "^1.2.0",
+    "module": "^1.2.5",
     "nock": "^9.0.2",
     "node-libs-browser": "^1.0.0",
     "prettier": "^1.7.4",
