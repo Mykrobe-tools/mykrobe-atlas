@@ -13,7 +13,9 @@ function requestExperiments() {
   };
 }
 
-function receiveExperiments(data: Array<Object> = []) {
+function receiveExperiments(
+  data: Object = { results: [], summary: { hits: 0 } }
+) {
   return {
     type: ActionTypes.RECEIVE_EXPERIMENTS,
     data,
