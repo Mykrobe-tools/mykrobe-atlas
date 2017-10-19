@@ -7,15 +7,12 @@ import FormLabel from './FormLabel';
 import styles from './FormInputCheckbox.css';
 
 class FormInputCheckbox extends Component {
-
   render() {
-    const {name, onChange, options, selectedOptions, title} = this.props;
+    const { name, onChange, options, selectedOptions, title } = this.props;
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
-          <FormLabel
-            htmlFor={name}
-            label={title} />
+          <FormLabel htmlFor={name} label={title} />
         </div>
         <div className={styles.items}>
           {options.map(opt => {
@@ -25,10 +22,11 @@ class FormInputCheckbox extends Component {
                   <input
                     className={styles.input}
                     name={name}
-                    onChange={(event) => onChange(event)}
+                    onChange={event => onChange(event)}
                     value={opt.value}
                     checked={selectedOptions.indexOf(opt.value) > -1}
-                    type="checkbox" />
+                    type="checkbox"
+                  />
                 </FormLabel>
               </div>
             );
@@ -44,7 +42,7 @@ FormInputCheckbox.propTypes = {
   onChange: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
   selectedOptions: PropTypes.array,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 export default FormInputCheckbox;

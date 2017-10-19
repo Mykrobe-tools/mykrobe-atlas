@@ -84,7 +84,7 @@ class MetadataForm extends Component {
     sputumSmearConversion: string,
     sputumCultureConversion: string,
     whoOutcomeCategory: string,
-    dateOfDeath: string
+    dateOfDeath: string,
   };
 
   constructor(props: Object) {
@@ -97,23 +97,23 @@ class MetadataForm extends Component {
   }
 
   componentWillUnmount() {
-    const {setMetadata} = this.props;
+    const { setMetadata } = this.props;
     setMetadata(this.state);
   }
 
   handleFormChange() {
-    const {setMetadata} = this.props;
+    const { setMetadata } = this.props;
     setMetadata(this.state);
   }
 
   handleStepChange() {
-    const {resetScroll} = this.props;
+    const { resetScroll } = this.props;
     resetScroll();
   }
 
   handleSubmit(event: Event) {
     event.preventDefault();
-    const {id, postMetadataForm, resetScroll} = this.props;
+    const { id, postMetadataForm, resetScroll } = this.props;
 
     // TODO: Error checking
 
@@ -123,27 +123,27 @@ class MetadataForm extends Component {
 
   handleDateChange(field: string, date: moment) {
     this.setState({
-      [field]: date.format()
+      [field]: date.format(),
     });
   }
 
   handleCheckboxChange(event: InputEvent) {
     var state = {
-      [event.target.name]: event.target.checked
+      [event.target.name]: event.target.checked,
     };
     this.setState(state);
   }
 
   handleChange(event: InputEvent) {
     var state = {
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     };
     this.setState(state);
   }
 
   handleTypeaheadChange(name: string, value: string) {
     var state = {
-      [name]: value
+      [name]: value,
     };
     this.setState(state);
   }
@@ -151,16 +151,20 @@ class MetadataForm extends Component {
   handleSusceptibilityChange(drug: string, event: InputEvent) {
     var state = {};
     state.susceptibility = Object.assign({}, this.state.susceptibility, {
-      [drug]: event.target.value
+      [drug]: event.target.value,
     });
     this.setState(state);
   }
 
   handleSusceptibilityNotTestedChange(drug: string, event: InputEvent) {
     var state = {};
-    state.susceptibilityNotTestedReason = Object.assign({}, this.state.susceptibilityNotTestedReason, {
-      [drug]: event.target.value
-    });
+    state.susceptibilityNotTestedReason = Object.assign(
+      {},
+      this.state.susceptibilityNotTestedReason,
+      {
+        [drug]: event.target.value,
+      }
+    );
     this.setState(state);
     console.log('state:', this.state);
   }
@@ -168,40 +172,103 @@ class MetadataForm extends Component {
   handleDrugOutsidePhaseChange(drug: string, event: InputEvent) {
     var state = {};
     state.drugOutsidePhase = Object.assign({}, this.state.drugOutsidePhase, {
-      [drug]: event.target.value
+      [drug]: event.target.value,
     });
     this.setState(state);
   }
 
   handleDrugOutsidePhaseStartDateChange(drug: string, date: moment) {
     var state = {};
-    state.drugOutsidePhaseStartDate = Object.assign({}, this.state.drugOutsidePhaseStartDate, {
-      [drug]: date.format()
-    });
+    state.drugOutsidePhaseStartDate = Object.assign(
+      {},
+      this.state.drugOutsidePhaseStartDate,
+      {
+        [drug]: date.format(),
+      }
+    );
     this.setState(state);
   }
 
   handleDrugOutsidePhaseEndDateChange(drug: string, date: moment) {
     var state = {};
-    state.drugOutsidePhaseEndDate = Object.assign({}, this.state.drugOutsidePhaseEndDate, {
-      [drug]: date.format()
-    });
+    state.drugOutsidePhaseEndDate = Object.assign(
+      {},
+      this.state.drugOutsidePhaseEndDate,
+      {
+        [drug]: date.format(),
+      }
+    );
     this.setState(state);
   }
 
   render() {
-    const { patientId, siteId, genderAtBirth, countryOfBirth, bmi, injectingDrugUse, homeless, imprisoned, smoker, diabetic, hivStatus, art, labId, isolateId, collectionDate, prospectiveIsolate, patientAge, countryIsolate, cityIsolate, dateArrived, anatomicalOrigin, smear, wgsPlatform, wgsPlatformOther, otherGenotypeInformation, genexpert, hain, hainRif, hainInh, hainFl, hainAm, hainEth, phenotypeInformationFirstLineDrugs, phenotypeInformationOtherDrugs, previousTbinformation, recentMdrTb, priorTreatmentDate, tbProphylaxis, tbProphylaxisDate, currentTbinformation, startProgrammaticTreatment, intensiveStartDate, intensiveStopDate, startProgrammaticContinuationTreatment, continuationStartDate, continuationStopDate, nonStandardTreatment, sputumSmearConversion, sputumCultureConversion, whoOutcomeCategory, dateOfDeath, drugOutsidePhase, drugOutsidePhaseStartDate, drugOutsidePhaseEndDate } = this.state;
-    const {template} = this.props;
+    const {
+      patientId,
+      siteId,
+      genderAtBirth,
+      countryOfBirth,
+      bmi,
+      injectingDrugUse,
+      homeless,
+      imprisoned,
+      smoker,
+      diabetic,
+      hivStatus,
+      art,
+      labId,
+      isolateId,
+      collectionDate,
+      prospectiveIsolate,
+      patientAge,
+      countryIsolate,
+      cityIsolate,
+      dateArrived,
+      anatomicalOrigin,
+      smear,
+      wgsPlatform,
+      wgsPlatformOther,
+      otherGenotypeInformation,
+      genexpert,
+      hain,
+      hainRif,
+      hainInh,
+      hainFl,
+      hainAm,
+      hainEth,
+      phenotypeInformationFirstLineDrugs,
+      phenotypeInformationOtherDrugs,
+      previousTbinformation,
+      recentMdrTb,
+      priorTreatmentDate,
+      tbProphylaxis,
+      tbProphylaxisDate,
+      currentTbinformation,
+      startProgrammaticTreatment,
+      intensiveStartDate,
+      intensiveStopDate,
+      startProgrammaticContinuationTreatment,
+      continuationStartDate,
+      continuationStopDate,
+      nonStandardTreatment,
+      sputumSmearConversion,
+      sputumCultureConversion,
+      whoOutcomeCategory,
+      dateOfDeath,
+      drugOutsidePhase,
+      drugOutsidePhaseStartDate,
+      drugOutsidePhaseEndDate,
+    } = this.state;
+    const { template } = this.props;
     return (
-      <Form onSubmit={(event) => this.handleSubmit(event)}>
-
+      <Form onSubmit={event => this.handleSubmit(event)}>
         <MetadataFormSteps
           onFormChange={() => this.handleFormChange()}
           onStepChange={() => this.handleStepChange()}
-          onSubmit={(event) => this.handleSubmit(event)}>
+          onSubmit={event => this.handleSubmit(event)}
+        >
           <MetadataFormStep label="Patient">
             <Fieldset legend="Patient">
-              {template.includes('patientId') &&
+              {template.includes('patientId') && (
                 <FormRow>
                   <FormInputText
                     title="Patient ID"
@@ -209,11 +276,11 @@ class MetadataForm extends Component {
                     type="text"
                     required
                     value={patientId}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('siteId') &&
+              )}
+              {template.includes('siteId') && (
                 <FormRow>
                   <FormInputText
                     title="Site ID"
@@ -221,11 +288,11 @@ class MetadataForm extends Component {
                     type="text"
                     required
                     value={siteId}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('genderAtBirth') &&
+              )}
+              {template.includes('genderAtBirth') && (
                 <FormRow>
                   <FormSelect
                     title="Gender at birth"
@@ -234,116 +301,117 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'male',
-                        label: 'Male'
+                        label: 'Male',
                       },
                       {
                         value: 'female',
-                        label: 'Female'
+                        label: 'Female',
                       },
                       {
                         value: 'other',
-                        label: 'Other or Intersex'
+                        label: 'Other or Intersex',
                       },
                       {
                         value: 'unknown',
-                        label: 'Not known / unavailable'
-                      }
+                        label: 'Not known / unavailable',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('countryOfBirth') &&
+              )}
+              {template.includes('countryOfBirth') && (
                 <FormRow>
                   <FormTypeahead
                     title="Country of birth"
                     name="countryOfBirth"
                     value={countryOfBirth}
-                    suggestions={locations.map((location, index) => {
-                      return ({
+                    suggestions={locations.map(location => {
+                      return {
                         value: location['alpha-2'],
-                        label: location.name
-                      });
+                        label: location.name,
+                      };
                     })}
-                    onChange={(name, value) => this.handleTypeaheadChange(name, value)}
+                    onChange={(name, value) =>
+                      this.handleTypeaheadChange(name, value)}
                   />
                 </FormRow>
-              }
+              )}
             </Fieldset>
 
             <Fieldset legend="Patient characteristics at isolation">
-              {template.includes('bmi') &&
+              {template.includes('bmi') && (
                 <FormRow>
                   <FormInputText
                     title="BMI (kg/m2)"
                     name="bmi"
                     type="text"
                     value={bmi}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('injectingDrugUse') &&
+              )}
+              {template.includes('injectingDrugUse') && (
                 <FormRow>
                   <FormInputRadio
                     title="Injecting drug use"
                     name="injectingDrugUse"
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'},
-                      {value: 'unknown', label: 'Not Known'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
+                      { value: 'unknown', label: 'Not Known' },
                     ]}
                     selectedOption={injectingDrugUse}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('homeless') &&
+              )}
+              {template.includes('homeless') && (
                 <FormRow>
                   <FormInputRadio
                     title="Homeless"
                     name="homeless"
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'},
-                      {value: 'unknown', label: 'Not Known'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
+                      { value: 'unknown', label: 'Not Known' },
                     ]}
                     selectedOption={homeless}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('imprisoned') &&
+              )}
+              {template.includes('imprisoned') && (
                 <FormRow>
                   <FormInputRadio
                     title="Imprisoned"
                     name="imprisoned"
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'},
-                      {value: 'unknown', label: 'Not Known'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
+                      { value: 'unknown', label: 'Not Known' },
                     ]}
                     selectedOption={imprisoned}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('smoker') &&
+              )}
+              {template.includes('smoker') && (
                 <FormRow>
                   <FormInputRadio
                     title="Smoker"
                     name="smoker"
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'},
-                      {value: 'unknown', label: 'Not Known'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
+                      { value: 'unknown', label: 'Not Known' },
                     ]}
                     selectedOption={smoker}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('diabetic') &&
+              )}
+              {template.includes('diabetic') && (
                 <FormRow>
                   <FormSelect
                     title="Diabetic"
@@ -352,30 +420,30 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'dietAlone',
-                        label: 'Diet alone'
+                        label: 'Diet alone',
                       },
                       {
                         value: 'tablets',
-                        label: 'Tablets'
+                        label: 'Tablets',
                       },
                       {
                         value: 'insulin',
-                        label: 'Insulin'
+                        label: 'Insulin',
                       },
                       {
                         value: 'InsulinTablets',
-                        label: 'Insulin+tablets'
+                        label: 'Insulin+tablets',
                       },
                       {
                         value: 'notKnown',
-                        label: 'Not known'
-                      }
+                        label: 'Not known',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('hivStatus') &&
+              )}
+              {template.includes('hivStatus') && (
                 <FormRow>
                   <FormSelect
                     title="HIV status"
@@ -384,46 +452,46 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'testedNegative',
-                        label: 'Tested, negative'
+                        label: 'Tested, negative',
                       },
                       {
                         value: 'testedPositive',
-                        label: 'Tested, positive'
+                        label: 'Tested, positive',
                       },
                       {
                         value: 'notTested',
-                        label: 'Not tested'
+                        label: 'Not tested',
                       },
                       {
                         value: 'NotKnown',
-                        label: 'Not known'
-                      }
+                        label: 'Not known',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('art') &&
+              )}
+              {template.includes('art') && (
                 <FormRow>
                   <FormInputRadio
                     title="If HIV-positive, on ART at time of diagnosis?"
                     name="art"
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'},
-                      {value: 'unknown', label: 'Not Known'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
+                      { value: 'unknown', label: 'Not Known' },
                     ]}
                     selectedOption={art}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
+              )}
             </Fieldset>
           </MetadataFormStep>
 
           <MetadataFormStep label="Lab">
             <Fieldset>
-              {template.includes('labId') &&
+              {template.includes('labId') && (
                 <FormRow>
                   <FormInputText
                     title="Lab ID"
@@ -431,11 +499,11 @@ class MetadataForm extends Component {
                     type="text"
                     value={labId}
                     required
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('isolateId') &&
+              )}
+              {template.includes('isolateId') && (
                 <FormRow>
                   <FormInputText
                     title="Isolate ID"
@@ -443,64 +511,66 @@ class MetadataForm extends Component {
                     type="text"
                     value={isolateId}
                     required
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('collectionDate') &&
+              )}
+              {template.includes('collectionDate') && (
                 <FormRow>
                   <FormInputDate
                     title="Collection date"
                     name="collectionDate"
                     value={collectionDate}
                     required
-                    onChange={(date) => this.handleDateChange('collectionDate', date)}
+                    onChange={date =>
+                      this.handleDateChange('collectionDate', date)}
                   />
                 </FormRow>
-              }
-              {template.includes('prospectiveIsolate') &&
+              )}
+              {template.includes('prospectiveIsolate') && (
                 <FormRow>
                   <FormInputRadio
                     title="Has this isolate been collected prospectively?"
                     name="prospectiveIsolate"
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
                     ]}
                     selectedOption={prospectiveIsolate}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('patientAge') &&
+              )}
+              {template.includes('patientAge') && (
                 <FormRow>
                   <FormInputText
                     title="Patient Age"
                     name="patientAge"
                     type="text"
                     value={patientAge}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('countryIsolate') &&
+              )}
+              {template.includes('countryIsolate') && (
                 <FormRow>
                   <FormTypeahead
                     title="Country where isolate taken"
                     name="countryIsolate"
                     value={countryIsolate}
                     required
-                    suggestions={locations.map((location, index) => {
-                      return ({
+                    suggestions={locations.map(location => {
+                      return {
                         value: location['alpha-2'],
-                        label: location.name
-                      });
+                        label: location.name,
+                      };
                     })}
-                    onChange={(name, value) => this.handleTypeaheadChange(name, value)}
+                    onChange={(name, value) =>
+                      this.handleTypeaheadChange(name, value)}
                   />
                 </FormRow>
-              }
-              {template.includes('cityIsolate') &&
+              )}
+              {template.includes('cityIsolate') && (
                 <FormRow>
                   <FormInputText
                     title="City where isolate taken"
@@ -508,21 +578,22 @@ class MetadataForm extends Component {
                     type="text"
                     value={cityIsolate}
                     required
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('dateArrived') &&
+              )}
+              {template.includes('dateArrived') && (
                 <FormRow>
                   <FormInputDate
                     title="Date arrived in country where isolate was taken"
                     name="dateArrived"
                     value={dateArrived}
-                    onChange={(date) => this.handleDateChange('dateArrived', date)}
+                    onChange={date =>
+                      this.handleDateChange('dateArrived', date)}
                   />
                 </FormRow>
-              }
-              {template.includes('anatomicalOrigin') &&
+              )}
+              {template.includes('anatomicalOrigin') && (
                 <FormRow>
                   <FormSelect
                     title="Anatomical origin"
@@ -531,42 +602,42 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'respiratory',
-                        label: 'Respiratory'
+                        label: 'Respiratory',
                       },
                       {
                         value: 'lymphNode',
-                        label: 'Lymph node'
+                        label: 'Lymph node',
                       },
                       {
                         value: 'csf',
-                        label: 'CSF'
+                        label: 'CSF',
                       },
                       {
                         value: 'gastric',
-                        label: 'Gastric'
+                        label: 'Gastric',
                       },
                       {
                         value: 'bone',
-                        label: 'Bone'
+                        label: 'Bone',
                       },
                       {
                         value: 'otherKnownSite',
-                        label: 'Other known site'
+                        label: 'Other known site',
                       },
                       {
                         value: 'NonRespiratory',
-                        label: 'Non-respiratory, site not known'
+                        label: 'Non-respiratory, site not known',
                       },
                       {
                         value: 'notKnown',
-                        label: 'Not known'
-                      }
+                        label: 'Not known',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('smear') &&
+              )}
+              {template.includes('smear') && (
                 <FormRow>
                   <FormSelect
                     title="Smear"
@@ -575,35 +646,35 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'negative',
-                        label: 'Negative'
+                        label: 'Negative',
                       },
                       {
                         value: '+',
-                        label: '+'
+                        label: '+',
                       },
                       {
                         value: '++',
-                        label: '++'
+                        label: '++',
                       },
                       {
                         value: '+++',
-                        label: '+++'
+                        label: '+++',
                       },
                       {
                         value: 'notKnown',
-                        label: 'Not known'
-                      }
+                        label: 'Not known',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
+              )}
             </Fieldset>
           </MetadataFormStep>
 
           <MetadataFormStep label="Genotype &amp; Phenotype">
             <Fieldset legend="Genotyping">
-              {template.includes('wgsPlatform') &&
+              {template.includes('wgsPlatform') && (
                 <FormRow>
                   <FormSelect
                     title="WGS Platform"
@@ -613,26 +684,26 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'hiSeq',
-                        label: 'HiSeq'
+                        label: 'HiSeq',
                       },
                       {
                         value: 'miSeq',
-                        label: 'MiSeq'
+                        label: 'MiSeq',
                       },
                       {
                         value: 'nextSeq',
-                        label: 'NextSeq'
+                        label: 'NextSeq',
                       },
                       {
                         value: 'other',
-                        label: 'Other'
-                      }
+                        label: 'Other',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('wgsPlatformOther') &&
+              )}
+              {template.includes('wgsPlatformOther') && (
                 <FormRow>
                   <FormInputText
                     title="WGS Platform (other)"
@@ -640,25 +711,25 @@ class MetadataForm extends Component {
                     type="text"
                     value={wgsPlatformOther}
                     required
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('otherGenotypeInformation') &&
+              )}
+              {template.includes('otherGenotypeInformation') && (
                 <FormRow>
                   <FormInputRadio
                     title="Do you have other genotype information(eg GeneXpert, HAIN?)"
                     name="otherGenotypeInformation"
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
                     ]}
                     selectedOption={otherGenotypeInformation}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('genexpert') &&
+              )}
+              {template.includes('genexpert') && (
                 <FormRow>
                   <FormSelect
                     title="GeneXpert"
@@ -667,26 +738,26 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'rifSensitive',
-                        label: 'RIF sensitive'
+                        label: 'RIF sensitive',
                       },
                       {
                         value: 'rifResistant',
-                        label: 'RIF resistant'
+                        label: 'RIF resistant',
                       },
                       {
                         value: 'inconclusive',
-                        label: 'Inconclusive'
+                        label: 'Inconclusive',
                       },
                       {
                         value: 'notTested',
-                        label: 'Not tested'
-                      }
+                        label: 'Not tested',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('hain') &&
+              )}
+              {template.includes('hain') && (
                 <FormRow>
                   <FormSelect
                     title="HAIN"
@@ -695,26 +766,26 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'InhRifTest',
-                        label: 'INH/RIF test'
+                        label: 'INH/RIF test',
                       },
                       {
                         value: 'fluoroquinoloneAminoglycosideEthambutolTest',
-                        label: 'Fluoroquinolone/aminoglycoside/ethambutol test'
+                        label: 'Fluoroquinolone/aminoglycoside/ethambutol test',
                       },
                       {
                         value: 'both',
-                        label: 'Both'
+                        label: 'Both',
                       },
                       {
                         value: 'notTested',
-                        label: 'Not tested'
-                      }
+                        label: 'Not tested',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('hainRif') &&
+              )}
+              {template.includes('hainRif') && (
                 <FormRow>
                   <FormSelect
                     title="HAIN RIF"
@@ -723,26 +794,26 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'rifSensitive',
-                        label: 'RIF sensitive'
+                        label: 'RIF sensitive',
                       },
                       {
                         value: 'rifResistant',
-                        label: 'RIF resistant'
+                        label: 'RIF resistant',
                       },
                       {
                         value: 'rifInconclusive',
-                        label: 'RIF inconclusive'
+                        label: 'RIF inconclusive',
                       },
                       {
                         value: 'rifTestFailed',
-                        label: 'RIF test failed'
-                      }
+                        label: 'RIF test failed',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('hainInh') &&
+              )}
+              {template.includes('hainInh') && (
                 <FormRow>
                   <FormSelect
                     title="HAIN INH"
@@ -751,26 +822,26 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'inhSensitive',
-                        label: 'INH sensitive'
+                        label: 'INH sensitive',
                       },
                       {
                         value: 'inhResistant',
-                        label: 'INH resistant'
+                        label: 'INH resistant',
                       },
                       {
                         value: 'inhInconclusive',
-                        label: 'INH inconclusive'
+                        label: 'INH inconclusive',
                       },
                       {
                         value: 'inhTestFailed',
-                        label: 'INH test failed'
-                      }
+                        label: 'INH test failed',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('hainFl') &&
+              )}
+              {template.includes('hainFl') && (
                 <FormRow>
                   <FormSelect
                     title="HAIN FL"
@@ -779,26 +850,26 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'flSensitive',
-                        label: 'FL sensitive'
+                        label: 'FL sensitive',
                       },
                       {
                         value: 'flResistant',
-                        label: 'FL resistant'
+                        label: 'FL resistant',
                       },
                       {
                         value: 'flInconclusive',
-                        label: 'FL inconclusive'
+                        label: 'FL inconclusive',
                       },
                       {
                         value: 'flTestFailed',
-                        label: 'FL test failed'
-                      }
+                        label: 'FL test failed',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('hainAm') &&
+              )}
+              {template.includes('hainAm') && (
                 <FormRow>
                   <FormSelect
                     title="HAIN AM"
@@ -807,26 +878,26 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'amSensitive',
-                        label: 'AM sensitive'
+                        label: 'AM sensitive',
                       },
                       {
                         value: 'amResistant',
-                        label: 'AM resistant'
+                        label: 'AM resistant',
                       },
                       {
                         value: 'amInconclusive',
-                        label: 'AM inconclusive'
+                        label: 'AM inconclusive',
                       },
                       {
                         value: 'amTestFailed',
-                        label: 'AM test failed'
-                      }
+                        label: 'AM test failed',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('hainEth') &&
+              )}
+              {template.includes('hainEth') && (
                 <FormRow>
                   <FormSelect
                     title="HAIN ETH"
@@ -835,42 +906,42 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'ethSensitive',
-                        label: 'ETH sensitive'
+                        label: 'ETH sensitive',
                       },
                       {
                         value: 'ethResistant',
-                        label: 'ETH resistant'
+                        label: 'ETH resistant',
                       },
                       {
                         value: 'ethInconclusive',
-                        label: 'ETH inconclusive'
+                        label: 'ETH inconclusive',
                       },
                       {
                         value: 'ethTestFailed',
-                        label: 'ETH test failed'
-                      }
+                        label: 'ETH test failed',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
+              )}
             </Fieldset>
             <Fieldset legend="Phenotype">
-              {template.includes('phenotypeInformationFirstLineDrugs') &&
+              {template.includes('phenotypeInformationFirstLineDrugs') && (
                 <FormRow>
                   <FormInputRadio
                     title="Do you have local phenotype information on first-line drugs (HZRE)?"
                     name="phenotypeInformationFirstLineDrugs"
                     required
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
                     ]}
                     selectedOption={phenotypeInformationFirstLineDrugs}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
+              )}
               <FormRow>
                 <div className={styles.susceptibilityWrap}>
                   <div className={styles.susceptibilityLabel}>
@@ -881,21 +952,21 @@ class MetadataForm extends Component {
                   </div>
                 </div>
               </FormRow>
-              {template.includes('phenotypeInformationOtherDrugs') &&
+              {template.includes('phenotypeInformationOtherDrugs') && (
                 <FormRow>
                   <FormInputRadio
                     title="Do you have local phenotype information on any other drugs?"
                     name="phenotypeInformationOtherDrugs"
                     required
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
                     ]}
                     selectedOption={phenotypeInformationOtherDrugs}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
+              )}
               <FormRow>
                 <div className={styles.susceptibilityWrap}>
                   <div className={styles.susceptibilityLabel}>
@@ -911,178 +982,184 @@ class MetadataForm extends Component {
 
           <MetadataFormStep label="Treatment">
             <Fieldset legend="Previous TB Treatment or prophylaxis (for infection strictly prior to this current episode)">
-              {template.includes('previousTbinformation') &&
+              {template.includes('previousTbinformation') && (
                 <FormRow>
                   <FormInputRadio
                     title="Is any information known about previous TB treatment?"
                     name="previousTbinformation"
                     required
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
                     ]}
                     selectedOption={previousTbinformation}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('recentMdrTb') &&
+              )}
+              {template.includes('recentMdrTb') && (
                 <FormRow>
                   <FormInputRadio
                     title="Was the most recent prior treatment for MDR TB?"
                     name="recentMdrTb"
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'},
-                      {value: 'notKnown', label: 'Not Known'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
+                      { value: 'notKnown', label: 'Not Known' },
                     ]}
                     selectedOption={recentMdrTb}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('priorTreatmentDate') &&
+              )}
+              {template.includes('priorTreatmentDate') && (
                 <FormRow>
                   <FormInputDate
                     title="When did the most recent prior treatment for TB stop?"
                     name="priorTreatmentDate"
                     value={priorTreatmentDate}
                     required
-                    onChange={(date) => this.handleDateChange('priorTreatmentDate', date)}
+                    onChange={date =>
+                      this.handleDateChange('priorTreatmentDate', date)}
                   />
                 </FormRow>
-              }
-              {template.includes('tbProphylaxis') &&
+              )}
+              {template.includes('tbProphylaxis') && (
                 <FormRow>
                   <FormInputRadio
                     title="Has the patient ever received TB prophylaxis?"
                     name="tbProphylaxis"
                     required
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'},
-                      {value: 'notKnown', label: 'Not Known'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
+                      { value: 'notKnown', label: 'Not Known' },
                     ]}
                     selectedOption={tbProphylaxis}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('tbProphylaxisDate') &&
+              )}
+              {template.includes('tbProphylaxisDate') && (
                 <FormRow>
                   <FormInputDate
                     title="If yes, when did the most recent prior prophylaxis stop?"
                     name="tbProphylaxisDate"
                     value={tbProphylaxisDate}
                     required
-                    onChange={(date) => this.handleDateChange('tbProphylaxisDate', date)}
+                    onChange={date =>
+                      this.handleDateChange('tbProphylaxisDate', date)}
                   />
                 </FormRow>
-              }
+              )}
             </Fieldset>
             <Fieldset legend="Current TB treatment (at isolation)">
-              {template.includes('currentTbinformation') &&
+              {template.includes('currentTbinformation') && (
                 <FormRow>
                   <FormInputRadio
                     title="Do you have information about current TB treatment for this TB episode?"
                     name="currentTbinformation"
                     required
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
                     ]}
                     selectedOption={currentTbinformation}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('startProgrammaticTreatment') &&
+              )}
+              {template.includes('startProgrammaticTreatment') && (
                 <FormRow>
                   <FormInputRadio
                     title="Did the patient start standard programmatic treatment for drug susceptible TB (intensive HZRE)?"
                     name="startProgrammaticTreatment"
                     required
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
                     ]}
                     selectedOption={startProgrammaticTreatment}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('intensiveStartDate') &&
+              )}
+              {template.includes('intensiveStartDate') && (
                 <FormRow>
                   <FormInputDate
                     title="Standard intensive phase first start date"
                     name="intensiveStartDate"
                     value={intensiveStartDate}
-                    onChange={(date) => this.handleDateChange('intensiveStartDate', date)}
+                    onChange={date =>
+                      this.handleDateChange('intensiveStartDate', date)}
                   />
                 </FormRow>
-              }
-              {template.includes('intensiveStopDate') &&
+              )}
+              {template.includes('intensiveStopDate') && (
                 <FormRow>
                   <FormInputDate
                     title="Standard intensive phase final stop date"
                     name="intensiveStopDate"
                     value={intensiveStopDate}
-                    onChange={(date) => this.handleDateChange('intensiveStopDate', date)}
+                    onChange={date =>
+                      this.handleDateChange('intensiveStopDate', date)}
                   />
                 </FormRow>
-              }
-              {template.includes('startProgrammaticContinuationTreatment') &&
+              )}
+              {template.includes('startProgrammaticContinuationTreatment') && (
                 <FormRow>
                   <FormInputRadio
                     title="Did the patient start standard programmatic continuation treatment for drug susceptible TB (HR)?"
                     name="startProgrammaticContinuationTreatment"
                     required
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'},
-                      {value: 'notKnown', label: 'Not Known'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
+                      { value: 'notKnown', label: 'Not Known' },
                     ]}
                     selectedOption={startProgrammaticContinuationTreatment}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
-              {template.includes('continuationStartDate') &&
+              )}
+              {template.includes('continuationStartDate') && (
                 <FormRow>
                   <FormInputDate
                     title="Standard continuation phase first start date"
                     name="continuationStartDate"
                     value={continuationStartDate}
-                    onChange={(date) => this.handleDateChange('continuationStartDate', date)}
+                    onChange={date =>
+                      this.handleDateChange('continuationStartDate', date)}
                   />
                 </FormRow>
-              }
-              {template.includes('continuationStopDate') &&
+              )}
+              {template.includes('continuationStopDate') && (
                 <FormRow>
                   <FormInputDate
                     title="Standard continuation phase first stop date"
                     name="continuationStopDate"
                     value={continuationStopDate}
-                    onChange={(date) => this.handleDateChange('continuationStopDate', date)}
+                    onChange={date =>
+                      this.handleDateChange('continuationStopDate', date)}
                   />
                 </FormRow>
-              }
-              {template.includes('nonStandardTreatment') &&
+              )}
+              {template.includes('nonStandardTreatment') && (
                 <FormRow>
                   <FormInputRadio
                     title="Did the patient ever take non-standard intensive/continuation phase treatment (eg for MDR-TB)?"
                     name="nonStandardTreatment"
                     required
                     options={[
-                      {value: 'yes', label: 'Yes'},
-                      {value: 'no', label: 'No'},
-                      {value: 'notKnown', label: 'Not Known'}
+                      { value: 'yes', label: 'Yes' },
+                      { value: 'no', label: 'No' },
+                      { value: 'notKnown', label: 'Not Known' },
                     ]}
                     selectedOption={nonStandardTreatment}
-                    onChange={(event) => this.handleChange(event)}
+                    onChange={event => this.handleChange(event)}
                   />
                 </FormRow>
-              }
+              )}
             </Fieldset>
             <Fieldset legend="Drugs ever taken outside of standard intensive/continuation phase">
               <FormRow>
@@ -1092,35 +1169,51 @@ class MetadataForm extends Component {
                   </div>
                   <div className={styles.susceptibilityRows}>
                     {drugs.outside.map((drug, index) => {
-                      const selectedOption = drugOutsidePhase && drugOutsidePhase[drug] || '';
+                      const selectedOption =
+                        (drugOutsidePhase && drugOutsidePhase[drug]) || '';
                       const isYes = selectedOption === 'yes';
                       let startDate, endDate;
                       if (isYes) {
-                        startDate = drugOutsidePhaseStartDate && drugOutsidePhaseStartDate[drug] || '';
-                        endDate = drugOutsidePhaseEndDate && drugOutsidePhaseEndDate[drug] || '';
+                        startDate =
+                          (drugOutsidePhaseStartDate &&
+                            drugOutsidePhaseStartDate[drug]) ||
+                          '';
+                        endDate =
+                          (drugOutsidePhaseEndDate &&
+                            drugOutsidePhaseEndDate[drug]) ||
+                          '';
                       }
                       return (
                         <div key={index} className={styles.susceptibilityRow}>
                           <FormInputRadio
                             title={drug}
                             options={[
-                              {value: 'yes', label: 'Yes'},
-                              {value: 'no', label: 'No'}
+                              { value: 'yes', label: 'Yes' },
+                              { value: 'no', label: 'No' },
                             ]}
                             selectedOption={selectedOption}
-                            onChange={(event) => this.handleDrugOutsidePhaseChange(drug, event)}
+                            onChange={event =>
+                              this.handleDrugOutsidePhaseChange(drug, event)}
                           />
                           {isYes && (
                             <div>
                               <FormInputDate
                                 title="Start date"
                                 value={startDate}
-                                onChange={(date) => this.handleDrugOutsidePhaseStartDateChange(drug, date)}
+                                onChange={date =>
+                                  this.handleDrugOutsidePhaseStartDateChange(
+                                    drug,
+                                    date
+                                  )}
                               />
                               <FormInputDate
                                 title="End date"
                                 value={endDate}
-                                onChange={(date) => this.handleDrugOutsidePhaseEndDateChange(drug, date)}
+                                onChange={date =>
+                                  this.handleDrugOutsidePhaseEndDateChange(
+                                    drug,
+                                    date
+                                  )}
                               />
                             </div>
                           )}
@@ -1130,7 +1223,7 @@ class MetadataForm extends Component {
                   </div>
                 </div>
               </FormRow>
-              {template.includes('sputumSmearConversion') &&
+              {template.includes('sputumSmearConversion') && (
                 <FormRow>
                   <FormSelect
                     title="Sputum smear conversion at 2-3 months"
@@ -1139,22 +1232,22 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'Sputum smear negative at 2-3 months',
-                        label: 'Sputum smear negative at 2-3 months'
+                        label: 'Sputum smear negative at 2-3 months',
                       },
                       {
                         value: 'Sputum smear positive at 2-3 months',
-                        label: 'Sputum smear positive at 2-3 months'
+                        label: 'Sputum smear positive at 2-3 months',
                       },
                       {
                         value: 'Not known or not done',
-                        label: 'Not known or not done'
-                      }
+                        label: 'Not known or not done',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('sputumCultureConversion') &&
+              )}
+              {template.includes('sputumCultureConversion') && (
                 <FormRow>
                   <FormSelect
                     title="Sputum culture conversion at 2-3 months"
@@ -1163,24 +1256,24 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'Sputum smear negative at 2-3 months',
-                        label: 'Sputum smear negative at 2-3 months'
+                        label: 'Sputum smear negative at 2-3 months',
                       },
                       {
                         value: 'Sputum smear positive at 2-3 months',
-                        label: 'Sputum smear positive at 2-3 months'
+                        label: 'Sputum smear positive at 2-3 months',
                       },
                       {
                         value: 'Not known or not done',
-                        label: 'Not known or not done'
-                      }
+                        label: 'Not known or not done',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
+              )}
             </Fieldset>
             <Fieldset legend="Outcome data for this TB episode">
-              {template.includes('whoOutcomeCategory') &&
+              {template.includes('whoOutcomeCategory') && (
                 <FormRow>
                   <FormSelect
                     title="WHO outcome category"
@@ -1189,52 +1282,53 @@ class MetadataForm extends Component {
                     options={[
                       {
                         value: 'Cured',
-                        label: 'Cured'
+                        label: 'Cured',
                       },
                       {
                         value: 'Treatment completed',
-                        label: 'Treatment completed'
+                        label: 'Treatment completed',
                       },
                       {
                         value: 'Treatment failed',
-                        label: 'Treatment failed'
+                        label: 'Treatment failed',
                       },
                       {
                         value: 'Died',
-                        label: 'Died'
+                        label: 'Died',
                       },
                       {
                         value: 'Lost to follow-up or defaulted',
-                        label: 'Lost to follow-up or defaulted'
+                        label: 'Lost to follow-up or defaulted',
                       },
                       {
                         value: 'Not evaluated',
-                        label: 'Not evaluated'
+                        label: 'Not evaluated',
                       },
                       {
                         value: 'Treatment success',
-                        label: 'Treatment success'
+                        label: 'Treatment success',
                       },
                       {
                         value: 'Not known',
-                        label: 'Not known'
-                      }
+                        label: 'Not known',
+                      },
                     ]}
-                    onChange={(e) => this.handleChange(e)}
+                    onChange={e => this.handleChange(e)}
                   />
                 </FormRow>
-              }
-              {template.includes('dateOfDeath') &&
+              )}
+              {template.includes('dateOfDeath') && (
                 <FormRow>
                   <FormInputDate
                     title="Date of Death"
                     name="dateOfDeath"
                     value={dateOfDeath}
                     required
-                    onChange={(date) => this.handleDateChange('dateOfDeath', date)}
+                    onChange={date =>
+                      this.handleDateChange('dateOfDeath', date)}
                   />
                 </FormRow>
-              }
+              )}
             </Fieldset>
           </MetadataFormStep>
         </MetadataFormSteps>
@@ -1243,26 +1337,29 @@ class MetadataForm extends Component {
   }
 
   resistanceOptionsForDrugs(drugs: Object) {
-    const {susceptibility, susceptibilityNotTestedReason} = this.state;
+    const { susceptibility, susceptibilityNotTestedReason } = this.state;
     return drugs.map((drug, index) => {
-      const selectedOption = susceptibility && susceptibility[drug] || '';
+      const selectedOption = (susceptibility && susceptibility[drug]) || '';
       const notTested = selectedOption === 'U';
       let notTestedReason = '';
       if (notTested) {
-        notTestedReason = susceptibilityNotTestedReason && susceptibilityNotTestedReason[drug] || '';
+        notTestedReason =
+          (susceptibilityNotTestedReason &&
+            susceptibilityNotTestedReason[drug]) ||
+          '';
       }
       return (
         <div key={index} className={styles.susceptibilityRow}>
           <FormInputRadio
             title={drug}
             options={[
-              {value: 'S', label: 'Susceptible'},
-              {value: 'R', label: 'Resistant'},
-              {value: 'I', label: 'Inconclusive'},
-              {value: 'U', label: 'Not tested'}
+              { value: 'S', label: 'Susceptible' },
+              { value: 'R', label: 'Resistant' },
+              { value: 'I', label: 'Inconclusive' },
+              { value: 'U', label: 'Not tested' },
             ]}
             selectedOption={susceptibility[drug]}
-            onChange={(event) => this.handleSusceptibilityChange(drug, event)}
+            onChange={event => this.handleSusceptibilityChange(drug, event)}
           />
           {notTested && (
             <FormSelect
@@ -1272,30 +1369,31 @@ class MetadataForm extends Component {
               options={[
                 {
                   value: 'MGIT',
-                  label: 'MGIT'
+                  label: 'MGIT',
                 },
                 {
                   value: 'LJ',
-                  label: 'LJ'
+                  label: 'LJ',
                 },
                 {
                   value: 'Microtitre plate',
-                  label: 'Microtitre plate'
+                  label: 'Microtitre plate',
                 },
                 {
                   value: 'MODS',
-                  label: 'MODS'
+                  label: 'MODS',
                 },
                 {
                   value: 'Other',
-                  label: 'Other'
+                  label: 'Other',
                 },
                 {
                   value: 'Not known',
-                  label: 'Not known'
-                }
+                  label: 'Not known',
+                },
               ]}
-              onChange={(event) => this.handleSusceptibilityNotTestedChange(drug, event)}
+              onChange={event =>
+                this.handleSusceptibilityNotTestedChange(drug, event)}
             />
           )}
         </div>
@@ -1307,15 +1405,18 @@ class MetadataForm extends Component {
 function mapStateToProps(state) {
   return {
     metadata: state.metadata.metadata,
-    template: state.metadata.template
+    template: state.metadata.template,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    postMetadataForm: MetadataActions.postMetadataForm,
-    setMetadata: MetadataActions.setMetadata
-  }, dispatch);
+  return bindActionCreators(
+    {
+      postMetadataForm: MetadataActions.postMetadataForm,
+      setMetadata: MetadataActions.setMetadata,
+    },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MetadataForm);

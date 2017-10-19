@@ -11,8 +11,8 @@ class PhyloCanvasTooltip extends Component {
     isMain: boolean,
     node: ?SampleType,
     x: number,
-    y: number
-  }
+    y: number,
+  };
 
   constructor() {
     super();
@@ -21,7 +21,7 @@ class PhyloCanvasTooltip extends Component {
       isMain: false,
       node: null,
       x: 0,
-      y: 0
+      y: 0,
     };
   }
 
@@ -29,27 +29,32 @@ class PhyloCanvasTooltip extends Component {
     this.setState({
       visible,
       x,
-      y
+      y,
     });
   }
 
   setNode(node: SampleType, isMain: boolean = false) {
     this.setState({
       node,
-      isMain
+      isMain,
     });
   }
 
   render() {
-    const {visible, isMain, node, x, y} = this.state;
+    const { visible, isMain, node, x, y } = this.state;
     if (!visible || !node) {
       return null;
     }
     return (
-      <div className={styles.tooltip} style={{left: x, top: y}}>
+      <div className={styles.tooltip} style={{ left: x, top: y }}>
         <div className={styles.tooltipWrapper}>
           <div className={styles.tooltipContainer}>
-            <div className={styles.marker}><i className="fa fa-circle" style={{color: isMain ? '#c30042' : '#0f82d0'}} /></div>
+            <div className={styles.marker}>
+              <i
+                className="fa fa-circle"
+                style={{ color: isMain ? '#c30042' : '#0f82d0' }}
+              />
+            </div>
             <div className={styles.title}>Sample id</div>
             <div>{node.id}</div>
             <div className={styles.title}>Location</div>

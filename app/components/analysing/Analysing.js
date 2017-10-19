@@ -6,55 +6,59 @@ import { connect } from 'react-redux';
 import * as AnalyserActions from '../../actions/AnalyserActions';
 import styles from './Analysing.css';
 import AnalysingProgressBar from './AnalysingProgressBar';
+import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
 class Analysing extends Component {
   componentDidMount() {
-    const {monitorUpload} = this.props;
+    const { monitorUpload } = this.props;
     monitorUpload();
   }
 
   render() {
-    const {analyser} = this.props;
+    const { analyser } = this.props;
     if (IS_ELECTRON) {
-      const UIHelpers = require('../../helpers/UIHelpers');
-      UIHelpers.setProgress(analyser.progress);
+      UIHelpers.setProgress(analyser.progress); // eslint-disable-line import/namespace
     }
     return (
       <div className={styles.container}>
-        {analyser.analysing &&
+        {analyser.analysing && (
           <AnalysingProgressBar
             progress={analyser.progress}
             description={analyser.stepDescription}
             filename={analyser.filename}
-            onCancel={(e) => this.onCancelClick(e)} />
-        }
+            onCancel={this.onCancelClick}
+          />
+        )}
       </div>
     );
   }
 
-  onCancelClick(e: Event) {
-    const {analyseFileCancel} = this.props;
+  onCancelClick = () => {
+    const { analyseFileCancel } = this.props;
     analyseFileCancel();
-  }
+  };
 }
 
 Analysing.propTypes = {
   analyser: PropTypes.object.isRequired,
   monitorUpload: PropTypes.func.isRequired,
-  analyseFileCancel: PropTypes.func.isRequired
+  analyseFileCancel: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    monitorUpload: AnalyserActions.monitorUpload,
-    analyseFileCancel: AnalyserActions.analyseFileCancel
-  }, dispatch);
+  return bindActionCreators(
+    {
+      monitorUpload: AnalyserActions.monitorUpload,
+      analyseFileCancel: AnalyserActions.analyseFileCancel,
+    },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Analysing);

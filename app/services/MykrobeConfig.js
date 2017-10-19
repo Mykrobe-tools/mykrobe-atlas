@@ -13,16 +13,13 @@ class MykrobeConfig {
     if (this.targetName === 'predictor-s-aureus') {
       this.type = TargetConstants.TYPE_PREDICTOR;
       this.species = TargetConstants.SPECIES_S_AUREUS;
-    }
-    else if (this.targetName === 'predictor-tb') {
+    } else if (this.targetName === 'predictor-tb') {
       this.type = TargetConstants.TYPE_PREDICTOR;
       this.species = TargetConstants.SPECIES_TB;
-    }
-    else if (this.targetName === 'atlas-tb') {
+    } else if (this.targetName === 'atlas-tb') {
       this.type = TargetConstants.TYPE_ATLAS;
       this.species = TargetConstants.SPECIES_TB;
-    }
-    else {
+    } else {
       // target not recognised
       throw new Error(`Unsupported target name '${this.targetName}'`);
     }

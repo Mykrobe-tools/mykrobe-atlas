@@ -35,16 +35,16 @@ class UploadService {
     return fetchJson(`${BASE_URL}/experiments/`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
-    .then((data) => {
-      this.setId(data.id);
-      return Promise.resolve(data);
-    })
-    .catch((error) => {
-      return Promise.reject(error);
-    });
+      .then(data => {
+        this.setId(data.id);
+        return Promise.resolve(data);
+      })
+      .catch(error => {
+        return Promise.reject(error);
+      });
   }
 
   setId(id: string) {
@@ -60,9 +60,9 @@ class UploadService {
     return fetchJson(`${BASE_URL}/experiments/${this.id}/file`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(file)
+      body: JSON.stringify(file),
     });
   }
 }

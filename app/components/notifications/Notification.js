@@ -5,15 +5,14 @@ import React, { Component, PropTypes } from 'react';
 import styles from './Notification.css';
 
 class Notification extends Component {
-
   onClick(event: Event) {
-    const {onClick, id} = this.props;
+    const { onClick, id } = this.props;
     event.preventDefault();
     onClick(id);
   }
 
   render() {
-    const {category, content} = this.props;
+    const { category, content } = this.props;
     let icon;
     switch (category) {
       case 'success':
@@ -27,15 +26,13 @@ class Notification extends Component {
         break;
     }
     return (
-      <a
-        className={styles[category]}
-        onClick={event => this.onClick(event)}>
+      <a className={styles[category]} onClick={event => this.onClick(event)}>
         <p className={styles.content}>
-          {icon &&
+          {icon && (
             <span className={styles.icon}>
               <i className={icon} />
             </span>
-          }
+          )}
           {content}
         </p>
         <span className={styles.close}>
@@ -50,7 +47,7 @@ Notification.propTypes = {
   category: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
 };
 
 export default Notification;

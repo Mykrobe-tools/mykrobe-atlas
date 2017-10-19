@@ -11,31 +11,30 @@ import * as AnalyserActions from '../actions/AnalyserActions';
 
 const actionCreators = {
   ...AnalyserActions,
-  push
+  push,
 };
 
 const logger = createLogger({
   level: 'info',
-  collapsed: true
+  collapsed: true,
 });
 
 const router = routerMiddleware(IS_ELECTRON ? hashHistory : browserHistory);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    actionCreators
-  })
+      actionCreators,
+    })
   : compose;
 
-const enhancer = composeEnhancers(
-  applyMiddleware(thunk, router, logger)
-);
+const enhancer = composeEnhancers(applyMiddleware(thunk, router, logger));
 
 const store = createStore(rootReducer, enhancer);
 
 if (module.hot) {
-  module.hot.accept('../reducers', () =>
-    store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
+  module.hot.accept(
+    '../reducers',
+    () => store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
   );
 }
 

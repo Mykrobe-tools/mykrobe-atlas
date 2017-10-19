@@ -10,7 +10,6 @@ let isLoading = false;
 let boxSelect;
 
 class UploadBox extends EventEmitter {
-
   constructor() {
     super();
     if (!this.isBoxReady() && !isLoading) {
@@ -23,10 +22,10 @@ class UploadBox extends EventEmitter {
     const options = {
       clientId: config.BOX_CLIENT_ID,
       linkType: 'direct',
-      multiselect: 'false'
+      multiselect: 'false',
     };
     boxSelect = new window.BoxSelect(options);
-    boxSelect.success((files) => {
+    boxSelect.success(files => {
       this.onFileSelect(files);
     });
   }
@@ -46,7 +45,7 @@ class UploadBox extends EventEmitter {
     this.emit('fileSelected', {
       name: files[0].name,
       path: files[0].url,
-      provider: 'box'
+      provider: 'box',
     });
   }
 }

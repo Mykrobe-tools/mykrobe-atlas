@@ -11,36 +11,52 @@ import styles from './Header.css';
 
 class Header extends Component {
   onMenuToggleClick(e: Event) {
-    const {toggleMenu} = this.props;
+    const { toggleMenu } = this.props;
     e.preventDefault();
     toggleMenu();
   }
 
   render() {
-    const {displayMenu, signOut} = this.props;
+    const { displayMenu, signOut } = this.props;
     const auth: AuthType = this.props.auth;
     const user: ?UserType = auth.user;
-    const {isAuthenticated} = auth;
+    const { isAuthenticated } = auth;
     return (
       <div className={styles.container}>
-        <a href="#"
+        <a
+          href="#"
           className={styles.menuToggle}
-          onClick={(e) => this.onMenuToggleClick(e)}>
-          <span className={displayMenu ? styles.menuIconClose : styles.menuIconOpen} />
+          onClick={e => this.onMenuToggleClick(e)}
+        >
+          <span
+            className={displayMenu ? styles.menuIconClose : styles.menuIconOpen}
+          />
         </a>
         {isAuthenticated ? (
           <div className={styles.account}>
-            {user &&
-              <Link to="/auth/profile" className={styles.authLink}><i className="fa fa-user" /> My profile</Link>
-            }
-            <a href="#" className={styles.authLink} onClick={(e) => {
-              signOut();
-            }}>Sign out</a>
+            {user && (
+              <Link to="/auth/profile" className={styles.authLink}>
+                <i className="fa fa-user" /> My profile
+              </Link>
+            )}
+            <a
+              href="#"
+              className={styles.authLink}
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Sign out
+            </a>
           </div>
         ) : (
           <div className={styles.account}>
-            <Link to="/auth/login" className={styles.authLink}><i className="fa fa-user" /> Log in</Link>
-            <Link to="/auth/signup" className={styles.signUpLink}>Sign up</Link>
+            <Link to="/auth/login" className={styles.authLink}>
+              <i className="fa fa-user" /> Log in
+            </Link>
+            <Link to="/auth/signup" className={styles.signUpLink}>
+              Sign up
+            </Link>
           </div>
         )}
       </div>
@@ -50,15 +66,18 @@ class Header extends Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+    auth: state.auth,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    signUp: AuthActions.signIn,
-    signOut: AuthActions.signOut
-  }, dispatch);
+  return bindActionCreators(
+    {
+      signUp: AuthActions.signIn,
+      signOut: AuthActions.signOut,
+    },
+    dispatch
+  );
 }
 
 Header.propTypes = {
@@ -66,7 +85,7 @@ Header.propTypes = {
   signUp: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   displayMenu: PropTypes.bool.isRequired,
-  toggleMenu: PropTypes.func.isRequired
+  toggleMenu: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

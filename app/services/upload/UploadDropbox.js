@@ -20,8 +20,8 @@ class UploadDropbox extends EventEmitter {
       loadScript(DROPBOX_SDK_URL, {
         attrs: {
           id: SCRIPT_ID,
-          'data-app-key': config.DROPBOX_APP_KEY
-        }
+          'data-app-key': config.DROPBOX_APP_KEY,
+        },
       });
     }
   }
@@ -35,7 +35,7 @@ class UploadDropbox extends EventEmitter {
       return null;
     }
     window.Dropbox.choose({
-      success: (files) => {
+      success: files => {
         this.onFileSelect(files);
       },
       linkType: 'direct',
@@ -43,7 +43,7 @@ class UploadDropbox extends EventEmitter {
       extensions: this.acceptedExtensions.map(ext => {
         // dropbox requires a fullstop at the start of extension
         return `.${ext}`;
-      })
+      }),
     });
   }
 
@@ -51,7 +51,7 @@ class UploadDropbox extends EventEmitter {
     this.emit('fileSelected', {
       name: files[0].name,
       path: files[0].link,
-      provider: 'dropbox'
+      provider: 'dropbox',
     });
   }
 }

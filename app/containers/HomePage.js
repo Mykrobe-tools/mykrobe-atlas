@@ -16,7 +16,7 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
-    const {analyseRemoteFile} = this.props;
+    const { analyseRemoteFile } = this.props;
     this.service.uploadDropbox.on('fileSelected', analyseRemoteFile);
     this.service.uploadBox.on('fileSelected', analyseRemoteFile);
     this.service.uploadGoogleDrive.on('fileSelected', analyseRemoteFile);
@@ -31,25 +31,25 @@ class HomePage extends Component {
   }
 
   render() {
-    return (
-      <Upload service={this.service} {...this.props} />
-    );
+    return <Upload service={this.service} {...this.props} />;
   }
 }
 
-function mapStateToProps(state) {
-  return {
-  };
+function mapStateToProps() {
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    analyseRemoteFile: AnalyserActions.analyseRemoteFile
-  }, dispatch);
+  return bindActionCreators(
+    {
+      analyseRemoteFile: AnalyserActions.analyseRemoteFile,
+    },
+    dispatch
+  );
 }
 
 HomePage.propTypes = {
-  analyseRemoteFile: PropTypes.func.isRequired
+  analyseRemoteFile: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

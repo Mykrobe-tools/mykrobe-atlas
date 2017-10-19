@@ -6,8 +6,8 @@ import path from 'path';
 // http://stackoverflow.com/a/30896068
 
 export function getFileObject(filePathOrUrl: string): Promise<File> {
-  return new Promise((resolve, reject) => {
-    getFileBlob(filePathOrUrl).then((blob) => {
+  return new Promise(resolve => {
+    getFileBlob(filePathOrUrl).then(blob => {
       const fileObject = blobToFile(blob, path.basename(filePathOrUrl));
       resolve(fileObject);
     });
@@ -15,7 +15,7 @@ export function getFileObject(filePathOrUrl: string): Promise<File> {
 }
 
 function getFileBlob(url): Promise<Blob> {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.responseType = 'blob';

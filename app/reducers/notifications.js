@@ -4,17 +4,21 @@ import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = [];
 
-export default function notifications(state: Array<any> = initialState, action: Object = {}) {
+export default function notifications(
+  state: Array<any> = initialState,
+  action: Object = {}
+) {
   switch (action.type) {
-    case ActionTypes.SHOW_NOTIFICATION:
-      const {id, category, content, autoHide} = action;
+    case ActionTypes.SHOW_NOTIFICATION: {
+      const { id, category, content, autoHide } = action;
       let notification = {
         id,
         category,
         content,
-        autoHide
+        autoHide,
       };
       return [...state, notification];
+    }
 
     case ActionTypes.HIDE_NOTIFICATION:
       return state.filter(notification => {

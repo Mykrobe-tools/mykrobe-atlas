@@ -9,7 +9,6 @@ const ONEDRIVE_SDK_URL = 'https://js.live.net/v7.0/OneDrive.js';
 let isLoading = false;
 
 class UploadOneDrive extends EventEmitter {
-
   constructor() {
     super();
     if (!this.isOneDriveReady() && !isLoading) {
@@ -31,9 +30,9 @@ class UploadOneDrive extends EventEmitter {
       action: 'download',
       multiSelect: false,
       openInNewWindow: true,
-      success: (files) => {
+      success: files => {
         this.onFileSelect(files);
-      }
+      },
     });
   }
 
@@ -41,7 +40,7 @@ class UploadOneDrive extends EventEmitter {
     this.emit('fileSelected', {
       name: files.value[0].name,
       path: files.value[0]['@microsoft.graph.downloadUrl'],
-      provider: 'oneDrive'
+      provider: 'oneDrive',
     });
   }
 }

@@ -7,7 +7,7 @@ Web or [Electron](http://electron.atom.io/) application based on [React](https:/
 First, clone the repo then install dependencies.
 
 ```
-$ npm install
+$ yarn
 ```
 
 ## Dependencies
@@ -29,7 +29,7 @@ $ npm install
 Selects which version of the app you will target for development, test or package. Targets are defined in `/targets.json`
 
 ```
-$ npm run set-target
+$ yarn set-target
 ```
 
 ## Run development version
@@ -41,36 +41,30 @@ This will launch a local dev server and instance of the app. This has DevTools e
 This will initially show a 'not found' page while the initial build takes place, after which it will auto-refresh.
 
 ```
-$ npm run web-dev
+$ yarn web-dev
 ```
 
 ### Electron
 
+Note the window will not appear until the initial bundle is compiled which can take up to one minute.
+
 ```
-$ npm run electron-dev
+$ yarn electron-dev
 ```
 
 ## Web production build
 
 ```
-$ npm run web-build
+$ yarn web-build
 ```
 
 After build, you will find files in `web/build` folder. To run a simple production server:
 
 ```
-$ npm run web-build-simple-server
+$ yarn web-build-simple-server
 ```
 
 ## Electron production build
-
-Build for current platform:
-
-```
-$ npm run electron-package
-```
-
-To build apps for all platforms:
 
 1. Install Wine to build Windows app on mac
 
@@ -78,16 +72,33 @@ To build apps for all platforms:
 	$ brew install wine
 	```
 
-2. Package
+2. Package and distribute
+
+	`electron-package` builds and packages a standalone app inside the `electroon/releases` folder. At this stage the app is a folder full of files.
+	
+	`electron-dist` takes the folder(s) created by `electron-package` and combines into single individual self-contained apps / images / installers for specified platforms, signed and ready for distribution.
+
+	Build for current platform:
 
 	```
-	$ npm run electron-package-all
+	$ yarn electron-package
+	$ yarn electron-dist
+	```
+	
+	Build for single Windows platform:
+
+	```
+	$ yarn electron-package:win
+	$ yarn electron-dist:win
 	```
 
-3. After build, you will find them in `electron/release` folder. Otherwise, you will only find one for your os.
+	To build apps for all platforms:
 
-> **Note:** `test`, `tools`, `release` folder and devDependencies in `package.json` will be ignored by default.
-
+	```
+	$ yarn electron-package:all
+	$ yarn electron-dist:all
+	```
+3. After build, you will find files in `electron/dist` folder.
 
 ## Further Reading
 

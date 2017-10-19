@@ -4,6 +4,13 @@ import React, { Component } from 'react';
 import styles from './Logo.css';
 import MykrobeConfig from '../../services/MykrobeConfig';
 
+const logosByTargetName = {
+  'predictor-enterics': require('../../static/predictor-enterics-logo.svg'),
+  'predictor-s-aureus': require('../../static/predictor-s-aureus-logo.svg'),
+  'predictor-tb': require('../../static/predictor-tb-logo.svg'),
+  'atlas-tb': require('../../static/atlas-tb-logo.svg'),
+};
+
 class Logo extends Component {
   mykrobeConfig: MykrobeConfig;
 
@@ -13,10 +20,11 @@ class Logo extends Component {
   }
 
   render() {
-    const logoClassName = `${this.mykrobeConfig.targetName}-logo`;
-
     return (
-      <div className={styles[logoClassName]} />
+      <img
+        className={styles.logo}
+        src={logosByTargetName[this.mykrobeConfig.targetName]}
+      />
     );
   }
 }

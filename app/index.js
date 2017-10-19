@@ -6,11 +6,14 @@ import { Provider } from 'react-redux';
 import { Router, hashHistory, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import routes from './routes';
-import store from './store/store';
+import store from './store/store'; // eslint-disable-line import/default
 import './app.global.css';
 import './css/main.css';
 
-const history = syncHistoryWithStore(IS_ELECTRON ? hashHistory : browserHistory, store);
+const history = syncHistoryWithStore(
+  IS_ELECTRON ? hashHistory : browserHistory,
+  store
+);
 
 render(
   <Provider store={store}>

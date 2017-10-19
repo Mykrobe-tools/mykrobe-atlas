@@ -1,47 +1,4 @@
 exports[`Notifications component snapshot renders correctly 1`] = `
 <div
-  className="wrap">
-  <div
-    className="notification">
-    <a
-      className="success"
-      onClick={[Function]}>
-      <p
-        className="content">
-        <span
-          className="icon">
-          <i
-            className="fa fa-check-circle" />
-        </span>
-        Lorem
-      </p>
-      <span
-        className="close">
-        <i
-          className="fa fa-times-circle" />
-      </span>
-    </a>
-  </div>
-  <div
-    className="notification">
-    <a
-      className="error"
-      onClick={[Function]}>
-      <p
-        className="content">
-        <span
-          className="icon">
-          <i
-            className="fa fa-exclamation-circle" />
-        </span>
-        Ipsum
-      </p>
-      <span
-        className="close">
-        <i
-          className="fa fa-times-circle" />
-      </span>
-    </a>
-  </div>
-</div>
+  className="wrap" />
 `;

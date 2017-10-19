@@ -5,15 +5,14 @@ import * as ActionTypes from '../constants/ActionTypes';
 const initialState = {
   isFetching: false,
   isSaving: false,
-  data: {
-  }
+  data: {},
 };
 
 function shapeState(state) {
   const data = normalizeData(state.data);
   const shapedState = {
     ...state,
-    data
+    data,
   };
   return shapedState;
 }
@@ -25,13 +24,13 @@ function normalizeData(data) {
   let allUsersById = normalizeDataById(data.allUsers);
   return {
     ...data,
-    allUsersById
+    allUsersById,
   };
 }
 
-function normalizeDataById(data: Array<{id: string}>): Object {
+function normalizeDataById(data: Array<{ id: string }>): Object {
   let dataById = {};
-  data.map((item) => {
+  data.map(item => {
     dataById[item.id] = item;
   });
   return dataById;
@@ -48,7 +47,7 @@ function usersRawState(state, action: Object) {
     case ActionTypes.REQUEST_ALL_USERS:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     case ActionTypes.REQUEST_ALL_USERS_SUCCESS:
       return {
@@ -56,8 +55,8 @@ function usersRawState(state, action: Object) {
         isFetching: false,
         data: {
           ...state.data,
-          allUsers: action.data
-        }
+          allUsers: action.data,
+        },
       };
     case ActionTypes.REQUEST_USER:
       return {
@@ -65,8 +64,8 @@ function usersRawState(state, action: Object) {
         isFetching: true,
         data: {
           ...state.data,
-          user: undefined
-        }
+          user: undefined,
+        },
       };
     case ActionTypes.REQUEST_USER_SUCCESS:
       return {
@@ -74,8 +73,8 @@ function usersRawState(state, action: Object) {
         isFetching: false,
         data: {
           ...state.data,
-          user: action.data
-        }
+          user: action.data,
+        },
       };
     case ActionTypes.CREATE_USER_SUCCESS:
       return {
@@ -83,8 +82,8 @@ function usersRawState(state, action: Object) {
         isSaving: false,
         data: {
           ...state.data,
-          user: action.data
-        }
+          user: action.data,
+        },
       };
     case ActionTypes.UPDATE_USER_SUCCESS:
       return {
@@ -92,8 +91,8 @@ function usersRawState(state, action: Object) {
         isSaving: false,
         data: {
           ...state.data,
-          user: action.data
-        }
+          user: action.data,
+        },
       };
     //
     //
@@ -103,18 +102,18 @@ function usersRawState(state, action: Object) {
         ...state,
         data: {
           ...state.data,
-          user: {}
-        }
+          user: {},
+        },
       };
     case ActionTypes.CREATE_USER:
       return {
         ...state,
-        isSaving: true
+        isSaving: true,
       };
     case ActionTypes.UPDATE_USER:
       return {
         ...state,
-        isSaving: true
+        isSaving: true,
       };
     default:
       return state;

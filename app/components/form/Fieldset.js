@@ -5,15 +5,12 @@ import React, { Component, PropTypes } from 'react';
 import styles from './Fieldset.css';
 
 class Fieldset extends Component {
-
   render() {
-    const {children, legend} = this.props;
+    const { children, legend } = this.props;
     return (
       <fieldset className={styles.fieldset}>
         {legend ? (
-          <div className={styles.legend}>
-            {legend}
-          </div>
+          <div className={styles.legend}>{legend}</div>
         ) : (
           <div className={styles.ruleTop} />
         )}
@@ -25,7 +22,7 @@ class Fieldset extends Component {
 
 Fieldset.propTypes = {
   children: PropTypes.node.isRequired,
-  legend: PropTypes.string
+  legend: PropTypes.string,
 };
 
 export default Fieldset;

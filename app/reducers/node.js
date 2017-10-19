@@ -3,12 +3,15 @@
 import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
-  highlighted: []
+  highlighted: [],
 };
 
-export default function analyser(state: Object = initialState, action: Object = {}) {
+export default function analyser(
+  state: Object = initialState,
+  action: Object = {}
+) {
   switch (action.type) {
-    case ActionTypes.SET_NODE_HIGHLIGHTED:
+    case ActionTypes.SET_NODE_HIGHLIGHTED: {
       // clone the current array
       let highlighted = state.highlighted.slice();
       const index = highlighted.indexOf(action.node);
@@ -16,8 +19,7 @@ export default function analyser(state: Object = initialState, action: Object = 
         if (index === -1) {
           highlighted = highlighted.concat(action.node);
         }
-      }
-      else {
+      } else {
         if (index !== -1) {
           highlighted.splice(index, 1);
         }
@@ -27,8 +29,9 @@ export default function analyser(state: Object = initialState, action: Object = 
       }
       return {
         ...state,
-        highlighted
+        highlighted,
       };
+    }
     case ActionTypes.UNSET_NODE_HIGHLIGHTED_ALL:
       return initialState;
     default:

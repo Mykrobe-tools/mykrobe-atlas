@@ -8,31 +8,32 @@ import * as ExperimentActions from '../actions/ExperimentActions';
 
 class LibraryPage extends Component {
   componentDidMount() {
-    const {fetchExperiments} = this.props;
+    const { fetchExperiments } = this.props;
     fetchExperiments();
   }
 
   render() {
-    return (
-      <Library {...this.props} />
-    );
+    return <Library {...this.props} />;
   }
 }
 
 LibraryPage.propTypes = {
-  fetchExperiments: PropTypes.func.isRequired
+  fetchExperiments: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    experiments: state.experiments
+    experiments: state.experiments,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    fetchExperiments: ExperimentActions.fetchExperiments
-  }, dispatch);
+  return bindActionCreators(
+    {
+      fetchExperiments: ExperimentActions.fetchExperiments,
+    },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LibraryPage);

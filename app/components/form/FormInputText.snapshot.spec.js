@@ -18,7 +18,8 @@ describe('FormInputText component snapshot', () => {
         value={value}
         placeholder={placeholder}
         type={type}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();

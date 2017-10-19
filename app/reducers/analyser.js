@@ -11,10 +11,13 @@ const initialState = {
   error: null,
   progress: 0,
   json: null,
-  transformed: null
+  transformed: null,
 };
 
-export default function analyser(state: Object = initialState, action: Object = {}) {
+export default function analyser(
+  state: Object = initialState,
+  action: Object = {}
+) {
   switch (action.type) {
     case ActionTypes.ANALYSE_FILE_PREPARE:
       return {
@@ -23,39 +26,53 @@ export default function analyser(state: Object = initialState, action: Object = 
         stepDescription: 'Preparing',
         filename: action.filename,
         id: action.id,
-        analysing: true
+        analysing: true,
       };
     case ActionTypes.ANALYSE_FILE_UPLOAD:
       return {
         ...state,
         step: 1,
-        stepDescription: 'Uploading'
+        stepDescription: 'Uploading',
       };
     case ActionTypes.ANALYSE_FILE_ANALYSE:
       return {
         ...state,
         step: 2,
-        stepDescription: 'Analysing'
+        stepDescription: 'Analysing',
+        analysing: true,
       };
     case ActionTypes.ANALYSE_FILE_CANCEL:
+    case ActionTypes.ANALYSE_FILE_NEW:
       return initialState;
-    case ActionTypes.ANALYSE_FILE_PROGRESS:
-      const progress = Math.max(state.progress, Math.ceil((action.progress / 3) + (state.step * 33)));
-      return {
-        ...state,
-        progress
-      };
+    case ActionTypes.ANALYSE_FILE_PROGRESS: {
+      if (IS_ELECTRON) {
+        const { progress, total } = action.progress;
+        return {
+          ...state,
+          progress: Math.round(100 * progress / total),
+        };
+      } else {
+        const progress = Math.max(
+          state.progress,
+          Math.ceil(action.progress / 3 + state.step * 33)
+        );
+        return {
+          ...state,
+          progress,
+        };
+      }
+    }
     case ActionTypes.ANALYSE_FILE_SUCCESS:
       return {
         ...state,
         analysing: false,
         json: action.json,
-        transformed: action.transformed
+        transformed: action.transformed,
       };
     case ActionTypes.ANALYSE_FILE_ERROR:
       return {
         ...initialState,
-        error: action.error
+        error: action.error,
       };
     default:
       return state;

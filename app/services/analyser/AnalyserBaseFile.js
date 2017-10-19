@@ -23,12 +23,12 @@ class AnalyserBaseFile extends EventEmitter {
     if (extension === '.json') {
       // return this.analyseJsonFile(file);
       return this.analyseBinaryFile(file, id);
-    }
-    else if (['.bam', '.gz', '.fastq'].indexOf(extension) !== -1) {
+    } else if (['.bam', '.gz', '.fastq'].indexOf(extension) !== -1) {
       return this.analyseBinaryFile(file, id);
-    }
-    else {
-      this.failWithError(`Can only process files with extension: .json, .bam, .gz, .fastq - not ${extension}`);
+    } else {
+      this.failWithError(
+        `Can only process files with extension: .json, .bam, .gz, .fastq - not ${extension}`
+      );
       return this;
     }
   }
@@ -36,34 +36,40 @@ class AnalyserBaseFile extends EventEmitter {
   failWithError(err: string) {
     setTimeout(() => {
       this.emit('error', {
-        description: `Processing failed with error: ${err}`
+        description: `Processing failed with error: ${err}`,
       });
     }, 0);
   }
 
   doneWithJsonString(jsonString: string) {
+    // const fs = require('fs');
+    // fs.writeFileSync('doneWithJsonString.json', jsonString);
     const transformer = new AnalyserJsonTransformer();
-    transformer.transform(jsonString).then((result) => {
-      const {json, transformed} = result;
-      console.log('json', json);
-      console.log('transformed', transformed);
-      this.emit('done', result);
-    })
-    .catch((err) => {
-      this.failWithError(err);
-    });
+    transformer
+      .transform(jsonString)
+      .then(result => {
+        // const { json, transformed } = result;
+        // console.log('json', json);
+        // console.log('transformed', transformed);
+        this.emit('done', result);
+      })
+      .catch(err => {
+        this.failWithError(err);
+      });
   }
 
   analyseJsonFile(file: File): AnalyserBaseFile {
     const reader = new FileReader();
 
-    reader.onload = (e) => {
+    reader.onload = () => {
       const dataString = reader.result;
       this.doneWithJsonString(dataString);
     };
 
-    reader.onerror = (e) => {
-      this.failWithError(`FileReader failed with error code ${e.target.error.code}`);
+    reader.onerror = e => {
+      this.failWithError(
+        `FileReader failed with error code ${e.target.error.code}`
+      );
     };
 
     reader.readAsText(file);
@@ -80,8 +86,7 @@ class AnalyserBaseFile extends EventEmitter {
     return this;
   }
 
-  cancel(): void {
-  }
+  cancel(): void {}
 }
 
 export default AnalyserBaseFile;

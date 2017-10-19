@@ -1,0 +1,14 @@
+exports[`MetadataActions postMetadataForm should create a "POST_METADATA_FORM" action 1`] = `
+Array [
+  Object {
+    "type": "POST_METADATA_FORM",
+  },
+  Object {
+    "autoHide": false,
+    "category": "ERROR",
+    "content": undefined,
+    "id": 0,
+    "type": "SHOW_NOTIFICATION",
+  },
+]
+`;

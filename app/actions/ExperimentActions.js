@@ -4,33 +4,35 @@ import fetchJson from '../api/fetchJson';
 import { BASE_URL } from '../constants/APIConstants';
 import * as ActionTypes from '../constants/ActionTypes';
 import * as NotificationCategories from '../constants/NotificationCategories';
-import {showNotification} from './NotificationActions';
+import { showNotification } from './NotificationActions';
 import * as StringHelpers from '../helpers/StringHelpers';
 
 function requestExperiments() {
   return {
-    type: ActionTypes.REQUEST_EXPERIMENTS
+    type: ActionTypes.REQUEST_EXPERIMENTS,
   };
 }
 
-function receiveExperiments(data: Array<Object> = []) {
+function receiveExperiments(
+  data: Object = { results: [], summary: { hits: 0 } }
+) {
   return {
     type: ActionTypes.RECEIVE_EXPERIMENTS,
-    data
+    data,
   };
 }
 
 function requestFilterValues(filter: string) {
   return {
     type: ActionTypes.REQUEST_FILTER_VALUES,
-    filter
+    filter,
   };
 }
 
 function receiveFilterValues(data: Array<Object> = []) {
   return {
     type: ActionTypes.RECEIVE_FILTER_VALUES,
-    data
+    data,
   };
 }
 
@@ -39,19 +41,21 @@ export function fetchExperiments(filters: Object = {}) {
     dispatch(requestExperiments());
     const params = StringHelpers.objectToParamString(filters);
     return fetchJson(`${BASE_URL}/experiments/search?${params}`)
-      .then((data) => {
+      .then(data => {
         setTimeout(() => {
           dispatch(receiveExperiments(data));
           return Promise.resolve(data);
         }, 3000);
       })
-      .catch((error) => {
-        const {statusText} = error;
-        dispatch(showNotification({
-          category: NotificationCategories.ERROR,
-          content: statusText,
-          autoHide: false
-        }));
+      .catch(error => {
+        const { statusText } = error;
+        dispatch(
+          showNotification({
+            category: NotificationCategories.ERROR,
+            content: statusText,
+            autoHide: false,
+          })
+        );
         dispatch(receiveExperiments());
         return Promise.reject(error);
       });
@@ -62,18 +66,20 @@ export function fetchFilterValues(filter: string = '') {
   return (dispatch: Function) => {
     dispatch(requestFilterValues(filter));
     return fetchJson(`${BASE_URL}/experiments/metadata/${filter}/values`)
-      .then((data) => {
+      .then(data => {
         const options = transformFilterValues(data);
         dispatch(receiveFilterValues(options));
         return Promise.resolve(options);
       })
-      .catch((error) => {
-        const {statusText} = error;
-        dispatch(showNotification({
-          category: NotificationCategories.ERROR,
-          content: statusText,
-          autoHide: false
-        }));
+      .catch(error => {
+        const { statusText } = error;
+        dispatch(
+          showNotification({
+            category: NotificationCategories.ERROR,
+            content: statusText,
+            autoHide: false,
+          })
+        );
         dispatch(receiveFilterValues());
         return Promise.reject(error);
       });
@@ -83,8 +89,8 @@ export function fetchFilterValues(filter: string = '') {
 function transformFilterValues(data: Array<string> = []) {
   return data.map(option => {
     return {
-      'value': option,
-      'label': option
+      value: option,
+      label: option,
     };
   });
 }

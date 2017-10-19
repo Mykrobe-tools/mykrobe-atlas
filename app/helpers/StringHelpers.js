@@ -1,5 +1,7 @@
 /* @flow */
 
+import URLSearchParams from 'url-search-params';
+
 export function objectToParamString(args: Object) {
   let params = new URLSearchParams();
   for (let key in args) {

@@ -11,12 +11,14 @@ class ResistanceAll extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <Panel title="Resistance Profile" columns={3}>
+        <Panel title="Resistance Profile" columns={IS_ELECTRON ? undefined : 3}>
           <ResistanceProfile />
         </Panel>
-        <Panel title="Phylogeny" columns={5}>
-          <Phylogeny controlsInset={0} />
-        </Panel>
+        {!IS_ELECTRON && (
+          <Panel title="Phylogeny" columns={5}>
+            <Phylogeny controlsInset={0} />
+          </Panel>
+        )}
       </div>
     );
   }
@@ -24,13 +26,13 @@ class ResistanceAll extends Component {
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
   };
 }
 
 ResistanceAll.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired
+  analyser: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps)(ResistanceAll);

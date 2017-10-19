@@ -3,7 +3,7 @@
 import Resumablejs from 'resumablejs';
 import SparkMD5 from 'spark-md5';
 import EventEmitter from 'events';
-import store from '../../store/store';
+import store from '../../store/store'; // eslint-disable-line import/default
 import type { UserType } from '../../types/UserTypes';
 import { BASE_URL } from '../../constants/APIConstants';
 
@@ -24,7 +24,7 @@ class UploadFile extends EventEmitter {
         const user: UserType = store.getState().auth.user;
         if (user && user.token) {
           return {
-            'Authorization': `Bearer ${user.token}`
+            Authorization: `Bearer ${user.token}`,
           };
         }
       },
@@ -37,28 +37,28 @@ class UploadFile extends EventEmitter {
       fileType: this.acceptedExtensions,
       query: (resumableFile, resumableObj) => {
         return {
-          'fileUpload': true,
-          'checksum': resumableFile.hashes[resumableObj.offset]
+          fileUpload: true,
+          checksum: resumableFile.hashes[resumableObj.offset],
         };
       },
       maxFilesErrorCallback: () => {
         this.onUploadError('Please upload one file at a time');
       },
-      fileTypeErrorCallback: (file, errorCount) => {
+      fileTypeErrorCallback: () => {
         this.onUploadError('This filetype is unsupported');
-      }
+      },
     });
     this.resumable.on('fileError', (file, message) => {
       this.onUploadError(`There was an error with the upload: ${message}`);
     });
-    this.resumable.on('fileAdded', (file) => {
+    this.resumable.on('fileAdded', file => {
       this.emit('prepare', file.fileName);
       this.computeChecksums(file);
     });
-    this.resumable.on('fileProgress', (file) => {
+    this.resumable.on('fileProgress', () => {
       this.onUploadProgress();
     });
-    this.resumable.on('fileSuccess', (file) => {
+    this.resumable.on('fileSuccess', file => {
       this.onFileUploadComplete(file);
     });
   }
@@ -105,20 +105,29 @@ class UploadFile extends EventEmitter {
     if (this.id) {
       this.emit('upload');
       this.resumable.upload();
-    }
-    else {
+    } else {
       setTimeout(() => this.startUpload(), 1000);
     }
   }
 
   // Calculate md5 checksums for each chunk
   // Adapted from: https://github.com/23/resumable.js/issues/135#issuecomment-31123690
-  computeChecksums(resumableFile: Object, offset: number = 0, fileReader: ?FileReader = null) {
-    const round = resumableFile.resumableObj.getOpt('forceChunkSize') ? Math.ceil : Math.floor;
+  computeChecksums(
+    resumableFile: Object,
+    offset: number = 0,
+    fileReader: ?FileReader = null
+  ) {
+    const round = resumableFile.resumableObj.getOpt('forceChunkSize')
+      ? Math.ceil
+      : Math.floor;
     const chunkSize = resumableFile.getOpt('chunkSize');
     const numChunks = Math.max(round(resumableFile.file.size / chunkSize), 1);
     const forceChunkSize = resumableFile.getOpt('forceChunkSize');
-    const func = (resumableFile.file.slice ? 'slice' : (resumableFile.file.mozSlice ? 'mozSlice' : (resumableFile.file.webkitSlice ? 'webkitSlice' : 'slice')));
+    const func = resumableFile.file.slice
+      ? 'slice'
+      : resumableFile.file.mozSlice
+        ? 'mozSlice'
+        : resumableFile.file.webkitSlice ? 'webkitSlice' : 'slice';
     let startByte;
     let endByte;
     let bytes;
@@ -134,14 +143,13 @@ class UploadFile extends EventEmitter {
     }
     bytes = resumableFile.file[func](startByte, endByte);
 
-    fileReader.onloadend = (e) => {
+    fileReader.onloadend = e => {
       var spark = SparkMD5.ArrayBuffer.hash(e.target.result);
       resumableFile.hashes.push(spark);
       if (numChunks > offset + 1) {
-        this.emit('progress', Math.floor((offset / numChunks) * 100));
+        this.emit('progress', Math.floor(offset / numChunks * 100));
         this.computeChecksums(resumableFile, offset + 1, fileReader);
-      }
-      else {
+      } else {
         this.startUpload();
       }
     };

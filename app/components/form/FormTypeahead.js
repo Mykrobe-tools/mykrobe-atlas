@@ -15,7 +15,7 @@ const defaults = {
     const options = {
       keys: ['value', 'label'],
       shouldSort: true,
-      threshold: 0.3
+      threshold: 0.3,
     };
     const fuse = new Fuse(suggestions, options);
     return fuse.search(inputValue);
@@ -25,18 +25,14 @@ const defaults = {
   getSuggestionValue: suggestion => suggestion.label,
 
   // allow custom overriding of typeahead logic: rendering
-  renderSuggestion: suggestion => (
-    <div>
-      {suggestion.label}
-    </div>
-  )
+  renderSuggestion: suggestion => <div>{suggestion.label}</div>,
 };
 
 class FormTypeahead extends Component {
   options: Object;
   state: {
     value: string,
-    suggestions: Array<Object>
+    suggestions: Array<Object>,
   };
 
   constructor(props: Object) {
@@ -44,7 +40,7 @@ class FormTypeahead extends Component {
     this.setOptions(props);
     this.state = {
       value: this.getLabelFromValue(props.value),
-      suggestions: []
+      suggestions: [],
     };
   }
 
@@ -54,8 +50,7 @@ class FormTypeahead extends Component {
     for (let key of Object.keys(defaults)) {
       if (props[key]) {
         this.options[key] = props[key];
-      }
-      else {
+      } else {
         this.options[key] = defaults[key];
       }
     }
@@ -73,49 +68,53 @@ class FormTypeahead extends Component {
 
   onTextEntered(event: Event, newValue: string) {
     this.setState({
-      value: newValue
+      value: newValue,
     });
-  };
+  }
 
   onSuggestionsFetchRequested(value: string) {
     this.setState({
-      suggestions: this.options.filterSuggestions(this.options.suggestions, value)
+      suggestions: this.options.filterSuggestions(
+        this.options.suggestions,
+        value
+      ),
     });
-  };
+  }
 
   onSuggestionsClearRequested() {
     this.setState({
-      suggestions: []
+      suggestions: [],
     });
-  };
+  }
 
   render() {
-    const {value, suggestions} = this.state;
-    const {placeholder, name, title} = this.props;
+    const { value, suggestions } = this.state;
+    const { placeholder, name, title } = this.props;
 
-    const {onChange} = this.props;
+    const { onChange } = this.props;
     const inputProps = {
       placeholder,
       value,
-      onChange: (e, {newValue}) => this.onTextEntered(e, newValue)
+      onChange: (e, { newValue }) => this.onTextEntered(e, newValue),
     };
     return (
       <div className={styles.wrap}>
         <div className={styles.label}>
-          <FormLabel
-            htmlFor={name}
-            label={title} />
+          <FormLabel htmlFor={name} label={title} />
         </div>
         <Autosuggest
           id={name}
           theme={styles}
           suggestions={suggestions}
-          onSuggestionSelected={(e, {suggestion}) => onChange(name, suggestion.value)}
-          onSuggestionsFetchRequested={({value}) => this.onSuggestionsFetchRequested(value)}
+          onSuggestionSelected={(e, { suggestion }) =>
+            onChange(name, suggestion.value)}
+          onSuggestionsFetchRequested={({ value }) =>
+            this.onSuggestionsFetchRequested(value)}
           onSuggestionsClearRequested={() => this.onSuggestionsClearRequested()}
           getSuggestionValue={this.options.getSuggestionValue}
           renderSuggestion={this.options.renderSuggestion}
-          inputProps={inputProps} />
+          inputProps={inputProps}
+        />
       </div>
     );
   }
@@ -127,7 +126,7 @@ FormTypeahead.propTypes = {
   suggestions: PropTypes.array.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 export default FormTypeahead;

@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   metadata,
   notifications,
   experiments,
-  routing
+  routing,
 });
 
 export default rootReducer;

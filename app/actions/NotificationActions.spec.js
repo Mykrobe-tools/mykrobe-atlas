@@ -12,15 +12,17 @@ describe('NotificationActions', () => {
       const values = {
         category: 'category',
         content: 'lorem ipsum',
-        autoHide: false
+        autoHide: false,
       };
-      const expectedActions = [{
-        type: 'SHOW_NOTIFICATION',
-        id: 0,
-        category: 'category',
-        content: 'lorem ipsum',
-        autoHide: false
-      }];
+      const expectedActions = [
+        {
+          type: 'SHOW_NOTIFICATION',
+          id: 0,
+          category: 'category',
+          content: 'lorem ipsum',
+          autoHide: false,
+        },
+      ];
       store.dispatch(NotificationActions.showNotification(values));
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -29,18 +31,21 @@ describe('NotificationActions', () => {
       const values = {
         category: 'category',
         content: 'lorem ipsum',
-        autoHide: true
+        autoHide: true,
       };
-      const expectedActions = [{
-        type: 'SHOW_NOTIFICATION',
-        id: 1,
-        category: 'category',
-        content: 'lorem ipsum',
-        autoHide: true
-      }, {
-        type: 'HIDE_NOTIFICATION',
-        id: 1
-      }];
+      const expectedActions = [
+        {
+          type: 'SHOW_NOTIFICATION',
+          id: 1,
+          category: 'category',
+          content: 'lorem ipsum',
+          autoHide: true,
+        },
+        {
+          type: 'HIDE_NOTIFICATION',
+          id: 1,
+        },
+      ];
 
       jest.useFakeTimers();
 
@@ -57,10 +62,12 @@ describe('NotificationActions', () => {
     const store = mockStore({});
     it('should create a "HIDE_NOTIFICATION" action', () => {
       const id = 0;
-      const expectedActions = [{
-        type: 'HIDE_NOTIFICATION',
-        id: 0
-      }];
+      const expectedActions = [
+        {
+          type: 'HIDE_NOTIFICATION',
+          id: 0,
+        },
+      ];
       store.dispatch(NotificationActions.hideNotification(id));
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -69,9 +76,11 @@ describe('NotificationActions', () => {
   describe('hideAllNotifications', () => {
     const store = mockStore({});
     it('should create a "HIDE_ALL_NOTIFICATIONS" action', () => {
-      const expectedActions = [{
-        type: 'HIDE_ALL_NOTIFICATIONS'
-      }];
+      const expectedActions = [
+        {
+          type: 'HIDE_ALL_NOTIFICATIONS',
+        },
+      ];
       store.dispatch(NotificationActions.hideAllNotifications());
       expect(store.getActions()).toEqual(expectedActions);
     });

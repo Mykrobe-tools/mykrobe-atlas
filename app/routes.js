@@ -2,11 +2,14 @@
 
 import React from 'react';
 import { Route, Redirect, IndexRoute, IndexRedirect } from 'react-router';
-import HomePage from './containers/HomePage';
 import LibraryPage from './containers/LibraryPage';
 import SamplePage from './containers/SamplePage';
 
-import store from './store/store';
+import store from './store/store'; // eslint-disable-line import/default
+
+import HomePage from './containers/HomePage';
+
+import App from './containers/App';
 
 import Analysis from './components/analysis/Analysis';
 import Metadata from './components/metadata/Metadata';
@@ -46,8 +49,6 @@ const requireAuth = (nextState, replace) => {
   }
 };
 
-const App = IS_ELECTRON ? require('./containers/AppElectron') : require('./containers/App');
-
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
@@ -81,7 +82,11 @@ export default (
       <Route path="verifysuccess" component={VerifySuccess} />
       <Route path="verifyfailure" component={VerifyFailure} />
     </Route>
-    <Route path="organisation" onEnter={requireAuth} component={OrganisationPage}>
+    <Route
+      path="organisation"
+      onEnter={requireAuth}
+      component={OrganisationPage}
+    >
       <IndexRedirect to="list" />
       <Route path="list" component={List} />
       <Route path="add" component={Add} />

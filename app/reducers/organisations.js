@@ -5,15 +5,14 @@ import * as ActionTypes from '../constants/ActionTypes';
 const initialState = {
   isFetching: false,
   isSaving: false,
-  data: {
-  }
+  data: {},
 };
 
 function shapeState(state) {
   const data = normalizeData(state.data);
   const shapedState = {
     ...state,
-    data
+    data,
   };
   return shapedState;
 }
@@ -25,19 +24,22 @@ function normalizeData(data) {
   let allOrganisationsById = normalizeDataById(data.allOrganisations);
   return {
     ...data,
-    allOrganisationsById
+    allOrganisationsById,
   };
 }
 
-function normalizeDataById(data: Array<{id: string}>): Object {
+function normalizeDataById(data: Array<{ id: string }>): Object {
   let dataById = {};
-  data.map((item) => {
+  data.map(item => {
     dataById[item.id] = item;
   });
   return dataById;
 }
 
-export default function organisations(state: any = initialState, action: Object = {}) {
+export default function organisations(
+  state: any = initialState,
+  action: Object = {}
+) {
   const rawState = organisationsRawState(state, action);
   const newState = shapeState(rawState);
   return newState;
@@ -48,7 +50,7 @@ function organisationsRawState(state, action: Object) {
     case ActionTypes.REQUEST_ALL_ORGANISATIONS:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     case ActionTypes.REQUEST_ALL_ORGANISATIONS_SUCCESS:
       return {
@@ -56,8 +58,8 @@ function organisationsRawState(state, action: Object) {
         isFetching: false,
         data: {
           ...state.data,
-          allOrganisations: action.data
-        }
+          allOrganisations: action.data,
+        },
       };
     case ActionTypes.REQUEST_ORGANISATION:
       return {
@@ -65,8 +67,8 @@ function organisationsRawState(state, action: Object) {
         isFetching: true,
         data: {
           ...state.data,
-          organisation: undefined
-        }
+          organisation: undefined,
+        },
       };
     case ActionTypes.REQUEST_ORGANISATION_SUCCESS:
       return {
@@ -74,8 +76,8 @@ function organisationsRawState(state, action: Object) {
         isFetching: false,
         data: {
           ...state.data,
-          organisation: action.data
-        }
+          organisation: action.data,
+        },
       };
     case ActionTypes.CREATE_ORGANISATION_SUCCESS:
       return {
@@ -83,8 +85,8 @@ function organisationsRawState(state, action: Object) {
         isSaving: false,
         data: {
           ...state.data,
-          organisation: action.data
-        }
+          organisation: action.data,
+        },
       };
     case ActionTypes.UPDATE_ORGANISATION_SUCCESS:
       return {
@@ -92,8 +94,8 @@ function organisationsRawState(state, action: Object) {
         isSaving: false,
         data: {
           ...state.data,
-          organisation: action.data
-        }
+          organisation: action.data,
+        },
       };
     //
     //
@@ -103,28 +105,28 @@ function organisationsRawState(state, action: Object) {
         ...state,
         data: {
           ...state.data,
-          organisation: {}
-        }
+          organisation: {},
+        },
       };
     case ActionTypes.CREATE_ORGANISATION:
       return {
         ...state,
-        isSaving: true
+        isSaving: true,
       };
     case ActionTypes.UPDATE_ORGANISATION:
       return {
         ...state,
-        isSaving: true
+        isSaving: true,
       };
     case ActionTypes.ORGANISATION_UPDATE_FAILURE_REASON:
       return {
         ...state,
-        failureReason: action.failureReason
+        failureReason: action.failureReason,
       };
     case ActionTypes.ORGANISATION_DELETE_FAILURE_REASON:
       return {
         ...state,
-        failureReason: undefined
+        failureReason: undefined,
       };
     default:
       return state;

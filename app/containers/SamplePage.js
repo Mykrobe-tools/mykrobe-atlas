@@ -10,8 +10,13 @@ import * as MetadataActions from '../actions/MetadataActions';
 
 class SamplePage extends Component {
   componentDidMount() {
-    const {analyser, fetchExperiment, fetchTemplate, fetchCurrentUser} = this.props;
-    const {id} = this.props.params;
+    const {
+      analyser,
+      fetchExperiment,
+      fetchTemplate,
+      fetchCurrentUser,
+    } = this.props;
+    const { id } = this.props.params;
     if (!analyser.analysing && !analyser.json) {
       fetchExperiment(id);
     }
@@ -19,31 +24,31 @@ class SamplePage extends Component {
     // re-fetch user details before requesting template
     // this ensures the correct organisation/template is used,
     // as it may have changed since the user logged in
-    fetchCurrentUser()
-      .then((user) => {
-        fetchTemplate(user);
-      });
+    fetchCurrentUser().then(user => {
+      fetchTemplate(user);
+    });
   }
 
   render() {
-    return (
-      <Sample {...this.props} />
-    );
+    return <Sample {...this.props} />;
   }
 }
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    fetchExperiment: AnalyserActions.fetchExperiment,
-    fetchTemplate: MetadataActions.fetchTemplate,
-    fetchCurrentUser: AuthActions.fetchCurrentUser
-  }, dispatch);
+  return bindActionCreators(
+    {
+      fetchExperiment: AnalyserActions.fetchExperiment,
+      fetchTemplate: MetadataActions.fetchTemplate,
+      fetchCurrentUser: AuthActions.fetchCurrentUser,
+    },
+    dispatch
+  );
 }
 
 SamplePage.propTypes = {
@@ -51,7 +56,7 @@ SamplePage.propTypes = {
   analyser: PropTypes.object.isRequired,
   fetchExperiment: PropTypes.func.isRequired,
   fetchTemplate: PropTypes.func.isRequired,
-  fetchCurrentUser: PropTypes.func.isRequired
+  fetchCurrentUser: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SamplePage);

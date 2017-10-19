@@ -5,11 +5,15 @@
     "production": {
       "presets": ["react-optimize"],
       "plugins": [
-        "babel-plugin-dev-expression"
+        "babel-plugin-dev-expression",
+        "./babel-plugin-electron-module-resolver"
       ]
     },
     "development": {
-      "presets": ["react-hmre"]
+      "presets": ["react-hmre"],
+      "plugins": [
+        "./babel-plugin-electron-module-resolver"
+      ]
     },
     "test": {
       "plugins": [

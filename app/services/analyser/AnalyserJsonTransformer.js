@@ -12,41 +12,46 @@ class AnalyserJsonTransformer {
   }
 
   transform(jsonString: string) {
-    return new Promise((resolve, reject) => {
-      this.stringToJson(jsonString).then((transformed) => {
+    return new Promise(resolve => {
+      this.stringToJson(jsonString).then(transformed => {
         resolve(transformed);
       });
     });
   }
 
   stringToJson(string: string) {
-    return new Promise((resolve, reject) => {
-      // extract just the portion in curly braces {}
-      const first = string.indexOf('{');
-      const last = string.lastIndexOf('}');
-      let extracted = string.substr(first, 1 + last - first);
-      // replace escaped tabs, quotes, newlines
-      extracted = extracted.replace(/\\n/g, '\n').replace(/\\t/g, '\t').replace(/\\"/g, '"');
-      // console.log(extracted);
-      const json = JSON.parse(extracted);
+    return new Promise(resolve => {
+      const json = JSON.parse(string);
       const transformed = this.transformModel(json);
-      resolve({json, transformed});
+      resolve({ json, transformed });
     });
   }
 
   transformModel(sourceModel: Object) {
-    // just do the first one for now
-    const sampleIds = _.keys(sourceModel.snpDistance.newick);
-    const sampleId = sampleIds[0];
+    if (sourceModel.snpDistance) {
+      // just do the first one for now
+      const sampleIds = _.keys(sourceModel.snpDistance.newick);
+      const sampleId = sampleIds[0];
 
-    const sampleModel = sourceModel.snpDistance.newick[sampleId];
+      const sampleModel = sourceModel.snpDistance.newick[sampleId];
 
-    const transformedSampleModel = this.transformSampleModel(sampleModel, sourceModel.geoDistance.experiments);
+      const transformedSampleModel = this.transformSampleModel(
+        sampleModel,
+        sourceModel.geoDistance.experiments
+      );
 
-    return transformedSampleModel;
+      return transformedSampleModel;
+    } else {
+      // only one sample from Predictor
+      const sampleIds = Object.keys(sourceModel);
+      const sampleId = sampleIds[0];
+      const sampleModel = sourceModel[sampleId];
+      const transformedSampleModel = this.transformSampleModel(sampleModel);
+      return transformedSampleModel;
+    }
   }
 
-  transformSampleModel(sourceModel: Object, relatedModels: Array<Object>) {
+  transformSampleModel(sourceModel: Object, relatedModels: ?Array<Object>) {
     let o;
     let susceptibilityModel;
     let key;
@@ -66,11 +71,12 @@ class AnalyserJsonTransformer {
 
     susceptibilityModel = sourceModel['susceptibility'];
 
-    calledVariants = sourceModel['called_variants'];
-    calledGenes = sourceModel['called_genes'];
+    // calledVariants = sourceModel['called_variants'];
+    // calledGenes = sourceModel['called_genes'];
 
     model.evidence = {};
 
+    /*
     for (key in calledVariants) {
       const mutation = calledVariants[key];
       const title = mutation['induced_resistance'];
@@ -79,15 +85,14 @@ class AnalyserJsonTransformer {
       o = [];
       if (model.evidence[title]) {
         o = model.evidence[title];
-      }
-      else {
+      } else {
         // initialise
         model.evidence[title] = o;
       }
       o.push([
         'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
-        'Resistant allele seen ' + (mutation['R_median_cov']) + ' times',
-        'Susceptible allele seen ' + (mutation['S_median_cov']) + ' times'
+        'Resistant allele seen ' + mutation['R_median_cov'] + ' times',
+        'Susceptible allele seen ' + mutation['S_median_cov'] + ' times',
       ]);
     }
 
@@ -98,17 +103,17 @@ class AnalyserJsonTransformer {
       o = [];
       if (model.evidence[title]) {
         o = model.evidence[title];
-      }
-      else {
+      } else {
         // initialise
         model.evidence[title] = o;
       }
       o.push([
         key + ' gene found',
         'Percent recovered: ' + spot['per_cov'] + '%',
-        'Median coverage: ' + spot['median_cov']
+        'Median coverage: ' + spot['median_cov'],
       ]);
     }
+    */
 
     model.evidence = this._sortObject(model.evidence);
 
@@ -142,20 +147,86 @@ class AnalyserJsonTransformer {
       // }
     }
 
+    /*
+It should be I491F in rpoB – it shouldn't be repeated like that in the output, sorry!
+
+Otherwise the "Resistant" allele N times is in [alternate][median_depth]
+and  the "Susceptible" allele N times is in [reference][median_depth]
+
+by default.
+
+However, as Zam mentioned, this changes to:
+
+[alternate][kmer_count]
+and
+[reference][kmer_count]
+
+for another data type (which we now support but didn't previously).
+
+I'll have to add another k,v in the output which specifies whether to use "median_depth" or "kmer_count".
+
+The phrasing would also change from
+"has been seen X times" to something like "X kmers from the resistance/susceptible allele"
+
+    */
+
+    // TODO: json should tell us whether to use median_depth or kmer_count
+
+    // const countKey = 'median_depth';
+    const countKey = 'kmer_count';
+
     for (key in susceptibilityModel) {
       const predict = susceptibilityModel[key]['predict'].toUpperCase();
       value = predict.substr(0, 1);
       isInducible = predict.indexOf('INDUCIBLE') !== -1;
       if (value === 'S') {
         model.susceptible.push(key);
-      }
-      else if (value === 'R') {
+      } else if (value === 'R') {
         model.resistant.push(key);
-      }
-      else if (value === 'N') {
+      } else if (value === 'N') {
         model.inconclusive.push(key);
-      } if (isInducible) {
+      }
+      if (isInducible) {
         model.inducible.push(key);
+      }
+      if ('called_by' in susceptibilityModel[key]) {
+        const calledBy = susceptibilityModel[key]['called_by'];
+        for (let calledByKey in calledBy) {
+          // group by title
+          o = [];
+          if (model.evidence[key]) {
+            o = model.evidence[key];
+          } else {
+            // initialise
+            model.evidence[key] = o;
+          }
+          const genes = calledByKey.split('_');
+          // if in format I491F-I491F, split and take just I491F
+          if (genes[1].indexOf('-') > 0) {
+            genes[1] = genes[1].split('-')[0];
+          }
+          const info = calledBy[calledByKey]['info'];
+          const alternate = info['coverage']['alternate'];
+          const reference = info['coverage']['reference'];
+          // o.push([
+          //   key + ' gene found',
+          //   'Percent recovered: ' + reference['per_cov'] + '%',
+          //   'Median coverage: ' + reference['median_cov'],
+          // ]);
+          if (countKey === 'median_depth') {
+            o.push([
+              'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
+              'Resistant allele seen ' + alternate[countKey] + ' times',
+              'Susceptible allele seen ' + reference[countKey] + ' times',
+            ]);
+          } else {
+            o.push([
+              'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
+              alternate[countKey] + ' kmers from the resistant allele',
+              reference[countKey] + ' kmers from the susceptible allele',
+            ]);
+          }
+        }
       }
     }
 
@@ -165,8 +236,7 @@ class AnalyserJsonTransformer {
         value = virulenceModel[key].toUpperCase();
         if (value === 'POSITIVE') {
           model.positive.push(key);
-        }
-        else if (value === 'NEGATIVE') {
+        } else if (value === 'NEGATIVE') {
           model.negative.push(key);
         }
       }
@@ -174,16 +244,23 @@ class AnalyserJsonTransformer {
 
     let drugsResistance = {
       mdr: false,
-      xdr: false
+      xdr: false,
     };
 
-    if (model.resistant.indexOf('Isoniazid') !== -1 && model.resistant.indexOf('Rifampicin') !== -1) {
+    if (
+      model.resistant.indexOf('Isoniazid') !== -1 &&
+      model.resistant.indexOf('Rifampicin') !== -1
+    ) {
       drugsResistance.mdr = true;
-        /*
+      /*
         If MDR AND R to both fluoroquinolones and one of the other these 3 (Amikacin, Kanamycin, Capreomycin), then call it XDR (Extensively Drug Resistant)
         */
       if (model.resistant.indexOf('Quinolones')) {
-        if (model.resistant.indexOf('Amikacin') !== -1 || model.resistant.indexOf('Kanamycin') !== -1 || model.resistant.indexOf('Capreomycin') !== -1) {
+        if (
+          model.resistant.indexOf('Amikacin') !== -1 ||
+          model.resistant.indexOf('Kanamycin') !== -1 ||
+          model.resistant.indexOf('Capreomycin') !== -1
+        ) {
           drugsResistance.xdr = true;
         }
       }
@@ -194,28 +271,33 @@ class AnalyserJsonTransformer {
     let speciesPretty = '';
 
     if (TargetConstants.SPECIES_TB === this.config.species) {
-      speciesPretty = model.species.join(' / ') + ' (lineage: ' + model.lineage.join(', ') + ')';
-    }
-    else {
+      speciesPretty =
+        model.species.join(' / ') +
+        ' (lineage: ' +
+        model.lineage.join(', ') +
+        ')';
+    } else {
       speciesPretty = model.species.join(' / ');
     }
 
     model.speciesPretty = speciesPretty;
 
     // tree and neighbours
-    let neighbourKeys = _.keys(sourceModel.neighbours);
-    let samples = {};
-    for (let i = 0; i < 2; i++) {
-      const neighbour = sourceModel.neighbours[neighbourKeys[i]];
-      let keys = _.keys(neighbour);
-      let neighbourSampleModel = relatedModels[i];
-      let sampleId: string = keys[0];
-      neighbourSampleModel.id = sampleId;
-      samples[sampleId] = neighbourSampleModel;
-    }
-    model.samples = samples;
+    if (sourceModel.neighbours) {
+      let neighbourKeys = _.keys(sourceModel.neighbours);
+      let samples = {};
+      for (let i = 0; i < 2; i++) {
+        const neighbour = sourceModel.neighbours[neighbourKeys[i]];
+        let keys = _.keys(neighbour);
+        let neighbourSampleModel = relatedModels[i];
+        let sampleId: string = keys[0];
+        neighbourSampleModel.id = sampleId;
+        samples[sampleId] = neighbourSampleModel;
+      }
+      model.samples = samples;
 
-    model.tree = sourceModel.tree;
+      model.tree = sourceModel.tree;
+    }
 
     return model;
   }

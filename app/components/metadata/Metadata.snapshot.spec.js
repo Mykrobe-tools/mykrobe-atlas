@@ -9,13 +9,11 @@ jest.mock('./MetadataForm', () => {
   return '';
 });
 
-const analyser = {analysing: true};
+const analyser = { analysing: true };
 
 describe('Metadata component snapshot', () => {
   it('renders correctly', () => {
-    const component = renderer.create(
-      <Metadata analyser={analyser} />
-    );
+    const component = renderer.create(<Metadata analyser={analyser} />);
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });

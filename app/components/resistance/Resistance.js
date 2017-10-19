@@ -9,33 +9,81 @@ import MykrobeConfig from '../../services/MykrobeConfig';
 import * as TargetConstants from '../../constants/TargetConstants';
 
 class Resistance extends Component {
+  componen;
 
   render() {
-    const {analyser, id, children} = this.props;
+    const { analyser, id, children } = this.props;
     const path = `/sample/${id}/resistance`;
     let content;
     const config = new MykrobeConfig();
 
     if (analyser.analysing) {
       content = <Uploading sectionName="Resistance" />;
-    }
-    else {
+    } else {
       content = (
         <div className={styles.content}>
           <div className={styles.header}>
             {TargetConstants.SPECIES_TB === config.species ? (
               <div className={styles.navigation}>
-                <Link to={`${path}/all`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>All</Link>
-                <Link to={`${path}/drugs`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Drugs</Link>
-                <Link to={`${path}/evidence`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Evidence</Link>
-                <Link to={`${path}/species`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Species</Link>
+                <Link
+                  to={`${path}/all`}
+                  className={styles.navigationItem}
+                  activeClassName={styles.navigationItemActive}
+                >
+                  All
+                </Link>
+                <Link
+                  to={`${path}/drugs`}
+                  className={styles.navigationItem}
+                  activeClassName={styles.navigationItemActive}
+                >
+                  Drugs
+                </Link>
+                <Link
+                  to={`${path}/evidence`}
+                  className={styles.navigationItem}
+                  activeClassName={styles.navigationItemActive}
+                >
+                  Evidence
+                </Link>
+                <Link
+                  to={`${path}/species`}
+                  className={styles.navigationItem}
+                  activeClassName={styles.navigationItemActive}
+                >
+                  Species
+                </Link>
               </div>
             ) : (
               <div className={styles.navigation}>
-                <Link to={`${path}/all`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>All</Link>
-                <Link to={`${path}/class`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Class</Link>
-                <Link to={`${path}/evidence`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Evidence</Link>
-                <Link to={`${path}/species`} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>Species</Link>
+                <Link
+                  to={`${path}/all`}
+                  className={styles.navigationItem}
+                  activeClassName={styles.navigationItemActive}
+                >
+                  All
+                </Link>
+                <Link
+                  to={`${path}/class`}
+                  className={styles.navigationItem}
+                  activeClassName={styles.navigationItemActive}
+                >
+                  Class
+                </Link>
+                <Link
+                  to={`${path}/evidence`}
+                  className={styles.navigationItem}
+                  activeClassName={styles.navigationItemActive}
+                >
+                  Evidence
+                </Link>
+                <Link
+                  to={`${path}/species`}
+                  className={styles.navigationItem}
+                  activeClassName={styles.navigationItemActive}
+                >
+                  Species
+                </Link>
               </div>
             )}
           </div>
@@ -44,25 +92,22 @@ class Resistance extends Component {
       );
     }
 
-    return (
-      <div className={styles.container}>
-        {content}
-      </div>
-    );
+    return <div className={styles.container}>{content}</div>;
   }
 }
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
-    analyser: state.analyser
+    analyser: state.analyser,
   };
 }
 
 Resistance.propTypes = {
   dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  id: PropTypes.string.isRequired,
-  children: PropTypes.node
+  id: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default connect(mapStateToProps)(Resistance);

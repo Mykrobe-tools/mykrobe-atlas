@@ -9,16 +9,15 @@ describe('FormInputCheckbox component snapshot', () => {
 
   it('renders correctly with a single input', () => {
     const selectedOptions = [];
-    const options = [
-      {value: 'lorem', label: 'Lorem'}
-    ];
+    const options = [{ value: 'lorem', label: 'Lorem' }];
     const component = renderer.create(
       <FormInputCheckbox
         name={name}
         title={title}
         options={options}
         selectedOptions={selectedOptions}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -27,9 +26,9 @@ describe('FormInputCheckbox component snapshot', () => {
   it('renders correctly with multiple inputs', () => {
     const selectedOptions = ['lorem', 'dolorSitAmet'];
     const options = [
-      {value: 'lorem', label: 'Lorem'},
-      {value: 'ipsum', label: 'Ipsum'},
-      {value: 'dolorSitAmet', label: 'Dolor Sit Amet'}
+      { value: 'lorem', label: 'Lorem' },
+      { value: 'ipsum', label: 'Ipsum' },
+      { value: 'dolorSitAmet', label: 'Dolor Sit Amet' },
     ];
     const component = renderer.create(
       <FormInputCheckbox
@@ -37,7 +36,8 @@ describe('FormInputCheckbox component snapshot', () => {
         title={title}
         options={options}
         selectedOptions={selectedOptions}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();

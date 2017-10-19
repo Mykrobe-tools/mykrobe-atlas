@@ -7,23 +7,42 @@ import Logo from '../logo/Logo';
 
 class Menu extends Component {
   render() {
-    const {displayMenu} = this.props;
+    const { displayMenu } = this.props;
     return (
-      <div className={displayMenu ? styles.containerDisplayed : styles.container}>
+      <div
+        className={displayMenu ? styles.containerDisplayed : styles.container}
+      >
         <div className={styles.logoWrap}>
-          <div className={styles.logo}>
-            <Logo />
-          </div>
+          <Logo />
         </div>
         <ul className={styles.navigation}>
           <li className={styles.navigationItem}>
-            <Link to="/" className={styles.navigationLink} activeClassName={styles.navigationLinkActive} onlyActiveOnIndex>Home</Link>
+            <Link
+              to="/"
+              className={styles.navigationLink}
+              activeClassName={styles.navigationLinkActive}
+              onlyActiveOnIndex
+            >
+              Home
+            </Link>
           </li>
           <li className={styles.navigationItem}>
-            <Link to="/library" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Library</Link>
+            <Link
+              to="/library"
+              className={styles.navigationLink}
+              activeClassName={styles.navigationLinkActive}
+            >
+              Library
+            </Link>
           </li>
           <li className={styles.navigationItem}>
-            <Link to="/organisation" className={styles.navigationLink} activeClassName={styles.navigationLinkActive}>Organisations</Link>
+            <Link
+              to="/organisation"
+              className={styles.navigationLink}
+              activeClassName={styles.navigationLinkActive}
+            >
+              Organisations
+            </Link>
           </li>
         </ul>
       </div>
@@ -32,7 +51,7 @@ class Menu extends Component {
 }
 
 Menu.propTypes = {
-  displayMenu: PropTypes.bool.isRequired
+  displayMenu: PropTypes.bool.isRequired,
 };
 
 export default Menu;

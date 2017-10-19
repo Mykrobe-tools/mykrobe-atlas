@@ -1,26 +1,30 @@
 /* @flow */
 
-require('babel-polyfill');
-
 const targets = require('../targets.json');
 const path = require('path');
 const exec = require('child_process').exec;
 
 let promises = [];
-targets.forEach((target, index) => {
-  const iconPath = path.resolve(__dirname, `../electron/resources/icon/${target.value}`);
+targets.forEach(target => {
+  const iconPath = path.resolve(
+    __dirname,
+    `../electron/resources/icon/${target.value}`
+  );
   // generate mac, then windows which is using the generated mac pngs
-  promises.push(generateIconsMac(iconPath).then(() => {
-    generateIconsWindows(iconPath);
-  }));
+  promises.push(
+    generateIconsMac(iconPath).then(() => {
+      generateIconsWindows(iconPath);
+    })
+  );
 });
 
-Promise.all(promises).then(() => {
-  console.log('done');
-})
-.catch((err) => {
-  console.error(err);
-});
+Promise.all(promises)
+  .then(() => {
+    console.log('done');
+  })
+  .catch(err => {
+    console.error(err);
+  });
 
 function generateIconsMac(iconPath) {
   let promises = [];

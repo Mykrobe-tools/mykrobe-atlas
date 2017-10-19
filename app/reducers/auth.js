@@ -9,14 +9,14 @@ import type { AuthType } from '../types/AuthTypes';
 const initialState: AuthType = {
   isLoading: true,
   isFetching: false,
-  isAuthenticated: false
+  isAuthenticated: false,
 };
 
 function shapeState(state: AuthType): AuthType {
   const isAuthenticated: boolean = !!(state.user && state.user.token);
   const shapedState: AuthType = {
     ...state,
-    isAuthenticated
+    isAuthenticated,
   };
   return shapedState;
 }
@@ -27,7 +27,10 @@ function shapeState(state: AuthType): AuthType {
  * @param  {Object={}} action
  */
 
-export default function auth(state: AuthType = initialState, action: Object = {}) {
+export default function auth(
+  state: AuthType = initialState,
+  action: Object = {}
+) {
   const rawState = authRawState(state, action);
   const newState = shapeState(rawState);
   return newState;
@@ -38,107 +41,108 @@ function authRawState(state: AuthType, action: Object) {
     case types.AUTH_INITIALISE:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
       };
     case types.AUTH_INITIALISE_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        user: action.user
+        user: action.user,
       };
     case types.AUTH_SIGNIN:
       return {
         ...state,
         isFetching: true,
-        failureReason: undefined
+        failureReason: undefined,
       };
     case types.AUTH_SIGNIN_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        user: action.user
+        user: action.user,
       };
     case types.AUTH_SIGNIN_FAIL:
       return {
         ...state,
         isFetching: false,
         user: undefined,
-        failureReason: action.statusText
+        failureReason: action.statusText,
       };
     case types.AUTH_FORGOT_PASSWORD:
       return {
         ...state,
         isFetching: true,
-        failureReason: undefined
+        failureReason: undefined,
       };
     case types.AUTH_FORGOT_PASSWORD_SUCCESS:
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
       };
     case types.AUTH_FORGOT_PASSWORD_FAIL:
       return {
         ...state,
         isFetching: false,
-        failureReason: action.statusText
+        failureReason: action.statusText,
       };
     case types.AUTH_RESET_PASSWORD:
       return {
         ...state,
         isFetching: true,
-        failureReason: undefined
+        failureReason: undefined,
       };
     case types.AUTH_RESET_PASSWORD_SUCCESS:
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
       };
     case types.AUTH_RESET_PASSWORD_FAIL:
       return {
         ...state,
         isFetching: false,
-        failureReason: action.statusText
+        failureReason: action.statusText,
       };
     case types.AUTH_SIGNOUT:
       return {
-        ...state
+        ...state,
       };
     case types.AUTH_SIGNOUT_SUCCESS:
       return {
         ...initialState,
-        isLoading: false
+        isLoading: false,
       };
     case types.AUTH_UPDATE_FAILURE_REASON:
       return {
         ...state,
-        failureReason: action.failureReason
+        failureReason: action.failureReason,
       };
     case types.AUTH_DELETE_FAILURE_REASON:
       return {
         ...state,
-        failureReason: undefined
+        failureReason: undefined,
       };
     case types.AUTH_REQUEST_USER:
       return {
         ...state,
         isFetching: true,
-        failureReason: undefined
+        failureReason: undefined,
       };
-    case types.AUTH_REQUEST_USER_SUCCESS:
+    case types.AUTH_REQUEST_USER_SUCCESS: {
       const user = {
         ...state.user,
-        ...action.user
+        ...action.user,
       };
       return {
         ...state,
         user,
-        isFetching: false
+        isFetching: false,
       };
+    }
     case types.AUTH_REQUEST_USER_FAIL:
       return {
         ...state,
         isFetching: false,
-        failureReason: action.statusText
+        failureReason: action.statusText,
       };
     default:
       return state;

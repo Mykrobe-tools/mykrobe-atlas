@@ -8,146 +8,146 @@ export default [
     elementType: 'geometry',
     stylers: [
       {
-        color: '#e2e1dc'
-      }
-    ]
+        color: '#e2e1dc',
+      },
+    ],
   },
   {
     featureType: 'landscape',
     elementType: 'geometry',
     stylers: [
       {
-        color: '#edece8'
-      }
-    ]
+        color: '#edece8',
+      },
+    ],
   },
   {
     featureType: 'road.highway',
     elementType: 'geometry.fill',
     stylers: [
       {
-        color: '#ffffff'
+        color: '#ffffff',
       },
       {
-        lightness: 17
-      }
-    ]
+        lightness: 17,
+      },
+    ],
   },
   {
     featureType: 'road.highway',
     elementType: 'geometry.stroke',
     stylers: [
       {
-        color: '#ffffff'
+        color: '#ffffff',
       },
       {
-        lightness: 29
+        lightness: 29,
       },
       {
-        weight: 0.2
-      }
-    ]
+        weight: 0.2,
+      },
+    ],
   },
   {
     featureType: 'road.arterial',
     elementType: 'geometry',
     stylers: [
       {
-        color: '#ffffff'
+        color: '#ffffff',
       },
       {
-        lightness: 18
-      }
-    ]
+        lightness: 18,
+      },
+    ],
   },
   {
     featureType: 'road.local',
     elementType: 'geometry',
     stylers: [
       {
-        color: '#ffffff'
+        color: '#ffffff',
       },
       {
-        lightness: 16
-      }
-    ]
+        lightness: 16,
+      },
+    ],
   },
   {
     featureType: 'poi',
     elementType: 'geometry',
     stylers: [
       {
-        color: '#edece8'
-      }
-    ]
+        color: '#edece8',
+      },
+    ],
   },
   {
     featureType: 'poi.park',
     elementType: 'geometry',
     stylers: [
       {
-        color: '#d7d6d2'
-      }
-    ]
+        color: '#d7d6d2',
+      },
+    ],
   },
   {
     elementType: 'labels.text.stroke',
     stylers: [
       {
-        visibility: 'on'
+        visibility: 'on',
       },
       {
-        color: '#ffffff'
+        color: '#ffffff',
       },
       {
-        lightness: 16
-      }
-    ]
+        lightness: 16,
+      },
+    ],
   },
   {
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: Colors.COLOR_GREY_MID
-      }
-    ]
+        color: Colors.COLOR_GREY_MID,
+      },
+    ],
   },
   {
     elementType: 'labels.icon',
     stylers: [
       {
-        visibility: 'off'
-      }
-    ]
+        visibility: 'off',
+      },
+    ],
   },
   {
     featureType: 'transit',
     elementType: 'geometry',
     stylers: [
       {
-        color: '#eae9e5'
-      }
-    ]
+        color: '#eae9e5',
+      },
+    ],
   },
   {
     featureType: 'administrative',
     elementType: 'geometry.fill',
     stylers: [
       {
-        color: '#f6f5f0'
-      }
-    ]
+        color: '#f6f5f0',
+      },
+    ],
   },
   {
     featureType: 'administrative',
     elementType: 'geometry.stroke',
     stylers: [
       {
-        color: '#f6f5f0'
+        color: '#f6f5f0',
       },
       {
-        weight: 1.2
-      }
-    ]
-  }
+        weight: 1.2,
+      },
+    ],
+  },
 ];

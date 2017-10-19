@@ -13,16 +13,16 @@ describe('notifications reducer', () => {
         id: 0,
         category: 'Lorem',
         content: 'Ipsum',
-        autoHide: true
+        autoHide: true,
       })
-    ).toEqual(
-      [{
+    ).toEqual([
+      {
         id: 0,
         category: 'Lorem',
         content: 'Ipsum',
-        autoHide: true
-      }]
-    );
+        autoHide: true,
+      },
+    ]);
   });
 
   it('should handle "HIDE_NOTIFICATION" action', () => {
@@ -31,43 +31,41 @@ describe('notifications reducer', () => {
         id: 0,
         category: 'lorem',
         content: 'Lorem',
-        autoHide: true
+        autoHide: true,
       },
       {
         id: 1,
         category: 'ipsum',
         content: 'Ipsum',
-        autoHide: true
+        autoHide: true,
       },
       {
         id: 2,
         category: 'dolor',
         content: 'Dolor Sit Amet',
-        autoHide: false
-      }
+        autoHide: false,
+      },
     ];
     const expectedState = [
       {
         id: 0,
         category: 'lorem',
         content: 'Lorem',
-        autoHide: true
+        autoHide: true,
       },
       {
         id: 2,
         category: 'dolor',
         content: 'Dolor Sit Amet',
-        autoHide: false
-      }
+        autoHide: false,
+      },
     ];
     expect(
       reducer(initialState, {
         type: ActionTypes.HIDE_NOTIFICATION,
-        id: 1
+        id: 1,
       })
-    ).toEqual(
-      expectedState
-    );
+    ).toEqual(expectedState);
   });
 
   it('should handle "HIDE_ALL_NOTIFICATIONS" action', () => {
@@ -76,27 +74,25 @@ describe('notifications reducer', () => {
         id: 0,
         category: 'lorem',
         content: 'Lorem',
-        autoHide: true
+        autoHide: true,
       },
       {
         id: 1,
         category: 'ipsum',
         content: 'Ipsum',
-        autoHide: true
+        autoHide: true,
       },
       {
         id: 2,
         category: 'dolor',
         content: 'Dolor Sit Amet',
-        autoHide: false
-      }
+        autoHide: false,
+      },
     ];
     expect(
       reducer(initialState, {
-        type: ActionTypes.HIDE_ALL_NOTIFICATIONS
+        type: ActionTypes.HIDE_ALL_NOTIFICATIONS,
       })
-    ).toEqual(
-      []
-    );
+    ).toEqual([]);
   });
 });

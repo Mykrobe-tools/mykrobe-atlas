@@ -18,26 +18,29 @@ const initialState = {
     susceptibility: {},
     hivPositive: '',
     treatedForTB: '',
-    shareSequence: true
-  }
+    shareSequence: true,
+  },
 };
 
-export default function metadata(state: Object = initialState, action: Object = {}) {
+export default function metadata(
+  state: Object = initialState,
+  action: Object = {}
+) {
   switch (action.type) {
     case ActionTypes.POST_METADATA_FORM:
       return {
         template: state.template,
-        metadata: initialState.metadata
+        metadata: initialState.metadata,
       };
     case ActionTypes.SET_METADATA_TEMPLATE:
       return {
         template: action.template,
-        metadata: state.metadata
+        metadata: state.metadata,
       };
     case ActionTypes.SET_METADATA:
       return {
         template: state.template,
-        metadata: action.metadata
+        metadata: action.metadata,
       };
     default:
       return state;

@@ -5,14 +5,14 @@ import type { UserType } from './UserTypes';
 export type AuthType = {
   isFetching: boolean,
   isAuthenticated: boolean,
-  user?: UserType
-}
+  user?: UserType,
+};
 
 export type AuthResetPasswordType = {
   resetPasswordToken: string,
-  password: string
+  password: string,
 };
 
 export type AuthVerificationType = {
-  verificationToken: string
+  verificationToken: string,
 };

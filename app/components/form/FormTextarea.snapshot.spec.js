@@ -18,7 +18,8 @@ describe('FormTextarea component snapshot', () => {
         value={value}
         placeholder={placeholder}
         rows={rows}
-        onChange={onChange} />
+        onChange={onChange}
+      />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
