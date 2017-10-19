@@ -1,7 +1,5 @@
 /* @flow */
 
-/* eslint-disable */
-
 import path from 'path';
 import fs from 'fs';
 import os from 'os';
@@ -58,7 +56,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       '-1',
       `"${filePath}"`,
       '--skeleton_dir',
-      `"${skeletonDir}"`,
+      skeletonDir,
     ];
 
     console.log('Spawning executable at path:', pathToBin);
@@ -81,10 +79,9 @@ class AnalyserLocalFile extends AnalyserBaseFile {
         return;
       }
       const dataString = data.toString('utf8');
-      if ( !this.isBufferingJson ) {
+      if (!this.isBufferingJson) {
         console.log(dataString);
-      }
-      else {
+      } else {
         console.log('Received json, muted');
       }
       if (dataString.indexOf('Progress:') >= 0) {
@@ -92,15 +89,15 @@ class AnalyserLocalFile extends AnalyserBaseFile {
         // we get a string like "[15 Oct 2017 16:19:47-Kac] Progress: 130,000/454,797"
         // extract groups of digits
         const trimmed = dataString.substr(dataString.indexOf('Progress:'));
-        const digitGroups = trimmed.replace(/,/g,'').match(/\d+/g);
+        const digitGroups = trimmed.replace(/,/g, '').match(/\d+/g);
         if (digitGroups.length > 1) {
           const progress = parseInt(digitGroups[0]);
           const total = parseInt(digitGroups[1]);
-          console.log('progress:'+progress);
-          console.log('total:'+total);
+          console.log('progress:' + progress);
+          console.log('total:' + total);
           this.emit('progress', {
             progress,
-            total
+            total,
           });
         }
       }
@@ -124,7 +121,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
     this.child.stderr.on('data', data => {
       const dataString = data.toString('utf8');
-      if ( dataString.startsWith('DEBUG') || dataString.startsWith('INFO') ) {
+      if (dataString.startsWith('DEBUG') || dataString.startsWith('INFO')) {
         console.log('IGNORING ERROR: ' + dataString);
         return;
       }
@@ -149,7 +146,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     return this;
   }
 
-  cancel(): void {
+  cancel() {
     if (this.child) {
       this.child.kill();
       delete this.child;
@@ -167,7 +164,8 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     if (process.env.NODE_ENV === 'development') {
       dirToBin = path.join(
         rootDir,
-        `electron/resources/bin/${this.targetConfig.targetName}/${platform}-${arch}/bin`
+        `electron/resources/bin/${this.targetConfig
+          .targetName}/${platform}-${arch}/bin`
       );
     } else {
       dirToBin = path.join(rootDir, '../bin');
@@ -179,7 +177,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
   pathToBin() {
     const UnsupportedError = new Error({
       message: 'Unsupported configuration',
-      config: this.targetConfig
+      config: this.targetConfig,
     });
 
     const dirToBin = this.dirToBin();
@@ -192,8 +190,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
           dirToBin,
           platform === 'win32' ? 'mykrobe_predictor.exe' : 'mykrobe_predictor'
         );
-      }
-      else {
+      } else {
         // unsupported configuration
         throw UnsupportedError;
       }
