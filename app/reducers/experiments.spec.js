@@ -3,7 +3,9 @@ import * as ActionTypes from '../constants/ActionTypes';
 
 const initialState = {
   isFetching: false,
+  filterValues: [],
   samples: [],
+  total: 0,
 };
 
 describe('experiments reducer', () => {
@@ -18,7 +20,9 @@ describe('experiments reducer', () => {
       })
     ).toEqual({
       isFetching: true,
+      filterValues: [],
       samples: [],
+      total: null,
     });
   });
 
@@ -26,11 +30,13 @@ describe('experiments reducer', () => {
     expect(
       reducer(undefined, {
         type: ActionTypes.RECEIVE_EXPERIMENTS,
-        data: [{ lorem: 'ipsum' }],
+        data: { results: [{ lorem: 'ipsum' }], summary: { hits: 1 } },
       })
     ).toEqual({
       isFetching: false,
+      filterValues: [],
       samples: [{ lorem: 'ipsum' }],
+      total: 1,
     });
   });
 });
