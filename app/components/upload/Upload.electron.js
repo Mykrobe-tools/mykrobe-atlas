@@ -80,7 +80,7 @@ class Upload extends Component {
           </div>
         </div>
         <div className={styles.title}>
-          Outbreak and resistance analysis in minutes
+          Antimicrobial resistance information within minutes
         </div>
         <div className={styles.buttonContainer}>
           <button

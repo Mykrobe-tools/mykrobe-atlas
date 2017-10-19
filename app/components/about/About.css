@@ -1,0 +1,30 @@
+
+.container {
+  composes: container from "css/layout.css";
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  position: relative;
+  padding: 20px 30px;
+  align-items: center;
+}
+
+.actions {
+  display: flex;
+  margin-left: auto;
+  z-index: 2;
+}
+
+.close {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.content {
+  composes: container from "css/layout.css";
+  background-color: white;
+  padding: 20px 30px;
+  flex-direction: column;
+}

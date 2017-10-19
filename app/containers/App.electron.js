@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import path from 'path';
 import * as AnalyserActions from '../actions/AnalyserActions';
 import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
+import { push } from 'react-router-redux';
 
 import styles from './App.css';
 
@@ -28,6 +29,11 @@ class App extends Component {
     ipcRenderer.on('menu-file-new', () => {
       const { dispatch } = props;
       dispatch(AnalyserActions.analyseFileNew());
+    });
+
+    ipcRenderer.on('menu-about', () => {
+      const { dispatch } = props;
+      dispatch(push('/about'));
     });
 
     ipcRenderer.on('menu-file-open', () => {

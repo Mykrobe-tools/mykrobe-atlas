@@ -21,6 +21,7 @@ a {
   color: var(--color-tint-primary);
   text-decoration: none;
   transition: all 0.1s;
+  cursor: pointer;
 }
 
 a:hover {
