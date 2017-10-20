@@ -37,6 +37,16 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
     console.log('analyseBinaryFile', filePath);
 
+    if (filePath.indexOf(' ') > 0) {
+      alert(
+        'Predictor does not currently work with files or paths containing spaces'
+      );
+      this.failWithError(
+        'Predictor does not currently work with files or paths containing spaces'
+      );
+      return this;
+    }
+
     this.tmpObj = tmp.dirSync();
     const skeletonDir = path.join(this.tmpObj.name, 'skeleton');
 
@@ -54,7 +64,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       fileName,
       'tb',
       '-1',
-      `'${filePath}'`,
+      filePath,
       '--skeleton_dir',
       skeletonDir,
     ];

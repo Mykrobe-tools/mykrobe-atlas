@@ -8,6 +8,8 @@ This will launch a local dev server and instance of the app. This has DevTools e
 $ yarn electron-dev
 ```
 
+You will see `Failed to load resource: net::ERR_CONNECTION_REFUSED` in the Electron window while the app compiles.
+
 After you see `webpack: Compiled successfully` in the terminal window, you may reload the view (View > Reload) in Electron to see the app.
 
 ## Build Predictor binaries
