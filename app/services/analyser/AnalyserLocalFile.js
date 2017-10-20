@@ -54,7 +54,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       fileName,
       'tb',
       '-1',
-      filePath,
+      `'${filePath}'`,
       '--skeleton_dir',
       skeletonDir,
     ];

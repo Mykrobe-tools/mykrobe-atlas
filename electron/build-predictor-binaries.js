@@ -6,6 +6,7 @@ import fs from 'fs';
 import os from 'os';
 const pkg = require('../package.json');
 const del = require('del');
+import { escapePath } from './util';
 
 let command, folder;
 
@@ -19,18 +20,20 @@ const BASE_PATH = path.join(__dirname, 'predictor-binaries/Mykrobe-predictor');
 
 folder = BASE_PATH;
 if (!fs.existsSync(path.join(folder, '.git'))) {
-  command = `git clone --recursive -b add-model-to-output git@github.com:iqbal-lab/Mykrobe-predictor.git '${folder}'`;
-  // command = `git clone --recursive git@github.com:iqbal-lab/Mykrobe-predictor.git '${folder}'`;
-  // command = `git clone --recursive -b remove_win_installer git@github.com:rffrancon/Mykrobe-predictor.git '${folder}'`;
+  command = `git clone --recursive -b add-model-to-output git@github.com:iqbal-lab/Mykrobe-predictor.git ${escapePath(
+    folder
+  )}`;
 } else {
-  command = `cd '${folder}' && git pull && git submodule update --init --recursive`;
+  command = `cd ${escapePath(
+    folder
+  )} && git pull && git submodule update --init --recursive`;
 }
 executeCommand(command);
 
 // make mccortex
 
 folder = path.join(BASE_PATH, 'mccortex');
-command = `cd '${folder}' && make`;
+command = `cd ${escapePath(folder)} && make`;
 executeCommand(command);
 
 // install atlas
@@ -41,7 +44,9 @@ executeCommand(command);
 // build predictor
 
 folder = path.join(BASE_PATH, 'dist');
-command = `cd '${folder}' && pyinstaller --noconfirm --workpath='./pyinstaller_build/binary_cache' --distpath='./pyinstaller_build' mykrobe_predictor_pyinstaller.spec`;
+command = `cd ${escapePath(
+  folder
+)} && pyinstaller --noconfirm --workpath='./pyinstaller_build/binary_cache' --distpath='./pyinstaller_build' mykrobe_predictor_pyinstaller.spec`;
 executeCommand(command);
 
 // copy files
