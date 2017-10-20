@@ -4,11 +4,11 @@
 
 This will launch a local dev server and instance of the app. This has DevTools enabled and supports hot (live) reloading of modified files.
 
-> Note the window will not appear until the initial bundle is compiled which can take up to one minute.
-
 ```
 $ yarn electron-dev
 ```
+
+After you see `webpack: Compiled successfully` in the terminal window, you may reload the view (View > Reload) in Electron to see the app.
 
 ## Build Predictor binaries
 
