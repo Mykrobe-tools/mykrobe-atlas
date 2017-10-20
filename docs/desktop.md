@@ -68,3 +68,20 @@ This will checkout or update the latest source from [https://github.com/iqbal-la
 	```
 
 3. After build, you will find files in `electron/dist` folder.
+
+## Generate icons
+
+This will rebuild dekstop app icon files from the master artwork
+
+* Install dependencies
+
+	```
+	$ brew install imagemagick
+	$ brew install ghostscript
+	```
+	
+* Generate icons
+
+	```
+	$ yarn generate-icons
+	```

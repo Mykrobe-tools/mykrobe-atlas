@@ -4,25 +4,16 @@ Web or [Electron](http://electron.atom.io/) application based on [React](https:/
 
 ## Install
 
-First, clone the repo then install dependencies.
-
-```
-$ nvm use
-$ yarn
-```
-
-#### Dependencies
-
-* current version of Imagemagick
+* Install package manager
 
 	```
-	$ brew install imagemagick
+	$ brew install yarn
 	```
 
-* current version of Ghostscript
+* Install dependencies
 
 	```
-	$ brew install ghostscript
+	$ yarn
 	```
 
 ## Select the target
@@ -48,9 +39,8 @@ Further information about the app can be found in the following files, located i
 - [Coding standards](docs/coding-standards.md)
 - [Dependencies](docs/dependencies.md)
 - [Testing](docs/testing.md)
-- [Electron](docs/electron.md)
 - [Building Windows Predictor Binaries](docs/predictor-windows.md)
 
 ## Licenses
 
-The Electron build process is modified from [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate), MIT © [C. T. Lin](https://github.com/chentsulin)
+The build process is modified from [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate), MIT © [C. T. Lin](https://github.com/chentsulin)
