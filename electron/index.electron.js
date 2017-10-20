@@ -2,6 +2,8 @@
 
 import { app, BrowserWindow, Menu, shell } from 'electron';
 
+const pkg = require('./static/package.json');
+
 let menu;
 let template;
 let mainWindow: BrowserWindow;
@@ -19,7 +21,7 @@ const SHOW_DEV_TOOLS = true;
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
   const path = require('path');
-  const p = path.join(__dirname, '..', 'app', 'node_modules');
+  const p = path.join(__dirname, '../node_modules');
   require('module').globalPaths.push(p);
 }
 
@@ -97,11 +99,13 @@ app.on('ready', async () => {
   if (process.platform === 'darwin') {
     template = [
       {
-        label: 'Electron',
+        label: `${pkg.productName}`,
         submenu: [
           {
-            label: 'About ElectronReact',
-            selector: 'orderFrontStandardAboutPanel:',
+            label: `About ${pkg.productName}`,
+            click() {
+              mainWindow.send('menu-about');
+            },
           },
           {
             type: 'separator',
@@ -114,7 +118,7 @@ app.on('ready', async () => {
             type: 'separator',
           },
           {
-            label: 'Hide ElectronReact',
+            label: `Hide ${pkg.productName}`,
             accelerator: 'Command+H',
             selector: 'hide:',
           },
@@ -273,27 +277,7 @@ app.on('ready', async () => {
           {
             label: 'Learn More',
             click() {
-              shell.openExternal('http://electron.atom.io');
-            },
-          },
-          {
-            label: 'Documentation',
-            click() {
-              shell.openExternal(
-                'https://github.com/atom/electron/tree/master/docs#readme'
-              );
-            },
-          },
-          {
-            label: 'Community Discussions',
-            click() {
-              shell.openExternal('https://discuss.atom.io/c/electron');
-            },
-          },
-          {
-            label: 'Search Issues',
-            click() {
-              shell.openExternal('https://github.com/atom/electron/issues');
+              shell.openExternal('http://www.mykrobe.com/');
             },
           },
         ],
@@ -361,29 +345,15 @@ app.on('ready', async () => {
         label: 'Help',
         submenu: [
           {
+            label: `About ${pkg.productName}`,
+            click() {
+              mainWindow.send('menu-about');
+            },
+          },
+          {
             label: 'Learn More',
             click() {
-              shell.openExternal('http://electron.atom.io');
-            },
-          },
-          {
-            label: 'Documentation',
-            click() {
-              shell.openExternal(
-                'https://github.com/atom/electron/tree/master/docs#readme'
-              );
-            },
-          },
-          {
-            label: 'Community Discussions',
-            click() {
-              shell.openExternal('https://discuss.atom.io/c/electron');
-            },
-          },
-          {
-            label: 'Search Issues',
-            click() {
-              shell.openExternal('https://github.com/atom/electron/issues');
+              shell.openExternal('http://www.mykrobe.com/');
             },
           },
         ],

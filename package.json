@@ -28,6 +28,7 @@
     "electron-dist:win": "cross-env PLATFORM=electron electron-builder --win --x64",
     "electron-dist:all": "cross-env PLATFORM=electron electron-builder --all --x64",
     "electron-dist-dev": "cross-env PLATFORM=electron babel-node ./electron/build.js",
+    "build-predictor-binaries": "babel-node ./electron/build-predictor-binaries.js",
     "postinstall": "electron-builder install-app-deps",
     "set-target": "babel-node scripts/set-target.js",
     "generate-icons": "babel-node scripts/generate-icons.js",
@@ -132,7 +133,7 @@
     "cors": "^2.8.1",
     "cross-env": "^2.0.0",
     "css-loader": "^0.23.1",
-    "del": "^2.2.2",
+    "del": "^3.0.0",
     "devtron": "^1.2.1",
     "electron": "^1.7.9",
     "electron-builder": "^19.37.2",
@@ -166,6 +167,7 @@
     "jest": "^18.1.0",
     "json-loader": "^0.5.4",
     "minimist": "^1.2.0",
+    "module": "^1.2.5",
     "nock": "^9.0.2",
     "node-libs-browser": "^1.0.0",
     "prettier": "^1.7.4",
@@ -226,6 +228,12 @@
       "\\.(css)$": "identity-obj-proxy",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/_mocks/jestFileMock.js"
     },
+    "modulePathIgnorePatterns": [
+      "<rootDir>/node_modules",
+      "<rootDir>/electron/static",
+      "<rootDir>/electron/dist",
+      "<rootDir>/electron/release"
+    ],
     "globals": {
       "IS_ELECTRON": false
     }

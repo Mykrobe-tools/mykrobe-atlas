@@ -45,3 +45,8 @@ export function setProgress(progress: number) {
   }
   currentWindow.setProgressBar(progress / 100.0);
 }
+
+export function launchWebsite() {
+  const { shell } = require('electron').remote;
+  shell.openExternal('http://www.mykrobe.com/');
+}

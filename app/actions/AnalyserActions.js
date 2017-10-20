@@ -94,10 +94,11 @@ export function analyseFile(file: File, id?: string) {
 
 export function analyseFileCancel() {
   if (IS_ELECTRON) {
-    return dispatch => {
-      if (this.analyser) {
-        this.analyser.cancel();
-        this.analyser = null;
+    return (dispatch, getState) => {
+      const state = getState();
+      if (state.analyser) {
+        state.analyser.cancel();
+        state.analyser = null;
       }
       dispatch(push('/'));
       dispatch({

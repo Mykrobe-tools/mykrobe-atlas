@@ -1,10 +1,9 @@
 [ignore]
-
-.*/node_modules/npm/
-.*/node_modules/stylelint/
-.*/electron/static
-.*/electron/dist
-.*/electron/release
+<PROJECT_ROOT>/node_modules
+<PROJECT_ROOT>/electron/static
+<PROJECT_ROOT>/electron/dist
+<PROJECT_ROOT>/electron/release
+<PROJECT_ROOT>/electron/predictor-binaries
 
 [include]
 

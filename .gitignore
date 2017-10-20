@@ -34,6 +34,7 @@ node_modules.win
 # Electron build
 electron/dist/*
 electron/release/*
+eelctron/predictor-binaries/*
 main.js
 main.js.map
 electron/static/*

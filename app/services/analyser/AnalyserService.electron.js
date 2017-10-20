@@ -19,11 +19,12 @@ class AnalyserService {
   }
 
   analyseFile(file: File) {
-    if (process.env.NODE_ENV === 'development') {
-      return new AnalyserSimulateLocalFile(this.config).analyseFile(file);
-    } else {
-      return new AnalyserLocalFile(this.config).analyseFile(file);
-    }
+    return new AnalyserLocalFile(this.config).analyseFile(file);
+    // if (process.env.NODE_ENV === 'development') {
+    //   return new AnalyserSimulateLocalFile(this.config).analyseFile(file);
+    // } else {
+    //   return new AnalyserLocalFile(this.config).analyseFile(file);
+    // }
   }
 }
 
