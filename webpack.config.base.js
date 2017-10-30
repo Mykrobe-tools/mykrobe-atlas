@@ -4,7 +4,7 @@ import path from 'path';
 
 function baseConfig(env: string = 'development') {
   return {
-    entry: ['babel-polyfill', 'whatwg-fetch'],
+    entry: ['whatwg-fetch'],
     module: {
       loaders: [
         {

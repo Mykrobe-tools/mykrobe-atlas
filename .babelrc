@@ -1,24 +1,37 @@
 {
-  "presets": ["es2015", "stage-0", "react"],
-  "plugins": ["add-module-exports", "transform-runtime", "transform-flow-strip-types"],
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions"]
+        }
+      }
+    ],
+    "stage-0",
+    "react"
+  ],
+  "plugins": [
+    "add-module-exports",
+    "transform-runtime",
+    "transform-flow-strip-types"
+  ],
   "env": {
     "production": {
-      "presets": ["react-optimize"],
-      "plugins": [
-        "babel-plugin-dev-expression",
-        "./babel-plugin-electron-module-resolver"
-      ]
+      "presets": [
+        [
+          "minify",
+          {
+            "mangle": false
+          }
+        ],
+        "react-optimize"
+      ],
+      "plugins": ["./babel-plugin-electron-module-resolver"]
     },
     "development": {
       "presets": ["react-hmre"],
-      "plugins": [
-        "./babel-plugin-electron-module-resolver"
-      ]
-    },
-    "test": {
-      "plugins": [
-        ["webpack-loaders", { "config": "webpack.config.node.js", "verbose": false }]
-      ]
+      "plugins": ["./babel-plugin-electron-module-resolver"]
     }
   }
 }
