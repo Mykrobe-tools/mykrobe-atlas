@@ -64,7 +64,9 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-  autoUpdater.checkForUpdates();
+  if (process.env.NODE_ENV === 'production') {
+    autoUpdater.checkForUpdates();
+  }
 
   // const packageJson = require('./package.json');
 

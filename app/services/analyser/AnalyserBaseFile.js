@@ -42,8 +42,8 @@ class AnalyserBaseFile extends EventEmitter {
   }
 
   doneWithJsonString(jsonString: string) {
-    // const fs = require('fs');
-    // fs.writeFileSync('doneWithJsonString.json', jsonString);
+    const fs = require('fs');
+    fs.writeFileSync('doneWithJsonString.json', jsonString);
     const transformer = new AnalyserJsonTransformer();
     transformer
       .transform(jsonString)
