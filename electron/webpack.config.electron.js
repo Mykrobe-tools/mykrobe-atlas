@@ -8,10 +8,7 @@ import path from 'path';
 export default merge(baseConfig, {
   devtool: null,
 
-  entry: [
-    'babel-polyfill',
-    path.resolve(__dirname, '../electron/index.electron'),
-  ],
+  entry: [path.resolve(__dirname, '../electron/index.electron')],
 
   output: {
     path: __dirname,
@@ -19,11 +16,6 @@ export default merge(baseConfig, {
   },
 
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        warnings: false,
-      },
-    }),
     new webpack.DefinePlugin({
       IS_ELECTRON: JSON.stringify(true),
     }),

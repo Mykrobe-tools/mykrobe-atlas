@@ -21,13 +21,12 @@
     "electron-start": "cross-env PLATFORM=electron NODE_ENV=production electron ./electron/static/",
     "electron-start-hot": "cross-env HOT=1 PLATFORM=electron NODE_ENV=development electron -r babel-register -r babel-polyfill ./electron/index.electron",
     "electron-package": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./electron/package.js",
-    "electron-package:win": "cross-env PLATFORM=electron yarn electron-package --win --x64",
-    "electron-package:all": "cross-env PLATFORM=electron yarn electron-package --all",
+    "electron-package:win": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./electron/package.js --win --x64",
+    "electron-package:all": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./electron/package.js --all",
     "electron-dev": "cross-env PLATFORM=electron concurrently \"yarn electron-hot-server\" \"yarn electron-start-hot\"",
-    "electron-dist": "cross-env PLATFORM=electron electron-builder --x64",
-    "electron-dist:win": "cross-env PLATFORM=electron electron-builder --win --x64",
-    "electron-dist:all": "cross-env PLATFORM=electron electron-builder --all --x64",
-    "electron-dist-dev": "cross-env PLATFORM=electron babel-node ./electron/build.js",
+    "electron-dist": "cross-env DEBUG=electron-builder,electron-builder:* PLATFORM=electron babel-node ./electron/dist.js",
+    "electron-dist:win": "cross-env PLATFORM=electron babel-node ./electron/dist.js --win --x64",
+    "electron-dist:all": "cross-env PLATFORM=electron babel-node ./electron/dist.js --all --x64",
     "build-predictor-binaries": "babel-node ./electron/build-predictor-binaries.js",
     "postinstall": "electron-builder install-app-deps",
     "set-target": "babel-node scripts/set-target.js",
@@ -42,6 +41,11 @@
   },
   "build": {
     "appId": "com.mykrobe.predictor-tb",
+    "publish": {
+      "provider": "github",
+      "owner": "iqbal-lab",
+      "repo": "mykrobe-atlas"
+    },
     "mac": {
       "category": "public.app-category.tools",
       "icon": "./electron/resources/icon/predictor-tb/icon.icns"
@@ -121,10 +125,12 @@
     "babel-plugin-transform-runtime": "^6.12.0",
     "babel-plugin-webpack-loaders": "^0.7.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-minify": "^0.2.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-react-optimize": "^1.0.1",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.9.0",
     "babel-runtime": "^6.26.0",
     "body-parser": "^1.16.0",
@@ -137,7 +143,9 @@
     "devtron": "^1.2.1",
     "electron": "^1.7.9",
     "electron-builder": "^19.37.2",
+    "electron-log": "^2.2.11",
     "electron-packager": "^9.1.0",
+    "electron-updater": "^2.15.0",
     "enzyme": "^2.6.0",
     "eslint": "^3.2.2",
     "eslint-config-airbnb": "^10.0.0",
@@ -188,7 +196,6 @@
     "webpack-merge": "^0.14.0"
   },
   "dependencies": {
-    "babel-preset-stage-0": "^6.24.1",
     "css-modules-require-hook": "^4.0.1",
     "electron-debug": "^1.0.1",
     "electron-devtools-installer": "^2.2.0",
