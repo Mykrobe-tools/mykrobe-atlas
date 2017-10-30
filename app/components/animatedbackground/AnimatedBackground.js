@@ -16,8 +16,8 @@ class AnimatedBackground extends Component {
   constructor(props: Object) {
     super(props);
     this.state = {
-      width: 0,
-      height: 0,
+      width: 1024,
+      height: 768,
     };
     this._resize = e => this.resize(e);
   }
@@ -46,15 +46,14 @@ class AnimatedBackground extends Component {
     });
   }
 
+  containerRef = ref => {
+    this._container = ref;
+  };
+
   render() {
     const { width, height } = this.state;
     return (
-      <div
-        ref={ref => {
-          this._container = ref;
-        }}
-        className={styles.container}
-      >
+      <div ref={this.containerRef} className={styles.container}>
         <Lozenge
           containerWidth={width}
           containerHeight={height}

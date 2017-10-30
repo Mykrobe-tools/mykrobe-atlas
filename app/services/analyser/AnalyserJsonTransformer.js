@@ -170,10 +170,7 @@ The phrasing would also change from
 
     */
 
-    // TODO: json should tell us whether to use median_depth or kmer_count
-
-    // const countKey = 'median_depth';
-    const countKey = 'kmer_count';
+    const genotypeModel = sourceModel.genotype_model || 'median_depth';
 
     for (key in susceptibilityModel) {
       const predict = susceptibilityModel[key]['predict'].toUpperCase();
@@ -213,17 +210,17 @@ The phrasing would also change from
           //   'Percent recovered: ' + reference['per_cov'] + '%',
           //   'Median coverage: ' + reference['median_cov'],
           // ]);
-          if (countKey === 'median_depth') {
+          if (genotypeModel === 'median_depth') {
             o.push([
               'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
-              'Resistant allele seen ' + alternate[countKey] + ' times',
-              'Susceptible allele seen ' + reference[countKey] + ' times',
+              'Resistant allele seen ' + alternate[genotypeModel] + ' times',
+              'Susceptible allele seen ' + reference[genotypeModel] + ' times',
             ]);
           } else {
             o.push([
               'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
-              alternate[countKey] + ' kmers from the resistant allele',
-              reference[countKey] + ' kmers from the susceptible allele',
+              alternate[genotypeModel] + ' kmers from the resistant allele',
+              reference[genotypeModel] + ' kmers from the susceptible allele',
             ]);
           }
         }
