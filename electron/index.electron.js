@@ -4,7 +4,9 @@ import { app, BrowserWindow, Menu, shell } from 'electron';
 import log from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 
-setupAutoUpdater();
+if (process.env.NODE_ENV === 'production') {
+  setupAutoUpdater();
+}
 
 const pkg = require('./static/package.json');
 
