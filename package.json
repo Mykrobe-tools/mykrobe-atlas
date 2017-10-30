@@ -42,6 +42,13 @@
   },
   "build": {
     "appId": "com.mykrobe.predictor-tb",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "iqbal-lab",
+        "repo": "mykrobe-atlas"
+      }
+    ],
     "mac": {
       "category": "public.app-category.tools",
       "icon": "./electron/resources/icon/predictor-tb/icon.icns"
@@ -137,7 +144,9 @@
     "devtron": "^1.2.1",
     "electron": "^1.7.9",
     "electron-builder": "^19.37.2",
+    "electron-log": "^2.2.11",
     "electron-packager": "^9.1.0",
+    "electron-updater": "^2.15.0",
     "enzyme": "^2.6.0",
     "eslint": "^3.2.2",
     "eslint-config-airbnb": "^10.0.0",
