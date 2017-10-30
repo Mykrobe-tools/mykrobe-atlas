@@ -161,7 +161,11 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       this.child.kill();
       delete this.child;
     }
-    this.tmpObj && this.tmpObj.removeCallback();
+    try {
+      this.tmpObj && this.tmpObj.removeCallback();
+    } catch (error) {
+      // may fail if the temp directory is not empty
+    }
   }
 
   dirToBin() {

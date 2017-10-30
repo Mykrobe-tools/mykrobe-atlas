@@ -12,6 +12,7 @@ const initialState = {
   progress: 0,
   json: null,
   transformed: null,
+  analyser: null,
 };
 
 export default function analyser(
@@ -40,6 +41,7 @@ export default function analyser(
         step: 2,
         stepDescription: 'Analysing',
         analysing: true,
+        analyser: action.analyser,
       };
     case ActionTypes.ANALYSE_FILE_CANCEL:
     case ActionTypes.ANALYSE_FILE_NEW:
@@ -66,6 +68,7 @@ export default function analyser(
       return {
         ...state,
         analysing: false,
+        analyser: null,
         json: action.json,
         transformed: action.transformed,
       };

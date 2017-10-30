@@ -50,6 +50,7 @@ jsconfig.json
 
 # Mykrobe
 electron/static/bin/**/*.ctx
+tmp
 
 # mock api file uploads
 web/tmp

@@ -68,13 +68,7 @@ export function analyseFile(file: File, id?: string) {
       }
     }
 
-    dispatch({
-      type: ActionTypes.ANALYSE_FILE_ANALYSE,
-    });
-
-    IS_ELECTRON && dispatch(push('/'));
-
-    analyserService
+    const analyser = analyserService
       .analyseFile(file, id)
       .on('progress', progress => {
         dispatch(analyseFileProgress(progress));
@@ -87,6 +81,13 @@ export function analyseFile(file: File, id?: string) {
       .on('error', error => {
         dispatch(analyseFileError(error.description));
       });
+
+    dispatch({
+      type: ActionTypes.ANALYSE_FILE_ANALYSE,
+      analyser,
+    });
+
+    IS_ELECTRON && dispatch(push('/'));
   };
 }
 
@@ -96,14 +97,13 @@ export function analyseFileCancel() {
   if (IS_ELECTRON) {
     return (dispatch, getState) => {
       const state = getState();
-      if (state.analyser) {
-        state.analyser.cancel();
-        state.analyser = null;
+      if (state.analyser && state.analyser.analyser) {
+        state.analyser.analyser.cancel();
       }
-      dispatch(push('/'));
       dispatch({
         type: ActionTypes.ANALYSE_FILE_CANCEL,
       });
+      dispatch(push('/'));
     };
   }
   uploadService.uploadFile.cancel();
