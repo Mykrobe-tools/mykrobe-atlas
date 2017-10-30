@@ -8,6 +8,8 @@ const pkg = require('../package.json');
 
 import archPlatArgs from './util/archPlatArgs';
 
+const argv = require('minimist')(process.argv.slice(2));
+
 const { platforms, archs } = archPlatArgs();
 
 const build = (plat, arch) => {
@@ -34,6 +36,7 @@ const build = (plat, arch) => {
   let options = {
     config,
     [arch]: true,
+    publish: argv.publish ? 'always' : 'never',
   };
 
   switch (plat) {
@@ -48,7 +51,7 @@ const build = (plat, arch) => {
       break;
   }
 
-  console.log('config', JSON.stringify(config, null, 2));
+  console.log('options', JSON.stringify(options, null, 2));
 
   return builder.build(options);
 };

@@ -21,13 +21,12 @@
     "electron-start": "cross-env PLATFORM=electron NODE_ENV=production electron ./electron/static/",
     "electron-start-hot": "cross-env HOT=1 PLATFORM=electron NODE_ENV=development electron -r babel-register -r babel-polyfill ./electron/index.electron",
     "electron-package": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./electron/package.js",
-    "electron-package:win": "cross-env PLATFORM=electron yarn electron-package --win --x64",
-    "electron-package:all": "cross-env PLATFORM=electron yarn electron-package --all",
+    "electron-package:win": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./electron/package.js --win --x64",
+    "electron-package:all": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./electron/package.js --all",
     "electron-dev": "cross-env PLATFORM=electron concurrently \"yarn electron-hot-server\" \"yarn electron-start-hot\"",
-    "electron-dist": "cross-env PLATFORM=electron electron-builder --x64",
-    "electron-dist:win": "cross-env PLATFORM=electron electron-builder --win --x64",
-    "electron-dist:all": "cross-env PLATFORM=electron electron-builder --all --x64",
-    "electron-dist-dev": "cross-env PLATFORM=electron babel-node ./electron/build.js",
+    "electron-dist": "cross-env DEBUG=electron-builder,electron-builder:* PLATFORM=electron babel-node ./electron/dist.js",
+    "electron-dist:win": "cross-env PLATFORM=electron babel-node ./electron/dist.js --win --x64",
+    "electron-dist:all": "cross-env PLATFORM=electron babel-node ./electron/dist.js --all --x64",
     "build-predictor-binaries": "babel-node ./electron/build-predictor-binaries.js",
     "postinstall": "electron-builder install-app-deps",
     "set-target": "babel-node scripts/set-target.js",
@@ -42,13 +41,11 @@
   },
   "build": {
     "appId": "com.mykrobe.predictor-tb",
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "iqbal-lab",
-        "repo": "mykrobe-atlas"
-      }
-    ],
+    "publish": {
+      "provider": "github",
+      "owner": "iqbal-lab",
+      "repo": "mykrobe-atlas"
+    },
     "mac": {
       "category": "public.app-category.tools",
       "icon": "./electron/resources/icon/predictor-tb/icon.icns"

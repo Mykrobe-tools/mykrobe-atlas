@@ -42,7 +42,7 @@ This will checkout or update the latest source from [https://github.com/iqbal-la
 	$ brew install wine
 	```
 
-2. Package and distribute
+2. Package for distribution
 
 	`electron-package` builds and packages a standalone app inside the `electroon/releases` folder. At this stage the app is a folder full of files.
 
@@ -70,6 +70,10 @@ This will checkout or update the latest source from [https://github.com/iqbal-la
 	```
 
 3. After build, you will find files in `electron/dist` folder.
+
+## Publish desktop production build
+
+As above and append `--publish` after `yarn electron-dist:`
 
 ## Generate icons
 
