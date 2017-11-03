@@ -30,7 +30,7 @@ class AnalyserJsonTransformer {
   transformModel(sourceModel: Object) {
     if (sourceModel.snpDistance) {
       // just do the first one for now
-      const sampleIds = _.keys(sourceModel.snpDistance.newick);
+      const sampleIds = Object.keys(sourceModel.snpDistance.newick);
       const sampleId = sampleIds[0];
 
       const sampleModel = sourceModel.snpDistance.newick[sampleId];
@@ -64,24 +64,39 @@ class AnalyserJsonTransformer {
 
     // is this a valid species?
 
+    debugger;
+
+    // build array of included species
+    model.species = Object.keys(sourceModel.phylogenetics.species);
+    // if ( kTargetSpeciesTB === MykrobeTarget.species ) {
+    // sourceSpecies = sourceModel.phylogenetics.species;
+    // }
+    // else {
+    //     sourceSpecies = sourceModel.species;
+    // }
+    // for ( key in sourceSpecies ) {
+    //     value = sourceSpecies[key].toLowerCase();
+    //     if ( 'major' === value ) {
+    //         model.species.push(key);
+    //     }
+    // }
+
     let speciesPretty = '';
 
     if (TargetConstants.SPECIES_TB === this.config.species) {
-      speciesPretty =
-        model.species.join(' / ') +
-        ' (lineage: ' +
-        model.lineage.join(', ') +
-        ')';
+      const s = model.species ? model.species.join(' / ') : 'undefined';
+      const l = model.lineage
+        ? ' (lineage: ' + model.lineage.join(', ') + ')'
+        : '';
+      speciesPretty = `${s}${l}`;
     } else {
       speciesPretty = model.species.join(' / ');
     }
 
     model.speciesPretty = speciesPretty;
 
-    const sourceModelSpecies = Object.keys(sourceModel.phylogenetics.species);
-
     if (TargetConstants.SPECIES_TB === this.config.species) {
-      if (sourceModelSpecies.indexOf('Mycobacterium_tuberculosis') === -1) {
+      if (model.species.indexOf('Mycobacterium_tuberculosis') === -1) {
         throw `This sample seems to be ${speciesPretty}, notMycobacterium_tuberculosis, and therefore the predictor does not give susceptibility predictions`;
       }
     }
@@ -142,26 +157,11 @@ class AnalyserJsonTransformer {
     model.evidence = this._sortObject(model.evidence);
 
     // ignore the values
-    model.phyloGroup = _.keys(sourceModel.phylogenetics.phylo_group);
-
-    // build array of included species
-    model.species = _.keys(sourceModel.phylogenetics.species);
-    // if ( kTargetSpeciesTB === MykrobeTarget.species ) {
-    // sourceSpecies = sourceModel.phylogenetics.species;
-    // }
-    // else {
-    //     sourceSpecies = sourceModel.species;
-    // }
-    // for ( key in sourceSpecies ) {
-    //     value = sourceSpecies[key].toLowerCase();
-    //     if ( 'major' === value ) {
-    //         model.species.push(key);
-    //     }
-    // }
+    model.phyloGroup = Object.keys(sourceModel.phylogenetics.phylo_group);
 
     model.lineage = [];
     if (TargetConstants.SPECIES_TB === this.config.species) {
-      model.lineage = _.keys(sourceModel.phylogenetics.lineage);
+      model.lineage = Object.keys(sourceModel.phylogenetics.lineage);
       // sourceLineage = sourceModel.phylogenetics.lineage;
       // for ( key in sourceLineage ) {
       // value = sourceLineage[key].toLowerCase();
@@ -291,11 +291,11 @@ The phrasing would also change from
 
     // tree and neighbours
     if (sourceModel.neighbours) {
-      let neighbourKeys = _.keys(sourceModel.neighbours);
+      let neighbourKeys = Object.keys(sourceModel.neighbours);
       let samples = {};
       for (let i = 0; i < 2; i++) {
         const neighbour = sourceModel.neighbours[neighbourKeys[i]];
-        let keys = _.keys(neighbour);
+        let keys = Object.keys(neighbour);
         let neighbourSampleModel = relatedModels[i];
         let sampleId: string = keys[0];
         neighbourSampleModel.id = sampleId;
