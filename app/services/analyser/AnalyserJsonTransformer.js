@@ -64,8 +64,6 @@ class AnalyserJsonTransformer {
 
     // is this a valid species?
 
-    debugger;
-
     // build array of included species
     model.species = Object.keys(sourceModel.phylogenetics.species);
     // if ( kTargetSpeciesTB === MykrobeTarget.species ) {
