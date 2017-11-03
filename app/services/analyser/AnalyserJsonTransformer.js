@@ -85,22 +85,29 @@ class AnalyserJsonTransformer {
     // }
 
     let speciesPretty = '';
+    let unstyledSpeciesPretty = '';
 
     if (TargetConstants.SPECIES_TB === this.config.species) {
-      const s = model.species ? model.species.join(' / ') : 'undefined';
+      const s = model.species
+        ? model.species.join(' / ').replace(/_/g, ' ')
+        : 'undefined';
       const l = model.lineage
         ? ' (lineage: ' + model.lineage.join(', ') + ')'
         : '';
-      speciesPretty = `${s}${l}`;
+      speciesPretty = `<em>${s}</em>${l}`;
+      unstyledSpeciesPretty = `${s}${l}`;
     } else {
-      speciesPretty = model.species.join(' / ');
+      speciesPretty = model.species
+        ? model.species.join(' / ').replace(/_/g, ' ')
+        : 'undefined';
+      unstyledSpeciesPretty = speciesPretty;
     }
 
     model.speciesPretty = speciesPretty;
 
     if (TargetConstants.SPECIES_TB === this.config.species) {
       if (model.species.indexOf('Mycobacterium_tuberculosis') === -1) {
-        throw `This sample seems to be ${speciesPretty}, notMycobacterium_tuberculosis, and therefore the predictor does not give susceptibility predictions`;
+        throw `This sample seems to be ${unstyledSpeciesPretty}, not Mycobacterium tuberculosis, and therefore the predictor does not give susceptibility predictions`;
       }
     }
 

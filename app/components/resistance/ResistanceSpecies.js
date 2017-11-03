@@ -13,7 +13,10 @@ class ResistanceSpecies extends Component {
     return (
       <div className={styles.container}>
         <Panel title="Species" columns={8}>
-          <div className={styles.species}>{speciesPretty}</div>
+          <div
+            className={styles.species}
+            dangerouslySetInnerHTML={{ __html: speciesPretty }}
+          />
         </Panel>
       </div>
     );
