@@ -12,11 +12,6 @@ class AnalyserJsonTransformer {
   }
 
   transform(jsonString: string) {
-    // return new Promise(resolve => {
-    //   this.stringToJson(jsonString).then(transformed => {
-    //     resolve(transformed);
-    //   });
-    // });
     return this.stringToJson(jsonString);
   }
 
@@ -239,16 +234,12 @@ The phrasing would also change from
           const info = calledBy[calledByKey]['info'];
           const alternate = info['coverage']['alternate'];
           const reference = info['coverage']['reference'];
-          // o.push([
-          //   key + ' gene found',
-          //   'Percent recovered: ' + reference['per_cov'] + '%',
-          //   'Median coverage: ' + reference['median_cov'],
-          // ]);
+
           if (genotypeModel === 'median_depth') {
             o.push([
               'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
-              'Resistant allele seen ' + alternate[genotypeModel] + ' times',
-              'Susceptible allele seen ' + reference[genotypeModel] + ' times',
+              'Resistant allele coverage: ' + alternate[genotypeModel],
+              'Susceptible allele coverage: ' + reference[genotypeModel],
             ]);
           } else {
             o.push([
