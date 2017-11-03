@@ -62,6 +62,30 @@ class AnalyserJsonTransformer {
     let virulenceModel;
     let model = {};
 
+    // is this a valid species?
+
+    let speciesPretty = '';
+
+    if (TargetConstants.SPECIES_TB === this.config.species) {
+      speciesPretty =
+        model.species.join(' / ') +
+        ' (lineage: ' +
+        model.lineage.join(', ') +
+        ')';
+    } else {
+      speciesPretty = model.species.join(' / ');
+    }
+
+    model.speciesPretty = speciesPretty;
+
+    const sourceModelSpecies = Object.keys(sourceModel.phylogenetics.species);
+
+    if (TargetConstants.SPECIES_TB === this.config.species) {
+      if (sourceModelSpecies.indexOf('Mycobacterium_tuberculosis') === -1) {
+        throw `This sample seems to be ${speciesPretty}, notMycobacterium_tuberculosis, and therefore the predictor does not give susceptibility predictions`;
+      }
+    }
+
     model.susceptible = [];
     model.resistant = [];
     model.inconclusive = [];
@@ -264,20 +288,6 @@ The phrasing would also change from
     }
 
     model.drugsResistance = drugsResistance;
-
-    let speciesPretty = '';
-
-    if (TargetConstants.SPECIES_TB === this.config.species) {
-      speciesPretty =
-        model.species.join(' / ') +
-        ' (lineage: ' +
-        model.lineage.join(', ') +
-        ')';
-    } else {
-      speciesPretty = model.species.join(' / ');
-    }
-
-    model.speciesPretty = speciesPretty;
 
     // tree and neighbours
     if (sourceModel.neighbours) {
