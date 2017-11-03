@@ -148,6 +148,10 @@ function analyseFileError(error: string) {
         autoHide: false,
       })
     );
+    if (IS_ELECTRON) {
+      alert(`Error: ${error}`);
+      dispatch(push('/'));
+    }
     dispatch({
       type: ActionTypes.ANALYSE_FILE_ERROR,
       error,

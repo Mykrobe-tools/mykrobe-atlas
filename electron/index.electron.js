@@ -16,8 +16,8 @@ let mainWindow: BrowserWindow;
 let filepath;
 let ready = false;
 
-// const SHOW_DEV_TOOLS = process.env.NODE_ENV === 'development';
-const SHOW_DEV_TOOLS = true;
+const SHOW_DEV_TOOLS = process.env.NODE_ENV === 'development';
+// const SHOW_DEV_TOOLS = true;
 
 // if (process.env.NODE_ENV === 'production') {
 //   const sourceMapSupport = require('source-map-support') // eslint-disable-line
@@ -35,16 +35,6 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
 
-const installExtensions = async () => {
-  const installer = require('electron-devtools-installer');
-  const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-  const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
-
-  return Promise.all(
-    extensions.map(name => installer.default(installer[name], forceDownload))
-  ).catch(console.log);
-};
-
 // TODO: this is not yet working - perhaps need to set file associations in mac info.plist
 
 app.on('will-finish-launching', () => {
@@ -61,6 +51,18 @@ app.on('will-finish-launching', () => {
 
 app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development') {
+    const installExtensions = async () => {
+      const installer = require('electron-devtools-installer');
+      const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+      const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
+
+      return Promise.all(
+        extensions.map(name =>
+          installer.default(installer[name], forceDownload)
+        )
+      ).catch(console.log);
+    };
+
     await installExtensions();
   }
 
@@ -81,7 +83,9 @@ app.on('ready', async () => {
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 
   mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.webContents.openDevTools();
+    if (SHOW_DEV_TOOLS) {
+      mainWindow.webContents.openDevTools();
+    }
     mainWindow.show();
     mainWindow.focus();
   });
@@ -89,22 +93,6 @@ app.on('ready', async () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-
-  if (SHOW_DEV_TOOLS) {
-    mainWindow.webContents.openDevTools();
-    mainWindow.webContents.on('context-menu', (e, props) => {
-      const { x, y } = props;
-
-      Menu.buildFromTemplate([
-        {
-          label: 'Inspect element',
-          click() {
-            mainWindow.inspectElement(x, y);
-          },
-        },
-      ]).popup(mainWindow);
-    });
-  }
 
   if (process.platform === 'darwin') {
     template = [

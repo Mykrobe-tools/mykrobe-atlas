@@ -3,7 +3,8 @@
 const webpack = require('webpack');
 const gutil = require('gulp-util');
 const electronCfg = require('./webpack.config.electron');
-const cfg = require('./webpack.config.production.logging');
+const cfg = require('./webpack.config.production');
+// const cfg = require('./webpack.config.production.logging');
 const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
