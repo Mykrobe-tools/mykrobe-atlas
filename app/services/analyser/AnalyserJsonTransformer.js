@@ -12,18 +12,23 @@ class AnalyserJsonTransformer {
   }
 
   transform(jsonString: string) {
-    return new Promise(resolve => {
-      this.stringToJson(jsonString).then(transformed => {
-        resolve(transformed);
-      });
-    });
+    // return new Promise(resolve => {
+    //   this.stringToJson(jsonString).then(transformed => {
+    //     resolve(transformed);
+    //   });
+    // });
+    return this.stringToJson(jsonString);
   }
 
   stringToJson(string: string) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       const json = JSON.parse(string);
-      const transformed = this.transformModel(json);
-      resolve({ json, transformed });
+      try {
+        const transformed = this.transformModel(json);
+        resolve({ json, transformed });
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
