@@ -46,7 +46,7 @@ executeCommand(command);
 folder = path.join(BASE_PATH, 'dist');
 command = `cd ${escapePath(
   folder
-)} && pyinstaller --noconfirm --workpath='./pyinstaller_build/binary_cache' --distpath='./pyinstaller_build' mykrobe_predictor_pyinstaller.spec`;
+)} && pyinstaller --noconfirm --workpath=./pyinstaller_build/binary_cache --distpath=./pyinstaller_build mykrobe_predictor_pyinstaller.spec`;
 executeCommand(command);
 
 // copy files
@@ -68,7 +68,7 @@ del([
   `!${destFolder}`,
   `!${destFolder}/.gitignore`,
 ]).then(() => {
-  command = `cp -r '${sourceFolder}/' '${destFolder}'`;
+  command = `cp -r ${escapePath(`${sourceFolder}/`)} ${escapePath(destFolder)}`;
   executeCommand(command);
   console.log('done!');
 });
