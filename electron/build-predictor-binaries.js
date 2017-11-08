@@ -2,7 +2,7 @@
 
 import { execSync } from 'child_process';
 import path from 'path';
-import fs from 'fs';
+import fs from 'fs-extra';
 import os from 'os';
 const pkg = require('../package.json');
 const del = require('del');
@@ -35,7 +35,15 @@ if (!fs.existsSync(path.join(folder, '.git'))) {
   executeCommand(command);
 }
 
-// TODO: automate patch of ./mccortex/libs/xxHash/xxhsum.c https://github.com/iqbal-lab/Mykrobe-predictor/tree/master/dist
+// patch ./mccortex/libs/xxHash/xxhsum.c https://github.com/iqbal-lab/Mykrobe-predictor/tree/master/dist
+
+const patchFile = path.join(BASE_PATH, 'mccortex/libs/xxHash/xxhsum.c');
+const unpatched = fs.readFileSync(patchFile, 'utf8');
+const patched = unpatched.replace(/ \|\| defined\(__CYGWIN__\)/g, '');
+if (patched !== unpatched) {
+  console.log('patching ./mccortex/libs/xxHash/xxhsum.c');
+  fs.writeFileSync(patchFile, patched);
+}
 
 // make mccortex
 
@@ -73,7 +81,8 @@ del([
   `!${destFolder}`,
   `!${destFolder}/.gitignore`,
 ]).then(() => {
-  command = `cp -r "${sourceFolder}/" "${destFolder}"`;
-  executeCommand(command);
+  // command = `cp -r "${sourceFolder}/" "${destFolder}"`;
+  // executeCommand(command);
+  fs.copySync(sourceFolder, destFolder);
   console.log('done!');
 });
