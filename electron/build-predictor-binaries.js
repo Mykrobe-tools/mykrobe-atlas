@@ -13,6 +13,13 @@ const ENV_HOME = process.env.HOME;
 const IS_CYGWIN = !!/cygwin/.test(ENV_HOME);
 
 const executeCommand = command => {
+  if (IS_CYGWIN) {
+    command =
+      ENV_HOME.replace(/(cygwin[0-9]*).*/, '$1') +
+      '\\bin\\bash.exe -c "' +
+      command.replace(/\\/g, '/').replace(/"/g, '\\"') +
+      '"';
+  }
   console.log(command);
   execSync(command, { stdio: [0, 1, 2] });
 };
