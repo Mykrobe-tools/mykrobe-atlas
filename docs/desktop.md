@@ -46,10 +46,12 @@ This will checkout or update the latest source from [https://github.com/iqbal-la
 		- make
 		- zlib-devel
 		- python2-devel
-		
+
+2. Launch Cygwin64 and setup the user
+ 		
 	- Copy or create ssh keys for Cygwin in `/cygwin64/home/IEUser/.ssh`
 	
-2. Launch Cygwin64 and install dependencies
+3. Install dependencies
 	
 	```
 	$ python -m ensurepip
@@ -57,12 +59,13 @@ This will checkout or update the latest source from [https://github.com/iqbal-la
 	$ pip install pyinstaller==3.2.1
 	```
 
-2. Build from within the root of the project
+4. Build from within the root of the project
 
 	```
 	$ yarn build-predictor-binaries
 	```
 
+### Windows and Mac
 	
 Executable will be copied into `/electron/resources/bin/<target>/<platform>/bin` which will in turn be bundled into respective GUI.
 
