@@ -1,6 +1,10 @@
+// import renderer from 'react-test-renderer';
+import path from 'path';
+
 import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
-import path from 'path';
+
+// import ResistanceSpecies from '../../components/resistance/ResistanceSpecies';
 
 const BAM_FOLDER = `${process.env.HOME}/Dropbox/bams/`;
 const INCLUDE_SLOW_TESTS =
@@ -36,6 +40,13 @@ describe('AnalyserLocalFile', () => {
           'Ethambutol',
           'Quinolones',
         ]);
+        // const component = renderer.create(
+        //   <ResistanceSpecies
+        //     analyser={mockAnalyser}
+        //   />
+        // );
+        // let tree = component.toJSON();
+        // expect(tree).toMatchSnapshot();
         done();
       })
       .on('error', error => {
@@ -50,6 +61,7 @@ describe('AnalyserLocalFile', () => {
         .analyseFile(filePath)
         .on('progress', progress => {
           console.log('progress', progress);
+          expect(progress).toBeDefined();
         })
         .on('done', result => {
           const { json, transformed } = result;
