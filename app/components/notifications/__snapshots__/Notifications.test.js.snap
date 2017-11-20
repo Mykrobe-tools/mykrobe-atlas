@@ -1,4 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`Notifications component snapshot renders correctly 1`] = `
 <div
-  className="wrap" />
+  className="wrap"
+/>
 `;

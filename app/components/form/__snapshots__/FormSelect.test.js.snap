@@ -1,25 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`FormSelect component snapshot renders correctly with a single option 1`] = `
 <div
-  className="wrap">
+  className="wrap"
+>
   <div
-    className="label">
+    className="label"
+  >
     <label
       className="label"
-      htmlFor="loremIpsum">
+      htmlFor="loremIpsum"
+    >
       Lorem Ipsum
     </label>
   </div>
   <div
-    className="inputWrap">
+    className="inputWrap"
+  >
     <select
       className="input"
       name="loremIpsum"
       onChange={[Function]}
-      value="lorem">
+      value="lorem"
+    >
       <option
-        value="" />
+        value=""
+      />
       <option
-        value="lorem">
+        value="lorem"
+      >
         Lorem
       </option>
     </select>
@@ -29,34 +38,43 @@ exports[`FormSelect component snapshot renders correctly with a single option 1`
 
 exports[`FormSelect component snapshot renders correctly with multiple options 1`] = `
 <div
-  className="wrap">
+  className="wrap"
+>
   <div
-    className="label">
+    className="label"
+  >
     <label
       className="label"
-      htmlFor="loremIpsum">
+      htmlFor="loremIpsum"
+    >
       Lorem Ipsum
     </label>
   </div>
   <div
-    className="inputWrap">
+    className="inputWrap"
+  >
     <select
       className="input"
       name="loremIpsum"
       onChange={[Function]}
-      value="dolorSitAmet">
+      value="dolorSitAmet"
+    >
       <option
-        value="" />
+        value=""
+      />
       <option
-        value="lorem">
+        value="lorem"
+      >
         Lorem
       </option>
       <option
-        value="ipsum">
+        value="ipsum"
+      >
         Ipsum
       </option>
       <option
-        value="dolorSitAmet">
+        value="dolorSitAmet"
+      >
         Dolor Sit Amet
       </option>
     </select>
