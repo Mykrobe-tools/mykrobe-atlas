@@ -17,9 +17,15 @@ class AnalyserBaseFile extends EventEmitter {
     return extension.toLowerCase();
   }
 
-  analyseFile(file: File, id: string = ''): AnalyserBaseFile {
+  analyseFile(file: File | string, id: string = ''): AnalyserBaseFile {
     this.cancel();
-    const extension = this.extensionForFileName(file.name);
+    let filename;
+    if (typeof file === 'string') {
+      filename = file;
+    } else {
+      filename = file.name;
+    }
+    const extension = this.extensionForFileName(filename);
     if (extension === '.json') {
       return this.analyseJsonFile(file);
     } else if (['.bam', '.gz', '.fastq'].indexOf(extension) !== -1) {
@@ -57,30 +63,17 @@ class AnalyserBaseFile extends EventEmitter {
       });
   }
 
-  analyseJsonFile(file: File): AnalyserBaseFile {
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      const dataString = reader.result;
-      this.doneWithJsonString(dataString);
-    };
-
-    reader.onerror = e => {
-      this.failWithError(
-        `FileReader failed with error code ${e.target.error.code}`
-      );
-    };
-
-    reader.readAsText(file);
+  analyseJsonFile(file: File | string): AnalyserBaseFile {
+    console.log('analyseJsonFile', file);
     return this;
   }
 
-  analyseBinaryFile(file: File): AnalyserBaseFile {
+  analyseBinaryFile(file: File | string): AnalyserBaseFile {
     console.log('analyseBinaryFile', file);
     return this;
   }
 
-  analyseRemoteFile(file: File): AnalyserBaseFile {
+  analyseRemoteFile(file: File | string): AnalyserBaseFile {
     console.log('analyseRemoteFile', file);
     return this;
   }

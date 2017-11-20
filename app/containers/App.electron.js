@@ -2,14 +2,22 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import path from 'path';
 import * as AnalyserActions from '../actions/AnalyserActions';
 import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
 import { push } from 'react-router-redux';
+import Dropzone from 'react-dropzone';
 
 import styles from './App.css';
 
 class App extends Component {
+  state: {
+    isDragActive: boolean,
+  };
+
+  state = {
+    isDragActive: false,
+  };
+
   constructor(props) {
     super(props);
     const { dispatch } = props;
@@ -18,11 +26,7 @@ class App extends Component {
     ipcRenderer.on('open-file', (e, filePath) => {
       console.log('App open-file');
       if (filePath) {
-        const fileObject = {
-          path: filePath,
-          name: path.parse(filePath).base,
-        };
-        dispatch(AnalyserActions.analyseFile(fileObject));
+        dispatch(AnalyserActions.analyseFile(filePath));
       }
     });
 
@@ -39,11 +43,7 @@ class App extends Component {
     ipcRenderer.on('menu-file-open', () => {
       const filePath = UIHelpers.openFileDialog(); // eslint-disable-line import/namespace
       if (filePath) {
-        const fileObject = {
-          path: filePath,
-          name: path.parse(filePath).base,
-        };
-        dispatch(AnalyserActions.analyseFile(fileObject));
+        dispatch(AnalyserActions.analyseFile(filePath));
       }
     });
 
@@ -52,8 +52,41 @@ class App extends Component {
     });
   }
 
+  onDragEnter = () => {
+    this.setState({
+      isDragActive: true,
+    });
+  };
+
+  onDragLeave = () => {
+    this.setState({
+      isDragActive: false,
+    });
+  };
+
+  onDropAccepted = files => {
+    const { dispatch } = this.props;
+    console.log('onDropAccepted', files);
+    this.setState({
+      isDragActive: false,
+    });
+    if (!files.length) {
+      return;
+    }
+    const filePath = files[0];
+    dispatch(AnalyserActions.analyseFile(filePath));
+  };
+
+  onDropRejected = files => {
+    console.log('onDropRejected', files);
+    this.setState({
+      isDragActive: false,
+    });
+  };
+
   render() {
     const { analyser, children } = this.props;
+    const { isDragActive } = this.state;
 
     /*
     Get application menu and disable save as...
@@ -69,9 +102,18 @@ class App extends Component {
     }
 
     return (
-      <div className={styles.container}>
+      <Dropzone
+        className={isDragActive ? styles.containerDragActive : styles.container}
+        onDropAccepted={this.onDropAccepted}
+        onDropRejected={this.onDropRejected}
+        onDragLeave={this.onDragLeave}
+        onDragEnter={this.onDragEnter}
+        disableClick
+        multiple={false}
+        accept=".json,.bam,.gz,.fastq"
+      >
         <div className={styles.contentContainer}>{children}</div>
-      </div>
+      </Dropzone>
     );
   }
 }
