@@ -58,7 +58,7 @@ function analyseFileUpload() {
   };
 }
 
-export function analyseFile(file: File, id?: string) {
+export function analyseFile(file: File | string, id?: string) {
   return (dispatch: Function) => {
     if (IS_ELECTRON) {
       // $FlowFixMe: Ignore Electron require
@@ -75,7 +75,7 @@ export function analyseFile(file: File, id?: string) {
       })
       .on('done', result => {
         const { json, transformed } = result;
-        dispatch(analyseFileSuccess(file.name, json, transformed));
+        dispatch(analyseFileSuccess(file, json, transformed));
         IS_ELECTRON && dispatch(push('/results'));
       })
       .on('error', error => {
@@ -113,11 +113,17 @@ export function analyseFileCancel() {
 }
 
 function analyseFileSuccess(
-  filename: string,
+  file: File | string,
   json: Object,
   transformed: Object
 ) {
   return (dispatch: Function) => {
+    let filename;
+    if (typeof file === 'string') {
+      filename = file;
+    } else {
+      filename = file.name;
+    }
     dispatch(
       showNotification({
         category: NotificationCategories.SUCCESS,
@@ -159,7 +165,7 @@ function analyseFileError(error: string) {
   };
 }
 
-export function analyseRemoteFile(file: Object) {
+export function analyseRemoteFile(file: File) {
   return (dispatch: Function) => {
     return uploadService
       .prepare()
@@ -186,7 +192,7 @@ export function analyseRemoteFile(file: Object) {
             })
             .on('done', result => {
               const { json, transformed } = result;
-              dispatch(analyseFileSuccess(file.name, json, transformed));
+              dispatch(analyseFileSuccess(file, json, transformed));
             })
             .on('error', error => {
               dispatch(analyseFileError(error.description));

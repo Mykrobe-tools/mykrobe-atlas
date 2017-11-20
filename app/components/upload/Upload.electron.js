@@ -26,11 +26,7 @@ class Upload extends Component {
     const { analyseFile } = this.props;
     const filePath = UIHelpers.openFileDialog();
     if (filePath) {
-      const fileObject = {
-        path: filePath,
-        name: path.parse(filePath).base,
-      };
-      analyseFile(fileObject);
+      analyseFile(filePath);
     }
   };
 

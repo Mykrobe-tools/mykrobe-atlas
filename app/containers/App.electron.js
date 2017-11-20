@@ -18,11 +18,7 @@ class App extends Component {
     ipcRenderer.on('open-file', (e, filePath) => {
       console.log('App open-file');
       if (filePath) {
-        const fileObject = {
-          path: filePath,
-          name: path.parse(filePath).base,
-        };
-        dispatch(AnalyserActions.analyseFile(fileObject));
+        dispatch(AnalyserActions.analyseFile(filePath));
       }
     });
 
@@ -39,11 +35,7 @@ class App extends Component {
     ipcRenderer.on('menu-file-open', () => {
       const filePath = UIHelpers.openFileDialog(); // eslint-disable-line import/namespace
       if (filePath) {
-        const fileObject = {
-          path: filePath,
-          name: path.parse(filePath).base,
-        };
-        dispatch(AnalyserActions.analyseFile(fileObject));
+        dispatch(AnalyserActions.analyseFile(filePath));
       }
     });
 

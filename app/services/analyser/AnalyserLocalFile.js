@@ -30,10 +30,41 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     });
   }
 
-  analyseBinaryFile(file: File): AnalyserLocalFile {
+  analyseJsonFile(file: File | string): AnalyserBaseFile {
+    if (typeof file === 'string') {
+      fs.readFile(file, (err, data) => {
+        if (err) throw err;
+        const dataString = data.toString();
+        this.doneWithJsonString(dataString);
+      });
+    } else {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataString = reader.result;
+        this.doneWithJsonString(dataString);
+      };
+
+      reader.onerror = e => {
+        this.failWithError(
+          `FileReader failed with error code ${e.target.error.code}`
+        );
+      };
+
+      reader.readAsText(file);
+    }
+    return this;
+  }
+
+  analyseBinaryFile(file: File | string): AnalyserLocalFile {
     // in Electron we get the full local file path
     // $FlowFixMe: Ignore missing type values
-    const filePath = file.path;
+    let filePath;
+
+    if (typeof file === 'string') {
+      filePath = file;
+    } else {
+      filePath = file.path;
+    }
 
     console.log('analyseBinaryFile', filePath);
 
