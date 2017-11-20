@@ -131,3 +131,216 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
   </div>
 </div>
 `;
+
+exports[`AnalyserLocalFile should analyse and render a json file 2`] = `
+<div
+  className="container"
+>
+  <div
+    className="panelContainer"
+    style={
+      Object {
+        "flex": "initial",
+        "width": "50%",
+      }
+    }
+  >
+    <div
+      className="panelContent"
+    >
+      <div
+        className="panelTitle"
+      >
+        Rifampicin
+      </div>
+      <div
+        className="panelChildrenContainer"
+      >
+        <div
+          className="evidence"
+        >
+          <div>
+            Resistance mutation found: I491F in gene rpoB
+          </div>
+          <div>
+            Resistant allele coverage: 78
+          </div>
+          <div>
+            Susceptible allele coverage: 0
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="panelContainer"
+    style={
+      Object {
+        "flex": "initial",
+        "width": "50%",
+      }
+    }
+  >
+    <div
+      className="panelContent"
+    >
+      <div
+        className="panelTitle"
+      >
+        Ethambutol
+      </div>
+      <div
+        className="panelChildrenContainer"
+      >
+        <div
+          className="evidence"
+        >
+          <div>
+            Resistance mutation found: M306I in gene embB
+          </div>
+          <div>
+            Resistant allele coverage: 77
+          </div>
+          <div>
+            Susceptible allele coverage: 0
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="panelContainer"
+    style={
+      Object {
+        "flex": "initial",
+        "width": "50%",
+      }
+    }
+  >
+    <div
+      className="panelContent"
+    >
+      <div
+        className="panelTitle"
+      >
+        Quinolones
+      </div>
+      <div
+        className="panelChildrenContainer"
+      >
+        <div
+          className="evidence"
+        >
+          <div>
+            Resistance mutation found: D94G in gene gyrA
+          </div>
+          <div>
+            Resistant allele coverage: 89
+          </div>
+          <div>
+            Susceptible allele coverage: 0
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AnalyserLocalFile should analyse and render a json file 3`] = `
+<div
+  className="container"
+>
+  <div
+    className="column"
+  >
+    <div
+      className="columnTitleSusceptible"
+    >
+      <i
+        className="fa fa-check-circle"
+      />
+       
+      Susceptible
+    </div>
+    <div>
+      Capreomycin
+    </div>
+    <div>
+      Isoniazid
+    </div>
+    <div>
+      Amikacin
+    </div>
+    <div>
+      Pyrazinamide
+    </div>
+    <div>
+      Kanamycin
+    </div>
+    <div>
+      Streptomycin
+    </div>
+  </div>
+  <div
+    className="column"
+  >
+    <div
+      className="columnTitleResistant"
+    >
+      <i
+        className="fa fa-exclamation-triangle"
+      />
+       
+      Resistant
+    </div>
+    <div>
+      Rifampicin
+    </div>
+    <div>
+      Ethambutol
+    </div>
+    <div>
+      Quinolones
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AnalyserLocalFile should analyse and render a json file 4`] = `
+<div
+  className="container"
+>
+  <div
+    className="panelContainer"
+    style={
+      Object {
+        "flex": "initial",
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      className="panelContent"
+    >
+      <div
+        className="panelTitle"
+      >
+        Species
+      </div>
+      <div
+        className="panelChildrenContainer"
+      >
+        <div
+          className="species"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<em>Mycobacterium tuberculosis</em> (lineage: European American)",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

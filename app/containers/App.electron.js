@@ -52,10 +52,22 @@ class App extends Component {
     });
   }
 
-  onDragEnter = () => {
-    this.setState({
-      isDragActive: true,
-    });
+  onDragEnter = e => {
+    const dt = e.dataTransfer;
+    if (
+      !(
+        dt.types &&
+        (dt.types.indexOf
+          ? dt.types.indexOf('Files') !== -1
+          : dt.types.contains('Files'))
+      )
+    ) {
+      this.setState({ isDragActive: false });
+    } else {
+      this.setState({
+        isDragActive: true,
+      });
+    }
   };
 
   onDragLeave = () => {

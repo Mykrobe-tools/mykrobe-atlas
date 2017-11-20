@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import styles from './ResistanceAll.css';
-import ResistanceProfile from '../resistance/ResistanceProfile';
+import ResistanceProfileContainer from '../resistance/ResistanceProfileContainer';
 import Panel from '../ui/Panel';
 import Phylogeny from '../phylogeny/Phylogeny';
 
@@ -12,7 +12,7 @@ class ResistanceAll extends Component {
     return (
       <div className={styles.container}>
         <Panel title="Resistance Profile" columns={IS_ELECTRON ? undefined : 3}>
-          <ResistanceProfile />
+          <ResistanceProfileContainer />
         </Panel>
         {!IS_ELECTRON && (
           <Panel title="Phylogeny" columns={5}>

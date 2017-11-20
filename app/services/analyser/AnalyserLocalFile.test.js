@@ -6,6 +6,9 @@ import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
 
 import ResistanceDrugs from '../../components/resistance/ResistanceDrugs';
+import ResistanceEvidence from '../../components/resistance/ResistanceEvidence';
+import ResistanceProfile from '../../components/resistance/ResistanceProfile';
+import ResistanceSpecies from '../../components/resistance/ResistanceSpecies';
 
 const BAM_FOLDER = `${process.env.HOME}/Dropbox/bams/`;
 const INCLUDE_SLOW_TESTS =
@@ -27,10 +30,22 @@ const testRenderUI = transformed => {
   const mockAnalyser = {
     transformed,
   };
-  const component = renderer.create(
-    <ResistanceDrugs analyser={mockAnalyser} />
-  );
-  let tree = component.toJSON();
+  let component, tree;
+
+  component = renderer.create(<ResistanceDrugs analyser={mockAnalyser} />);
+  tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
+
+  component = renderer.create(<ResistanceEvidence analyser={mockAnalyser} />);
+  tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
+
+  component = renderer.create(<ResistanceProfile analyser={mockAnalyser} />);
+  tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
+
+  component = renderer.create(<ResistanceSpecies analyser={mockAnalyser} />);
+  tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 };
 
