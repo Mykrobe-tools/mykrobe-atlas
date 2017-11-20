@@ -10,11 +10,15 @@ export default () => {
   let platforms;
 
   if (argv.all) {
-    archs = ['ia32', 'x64'];
-    platforms = ['linux', 'win32', 'darwin'];
+    // archs = ['ia32', 'x64'];
+    // platforms = ['linux', 'win32', 'darwin'];
+    // there is no Linux build at the moment, also no 32-bit
+    archs = ['x64'];
+    platforms = ['win32', 'darwin'];
   } else {
     platforms = [];
-    archs = ['ia32', 'x64'];
+    // archs = ['ia32', 'x64'];
+    archs = ['x64'];
     if (argv.mac) {
       platforms.push('darwin');
     }
