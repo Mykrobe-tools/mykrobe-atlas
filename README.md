@@ -56,6 +56,8 @@ To run an individual test
 $ yarn test -t 'AnalyserLocalFile'
 ```
 
+Note the above two commands will generate different Jest snapshots.
+
 ## Further Reading
 
 Further information about the app can be found in the following files, located in the `/docs` directory:
