@@ -1,7 +1,6 @@
 /* @flow */
 
 import MykrobeConfig from '../MykrobeConfig';
-import _ from 'lodash';
 import * as TargetConstants from '../../constants/TargetConstants';
 
 class AnalyserJsonTransformer {
@@ -79,6 +78,18 @@ class AnalyserJsonTransformer {
     //     }
     // }
 
+    model.lineage = [];
+    if (TargetConstants.SPECIES_TB === this.config.species) {
+      model.lineage = Object.keys(sourceModel.phylogenetics.lineage);
+      // sourceLineage = sourceModel.phylogenetics.lineage;
+      // for ( key in sourceLineage ) {
+      // value = sourceLineage[key].toLowerCase();
+      // if ( 'major' === value ) {
+      // model.lineage.push(key);
+      // }
+      // }
+    }
+
     let speciesPretty = '';
     let unstyledSpeciesPretty = '';
 
@@ -87,7 +98,7 @@ class AnalyserJsonTransformer {
         ? model.species.join(' / ').replace(/_/g, ' ')
         : 'undefined';
       const l = model.lineage
-        ? ' (lineage: ' + model.lineage.join(', ') + ')'
+        ? ' (lineage: ' + model.lineage.join(', ').replace(/_/g, ' ') + ')'
         : '';
       speciesPretty = `<em>${s}</em>${l}`;
       unstyledSpeciesPretty = `${s}${l}`;
@@ -163,18 +174,6 @@ class AnalyserJsonTransformer {
 
     // ignore the values
     model.phyloGroup = Object.keys(sourceModel.phylogenetics.phylo_group);
-
-    model.lineage = [];
-    if (TargetConstants.SPECIES_TB === this.config.species) {
-      model.lineage = Object.keys(sourceModel.phylogenetics.lineage);
-      // sourceLineage = sourceModel.phylogenetics.lineage;
-      // for ( key in sourceLineage ) {
-      // value = sourceLineage[key].toLowerCase();
-      // if ( 'major' === value ) {
-      // model.lineage.push(key);
-      // }
-      // }
-    }
 
     /*
 It should be I491F in rpoB – it shouldn't be repeated like that in the output, sorry!
