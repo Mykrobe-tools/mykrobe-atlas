@@ -113,7 +113,7 @@ class AnalyserJsonTransformer {
 
     if (TargetConstants.SPECIES_TB === this.config.species) {
       if (model.species.indexOf('Mycobacterium_tuberculosis') === -1) {
-        throw `This sample seems to be ${unstyledSpeciesPretty}, not Mycobacterium tuberculosis, and therefore the predictor does not give susceptibility predictions`;
+        throw `This sample does not appear to contain any Mycobacterial data (or it is amplicon data, which is not supported), and therefore the predictor does not give susceptibility predictions`;
       }
     }
 
