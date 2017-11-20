@@ -7,7 +7,7 @@ import * as ExperimentActions from './ExperimentActions';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const data = require('../../test/_fixtures/api/experiments.json');
+const data = require('../../test/__fixtures__/api/experiments.json');
 
 describe('ExperimentActions', () => {
   afterEach(() => {

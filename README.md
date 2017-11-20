@@ -32,6 +32,32 @@ $ yarn set-target
 
 - See [Run desktop version](docs/desktop.md)
 
+## Tests
+
+This project has the concept of 'slow' tests. Typically these are tests which involve analysing a sample and may take several minutes to complete.
+
+Potentially slow tests can check if they should execute by checking the for env variable `process.env.INCLUDE_SLOW_TESTS === 'true'`
+
+To run the general test suite:
+
+```
+$ yarn test
+```
+
+To run all tests including slow ones:
+
+```
+$ yarn test:slow
+```
+
+To run an individual test
+
+```
+$ yarn test -t 'AnalyserLocalFile'
+```
+
+Note the above two commands will generate different Jest snapshots.
+
 ## Further Reading
 
 Further information about the app can be found in the following files, located in the `/docs` directory:

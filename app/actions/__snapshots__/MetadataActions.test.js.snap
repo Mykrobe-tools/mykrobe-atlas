@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`MetadataActions postMetadataForm should create a "POST_METADATA_FORM" action 1`] = `
 Array [
   Object {

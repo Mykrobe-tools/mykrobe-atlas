@@ -1,7 +1,6 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import styles from './ResistanceEvidence.css';
 import Panel from '../ui/Panel';
 
@@ -26,16 +25,8 @@ class ResistanceEvidence extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser,
-  };
-}
-
 ResistanceEvidence.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  children: PropTypes.node,
 };
 
-export default connect(mapStateToProps)(ResistanceEvidence);
+export default ResistanceEvidence;

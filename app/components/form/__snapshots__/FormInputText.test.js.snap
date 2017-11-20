@@ -1,11 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`FormInputText component snapshot renders correctly 1`] = `
 <div
-  className="wrap">
+  className="wrap"
+>
   <div
-    className="label">
+    className="label"
+  >
     <label
       className="label"
-      htmlFor="loremIpsum">
+      htmlFor="loremIpsum"
+    >
       Lorem Ipsum
     </label>
   </div>
@@ -16,6 +21,7 @@ exports[`FormInputText component snapshot renders correctly 1`] = `
     onChange={[Function]}
     placeholder="Lorem Ipsum Dolor Sit Amet"
     type="text"
-    value="Dolor sit amet" />
+    value="Dolor sit amet"
+  />
 </div>
 `;

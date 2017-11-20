@@ -24,10 +24,11 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
   constructor(targetConfig: MykrobeConfig) {
     super(targetConfig);
-    app.on('quit', () => {
-      this.cancel();
-      console.log('ev:app quit');
-    });
+    app &&
+      app.on('quit', () => {
+        this.cancel();
+        console.log('ev:app quit');
+      });
   }
 
   analyseJsonFile(file: File | string): AnalyserBaseFile {

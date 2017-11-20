@@ -68,13 +68,13 @@ app.get('/api/experiments/:id/upload-status', (req, res) => {
 
 // Serve experiment api fixture
 app.get('/api/experiments/:id', (req, res, next) => {
-  res.sendFile(path.resolve(__dirname, '../test/_fixtures/api/experiment.json'));
+  res.sendFile(path.resolve(__dirname, '../test/__fixtures__/api/experiment.json'));
 });
 
 // Serve all other api fixtures
 app.get('/api/:endpoint', (req, res, next) => {
   const {endpoint} = req.params;
-  res.sendFile(path.resolve(__dirname, '../test/_fixtures/api', `${endpoint}.json`));
+  res.sendFile(path.resolve(__dirname, '../test/__fixtures__/api', `${endpoint}.json`));
 });
 
 // Treeplace

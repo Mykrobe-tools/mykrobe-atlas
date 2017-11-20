@@ -46,7 +46,7 @@ export function setMetadata(metadata: Object) {
 export function fetchTemplate(user: UserType) {
   return (dispatch: Function) => {
     // todo - integrate with API
-    const testData = require('../../test/_fixtures/api/template.json');
+    const testData = require('../../test/__fixtures__/api/template.json');
     const template =
       user.organisation && user.organisation.template
         ? user.organisation.template

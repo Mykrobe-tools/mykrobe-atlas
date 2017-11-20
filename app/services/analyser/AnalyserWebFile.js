@@ -59,7 +59,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
   }
 
   addExtraData(json: Object) {
-    const testData = require('../../../test/_fixtures/api/experiment.json');
+    const testData = require('../../../test/__fixtures__/api/experiment.json');
     if (!json.location) {
       json.location = testData.location;
     }
