@@ -4,6 +4,11 @@
   background-color: var(--color-background);
 }
 
+.containerDragActive {
+  composes: container;
+  border: 12px solid var(--color-grey-mid);
+}
+
 .notificationsContainer {
   composes: containerAbsolute from "css/layout.css";
   bottom: auto;

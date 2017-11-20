@@ -1,8 +1,6 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
-import path from 'path';
-import Dropzone from 'react-dropzone';
 
 import styles from './Upload.css';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
@@ -11,16 +9,6 @@ import Logo from '../logo/Logo';
 import * as UIHelpers from '../../helpers/UIHelpers';
 
 class Upload extends Component {
-  state: {
-    isDragActive: boolean,
-  };
-
-  constructor(props: Object) {
-    super(props);
-    this.state = {
-      isDragActive: false,
-    };
-  }
 
   onOpenClick = () => {
     const { analyseFile } = this.props;
@@ -34,37 +22,6 @@ class Upload extends Component {
     console.log('onCancelClick');
     const { analyseFileCancel } = this.props;
     analyseFileCancel();
-  };
-
-  onDragEnter = e => {
-    this.setState({
-      isDragActive: true,
-    });
-  };
-
-  onDragLeave = () => {
-    this.setState({
-      isDragActive: false,
-    });
-  };
-
-  onDropAccepted = files => {
-    const { analyseFile } = this.props;
-    console.log('onDropAccepted', files);
-    this.setState({
-      isDragActive: false,
-    });
-    if (!files.length) {
-      return;
-    }
-    analyseFile(files[0]);
-  };
-
-  onDropRejected = files => {
-    console.log('onDropRejected', files);
-    this.setState({
-      isDragActive: false,
-    });
   };
 
   renderContentDefault = () => {
@@ -127,26 +84,16 @@ class Upload extends Component {
   };
 
   render() {
-    const { isDragActive } = this.state;
     const { analyser } = this.props;
     return (
-      <Dropzone
-        className={isDragActive ? styles.containerDragActive : styles.container}
-        onDropAccepted={this.onDropAccepted}
-        onDropRejected={this.onDropRejected}
-        onDragLeave={this.onDragLeave}
-        onDragEnter={this.onDragEnter}
-        disableClick
-        multiple={false}
-        accept=".json,.bam,.gz,.fastq"
-      >
+      <div className={styles.container}>
         <AnimatedBackground />
         <div className={styles.contentContainer}>
           {analyser.analysing
             ? this.renderContentAnalysing()
             : this.renderContentDefault()}
         </div>
-      </Dropzone>
+      </div>
     );
   }
 }
