@@ -1,10 +1,11 @@
-// import renderer from 'react-test-renderer';
+import React from 'react';
+import renderer from 'react-test-renderer';
 import path from 'path';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
 
-// import ResistanceSpecies from '../../components/resistance/ResistanceSpecies';
+import ResistanceDrugs from '../../components/resistance/ResistanceDrugs';
 
 const BAM_FOLDER = `${process.env.HOME}/Dropbox/bams/`;
 const INCLUDE_SLOW_TESTS =
@@ -22,8 +23,19 @@ afterEach(() => {
   delete process.env.NODE_ENV;
 });
 
+const testRenderUI = transformed => {
+  const mockAnalyser = {
+    transformed,
+  };
+  const component = renderer.create(
+    <ResistanceDrugs analyser={mockAnalyser} />
+  );
+  let tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
+};
+
 describe('AnalyserLocalFile', () => {
-  it('should analyse a json file', done => {
+  it('should analyse and render a json file', done => {
     const analyser = new AnalyserLocalFile(config);
     const filePath = path.join(BAM_FOLDER, 'tb', 'C00009037_R00000039.json');
     analyser
@@ -40,13 +52,7 @@ describe('AnalyserLocalFile', () => {
           'Ethambutol',
           'Quinolones',
         ]);
-        // const component = renderer.create(
-        //   <ResistanceSpecies
-        //     analyser={mockAnalyser}
-        //   />
-        // );
-        // let tree = component.toJSON();
-        // expect(tree).toMatchSnapshot();
+        testRenderUI(transformed);
         done();
       })
       .on('error', error => {
@@ -54,7 +60,7 @@ describe('AnalyserLocalFile', () => {
       });
   });
   INCLUDE_SLOW_TESTS &&
-    it('should analyse a bam', done => {
+    it('should analyse and render a bam file', done => {
       const analyser = new AnalyserLocalFile(config);
       const filePath = path.join(BAM_FOLDER, 'tb', 'C00009037_R00000039.bam');
       analyser
@@ -73,6 +79,7 @@ describe('AnalyserLocalFile', () => {
             'Ethambutol',
             'Quinolones',
           ]);
+          testRenderUI(transformed);
           done();
         })
         .on('error', error => {
