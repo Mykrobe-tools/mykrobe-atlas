@@ -1,10 +1,11 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './MetadataFormSteps.css';
 
-class MetadataFormSteps extends Component {
+class MetadataFormSteps extends React.Component {
   state: {
     step: number,
     steps: number,

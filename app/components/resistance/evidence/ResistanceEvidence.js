@@ -1,12 +1,13 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './ResistanceEvidence.css';
-import Panel from '../ui/Panel';
+import Panel from '../../ui/Panel';
 
 // TODO: push route on state change
 
-class ResistanceEvidence extends Component {
+class ResistanceEvidence extends React.Component {
   render() {
     const { analyser } = this.props;
     const { evidence } = analyser.transformed;

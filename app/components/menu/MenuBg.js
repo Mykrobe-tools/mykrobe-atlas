@@ -1,9 +1,10 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './MenuBg.css';
 
-class MenuBg extends Component {
+class MenuBg extends React.Component {
   render() {
     const { displayMenu, toggleMenu } = this.props;
     return (

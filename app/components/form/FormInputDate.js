@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 
@@ -8,7 +9,7 @@ import FormLabel from './FormLabel';
 
 import styles from './FormInputDate.css';
 
-class FormInputDate extends Component {
+class FormInputDate extends React.Component {
   render() {
     const { name, onChange, title, value } = this.props;
     return (

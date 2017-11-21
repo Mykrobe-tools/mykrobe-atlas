@@ -1,12 +1,13 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import moment from 'moment';
 import styles from './ExperimentsTable.css';
 import Loading from '../ui/Loading';
 
-class ExperimentsTable extends Component {
+class ExperimentsTable extends React.Component {
   render() {
     const { experiments } = this.props;
     let tableContent;

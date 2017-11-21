@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import Fuse from 'fuse.js';
 
@@ -28,7 +29,7 @@ const defaults = {
   renderSuggestion: suggestion => <div>{suggestion.label}</div>,
 };
 
-class FormTypeahead extends Component {
+class FormTypeahead extends React.Component {
   options: Object;
   state: {
     value: string,

@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './Upload.css';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
@@ -8,7 +9,7 @@ import CircularProgress from '../ui/CircularProgress';
 import Logo from '../logo/Logo';
 import * as UIHelpers from '../../helpers/UIHelpers';
 
-class Upload extends Component {
+class Upload extends React.Component {
 
   onOpenClick = () => {
     const { analyseFile } = this.props;

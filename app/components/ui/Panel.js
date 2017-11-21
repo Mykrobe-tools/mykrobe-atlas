@@ -1,9 +1,10 @@
 /* @flow */
 
-import React, { PropTypes, Component } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Panel.css';
 
-class Panel extends Component {
+class Panel extends React.Component {
   render() {
     const { title, columns, children } = this.props;
     let style;

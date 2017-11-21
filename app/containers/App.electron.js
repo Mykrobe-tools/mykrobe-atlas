@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as AnalyserActions from '../actions/AnalyserActions';
 import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
@@ -9,7 +10,7 @@ import Dropzone from 'react-dropzone';
 
 import styles from './App.css';
 
-class App extends Component {
+class App extends React.Component {
   state: {
     isDragActive: boolean,
   };

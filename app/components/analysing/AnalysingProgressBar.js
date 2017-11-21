@@ -1,9 +1,10 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './AnalysingProgressBar.css';
 
-class AnalysingProgressBar extends Component {
+class AnalysingProgressBar extends React.Component {
   render() {
     const { description, progress, filename, onCancel } = this.props;
     var text = `${description} ${filename} ${progress}%`;

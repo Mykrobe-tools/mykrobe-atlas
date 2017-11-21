@@ -1,10 +1,11 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './Fieldset.css';
 
-class Fieldset extends Component {
+class Fieldset extends React.Component {
   render() {
     const { children, legend } = this.props;
     return (

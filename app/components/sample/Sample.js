@@ -1,10 +1,11 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Sample.css';
 import { Link } from 'react-router';
 
-class Sample extends Component {
+class Sample extends React.Component {
   render() {
     const { children, analyser, params } = this.props;
     const { id } = params;

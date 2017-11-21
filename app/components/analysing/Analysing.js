@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AnalyserActions from '../../actions/AnalyserActions';
@@ -8,7 +9,7 @@ import styles from './Analysing.css';
 import AnalysingProgressBar from './AnalysingProgressBar';
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
-class Analysing extends Component {
+class Analysing extends React.Component {
   componentDidMount() {
     const { monitorUpload } = this.props;
     monitorUpload();

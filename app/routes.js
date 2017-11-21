@@ -1,6 +1,6 @@
 /* @flow */
 
-import React from 'react';
+import * as React from 'react';
 import { Route, Redirect, IndexRoute, IndexRedirect } from 'react-router';
 import LibraryPage from './containers/LibraryPage';
 import SamplePage from './containers/SamplePage';
@@ -13,13 +13,13 @@ import App from './containers/App';
 
 import Analysis from './components/analysis/Analysis';
 import Metadata from './components/metadata/Metadata';
-import Resistance from './components/resistance/Resistance';
-import ResistanceAll from './components/resistance/ResistanceAll';
-import ResistanceDrugsContainer from './components/resistance/ResistanceDrugsContainer';
-import ResistanceClass from './components/resistance/ResistanceClass';
-import ResistanceEvidenceContainer from './components/resistance/ResistanceEvidenceContainer';
-import ResistanceSpeciesContainer from './components/resistance/ResistanceSpeciesContainer';
-import Summary from './components/summary/Summary';
+import Resistance from './components/resistance/resistance/Resistance';
+import ResistanceAllContainer from './components/resistance/all/ResistanceAllContainer';
+import ResistanceDrugsContainer from './components/resistance/drugs/ResistanceDrugsContainer';
+import ResistanceClassContainer from './components/resistance/class/ResistanceClassContainer';
+import ResistanceEvidenceContainer from './components/resistance/evidence/ResistanceEvidenceContainer';
+import ResistanceSpeciesContainer from './components/resistance/species/ResistanceSpeciesContainer';
+import SummaryContainer from './components/summary/SummaryContainer';
 
 import AuthPage from './containers/AuthPage';
 import SignUp from './components/auth/SignUp';
@@ -59,14 +59,14 @@ export default (
       <Route path="metadata" component={Metadata} />
       <Route path="resistance" component={Resistance}>
         <IndexRedirect to="all" />
-        <Route path="all" component={ResistanceAll} />
+        <Route path="all" component={ResistanceAllContainer} />
         <Route path="drugs" component={ResistanceDrugsContainer} />
-        <Route path="class" component={ResistanceClass} />
+        <Route path="class" component={ResistanceClassContainer} />
         <Route path="evidence" component={ResistanceEvidenceContainer} />
         <Route path="species" component={ResistanceSpeciesContainer} />
       </Route>
       <Route path="analysis" component={Analysis} />
-      <Route path="summary" component={Summary} />
+      <Route path="summary" component={SummaryContainer} />
     </Route>
     <Route path="auth" component={AuthPage}>
       <IndexRedirect to="login" />

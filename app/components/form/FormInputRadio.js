@@ -1,12 +1,13 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import FormLabel from './FormLabel';
 
 import styles from './FormInputRadio.css';
 
-class FormInputRadio extends Component {
+class FormInputRadio extends React.Component {
   render() {
     const { name, onChange, options, selectedOption, title } = this.props;
     return (

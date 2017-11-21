@@ -1,12 +1,13 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Library from '../components/library/Library';
 import * as ExperimentActions from '../actions/ExperimentActions';
 
-class LibraryPage extends Component {
+class LibraryPage extends React.Component {
   componentDidMount() {
     const { fetchExperiments } = this.props;
     fetchExperiments();

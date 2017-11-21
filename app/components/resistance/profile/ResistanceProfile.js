@@ -1,12 +1,13 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './ResistanceProfile.css';
 
-class ResistanceProfile extends Component {
+class ResistanceProfile extends React.Component {
   render() {
     const { analyser } = this.props;
-    if (!analyser.transformed) {
+    if (!analyser || !analyser.transformed) {
       return null;
     }
     const { resistant, susceptible, inconclusive } = analyser.transformed;

@@ -5,7 +5,7 @@ import styles from './PhyloCanvasTooltip.css';
 import type { SampleType } from '../../types/SampleType';
 import moment from 'moment';
 
-class PhyloCanvasTooltip extends Component {
+class PhyloCanvasTooltip extends React.Component {
   state: {
     visible: boolean,
     isMain: boolean,

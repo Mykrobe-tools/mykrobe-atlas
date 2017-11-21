@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
 import Notifications from './Notifications';
 import store from '../../store/store'; // eslint-disable-line import/default

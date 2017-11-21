@@ -1,10 +1,11 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './Notification.css';
 
-class Notification extends Component {
+class Notification extends React.Component {
   onClick(event: Event) {
     const { onClick, id } = this.props;
     event.preventDefault();

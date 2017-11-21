@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -9,7 +10,7 @@ import type { AuthType } from '../../types/AuthTypes';
 import type { UserType } from '../../types/UserTypes';
 import styles from './Header.css';
 
-class Header extends Component {
+class Header extends React.Component {
   onMenuToggleClick(e: Event) {
     const { toggleMenu } = this.props;
     e.preventDefault();

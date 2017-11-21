@@ -1,16 +1,17 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import styles from './Resistance.css';
-import MykrobeConfig from '../../services/MykrobeConfig';
-import * as TargetConstants from '../../constants/TargetConstants';
-import Logo from '../logo/Logo';
-import * as AnalyserActions from '../../actions/AnalyserActions';
+import MykrobeConfig from '../../../services/MykrobeConfig';
+import * as TargetConstants from '../../../constants/TargetConstants';
+import Logo from '../../logo/Logo';
+import * as AnalyserActions from '../../../actions/AnalyserActions';
 
-class Resistance extends Component {
+class Resistance extends React.Component {
   render() {
     const { children, analyseFileNew, analyseFileSave } = this.props;
     const path = '/results/resistance';
@@ -88,7 +89,6 @@ class Resistance extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     analyser: state.analyser,
   };

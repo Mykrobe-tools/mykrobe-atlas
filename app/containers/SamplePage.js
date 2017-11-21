@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Sample from '../components/sample/Sample';
@@ -8,7 +9,7 @@ import * as AuthActions from '../actions/AuthActions';
 import * as AnalyserActions from '../actions/AnalyserActions';
 import * as MetadataActions from '../actions/MetadataActions';
 
-class SamplePage extends Component {
+class SamplePage extends React.Component {
   componentDidMount() {
     const {
       analyser,

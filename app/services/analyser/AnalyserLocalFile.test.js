@@ -1,14 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import renderer from 'react-test-renderer';
 import path from 'path';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
 
-import ResistanceDrugs from '../../components/resistance/ResistanceDrugs';
-import ResistanceEvidence from '../../components/resistance/ResistanceEvidence';
-import ResistanceProfile from '../../components/resistance/ResistanceProfile';
-import ResistanceSpecies from '../../components/resistance/ResistanceSpecies';
+import ResistanceDrugs from '../../components/resistance/drugs/ResistanceDrugs';
+import ResistanceEvidence from '../../components/resistance/evidence/ResistanceEvidence';
+import ResistanceProfile from '../../components/resistance/profile/ResistanceProfile';
+import ResistanceSpecies from '../../components/resistance/species/ResistanceSpecies';
 
 const BAM_FOLDER = `${process.env.HOME}/Dropbox/bams/`;
 const INCLUDE_SLOW_TESTS =
@@ -31,6 +31,9 @@ const testRenderUI = transformed => {
     transformed,
   };
   let component, tree;
+
+  // TODO; don't use snapshots since they will differ when running slow tests
+  // instead, test individual properties directly within the JSON
 
   component = renderer.create(<ResistanceDrugs analyser={mockAnalyser} />);
   tree = component.toJSON();

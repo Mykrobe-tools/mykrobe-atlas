@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import type { AuthType } from '../../types/AuthTypes';
@@ -10,7 +11,7 @@ import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
 import PopoverMenu from '../ui/PopoverMenu';
 
-class Upload extends Component {
+class Upload extends React.Component {
   _uploadButton: HTMLAnchorElement;
   _dropzone: Element;
   state: {
