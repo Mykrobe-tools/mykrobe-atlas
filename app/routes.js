@@ -16,10 +16,10 @@ import Metadata from './components/metadata/Metadata';
 import Resistance from './components/resistance/resistance/Resistance';
 import ResistanceAllContainer from './components/resistance/all/ResistanceAllContainer';
 import ResistanceDrugsContainer from './components/resistance/drugs/ResistanceDrugsContainer';
-import ResistanceClass from './components/resistance/class/ResistanceClass';
+import ResistanceClassContainer from './components/resistance/class/ResistanceClassContainer';
 import ResistanceEvidenceContainer from './components/resistance/evidence/ResistanceEvidenceContainer';
 import ResistanceSpeciesContainer from './components/resistance/species/ResistanceSpeciesContainer';
-import Summary from './components/summary/Summary';
+import SummaryContainer from './components/summary/SummaryContainer';
 
 import AuthPage from './containers/AuthPage';
 import SignUp from './components/auth/SignUp';
@@ -61,12 +61,12 @@ export default (
         <IndexRedirect to="all" />
         <Route path="all" component={ResistanceAllContainer} />
         <Route path="drugs" component={ResistanceDrugsContainer} />
-        <Route path="class" component={ResistanceClass} />
+        <Route path="class" component={ResistanceClassContainer} />
         <Route path="evidence" component={ResistanceEvidenceContainer} />
         <Route path="species" component={ResistanceSpeciesContainer} />
       </Route>
       <Route path="analysis" component={Analysis} />
-      <Route path="summary" component={Summary} />
+      <Route path="summary" component={SummaryContainer} />
     </Route>
     <Route path="auth" component={AuthPage}>
       <IndexRedirect to="login" />

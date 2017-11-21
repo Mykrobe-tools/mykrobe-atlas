@@ -1,7 +1,6 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import styles from './SummaryMetadata.css';
 
 class SummaryMetadata extends Component {
@@ -56,14 +55,4 @@ class SummaryMetadata extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser,
-  };
-}
-
-SummaryMetadata.propTypes = {
-  analyser: PropTypes.object.isRequired,
-};
-
-export default connect(mapStateToProps)(SummaryMetadata);
+export default SummaryMetadata;

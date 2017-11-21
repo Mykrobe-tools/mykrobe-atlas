@@ -1,7 +1,6 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import styles from './SummaryVariants.css';
 
 class SummaryVariants extends Component {
@@ -36,14 +35,8 @@ class SummaryVariants extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser,
-  };
-}
-
 SummaryVariants.propTypes = {
   analyser: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps)(SummaryVariants);
+export default SummaryVariants;

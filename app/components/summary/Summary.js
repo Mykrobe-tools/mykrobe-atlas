@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './Summary.css';
 import Uploading from '../ui/Uploading';
-import ResistanceProfileContainer from '../resistance/profile/ResistanceProfileContainer';
+import ResistanceProfile from '../resistance/profile/ResistanceProfile';
 import Panel from '../ui/Panel';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';
@@ -19,13 +19,13 @@ class Summary extends Component {
         <div className={styles.content}>
           <div className={styles.summaryContainer}>
             <Panel title="Metadata" columns={8}>
-              <SummaryMetadata />
+              <SummaryMetadata analyser={analyser} />
             </Panel>
             <Panel title="Resistance Profile" columns={4}>
-              <ResistanceProfileContainer />
+              <ResistanceProfile analyser={analyser} />
             </Panel>
             <Panel title="Variants Inducing Resistance" columns={4}>
-              <SummaryVariants />
+              <SummaryVariants analyser={analyser} />
             </Panel>
           </div>
         </div>
