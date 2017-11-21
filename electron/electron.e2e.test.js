@@ -4,41 +4,48 @@ jest.unmock('electron');
 import { Application } from 'spectron';
 import path from 'path';
 import os from 'os';
+import fs from 'fs-extra';
+
 const pkg = require('../package.json');
 
 import { executeCommand } from './util';
+
+const arch = os.arch();
+const plat = os.platform();
 
 const INCLUDE_SLOW_TESTS =
   process.env.INCLUDE_SLOW_TESTS && process.env.INCLUDE_SLOW_TESTS === 'true';
 
 jest.setTimeout(10 * 60 * 1000); // 10 minutes?
 
-describe('Electron e2e prerequisites', () => {
-  it('should have a binary available', done => {
-    // build
-    // executeCommand('yarn build-predictor-binaries');
-    // TODO check for existence of binary and bail with error
-    done();
-  });
+// prerequisites
 
+const binFolder = path.join(
+  __dirname,
+  `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
+);
+const exists = fs.existsSync(path.join(binFolder, 'mykrobe_predictor'));
+
+// check for existence of binary and bail with error
+if (!exists) {
+  throw 'Please run `yarn build-predictor-binaries` before running this test';
+}
+
+describe('Electron e2e prerequisites', () => {
   it('should package app', done => {
     executeCommand('yarn electron-package');
     done();
   });
 });
 
-const arch = os.arch();
-const platform = os.platform();
-const productName = pkg.productName;
-
 // TODO test on Windows - this is currently MacOS specific
 const electronPath = path.join(
   __dirname,
   'release',
-  `${platform}-${arch}`,
-  `${productName}-${platform}-${arch}`,
-  `${productName}.app`,
-  `Contents/MacOS/${productName}`
+  `${plat}-${arch}`,
+  `${pkg.productName}-${plat}-${arch}`,
+  `${pkg.productName}.app`,
+  `Contents/MacOS/${pkg.productName}`
 );
 
 console.log('electronPath', electronPath);
@@ -67,7 +74,7 @@ INCLUDE_SLOW_TESTS &&
       await client.waitUntilWindowLoaded();
       await delay(500);
       const title = await browserWindow.getTitle();
-      expect(title).toBe(productName);
+      expect(title).toBe(pkg.productName);
     });
 
     it("should haven't any logs in console of main window", async () => {
