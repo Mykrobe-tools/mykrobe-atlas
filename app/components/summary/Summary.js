@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './Summary.css';
 import Uploading from '../ui/Uploading';
-import ResistanceProfileContainer from '../resistance/ResistanceProfileContainer';
+import ResistanceProfileContainer from '../resistance/profile/ResistanceProfileContainer';
 import Panel from '../ui/Panel';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';

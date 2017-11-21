@@ -5,10 +5,10 @@ import path from 'path';
 import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
 
-import ResistanceDrugs from '../../components/resistance/ResistanceDrugs';
-import ResistanceEvidence from '../../components/resistance/ResistanceEvidence';
-import ResistanceProfile from '../../components/resistance/ResistanceProfile';
-import ResistanceSpecies from '../../components/resistance/ResistanceSpecies';
+import ResistanceDrugs from '../../components/resistance/drugs/ResistanceDrugs';
+import ResistanceEvidence from '../../components/resistance/evidence/ResistanceEvidence';
+import ResistanceProfile from '../../components/resistance/profile/ResistanceProfile';
+import ResistanceSpecies from '../../components/resistance/species/ResistanceSpecies';
 
 const BAM_FOLDER = `${process.env.HOME}/Dropbox/bams/`;
 const INCLUDE_SLOW_TESTS =

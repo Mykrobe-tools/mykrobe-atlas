@@ -5,10 +5,10 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import styles from './Resistance.css';
-import MykrobeConfig from '../../services/MykrobeConfig';
-import * as TargetConstants from '../../constants/TargetConstants';
-import Logo from '../logo/Logo';
-import * as AnalyserActions from '../../actions/AnalyserActions';
+import MykrobeConfig from '../../../services/MykrobeConfig';
+import * as TargetConstants from '../../../constants/TargetConstants';
+import Logo from '../../logo/Logo';
+import * as AnalyserActions from '../../../actions/AnalyserActions';
 
 class Resistance extends Component {
   render() {
@@ -88,7 +88,6 @@ class Resistance extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     analyser: state.analyser,
   };

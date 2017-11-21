@@ -13,12 +13,12 @@ import App from './containers/App';
 
 import Analysis from './components/analysis/Analysis';
 import Metadata from './components/metadata/Metadata';
-import Resistance from './components/resistance/Resistance';
-import ResistanceAll from './components/resistance/ResistanceAll';
-import ResistanceDrugsContainer from './components/resistance/ResistanceDrugsContainer';
-import ResistanceClass from './components/resistance/ResistanceClass';
-import ResistanceEvidenceContainer from './components/resistance/ResistanceEvidenceContainer';
-import ResistanceSpeciesContainer from './components/resistance/ResistanceSpeciesContainer';
+import Resistance from './components/resistance/resistance/Resistance';
+import ResistanceAll from './components/resistance/all/ResistanceAll';
+import ResistanceDrugsContainer from './components/resistance/drugs/ResistanceDrugsContainer';
+import ResistanceClass from './components/resistance/class/ResistanceClass';
+import ResistanceEvidenceContainer from './components/resistance/evidence/ResistanceEvidenceContainer';
+import ResistanceSpeciesContainer from './components/resistance/species/ResistanceSpeciesContainer';
 import Summary from './components/summary/Summary';
 
 import AuthPage from './containers/AuthPage';

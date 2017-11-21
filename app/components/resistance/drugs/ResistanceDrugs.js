@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import styles from './ResistanceDrugs.css';
-import Panel from '../ui/Panel';
+import Panel from '../../ui/Panel';
 
 const firstLineDrugs = [
   'Isoniazid',

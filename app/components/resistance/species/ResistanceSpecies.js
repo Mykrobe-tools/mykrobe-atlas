@@ -2,7 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import styles from './ResistanceSpecies.css';
-import Panel from '../ui/Panel';
+import Panel from '../../ui/Panel';
 
 class ResistanceSpecies extends Component {
   render() {
