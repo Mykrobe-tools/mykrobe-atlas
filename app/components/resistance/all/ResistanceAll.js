@@ -1,18 +1,18 @@
 /* @flow */
 
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
 import styles from './ResistanceAll.css';
-import ResistanceProfileContainer from '../profile/ResistanceProfileContainer';
+import ResistanceProfile from '../profile/ResistanceProfile';
 import Panel from '../../ui/Panel';
 import Phylogeny from '../../phylogeny/Phylogeny';
 
 class ResistanceAll extends Component {
   render() {
+    const { analyser } = this.props;
     return (
       <div className={styles.container}>
         <Panel title="Resistance Profile" columns={IS_ELECTRON ? undefined : 3}>
-          <ResistanceProfileContainer />
+          <ResistanceProfile analyser={analyser} />
         </Panel>
         {!IS_ELECTRON && (
           <Panel title="Phylogeny" columns={5}>
@@ -24,15 +24,8 @@ class ResistanceAll extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser,
-  };
-}
-
 ResistanceAll.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps)(ResistanceAll);
+export default ResistanceAll;

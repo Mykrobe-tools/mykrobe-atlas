@@ -10,7 +10,7 @@ import About from './components/about/About';
 
 import Analysis from './components/analysis/Analysis';
 import Resistance from './components/resistance/resistance/Resistance';
-import ResistanceAll from './components/resistance/all/ResistanceAll';
+import ResistanceAllContainer from './components/resistance/all/ResistanceAllContainer';
 import ResistanceDrugsContainer from './components/resistance/drugs/ResistanceDrugsContainer';
 import ResistanceClass from './components/resistance/class/ResistanceClass';
 import ResistanceEvidenceContainer from './components/resistance/evidence/ResistanceEvidenceContainer';
@@ -24,7 +24,7 @@ export default (
       <IndexRedirect to="resistance" />
       <Route path="resistance" component={Resistance}>
         <IndexRedirect to="all" />
-        <Route path="all" component={ResistanceAll} />
+        <Route path="all" component={ResistanceAllContainer} />
         <Route path="drugs" component={ResistanceDrugsContainer} />
         <Route path="class" component={ResistanceClass} />
         <Route path="evidence" component={ResistanceEvidenceContainer} />

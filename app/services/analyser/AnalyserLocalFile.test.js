@@ -32,6 +32,9 @@ const testRenderUI = transformed => {
   };
   let component, tree;
 
+  // TODO; don't use snapshots since they will differ when running slow tests
+  // instead, test individual properties directly within the JSON
+
   component = renderer.create(<ResistanceDrugs analyser={mockAnalyser} />);
   tree = component.toJSON();
   expect(tree).toMatchSnapshot();

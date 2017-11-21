@@ -1,17 +1,6 @@
 /* @flow */
 
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import ResistanceDrugs from './ResistanceDrugs';
+import withAnalyser from '../../../hoc/withAnalyser';
 
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser,
-  };
-}
-
-ResistanceDrugs.propTypes = {
-  analyser: PropTypes.object.isRequired,
-};
-
-export default connect(mapStateToProps)(ResistanceDrugs);
+export default withAnalyser(ResistanceDrugs);
