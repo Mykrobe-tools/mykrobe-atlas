@@ -1,3 +1,5 @@
+// This will compile and run the production Electron app
+
 // we mock 'electron' for other tests but want to actually use it here
 jest.unmock('electron');
 
@@ -53,7 +55,7 @@ console.log('electronPath', electronPath);
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
 INCLUDE_SLOW_TESTS &&
-  describe('Electron e2e main window', () => {
+  describe('Electron e2e main window', function spec() {
     beforeAll(async () => {
       this.app = new Application({
         path: electronPath,
@@ -73,8 +75,26 @@ INCLUDE_SLOW_TESTS &&
 
       await client.waitUntilWindowLoaded();
       await delay(500);
+
       const title = await browserWindow.getTitle();
       expect(title).toBe(pkg.productName);
+
+      const isDevToolsOpened = await browserWindow.isDevToolsOpened();
+      expect(isDevToolsOpened).toBeFalsy();
+
+      const isMinimized = await browserWindow.isMinimized();
+      expect(isMinimized).toBeFalsy();
+
+      const isVisible = await browserWindow.isVisible();
+      expect(isVisible).toBeTruthy();
+
+      const isFocused = await browserWindow.isFocused();
+      expect(isFocused).toBeTruthy();
+
+      const bounds = await browserWindow.getBounds();
+      console.log('bounds', bounds);
+      expect(bounds.width).toBeGreaterThanOrEqual(640);
+      expect(bounds.height).toBeGreaterThanOrEqual(480);
     });
 
     it("should haven't any logs in console of main window", async () => {
