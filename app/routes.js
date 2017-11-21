@@ -1,6 +1,6 @@
 /* @flow */
 
-import React from 'react';
+import * as React from 'react';
 import { Route, Redirect, IndexRoute, IndexRedirect } from 'react-router';
 import LibraryPage from './containers/LibraryPage';
 import SamplePage from './containers/SamplePage';

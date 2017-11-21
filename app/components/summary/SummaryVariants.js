@@ -1,9 +1,10 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './SummaryVariants.css';
 
-class SummaryVariants extends Component {
+class SummaryVariants extends React.Component {
   render() {
     return (
       <div className={styles.container}>

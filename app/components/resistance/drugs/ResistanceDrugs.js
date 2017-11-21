@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './ResistanceDrugs.css';
 import Panel from '../../ui/Panel';
 
@@ -19,7 +20,7 @@ const secondLineDrugs = [
   'Kanamycin',
 ];
 
-class ResistanceDrugs extends Component {
+class ResistanceDrugs extends React.Component {
   renderDrugResistance() {
     const { analyser } = this.props;
     const { drugsResistance: { xdr, mdr } } = analyser.transformed;

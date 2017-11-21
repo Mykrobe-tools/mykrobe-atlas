@@ -5,7 +5,7 @@ import Lozenge from './Lozenge';
 import styles from './AnimatedBackground.css';
 import lozengeStyles from './Lozenge.css';
 
-class AnimatedBackground extends Component {
+class AnimatedBackground extends React.Component {
   state: {
     width: number,
     height: number,

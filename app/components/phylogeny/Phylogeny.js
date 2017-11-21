@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from './Phylogeny.css';
@@ -19,7 +20,7 @@ const treeTypes = [
 ];
 const AUTO_ZOOM_SAMPLES = true;
 
-class Phylogeny extends Component {
+class Phylogeny extends React.Component {
   state: {
     treeType: string,
   };

@@ -1,11 +1,12 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Library.css';
 import ExperimentsTable from '../experiments/ExperimentsTable';
 import ExperimentsHeader from '../experiments/ExperimentsHeader';
 
-class Library extends Component {
+class Library extends React.Component {
   render() {
     const { experiments } = this.props;
     return (

@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -11,7 +12,7 @@ import styles from './ExperimentsHeader.css';
 
 const filters = require('../../static/filters.json');
 
-class ExperimentsHeader extends Component {
+class ExperimentsHeader extends React.Component {
   state: {
     filterFields: Array<Object>,
     filterValues?: Array<Object>,

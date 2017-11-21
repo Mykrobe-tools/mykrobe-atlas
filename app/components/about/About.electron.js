@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './About.css';
 import Logo from '../logo/Logo';
@@ -9,7 +10,7 @@ import { launchWebsite } from '../../helpers/UIHelpers'; // eslint-disable-line 
 
 const pkg = require('../../../electron/static/package.json');
 
-class About extends Component {
+class About extends React.Component {
   back = e => {
     e.preventDefault();
     window.history.go(-1);

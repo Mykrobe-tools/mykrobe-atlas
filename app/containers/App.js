@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
@@ -13,7 +14,7 @@ import Notifications from '../components/notifications/Notifications';
 import * as AuthActions from '../actions/AuthActions';
 import Loading from '../components/ui/Loading';
 
-class App extends Component {
+class App extends React.Component {
   state = {
     displayMenu: Boolean,
   };

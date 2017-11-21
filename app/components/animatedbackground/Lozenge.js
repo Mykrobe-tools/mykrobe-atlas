@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Lozenge.css';
 
 const LozengeDimensions = {
@@ -8,7 +9,7 @@ const LozengeDimensions = {
   height: 65,
 };
 
-class Lozenge extends Component {
+class Lozenge extends React.Component {
   state: {
     initialised: boolean,
     x: number,

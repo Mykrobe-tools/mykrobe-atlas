@@ -1,8 +1,9 @@
 /* @flow */
 
-import { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
-class OrganisationPage extends Component {
+class OrganisationPage extends React.Component {
   render() {
     const { children } = this.props;
     return { ...children };

@@ -1,10 +1,11 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './FormButton.css';
 
-class FormButton extends Component {
+class FormButton extends React.Component {
   onClick(event: Event) {
     const { onClick } = this.props;
     if (onClick) {

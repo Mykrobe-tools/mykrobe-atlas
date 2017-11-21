@@ -1,9 +1,10 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './PopoverMenu.css';
 
-class PopoverMenu extends Component {
+class PopoverMenu extends React.Component {
   timeout = Number;
   state = {
     isActive: Boolean,

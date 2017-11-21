@@ -1,12 +1,13 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './ResistanceAll.css';
 import ResistanceProfile from '../profile/ResistanceProfile';
 import Panel from '../../ui/Panel';
 import Phylogeny from '../../phylogeny/Phylogeny';
 
-class ResistanceAll extends Component {
+class ResistanceAll extends React.Component {
   render() {
     const { analyser } = this.props;
     return (

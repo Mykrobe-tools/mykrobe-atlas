@@ -1,10 +1,11 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './FormLabel.css';
 
-class FormLabel extends Component {
+class FormLabel extends React.Component {
   render() {
     const { children, htmlFor, label } = this.props;
     return (

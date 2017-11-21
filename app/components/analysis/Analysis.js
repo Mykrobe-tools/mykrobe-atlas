@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import styles from './Analysis.css';
 import GoogleMapsLoader from 'google-maps';
@@ -12,7 +13,7 @@ import * as NodeActions from '../../actions/NodeActions';
 import MapStyle from './MapStyle';
 import config from '../../config';
 
-class Analysis extends Component {
+class Analysis extends React.Component {
   _google: Object;
   _map: Object;
   _mapDiv: Object;

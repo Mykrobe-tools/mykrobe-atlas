@@ -1,13 +1,14 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AnalyserActions from '../actions/AnalyserActions';
 import Upload from '../components/upload/Upload';
 import UploadService from '../services/upload/UploadService';
 
-class HomePage extends Component {
+class HomePage extends React.Component {
   service: UploadService;
 
   constructor() {

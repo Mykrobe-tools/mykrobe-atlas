@@ -1,10 +1,11 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './ResistanceSpecies.css';
 import Panel from '../../ui/Panel';
 
-class ResistanceSpecies extends Component {
+class ResistanceSpecies extends React.Component {
   render() {
     const { analyser } = this.props;
     const { speciesPretty } = analyser.transformed;

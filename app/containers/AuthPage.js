@@ -1,8 +1,9 @@
 /* @flow */
 
-import { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
-class AuthPage extends Component {
+class AuthPage extends React.Component {
   render() {
     const { children } = this.props;
     return { ...children };

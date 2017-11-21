@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Summary.css';
 import Uploading from '../ui/Uploading';
 import ResistanceProfile from '../resistance/profile/ResistanceProfile';
@@ -8,7 +9,7 @@ import Panel from '../ui/Panel';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';
 
-class Summary extends Component {
+class Summary extends React.Component {
   render() {
     const { analyser } = this.props;
     let content;

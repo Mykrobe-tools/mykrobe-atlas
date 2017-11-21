@@ -1,7 +1,8 @@
 /* @flow */
 
 import { Tree, Branch, utils } from 'phylocanvas';
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './PhyloCanvasComponent.css';
 import * as Colors from '../../constants/Colors';
 import PhyloCanvasTooltip from './PhyloCanvasTooltip';
@@ -21,7 +22,7 @@ class DrawEventTree extends Tree {
   }
 }
 
-class PhyloCanvasComponent extends Component {
+class PhyloCanvasComponent extends React.Component {
   _drawDeferredTimeout: number;
   _resize: (e: Event) => void;
   _mouseMove: (e: MouseEvent) => void;

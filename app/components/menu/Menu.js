@@ -1,11 +1,12 @@
 /* @flow */
 
-import React, { Component, PropTypes } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import styles from './Menu.css';
 import Logo from '../logo/Logo';
 
-class Menu extends Component {
+class Menu extends React.Component {
   render() {
     const { displayMenu } = this.props;
     return (
