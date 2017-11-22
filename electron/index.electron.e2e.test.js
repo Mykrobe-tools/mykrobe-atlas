@@ -26,11 +26,17 @@ const binFolder = path.join(
   __dirname,
   `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
 );
-const exists = fs.existsSync(path.join(binFolder, 'mykrobe_predictor'));
+const executableName =
+  plat === 'win32' ? 'mykrobe_predictor.exe' : 'mykrobe_predictor';
+const executablePath = path.join(binFolder, executableName);
+console.log(`Checking for existence of '${executablePath}'`);
+const exists = fs.existsSync(executablePath);
 
 // check for existence of binary and bail with error
 if (!exists) {
-  throw 'Please run `yarn build-predictor-binaries` before running this test';
+  throw `No executable found at '${
+    executablePath
+  }' - Please run 'yarn build-predictor-binaries' before running this test`;
 }
 
 describe('Electron e2e prerequisites', () => {
@@ -40,15 +46,26 @@ describe('Electron e2e prerequisites', () => {
   });
 });
 
-// TODO test on Windows - this is currently MacOS specific
-const electronPath = path.join(
-  __dirname,
-  'release',
-  `${plat}-${arch}`,
-  `${pkg.productName}-${plat}-${arch}`,
-  `${pkg.productName}.app`,
-  `Contents/MacOS/${pkg.productName}`
-);
+let electronPath;
+
+if (plat === 'win32') {
+  electronPath = path.join(
+    __dirname,
+    'release',
+    `${plat}-${arch}`,
+    `${pkg.productName}-${plat}-${arch}`,
+    `${pkg.productName}.exe`
+  );
+} else {
+  electronPath = path.join(
+    __dirname,
+    'release',
+    `${plat}-${arch}`,
+    `${pkg.productName}-${plat}-${arch}`,
+    `${pkg.productName}.app`,
+    `Contents/MacOS/${pkg.productName}`
+  );
+}
 
 console.log('electronPath', electronPath);
 
