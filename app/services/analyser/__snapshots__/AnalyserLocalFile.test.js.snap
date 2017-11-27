@@ -404,7 +404,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 4`] = `
               "__html": "<em>Mycobacterium tuberculosis</em> (lineage: European American)",
             }
           }
-          tid="species"
+          data-tid="species"
         />
       </div>
     </div>

@@ -80,6 +80,17 @@ const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
 INCLUDE_SLOW_TESTS &&
   describe('Electron e2e main window', function spec() {
+    const textForSelector = async selector => {
+      const { client } = this.app;
+      const { value } = await client.elements(selector);
+      let result = [];
+      for (let i = 0; i < value.length; i++) {
+        const r = await client.elementIdText(value[i].ELEMENT);
+        result.push(r.value.toLowerCase());
+      }
+      return result.length > 1 ? result : result[0];
+    };
+
     beforeAll(async () => {
       this.app = new Application({
         path: electronPath,
@@ -187,13 +198,34 @@ INCLUDE_SLOW_TESTS &&
     it('should display the expected results', async () => {
       const { client } = this.app;
 
-      // click each section
+      // click each section and check the result shown in the UI
+
+      // drugs or class
 
       if (TargetConstants.SPECIES_TB === config.species) {
         await client.click('[data-tid="button-resistance-drugs"]');
         expect(
           await client.waitForVisible('[data-tid="component-resistance-drugs"]')
         ).toBe(true);
+        const firstLineDrugs = await textForSelector(
+          '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
+        );
+        expect(firstLineDrugs).toEqual([
+          'isoniazid susceptible',
+          'rifampicin resistant',
+          'ethambutol resistant',
+          'pyrazinamide susceptible',
+        ]);
+        const secondLineDrugs = await textForSelector(
+          '[data-tid="panel-second-line-drugs"] [data-tid="drug"]'
+        );
+        expect(secondLineDrugs).toEqual([
+          'quinolones resistant',
+          'streptomycin susceptible',
+          'amikacin susceptible',
+          'capreomycin susceptible',
+          'kanamycin susceptible',
+        ]);
       } else {
         await client.click('[data-tid="button-resistance-class"]');
         expect(
@@ -201,21 +233,58 @@ INCLUDE_SLOW_TESTS &&
         ).toBe(true);
       }
 
+      // evidence
+
       await client.click('[data-tid="button-resistance-evidence"]');
       expect(
         await client.waitForVisible(
           '[data-tid="component-resistance-evidence"]'
         )
       ).toBe(true);
+      const evidence = await textForSelector('[data-tid="evidence"]');
+      expect(evidence).toEqual([
+        'resistance mutation found: i491f in gene rpob',
+        'resistant allele coverage: 78',
+        'susceptible allele coverage: 0',
+        'resistance mutation found: m306i in gene embb',
+        'resistant allele coverage: 77',
+        'susceptible allele coverage: 0',
+        'resistance mutation found: d94g in gene gyra',
+        'resistant allele coverage: 89',
+        'susceptible allele coverage: 0',
+      ]);
+
+      // species
 
       await client.click('[data-tid="button-resistance-species"]');
       expect(
         await client.waitForVisible('[data-tid="component-resistance-species"]')
       ).toBe(true);
+      const species = await textForSelector('[data-tid="species"]');
+      expect(species).toEqual(
+        'mycobacterium tuberculosis (lineage: european american)'
+      );
+
+      // all
 
       await client.click('[data-tid="button-resistance-all"]');
       expect(
         await client.waitForVisible('[data-tid="component-resistance-all"]')
       ).toBe(true);
+      const susceptible = await textForSelector(
+        '[data-tid="column-susceptible"] [data-tid="drug"]'
+      );
+      expect(susceptible).toEqual([
+        'capreomycin',
+        'isoniazid',
+        'amikacin',
+        'pyrazinamide',
+        'kanamycin',
+        'streptomycin',
+      ]);
+      const resistant = await textForSelector(
+        '[data-tid="column-resistant"] [data-tid="drug"]'
+      );
+      expect(resistant).toEqual(['rifampicin', 'ethambutol', 'quinolones']);
     });
   });
