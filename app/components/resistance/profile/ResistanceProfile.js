@@ -39,13 +39,18 @@ class ResistanceProfile extends React.Component {
     if (!elements || !elements.length) {
       return null;
     }
+    const tid = `column-${title.toLowerCase()}`;
     return (
-      <div className={styles.column}>
+      <div className={styles.column} data-tid={tid}>
         <div className={titleStyle}>
           <i className={`fa ${icon}`} /> {title}
         </div>
         {elements.map(element => {
-          return <div key={`ELEMENT_${element}`}>{element}</div>;
+          return (
+            <div key={`ELEMENT_${element}`} data-tid="drug">
+              {element}
+            </div>
+          );
         })}
       </div>
     );

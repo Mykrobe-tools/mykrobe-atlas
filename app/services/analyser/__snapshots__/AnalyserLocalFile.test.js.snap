@@ -7,6 +7,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
 >
   <div
     className="panelContainer"
+    data-tid="panel-first-line-drugs"
     style={undefined}
   >
     <div
@@ -23,7 +24,9 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
         <div
           className="drugs"
         >
-          <div>
+          <div
+            data-tid="drug"
+          >
             Isoniazid
              
             <div
@@ -32,7 +35,9 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
               Susceptible
             </div>
           </div>
-          <div>
+          <div
+            data-tid="drug"
+          >
             Rifampicin
              
             <div
@@ -41,7 +46,9 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
               Resistant
             </div>
           </div>
-          <div>
+          <div
+            data-tid="drug"
+          >
             Ethambutol
              
             <div
@@ -50,7 +57,9 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
               Resistant
             </div>
           </div>
-          <div>
+          <div
+            data-tid="drug"
+          >
             Pyrazinamide
              
             <div
@@ -65,6 +74,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
   </div>
   <div
     className="panelContainer"
+    data-tid="panel-second-line-drugs"
     style={undefined}
   >
     <div
@@ -81,7 +91,9 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
         <div
           className="drugs"
         >
-          <div>
+          <div
+            data-tid="drug"
+          >
             Quinolones
              
             <div
@@ -90,7 +102,9 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
               Resistant
             </div>
           </div>
-          <div>
+          <div
+            data-tid="drug"
+          >
             Streptomycin
              
             <div
@@ -99,7 +113,9 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
               Susceptible
             </div>
           </div>
-          <div>
+          <div
+            data-tid="drug"
+          >
             Amikacin
              
             <div
@@ -108,7 +124,9 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
               Susceptible
             </div>
           </div>
-          <div>
+          <div
+            data-tid="drug"
+          >
             Capreomycin
              
             <div
@@ -117,7 +135,9 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
               Susceptible
             </div>
           </div>
-          <div>
+          <div
+            data-tid="drug"
+          >
             Kanamycin
              
             <div
@@ -140,6 +160,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 2`] = `
 >
   <div
     className="panelContainer"
+    data-tid="panel-rifampicin"
     style={
       Object {
         "flex": "initial",
@@ -161,13 +182,19 @@ exports[`AnalyserLocalFile should analyse and render a json file 2`] = `
         <div
           className="evidence"
         >
-          <div>
+          <div
+            data-tid="evidence"
+          >
             Resistance mutation found: I491F in gene rpoB
           </div>
-          <div>
+          <div
+            data-tid="evidence"
+          >
             Resistant allele coverage: 78
           </div>
-          <div>
+          <div
+            data-tid="evidence"
+          >
             Susceptible allele coverage: 0
           </div>
         </div>
@@ -176,6 +203,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 2`] = `
   </div>
   <div
     className="panelContainer"
+    data-tid="panel-ethambutol"
     style={
       Object {
         "flex": "initial",
@@ -197,13 +225,19 @@ exports[`AnalyserLocalFile should analyse and render a json file 2`] = `
         <div
           className="evidence"
         >
-          <div>
+          <div
+            data-tid="evidence"
+          >
             Resistance mutation found: M306I in gene embB
           </div>
-          <div>
+          <div
+            data-tid="evidence"
+          >
             Resistant allele coverage: 77
           </div>
-          <div>
+          <div
+            data-tid="evidence"
+          >
             Susceptible allele coverage: 0
           </div>
         </div>
@@ -212,6 +246,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 2`] = `
   </div>
   <div
     className="panelContainer"
+    data-tid="panel-quinolones"
     style={
       Object {
         "flex": "initial",
@@ -233,13 +268,19 @@ exports[`AnalyserLocalFile should analyse and render a json file 2`] = `
         <div
           className="evidence"
         >
-          <div>
+          <div
+            data-tid="evidence"
+          >
             Resistance mutation found: D94G in gene gyrA
           </div>
-          <div>
+          <div
+            data-tid="evidence"
+          >
             Resistant allele coverage: 89
           </div>
-          <div>
+          <div
+            data-tid="evidence"
+          >
             Susceptible allele coverage: 0
           </div>
         </div>
@@ -256,6 +297,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 3`] = `
 >
   <div
     className="column"
+    data-tid="column-susceptible"
   >
     <div
       className="columnTitleSusceptible"
@@ -266,27 +308,40 @@ exports[`AnalyserLocalFile should analyse and render a json file 3`] = `
        
       Susceptible
     </div>
-    <div>
+    <div
+      data-tid="drug"
+    >
       Capreomycin
     </div>
-    <div>
+    <div
+      data-tid="drug"
+    >
       Isoniazid
     </div>
-    <div>
+    <div
+      data-tid="drug"
+    >
       Amikacin
     </div>
-    <div>
+    <div
+      data-tid="drug"
+    >
       Pyrazinamide
     </div>
-    <div>
+    <div
+      data-tid="drug"
+    >
       Kanamycin
     </div>
-    <div>
+    <div
+      data-tid="drug"
+    >
       Streptomycin
     </div>
   </div>
   <div
     className="column"
+    data-tid="column-resistant"
   >
     <div
       className="columnTitleResistant"
@@ -297,13 +352,19 @@ exports[`AnalyserLocalFile should analyse and render a json file 3`] = `
        
       Resistant
     </div>
-    <div>
+    <div
+      data-tid="drug"
+    >
       Rifampicin
     </div>
-    <div>
+    <div
+      data-tid="drug"
+    >
       Ethambutol
     </div>
-    <div>
+    <div
+      data-tid="drug"
+    >
       Quinolones
     </div>
   </div>
@@ -317,6 +378,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 4`] = `
 >
   <div
     className="panelContainer"
+    data-tid="panel-species"
     style={
       Object {
         "flex": "initial",
@@ -342,6 +404,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 4`] = `
               "__html": "<em>Mycobacterium tuberculosis</em> (lineage: European American)",
             }
           }
+          tid="species"
         />
       </div>
     </div>

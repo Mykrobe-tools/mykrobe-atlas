@@ -80,7 +80,7 @@ class ResistanceDrugs extends React.Component {
         );
       }
       elements.push(
-        <div key={`ELEMENT_${index}`}>
+        <div key={`ELEMENT_${index}`} data-tid="drug">
           {drug} {indicators}
         </div>
       );

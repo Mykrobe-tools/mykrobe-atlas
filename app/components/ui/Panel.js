@@ -11,8 +11,10 @@ class Panel extends React.Component {
     if (columns) {
       style = { width: `${100 * columns / 8}%`, flex: 'initial' };
     }
+    const tidTitle = title.replace(/\s/g, '-').toLowerCase();
+    const tid = `panel-${tidTitle}`;
     return (
-      <div className={styles.panelContainer} style={style}>
+      <div className={styles.panelContainer} style={style} data-tid={tid}>
         <div className={styles.panelContent}>
           {title && <div className={styles.panelTitle}>{title}</div>}
           <div className={styles.panelChildrenContainer}>{children}</div>

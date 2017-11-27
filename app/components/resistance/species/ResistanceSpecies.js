@@ -16,6 +16,7 @@ class ResistanceSpecies extends React.Component {
           <div
             className={styles.species}
             dangerouslySetInnerHTML={{ __html: speciesPretty }}
+            tid="species"
           />
         </Panel>
       </div>
