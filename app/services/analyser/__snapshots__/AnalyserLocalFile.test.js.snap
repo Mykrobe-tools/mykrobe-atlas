@@ -190,7 +190,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 2`] = `
           <div
             data-tid="evidence"
           >
-            Resistant allele coverage: 78
+            Resistant allele coverage: 79
           </div>
           <div
             data-tid="evidence"

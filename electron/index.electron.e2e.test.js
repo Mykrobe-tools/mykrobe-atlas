@@ -244,7 +244,7 @@ INCLUDE_SLOW_TESTS &&
       const evidence = await textForSelector('[data-tid="evidence"]');
       expect(evidence).toEqual([
         'resistance mutation found: i491f in gene rpob',
-        'resistant allele coverage: 78',
+        'resistant allele coverage: 79',
         'susceptible allele coverage: 0',
         'resistance mutation found: m306i in gene embb',
         'resistant allele coverage: 77',
