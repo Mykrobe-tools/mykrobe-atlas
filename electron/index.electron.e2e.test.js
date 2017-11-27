@@ -15,10 +15,11 @@ import { executeCommand } from './util';
 const arch = os.arch();
 const plat = os.platform();
 
+const BAM_FOLDER = `${process.env.HOME}/Dropbox/bams/`;
 const INCLUDE_SLOW_TESTS =
   process.env.INCLUDE_SLOW_TESTS && process.env.INCLUDE_SLOW_TESTS === 'true';
 
-jest.setTimeout(10 * 60 * 1000); // 10 minutes?
+jest.setTimeout(10 * 60 * 1000); // 10 minutes
 
 // prerequisites
 
@@ -44,11 +45,17 @@ describe('Electron e2e prerequisites', () => {
     executeCommand('yarn electron-package');
     done();
   });
+  INCLUDE_SLOW_TESTS &&
+    it('should create distribution app', done => {
+      executeCommand('yarn electron-dist');
+      done();
+    });
 });
 
 let electronPath;
 
 if (plat === 'win32') {
+  // TODO change this to distribution app
   electronPath = path.join(
     __dirname,
     'release',
@@ -59,9 +66,7 @@ if (plat === 'win32') {
 } else {
   electronPath = path.join(
     __dirname,
-    'release',
-    `${plat}-${arch}`,
-    `${pkg.productName}-${plat}-${arch}`,
+    'dist/mac',
     `${pkg.productName}.app`,
     `Contents/MacOS/${pkg.productName}`
   );
@@ -124,5 +129,50 @@ INCLUDE_SLOW_TESTS &&
         console.log(log.level);
       });
       expect(logs).toHaveLength(0);
+    });
+
+    it('should open a file', async done => {
+      const { client, webContents } = this.app;
+      const filePath = path.join(BAM_FOLDER, 'tb', 'C00009037_R00000039.bam');
+
+      // check existence of component
+      expect(await client.isExisting('[data-tid="component-upload"]')).toBe(
+        true
+      );
+
+      // check existence of button
+      expect(
+        await client.isExisting('[data-tid="button-analyse-sample"]')
+      ).toBe(true);
+
+      // send file > open event
+      webContents.send('open-file', filePath);
+
+      // await UI change
+      await delay(500);
+
+      // check existence of cancel button
+      expect(
+        await client.isExisting('[data-tid="button-analyse-cancel"]')
+      ).toBe(true);
+
+      // check status text
+      expect(
+        (await client
+          .element('[data-tid="status-text"]')
+          .getText()).toLowerCase()
+      ).toBe('analysing');
+
+      // TODO check for progress changes once reinstated
+
+      // wait for results to appear
+      expect(
+        await client.waitForVisible(
+          '[data-tid="component-resistance"]',
+          10 * 60 * 1000
+        )
+      ).toBe(true);
+
+      done();
     });
   });

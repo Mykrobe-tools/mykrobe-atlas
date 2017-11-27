@@ -18,7 +18,7 @@ class Resistance extends React.Component {
     const config = new MykrobeConfig();
 
     return (
-      <div className={styles.container}>
+      <div className={styles.container} data-tid="component-resistance">
         <div className={styles.header}>
           <div className={styles.logo}>
             <Logo />
