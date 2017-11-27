@@ -28,6 +28,7 @@ class Resistance extends React.Component {
               to={`${path}/all`}
               className={styles.navigationItem}
               activeClassName={styles.navigationItemActive}
+              data-tid="button-resistance-all"
             >
               All
             </Link>
@@ -36,6 +37,7 @@ class Resistance extends React.Component {
                 to={`${path}/drugs`}
                 className={styles.navigationItem}
                 activeClassName={styles.navigationItemActive}
+                data-tid="button-resistance-drugs"
               >
                 Drugs
               </Link>
@@ -44,6 +46,7 @@ class Resistance extends React.Component {
                 to={`${path}/class`}
                 className={styles.navigationItem}
                 activeClassName={styles.navigationItemActive}
+                data-tid="button-resistance-class"
               >
                 Class
               </Link>
@@ -52,6 +55,7 @@ class Resistance extends React.Component {
               to={`${path}/evidence`}
               className={styles.navigationItem}
               activeClassName={styles.navigationItemActive}
+              data-tid="button-resistance-evidence"
             >
               Evidence
             </Link>
@@ -59,6 +63,7 @@ class Resistance extends React.Component {
               to={`${path}/species`}
               className={styles.navigationItem}
               activeClassName={styles.navigationItemActive}
+              data-tid="button-resistance-species"
             >
               Species
             </Link>

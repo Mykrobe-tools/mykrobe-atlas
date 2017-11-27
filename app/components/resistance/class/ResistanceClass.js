@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 class ResistanceClass extends React.Component {
   render() {
-    return <div>ResistanceClass</div>;
+    return <div data-tid="component-resistance-class">ResistanceClass</div>;
   }
 }
 

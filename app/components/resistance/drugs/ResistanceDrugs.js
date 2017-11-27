@@ -40,7 +40,7 @@ class ResistanceDrugs extends React.Component {
 
   render() {
     return (
-      <div className={styles.container}>
+      <div className={styles.container} data-tid="component-resistance-drugs">
         <Panel title="First line drugs">
           {this.listDrugsWithIndicators(firstLineDrugs)}
         </Panel>

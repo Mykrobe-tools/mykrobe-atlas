@@ -22,7 +22,14 @@ class ResistanceEvidence extends React.Component {
         </Panel>
       );
     }
-    return <div className={styles.container}>{panels}</div>;
+    return (
+      <div
+        className={styles.container}
+        data-tid="component-resistance-evidence"
+      >
+        {panels}
+      </div>
+    );
   }
 }
 

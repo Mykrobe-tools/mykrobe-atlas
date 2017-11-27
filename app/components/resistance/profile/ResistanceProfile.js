@@ -12,7 +12,7 @@ class ResistanceProfile extends React.Component {
     }
     const { resistant, susceptible, inconclusive } = analyser.transformed;
     return (
-      <div className={styles.container}>
+      <div className={styles.container} data-tid="component-resistance-profile">
         {this.column(
           styles.columnTitleSusceptible,
           'fa-check-circle',

@@ -3,6 +3,7 @@
 exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
 <div
   className="container"
+  data-tid="component-resistance-drugs"
 >
   <div
     className="panelContainer"
@@ -135,6 +136,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 1`] = `
 exports[`AnalyserLocalFile should analyse and render a json file 2`] = `
 <div
   className="container"
+  data-tid="component-resistance-evidence"
 >
   <div
     className="panelContainer"
@@ -250,6 +252,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 2`] = `
 exports[`AnalyserLocalFile should analyse and render a json file 3`] = `
 <div
   className="container"
+  data-tid="component-resistance-profile"
 >
   <div
     className="column"
@@ -310,6 +313,7 @@ exports[`AnalyserLocalFile should analyse and render a json file 3`] = `
 exports[`AnalyserLocalFile should analyse and render a json file 4`] = `
 <div
   className="container"
+  data-tid="component-resistance-species"
 >
   <div
     className="panelContainer"

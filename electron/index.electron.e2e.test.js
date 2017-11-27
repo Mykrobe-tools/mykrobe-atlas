@@ -8,6 +8,10 @@ import path from 'path';
 import os from 'os';
 import fs from 'fs-extra';
 
+import MykrobeConfig from '../app/services/MykrobeConfig';
+import * as TargetConstants from '../app/constants/TargetConstants';
+const config = new MykrobeConfig();
+
 const pkg = require('../package.json');
 
 import { executeCommand } from './util';
@@ -18,6 +22,7 @@ const plat = os.platform();
 const BAM_FOLDER = `${process.env.HOME}/Dropbox/bams/`;
 const INCLUDE_SLOW_TESTS =
   process.env.INCLUDE_SLOW_TESTS && process.env.INCLUDE_SLOW_TESTS === 'true';
+const USE_JSON = false;
 
 jest.setTimeout(10 * 60 * 1000); // 10 minutes
 
@@ -55,7 +60,6 @@ describe('Electron e2e prerequisites', () => {
 let electronPath;
 
 if (plat === 'win32') {
-  // TODO change this to distribution app
   electronPath = path.join(
     __dirname,
     'dist/win-unpacked',
@@ -131,7 +135,12 @@ INCLUDE_SLOW_TESTS &&
 
     it('should open a file', async done => {
       const { client, webContents } = this.app;
-      const filePath = path.join(BAM_FOLDER, 'tb', 'C00009037_R00000039.bam');
+      const extension = USE_JSON ? 'json' : 'bam';
+      const filePath = path.join(
+        BAM_FOLDER,
+        'tb',
+        `C00009037_R00000039.${extension}`
+      );
 
       // check existence of component
       expect(await client.isExisting('[data-tid="component-upload"]')).toBe(
@@ -146,23 +155,24 @@ INCLUDE_SLOW_TESTS &&
       // send file > open event
       webContents.send('open-file', filePath);
 
-      // await UI change
-      await delay(500);
+      if (!USE_JSON) {
+        // await UI change
+        await delay(500);
 
-      // check existence of cancel button
-      expect(
-        await client.isExisting('[data-tid="button-analyse-cancel"]')
-      ).toBe(true);
+        // check existence of cancel button
+        expect(
+          await client.isExisting('[data-tid="button-analyse-cancel"]')
+        ).toBe(true);
 
-      // check status text
-      expect(
-        (await client
-          .element('[data-tid="status-text"]')
-          .getText()).toLowerCase()
-      ).toBe('analysing');
+        // check status text
+        expect(
+          (await client
+            .element('[data-tid="status-text"]')
+            .getText()).toLowerCase()
+        ).toBe('analysing');
 
-      // TODO check for progress changes once reinstated
-
+        // TODO check for progress changes once reinstated
+      }
       // wait for results to appear
       expect(
         await client.waitForVisible(
@@ -172,5 +182,40 @@ INCLUDE_SLOW_TESTS &&
       ).toBe(true);
 
       done();
+    });
+
+    it('should display the expected results', async () => {
+      const { client } = this.app;
+
+      // click each section
+
+      if (TargetConstants.SPECIES_TB === config.species) {
+        await client.click('[data-tid="button-resistance-drugs"]');
+        expect(
+          await client.waitForVisible('[data-tid="component-resistance-drugs"]')
+        ).toBe(true);
+      } else {
+        await client.click('[data-tid="button-resistance-class"]');
+        expect(
+          await client.waitForVisible('[data-tid="component-resistance-class"]')
+        ).toBe(true);
+      }
+
+      await client.click('[data-tid="button-resistance-evidence"]');
+      expect(
+        await client.waitForVisible(
+          '[data-tid="component-resistance-evidence"]'
+        )
+      ).toBe(true);
+
+      await client.click('[data-tid="button-resistance-species"]');
+      expect(
+        await client.waitForVisible('[data-tid="component-resistance-species"]')
+      ).toBe(true);
+
+      await client.click('[data-tid="button-resistance-all"]');
+      expect(
+        await client.waitForVisible('[data-tid="component-resistance-all"]')
+      ).toBe(true);
     });
   });

@@ -11,7 +11,7 @@ class ResistanceSpecies extends React.Component {
     const { speciesPretty } = analyser.transformed;
 
     return (
-      <div className={styles.container}>
+      <div className={styles.container} data-tid="component-resistance-species">
         <Panel title="Species" columns={8}>
           <div
             className={styles.species}
