@@ -34,7 +34,7 @@ $ yarn set-target
 
 ## Tests
 
-This project has the concept of 'slow' tests. Typically these are tests which involve analysing a sample and may take several minutes to complete.
+This project has the concept of 'slow' tests. Typically these are tests which involve analysing a sample or compiling the app and may take several minutes to complete.
 
 Potentially slow tests can check if they should execute by checking the for env variable `process.env.INCLUDE_SLOW_TESTS === 'true'`
 
@@ -43,6 +43,8 @@ To run the general test suite:
 ```
 $ yarn test
 ```
+
+> At present this will generate harmless `PropTypes` and `createClass` warnings. Updating webpack, react-router and then react to current versions will eventually fix this.
 
 To run all tests including slow ones:
 

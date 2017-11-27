@@ -17,12 +17,23 @@ class ResistanceEvidence extends React.Component {
       panels.push(
         <Panel key={panels.length} title={title} columns={4}>
           <div className={styles.evidence}>
-            {values.map((value, index) => <div key={index}>{value}</div>)}
+            {values.map((value, index) => (
+              <div key={index} data-tid="evidence">
+                {value}
+              </div>
+            ))}
           </div>
         </Panel>
       );
     }
-    return <div className={styles.container}>{panels}</div>;
+    return (
+      <div
+        className={styles.container}
+        data-tid="component-resistance-evidence"
+      >
+        {panels}
+      </div>
+    );
   }
 }
 

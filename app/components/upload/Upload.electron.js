@@ -10,7 +10,6 @@ import Logo from '../logo/Logo';
 import * as UIHelpers from '../../helpers/UIHelpers';
 
 class Upload extends React.Component {
-
   onOpenClick = () => {
     const { analyseFile } = this.props;
     const filePath = UIHelpers.openFileDialog();
@@ -41,6 +40,7 @@ class Upload extends React.Component {
             type="button"
             className={styles.button}
             onClick={this.onOpenClick}
+            data-tid="button-analyse-sample"
           >
             Analyse Sample
           </button>
@@ -70,12 +70,15 @@ class Upload extends React.Component {
           <div className={styles.progressTitle}>{analyser.progress}%</div>
         )}
         <CircularProgress percentage={progress} />
-        <div className={styles.progressStatus}>{statusText}</div>
+        <div className={styles.progressStatus} data-tid="status-text">
+          {statusText}
+        </div>
         <div className={styles.buttonContainer}>
           <button
             type="button"
             className={styles.button}
             onClick={this.onCancelClick.bind(this)}
+            data-tid="button-analyse-cancel"
           >
             Cancel
           </button>
@@ -87,7 +90,7 @@ class Upload extends React.Component {
   render() {
     const { analyser } = this.props;
     return (
-      <div className={styles.container}>
+      <div className={styles.container} data-tid="component-upload">
         <AnimatedBackground />
         <div className={styles.contentContainer}>
           {analyser.analysing

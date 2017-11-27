@@ -5,13 +5,12 @@
     <title>Mykrobe Predictor TB</title>
     <script>
       (function () {
-        const font = (process.env.HOT ? '../' : './') +
-          'node_modules/font-awesome/css/font-awesome.min.css';
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = font;
-        // document.write(link.outerHTML);
-        document.getElementsByTagName('head')[0].appendChild(link);
+        if (process.env.HOT) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = '../node_modules/font-awesome/css/font-awesome.min.css';
+          document.getElementsByTagName('head')[0].appendChild(link);
+        }
       }());
     </script>
     <script>
@@ -20,7 +19,6 @@
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = './style.css';
-          // document.write(link.outerHTML);
           document.getElementsByTagName('head')[0].appendChild(link);
         }
       }());

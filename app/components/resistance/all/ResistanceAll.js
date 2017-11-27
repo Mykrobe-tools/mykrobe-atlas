@@ -11,7 +11,7 @@ class ResistanceAll extends React.Component {
   render() {
     const { analyser } = this.props;
     return (
-      <div className={styles.container}>
+      <div className={styles.container} data-tid="component-resistance-all">
         <Panel title="Resistance Profile" columns={IS_ELECTRON ? undefined : 3}>
           <ResistanceProfile analyser={analyser} />
         </Panel>
