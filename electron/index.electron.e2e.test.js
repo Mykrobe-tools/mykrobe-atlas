@@ -58,9 +58,7 @@ if (plat === 'win32') {
   // TODO change this to distribution app
   electronPath = path.join(
     __dirname,
-    'release',
-    `${plat}-${arch}`,
-    `${pkg.productName}-${plat}-${arch}`,
+    'dist/win-unpacked',
     `${pkg.productName}.exe`
   );
 } else {

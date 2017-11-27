@@ -8,6 +8,7 @@
   "scripts": {
     "test": "jest",
     "test:slow": "cross-env INCLUDE_SLOW_TESTS=true jest",
+    "test:e2e": "cross-env INCLUDE_SLOW_TESTS=true jest -t 'e2e'",
     "test:watch": "yarn test --watch",
     "flow": "flow",
     "lint:css": "stylelint \"app/**/*.css\"",
