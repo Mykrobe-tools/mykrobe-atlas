@@ -85,7 +85,20 @@ export const updateStaticPackageJson = () => {
   staticPackageJson.description = pkg.description;
   staticPackageJson.productName = pkg.productName;
   staticPackageJson.version = pkg.version;
+
+  const versionPath = path.join(
+    __dirname,
+    '../predictor-binaries/Mykrobe-predictor/VERSION'
+  );
+  const exists = fs.existsSync(versionPath);
+  if (exists) {
+    const version = fs.readFileSync(versionPath, 'utf8');
+    staticPackageJson.executableVersion = version.trim();
+  } else {
+    delete staticPackageJson.executableVersion;
+  }
+
   const json = JSON.stringify(staticPackageJson, null, 2);
-  const filePath = path.resolve(__dirname, '../static/package.json');
+  const filePath = path.join(__dirname, '../static/package.json');
   fs.writeFileSync(filePath, json);
 };
