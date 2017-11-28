@@ -54,3 +54,6 @@ tmp
 
 # mock api file uploads
 web/tmp
+
+# large test fixtures
+test/__fixtures__/bams

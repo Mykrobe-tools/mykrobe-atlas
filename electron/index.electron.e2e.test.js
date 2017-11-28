@@ -5,8 +5,6 @@ jest.unmock('electron');
 
 import { Application } from 'spectron';
 import path from 'path';
-import os from 'os';
-import fs from 'fs-extra';
 
 import MykrobeConfig from '../app/services/MykrobeConfig';
 import * as TargetConstants from '../app/constants/TargetConstants';
@@ -14,36 +12,23 @@ const config = new MykrobeConfig();
 
 const pkg = require('../package.json');
 
-import { executeCommand } from './util';
+import {
+  executeCommand,
+  ensurePredictorBinaries,
+  ensureBams,
+  INCLUDE_SLOW_TESTS,
+  ELECTRON_EXECUTABLE_PATH,
+  BAM_FOLDER_PATH,
+} from './util';
 
-const arch = os.arch();
-const plat = os.platform();
-
-const BAM_FOLDER = `${process.env.HOME}/Dropbox/bams/`;
-const INCLUDE_SLOW_TESTS =
-  process.env.INCLUDE_SLOW_TESTS && process.env.INCLUDE_SLOW_TESTS === 'true';
 const USE_JSON = false;
 
 jest.setTimeout(10 * 60 * 1000); // 10 minutes
 
 // prerequisites
 
-const binFolder = path.join(
-  __dirname,
-  `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
-);
-const executableName =
-  plat === 'win32' ? 'mykrobe_predictor.exe' : 'mykrobe_predictor';
-const executablePath = path.join(binFolder, executableName);
-console.log(`Checking for existence of '${executablePath}'`);
-const exists = fs.existsSync(executablePath);
-
-// check for existence of binary and bail with error
-if (!exists) {
-  throw `No executable found at '${
-    executablePath
-  }' - Please run 'yarn build-predictor-binaries' before running this test`;
-}
+ensurePredictorBinaries();
+ensureBams();
 
 describe('Electron e2e prerequisites', () => {
   it('should package app', done => {
@@ -57,24 +42,7 @@ describe('Electron e2e prerequisites', () => {
     });
 });
 
-let electronPath;
-
-if (plat === 'win32') {
-  electronPath = path.join(
-    __dirname,
-    'dist/win-unpacked',
-    `${pkg.productName}.exe`
-  );
-} else {
-  electronPath = path.join(
-    __dirname,
-    'dist/mac',
-    `${pkg.productName}.app`,
-    `Contents/MacOS/${pkg.productName}`
-  );
-}
-
-console.log('electronPath', electronPath);
+console.log('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
@@ -93,7 +61,7 @@ INCLUDE_SLOW_TESTS &&
 
     beforeAll(async () => {
       this.app = new Application({
-        path: electronPath,
+        path: ELECTRON_EXECUTABLE_PATH,
       });
 
       return this.app.start();
@@ -148,7 +116,7 @@ INCLUDE_SLOW_TESTS &&
       const { client, webContents } = this.app;
       const extension = USE_JSON ? 'json' : 'bam';
       const filePath = path.join(
-        BAM_FOLDER,
+        BAM_FOLDER_PATH,
         'tb',
         `C00009037_R00000039.${extension}`
       );
