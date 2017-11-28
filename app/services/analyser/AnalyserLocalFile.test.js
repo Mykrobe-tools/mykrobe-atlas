@@ -2,6 +2,13 @@ import * as React from 'react';
 import renderer from 'react-test-renderer';
 import path from 'path';
 
+import {
+  ensurePredictorBinaries,
+  ensureBams,
+  INCLUDE_SLOW_TESTS,
+  BAM_FOLDER_PATH,
+} from '../../../electron/util';
+
 import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
 
@@ -10,9 +17,10 @@ import ResistanceEvidence from '../../components/resistance/evidence/ResistanceE
 import ResistanceProfile from '../../components/resistance/profile/ResistanceProfile';
 import ResistanceSpecies from '../../components/resistance/species/ResistanceSpecies';
 
-const BAM_FOLDER = `${process.env.HOME}/Dropbox/bams/`;
-const INCLUDE_SLOW_TESTS =
-  process.env.INCLUDE_SLOW_TESTS && process.env.INCLUDE_SLOW_TESTS === 'true';
+// prerequisites
+
+ensurePredictorBinaries();
+ensureBams();
 
 const config = new MykrobeConfig();
 
@@ -55,7 +63,11 @@ const testRenderUI = transformed => {
 describe('AnalyserLocalFile', () => {
   it('should analyse and render a json file', done => {
     const analyser = new AnalyserLocalFile(config);
-    const filePath = path.join(BAM_FOLDER, 'tb', 'C00009037_R00000039.json');
+    const filePath = path.join(
+      BAM_FOLDER_PATH,
+      'tb',
+      'C00009037_R00000039.json'
+    );
     analyser
       .analyseFile(filePath)
       .on('progress', progress => {
@@ -80,7 +92,11 @@ describe('AnalyserLocalFile', () => {
   INCLUDE_SLOW_TESTS &&
     it('should analyse and render a bam file', done => {
       const analyser = new AnalyserLocalFile(config);
-      const filePath = path.join(BAM_FOLDER, 'tb', 'C00009037_R00000039.bam');
+      const filePath = path.join(
+        BAM_FOLDER_PATH,
+        'tb',
+        'C00009037_R00000039.bam'
+      );
       analyser
         .analyseFile(filePath)
         .on('progress', progress => {

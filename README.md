@@ -34,6 +34,14 @@ $ yarn set-target
 
 ## Tests
 
+#### Install fixtures
+
+1. Download the large 'bams' fixtures from [here](https://www.dropbox.com/sh/ic5qx6d7vf9j11q/AADOcM0bZt5EfMpwbQ4kRURoa?dl=0)
+
+2. Move this folder into the project at path `/tests/__fixtures__/bams`
+
+#### Run tests
+
 This project has the concept of 'slow' tests. Typically these are tests which involve analysing a sample or compiling the app and may take several minutes to complete.
 
 Potentially slow tests can check if they should execute by checking the for env variable `process.env.INCLUDE_SLOW_TESTS === 'true'`
@@ -59,6 +67,12 @@ $ yarn test -t 'AnalyserLocalFile'
 ```
 
 Note the above two commands will generate different Jest snapshots.
+
+To run just end-to-end tests
+
+```
+$ yarn test:e2e
+```
 
 ## Further Reading
 
