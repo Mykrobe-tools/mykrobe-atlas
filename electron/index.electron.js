@@ -67,7 +67,8 @@ app.on('ready', async () => {
   }
 
   if (process.env.NODE_ENV === 'production') {
-    autoUpdater.checkForUpdates();
+    // This will immediately download an update, then install when the app quits
+    autoUpdater.checkForUpdatesAndNotify();
   }
 
   // const packageJson = require('./package.json');
@@ -396,12 +397,12 @@ function setupAutoUpdater() {
     log.info(log_message);
   });
   autoUpdater.on('update-downloaded', info => {
-    log.info('Update downloaded; will install in 5 seconds', info);
+    log.info('Update downloaded', info);
     // Wait 5 seconds, then quit and install
     // In your application, you don't need to wait 5 seconds.
     // You could call autoUpdater.quitAndInstall(); immediately
-    setTimeout(() => {
-      autoUpdater.quitAndInstall();
-    }, 5000);
+    // setTimeout(() => {
+    //   autoUpdater.quitAndInstall();
+    // }, 5000);
   });
 }

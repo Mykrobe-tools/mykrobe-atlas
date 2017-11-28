@@ -118,7 +118,16 @@ $ yarn version
 
 ## Publish desktop production build
 
-As above and append `--publish` after `yarn electron-dist:`
+1. GitHub personal access token is required. You can generate by going to [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new). The access token should have the *repo* scope/permission.
+
+2. Set this as the environment variable `GH_TOKEN`
+
+3. Publish a draft release to the repo specified by `build.publish` in `package.json`
+
+	```
+	$ yarn electron-dist --publish
+	```
+
 
 ## Generate icons
 
