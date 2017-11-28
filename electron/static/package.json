@@ -7,5 +7,6 @@
   "dependencies": {
     "font-awesome": "^4.6.3"
   },
-  "displayVersion": "0.2.0 (beta)"
+  "description": "Mykrobe Atlas UI",
+  "executableVersion": "v0.5.6-0-gbd7923a-dirty"
 }

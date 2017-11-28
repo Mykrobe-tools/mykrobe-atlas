@@ -14,10 +14,15 @@ const path = require('path');
 const deps = Object.keys(pkg.dependencies);
 const devDeps = Object.keys(pkg.devDependencies);
 
+import { updateStaticPackageJson } from './util';
+
 import archPlatArgs from './util/archPlatArgs';
 const { platforms, archs } = archPlatArgs();
 
 const icon = path.resolve(__dirname, `resources/icon/${pkg.targetName}/icon`);
+
+// copy the version number from the main package.json
+updateStaticPackageJson();
 
 const DEFAULT_OPTS = {
   dir: path.resolve(__dirname, './static'),
@@ -103,7 +108,8 @@ function pack(plat, arch, cb) {
   }
 
   const iconObj = {
-    icon: DEFAULT_OPTS.icon +
+    icon:
+      DEFAULT_OPTS.icon +
       (() => {
         let extension = '.png';
         if (plat === 'darwin') {
