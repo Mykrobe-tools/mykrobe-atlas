@@ -78,3 +78,14 @@ export const ensurePredictorBinaries = () => {
     }' - Please run 'yarn build-predictor-binaries' before running this test`;
   }
 };
+
+export const updateStaticPackageJson = () => {
+  const staticPackageJson = require('../static/package.json');
+  staticPackageJson.targetName = pkg.targetName;
+  staticPackageJson.description = pkg.description;
+  staticPackageJson.productName = pkg.productName;
+  staticPackageJson.version = pkg.version;
+  const json = JSON.stringify(staticPackageJson, null, 2);
+  const filePath = path.resolve(__dirname, '../static/package.json');
+  fs.writeFileSync(filePath, json);
+};

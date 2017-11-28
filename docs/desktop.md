@@ -106,6 +106,16 @@ Executable will be copied into `/electron/resources/bin/<target>/<platform>/bin`
 
 3. After build, you will find files in `electron/dist` folder.
 
+## Set the version
+
+This will set the app version and a Git tag will be created default following the format `v0.0.0`
+
+```
+$ yarn version
+```
+
+> Note this can be a little slow - be patient
+
 ## Publish desktop production build
 
 As above and append `--publish` after `yarn electron-dist:`

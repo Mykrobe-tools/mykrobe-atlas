@@ -7,6 +7,8 @@ const fs = require('fs-extra');
 const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
 
+import { updateStaticPackageJson } from '../electron/util';
+
 const defaultTargetName = rootPackageJson.targetName || targets[0].value;
 
 const questions = [
@@ -32,8 +34,6 @@ if (targetName) {
 
 function setTarget(targetName) {
   let productName = '';
-  let appVersion = '';
-  let appDisplayVersion = '';
   let appId = '';
   let json = '';
   let filePath = '';
@@ -41,8 +41,6 @@ function setTarget(targetName) {
   for (let i = 0; i < targets.length; i++) {
     if (targetName === targets[i].value) {
       productName = targets[i].name;
-      appVersion = targets[i].version;
-      appDisplayVersion = targets[i].displayVersion;
       appId = targets[i].appId;
       isValidTarget = true;
     }
@@ -60,8 +58,6 @@ function setTarget(targetName) {
   // change the bundled settings in /package.json
   rootPackageJson.targetName = targetName;
   rootPackageJson.productName = productName;
-  rootPackageJson.version = appVersion;
-  rootPackageJson.displayVersion = appDisplayVersion;
   rootPackageJson.build.appId = appId;
   rootPackageJson.build.mac.icon = `./electron/resources/icon/${targetName}/icon.icns`;
   rootPackageJson.build.win.icon = `./electron/resources/icon/${targetName}/icon.ico`;
@@ -70,16 +66,7 @@ function setTarget(targetName) {
   writeJsonToFile(filePath, json)
     .then(() => {
       // change the bundled settings in /electron/static/package.json
-      const staticPackageJson = require('../electron/static/package.json');
-      staticPackageJson.targetName = targetName;
-      staticPackageJson.productName = productName;
-      staticPackageJson.version = appVersion;
-      staticPackageJson.displayVersion = appDisplayVersion;
-      json = JSON.stringify(staticPackageJson, null, 2);
-      filePath = path.resolve(__dirname, '../electron/static/package.json');
-      return writeJsonToFile(filePath, json);
-    })
-    .then(() => {
+      updateStaticPackageJson();
       return setTitleInHtmlFile(electronHtmlPath, productName);
     })
     .then(() => {

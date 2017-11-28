@@ -2,10 +2,10 @@
   "targetName": "predictor-tb",
   "name": "mykrobe",
   "productName": "Mykrobe Predictor TB",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "./main.js",
   "dependencies": {
     "font-awesome": "^4.6.3"
   },
-  "displayVersion": "0.2.0 (beta)"
+  "description": "Mykrobe Atlas UI"
 }

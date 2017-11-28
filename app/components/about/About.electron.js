@@ -35,7 +35,7 @@ class About extends React.Component {
             further information see{' '}
             <a onClick={launchWebsite}>www.mykrobe.com</a>
           </p>
-          <p>UI version {pkg.displayVersion}</p>
+          <p>UI version {pkg.version}</p>
         </div>
       </div>
     );

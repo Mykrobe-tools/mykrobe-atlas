@@ -233,7 +233,6 @@
     "node": "6.x"
   },
   "targetName": "predictor-tb",
-  "displayVersion": "0.2.0 (beta)",
   "jest": {
     "moduleNameMapper": {
       "\\.(css)$": "identity-obj-proxy",
