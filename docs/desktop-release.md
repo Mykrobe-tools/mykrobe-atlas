@@ -49,6 +49,10 @@ This process will need to be followed on each platform - Mac, Windows. The deskt
 
 6. Publish the release using GitHub - make sure that 'This is a pre-release' is unchecked or this release will be overlooked by the auto-updater.
 
+## License agreement
+
+The EULA located in `/electron/resources/build` is displayed to the user as part of installation.
+
 ## See next
 
 - [Desktop version](desktop.md)

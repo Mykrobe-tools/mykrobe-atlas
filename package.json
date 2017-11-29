@@ -102,7 +102,7 @@
       }
     ],
     "directories": {
-      "buildResources": "build",
+      "buildResources": "electron/resources/build",
       "output": "electron/dist",
       "app": "electron/static"
     }
