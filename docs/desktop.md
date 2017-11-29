@@ -3,7 +3,7 @@
 ## Setup
 
 
-1. Select a *Predictor* target
+1. Select a *Predictor* target – [About targets](docs/targets.md)
 
 	```
 	$ yarn set-target
