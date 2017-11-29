@@ -1,5 +1,13 @@
 # Mykrobe Web
 
+## Setup
+
+Select an *Atlas* target
+
+```
+$ yarn set-target
+```
+
 ## Run development version
 
 This will launch a local dev server and instance of the app. This has DevTools enabled and supports hot (live) reloading of modified files.
@@ -24,7 +32,7 @@ $ yarn web-build-simple-server
 
 ## Deploy production version
 
-TODO: This will most likely be by merging into a specific branch
+> TODO: This will most likely be by merging into a specific branch
 
 ## See next
 

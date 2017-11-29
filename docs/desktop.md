@@ -6,6 +6,12 @@ The desktop app requires a local executable version of Predictor
 
 * [Build Predictor Binaries](desktop-predictor-binaries.md)
 
+* Select a *Predictor* target
+
+	```
+	$ yarn set-target
+	```
+
 ## Run development version
 
 This will launch a local dev server and instance of the app. This has DevTools enabled and supports hot (live) reloading of modified files.
