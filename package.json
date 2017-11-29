@@ -52,10 +52,6 @@
       "category": "public.app-category.tools",
       "icon": "./electron/resources/icon/predictor-tb/icon.icns"
     },
-    "extraResources": {
-      "from": "/Applications/MAMP/htdocs/mykrobe-atlas/electron/resources/bin/predictor-tb/win32-x64/bin",
-      "to": "bin"
-    },
     "dmg": {
       "contents": [
         {

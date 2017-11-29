@@ -71,40 +71,19 @@ Executable will be copied into `/electron/resources/bin/<target>/<platform>/bin`
 
 ## Desktop production build
 
-1. Install Wine to build Windows app on mac
 
-	```
-	$ brew install wine
-	```
+`electron-package` builds and packages a standalone app inside the `electroon/releases` folder. At this stage the app is a folder full of files.
 
-2. Package for distribution
+`electron-dist` takes the folder(s) created by `electron-package` and combines into single individual self-contained apps / images / installers for specified platforms, signed and ready for distribution.
 
-	`electron-package` builds and packages a standalone app inside the `electroon/releases` folder. At this stage the app is a folder full of files.
+Build for current platform:
 
-	`electron-dist` takes the folder(s) created by `electron-package` and combines into single individual self-contained apps / images / installers for specified platforms, signed and ready for distribution.
+```
+$ yarn electron-package
+$ yarn electron-dist
+```
 
-	Build for current platform:
-
-	```
-	$ yarn electron-package
-	$ yarn electron-dist
-	```
-
-	Build for single Windows platform:
-
-	```
-	$ yarn electron-package:win
-	$ yarn electron-dist:win
-	```
-
-	To build apps for all platforms:
-
-	```
-	$ yarn electron-package:all
-	$ yarn electron-dist:all
-	```
-
-3. After build, you will find files in `electron/dist` folder.
+After build, you will find files in `electron/dist` folder.
 
 ## Set the version
 
@@ -116,7 +95,7 @@ $ yarn version
 
 > Note this can be a little slow - be patient
 
-## Publish desktop production build
+## Setup deployment to GitHub releases
 
 1. GitHub personal access token is required. You can generate by going to [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new). The access token should have the *repo* scope/permission.
 
@@ -128,10 +107,43 @@ $ yarn version
 	$ yarn electron-dist --publish
 	```
 
+## Release a new version
+
+This process will need to be followed on each platform - Mac, Windows. The desktop app checks for updates automatically on launch and downloads them silently. The user is notified once a new version is ready to install.
+
+1. Update the version and commit - this sets both the version in the app and the git tag where the draft release will be published
+
+	```
+	$ yarn version
+	$ git push origin HEAD
+	```
+
+2. Build the latest Predictor binaries (see initial setup steps above)
+
+	```
+	$ yarn build-predictor-binaries
+	```
+
+3. Run a complete test
+
+	```
+	$ yarn test:slow
+	```
+	
+4. If the tests pass, publish a draft release
+
+	```
+	$ yarn electron-package
+	$ yarn electron-dist --publish
+	```
+	
+5. Repeat steps 2–4 for each platform
+
+6. Publish the release using GitHub - make sure that 'This is a pre-release' is unchecked or this release will be overlooked by the auto-updater.
 
 ## Generate icons
 
-This will rebuild dekstop app icon files from the master artwork
+This will rebuild desktop app icon files from the master artwork
 
 * Install dependencies
 
