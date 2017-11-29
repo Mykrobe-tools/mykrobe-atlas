@@ -127,7 +127,7 @@ This process will need to be followed on each platform - Mac, Windows. The deskt
 3. Run a complete test
 
 	```
-	$ yarn test:slow
+	$ yarn test
 	```
 	
 4. If the tests pass, publish a draft release

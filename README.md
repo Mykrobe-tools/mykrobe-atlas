@@ -46,10 +46,10 @@ This project has the concept of 'slow' tests. Typically these are tests which in
 
 Potentially slow tests can check if they should execute by checking the for env variable `process.env.INCLUDE_SLOW_TESTS === 'true'`
 
-To run the general test suite:
+To run the general test suite, skipping slow tests:
 
 ```
-$ yarn test
+$ yarn test:fast
 ```
 
 > At present this will generate harmless `PropTypes` and `createClass` warnings. Updating webpack, react-router and then react to current versions will eventually fix this.
@@ -57,7 +57,7 @@ $ yarn test
 To run all tests including slow ones:
 
 ```
-$ yarn test:slow
+$ yarn test
 ```
 
 To run an individual test
