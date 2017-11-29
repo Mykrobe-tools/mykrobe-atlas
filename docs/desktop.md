@@ -2,15 +2,14 @@
 
 ## Setup
 
-The desktop app requires a local executable version of Predictor
 
-* [Build Predictor Binaries](desktop-predictor-binaries.md)
-
-* Select a *Predictor* target
+1. Select a *Predictor* target
 
 	```
 	$ yarn set-target
 	```
+
+2.	[Build Predictor Binaries](desktop-predictor-binaries.md) – The desktop app requires a local executable version of Predictor
 
 ## Run development version
 
@@ -26,9 +25,9 @@ After you see `webpack: Compiled successfully` in the terminal window, you may r
 
 ## Run production version
 
-`electron-package` builds and packages a standalone app inside the `electroon/releases` folder. At this stage the app is a folder full of files.
+* `electron-package` builds and packages a standalone app inside the `electroon/releases` folder. At this stage the app is a folder full of files.
 
-`electron-dist` takes the folder(s) created by `electron-package` and combines into single individual self-contained apps / images / installers for specified platforms, signed and ready for distribution.
+* `electron-dist` takes the folder(s) created by `electron-package` and combines into single individual self-contained apps / images / installers for specified platforms, signed and ready for distribution.
 
 ### Production build for current platform
 

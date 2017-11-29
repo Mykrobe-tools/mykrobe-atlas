@@ -2,9 +2,28 @@
 
 Web or [Electron](http://electron.atom.io/) application based on [React](https://facebook.github.io/react/), [Redux](https://github.com/reactjs/redux), [React Router](https://github.com/reactjs/react-router), [Webpack](http://webpack.github.io/docs/) and [React Transform HMR](https://github.com/gaearon/react-transform-hmr) for rapid application development.
 
+## Install
+
+* Install package manager
+
+	```
+	$ brew install yarn
+	```
+
+* If using `nvm`, set the Node version
+
+	```
+	$ nvm use
+	```
+
+* Install dependencies
+
+	```
+	$ yarn
+	```
+
 ## See next
 
-- [Getting started](docs/getting-started.md)
 - [Web version](docs/web.md)
 - [Desktop version](docs/desktop.md)
 - [Desktop release](docs/desktop-release.md)
@@ -12,8 +31,7 @@ Web or [Electron](http://electron.atom.io/) application based on [React](https:/
 
 ## Further reading
 
-Further information about the app can be found in the following files, located in the `/docs` directory:
-
+- [About targets](docs/targets.md)
 - [Coding standards](docs/coding-standards.md)
 - [Dependencies](docs/dependencies.md)
 
