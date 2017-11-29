@@ -4,17 +4,50 @@
 
 This app uses the [Jest](http://facebook.github.io/jest/) testing framework.
 
-To run the tests:
+## Setup
+
+
+1. Download the large 'bams' fixtures from [here](https://www.dropbox.com/sh/ic5qx6d7vf9j11q/AADOcM0bZt5EfMpwbQ4kRURoa?dl=0)
+
+2. Move this folder into the project at path `/tests/__fixtures__/bams`
+
+## Run tests
+
+This project has the concept of 'slow' tests. Typically these are tests which involve analysing a sample or compiling the app and may take several minutes to complete.
+
+To run the general test suite, skipping slow tests:
 
 ```
-$ npm test
+$ yarn test:fast
 ```
 
-Tests should be placed alongside the files that they are testing, with the extension `.spec.js` appended to their filename.
+> At present this will generate harmless `PropTypes` and `createClass` warnings. Updating webpack, react-router and then react to current versions will eventually fix this.
+
+To run all tests including slow ones:
+
+```
+$ yarn test
+```
+
+To run an individual test
+
+```
+$ yarn test -t 'AnalyserLocalFile'
+```
+
+Note the above two commands will generate different Jest snapshots.
+
+To run just end-to-end tests
+
+```
+$ yarn test:e2e
+```
 
 ## Creating tests
 
-An overview of the ways to test the different parts of the app.
+Tests should be placed alongside the files that they are testing, with the extension `.test.js` appended to their filename.
+
+Potentially slow tests can check if they should execute by checking the for env variable `process.env.INCLUDE_SLOW_TESTS === 'true'`
 
 Look at the existing tests in the app for examples.
 
@@ -71,3 +104,9 @@ It can be helpful to create *both enzyme and snapshot* tests for complex compone
 
 - http://redux.js.org/docs/recipes/WritingTests.html#components
 - http://airbnb.io/enzyme/
+
+## See next
+
+- [Web version](web.md)
+- [Desktop version](desktop.md)
+- [Overview](../README.md)
