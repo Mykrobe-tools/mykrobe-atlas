@@ -4,9 +4,15 @@
 
 This will checkout or update the latest source from [https://github.com/iqbal-lab/Mykrobe-predictor](https://github.com/iqbal-lab/Mykrobe-predictor), build an executable and copy it into the correct folder for use in the GUI
 
+## Setup
+
+* SSH access to GitHub is required - see [Connecting to GitHub with SSH](https://help.github.com/articles/connecting-to-github-with-ssh/)
+
 ### Mac 64-bit
 
-1. Install dependencies
+1. This assumes stock Python 2 and will not work with Python 3. You may experience build issues if using pyenv or similar.
+
+2. Install dependencies
 
 	```
 	$ brew install python
@@ -14,7 +20,7 @@ This will checkout or update the latest source from [https://github.com/iqbal-la
 	$ pip install pyinstaller
 	```
 
-2. Build from within the root of the project
+3. Build from within the root of the project
 
 	```
 	$ yarn build-predictor-binaries
