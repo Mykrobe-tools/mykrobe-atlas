@@ -1,6 +1,6 @@
 [
   {
-    "sourceFile": "tb/C00009037_R00000039.bam",
+    "source": "tb/C00009037_R00000039.bam",
     "expect": {
       "all": {
         "susceptible": [
