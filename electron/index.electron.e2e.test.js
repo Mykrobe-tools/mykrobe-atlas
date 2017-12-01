@@ -94,7 +94,7 @@ INCLUDE_SLOW_TESTS &&
       expect(isFocused).toBeTruthy();
 
       const bounds = await browserWindow.getBounds();
-      console.log('bounds', bounds);
+
       expect(bounds.width).toBeGreaterThanOrEqual(640);
       expect(bounds.height).toBeGreaterThanOrEqual(480);
     });
@@ -240,6 +240,16 @@ INCLUDE_SLOW_TESTS &&
           '[data-tid="column-resistant"] [data-tid="drug"]'
         );
         expect(resistant).toEqual(bamsExpectEntry.expect.all.resistant);
+
+        // new
+
+        await client.click('[data-tid="button-file-new"]');
+        await delay(500);
+
+        // check existence of component
+        expect(await client.isExisting('[data-tid="component-upload"]')).toBe(
+          true
+        );
       });
     }
   });

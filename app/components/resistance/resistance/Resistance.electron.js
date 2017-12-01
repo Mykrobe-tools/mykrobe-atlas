@@ -74,6 +74,7 @@ class Resistance extends React.Component {
                 analyseFileSave();
               }}
               className={styles.navigationItem}
+              data-tid="button-file-save"
             >
               Save
             </a>
@@ -82,6 +83,7 @@ class Resistance extends React.Component {
                 analyseFileNew();
               }}
               className={styles.navigationItem}
+              data-tid="button-file-new"
             >
               New
             </a>
