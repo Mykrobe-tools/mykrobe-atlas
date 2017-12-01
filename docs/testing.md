@@ -35,8 +35,6 @@ To run an individual test
 $ yarn test -t 'AnalyserLocalFile'
 ```
 
-Note the above two commands will generate different Jest snapshots.
-
 To run just end-to-end tests
 
 ```
