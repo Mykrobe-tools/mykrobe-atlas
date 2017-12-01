@@ -109,7 +109,7 @@ class AnalyserJsonTransformer {
       unstyledSpeciesPretty = speciesPretty;
     }
 
-    model.speciesPretty = speciesPretty;
+    model.speciesPretty = unstyledSpeciesPretty;
 
     if (TargetConstants.SPECIES_TB === this.config.species) {
       if (model.species.indexOf('Mycobacterium_tuberculosis') === -1) {
