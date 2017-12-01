@@ -209,6 +209,10 @@ INCLUDE_SLOW_TESTS &&
           '[data-tid="component-resistance-evidence"]'
         )
       ).toBe(true);
+
+      // TODO: repeat for each panel in the config
+      // data-tid="panel-rifampicin"
+
       const evidence = await textForSelector('[data-tid="evidence"]');
       expect(evidence).toEqual([
         'resistance mutation found: i491f in gene rpob',
