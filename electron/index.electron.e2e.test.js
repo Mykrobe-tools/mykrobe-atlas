@@ -113,13 +113,14 @@ INCLUDE_SLOW_TESTS &&
 
     for (let i = 0; i < bamsExpect.length; i++) {
       const bamsExpectEntry = bamsExpect[i];
+      const extension = bamsExpectEntry.source
+        .substr(bamsExpectEntry.source.lastIndexOf('.') + 1)
+        .toLowerCase();
+      const isJson = extension === 'json';
+
       it(`should open source file ${bamsExpectEntry.source}`, async done => {
         const { client, webContents } = this.app;
         const filePath = path.join(BAM_FOLDER_PATH, bamsExpectEntry.source);
-        const extension = bamsExpectEntry.source
-          .substr(bamsExpectEntry.source.lastIndexOf('.') + 1)
-          .toLowerCase();
-        const isJson = extension === 'json';
 
         // check existence of component
         expect(await client.isExisting('[data-tid="component-upload"]')).toBe(

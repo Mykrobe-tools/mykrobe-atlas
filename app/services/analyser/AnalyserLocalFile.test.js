@@ -1,5 +1,3 @@
-import * as React from 'react';
-import renderer from 'react-test-renderer';
 import path from 'path';
 
 import {
@@ -12,10 +10,7 @@ import {
 import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
 
-import ResistanceDrugs from '../../components/resistance/drugs/ResistanceDrugs';
-import ResistanceEvidence from '../../components/resistance/evidence/ResistanceEvidence';
-import ResistanceProfile from '../../components/resistance/profile/ResistanceProfile';
-import ResistanceSpecies from '../../components/resistance/species/ResistanceSpecies';
+const bamsExpect = require('../../../test/__fixtures__/bams.expect.json');
 
 // prerequisites
 
@@ -34,90 +29,48 @@ afterEach(() => {
   delete process.env.NODE_ENV;
 });
 
-const testRenderUI = transformed => {
-  const mockAnalyser = {
-    transformed,
-  };
-  let component, tree;
-
-  // TODO; don't use snapshots since they will differ when running slow tests
-  // instead, test individual properties directly within the JSON
-
-  component = renderer.create(<ResistanceDrugs analyser={mockAnalyser} />);
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-
-  component = renderer.create(<ResistanceEvidence analyser={mockAnalyser} />);
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-
-  component = renderer.create(<ResistanceProfile analyser={mockAnalyser} />);
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-
-  component = renderer.create(<ResistanceSpecies analyser={mockAnalyser} />);
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+const asLowerCase = o => {
+  if (Array.isArray(o)) {
+    return o.map(value => value.toLowerCase());
+  }
+  return o.toLowerCase();
 };
 
 describe('AnalyserLocalFile', () => {
-  it('should analyse and render a json file', done => {
-    const analyser = new AnalyserLocalFile(config);
-    const filePath = path.join(
-      BAM_FOLDER_PATH,
-      'tb',
-      'C00009037_R00000039.json'
-    );
-    analyser
-      .analyseFile(filePath)
-      .on('progress', progress => {
-        console.log('progress', progress);
-      })
-      .on('done', result => {
-        const { transformed } = result;
-        expect(transformed.species).toEqual(['Mycobacterium_tuberculosis']);
-        expect(transformed.lineage).toEqual(['European_American']);
-        expect(transformed.resistant).toEqual([
-          'Rifampicin',
-          'Ethambutol',
-          'Quinolones',
-        ]);
-        testRenderUI(transformed);
-        done();
-      })
-      .on('error', error => {
-        throw error;
-      });
-  });
-  INCLUDE_SLOW_TESTS &&
-    it('should analyse and render a bam file', done => {
+  for (let i = 0; i < bamsExpect.length; i++) {
+    const bamsExpectEntry = bamsExpect[i];
+    const extension = bamsExpectEntry.source
+      .substr(bamsExpectEntry.source.lastIndexOf('.') + 1)
+      .toLowerCase();
+    const isJson = extension === 'json';
+    if (!isJson && !INCLUDE_SLOW_TESTS) {
+      console.log(`Skipping slow test for ${bamsExpectEntry.source}`);
+      continue;
+    }
+    it(`should analyse source file ${bamsExpectEntry.source}`, async done => {
       const analyser = new AnalyserLocalFile(config);
-      const filePath = path.join(
-        BAM_FOLDER_PATH,
-        'tb',
-        'C00009037_R00000039.bam'
-      );
+      const filePath = path.join(BAM_FOLDER_PATH, bamsExpectEntry.source);
       analyser
         .analyseFile(filePath)
         .on('progress', progress => {
           console.log('progress', progress);
-          expect(progress).toBeDefined();
         })
         .on('done', result => {
-          const { json, transformed } = result;
-          console.log('json', JSON.stringify(json, null, 2));
-          expect(transformed.species).toEqual(['Mycobacterium_tuberculosis']);
-          expect(transformed.lineage).toEqual(['European_American']);
-          expect(transformed.resistant).toEqual([
-            'Rifampicin',
-            'Ethambutol',
-            'Quinolones',
-          ]);
-          testRenderUI(transformed);
+          const { transformed } = result;
+          expect(asLowerCase(transformed.speciesPretty)).toEqual(
+            bamsExpectEntry.expect.species
+          );
+          expect(asLowerCase(transformed.resistant)).toEqual(
+            bamsExpectEntry.expect.all.resistant
+          );
+          expect(asLowerCase(transformed.susceptible)).toEqual(
+            bamsExpectEntry.expect.all.susceptible
+          );
           done();
         })
         .on('error', error => {
           throw error;
         });
     });
+  }
 });
