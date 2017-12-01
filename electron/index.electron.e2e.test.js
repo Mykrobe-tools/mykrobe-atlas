@@ -11,6 +11,7 @@ import * as TargetConstants from '../app/constants/TargetConstants';
 const config = new MykrobeConfig();
 
 const pkg = require('../package.json');
+const bamsExpect = require('../test/__fixtures__/bams.expect.json');
 
 import {
   executeCommand,
@@ -20,8 +21,6 @@ import {
   ELECTRON_EXECUTABLE_PATH,
   BAM_FOLDER_PATH,
 } from './util';
-
-const USE_JSON = false;
 
 jest.setTimeout(10 * 60 * 1000); // 10 minutes
 
@@ -95,7 +94,7 @@ INCLUDE_SLOW_TESTS &&
       expect(isFocused).toBeTruthy();
 
       const bounds = await browserWindow.getBounds();
-      console.log('bounds', bounds);
+
       expect(bounds.width).toBeGreaterThanOrEqual(640);
       expect(bounds.height).toBeGreaterThanOrEqual(480);
     });
@@ -112,147 +111,145 @@ INCLUDE_SLOW_TESTS &&
       expect(logs).toHaveLength(0);
     });
 
-    it('should open a file', async done => {
-      const { client, webContents } = this.app;
-      const extension = USE_JSON ? 'json' : 'bam';
-      const filePath = path.join(
-        BAM_FOLDER_PATH,
-        'tb',
-        `C00009037_R00000039.${extension}`
-      );
+    for (let i = 0; i < bamsExpect.length; i++) {
+      const bamsExpectEntry = bamsExpect[i];
+      it(`should open source file ${bamsExpectEntry.source}`, async done => {
+        const { client, webContents } = this.app;
+        const filePath = path.join(BAM_FOLDER_PATH, bamsExpectEntry.source);
+        const extension = bamsExpectEntry.source
+          .substr(bamsExpectEntry.source.lastIndexOf('.') + 1)
+          .toLowerCase();
+        const isJson = extension === 'json';
 
-      // check existence of component
-      expect(await client.isExisting('[data-tid="component-upload"]')).toBe(
-        true
-      );
+        // check existence of component
+        expect(await client.isExisting('[data-tid="component-upload"]')).toBe(
+          true
+        );
 
-      // check existence of button
-      expect(
-        await client.isExisting('[data-tid="button-analyse-sample"]')
-      ).toBe(true);
+        // check existence of button
+        expect(
+          await client.isExisting('[data-tid="button-analyse-sample"]')
+        ).toBe(true);
 
-      // send file > open event
-      webContents.send('open-file', filePath);
+        // send file > open event
+        webContents.send('open-file', filePath);
 
-      if (!USE_JSON) {
-        // await UI change
+        if (!isJson) {
+          // await UI change
+          await delay(500);
+
+          // check existence of cancel button
+          expect(
+            await client.isExisting('[data-tid="button-analyse-cancel"]')
+          ).toBe(true);
+
+          // check status text
+          expect(
+            (await client
+              .element('[data-tid="status-text"]')
+              .getText()).toLowerCase()
+          ).toBe('analysing');
+
+          // TODO check for progress changes once reinstated
+        }
+        // wait for results to appear
+        expect(
+          await client.waitForVisible(
+            '[data-tid="component-resistance"]',
+            10 * 60 * 1000
+          )
+        ).toBe(true);
+
+        done();
+      });
+
+      it('should display the expected results', async () => {
+        const { client } = this.app;
+
+        // click each section and check the result shown in the UI
+
+        // drugs or class
+
+        if (TargetConstants.SPECIES_TB === config.species) {
+          await client.click('[data-tid="button-resistance-drugs"]');
+          expect(
+            await client.waitForVisible(
+              '[data-tid="component-resistance-drugs"]'
+            )
+          ).toBe(true);
+          const firstLineDrugs = await textForSelector(
+            '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
+          );
+          expect(firstLineDrugs).toEqual(
+            bamsExpectEntry.expect.drugs.firstLineDrugs
+          );
+          const secondLineDrugs = await textForSelector(
+            '[data-tid="panel-second-line-drugs"] [data-tid="drug"]'
+          );
+          expect(secondLineDrugs).toEqual(
+            bamsExpectEntry.expect.drugs.secondLineDrugs
+          );
+        } else {
+          await client.click('[data-tid="button-resistance-class"]');
+          expect(
+            await client.waitForVisible(
+              '[data-tid="component-resistance-class"]'
+            )
+          ).toBe(true);
+        }
+
+        // evidence
+
+        await client.click('[data-tid="button-resistance-evidence"]');
+        expect(
+          await client.waitForVisible(
+            '[data-tid="component-resistance-evidence"]'
+          )
+        ).toBe(true);
+
+        const evidenceDrugs = Object.keys(bamsExpectEntry.expect.evidence);
+        for (let drug in evidenceDrugs) {
+          const evidence = await textForSelector(
+            `[data-tid="panel-${drug}"] [data-tid="evidence"]`
+          );
+          expect(evidence).toEqual(bamsExpectEntry.expect.evidence[drug]);
+        }
+
+        // species
+
+        await client.click('[data-tid="button-resistance-species"]');
+        expect(
+          await client.waitForVisible(
+            '[data-tid="component-resistance-species"]'
+          )
+        ).toBe(true);
+        const species = await textForSelector('[data-tid="species"]');
+        expect(species).toEqual(bamsExpectEntry.expect.species);
+
+        // all
+
+        await client.click('[data-tid="button-resistance-all"]');
+        expect(
+          await client.waitForVisible('[data-tid="component-resistance-all"]')
+        ).toBe(true);
+        const susceptible = await textForSelector(
+          '[data-tid="column-susceptible"] [data-tid="drug"]'
+        );
+        expect(susceptible).toEqual(bamsExpectEntry.expect.all.susceptible);
+        const resistant = await textForSelector(
+          '[data-tid="column-resistant"] [data-tid="drug"]'
+        );
+        expect(resistant).toEqual(bamsExpectEntry.expect.all.resistant);
+
+        // new
+
+        await client.click('[data-tid="button-file-new"]');
         await delay(500);
 
-        // check existence of cancel button
-        expect(
-          await client.isExisting('[data-tid="button-analyse-cancel"]')
-        ).toBe(true);
-
-        // check status text
-        expect(
-          (await client
-            .element('[data-tid="status-text"]')
-            .getText()).toLowerCase()
-        ).toBe('analysing');
-
-        // TODO check for progress changes once reinstated
-      }
-      // wait for results to appear
-      expect(
-        await client.waitForVisible(
-          '[data-tid="component-resistance"]',
-          10 * 60 * 1000
-        )
-      ).toBe(true);
-
-      done();
-    });
-
-    it('should display the expected results', async () => {
-      const { client } = this.app;
-
-      // click each section and check the result shown in the UI
-
-      // drugs or class
-
-      if (TargetConstants.SPECIES_TB === config.species) {
-        await client.click('[data-tid="button-resistance-drugs"]');
-        expect(
-          await client.waitForVisible('[data-tid="component-resistance-drugs"]')
-        ).toBe(true);
-        const firstLineDrugs = await textForSelector(
-          '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
+        // check existence of component
+        expect(await client.isExisting('[data-tid="component-upload"]')).toBe(
+          true
         );
-        expect(firstLineDrugs).toEqual([
-          'isoniazid susceptible',
-          'rifampicin resistant',
-          'ethambutol resistant',
-          'pyrazinamide susceptible',
-        ]);
-        const secondLineDrugs = await textForSelector(
-          '[data-tid="panel-second-line-drugs"] [data-tid="drug"]'
-        );
-        expect(secondLineDrugs).toEqual([
-          'quinolones resistant',
-          'streptomycin susceptible',
-          'amikacin susceptible',
-          'capreomycin susceptible',
-          'kanamycin susceptible',
-        ]);
-      } else {
-        await client.click('[data-tid="button-resistance-class"]');
-        expect(
-          await client.waitForVisible('[data-tid="component-resistance-class"]')
-        ).toBe(true);
-      }
-
-      // evidence
-
-      await client.click('[data-tid="button-resistance-evidence"]');
-      expect(
-        await client.waitForVisible(
-          '[data-tid="component-resistance-evidence"]'
-        )
-      ).toBe(true);
-      const evidence = await textForSelector('[data-tid="evidence"]');
-      expect(evidence).toEqual([
-        'resistance mutation found: i491f in gene rpob',
-        'resistant allele coverage: 79',
-        'susceptible allele coverage: 0',
-        'resistance mutation found: m306i in gene embb',
-        'resistant allele coverage: 77',
-        'susceptible allele coverage: 0',
-        'resistance mutation found: d94g in gene gyra',
-        'resistant allele coverage: 89',
-        'susceptible allele coverage: 0',
-      ]);
-
-      // species
-
-      await client.click('[data-tid="button-resistance-species"]');
-      expect(
-        await client.waitForVisible('[data-tid="component-resistance-species"]')
-      ).toBe(true);
-      const species = await textForSelector('[data-tid="species"]');
-      expect(species).toEqual(
-        'mycobacterium tuberculosis (lineage: european american)'
-      );
-
-      // all
-
-      await client.click('[data-tid="button-resistance-all"]');
-      expect(
-        await client.waitForVisible('[data-tid="component-resistance-all"]')
-      ).toBe(true);
-      const susceptible = await textForSelector(
-        '[data-tid="column-susceptible"] [data-tid="drug"]'
-      );
-      expect(susceptible).toEqual([
-        'capreomycin',
-        'isoniazid',
-        'amikacin',
-        'pyrazinamide',
-        'kanamycin',
-        'streptomycin',
-      ]);
-      const resistant = await textForSelector(
-        '[data-tid="column-resistant"] [data-tid="drug"]'
-      );
-      expect(resistant).toEqual(['rifampicin', 'ethambutol', 'quinolones']);
-    });
+      });
+    }
   });

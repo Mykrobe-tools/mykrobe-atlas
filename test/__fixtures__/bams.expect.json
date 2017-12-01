@@ -1,0 +1,100 @@
+[
+  {
+    "source": "tb/C00009037_R00000039.json",
+    "expect": {
+      "all": {
+        "susceptible": [
+          "capreomycin",
+          "isoniazid",
+          "amikacin",
+          "pyrazinamide",
+          "kanamycin",
+          "streptomycin"
+        ],
+        "resistant": ["rifampicin", "ethambutol", "quinolones"]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "isoniazid susceptible",
+          "rifampicin resistant",
+          "ethambutol resistant",
+          "pyrazinamide susceptible"
+        ],
+        "secondLineDrugs": [
+          "quinolones resistant",
+          "streptomycin susceptible",
+          "amikacin susceptible",
+          "capreomycin susceptible",
+          "kanamycin susceptible"
+        ]
+      },
+      "evidence": {
+        "rifampicin": [
+          "resistance mutation found: i491f in gene rpob",
+          "resistant allele coverage: 79",
+          "susceptible allele coverage: 0"
+        ],
+        "ethambutol": [
+          "resistance mutation found: m306i in gene embb",
+          "resistant allele coverage: 77",
+          "susceptible allele coverage: 0"
+        ],
+        "quinolones": [
+          "resistance mutation found: d94g in gene gyra",
+          "resistant allele coverage: 89",
+          "susceptible allele coverage: 0"
+        ]
+      },
+      "species": "mycobacterium tuberculosis (lineage: european american)"
+    }
+  },
+  {
+    "source": "tb/C00009037_R00000039.bam",
+    "expect": {
+      "all": {
+        "susceptible": [
+          "capreomycin",
+          "isoniazid",
+          "amikacin",
+          "pyrazinamide",
+          "kanamycin",
+          "streptomycin"
+        ],
+        "resistant": ["rifampicin", "ethambutol", "quinolones"]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "isoniazid susceptible",
+          "rifampicin resistant",
+          "ethambutol resistant",
+          "pyrazinamide susceptible"
+        ],
+        "secondLineDrugs": [
+          "quinolones resistant",
+          "streptomycin susceptible",
+          "amikacin susceptible",
+          "capreomycin susceptible",
+          "kanamycin susceptible"
+        ]
+      },
+      "evidence": {
+        "rifampicin": [
+          "resistance mutation found: i491f in gene rpob",
+          "resistant allele coverage: 79",
+          "susceptible allele coverage: 0"
+        ],
+        "ethambutol": [
+          "resistance mutation found: m306i in gene embb",
+          "resistant allele coverage: 77",
+          "susceptible allele coverage: 0"
+        ],
+        "quinolones": [
+          "resistance mutation found: d94g in gene gyra",
+          "resistant allele coverage: 89",
+          "susceptible allele coverage: 0"
+        ]
+      },
+      "species": "mycobacterium tuberculosis (lineage: european american)"
+    }
+  }
+]
