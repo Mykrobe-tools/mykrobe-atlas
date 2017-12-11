@@ -29,14 +29,14 @@ jest.setTimeout(10 * 60 * 1000); // 10 minutes
 ensurePredictorBinaries();
 ensureBams();
 
-describe('Electron e2e prerequisites', () => {
+describe('Desktop e2e prerequisites', () => {
   it('should package app', done => {
-    executeCommand('yarn electron-package');
+    executeCommand('yarn desktop-package');
     done();
   });
   INCLUDE_SLOW_TESTS &&
     it('should create distribution app', done => {
-      executeCommand('yarn electron-dist');
+      executeCommand('yarn desktop-dist');
       done();
     });
 });
@@ -46,7 +46,7 @@ console.log('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
 INCLUDE_SLOW_TESTS &&
-  describe('Electron e2e main window', function spec() {
+  describe('Desktop e2e main window', function spec() {
     const textForSelector = async selector => {
       const { client } = this.app;
       const { value } = await client.elements(selector);

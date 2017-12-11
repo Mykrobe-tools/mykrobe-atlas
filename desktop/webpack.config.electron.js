@@ -8,7 +8,7 @@ import path from 'path';
 export default merge(baseConfig, {
   devtool: null,
 
-  entry: [path.resolve(__dirname, '../electron/index.electron')],
+  entry: [path.resolve(__dirname, '../desktop/index.desktop')],
 
   output: {
     path: __dirname,

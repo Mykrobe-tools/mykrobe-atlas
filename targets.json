@@ -1,22 +1,26 @@
 [
   {
-    "value": "predictor-s-aureus",
-    "name": "Mykrobe Predictor S.Aureus",
-    "appId": "com.mykrobe.predictor-s-aureus"
+    "value": "atlas-desktop-s-aureus",
+    "name": "Mykrobe Atlas S.Aureus - Desktop (Placeholder, not yet implemented)",
+    "productName": "Mykrobe Atlas S.Aureus",
+    "appId": "com.mykrobe.atlas-desktop-s-aureus"
   },
   {
-    "value": "predictor-tb",
-    "name": "Mykrobe Predictor TB",
-    "appId": "com.mykrobe.predictor-tb"
+    "value": "atlas-desktop-tb",
+    "name": "Mykrobe Atlas TB - Desktop",
+    "productName": "Mykrobe Atlas TB",
+    "appId": "com.mykrobe.atlas-desktop-tb"
   },
   {
     "value": "atlas-tb",
-    "name": "Mykrobe Atlas TB",
+    "name": "Mykrobe Atlas TB - Web",
+    "productName": "Mykrobe Atlas TB",
     "appId": "com.mykrobe.atlas-tb"
   },
   {
-    "value": "predictor-enterics",
-    "name": "Mykrobe Predictor Enterics",
-    "appId": "com.mykrobe.predictor-enterics"
+    "value": "atlas-desktop-enterics",
+    "name": "Mykrobe Atlas Enterics - Desktop (Placeholder, not yet implemented",
+    "productName": "Mykrobe Atlas Enterics",
+    "appId": "com.mykrobe.atlas-desktop-enterics"
   }
 ]

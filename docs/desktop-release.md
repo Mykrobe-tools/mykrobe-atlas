@@ -11,7 +11,7 @@ Set up deployment to GitHub releases
 3. Publish a draft release to the repo specified by `build.publish` in `package.json`
 
 	```
-	$ yarn electron-dist --publish
+	$ yarn desktop-dist --publish
 	```
 
 ## Release a new version
@@ -37,21 +37,21 @@ This process will need to be followed on each platform - Mac, Windows. The deskt
 	```
 	$ yarn test
 	```
-	
+
 4. If the tests pass, publish a draft release
 
 	```
-	$ yarn electron-package
-	$ yarn electron-dist --publish
+	$ yarn desktop-package
+	$ yarn desktop-dist --publish
 	```
-	
+
 5. Repeat steps 2–4 for each platform
 
 6. Publish the release using GitHub - make sure that 'This is a pre-release' is unchecked or this release will be overlooked by the auto-updater.
 
 ## License agreement
 
-The EULA located in `/electron/resources/build` is displayed to the user as part of installation.
+The EULA located in `/desktop/resources/build` is displayed to the user as part of installation.
 
 ## See next
 

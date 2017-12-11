@@ -33,7 +33,7 @@ const DEFAULT_OPTS = {
   ignore: [
     '^/test($|/)',
     '^/release($|/)',
-    '^/index.electron.js',
+    '^/index.desktop.js',
     '^/yarn.lock',
     '^/(.*).map',
     'skeleton.k15.ctx',

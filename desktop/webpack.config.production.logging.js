@@ -16,7 +16,7 @@ const config = merge(baseConfig, {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: path.resolve(__dirname, '../electron/index.html'),
+      template: path.resolve(__dirname, '../desktop/index.html'),
       inject: false,
     }),
     new webpack.DefinePlugin({

@@ -1,9 +1,9 @@
 [ignore]
 <PROJECT_ROOT>/node_modules
-<PROJECT_ROOT>/electron/static
-<PROJECT_ROOT>/electron/dist
-<PROJECT_ROOT>/electron/release
-<PROJECT_ROOT>/electron/predictor-binaries
+<PROJECT_ROOT>/desktop/static
+<PROJECT_ROOT>/desktop/dist
+<PROJECT_ROOT>/desktop/release
+<PROJECT_ROOT>/desktop/predictor-binaries
 
 [include]
 

@@ -2,7 +2,7 @@
 
 ## Setup
 
-Select an *Atlas* target – [About targets](targets.md)
+Select a *Web* target – [About targets](targets.md)
 
 ```
 $ yarn set-target

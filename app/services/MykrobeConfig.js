@@ -10,11 +10,11 @@ class MykrobeConfig {
   constructor() {
     this.targetName = require('../../package.json').targetName;
 
-    if (this.targetName === 'predictor-s-aureus') {
-      this.type = TargetConstants.TYPE_PREDICTOR;
-      this.species = TargetConstants.SPECIES_S_AUREUS;
-    } else if (this.targetName === 'predictor-tb') {
-      this.type = TargetConstants.TYPE_PREDICTOR;
+    // at the current time only TB is actively implemented
+    // throw an error for any other version
+
+    if (this.targetName === 'atlas-desktop-tb') {
+      this.type = TargetConstants.TYPE_ATLAS;
       this.species = TargetConstants.SPECIES_TB;
     } else if (this.targetName === 'atlas-tb') {
       this.type = TargetConstants.TYPE_ATLAS;

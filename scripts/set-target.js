@@ -7,7 +7,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
 
-import { updateStaticPackageJson } from '../electron/util';
+import { updateStaticPackageJson } from '../desktop/util';
 
 const defaultTargetName = rootPackageJson.targetName || targets[0].value;
 
@@ -15,7 +15,7 @@ const questions = [
   {
     name: 'targetName',
     type: 'list',
-    message: 'Select target app',
+    message: 'Select target',
     default: defaultTargetName,
     choices: targets,
   },
@@ -40,7 +40,7 @@ function setTarget(targetName) {
   let isValidTarget = false;
   for (let i = 0; i < targets.length; i++) {
     if (targetName === targets[i].value) {
-      productName = targets[i].name;
+      productName = targets[i].productName;
       appId = targets[i].appId;
       isValidTarget = true;
     }
@@ -52,20 +52,24 @@ function setTarget(targetName) {
     );
   }
 
-  const electronHtmlPath = path.resolve(__dirname, '../electron/index.html');
+  const electronHtmlPath = path.resolve(__dirname, '../desktop/index.html');
   const webHtmlPath = path.resolve(__dirname, '../web/index.html');
 
   // change the bundled settings in /package.json
   rootPackageJson.targetName = targetName;
   rootPackageJson.productName = productName;
   rootPackageJson.build.appId = appId;
-  rootPackageJson.build.mac.icon = `./electron/resources/icon/${targetName}/icon.icns`;
-  rootPackageJson.build.win.icon = `./electron/resources/icon/${targetName}/icon.ico`;
+  rootPackageJson.build.mac.icon = `./desktop/resources/icon/${
+    targetName
+  }/icon.icns`;
+  rootPackageJson.build.win.icon = `./desktop/resources/icon/${
+    targetName
+  }/icon.ico`;
   json = JSON.stringify(rootPackageJson, null, 2);
   filePath = path.resolve(__dirname, '../package.json');
   writeJsonToFile(filePath, json)
     .then(() => {
-      // change the bundled settings in /electron/static/package.json
+      // change the bundled settings in /desktop/static/package.json
       updateStaticPackageJson();
       return setTitleInHtmlFile(electronHtmlPath, productName);
     })
