@@ -42,11 +42,11 @@ This will checkout or update the latest source from [https://github.com/iqbal-la
 		- python2-devel
 
 2. Launch Cygwin64 and setup the user
- 		
+
 	- Copy or create ssh keys for Cygwin in `/cygwin64/home/IEUser/.ssh`
-	
+
 3. Install dependencies
-	
+
 	```
 	$ python -m ensurepip
 	$ pip install git+https://github.com/Phelimb/atlas
@@ -60,8 +60,8 @@ This will checkout or update the latest source from [https://github.com/iqbal-la
 	```
 
 ### Windows and Mac
-	
-Executable will be copied into `/electron/resources/bin/<target>/<platform>/bin` which will in turn be bundled into respective GUI.
+
+Executable will be copied into `/desktop/resources/bin/<target>/<platform>/bin` which will in turn be bundled into respective GUI.
 
 ## See next
 

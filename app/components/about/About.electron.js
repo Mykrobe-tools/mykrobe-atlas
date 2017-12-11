@@ -8,7 +8,7 @@ import Logo from '../logo/Logo';
 
 import { launchWebsite } from '../../helpers/UIHelpers'; // eslint-disable-line import/named
 
-const pkg = require('../../../electron/static/package.json');
+const pkg = require('../../../desktop/static/package.json');
 
 class About extends React.Component {
   back = e => {

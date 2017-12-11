@@ -8,7 +8,7 @@ let promises = [];
 targets.forEach(target => {
   const iconPath = path.resolve(
     __dirname,
-    `../electron/resources/icon/${target.value}`
+    `../desktop/resources/icon/${target.value}`
   );
   // generate mac, then windows which is using the generated mac pngs
   promises.push(

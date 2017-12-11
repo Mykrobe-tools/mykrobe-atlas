@@ -31,15 +31,15 @@ node_modules.win
 # OSX
 .DS_Store
 
-# Electron build
-electron/dist/*
-electron/release/*
-eelctron/predictor-binaries/*
+# Desktop build
+desktop/dist/*
+desktop/release/*
+desktop/predictor-binaries/*
 main.js
 main.js.map
-electron/static/*
-!electron/static/bin/*
-!electron/static/package.json
+desktop/static/*
+!desktop/static/bin/*
+!desktop/static/package.json
 
 # Web build
 web/build/static/*
@@ -49,7 +49,7 @@ web/build/static/*
 jsconfig.json
 
 # Mykrobe
-electron/static/bin/**/*.ctx
+desktop/static/bin/**/*.ctx
 tmp
 
 # mock api file uploads

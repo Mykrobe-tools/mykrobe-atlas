@@ -210,7 +210,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     if (process.env.NODE_ENV === 'development') {
       dirToBin = path.join(
         rootDir,
-        `electron/resources/bin/${this.targetConfig
+        `desktop/resources/bin/${this.targetConfig
           .targetName}/${platform}-${arch}/bin`
       );
     } else {

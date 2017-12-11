@@ -5,7 +5,7 @@ import {
   ensureBams,
   INCLUDE_SLOW_TESTS,
   BAM_FOLDER_PATH,
-} from '../../../electron/util';
+} from '../../../desktop/util';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
