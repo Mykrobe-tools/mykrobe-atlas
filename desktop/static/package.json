@@ -1,7 +1,7 @@
 {
-  "targetName": "predictor-tb",
+  "targetName": "atlas-desktop-tb",
   "name": "mykrobe",
-  "productName": "Mykrobe Predictor TB",
+  "productName": "Mykrobe Atlas TB",
   "version": "0.2.0",
   "main": "./main.js",
   "dependencies": {

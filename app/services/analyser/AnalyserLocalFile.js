@@ -210,8 +210,9 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     if (process.env.NODE_ENV === 'development') {
       dirToBin = path.join(
         rootDir,
-        `desktop/resources/bin/${this.targetConfig
-          .targetName}/${platform}-${arch}/bin`
+        `desktop/resources/bin/${this.targetConfig.targetName}/${platform}-${
+          arch
+        }/bin`
       );
     } else {
       dirToBin = path.join(rootDir, '../bin');
@@ -230,16 +231,11 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
     let pathToBin = '';
 
-    if (TargetConstants.TYPE_PREDICTOR === this.targetConfig.type) {
-      if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
-        pathToBin = path.join(
-          dirToBin,
-          platform === 'win32' ? 'mykrobe_predictor.exe' : 'mykrobe_predictor'
-        );
-      } else {
-        // unsupported configuration
-        throw UnsupportedError;
-      }
+    if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
+      pathToBin = path.join(
+        dirToBin,
+        platform === 'win32' ? 'mykrobe_predictor.exe' : 'mykrobe_predictor'
+      );
     } else {
       // unsupported configuration
       throw UnsupportedError;

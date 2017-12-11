@@ -5,9 +5,9 @@ import styles from './Logo.css';
 import MykrobeConfig from '../../services/MykrobeConfig';
 
 const logosByTargetName = {
-  'predictor-enterics': require('../../static/predictor-enterics-logo.svg'),
-  'predictor-s-aureus': require('../../static/predictor-s-aureus-logo.svg'),
-  'predictor-tb': require('../../static/predictor-tb-logo.svg'),
+  'atlas-desktop-enterics': require('../../static/atlas-enterics-logo.svg'),
+  'atlas-desktop-s-aureus': require('../../static/atlas-s-aureus-logo.svg'),
+  'atlas-desktop-tb': require('../../static/atlas-tb-logo.svg'),
   'atlas-tb': require('../../static/atlas-tb-logo.svg'),
 };
 

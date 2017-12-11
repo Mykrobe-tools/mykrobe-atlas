@@ -1,6 +1,6 @@
 {
   "name": "mykrobe-atlas",
-  "productName": "Mykrobe Predictor TB",
+  "productName": "Mykrobe Atlas TB",
   "version": "0.2.0",
   "description": "Mykrobe Atlas UI",
   "private": true,
@@ -42,7 +42,7 @@
     "web-build-simple-server": "concurrently \"yarn web-build-server\" \"yarn web-open\""
   },
   "build": {
-    "appId": "com.mykrobe.predictor-tb",
+    "appId": "com.mykrobe.atlas-desktop-tb",
     "publish": {
       "provider": "github",
       "owner": "iqbal-lab",
@@ -50,7 +50,7 @@
     },
     "mac": {
       "category": "public.app-category.tools",
-      "icon": "./desktop/resources/icon/predictor-tb/icon.icns"
+      "icon": "./desktop/resources/icon/atlas-desktop-tb/icon.icns"
     },
     "dmg": {
       "contents": [
@@ -72,7 +72,7 @@
         "nsis",
         "portable"
       ],
-      "icon": "./desktop/resources/icon/predictor-tb/icon.ico"
+      "icon": "./desktop/resources/icon/atlas-desktop-tb/icon.ico"
     },
     "nsis": {
       "perMachine": true
@@ -228,7 +228,7 @@
   "devEngines": {
     "node": "6.x"
   },
-  "targetName": "predictor-tb",
+  "targetName": "atlas-desktop-tb",
   "jest": {
     "moduleNameMapper": {
       "\\.(css)$": "identity-obj-proxy",

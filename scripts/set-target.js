@@ -15,7 +15,7 @@ const questions = [
   {
     name: 'targetName',
     type: 'list',
-    message: 'Select target app',
+    message: 'Select target',
     default: defaultTargetName,
     choices: targets,
   },
@@ -40,7 +40,7 @@ function setTarget(targetName) {
   let isValidTarget = false;
   for (let i = 0; i < targets.length; i++) {
     if (targetName === targets[i].value) {
-      productName = targets[i].name;
+      productName = targets[i].productName;
       appId = targets[i].appId;
       isValidTarget = true;
     }
