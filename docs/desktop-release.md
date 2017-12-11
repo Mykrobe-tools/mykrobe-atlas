@@ -8,12 +8,6 @@ Set up deployment to GitHub releases
 
 2. Set this as the environment variable `GH_TOKEN`
 
-3. Publish a draft release to the repo specified by `build.publish` in `package.json`
-
-	```
-	$ yarn desktop-dist --publish
-	```
-
 ## Release a new version
 
 This process will need to be followed on each platform - Mac, Windows. The desktop app checks for updates automatically on launch and downloads them silently. The user is notified once a new version is ready to install.
@@ -38,7 +32,7 @@ This process will need to be followed on each platform - Mac, Windows. The deskt
 	$ yarn test
 	```
 
-4. If the tests pass, publish a draft release
+4. If the tests pass, publish a draft release to the repo specified by `build.publish` in `package.json`
 
 	```
 	$ yarn desktop-package
