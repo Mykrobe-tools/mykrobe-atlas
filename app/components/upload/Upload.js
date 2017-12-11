@@ -128,9 +128,7 @@ class Upload extends React.Component {
         <div className={styles.contentContainer}>
           <div className={styles.content}>
             <div className={styles.logoWrap}>
-              <div className={styles.logo}>
-                <Logo />
-              </div>
+              <Logo width={192} />
             </div>
             <div className={styles.title}>
               Outbreak and resistance analysis in minutes

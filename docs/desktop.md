@@ -2,7 +2,7 @@
 
 ## Setup
 
-1. Select a *Predictor* target – [About targets](targets.md)
+1. Select a *Desktop* target – [About targets](targets.md)
 
 	```
 	$ yarn set-target

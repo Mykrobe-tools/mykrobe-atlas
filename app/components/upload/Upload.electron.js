@@ -28,9 +28,7 @@ class Upload extends React.Component {
     return (
       <div className={styles.content}>
         <div className={styles.logoWrap}>
-          <div className={styles.logo}>
-            <Logo />
-          </div>
+          <Logo width={192} />
         </div>
         <div className={styles.title}>
           Antimicrobial resistance information within minutes

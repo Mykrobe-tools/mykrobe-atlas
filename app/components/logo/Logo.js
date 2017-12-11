@@ -1,6 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styles from './Logo.css';
 import MykrobeConfig from '../../services/MykrobeConfig';
 
@@ -20,13 +21,32 @@ class Logo extends React.Component {
   }
 
   render() {
+    const { width, height } = this.props;
+    let style = {
+      height,
+    };
+    if (width) {
+      style = {
+        width,
+      };
+    }
     return (
       <img
         className={styles.logo}
+        style={style}
         src={logosByTargetName[this.mykrobeConfig.targetName]}
       />
     );
   }
+
+  static defaultProps = {
+    height: 60,
+  };
 }
+
+Logo.propTypes = {
+  width: PropTypes.number,
+  height: PropTypes.number,
+};
 
 export default Logo;
