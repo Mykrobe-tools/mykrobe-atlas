@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import styles from './App.css';
 import Analysing from '../components/analysing/Analysing';
 import Header from '../components/header/Header';
@@ -41,7 +41,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    browserHistory.listen(() => {
+    this.props.history.listen(() => {
       this.setState({
         displayMenu: false,
       });
@@ -115,11 +115,12 @@ function mapDispatchToProps(dispatch) {
 }
 
 App.propTypes = {
+  history: PropTypes.object.isRequired,
   loadAuth: PropTypes.func.isRequired,
   fetchCurrentUser: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

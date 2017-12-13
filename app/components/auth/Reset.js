@@ -13,7 +13,7 @@ class Reset extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { resetPassword } = this.props;
-    const { resetPasswordToken } = this.props.params;
+    const { resetPasswordToken } = this.props.match.params;
 
     const userObject: AuthResetPasswordType = {
       resetPasswordToken: resetPasswordToken,
@@ -91,7 +91,7 @@ Reset.propTypes = {
   auth: PropTypes.object.isRequired,
   resetPassword: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
-  params: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reset);

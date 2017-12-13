@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Resistance.css';
 import MykrobeConfig from '../../../services/MykrobeConfig';
@@ -24,49 +24,49 @@ class Resistance extends React.Component {
             <Logo />
           </div>
           <div className={styles.navigation}>
-            <Link
+            <NavLink
               to={`${path}/all`}
               className={styles.navigationItem}
               activeClassName={styles.navigationItemActive}
               data-tid="button-resistance-all"
             >
               All
-            </Link>
+            </NavLink>
             {TargetConstants.SPECIES_TB === config.species ? (
-              <Link
+              <NavLink
                 to={`${path}/drugs`}
                 className={styles.navigationItem}
                 activeClassName={styles.navigationItemActive}
                 data-tid="button-resistance-drugs"
               >
                 Drugs
-              </Link>
+              </NavLink>
             ) : (
-              <Link
+              <NavLink
                 to={`${path}/class`}
                 className={styles.navigationItem}
                 activeClassName={styles.navigationItemActive}
                 data-tid="button-resistance-class"
               >
                 Class
-              </Link>
+              </NavLink>
             )}
-            <Link
+            <NavLink
               to={`${path}/evidence`}
               className={styles.navigationItem}
               activeClassName={styles.navigationItemActive}
               data-tid="button-resistance-evidence"
             >
               Evidence
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to={`${path}/species`}
               className={styles.navigationItem}
               activeClassName={styles.navigationItemActive}
               data-tid="button-resistance-species"
             >
               Species
-            </Link>
+            </NavLink>
           </div>
           <div className={styles.actions}>
             <a

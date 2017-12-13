@@ -14,7 +14,7 @@ import styles from './Common.css';
 class Verify extends React.Component {
   componentWillMount() {
     const { verify } = this.props;
-    const { verificationToken } = this.props.params;
+    const { verificationToken } = this.props.match.params;
     const userObject: AuthVerificationType = {
       verificationToken,
     };
@@ -52,7 +52,7 @@ function mapDispatchToProps(dispatch) {
 
 Verify.propTypes = {
   verify: PropTypes.func.isRequired,
-  params: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Verify);

@@ -54,12 +54,12 @@ class AnalyserWebFile extends AnalyserBaseFile {
         return Promise.resolve(result);
       })
       .catch(error => {
-        return Promise.reject({ description: error });
+        return Promise.reject(error);
       });
   }
 
   addExtraData(json: Object) {
-    const testData = require('../../../test/__fixtures__/api/experiment.json');
+    const testData = require('../../../test/__fixtures__/api/experiment.json').data;
     if (!json.location) {
       json.location = testData.location;
     }

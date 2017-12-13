@@ -4,6 +4,18 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Route, Redirect, Switch } from 'react-router-dom';
+
+import Analysis from '../components/analysis/Analysis';
+import Metadata from '../components/metadata/Metadata';
+import Resistance from '../components/resistance/resistance/Resistance';
+import ResistanceAllContainer from '../components/resistance/all/ResistanceAllContainer';
+import ResistanceDrugsContainer from '../components/resistance/drugs/ResistanceDrugsContainer';
+import ResistanceClassContainer from '../components/resistance/class/ResistanceClassContainer';
+import ResistanceEvidenceContainer from '../components/resistance/evidence/ResistanceEvidenceContainer';
+import ResistanceSpeciesContainer from '../components/resistance/species/ResistanceSpeciesContainer';
+import SummaryContainer from '../components/summary/SummaryContainer';
+
 import Sample from '../components/sample/Sample';
 import * as AuthActions from '../actions/AuthActions';
 import * as AnalyserActions from '../actions/AnalyserActions';
@@ -17,7 +29,7 @@ class SamplePage extends React.Component {
       fetchTemplate,
       fetchCurrentUser,
     } = this.props;
-    const { id } = this.props.params;
+    const { id } = this.props.match.params;
     if (!analyser.analysing && !analyser.json) {
       fetchExperiment(id);
     }
@@ -31,7 +43,37 @@ class SamplePage extends React.Component {
   }
 
   render() {
-    return <Sample {...this.props} />;
+    const { match, analyser } = this.props;
+    const { id } = match.params;
+    return (
+      <Sample {...this.props}>
+        <Switch>
+          <Route
+            exact
+            path={match.url}
+            component={() => <Redirect to={`${match.url}/metadata`} />}
+          />
+          <Route
+            path={`${match.url}/metadata`}
+            component={Metadata}
+            analyser={analyser}
+            id={id}
+          />
+          <Route path={`${match.url}/resistance`} component={Resistance}>
+            <Switch>
+              <Route exact path="/" component={() => <Redirect to="all" />} />
+              <Route path="all" component={ResistanceAllContainer} />
+              <Route path="drugs" component={ResistanceDrugsContainer} />
+              <Route path="class" component={ResistanceClassContainer} />
+              <Route path="evidence" component={ResistanceEvidenceContainer} />
+              <Route path="species" component={ResistanceSpeciesContainer} />
+            </Switch>
+          </Route>
+          <Route path={`${match.url}/analysis`} component={Analysis} />
+          <Route path={`${match.url}/summary`} component={SummaryContainer} />
+        </Switch>
+      </Sample>
+    );
   }
 }
 
@@ -53,7 +95,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 SamplePage.propTypes = {
-  params: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
   analyser: PropTypes.object.isRequired,
   fetchExperiment: PropTypes.func.isRequired,
   fetchTemplate: PropTypes.func.isRequired,

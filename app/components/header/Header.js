@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import * as AuthActions from '../../actions/AuthActions';
 import type { AuthType } from '../../types/AuthTypes';
 import type { UserType } from '../../types/UserTypes';

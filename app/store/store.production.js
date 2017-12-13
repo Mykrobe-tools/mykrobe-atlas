@@ -2,7 +2,7 @@
 
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { browserHistory, hashHistory } from 'react-router';
+import { browserHistory, hashHistory } from 'react-router-dom';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
 

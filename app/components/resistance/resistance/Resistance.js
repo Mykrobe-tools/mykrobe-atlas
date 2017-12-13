@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Resistance.css';
 import Uploading from '../../ui/Uploading';
@@ -26,65 +26,65 @@ class Resistance extends React.Component {
           <div className={styles.header}>
             {TargetConstants.SPECIES_TB === config.species ? (
               <div className={styles.navigation}>
-                <Link
+                <NavLink
                   to={`${path}/all`}
                   className={styles.navigationItem}
                   activeClassName={styles.navigationItemActive}
                 >
                   All
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to={`${path}/drugs`}
                   className={styles.navigationItem}
                   activeClassName={styles.navigationItemActive}
                 >
                   Drugs
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to={`${path}/evidence`}
                   className={styles.navigationItem}
                   activeClassName={styles.navigationItemActive}
                 >
                   Evidence
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to={`${path}/species`}
                   className={styles.navigationItem}
                   activeClassName={styles.navigationItemActive}
                 >
                   Species
-                </Link>
+                </NavLink>
               </div>
             ) : (
               <div className={styles.navigation}>
-                <Link
+                <NavLink
                   to={`${path}/all`}
                   className={styles.navigationItem}
                   activeClassName={styles.navigationItemActive}
                 >
                   All
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to={`${path}/class`}
                   className={styles.navigationItem}
                   activeClassName={styles.navigationItemActive}
                 >
                   Class
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to={`${path}/evidence`}
                   className={styles.navigationItem}
                   activeClassName={styles.navigationItemActive}
                 >
                   Evidence
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to={`${path}/species`}
                   className={styles.navigationItem}
                   activeClassName={styles.navigationItemActive}
                 >
                   Species
-                </Link>
+                </NavLink>
               </div>
             )}
           </div>
