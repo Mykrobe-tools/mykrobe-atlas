@@ -52,10 +52,18 @@ class Header extends React.Component {
           </div>
         ) : (
           <div className={styles.account}>
-            <Link to="/auth/login" className={styles.authLink}>
+            <Link
+              to="/auth/login"
+              className={styles.authLink}
+              data-tid="button-log-in"
+            >
               <i className="fa fa-user" /> Log in
             </Link>
-            <Link to="/auth/signup" className={styles.signUpLink}>
+            <Link
+              to="/auth/signup"
+              className={styles.signUpLink}
+              data-tid="button-sign-up"
+            >
               Sign up
             </Link>
           </div>
