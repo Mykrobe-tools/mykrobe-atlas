@@ -20,6 +20,7 @@ INCLUDE_SLOW_TESTS &&
     beforeAll(() => {
       this.driver = new webdriver.Builder().forBrowser('chrome').build();
       this.child = exec('yarn web-hot-server');
+      // this.child = exec('yarn web-build && yarn web-build-simple-server');
     });
 
     afterAll(() => {

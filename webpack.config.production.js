@@ -6,8 +6,6 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
 const config = merge(baseConfig('production'), {
-  devtool: 'eval-cheap-module-source-map',
-
   module: {
     loaders: [
       {
@@ -38,6 +36,16 @@ const config = merge(baseConfig('production'), {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
       'process.env.API_URL': JSON.stringify(process.env.API_URL),
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      comments: false,
+      // Compression specific options
+      compress: {
+        // remove warnings
+        warnings: false,
+        // Drop console statements
+        drop_console: true
+      }
     }),
     new ExtractTextPlugin('style.css', { allChunks: true }),
   ],
