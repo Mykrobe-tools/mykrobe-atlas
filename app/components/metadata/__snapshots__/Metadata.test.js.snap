@@ -17,7 +17,7 @@ exports[`Metadata component snapshot renders correctly 1`] = `
     className="formContainer"
   >
     <
-      id={undefined}
+      id={123}
       resetScroll={[Function]}
     />
   </div>
