@@ -218,6 +218,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "redux": "^3.5.2",
+    "redux-auth-wrapper": "^2.0.2",
     "redux-thunk": "^2.1.0",
     "resumablejs": "23/resumable.js",
     "source-map-support": "^0.4.2",

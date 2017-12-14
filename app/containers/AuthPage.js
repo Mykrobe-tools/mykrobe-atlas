@@ -16,12 +16,17 @@ import Verify from '../components/auth/Verify';
 import VerifySuccess from '../components/auth/VerifySuccess';
 import VerifyFailure from '../components/auth/VerifyFailure';
 
+import { userIsNotAuthenticated } from '../routes';
+
 class AuthPage extends React.Component {
   render() {
     const { match } = this.props;
     return (
       <Switch>
-        <Route path={`${match.url}/login`} component={Login} />
+        <Route
+          path={`${match.url}/login`}
+          component={userIsNotAuthenticated(Login)}
+        />
         <Route path={`${match.url}/signup`} component={SignUp} />
         <Route path={`${match.url}/success`} component={SignUpSuccess} />
         <Route path={`${match.url}/forgot`} component={Forgot} />
