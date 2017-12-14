@@ -6,15 +6,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
-import AnalysisContainer from '../components/analysis/AnalysisContainer';
-import Metadata from '../components/metadata/Metadata';
-import Resistance from '../components/resistance/resistance/Resistance';
-import SummaryContainer from '../components/summary/SummaryContainer';
-
 import Sample from '../components/sample/Sample';
 import * as AuthActions from '../actions/AuthActions';
 import * as AnalyserActions from '../actions/AnalyserActions';
 import * as MetadataActions from '../actions/MetadataActions';
+import withAnalyser from '../hoc/withAnalyser';
 
 class SamplePage extends React.Component {
   componentDidMount() {
@@ -38,35 +34,13 @@ class SamplePage extends React.Component {
   }
 
   render() {
-    const { match, analyser } = this.props;
-    const { id } = match.params;
-    return (
-      <Sample {...this.props}>
-        <Switch>
-          <Route
-            exact
-            path={match.url}
-            component={() => <Redirect to={`${match.url}/metadata`} />}
-          />
-          <Route
-            path={`${match.url}/metadata`}
-            component={Metadata}
-            analyser={analyser}
-            id={id}
-          />
-          <Route path={`${match.url}/resistance`} component={Resistance} />
-          <Route path={`${match.url}/analysis`} component={AnalysisContainer} />
-          <Route path={`${match.url}/summary`} component={SummaryContainer} />
-        </Switch>
-      </Sample>
-    );
+    const { match } = this.props;
+    return <Sample match={match} />;
   }
 }
 
 function mapStateToProps(state) {
-  return {
-    analyser: state.analyser,
-  };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -88,4 +62,6 @@ SamplePage.propTypes = {
   fetchCurrentUser: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SamplePage);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withAnalyser(SamplePage)
+);
