@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { withRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 import ResistanceAllContainer from '../all/ResistanceAllContainer';
 import ResistanceDrugsContainer from '../drugs/ResistanceDrugsContainer';
@@ -142,4 +142,4 @@ Resistance.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps)(Resistance);
+export default withRouter(connect(mapStateToProps)(Resistance));

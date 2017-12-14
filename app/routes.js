@@ -1,7 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper';
 
@@ -11,9 +11,6 @@ import HomePage from './containers/HomePage';
 import App from './containers/App';
 import AuthPage from './containers/AuthPage';
 import OrganisationPage from './containers/OrganisationPage';
-import List from './components/organisation/List';
-import Add from './components/organisation/Add';
-import Edit from './components/organisation/Edit';
 
 export const userIsAuthenticated = connectedRouterRedirect({
   // The url to redirect user to if they fail
@@ -48,14 +45,7 @@ export default (
       <Route
         path="/organisation"
         component={userIsAuthenticated(OrganisationPage)}
-      >
-        <Switch>
-          <Route exact path="/" component={() => <Redirect to="list" />} />
-          <Route path="list" component={List} />
-          <Route path="add" component={Add} />
-          <Route path="edit/:id" component={Edit} />
-        </Switch>
-      </Route>
+      />
     </Switch>
   </App>
 );

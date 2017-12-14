@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
+
 import styles from './App.css';
 import Analysing from '../components/analysing/Analysing';
 import Header from '../components/header/Header';
@@ -123,4 +124,4 @@ App.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
+import { withRouter, Route, Switch } from 'react-router-dom';
 
 import SignUp from '../components/auth/SignUp';
 import SignUpSuccess from '../components/auth/SignUpSuccess';
@@ -53,4 +53,4 @@ AuthPage.propTypes = {
   children: PropTypes.node,
 };
 
-export default AuthPage;
+export default withRouter(AuthPage);
