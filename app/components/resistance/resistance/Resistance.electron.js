@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { NavLink } from 'react-router-dom';
+import { withRouter, Route, Redirect, Switch, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Resistance.css';
 import MykrobeConfig from '../../../services/MykrobeConfig';
@@ -11,9 +11,15 @@ import * as TargetConstants from '../../../constants/TargetConstants';
 import Logo from '../../logo/Logo';
 import * as AnalyserActions from '../../../actions/AnalyserActions';
 
+import ResistanceAllContainer from '../all/ResistanceAllContainer';
+import ResistanceDrugsContainer from '../drugs/ResistanceDrugsContainer';
+import ResistanceClassContainer from '../class/ResistanceClassContainer';
+import ResistanceEvidenceContainer from '../evidence/ResistanceEvidenceContainer';
+import ResistanceSpeciesContainer from '../species/ResistanceSpeciesContainer';
+
 class Resistance extends React.Component {
   render() {
-    const { children, analyseFileNew, analyseFileSave } = this.props;
+    const { match, analyseFileNew, analyseFileSave } = this.props;
     const path = '/results/resistance';
     const config = new MykrobeConfig();
 
@@ -89,7 +95,30 @@ class Resistance extends React.Component {
             </a>
           </div>
         </div>
-        {children}
+        <Switch>
+          <Route
+            exact
+            path={match.url}
+            component={() => <Redirect to={`${match.url}/all`} />}
+          />
+          <Route path={`${match.url}/all`} component={ResistanceAllContainer} />
+          <Route
+            path={`${match.url}/drugs`}
+            component={ResistanceDrugsContainer}
+          />
+          <Route
+            path={`${match.url}/class`}
+            component={ResistanceClassContainer}
+          />
+          <Route
+            path={`${match.url}/evidence`}
+            component={ResistanceEvidenceContainer}
+          />
+          <Route
+            path={`${match.url}/species`}
+            component={ResistanceSpeciesContainer}
+          />
+        </Switch>
       </div>
     );
   }
@@ -115,7 +144,9 @@ Resistance.propTypes = {
   analyseFileSave: PropTypes.func.isRequired,
   analyseFileNew: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  children: PropTypes.node,
+  match: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Resistance);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Resistance)
+);

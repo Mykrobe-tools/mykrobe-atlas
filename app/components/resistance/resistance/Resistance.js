@@ -2,9 +2,8 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { withRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { withRouter, Route, Redirect, Switch, NavLink} from 'react-router-dom';
 
 import ResistanceAllContainer from '../all/ResistanceAllContainer';
 import ResistanceDrugsContainer from '../drugs/ResistanceDrugsContainer';

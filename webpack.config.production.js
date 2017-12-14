@@ -37,16 +37,6 @@ const config = merge(baseConfig('production'), {
       'process.env.NODE_ENV': JSON.stringify('production'),
       'process.env.API_URL': JSON.stringify(process.env.API_URL),
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      comments: false,
-      // Compression specific options
-      compress: {
-        // remove warnings
-        warnings: false,
-        // Drop console statements
-        drop_console: true
-      }
-    }),
     new ExtractTextPlugin('style.css', { allChunks: true }),
   ],
 });
