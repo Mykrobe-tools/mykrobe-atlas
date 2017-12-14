@@ -36,7 +36,7 @@ class Lozenge extends React.Component {
 
   initialiseWithProps(props: Object) {
     const { containerWidth, containerHeight } = props;
-    this.state = {
+    this.setState({
       initialised: true,
       x: (-0.1 + 1.2 * Math.random()) * containerWidth,
       y: 300 + Math.random() * (containerHeight - 200),
@@ -44,7 +44,7 @@ class Lozenge extends React.Component {
       rotation: Math.random() * 180,
       vx: 0.1 + Math.random() * 0.2,
       vr: 0.1 + Math.random() * 0.2,
-    };
+    });
   }
 
   componentWillReceiveProps(nextProps: Object) {

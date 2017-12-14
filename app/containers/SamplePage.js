@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
-import Analysis from '../components/analysis/Analysis';
+import AnalysisContainer from '../components/analysis/AnalysisContainer';
 import Metadata from '../components/metadata/Metadata';
 import Resistance from '../components/resistance/resistance/Resistance';
 import SummaryContainer from '../components/summary/SummaryContainer';
@@ -55,7 +55,7 @@ class SamplePage extends React.Component {
             id={id}
           />
           <Route path={`${match.url}/resistance`} component={Resistance} />
-          <Route path={`${match.url}/analysis`} component={Analysis} />
+          <Route path={`${match.url}/analysis`} component={AnalysisContainer} />
           <Route path={`${match.url}/summary`} component={SummaryContainer} />
         </Switch>
       </Sample>

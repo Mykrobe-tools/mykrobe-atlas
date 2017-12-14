@@ -224,7 +224,7 @@ function mapDispatchToProps(dispatch) {
 
 Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
-  analyser: PropTypes.object,
+  analyser: PropTypes.object.isRequired,
   node: PropTypes.object.isRequired,
 };
 
