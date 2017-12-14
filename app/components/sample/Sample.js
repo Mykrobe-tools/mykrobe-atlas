@@ -7,9 +7,8 @@ import { NavLink } from 'react-router-dom';
 
 class Sample extends React.Component {
   render() {
-    const { children, analyser, match: { params } } = this.props;
-    const { id } = params;
-    const path = `/sample/${id}`;
+    const { children, analyser, match } = this.props;
+    const id = match.params.id;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -17,28 +16,28 @@ class Sample extends React.Component {
         </div>
         <div className={styles.navigation}>
           <NavLink
-            to={`${path}/metadata`}
+            to={`${match.url}/metadata`}
             className={styles.navigationItem}
             activeClassName={styles.navigationItemActive}
           >
             Metadata
           </NavLink>
           <NavLink
-            to={`${path}/resistance`}
+            to={`${match.url}/resistance`}
             className={styles.navigationItem}
             activeClassName={styles.navigationItemActive}
           >
             Resistance
           </NavLink>
           <NavLink
-            to={`${path}/analysis`}
+            to={`${match.url}/analysis`}
             className={styles.navigationItem}
             activeClassName={styles.navigationItemActive}
           >
             Analysis
           </NavLink>
           <NavLink
-            to={`${path}/summary`}
+            to={`${match.url}/summary`}
             className={styles.navigationItem}
             activeClassName={styles.navigationItemActive}
           >
