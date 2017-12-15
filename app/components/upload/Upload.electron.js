@@ -19,7 +19,6 @@ class Upload extends React.Component {
   };
 
   onCancelClick = () => {
-    console.log('onCancelClick');
     const { analyseFileCancel } = this.props;
     analyseFileCancel();
   };

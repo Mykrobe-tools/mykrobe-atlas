@@ -10,8 +10,11 @@
 }
 
 .notificationsContainer {
-  composes: containerAbsolute from "css/layout.css";
-  bottom: auto;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 5;
 }
 

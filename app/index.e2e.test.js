@@ -5,6 +5,9 @@ const until = webdriver.until; // useful utility to wait for something to happen
 
 import { INCLUDE_SLOW_TESTS } from '../desktop/util';
 
+// disable to help with modifying tests
+const USE_PRODUCTION_BUILD = true;
+
 jest.setTimeout(10 * 60 * 1000); // 10 minutes
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
@@ -24,7 +27,11 @@ describe('Web e2e prerequisites', () => {
 
 let driver, child;
 
-const USE_PRODUCTION_BUILD = true;
+process.on('SIGTERM', () => {
+  // clean up any orophaned processes
+  child && child.kill();
+  driver && driver.quit();
+});
 
 INCLUDE_SLOW_TESTS &&
   describe('Web e2e main window', function spec() {
@@ -41,17 +48,20 @@ INCLUDE_SLOW_TESTS &&
     afterAll(() => {
       child.kill();
       driver.quit();
+      child = null;
+      driver = null;
     });
 
     it('should open website', async () => {
-      // wait for the server to boot up
-      await delay(3000);
+      // wait for the server to boot up - takes longer for dev
+      await delay(USE_PRODUCTION_BUILD ? 5000 : 10000);
       // ask the browser to open a page
       await driver.navigate().to('http://localhost:3000/');
+      // clear cookies to start a new session
+      await driver.manage().deleteAllCookies();
     });
 
-    it('should fail to log in', async () => {
-      // navigate to login screen
+    it('should navigate to log in screen', async () => {
       await driver.wait(
         until.elementLocated(By.css('[data-tid="button-log-in"]'))
       );
@@ -59,7 +69,9 @@ INCLUDE_SLOW_TESTS &&
       await driver.wait(
         until.elementLocated(By.css('[data-tid="input-email"]'))
       );
+    });
 
+    it('should fail to log in', async () => {
       // set invalid credentials
       await setValueForSelector(
         '[data-tid="input-email"]',
@@ -78,6 +90,38 @@ INCLUDE_SLOW_TESTS &&
       // should be back on login screen
       await driver.wait(
         until.elementLocated(By.css('[data-tid="button-submit"]'))
+      );
+    });
+
+    it('should log in', async () => {
+      // set valid credentials
+      await setValueForSelector(
+        '[data-tid="input-email"]',
+        'simon@makeandship.com'
+      );
+      await setValueForSelector('[data-tid="input-password"]', 'password123');
+
+      // submit
+      await driver.findElement(By.css('[data-tid="button-submit"]')).click();
+
+      // loading
+      await driver.wait(
+        until.elementLocated(By.css('[data-tid="component-loading"]'))
+      );
+
+      // should be back on login screen
+      await driver.wait(
+        until.elementLocated(By.css('[data-tid="button-sign-out"]'))
+      );
+    });
+
+    it('should log out', async () => {
+      // sign out
+      await driver.findElement(By.css('[data-tid="button-sign-out"]')).click();
+
+      // should be back on front screen
+      await driver.wait(
+        until.elementLocated(By.css('[data-tid="component-upload"]'))
       );
     });
   });

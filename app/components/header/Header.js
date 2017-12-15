@@ -36,7 +36,11 @@ class Header extends React.Component {
         {isAuthenticated ? (
           <div className={styles.account}>
             {user && (
-              <Link to="/auth/profile" className={styles.authLink}>
+              <Link
+                to="/auth/profile"
+                className={styles.authLink}
+                data-tid="button-my-profile"
+              >
                 <i className="fa fa-user" /> My profile
               </Link>
             )}
@@ -46,6 +50,7 @@ class Header extends React.Component {
               onClick={() => {
                 signOut();
               }}
+              data-tid="button-sign-out"
             >
               Sign out
             </a>
