@@ -1,6 +1,6 @@
 /* @flow */
 
-import 'whatwg-fetch';
+import 'isomorphic-fetch';
 import type { JSendType } from '../types/JSendType';
 import type { UserType } from '../types/UserTypes';
 import * as AuthActions from '../actions/AuthActions';
@@ -34,43 +34,45 @@ export default (url: string, options: any = {}): Promise<any> => {
     };
   }
   console.log(`fetch ${url} options`, options);
-  return fetch(url, options)
-    .then(response => {
-      if (response.ok) {
-        return response.json().then((jsend: JSendType) => {
-          const { status, message, data } = jsend;
-          if (!status) {
-            const json = JSON.stringify(jsend, null, 2);
-            return Promise.reject({
+  return new Promise((resolve, reject) => {
+    fetch(url, options)
+      .then(response => {
+        if (response.ok) {
+          return response.json().then((jsend: JSendType) => {
+            const { status, message, data } = jsend;
+            if (!status) {
+              const json = JSON.stringify(jsend, null, 2);
+              return reject({
+                status: response.status,
+                statusText: `Invalid JSend response ${json}`,
+              });
+            } else if (status === 'success') {
+              return resolve(data);
+            }
+            return reject({
               status: response.status,
-              statusText: `Invalid JSend response ${json}`,
+              statusText: message,
             });
-          } else if (status === 'success') {
-            return Promise.resolve(data);
-          }
-          return Promise.reject({
-            status: response.status,
-            statusText: message,
           });
-        });
-      } else {
-        if (response.status === 401 && user && user.token) {
-          AuthActions.signOut()(store.dispatch);
+        } else {
+          if (response.status === 401 && user && user.token) {
+            AuthActions.signOut()(store.dispatch);
+          }
+          return reject({
+            status: response.status,
+            statusText: response.statusText,
+          });
         }
-        return Promise.reject({
-          status: response.status,
-          statusText: response.statusText,
+      })
+      .catch(error => {
+        // An error we generated
+        if (error.statusText) {
+          return reject(error);
+        }
+        // An error from underlying network, e.g. failed preflight check
+        return reject({
+          statusText: error.message,
         });
-      }
-    })
-    .catch(error => {
-      // An error we generated
-      if (error.statusText) {
-        return Promise.reject(error);
-      }
-      // An error from underlying network, e.g. failed preflight check
-      return Promise.reject({
-        statusText: error.message,
       });
-    });
+  });
 };
