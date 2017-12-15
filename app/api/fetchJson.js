@@ -54,7 +54,7 @@ export default (url: string, options: any = {}): Promise<any> => {
           });
         });
       } else {
-        if (response.status === 401) {
+        if (response.status === 401 && user && user.token) {
           AuthActions.signOut()(store.dispatch);
         }
         return Promise.reject({

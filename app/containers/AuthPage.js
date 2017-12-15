@@ -16,22 +16,22 @@ import Verify from '../components/auth/Verify';
 import VerifySuccess from '../components/auth/VerifySuccess';
 import VerifyFailure from '../components/auth/VerifyFailure';
 
-import { userIsNotAuthenticated } from '../routes';
+import { userIsNotAuthenticated, userIsAuthenticated } from '../authHelpers';
+
+const AuthenticatedProfile = userIsAuthenticated(Profile);
+const UnauthenticatedLogin = userIsNotAuthenticated(Login);
 
 class AuthPage extends React.Component {
   render() {
     const { match } = this.props;
     return (
       <Switch>
-        <Route
-          path={`${match.url}/login`}
-          component={userIsNotAuthenticated(Login)}
-        />
+        <Route path={`${match.url}/login`} component={UnauthenticatedLogin} />
         <Route path={`${match.url}/signup`} component={SignUp} />
         <Route path={`${match.url}/success`} component={SignUpSuccess} />
         <Route path={`${match.url}/forgot`} component={Forgot} />
         <Route path={`${match.url}/forgotsuccess`} component={ForgotSuccess} />
-        <Route path={`${match.url}/profile`} component={Profile} />
+        <Route path={`${match.url}/profile`} component={AuthenticatedProfile} />
         <Route
           path={`${match.url}/reset/:resetPasswordToken`}
           component={Reset}

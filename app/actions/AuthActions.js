@@ -51,7 +51,6 @@ export function signOut() {
         content: 'You are now logged out',
       })
     );
-    dispatch(push('/'));
     return Promise.resolve();
   };
 }
