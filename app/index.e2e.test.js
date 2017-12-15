@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+const { exec, execSync } = require('child_process');
 const webdriver = require('selenium-webdriver');
 const By = webdriver.By; // useful Locator utility to describe a query for a WebElement
 const until = webdriver.until; // useful utility to wait for something to happen
@@ -31,7 +31,8 @@ INCLUDE_SLOW_TESTS &&
     beforeAll(() => {
       driver = new webdriver.Builder().forBrowser('safari').build();
       if (USE_PRODUCTION_BUILD) {
-        child = exec('yarn web-build && yarn web-build-server');
+        execSync('yarn web-build');
+        child = exec('yarn web-build-server');
       } else {
         child = exec('yarn web-hot-server');
       }
@@ -43,10 +44,8 @@ INCLUDE_SLOW_TESTS &&
     });
 
     it('should open website', async () => {
-      await delay(500);
-      await driver.navigate().to('http://localhost:3000/');
-      // wait for the server to boot up - takes longer in production
-      await delay(USE_PRODUCTION_BUILD ? 30000 : 3000);
+      // wait for the server to boot up
+      await delay(3000);
       // ask the browser to open a page
       await driver.navigate().to('http://localhost:3000/');
     });
