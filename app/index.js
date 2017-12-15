@@ -3,21 +3,16 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, hashHistory, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { ConnectedRouter } from 'react-router-redux';
+
 import routes from './routes';
-import store from './store/store'; // eslint-disable-line import/default
+import store, { history } from './store/store'; // eslint-disable-line import/default
 import './app.global.css';
 import './css/main.css';
 
-const history = syncHistoryWithStore(
-  IS_ELECTRON ? hashHistory : browserHistory,
-  store
-);
-
 render(
   <Provider store={store}>
-    <Router history={history} routes={routes} />
+    <ConnectedRouter history={history}>{routes}</ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 );
@@ -27,7 +22,7 @@ if (module.hot) {
     const routes = require('./routes');
     render(
       <Provider store={store}>
-        <Router history={history} routes={routes} />
+        <ConnectedRouter history={history}>{routes}</ConnectedRouter>
       </Provider>,
       document.getElementById('root')
     );

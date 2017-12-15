@@ -65,7 +65,6 @@ function authRawState(state: AuthType, action: Object) {
       return {
         ...state,
         isFetching: false,
-        user: undefined,
         failureReason: action.statusText,
       };
     case types.AUTH_FORGOT_PASSWORD:

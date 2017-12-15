@@ -1,10 +1,13 @@
 /* @flow */
 
+/* TODO Refactor to use redux-form */
+/* eslint-disable react/no-string-refs */
+
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import styles from './Common.css';
 import * as OrganisationActions from '../../actions/OrganisationActions';
@@ -16,7 +19,7 @@ class Edit extends React.Component {
 
   componentWillMount() {
     const { requestOrganisation } = this.props;
-    const { id } = this.props.params;
+    const { id } = this.props.match.params;
     this.id = id;
     requestOrganisation(this.id);
   }
@@ -161,7 +164,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 Edit.propTypes = {
-  params: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
   organisations: PropTypes.object.isRequired,
   requestOrganisation: PropTypes.func.isRequired,
   updateOrganisation: PropTypes.func.isRequired,

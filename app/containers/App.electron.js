@@ -7,6 +7,7 @@ import * as AnalyserActions from '../actions/AnalyserActions';
 import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
 import { push } from 'react-router-redux';
 import Dropzone from 'react-dropzone';
+import { withRouter } from 'react-router-dom';
 
 import styles from './App.css';
 
@@ -143,4 +144,4 @@ App.propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

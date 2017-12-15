@@ -108,9 +108,11 @@ class FormTypeahead extends React.Component {
           theme={styles}
           suggestions={suggestions}
           onSuggestionSelected={(e, { suggestion }) =>
-            onChange(name, suggestion.value)}
+            onChange(name, suggestion.value)
+          }
           onSuggestionsFetchRequested={({ value }) =>
-            this.onSuggestionsFetchRequested(value)}
+            this.onSuggestionsFetchRequested(value)
+          }
           onSuggestionsClearRequested={() => this.onSuggestionsClearRequested()}
           getSuggestionValue={this.options.getSuggestionValue}
           renderSuggestion={this.options.renderSuggestion}

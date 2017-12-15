@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import * as AuthActions from '../../actions/AuthActions';
 import type { AuthType } from '../../types/AuthTypes';
 import type { UserType } from '../../types/UserTypes';
@@ -36,7 +36,11 @@ class Header extends React.Component {
         {isAuthenticated ? (
           <div className={styles.account}>
             {user && (
-              <Link to="/auth/profile" className={styles.authLink}>
+              <Link
+                to="/auth/profile"
+                className={styles.authLink}
+                data-tid="button-my-profile"
+              >
                 <i className="fa fa-user" /> My profile
               </Link>
             )}
@@ -46,16 +50,25 @@ class Header extends React.Component {
               onClick={() => {
                 signOut();
               }}
+              data-tid="button-sign-out"
             >
               Sign out
             </a>
           </div>
         ) : (
           <div className={styles.account}>
-            <Link to="/auth/login" className={styles.authLink}>
+            <Link
+              to="/auth/login"
+              className={styles.authLink}
+              data-tid="button-log-in"
+            >
               <i className="fa fa-user" /> Log in
             </Link>
-            <Link to="/auth/signup" className={styles.signUpLink}>
+            <Link
+              to="/auth/signup"
+              className={styles.signUpLink}
+              data-tid="button-sign-up"
+            >
               Sign up
             </Link>
           </div>

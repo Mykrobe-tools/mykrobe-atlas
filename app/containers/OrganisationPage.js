@@ -2,16 +2,32 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter, Route, Redirect, Switch } from 'react-router-dom';
+
+import List from '../components/organisation/List';
+import Add from '../components/organisation/Add';
+import Edit from '../components/organisation/Edit';
 
 class OrganisationPage extends React.Component {
   render() {
-    const { children } = this.props;
-    return { ...children };
+    const { match } = this.props;
+    return (
+      <Switch>
+        <Route
+          exact
+          path={match.url}
+          component={() => <Redirect to={`${match.url}/list`} />}
+        />
+        <Route path={`${match.url}/list`} component={List} />
+        <Route path={`${match.url}/add`} component={Add} />
+        <Route path={`${match.url}/edit/:id`} component={Edit} />
+      </Switch>
+    );
   }
 }
 
 OrganisationPage.propTypes = {
-  children: PropTypes.element.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
-export default OrganisationPage;
+export default withRouter(OrganisationPage);

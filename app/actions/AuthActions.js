@@ -51,7 +51,6 @@ export function signOut() {
         content: 'You are now logged out',
       })
     );
-    dispatch(push('/'));
     return Promise.resolve();
   };
 }
@@ -84,7 +83,6 @@ export function signIn(user: UserType) {
             content: 'You are now logged in',
           })
         );
-        dispatch(push('/'));
         return Promise.resolve(data);
       })
       .catch(error => {

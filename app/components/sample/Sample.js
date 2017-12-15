@@ -3,58 +3,69 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Sample.css';
-import { Link } from 'react-router';
+import { withRouter, Route, Redirect, Switch, NavLink } from 'react-router-dom';
+
+import AnalysisContainer from '../analysis/AnalysisContainer';
+import MetadataContainer from '../metadata/MetadataContainer';
+import Resistance from '../resistance/resistance/Resistance';
+import SummaryContainer from '../summary/SummaryContainer';
 
 class Sample extends React.Component {
   render() {
-    const { children, analyser, params } = this.props;
-    const { id } = params;
-    const path = `/sample/${id}`;
+    const { match } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.title}>(Name of sample)</div>
         </div>
         <div className={styles.navigation}>
-          <Link
-            to={`${path}/metadata`}
+          <NavLink
+            to={`${match.url}/metadata`}
             className={styles.navigationItem}
             activeClassName={styles.navigationItemActive}
           >
             Metadata
-          </Link>
-          <Link
-            to={`${path}/resistance`}
+          </NavLink>
+          <NavLink
+            to={`${match.url}/resistance`}
             className={styles.navigationItem}
             activeClassName={styles.navigationItemActive}
           >
             Resistance
-          </Link>
-          <Link
-            to={`${path}/analysis`}
+          </NavLink>
+          <NavLink
+            to={`${match.url}/analysis`}
             className={styles.navigationItem}
             activeClassName={styles.navigationItemActive}
           >
             Analysis
-          </Link>
-          <Link
-            to={`${path}/summary`}
+          </NavLink>
+          <NavLink
+            to={`${match.url}/summary`}
             className={styles.navigationItem}
             activeClassName={styles.navigationItemActive}
           >
             Summary
-          </Link>
+          </NavLink>
         </div>
-        {children && React.cloneElement(children, { analyser, id })}
+        <Switch>
+          <Route
+            exact
+            path={match.url}
+            component={() => <Redirect to={`${match.url}/metadata`} />}
+          />
+          <Route path={`${match.url}/metadata`} component={MetadataContainer} />
+          <Route path={`${match.url}/resistance`} component={Resistance} />
+          <Route path={`${match.url}/analysis`} component={AnalysisContainer} />
+          <Route path={`${match.url}/summary`} component={SummaryContainer} />
+        </Switch>
       </div>
     );
   }
 }
 
 Sample.propTypes = {
-  children: PropTypes.element.isRequired,
-  analyser: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
-export default Sample;
+export default withRouter(Sample);

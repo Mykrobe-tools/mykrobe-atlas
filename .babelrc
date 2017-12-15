@@ -30,7 +30,6 @@
       "plugins": ["./babel-plugin-electron-module-resolver"]
     },
     "development": {
-      "presets": ["react-hmre"],
       "plugins": ["./babel-plugin-electron-module-resolver"]
     }
   }

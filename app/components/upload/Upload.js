@@ -123,6 +123,7 @@ class Upload extends React.Component {
         ref={ref => {
           this._dropzone = ref;
         }}
+        data-tid="component-upload"
       >
         <AnimatedBackground />
         <div className={styles.contentContainer}>

@@ -1,7 +1,6 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
 
 import styles from './About.css';
 import Logo from '../logo/Logo';

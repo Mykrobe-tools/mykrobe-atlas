@@ -58,6 +58,8 @@ INCLUDE_SLOW_TESTS &&
       return result.length > 1 ? result : result[0];
     };
 
+    // these run even if test is excluded: https://github.com/facebook/jest/issues/4166
+
     beforeAll(async () => {
       this.app = new Application({
         path: ELECTRON_EXECUTABLE_PATH,

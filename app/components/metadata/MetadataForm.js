@@ -1,6 +1,7 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -90,10 +91,6 @@ class MetadataForm extends React.Component {
   constructor(props: Object) {
     super(props);
     this.state = props.metadata;
-
-    // const app = require('electron').remote.app;
-    // const locale = app.getLocale();
-    // console.log('locale', locale); // returns en-US
   }
 
   componentWillUnmount() {
@@ -333,7 +330,8 @@ class MetadataForm extends React.Component {
                       };
                     })}
                     onChange={(name, value) =>
-                      this.handleTypeaheadChange(name, value)}
+                      this.handleTypeaheadChange(name, value)
+                    }
                   />
                 </FormRow>
               )}
@@ -523,7 +521,8 @@ class MetadataForm extends React.Component {
                     value={collectionDate}
                     required
                     onChange={date =>
-                      this.handleDateChange('collectionDate', date)}
+                      this.handleDateChange('collectionDate', date)
+                    }
                   />
                 </FormRow>
               )}
@@ -566,7 +565,8 @@ class MetadataForm extends React.Component {
                       };
                     })}
                     onChange={(name, value) =>
-                      this.handleTypeaheadChange(name, value)}
+                      this.handleTypeaheadChange(name, value)
+                    }
                   />
                 </FormRow>
               )}
@@ -589,7 +589,8 @@ class MetadataForm extends React.Component {
                     name="dateArrived"
                     value={dateArrived}
                     onChange={date =>
-                      this.handleDateChange('dateArrived', date)}
+                      this.handleDateChange('dateArrived', date)
+                    }
                   />
                 </FormRow>
               )}
@@ -1020,7 +1021,8 @@ class MetadataForm extends React.Component {
                     value={priorTreatmentDate}
                     required
                     onChange={date =>
-                      this.handleDateChange('priorTreatmentDate', date)}
+                      this.handleDateChange('priorTreatmentDate', date)
+                    }
                   />
                 </FormRow>
               )}
@@ -1048,7 +1050,8 @@ class MetadataForm extends React.Component {
                     value={tbProphylaxisDate}
                     required
                     onChange={date =>
-                      this.handleDateChange('tbProphylaxisDate', date)}
+                      this.handleDateChange('tbProphylaxisDate', date)
+                    }
                   />
                 </FormRow>
               )}
@@ -1091,7 +1094,8 @@ class MetadataForm extends React.Component {
                     name="intensiveStartDate"
                     value={intensiveStartDate}
                     onChange={date =>
-                      this.handleDateChange('intensiveStartDate', date)}
+                      this.handleDateChange('intensiveStartDate', date)
+                    }
                   />
                 </FormRow>
               )}
@@ -1102,7 +1106,8 @@ class MetadataForm extends React.Component {
                     name="intensiveStopDate"
                     value={intensiveStopDate}
                     onChange={date =>
-                      this.handleDateChange('intensiveStopDate', date)}
+                      this.handleDateChange('intensiveStopDate', date)
+                    }
                   />
                 </FormRow>
               )}
@@ -1129,7 +1134,8 @@ class MetadataForm extends React.Component {
                     name="continuationStartDate"
                     value={continuationStartDate}
                     onChange={date =>
-                      this.handleDateChange('continuationStartDate', date)}
+                      this.handleDateChange('continuationStartDate', date)
+                    }
                   />
                 </FormRow>
               )}
@@ -1140,7 +1146,8 @@ class MetadataForm extends React.Component {
                     name="continuationStopDate"
                     value={continuationStopDate}
                     onChange={date =>
-                      this.handleDateChange('continuationStopDate', date)}
+                      this.handleDateChange('continuationStopDate', date)
+                    }
                   />
                 </FormRow>
               )}
@@ -1193,7 +1200,8 @@ class MetadataForm extends React.Component {
                             ]}
                             selectedOption={selectedOption}
                             onChange={event =>
-                              this.handleDrugOutsidePhaseChange(drug, event)}
+                              this.handleDrugOutsidePhaseChange(drug, event)
+                            }
                           />
                           {isYes && (
                             <div>
@@ -1204,7 +1212,8 @@ class MetadataForm extends React.Component {
                                   this.handleDrugOutsidePhaseStartDateChange(
                                     drug,
                                     date
-                                  )}
+                                  )
+                                }
                               />
                               <FormInputDate
                                 title="End date"
@@ -1213,7 +1222,8 @@ class MetadataForm extends React.Component {
                                   this.handleDrugOutsidePhaseEndDateChange(
                                     drug,
                                     date
-                                  )}
+                                  )
+                                }
                               />
                             </div>
                           )}
@@ -1325,7 +1335,8 @@ class MetadataForm extends React.Component {
                     value={dateOfDeath}
                     required
                     onChange={date =>
-                      this.handleDateChange('dateOfDeath', date)}
+                      this.handleDateChange('dateOfDeath', date)
+                    }
                   />
                 </FormRow>
               )}
@@ -1393,7 +1404,8 @@ class MetadataForm extends React.Component {
                 },
               ]}
               onChange={event =>
-                this.handleSusceptibilityNotTestedChange(drug, event)}
+                this.handleSusceptibilityNotTestedChange(drug, event)
+              }
             />
           )}
         </div>
@@ -1418,5 +1430,14 @@ function mapDispatchToProps(dispatch) {
     dispatch
   );
 }
+
+MetadataForm.propTypes = {
+  metadata: PropTypes.object,
+  setMetadata: PropTypes.func,
+  postMetadataForm: PropTypes.func,
+  resetScroll: PropTypes.func,
+  template: PropTypes.array,
+  id: PropTypes.string,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MetadataForm);

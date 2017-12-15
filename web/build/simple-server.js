@@ -14,13 +14,12 @@ app.use('/static/', express.static(path.resolve(__dirname, 'static')));
 app.get('*', (req, res, next) => {
   if (req.accepts('html')) {
     res.sendFile(path.resolve(__dirname, 'index.html'));
-  }
-  else {
+  } else {
     next();
   }
 });
 
-const server = app.listen(port, host, (err) => {
+const server = app.listen(port, host, err => {
   if (err) {
     console.error(err);
     return;

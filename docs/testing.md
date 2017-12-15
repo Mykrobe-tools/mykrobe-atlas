@@ -6,7 +6,6 @@ This app uses the [Jest](http://facebook.github.io/jest/) testing framework.
 
 ## Setup
 
-
 1. Download the large 'bams' fixtures from [here](https://www.dropbox.com/sh/ic5qx6d7vf9j11q/AADOcM0bZt5EfMpwbQ4kRURoa?dl=0)
 
 2. Move this folder into the project at path `/tests/__fixtures__/bams`
@@ -20,8 +19,6 @@ To run the general test suite, skipping slow tests:
 ```
 $ yarn test:fast
 ```
-
-> At present this will generate harmless `PropTypes` and `createClass` warnings. Updating webpack, react-router and then react to current versions will eventually fix this.
 
 To run all tests including slow ones:
 
@@ -49,7 +46,6 @@ Potentially slow tests can check if they should execute by checking the for env 
 
 Look at the existing tests in the app for examples.
 
-
 ### Action creators
 
 Test whether an action creator is called, and whether the correct action has been returned.
@@ -57,13 +53,11 @@ Test whether an action creator is called, and whether the correct action has bee
 - http://redux.js.org/docs/recipes/WritingTests.html#action-creators
 - http://academy.plot.ly/react/6-testing/#actions
 
-
 #### Async action creators
 
 If the action creator runs async (e.g. if it returns a _thunk_ function rather than immediately returning an action) the tests may need to create a mock store to test returned actions.
 
 - http://redux.js.org/docs/recipes/WritingTests.html#async-action-creators
-
 
 ### Reducers
 
@@ -71,7 +65,6 @@ Test that the reducer for each action returns the correct state.
 
 - http://redux.js.org/docs/recipes/WritingTests.html#reducers
 - http://academy.plot.ly/react/6-testing/#reducer
-
 
 ### Component snapshots
 
@@ -90,7 +83,6 @@ Snapshot test files should contain the file extension `.snapshot.spec.js` to dif
 - https://facebook.github.io/jest/blog/2016/07/27/jest-14.html
 - http://facebook.github.io/jest/docs/tutorial-react.html#snapshot-testing
 - http://academy.plot.ly/react/6-testing/#component-testing
-
 
 ### Component interactions
 

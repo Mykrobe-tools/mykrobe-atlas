@@ -1,5 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+
 import styles from './CircularProgress.css';
 
 class CircularProgress extends React.Component {
@@ -45,6 +46,12 @@ CircularProgress.defaultProps = {
   radius: 240,
   percentage: 50,
   strokeWidth: 36,
+};
+
+CircularProgress.propTypes = {
+  radius: PropTypes.number,
+  percentage: PropTypes.number,
+  strokeWidth: PropTypes.number,
 };
 
 export default CircularProgress;

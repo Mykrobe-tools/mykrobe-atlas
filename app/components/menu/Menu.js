@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import styles from './Menu.css';
 import Logo from '../logo/Logo';
 
@@ -18,32 +18,32 @@ class Menu extends React.Component {
         </div>
         <ul className={styles.navigation}>
           <li className={styles.navigationItem}>
-            <Link
+            <NavLink
               to="/"
               className={styles.navigationLink}
               activeClassName={styles.navigationLinkActive}
-              onlyActiveOnIndex
+              exact
             >
               Home
-            </Link>
+            </NavLink>
           </li>
           <li className={styles.navigationItem}>
-            <Link
+            <NavLink
               to="/library"
               className={styles.navigationLink}
               activeClassName={styles.navigationLinkActive}
             >
               Library
-            </Link>
+            </NavLink>
           </li>
           <li className={styles.navigationItem}>
-            <Link
+            <NavLink
               to="/organisation"
               className={styles.navigationLink}
               activeClassName={styles.navigationLinkActive}
             >
               Organisations
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>

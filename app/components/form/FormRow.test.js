@@ -6,7 +6,7 @@ describe('FormRow component snapshot', () => {
   const children = '<a href="#">Dolor Sit Amet</a>';
 
   it('renders correctly', () => {
-    const component = renderer.create(<FormRow children={children} />);
+    const component = renderer.create(<FormRow>{children}</FormRow>);
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });

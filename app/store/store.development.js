@@ -2,10 +2,10 @@
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
-import { browserHistory, hashHistory } from 'react-router';
+import { createLogger } from 'redux-logger';
 import { routerMiddleware, push } from 'react-router-redux';
 import rootReducer from '../reducers';
+import { createBrowserHistory, createHashHistory } from 'history';
 
 import * as AnalyserActions from '../actions/AnalyserActions';
 
@@ -19,7 +19,11 @@ const logger = createLogger({
   collapsed: true,
 });
 
-const router = routerMiddleware(IS_ELECTRON ? hashHistory : browserHistory);
+export const history = IS_ELECTRON
+  ? createHashHistory()
+  : createBrowserHistory();
+
+const router = routerMiddleware(history);
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({

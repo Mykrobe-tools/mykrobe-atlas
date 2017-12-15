@@ -2,11 +2,15 @@
 
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { browserHistory, hashHistory } from 'react-router';
+import { createBrowserHistory, createHashHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
 
-const router = routerMiddleware(IS_ELECTRON ? hashHistory : browserHistory);
+export const history = IS_ELECTRON
+  ? createHashHistory()
+  : createBrowserHistory();
+
+const router = routerMiddleware(history);
 
 const enhancer = applyMiddleware(thunk, router);
 

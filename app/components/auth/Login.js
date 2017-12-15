@@ -1,8 +1,11 @@
 /* @flow */
 
+/* TODO Refactor to use redux-form */
+/* eslint-disable react/no-string-refs */
+
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -53,6 +56,7 @@ class Login extends React.Component {
                   ref="email"
                   placeholder="sam.smith@example.com"
                   defaultValue=""
+                  data-tid="input-email"
                 />
               </div>
               <div className={styles.formRow}>
@@ -64,10 +68,15 @@ class Login extends React.Component {
                   type="password"
                   id="password"
                   ref="password"
+                  data-tid="input-password"
                 />
               </div>
               <div className={styles.formActions}>
-                <button className={styles.button} type="submit">
+                <button
+                  className={styles.button}
+                  type="submit"
+                  data-tid="button-submit"
+                >
                   <span>
                     <i className="fa fa-chevron-circle-right" /> Log in
                   </span>

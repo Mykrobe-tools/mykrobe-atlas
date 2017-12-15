@@ -2,9 +2,8 @@
 
 import path from 'path';
 
-function baseConfig(env: string = 'development') {
+function baseConfig(env: string = 'development') { // eslint-disable-line
   return {
-    entry: ['whatwg-fetch'],
     module: {
       loaders: [
         {

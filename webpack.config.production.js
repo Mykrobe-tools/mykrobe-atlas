@@ -6,8 +6,6 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
 const config = merge(baseConfig('production'), {
-  devtool: 'eval-cheap-module-source-map',
-
   module: {
     loaders: [
       {

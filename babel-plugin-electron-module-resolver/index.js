@@ -1,7 +1,7 @@
 /* @flow */
 
-import pathLib from 'path';
-import fs from 'fs';
+const pathLib = require('path');
+const fs = require('fs');
 
 // This plugin will modify imports to import sources with a '.electron' suffix
 // Only if process.PLATFORM === 'electron'

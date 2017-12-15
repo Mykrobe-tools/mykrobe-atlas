@@ -210,9 +210,9 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     if (process.env.NODE_ENV === 'development') {
       dirToBin = path.join(
         rootDir,
-        `desktop/resources/bin/${this.targetConfig.targetName}/${platform}-${
-          arch
-        }/bin`
+        `desktop/resources/bin/${
+          this.targetConfig.targetName
+        }/${platform}-${arch}/bin`
       );
     } else {
       dirToBin = path.join(rootDir, '../bin');

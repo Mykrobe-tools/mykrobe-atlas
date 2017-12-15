@@ -14,18 +14,19 @@ class Metadata extends React.Component {
   };
 
   render() {
-    const { analyser, id } = this.props;
+    const { analyser, match } = this.props;
     return (
       <div ref={ref => (this._ref = ref)} className={styles.container}>
-        {analyser.analysing && (
-          <div className={styles.uploadingMessage}>
-            <div className={styles.uploadingMessageTitle}>
-              Your sample is uploading
+        {analyser &&
+          analyser.analysing && (
+            <div className={styles.uploadingMessage}>
+              <div className={styles.uploadingMessageTitle}>
+                Your sample is uploading
+              </div>
             </div>
-          </div>
-        )}
+          )}
         <div className={styles.formContainer}>
-          <MetadataForm id={id} resetScroll={this.resetScroll} />
+          <MetadataForm id={match.params.id} resetScroll={this.resetScroll} />
         </div>
       </div>
     );
@@ -33,8 +34,8 @@ class Metadata extends React.Component {
 }
 
 Metadata.propTypes = {
-  analyser: PropTypes.object,
-  id: PropTypes.string,
+  analyser: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default Metadata;

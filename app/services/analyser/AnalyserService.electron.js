@@ -3,7 +3,7 @@
 import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
 
-import AnalyserSimulateLocalFile from './AnalyserSimulateLocalFile';
+// import AnalyserSimulateLocalFile from './AnalyserSimulateLocalFile';
 
 let instance = null;
 

@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Logo.css';
 import MykrobeConfig from '../../services/MykrobeConfig';
