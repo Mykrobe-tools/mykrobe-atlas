@@ -13,8 +13,8 @@
     "flow": "flow",
     "lint:css": "stylelint \"app/**/*.css\"",
     "lint:css:fix": "stylelint --fix \"app/**/*.css\"",
-    "lint:js": "eslint app/**/*.js",
-    "lint:js:fix": "eslint --fix app/**/*.js",
+    "lint:js": "eslint app *.js",
+    "lint:js:fix": "eslint --fix app *.js",
     "precommit": "yarn lint:css:fix && yarn lint:js:fix && yarn test:fast",
     "desktop-hot-server": "cross-env PLATFORM=electron babel-node desktop/dev-server.js",
     "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js --progress --profile --colors",
@@ -202,7 +202,6 @@
     "fuse.js": "^2.6.1",
     "google-maps": "^3.2.1",
     "history": "^4.7.2",
-    "isomorphic-fetch": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "load-script": "^1.0.0",
     "lodash": "^4.15.0",
@@ -224,7 +223,7 @@
     "source-map-support": "^0.4.2",
     "spark-md5": "^3.0.0",
     "tmp": "^0.0.33",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^2.0.3"
   },
   "devEngines": {
     "node": "6.x"

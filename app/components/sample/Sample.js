@@ -3,8 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Sample.css';
-import { Route, Redirect, Switch, NavLink } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Route, Redirect, Switch, NavLink } from 'react-router-dom';
 
 import AnalysisContainer from '../analysis/AnalysisContainer';
 import MetadataContainer from '../metadata/MetadataContainer';

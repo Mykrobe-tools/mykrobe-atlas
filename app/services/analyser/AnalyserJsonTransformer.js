@@ -54,8 +54,8 @@ class AnalyserJsonTransformer {
     let o;
     let susceptibilityModel;
     let key;
-    let calledVariants;
-    let calledGenes;
+    let calledVariants; // eslint-disable-line
+    let calledGenes; // eslint-disable-line
     let value;
     let isInducible;
     let virulenceModel;

@@ -1,6 +1,6 @@
 /* @flow */
 
-import fetch from 'isomorphic-fetch';
+import 'whatwg-fetch';
 import type { JSendType } from '../types/JSendType';
 import type { UserType } from '../types/UserTypes';
 import * as AuthActions from '../actions/AuthActions';
@@ -33,7 +33,7 @@ export default (url: string, options: any = {}): Promise<any> => {
       Authorization: `Bearer ${user.token}`,
     };
   }
-  console.log('fetch options', options);
+  console.log(`fetch ${url} options`, options);
   return fetch(url, options)
     .then(response => {
       if (response.ok) {

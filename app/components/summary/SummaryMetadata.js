@@ -1,7 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
+
 import styles from './SummaryMetadata.css';
 
 class SummaryMetadata extends React.Component {

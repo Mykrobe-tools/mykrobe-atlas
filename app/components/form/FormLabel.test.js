@@ -9,7 +9,9 @@ describe('FormLabel component snapshot', () => {
 
   it('renders correctly', () => {
     const component = renderer.create(
-      <FormLabel htmlFor={htmlFor} children={children} label={label} />
+      <FormLabel htmlFor={htmlFor} label={label}>
+        {children}
+      </FormLabel>
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();

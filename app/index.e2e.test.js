@@ -24,12 +24,17 @@ describe('Web e2e prerequisites', () => {
 
 let driver, child;
 
+const USE_PRODUCTION_BUILD = false;
+
 INCLUDE_SLOW_TESTS &&
   describe('Web e2e main window', function spec() {
     beforeAll(() => {
       driver = new webdriver.Builder().forBrowser('chrome').build();
-      child = exec('yarn web-hot-server');
-      // child = exec('yarn web-build && yarn web-build-simple-server');
+      if (USE_PRODUCTION_BUILD) {
+        child = exec('yarn web-build && yarn web-build-server');
+      } else {
+        child = exec('yarn web-hot-server');
+      }
     });
 
     afterAll(() => {
@@ -38,13 +43,16 @@ INCLUDE_SLOW_TESTS &&
     });
 
     it('should open website', async () => {
-      // wait a few seconds for the server to boot up
-      await delay(3000);
+      await delay(500);
+      await driver.navigate().to('http://localhost:3000/');
+      // wait for the server to boot up - takes longer in production
+      await delay(USE_PRODUCTION_BUILD ? 30000 : 3000);
       // ask the browser to open a page
       await driver.navigate().to('http://localhost:3000/');
     });
 
     it('should fail to log in', async () => {
+      // navigate to login screen
       await driver.wait(
         until.elementLocated(By.css('[data-tid="button-log-in"]'))
       );
@@ -53,15 +61,24 @@ INCLUDE_SLOW_TESTS &&
         until.elementLocated(By.css('[data-tid="input-email"]'))
       );
 
+      // set invalid credentials
       await setValueForSelector(
         '[data-tid="input-email"]',
         'simon@makeandship.com'
       );
-
       await setValueForSelector('[data-tid="input-password"]', 'password');
 
+      // submit
       await driver.findElement(By.css('[data-tid="button-submit"]')).click();
 
-      // FIXME: there is an issue here with infinite redirect loop on 401
+      // loading
+      await driver.wait(
+        until.elementLocated(By.css('[data-tid="component-loading"]'))
+      );
+
+      // should be back on login screen
+      await driver.wait(
+        until.elementLocated(By.css('[data-tid="button-submit"]'))
+      );
     });
   });

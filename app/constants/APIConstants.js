@@ -1,9 +1,7 @@
 /* @flow */
 
 export const BASE_URL: string =
-  process.env.NODE_ENV === 'production'
-    ? (process.env.API_URL: any)
-    : 'https://api.atlas-dev.makeandship.com';
+  process.env.API_URL || 'https://api.atlas-dev.makeandship.com';
 
 // export const BASE_URL = 'https://localhost:3001';
 // export const BASE_URL = 'http://13.69.243.89:8000';

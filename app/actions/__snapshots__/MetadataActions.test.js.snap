@@ -8,7 +8,7 @@ Array [
   Object {
     "autoHide": false,
     "category": "ERROR",
-    "content": undefined,
+    "content": "Network request failed",
     "id": 0,
     "type": "SHOW_NOTIFICATION",
   },

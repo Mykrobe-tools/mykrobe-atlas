@@ -1,7 +1,6 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
 
 // TODO: push route on state change
 

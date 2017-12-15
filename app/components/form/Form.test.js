@@ -8,7 +8,7 @@ describe('Form component snapshot', () => {
 
   it('renders correctly', () => {
     const component = renderer.create(
-      <Form children={children} onSubmit={onSubmit} />
+      <Form onSubmit={onSubmit}>{children}</Form>
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -16,7 +16,7 @@ describe('Form component snapshot', () => {
 
   it('runs submit event', () => {
     const component = renderer.create(
-      <Form children={children} onSubmit={onSubmit} />
+      <Form onSubmit={onSubmit}>{children}</Form>
     );
     let tree = component.toJSON();
     tree.props.onSubmit();

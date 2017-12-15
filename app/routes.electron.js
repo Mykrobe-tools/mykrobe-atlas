@@ -6,7 +6,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import HomePage from './containers/HomePage';
 
 import App from './containers/App';
-import About from './components/about/About';
+import About from './components/about/About'; // eslint-disable-line
 
 import AnalysisContainer from './components/analysis/AnalysisContainer';
 import Resistance from './components/resistance/resistance/Resistance';
