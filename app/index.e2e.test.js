@@ -24,12 +24,12 @@ describe('Web e2e prerequisites', () => {
 
 let driver, child;
 
-const USE_PRODUCTION_BUILD = false;
+const USE_PRODUCTION_BUILD = true;
 
 INCLUDE_SLOW_TESTS &&
   describe('Web e2e main window', function spec() {
     beforeAll(() => {
-      driver = new webdriver.Builder().forBrowser('chrome').build();
+      driver = new webdriver.Builder().forBrowser('safari').build();
       if (USE_PRODUCTION_BUILD) {
         child = exec('yarn web-build && yarn web-build-server');
       } else {
