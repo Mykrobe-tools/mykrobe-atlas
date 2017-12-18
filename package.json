@@ -178,7 +178,6 @@
     "redux-mock-store": "^1.2.1",
     "selenium-webdriver": "^3.6.0",
     "spectron": "^3.7.2",
-    "strip-loader": "^0.1.2",
     "style-loader": "^0.13.1",
     "stylelint": "^8.2.0",
     "stylelint-config-css-modules": "^1.1.0",
@@ -190,6 +189,7 @@
   },
   "dependencies": {
     "babel-loader": "^7.1.2",
+    "babel-plugin-transform-remove-console": "^6.8.5",
     "css-loader": "^0.28.7",
     "css-modules-require-hook": "^4.2.2",
     "electron-debug": "^1.0.1",

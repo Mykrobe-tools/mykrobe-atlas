@@ -8,11 +8,11 @@ import path from 'path';
 export default merge(baseConfig, {
   devtool: false,
 
-  entry: { index: [path.resolve(__dirname, '../desktop/index.desktop')] },
+  entry: { index: [path.join(__dirname, 'index.desktop')] },
 
   output: {
-    path: __dirname,
-    filename: './static/main.js',
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'static'),
   },
 
   plugins: [

@@ -29,17 +29,15 @@ jest.setTimeout(10 * 60 * 1000); // 10 minutes
 ensurePredictorBinaries();
 ensureBams();
 
-// describe('Desktop e2e prerequisites', () => {
-//   it('should package app', done => {
-//     executeCommand('yarn desktop-package');
-//     done();
-//   });
-//   INCLUDE_SLOW_TESTS &&
-//     it('should create distribution app', done => {
-//       executeCommand('yarn desktop-dist');
-//       done();
-//     });
-// });
+describe('Desktop e2e prerequisites', () => {
+  it('should package app', async () => {
+    executeCommand('yarn desktop-package');
+  });
+  INCLUDE_SLOW_TESTS &&
+    it('should create distribution app', async () => {
+      executeCommand('yarn desktop-dist');
+    });
+});
 
 console.log('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
 
@@ -58,6 +56,17 @@ INCLUDE_SLOW_TESTS &&
       return result.length > 1 ? result : result[0];
     };
 
+    // convenience to tell us which element wasn't found
+
+    const isExisting = async selector => {
+      const { client } = this.app;
+      const existing = await client.isExisting(selector);
+      if (!existing) {
+        throw `Element not found for selector ${selector}`;
+      }
+      return existing;
+    };
+
     // these run even if test is excluded: https://github.com/facebook/jest/issues/4166
 
     beforeAll(async () => {
@@ -65,13 +74,14 @@ INCLUDE_SLOW_TESTS &&
         path: ELECTRON_EXECUTABLE_PATH,
       });
 
-      return this.app.start();
+      await this.app.start();
     });
 
-    afterAll(() => {
-      // if (this.app && this.app.isRunning()) {
-      //   return this.app.stop();
-      // }
+    afterAll(async () => {
+      console.log('Quitting app');
+      if (this.app && this.app.isRunning()) {
+        await this.app.stop();
+      }
     });
 
     it('should open window', async () => {
@@ -120,19 +130,17 @@ INCLUDE_SLOW_TESTS &&
         .toLowerCase();
       const isJson = extension === 'json';
 
-      it(`should open source file ${bamsExpectEntry.source}`, async done => {
+      it(`should open source file ${bamsExpectEntry.source}`, async () => {
         const { client, webContents } = this.app;
         const filePath = path.join(BAM_FOLDER_PATH, bamsExpectEntry.source);
 
         // check existence of component
-        expect(await client.isExisting('[data-tid="component-upload"]')).toBe(
-          true
-        );
+        expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
 
         // check existence of button
-        expect(
-          await client.isExisting('[data-tid="button-analyse-sample"]')
-        ).toBe(true);
+        expect(await isExisting('[data-tid="button-analyse-sample"]')).toBe(
+          true
+        );
 
         // send file > open event
         webContents.send('open-file', filePath);
@@ -142,9 +150,9 @@ INCLUDE_SLOW_TESTS &&
           await delay(500);
 
           // check existence of cancel button
-          expect(
-            await client.isExisting('[data-tid="button-analyse-cancel"]')
-          ).toBe(true);
+          expect(await isExisting('[data-tid="button-analyse-cancel"]')).toBe(
+            true
+          );
 
           // check status text
           expect(
@@ -162,8 +170,6 @@ INCLUDE_SLOW_TESTS &&
             10 * 60 * 1000
           )
         ).toBe(true);
-
-        done();
       });
 
       it('should display the expected results', async () => {
@@ -250,9 +256,7 @@ INCLUDE_SLOW_TESTS &&
         await delay(500);
 
         // check existence of component
-        expect(await client.isExisting('[data-tid="component-upload"]')).toBe(
-          true
-        );
+        expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
       });
     }
   });

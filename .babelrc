@@ -27,7 +27,7 @@
         ],
         "react-optimize"
       ],
-      "plugins": ["./babel-plugin-electron-module-resolver"]
+      "plugins": ["transform-remove-console", "./babel-plugin-electron-module-resolver"]
     },
     "development": {
       "plugins": ["./babel-plugin-electron-module-resolver"]
