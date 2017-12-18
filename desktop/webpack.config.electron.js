@@ -6,9 +6,9 @@ import baseConfig from './webpack.config.production';
 import path from 'path';
 
 export default merge(baseConfig, {
-  devtool: null,
+  devtool: false,
 
-  entry: [path.resolve(__dirname, '../desktop/index.desktop')],
+  entry: { index: [path.resolve(__dirname, '../desktop/index.desktop')] },
 
   output: {
     path: __dirname,

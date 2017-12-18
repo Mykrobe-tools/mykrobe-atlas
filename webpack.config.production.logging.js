@@ -5,29 +5,31 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
-const config = merge(baseConfig('production'), {
+const config = merge(baseConfig, {
   devtool: 'eval-cheap-module-source-map',
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.global\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
       },
       {
         test: /^((?!\.global).)*\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
-        ),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use:
+            'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+        }),
       },
     ],
   },
 
   plugins: [
-    new webpack.NoErrorsPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
       'process.env.API_URL': JSON.stringify(process.env.API_URL),

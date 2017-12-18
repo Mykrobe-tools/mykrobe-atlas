@@ -29,17 +29,17 @@ jest.setTimeout(10 * 60 * 1000); // 10 minutes
 ensurePredictorBinaries();
 ensureBams();
 
-describe('Desktop e2e prerequisites', () => {
-  it('should package app', done => {
-    executeCommand('yarn desktop-package');
-    done();
-  });
-  INCLUDE_SLOW_TESTS &&
-    it('should create distribution app', done => {
-      executeCommand('yarn desktop-dist');
-      done();
-    });
-});
+// describe('Desktop e2e prerequisites', () => {
+//   it('should package app', done => {
+//     executeCommand('yarn desktop-package');
+//     done();
+//   });
+//   INCLUDE_SLOW_TESTS &&
+//     it('should create distribution app', done => {
+//       executeCommand('yarn desktop-dist');
+//       done();
+//     });
+// });
 
 console.log('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
 
@@ -69,9 +69,9 @@ INCLUDE_SLOW_TESTS &&
     });
 
     afterAll(() => {
-      if (this.app && this.app.isRunning()) {
-        return this.app.stop();
-      }
+      // if (this.app && this.app.isRunning()) {
+      //   return this.app.stop();
+      // }
     });
 
     it('should open window', async () => {

@@ -5,30 +5,30 @@ import webpack from 'webpack';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 
-export default merge(baseConfig('development'), {
-  debug: true,
-
+export default merge(baseConfig, {
   devtool: 'eval-cheap-module-source-map',
 
-  entry: [
-    'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
-    './app/index',
-  ],
+  entry: {
+    index: [
+      'webpack-hot-middleware/client?reload=true&path=http://localhost:3000/__webpack_hmr',
+      './app/index',
+    ],
+  },
 
   output: {
     publicPath: 'http://localhost:3000/static/',
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.global\.css$/,
-        loaders: ['style-loader', 'css-loader?sourceMap'],
+        use: ['style-loader', 'css-loader?sourceMap'],
       },
 
       {
         test: /^((?!\.global).)*\.css$/,
-        loaders: [
+        use: [
           'style-loader',
           'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
         ],
@@ -38,7 +38,7 @@ export default merge(baseConfig('development'), {
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development'),
     }),
