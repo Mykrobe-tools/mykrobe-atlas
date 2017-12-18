@@ -7,11 +7,13 @@ import baseConfig from '../webpack.config.development';
 import path from 'path';
 
 export default merge(baseConfig, {
-  entry: [
-    'webpack/hot/dev-server',
-    'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
-    path.resolve(__dirname, '../app/index.js'),
-  ],
+  entry: {
+    index: [
+      'webpack/hot/dev-server',
+      'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
+      path.resolve(__dirname, '../app/index.js'),
+    ],
+  },
 
   output: {
     path: path.join(__dirname, 'static'),

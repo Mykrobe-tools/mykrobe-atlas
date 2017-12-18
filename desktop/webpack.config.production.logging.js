@@ -7,7 +7,7 @@ import baseConfig from '../webpack.config.production.logging';
 import path from 'path';
 
 const config = merge(baseConfig, {
-  entry: path.resolve(__dirname, '../app/index'),
+  entry: { index: path.resolve(__dirname, '../app/index') },
 
   output: {
     path: path.resolve(__dirname, 'static'),
