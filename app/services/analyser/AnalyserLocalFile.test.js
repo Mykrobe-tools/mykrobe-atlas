@@ -109,7 +109,23 @@ describe('AnalyserLocalFile', () => {
           done();
         })
         .on('error', error => {
-          throw error;
+          // check if this was expected to be rejected
+          let expectedReject = false;
+          if (exemplarSamplesExpectEntry.expect.reject) {
+            if (
+              error.description &&
+              error.description.includes(
+                'does not give susceptibility predictions'
+              )
+            ) {
+              expectedReject = true;
+            }
+          }
+          expect(expectedReject).toBeTruthy();
+          if (!expectedReject) {
+            throw error;
+          }
+          done();
         });
     });
   }
