@@ -56,4 +56,4 @@ tmp
 web/tmp
 
 # large test fixtures
-test/__fixtures__/bams
+test/__fixtures__/exemplar-samples

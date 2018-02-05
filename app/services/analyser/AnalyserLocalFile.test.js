@@ -2,20 +2,22 @@ import path from 'path';
 
 import {
   ensurePredictorBinaries,
-  ensureBams,
+  ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
-  BAM_FOLDER_PATH,
+  EXEMPLAR_SAMPLES_FOLDER_PATH,
 } from '../../../desktop/util';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
 
-const bamsExpect = require('../../../test/__fixtures__/bams.expect.json');
+const GENERATE_JSON_FIXTURES = true;
+
+const exemplarSamplesExpect = require('../../../test/__fixtures__/exemplar-samples.expect.json');
 
 // prerequisites
 
 ensurePredictorBinaries();
-ensureBams();
+ensureExemplarSamples();
 
 const config = new MykrobeConfig();
 
@@ -30,41 +32,79 @@ afterEach(() => {
 });
 
 const asLowerCase = o => {
-  if (Array.isArray(o)) {
-    return o.map(value => value.toLowerCase());
+  if (typeof o === 'string') {
+    return o.toLowerCase();
   }
-  return o.toLowerCase();
+  if (Array.isArray(o)) {
+    return o.map(value => asLowerCase(value));
+  }
+  return o;
+};
+
+const expectCaseInsensitiveEqual = (a, b) => {
+  expect(asLowerCase(a)).toEqual(asLowerCase(b));
 };
 
 describe('AnalyserLocalFile', () => {
-  for (let i = 0; i < bamsExpect.length; i++) {
-    const bamsExpectEntry = bamsExpect[i];
-    const extension = bamsExpectEntry.source
-      .substr(bamsExpectEntry.source.lastIndexOf('.') + 1)
+  for (let i = 0; i < exemplarSamplesExpect.length; i++) {
+    const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
+    const extension = exemplarSamplesExpectEntry.source
+      .substr(exemplarSamplesExpectEntry.source.lastIndexOf('.') + 1)
       .toLowerCase();
     const isJson = extension === 'json';
     if (!isJson && !INCLUDE_SLOW_TESTS) {
-      console.log(`Skipping slow test for ${bamsExpectEntry.source}`);
+      console.log(
+        `Skipping slow test for ${exemplarSamplesExpectEntry.source}`
+      );
       continue;
     }
-    it(`should analyse source file ${bamsExpectEntry.source}`, async done => {
+    it(`should analyse source file ${
+      exemplarSamplesExpectEntry.source
+    }`, async done => {
       const analyser = new AnalyserLocalFile(config);
-      const filePath = path.join(BAM_FOLDER_PATH, bamsExpectEntry.source);
+      const filePath = path.join(
+        EXEMPLAR_SAMPLES_FOLDER_PATH,
+        exemplarSamplesExpectEntry.source
+      );
       analyser
         .analyseFile(filePath)
         .on('progress', progress => {
           console.log('progress', progress);
         })
         .on('done', result => {
-          const { transformed } = result;
-          expect(asLowerCase(transformed.speciesPretty)).toEqual(
-            bamsExpectEntry.expect.species
+          const { json, transformed } = result;
+          if (GENERATE_JSON_FIXTURES) {
+            const fs = require('fs');
+            // write unprocessed json
+            fs.writeFileSync(
+              `test/__fixtures__/exemplar-samples/${
+                exemplarSamplesExpectEntry.source
+              }.json`,
+              JSON.stringify(json, null, 2)
+            );
+            // write transformed json
+            fs.writeFileSync(
+              `test/__fixtures__/exemplar-samples/${
+                exemplarSamplesExpectEntry.source
+              }__AnalyserLocalFile__.json`,
+              JSON.stringify(transformed, null, 2)
+            );
+          }
+          expectCaseInsensitiveEqual(
+            transformed.speciesPretty,
+            exemplarSamplesExpectEntry.expect.species
           );
-          expect(asLowerCase(transformed.resistant)).toEqual(
-            bamsExpectEntry.expect.all.resistant
+          expectCaseInsensitiveEqual(
+            transformed.resistant,
+            exemplarSamplesExpectEntry.expect.all.resistant
           );
-          expect(asLowerCase(transformed.susceptible)).toEqual(
-            bamsExpectEntry.expect.all.susceptible
+          expectCaseInsensitiveEqual(
+            transformed.susceptible,
+            exemplarSamplesExpectEntry.expect.all.susceptible
+          );
+          expectCaseInsensitiveEqual(
+            transformed.drugsResistance,
+            exemplarSamplesExpectEntry.expect.drugs.resistance
           );
           done();
         })

@@ -23,10 +23,10 @@ export const ELECTRON_EXECUTABLE_PATH =
         `Contents/MacOS/${pkg.productName}`
       );
 
-// export const BAM_FOLDER_PATH = `${process.env.HOME}/Dropbox/bams/`;
-export const BAM_FOLDER_PATH = path.join(
+// export const EXEMPLAR_SAMPLES_FOLDER_PATH = `${process.env.HOME}/Dropbox/exemplar-samples/`;
+export const EXEMPLAR_SAMPLES_FOLDER_PATH = path.join(
   __dirname,
-  '../../test/__fixtures__/bams'
+  '../../test/__fixtures__/exemplar-samples'
 );
 
 const ENV_HOME = process.env.HOME;
@@ -51,11 +51,11 @@ export const executeCommand = command => {
   execSync(command, { stdio: [0, 1, 2] });
 };
 
-export const ensureBams = () => {
-  const exists = fs.existsSync(BAM_FOLDER_PATH);
+export const ensureExemplarSamples = () => {
+  const exists = fs.existsSync(EXEMPLAR_SAMPLES_FOLDER_PATH);
   if (!exists) {
     throw `No bam folder found at '${
-      BAM_FOLDER_PATH
+      EXEMPLAR_SAMPLES_FOLDER_PATH
     }' - Please see README.md and download bam folder before running this test`;
   }
 };

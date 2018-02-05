@@ -11,15 +11,15 @@ import * as TargetConstants from '../app/constants/TargetConstants';
 const config = new MykrobeConfig();
 
 const pkg = require('../package.json');
-const bamsExpect = require('../test/__fixtures__/bams.expect.json');
+const exemplarSamplesExpect = require('../test/__fixtures__/exemplar-samples.expect.json');
 
 import {
   executeCommand,
   ensurePredictorBinaries,
-  ensureBams,
+  ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
   ELECTRON_EXECUTABLE_PATH,
-  BAM_FOLDER_PATH,
+  EXEMPLAR_SAMPLES_FOLDER_PATH
 } from './util';
 
 jest.setTimeout(10 * 60 * 1000); // 10 minutes
@@ -27,7 +27,7 @@ jest.setTimeout(10 * 60 * 1000); // 10 minutes
 // prerequisites
 
 ensurePredictorBinaries();
-ensureBams();
+ensureExemplarSamples();
 
 describe('Desktop e2e prerequisites', () => {
   it('should package app', async () => {
@@ -71,7 +71,7 @@ INCLUDE_SLOW_TESTS &&
 
     beforeAll(async () => {
       this.app = new Application({
-        path: ELECTRON_EXECUTABLE_PATH,
+        path: ELECTRON_EXECUTABLE_PATH
       });
 
       await this.app.start();
@@ -123,16 +123,21 @@ INCLUDE_SLOW_TESTS &&
       expect(logs).toHaveLength(0);
     });
 
-    for (let i = 0; i < bamsExpect.length; i++) {
-      const bamsExpectEntry = bamsExpect[i];
-      const extension = bamsExpectEntry.source
-        .substr(bamsExpectEntry.source.lastIndexOf('.') + 1)
+    for (let i = 0; i < exemplarSamplesExpect.length; i++) {
+      const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
+      const extension = exemplarSamplesExpectEntry.source
+        .substr(exemplarSamplesExpectEntry.source.lastIndexOf('.') + 1)
         .toLowerCase();
       const isJson = extension === 'json';
 
-      it(`should open source file ${bamsExpectEntry.source}`, async () => {
+      it(`should open source file ${
+        exemplarSamplesExpectEntry.source
+      }`, async () => {
         const { client, webContents } = this.app;
-        const filePath = path.join(BAM_FOLDER_PATH, bamsExpectEntry.source);
+        const filePath = path.join(
+          EXEMPLAR_SAMPLES_FOLDER_PATH,
+          exemplarSamplesExpectEntry.source
+        );
 
         // check existence of component
         expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
@@ -190,13 +195,13 @@ INCLUDE_SLOW_TESTS &&
             '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
           );
           expect(firstLineDrugs).toEqual(
-            bamsExpectEntry.expect.drugs.firstLineDrugs
+            exemplarSamplesExpectEntry.expect.drugs.firstLineDrugs
           );
           const secondLineDrugs = await textForSelector(
             '[data-tid="panel-second-line-drugs"] [data-tid="drug"]'
           );
           expect(secondLineDrugs).toEqual(
-            bamsExpectEntry.expect.drugs.secondLineDrugs
+            exemplarSamplesExpectEntry.expect.drugs.secondLineDrugs
           );
         } else {
           await client.click('[data-tid="button-resistance-class"]');
@@ -216,12 +221,16 @@ INCLUDE_SLOW_TESTS &&
           )
         ).toBe(true);
 
-        const evidenceDrugs = Object.keys(bamsExpectEntry.expect.evidence);
+        const evidenceDrugs = Object.keys(
+          exemplarSamplesExpectEntry.expect.evidence
+        );
         for (let drug in evidenceDrugs) {
           const evidence = await textForSelector(
             `[data-tid="panel-${drug}"] [data-tid="evidence"]`
           );
-          expect(evidence).toEqual(bamsExpectEntry.expect.evidence[drug]);
+          expect(evidence).toEqual(
+            exemplarSamplesExpectEntry.expect.evidence[drug]
+          );
         }
 
         // species
@@ -233,7 +242,7 @@ INCLUDE_SLOW_TESTS &&
           )
         ).toBe(true);
         const species = await textForSelector('[data-tid="species"]');
-        expect(species).toEqual(bamsExpectEntry.expect.species);
+        expect(species).toEqual(exemplarSamplesExpectEntry.expect.species);
 
         // all
 
@@ -244,11 +253,15 @@ INCLUDE_SLOW_TESTS &&
         const susceptible = await textForSelector(
           '[data-tid="column-susceptible"] [data-tid="drug"]'
         );
-        expect(susceptible).toEqual(bamsExpectEntry.expect.all.susceptible);
+        expect(susceptible).toEqual(
+          exemplarSamplesExpectEntry.expect.all.susceptible
+        );
         const resistant = await textForSelector(
           '[data-tid="column-resistant"] [data-tid="drug"]'
         );
-        expect(resistant).toEqual(bamsExpectEntry.expect.all.resistant);
+        expect(resistant).toEqual(
+          exemplarSamplesExpectEntry.expect.all.resistant
+        );
 
         // new
 
