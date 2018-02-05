@@ -5,6 +5,7 @@ import {
   ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
   EXEMPLAR_SAMPLES_FOLDER_PATH,
+  expectCaseInsensitiveEqual,
 } from '../../../desktop/util';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
@@ -30,20 +31,6 @@ beforeEach(() => {
 afterEach(() => {
   delete process.env.NODE_ENV;
 });
-
-const asLowerCase = o => {
-  if (typeof o === 'string') {
-    return o.toLowerCase();
-  }
-  if (Array.isArray(o)) {
-    return o.map(value => asLowerCase(value));
-  }
-  return o;
-};
-
-const expectCaseInsensitiveEqual = (a, b) => {
-  expect(asLowerCase(a)).toEqual(asLowerCase(b));
-};
 
 describe('AnalyserLocalFile', () => {
   for (let i = 0; i < exemplarSamplesExpect.length; i++) {
