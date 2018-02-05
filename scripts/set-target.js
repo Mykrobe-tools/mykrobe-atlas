@@ -59,12 +59,8 @@ function setTarget(targetName) {
   rootPackageJson.targetName = targetName;
   rootPackageJson.productName = productName;
   rootPackageJson.build.appId = appId;
-  rootPackageJson.build.mac.icon = `./desktop/resources/icon/${
-    targetName
-  }/icon.icns`;
-  rootPackageJson.build.win.icon = `./desktop/resources/icon/${
-    targetName
-  }/icon.ico`;
+  rootPackageJson.build.mac.icon = `./desktop/resources/icon/${targetName}/icon.icns`;
+  rootPackageJson.build.win.icon = `./desktop/resources/icon/${targetName}/icon.ico`;
   json = JSON.stringify(rootPackageJson, null, 2);
   filePath = path.resolve(__dirname, '../package.json');
   writeJsonToFile(filePath, json)
@@ -124,11 +120,11 @@ function setTitleInHtmlFile(filePath, title) {
 }
 
 function copyFile(filePath, copyPath) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => { // eslint-disable-line
     let stat = false;
     try {
       stat = fs.statSync(copyPath);
-    } catch (err) {}
+    } catch (err) {} // eslint-disable-line
     if (stat) {
       fs.unlink(copyPath);
     }

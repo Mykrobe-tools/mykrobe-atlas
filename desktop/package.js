@@ -89,7 +89,7 @@ function startPack() {
   build(electronCfg)
     .then(() => build(cfg))
     .then(() => del(path.resolve(__dirname, 'release')))
-    .then(paths => {
+    .then(paths => { // eslint-disable-line
       platforms.forEach(plat => {
         archs.forEach(arch => {
           pack(plat, arch, log(plat, arch));
@@ -136,7 +136,7 @@ function pack(plat, arch, cb) {
 }
 
 function log(plat, arch) {
-  return (err, filepath) => {
+  return (err, filepath) => { // eslint-disable-line
     if (err) {
       return console.error(err);
     }

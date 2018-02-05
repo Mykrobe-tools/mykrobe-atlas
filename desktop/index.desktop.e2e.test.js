@@ -19,7 +19,7 @@ import {
   ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
   ELECTRON_EXECUTABLE_PATH,
-  EXEMPLAR_SAMPLES_FOLDER_PATH
+  EXEMPLAR_SAMPLES_FOLDER_PATH,
 } from './util';
 
 jest.setTimeout(10 * 60 * 1000); // 10 minutes
@@ -71,7 +71,7 @@ INCLUDE_SLOW_TESTS &&
 
     beforeAll(async () => {
       this.app = new Application({
-        path: ELECTRON_EXECUTABLE_PATH
+        path: ELECTRON_EXECUTABLE_PATH,
       });
 
       await this.app.start();

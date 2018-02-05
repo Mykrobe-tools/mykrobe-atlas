@@ -14,7 +14,7 @@ const uploadDirectory = path.resolve(__dirname, 'tmp');
 resumable.setUploadDirectory(uploadDirectory);
 
 // empty upload temp directory
-del([`${uploadDirectory}/*`], {force: true}).then(paths => {
+del([`${uploadDirectory}/*`], { force: true }).then(paths => {
   if (paths.length > 0) {
     console.log('Temp files removed:\n', paths.join('\n'));
   }
@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 // Handle new upload id creation
 let id = 1;
 app.post('/api/experiments/', (req, res) => {
-  res.status(200).send({id: id++});
+  res.status(200).send({ id: id++ });
 });
 
 // Handle upload updates
@@ -51,11 +51,10 @@ app.put('/api/experiments/:id', (req, res) => {
       // file upload is complete, reassemble original file and process...
       // ...
     }
-  }
-  // Handle Metadata API data
-  else {
+  } else {
+    // Handle Metadata API data
     console.log(JSON.parse(req.body));
-    res.status(202).send({status: 'ok'});
+    res.status(202).send({ status: 'ok' });
   }
 });
 
@@ -67,30 +66,41 @@ app.get('/api/experiments/:id/upload-status', (req, res) => {
 });
 
 // Serve experiment api fixture
-app.get('/api/experiments/:id', (req, res, next) => {
-  res.sendFile(path.resolve(__dirname, '../test/__fixtures__/api/experiment.json'));
+app.get('/api/experiments/:id', (req, res, next) => { // eslint-disable-line
+  res.sendFile(
+    path.resolve(__dirname, '../test/__fixtures__/api/experiment.json')
+  );
 });
 
 // Serve all other api fixtures
-app.get('/api/:endpoint', (req, res, next) => {
-  const {endpoint} = req.params;
-  res.sendFile(path.resolve(__dirname, '../test/__fixtures__/api', `${endpoint}.json`));
+app.get('/api/:endpoint', (req, res, next) => { // eslint-disable-line
+  const { endpoint } = req.params;
+  res.sendFile(
+    path.resolve(__dirname, '../test/__fixtures__/api', `${endpoint}.json`)
+  );
 });
 
 // Treeplace
-app.use('/treeplace', proxy('13.69.243.89:8000', {
-  forwardPath: (req, res) => {
-    return `/treeplace${require('url').parse(req.url).path.substr(1)}`;
-  }
-}));
+app.use(
+  '/treeplace',
+  proxy('13.69.243.89:8000', {
+    forwardPath: (req, res) => { // eslint-disable-line
+      return `/treeplace${require('url')
+        .parse(req.url)
+        .path.substr(1)}`;
+    },
+  })
+);
 
 // Pass through all other requests to the API
-app.use(proxy('api.atlas-dev.makeandship.com', {
-  https: true
-}));
+app.use(
+  proxy('api.atlas-dev.makeandship.com', {
+    https: true,
+  })
+);
 
 // Start dev API server
-const server = app.listen(port, (err) => {
+const server = app.listen(port, err => {
   if (err) {
     console.error(err);
     return;

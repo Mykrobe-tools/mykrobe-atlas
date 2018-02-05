@@ -13,8 +13,8 @@
     "flow": "flow",
     "lint:css": "stylelint \"app/**/*.css\"",
     "lint:css:fix": "stylelint --fix \"app/**/*.css\"",
-    "lint:js": "eslint app *.js",
-    "lint:js:fix": "eslint --fix app *.js",
+    "lint:js": "eslint **/*.js",
+    "lint:js:fix": "eslint --fix **/*.js",
     "precommit": "yarn lint:css:fix && yarn lint:js:fix && yarn test:fast",
     "desktop-hot-server": "cross-env PLATFORM=electron babel-node desktop/dev-server.js",
     "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js --progress --profile --colors",
@@ -68,20 +68,14 @@
       ]
     },
     "win": {
-      "target": [
-        "nsis",
-        "portable"
-      ],
+      "target": ["nsis", "portable"],
       "icon": "./desktop/resources/icon/atlas-desktop-tb/icon.ico"
     },
     "nsis": {
       "perMachine": true
     },
     "linux": {
-      "target": [
-        "deb",
-        "AppImage"
-      ]
+      "target": ["deb", "AppImage"]
     },
     "fileAssociations": [
       {
@@ -232,7 +226,8 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(css)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/_mocks/jestFileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/test/_mocks/jestFileMock.js"
     },
     "modulePathIgnorePatterns": [
       "<rootDir>/node_modules",
@@ -243,5 +238,6 @@
     "globals": {
       "IS_ELECTRON": false
     }
-  }
+  },
+  "eslintIgnore": ["decls"]
 }

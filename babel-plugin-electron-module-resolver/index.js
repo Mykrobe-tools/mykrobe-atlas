@@ -70,7 +70,9 @@ const resolveImport = (path, state) => {
 
   const electronImportFilePath = pathLib.resolve(
     originalImportFilePathResolvedParsed.dir,
-    `${originalImportFilePathResolvedParsed.name}.electron${originalImportFilePathResolvedParsed.ext}`
+    `${originalImportFilePathResolvedParsed.name}.electron${
+      originalImportFilePathResolvedParsed.ext
+    }`
   );
 
   if (fs.existsSync(electronImportFilePath)) {

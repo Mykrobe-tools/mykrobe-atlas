@@ -17,10 +17,10 @@ const port = process.env.PORT || 3000;
 const wdm = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
   stats: {
-    colors: true
+    colors: true,
   },
   historyApiFallback: true,
-  serverSideRender: false
+  serverSideRender: false,
 });
 
 app.use(wdm);
@@ -37,8 +37,8 @@ app.use('*/fonts', express.static('./node_modules/font-awesome/fonts'));
 
 // treeplace for demo
 // e.g. http://13.69.243.89:8000/treeplace?file=10057-10.fastq.gz
-app.get('/treeplace', (req, res, next) => {
-  const {file} = req.query;
+app.get('/treeplace', (req, res, next) => { // eslint-disable-line
+  const { file } = req.query;
   const index = file.indexOf('.');
   const prefix = file.substr(0, index);
   res.sendFile(path.resolve(__dirname, 'demo', `${prefix}.json`));
@@ -48,13 +48,12 @@ app.get('/treeplace', (req, res, next) => {
 app.get('*', (req, res, next) => {
   if (req.accepts('html')) {
     res.sendFile(path.resolve(__dirname, 'index.html'));
-  }
-  else {
+  } else {
     next();
   }
 });
 
-const server = app.listen(port, host, (err) => {
+const server = app.listen(port, host, err => {
   if (err) {
     console.error(err);
     return;
