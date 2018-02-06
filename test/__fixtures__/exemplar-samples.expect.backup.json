@@ -124,6 +124,19 @@
         "resistant": ["Rifampicin"]
       },
       "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid SUSCEPTIBLE",
+          "Rifampicin RESISTANT",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Quinolones SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
         "resistanceFlags": {
           "mdr": false,
           "xdr": false
