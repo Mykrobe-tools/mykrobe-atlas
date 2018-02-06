@@ -169,6 +169,23 @@
         ]
       },
       "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid RESISTANT",
+          "Rifampicin RESISTANT",
+          "Ethambutol RESISTANT",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Quinolones RESISTANT",
+          "Streptomycin RESISTANT",
+          "Amikacin RESISTANT",
+          "Capreomycin RESISTANT",
+          "Kanamycin RESISTANT"
+        ],
+        "resistance": [
+          "Extensively Drug Resistant (XDR)",
+          "Multi-Drug Resistant (MDR)"
+        ],
         "resistanceFlags": {
           "mdr": true,
           "xdr": true
