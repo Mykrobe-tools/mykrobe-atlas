@@ -169,13 +169,16 @@ INCLUDE_SLOW_TESTS &&
             // TODO check for progress changes once reinstated
           }
           if (exemplarSamplesExpectEntry.expect.reject) {
+            console.log('awaiting rjection');
+            console.log(
+              'exemplarSamplesExpectEntry.expect',
+              JSON.stringify(exemplarSamplesExpectEntry.expect, null, 2)
+            );
             // should display an error notification rejecting this file
-            expect(
-              await client.waitForVisible(
-                '[data-tid="component-notifications"] [data-tid="notification"]',
-                10 * 60 * 1000
-              )
-            ).toBe(true);
+            await client.waitForVisible(
+              '[data-tid="component-notifications"] [data-tid="notification"]',
+              10 * 60 * 1000
+            );
             const notifications = await textForSelector(
               '[data-tid="component-notifications"] [data-tid="notification"]'
             );
@@ -187,12 +190,10 @@ INCLUDE_SLOW_TESTS &&
             ).toBeTruthy();
           } else {
             // wait for results to appear
-            expect(
-              await client.waitForVisible(
-                '[data-tid="component-resistance"]',
-                10 * 60 * 1000
-              )
-            ).toBe(true);
+            await client.waitForVisible(
+              '[data-tid="component-resistance"]',
+              10 * 60 * 1000
+            );
           }
         });
 
