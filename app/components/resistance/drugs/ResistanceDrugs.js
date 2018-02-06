@@ -9,7 +9,7 @@ const firstLineDrugs = [
   'Isoniazid',
   'Rifampicin',
   'Ethambutol',
-  'Pyrazinamide'
+  'Pyrazinamide',
 ];
 
 const secondLineDrugs = [
@@ -17,7 +17,7 @@ const secondLineDrugs = [
   'Streptomycin',
   'Amikacin',
   'Capreomycin',
-  'Kanamycin'
+  'Kanamycin',
 ];
 
 class ResistanceDrugs extends React.Component {
@@ -93,7 +93,7 @@ class ResistanceDrugs extends React.Component {
 }
 
 ResistanceDrugs.propTypes = {
-  analyser: PropTypes.object.isRequired
+  analyser: PropTypes.object.isRequired,
 };
 
 export default ResistanceDrugs;
