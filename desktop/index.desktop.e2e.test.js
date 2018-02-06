@@ -128,10 +128,6 @@ INCLUDE_SLOW_TESTS &&
 
     for (let i = 0; i < exemplarSamplesExpect.length; i++) {
       const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
-      console.log(
-        'exemplarSamplesExpectEntry.source',
-        exemplarSamplesExpectEntry.source
-      );
       for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
         const source = exemplarSamplesExpectEntry.source[j];
         const extension = source
@@ -246,15 +242,15 @@ INCLUDE_SLOW_TESTS &&
               JSON.stringify(evidenceDrugs, null, 2)
             );
 
-          for (let i = 0; i < evidenceDrugs.length; i++) {
-            const drug = evidenceDrugs[i].toLowerCase();
+          for (let k = 0; k < evidenceDrugs.length; k++) {
+            const drug = evidenceDrugs[k];
             const evidence = await textForSelector(
-              `[data-tid="panel-${drug}"] [data-tid="evidence"]`
+              `[data-tid="panel-${drug.toLowerCase()}"] [data-tid="evidence"]`
             );
-            // expectCaseInsensitiveEqual(
-            //   evidence,
-            //   exemplarSamplesExpectEntry.expect.evidence[drug]
-            // );
+            expectCaseInsensitiveEqual(
+              evidence,
+              exemplarSamplesExpectEntry.expect.evidence[drug]
+            );
             DEBUG &&
               console.log(
                 `evidence[${drug}]`,

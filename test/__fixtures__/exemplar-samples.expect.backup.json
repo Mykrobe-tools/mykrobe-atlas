@@ -37,11 +37,9 @@
       },
       "evidence": {
         "Isoniazid": [
-          [
-            "Resistance mutation found: S315T in gene katG",
-            "Resistant allele coverage: 82",
-            "Susceptible allele coverage: 1"
-          ]
+          "Resistance mutation found: S315T in gene katG",
+          "Resistant allele coverage: 82",
+          "Susceptible allele coverage: 1"
         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: European American)"
@@ -83,18 +81,14 @@
       },
       "evidence": {
         "Rifampicin": [
-          [
-            "Resistance mutation found: S450L in gene rpoB",
-            "Resistant allele coverage: 51",
-            "Susceptible allele coverage: 0"
-          ]
+          "Resistance mutation found: S450L in gene rpoB",
+          "Resistant allele coverage: 51",
+          "Susceptible allele coverage: 0"
         ],
         "Isoniazid": [
-          [
-            "Resistance mutation found: S315T in gene katG",
-            "Resistant allele coverage: 43",
-            "Susceptible allele coverage: 0"
-          ]
+          "Resistance mutation found: S315T in gene katG",
+          "Resistant allele coverage: 43",
+          "Susceptible allele coverage: 0"
         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: European American)"
@@ -136,11 +130,9 @@
       },
       "evidence": {
         "Rifampicin": [
-          [
-            "Resistance mutation found: S450L in gene rpoB",
-            "Resistant allele coverage: 100",
-            "Susceptible allele coverage: 40"
-          ]
+          "Resistance mutation found: S450L in gene rpoB",
+          "Resistant allele coverage: 100",
+          "Susceptible allele coverage: 40"
         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: European American)"
@@ -170,60 +162,44 @@
       },
       "evidence": {
         "Rifampicin": [
-          [
-            "Resistance mutation found: S450L in gene rpoB",
-            "Resistant allele coverage: 44",
-            "Susceptible allele coverage: 0"
-          ]
+          "Resistance mutation found: S450L in gene rpoB",
+          "Resistant allele coverage: 44",
+          "Susceptible allele coverage: 0"
         ],
         "Capreomycin": [
-          [
-            "Resistance mutation found: A1401G in gene rrs",
-            "Resistant allele coverage: 52",
-            "Susceptible allele coverage: 0"
-          ]
+          "Resistance mutation found: A1401G in gene rrs",
+          "Resistant allele coverage: 52",
+          "Susceptible allele coverage: 0"
         ],
         "Isoniazid": [
-          [
-            "Resistance mutation found: S315T in gene katG",
-            "Resistant allele coverage: 30",
-            "Susceptible allele coverage: 0"
-          ]
+          "Resistance mutation found: S315T in gene katG",
+          "Resistant allele coverage: 30",
+          "Susceptible allele coverage: 0"
         ],
         "Amikacin": [
-          [
-            "Resistance mutation found: A1401G in gene rrs",
-            "Resistant allele coverage: 52",
-            "Susceptible allele coverage: 0"
-          ]
+          "Resistance mutation found: A1401G in gene rrs",
+          "Resistant allele coverage: 52",
+          "Susceptible allele coverage: 0"
         ],
         "Ethambutol": [
-          [
-            "Resistance mutation found: M306V in gene embB",
-            "Resistant allele coverage: 45",
-            "Susceptible allele coverage: 0"
-          ]
+          "Resistance mutation found: M306V in gene embB",
+          "Resistant allele coverage: 45",
+          "Susceptible allele coverage: 0"
         ],
         "Kanamycin": [
-          [
-            "Resistance mutation found: A1401G in gene rrs",
-            "Resistant allele coverage: 52",
-            "Susceptible allele coverage: 0"
-          ]
+          "Resistance mutation found: A1401G in gene rrs",
+          "Resistant allele coverage: 52",
+          "Susceptible allele coverage: 0"
         ],
         "Streptomycin": [
-          [
-            "Resistance mutation found: K43R in gene rpsL",
-            "Resistant allele coverage: 56",
-            "Susceptible allele coverage: 0"
-          ]
+          "Resistance mutation found: K43R in gene rpsL",
+          "Resistant allele coverage: 56",
+          "Susceptible allele coverage: 0"
         ],
         "Quinolones": [
-          [
-            "Resistance mutation found: D94G in gene gyrA",
-            "Resistant allele coverage: 19",
-            "Susceptible allele coverage: 10"
-          ]
+          "Resistance mutation found: D94G in gene gyrA",
+          "Resistant allele coverage: 19",
+          "Susceptible allele coverage: 10"
         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"

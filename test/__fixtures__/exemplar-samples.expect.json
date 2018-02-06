@@ -37,11 +37,9 @@
       },
       "evidence": {
         "Isoniazid": [
-          [
-            "Resistance mutation found: S315T in gene katG",
-            "Resistant allele coverage: 82",
-            "Susceptible allele coverage: 1"
-          ]
+          "Resistance mutation found: S315T in gene katG",
+          "Resistant allele coverage: 82",
+          "Susceptible allele coverage: 1"
         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: European American)"
@@ -83,18 +81,14 @@
       },
       "evidence": {
         "Rifampicin": [
-          [
-            "Resistance mutation found: S450L in gene rpoB",
-            "Resistant allele coverage: 51",
-            "Susceptible allele coverage: 0"
-          ]
+          "Resistance mutation found: S450L in gene rpoB",
+          "Resistant allele coverage: 51",
+          "Susceptible allele coverage: 0"
         ],
         "Isoniazid": [
-          [
-            "Resistance mutation found: S315T in gene katG",
-            "Resistant allele coverage: 43",
-            "Susceptible allele coverage: 0"
-          ]
+          "Resistance mutation found: S315T in gene katG",
+          "Resistant allele coverage: 43",
+          "Susceptible allele coverage: 0"
         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: European American)"
