@@ -1,52 +1,6 @@
 [
   {
-    "source": ["INH_monoresistant.fastq.gz.json", "INH_monoresistant.fastq.gz"],
-    "include": false,
-    "expect": {
-      "all": {
-        "susceptible": [
-          "Rifampicin",
-          "Capreomycin",
-          "Amikacin",
-          "Pyrazinamide",
-          "Ethambutol",
-          "Kanamycin",
-          "Streptomycin",
-          "Quinolones"
-        ],
-        "resistant": ["Isoniazid"]
-      },
-      "drugs": {
-        "firstLineDrugs": [
-          "Isoniazid RESISTANT",
-          "Rifampicin SUSCEPTIBLE",
-          "Ethambutol SUSCEPTIBLE",
-          "Pyrazinamide SUSCEPTIBLE"
-        ],
-        "secondLineDrugs": [
-          "Quinolones SUSCEPTIBLE",
-          "Streptomycin SUSCEPTIBLE",
-          "Amikacin SUSCEPTIBLE",
-          "Capreomycin SUSCEPTIBLE",
-          "Kanamycin SUSCEPTIBLE"
-        ],
-        "resistance": {
-          "mdr": false,
-          "xdr": false
-        }
-      },
-      "evidence": {
-        "Isoniazid": [
-          "Resistance mutation found: S315T in gene katG",
-          "Resistant allele coverage: 82",
-          "Susceptible allele coverage: 1"
-        ]
-      },
-      "species": "Mycobacterium tuberculosis (lineage: European American)"
-    }
-  },
-  {
-    "source": ["MDR.fastq.gz"],
+    "source": ["MDR.fastq.gz.json"],
     "expect": {
       "all": {
         "susceptible": [
@@ -74,7 +28,8 @@
           "Capreomycin SUSCEPTIBLE",
           "Kanamycin SUSCEPTIBLE"
         ],
-        "resistance": {
+        "resistance": ["Multi-Drug Resistant (MDR)"],
+        "resistanceFlags": {
           "mdr": true,
           "xdr": false
         }

@@ -30,7 +30,7 @@
           "Capreomycin SUSCEPTIBLE",
           "Kanamycin SUSCEPTIBLE"
         ],
-        "resistance": {
+        "resistanceFlags": {
           "mdr": false,
           "xdr": false
         }
@@ -46,7 +46,7 @@
     }
   },
   {
-    "source": ["MDR.fastq.gz"],
+    "source": ["MDR.fastq.gz.json", "MDR.fastq.gz"],
     "expect": {
       "all": {
         "susceptible": [
@@ -74,7 +74,8 @@
           "Capreomycin SUSCEPTIBLE",
           "Kanamycin SUSCEPTIBLE"
         ],
-        "resistance": {
+        "resistance": ["Multi-Drug Resistant (MDR)"],
+        "resistanceFlags": {
           "mdr": true,
           "xdr": false
         }
@@ -123,7 +124,7 @@
         "resistant": ["Rifampicin"]
       },
       "drugs": {
-        "resistance": {
+        "resistanceFlags": {
           "mdr": false,
           "xdr": false
         }
@@ -155,7 +156,7 @@
         ]
       },
       "drugs": {
-        "resistance": {
+        "resistanceFlags": {
           "mdr": true,
           "xdr": true
         }

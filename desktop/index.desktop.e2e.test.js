@@ -215,6 +215,15 @@ INCLUDE_SLOW_TESTS &&
                 'secondLineDrugs',
                 JSON.stringify(secondLineDrugs, null, 2)
               );
+            const resistance = await textForSelector(
+              '[data-tid="panel-resistance"] [data-tid="resistance"]'
+            );
+            expectCaseInsensitiveEqual(
+              resistance,
+              exemplarSamplesExpectEntry.expect.drugs.resistance
+            );
+            DEBUG &&
+              console.log('resistance', JSON.stringify(resistance, null, 2));
           } else {
             await client.click('[data-tid="button-resistance-class"]');
             expect(

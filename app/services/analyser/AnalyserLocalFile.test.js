@@ -82,7 +82,7 @@ describe('AnalyserLocalFile', () => {
             );
             expectCaseInsensitiveEqual(
               transformed.drugsResistance,
-              exemplarSamplesExpectEntry.expect.drugs.resistance
+              exemplarSamplesExpectEntry.expect.drugs.resistanceFlags
             );
             done();
           })
