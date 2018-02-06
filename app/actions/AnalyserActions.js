@@ -155,7 +155,7 @@ function analyseFileError(error: string) {
       })
     );
     if (IS_ELECTRON) {
-      alert(`Error: ${error}`);
+      // alert(`Error: ${error}`);
       dispatch(push('/'));
     }
     dispatch({

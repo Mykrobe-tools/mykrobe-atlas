@@ -3,5 +3,6 @@
 exports[`Notifications component snapshot renders correctly 1`] = `
 <div
   className="wrap"
+  data-tid="component-notifications"
 />
 `;

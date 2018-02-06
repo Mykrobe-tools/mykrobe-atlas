@@ -70,9 +70,9 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     console.log('analyseBinaryFile', filePath);
 
     if (filePath.indexOf(' ') > 0) {
-      alert(
-        'Predictor does not currently work with files or paths containing spaces'
-      );
+      // alert(
+      //   'Predictor does not currently work with files or paths containing spaces'
+      // );
       this.failWithError(
         'Predictor does not currently work with files or paths containing spaces'
       );

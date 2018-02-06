@@ -14,7 +14,7 @@ render(
   <Provider store={store}>
     <ConnectedRouter history={history}>{routes}</ConnectedRouter>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('app-root')
 );
 
 if (module.hot) {
@@ -24,7 +24,7 @@ if (module.hot) {
       <Provider store={store}>
         <ConnectedRouter history={history}>{routes}</ConnectedRouter>
       </Provider>,
-      document.getElementById('root')
+      document.getElementById('app-root')
     );
   });
 }

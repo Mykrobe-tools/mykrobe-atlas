@@ -27,7 +27,11 @@ class Notification extends React.Component {
         break;
     }
     return (
-      <a className={styles[category]} onClick={event => this.onClick(event)}>
+      <a
+        className={styles[category]}
+        onClick={event => this.onClick(event)}
+        data-tid="notification"
+      >
         <p className={styles.content}>
           {icon && (
             <span className={styles.icon}>

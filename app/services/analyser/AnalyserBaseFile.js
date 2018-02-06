@@ -41,7 +41,7 @@ class AnalyserBaseFile extends EventEmitter {
   failWithError(err: string) {
     setTimeout(() => {
       this.emit('error', {
-        description: `Processing failed with error: ${err}`,
+        description: err,
       });
     }, 0);
   }

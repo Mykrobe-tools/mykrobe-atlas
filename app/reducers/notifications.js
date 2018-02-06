@@ -1,8 +1,31 @@
 /* @flow */
 
 import * as ActionTypes from '../constants/ActionTypes';
+// import * as NotificationCategories from '../constants/NotificationCategories';
 
 const initialState = [];
+
+// const initialState = [
+//   {
+//     id: 0,
+//     category: NotificationCategories.SUCCESS,
+//     content: 'Lorem',
+//     autoHide: true,
+//   },
+//   {
+//     id: 1,
+//     category: NotificationCategories.MESSAGE,
+//     content: 'Ipsum',
+//     autoHide: true,
+//   },
+//   {
+//     id: 2,
+//     category: NotificationCategories.ERROR,
+//     content:
+//       'This sample does not appear to contain any Mycobacterial data (or it is amplicon data, which is not supported), and therefore the predictor does not give susceptibility predictions',
+//     autoHide: false,
+//   },
+// ];
 
 export default function notifications(
   state: Array<any> = initialState,

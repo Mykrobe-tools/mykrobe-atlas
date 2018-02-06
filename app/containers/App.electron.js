@@ -11,6 +11,8 @@ import { withRouter } from 'react-router-dom';
 
 import styles from './App.css';
 
+import Notifications from '../components/notifications/Notifications';
+
 class App extends React.Component {
   state: {
     isDragActive: boolean,
@@ -127,6 +129,9 @@ class App extends React.Component {
         accept=".json,.bam,.gz,.fastq"
       >
         <div className={styles.contentContainer}>{children}</div>
+        <div className={styles.notificationsContainer}>
+          <Notifications />
+        </div>
       </Dropzone>
     );
   }
