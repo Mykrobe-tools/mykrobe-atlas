@@ -14,7 +14,7 @@
     "lint:css": "stylelint \"app/**/*.css\"",
     "lint:css:fix": "stylelint --fix \"app/**/*.css\"",
     "lint:js": "eslint **/*.js",
-    "lint:js:fix": "eslint --fix **/*.js",
+    "lint:js:fix": "eslint --fix --quiet **/*.js",
     "precommit": "yarn lint:css:fix && yarn lint:js:fix && yarn test:fast",
     "desktop-hot-server": "cross-env PLATFORM=electron babel-node desktop/dev-server.js",
     "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js --progress --profile --colors",
