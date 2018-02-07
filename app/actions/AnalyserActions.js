@@ -60,8 +60,6 @@ function analyseFileUpload() {
 
 export function analyseFile(file: File | string, id?: string) {
   return (dispatch: Function) => {
-    dispatch(hideAllNotifications());
-
     if (IS_ELECTRON) {
       // $FlowFixMe: Ignore Electron require
       const { app } = require('electron').remote;
@@ -83,6 +81,8 @@ export function analyseFile(file: File | string, id?: string) {
       .on('error', error => {
         dispatch(analyseFileError(error.description));
       });
+
+    dispatch(hideAllNotifications());
 
     dispatch({
       type: ActionTypes.ANALYSE_FILE_ANALYSE,
