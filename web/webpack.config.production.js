@@ -29,6 +29,6 @@ const config = merge(baseConfig, {
   ],
 });
 
-console.log(config);
+console.log(JSON.stringify(config, null, 2));
 
 export default config;
