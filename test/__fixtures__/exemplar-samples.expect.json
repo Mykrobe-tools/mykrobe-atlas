@@ -1,6 +1,7 @@
 [
   {
     "source": ["INH_monoresistant.fastq.gz.json", "INH_monoresistant.fastq.gz"],
+    "include": false,
     "expect": {
       "all": {
         "susceptible": [
@@ -45,7 +46,7 @@
     }
   },
   {
-    "source": ["MDR.fastq.gz.json", "MDR.fastq.gz"],
+    "source": ["MDR.fastq.gz"],
     "expect": {
       "all": {
         "susceptible": [

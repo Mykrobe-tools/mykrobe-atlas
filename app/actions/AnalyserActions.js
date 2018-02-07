@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 
 import * as ActionTypes from '../constants/ActionTypes';
 import * as NotificationCategories from '../constants/NotificationCategories';
-import { showNotification } from './NotificationActions';
+import { showNotification, hideAllNotifications } from './NotificationActions';
 import UploadService from '../services/upload/UploadService';
 import AnalyserService from '../services/analyser/AnalyserService';
 import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
@@ -60,6 +60,8 @@ function analyseFileUpload() {
 
 export function analyseFile(file: File | string, id?: string) {
   return (dispatch: Function) => {
+    dispatch(hideAllNotifications());
+
     if (IS_ELECTRON) {
       // $FlowFixMe: Ignore Electron require
       const { app } = require('electron').remote;
