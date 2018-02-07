@@ -83,10 +83,10 @@ INCLUDE_SLOW_TESTS &&
     });
 
     afterAll(async () => {
-      // console.log('Quitting app');
-      // if (this.app && this.app.isRunning()) {
-      //   await this.app.stop();
-      // }
+      console.log('Quitting app');
+      if (this.app && this.app.isRunning()) {
+        await this.app.stop();
+      }
     });
 
     it('should open window', async () => {
