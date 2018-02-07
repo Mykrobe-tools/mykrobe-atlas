@@ -35,8 +35,8 @@ body {
   display: flex;
 }
 
-#root,
-#root > [data-reactroot] {
+#app-root,
+#app-root > [data-reactroot] {
   flex: 1;
   display: flex;
 }

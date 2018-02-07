@@ -1,4 +1,4 @@
-# Mykrobe Web
+# Mykrobe Atlas Web
 
 ## Setup
 

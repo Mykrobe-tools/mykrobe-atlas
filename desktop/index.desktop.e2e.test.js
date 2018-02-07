@@ -10,253 +10,364 @@ import MykrobeConfig from '../app/services/MykrobeConfig';
 import * as TargetConstants from '../app/constants/TargetConstants';
 const config = new MykrobeConfig();
 
+const DEBUG = true;
+
 const pkg = require('../package.json');
-const bamsExpect = require('../test/__fixtures__/bams.expect.json');
+const exemplarSamplesExpect = require('../test/__fixtures__/exemplar-samples.expect.json');
 
 import {
   executeCommand,
   ensurePredictorBinaries,
-  ensureBams,
+  ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
   ELECTRON_EXECUTABLE_PATH,
-  BAM_FOLDER_PATH,
+  EXEMPLAR_SAMPLES_FOLDER_PATH,
+  expectCaseInsensitiveEqual,
 } from './util';
 
 jest.setTimeout(10 * 60 * 1000); // 10 minutes
 
-// prerequisites
-
-ensurePredictorBinaries();
-ensureBams();
-
-describe('Desktop e2e prerequisites', () => {
-  it('should package app', async () => {
-    executeCommand('yarn desktop-package');
+describe('Desktop e2e', () => {
+  it('should contain a test', done => {
+    done();
   });
-  INCLUDE_SLOW_TESTS &&
-    it('should create distribution app', async () => {
-      executeCommand('yarn desktop-dist');
-    });
 });
 
-console.log('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
+// dont run if web
+if (config.isWeb()) {
+  console.log('Web - not running index.desktop.e2e.test.js');
+} else {
+  // prerequisites
 
-const delay = time => new Promise(resolve => setTimeout(resolve, time));
+  ensurePredictorBinaries();
+  ensureExemplarSamples();
 
-INCLUDE_SLOW_TESTS &&
-  describe('Desktop e2e main window', function spec() {
-    const textForSelector = async selector => {
-      const { client } = this.app;
-      const { value } = await client.elements(selector);
-      let result = [];
-      for (let i = 0; i < value.length; i++) {
-        const r = await client.elementIdText(value[i].ELEMENT);
-        result.push(r.value.toLowerCase());
-      }
-      return result.length > 1 ? result : result[0];
-    };
+  // this step is very slow - comment out while adjusting tests
 
-    // convenience to tell us which element wasn't found
-
-    const isExisting = async selector => {
-      const { client } = this.app;
-      const existing = await client.isExisting(selector);
-      if (!existing) {
-        throw `Element not found for selector ${selector}`;
-      }
-      return existing;
-    };
-
-    // these run even if test is excluded: https://github.com/facebook/jest/issues/4166
-
-    beforeAll(async () => {
-      this.app = new Application({
-        path: ELECTRON_EXECUTABLE_PATH,
+  describe('Desktop e2e prerequisites', () => {
+    it('should package app', async () => {
+      executeCommand('yarn desktop-package');
+    });
+    INCLUDE_SLOW_TESTS &&
+      it('should create distribution app', async () => {
+        executeCommand('yarn desktop-dist');
       });
+  });
 
-      await this.app.start();
-    });
+  console.log('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
 
-    afterAll(async () => {
-      console.log('Quitting app');
-      if (this.app && this.app.isRunning()) {
-        await this.app.stop();
-      }
-    });
+  const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
-    it('should open window', async () => {
-      const { client, browserWindow } = this.app;
-
-      await client.waitUntilWindowLoaded();
-      await delay(500);
-
-      const title = await browserWindow.getTitle();
-      expect(title).toBe(pkg.productName);
-
-      const isDevToolsOpened = await browserWindow.isDevToolsOpened();
-      expect(isDevToolsOpened).toBeFalsy();
-
-      const isMinimized = await browserWindow.isMinimized();
-      expect(isMinimized).toBeFalsy();
-
-      const isVisible = await browserWindow.isVisible();
-      expect(isVisible).toBeTruthy();
-
-      const isFocused = await browserWindow.isFocused();
-      expect(isFocused).toBeTruthy();
-
-      const bounds = await browserWindow.getBounds();
-
-      expect(bounds.width).toBeGreaterThanOrEqual(640);
-      expect(bounds.height).toBeGreaterThanOrEqual(480);
-    });
-
-    it("should haven't any logs in console of main window", async () => {
-      const { client } = this.app;
-      const logs = await client.getRenderProcessLogs();
-      // Print renderer process logs
-      logs.forEach(log => {
-        console.log(log.message);
-        console.log(log.source);
-        console.log(log.level);
-      });
-      expect(logs).toHaveLength(0);
-    });
-
-    for (let i = 0; i < bamsExpect.length; i++) {
-      const bamsExpectEntry = bamsExpect[i];
-      const extension = bamsExpectEntry.source
-        .substr(bamsExpectEntry.source.lastIndexOf('.') + 1)
-        .toLowerCase();
-      const isJson = extension === 'json';
-
-      it(`should open source file ${bamsExpectEntry.source}`, async () => {
-        const { client, webContents } = this.app;
-        const filePath = path.join(BAM_FOLDER_PATH, bamsExpectEntry.source);
-
-        // check existence of component
-        expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
-
-        // check existence of button
-        expect(await isExisting('[data-tid="button-analyse-sample"]')).toBe(
-          true
-        );
-
-        // send file > open event
-        webContents.send('open-file', filePath);
-
-        if (!isJson) {
-          // await UI change
-          await delay(500);
-
-          // check existence of cancel button
-          expect(await isExisting('[data-tid="button-analyse-cancel"]')).toBe(
-            true
-          );
-
-          // check status text
-          expect(
-            (await client
-              .element('[data-tid="status-text"]')
-              .getText()).toLowerCase()
-          ).toBe('analysing');
-
-          // TODO check for progress changes once reinstated
-        }
-        // wait for results to appear
-        expect(
-          await client.waitForVisible(
-            '[data-tid="component-resistance"]',
-            10 * 60 * 1000
-          )
-        ).toBe(true);
-      });
-
-      it('should display the expected results', async () => {
+  INCLUDE_SLOW_TESTS &&
+    describe('Desktop e2e main window', function spec() {
+      const textForSelector = async (selector, asArray = true) => {
         const { client } = this.app;
-
-        // click each section and check the result shown in the UI
-
-        // drugs or class
-
-        if (TargetConstants.SPECIES_TB === config.species) {
-          await client.click('[data-tid="button-resistance-drugs"]');
-          expect(
-            await client.waitForVisible(
-              '[data-tid="component-resistance-drugs"]'
-            )
-          ).toBe(true);
-          const firstLineDrugs = await textForSelector(
-            '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
-          );
-          expect(firstLineDrugs).toEqual(
-            bamsExpectEntry.expect.drugs.firstLineDrugs
-          );
-          const secondLineDrugs = await textForSelector(
-            '[data-tid="panel-second-line-drugs"] [data-tid="drug"]'
-          );
-          expect(secondLineDrugs).toEqual(
-            bamsExpectEntry.expect.drugs.secondLineDrugs
-          );
-        } else {
-          await client.click('[data-tid="button-resistance-class"]');
-          expect(
-            await client.waitForVisible(
-              '[data-tid="component-resistance-class"]'
-            )
-          ).toBe(true);
+        const { value } = await client.elements(selector);
+        let result = [];
+        for (let i = 0; i < value.length; i++) {
+          const r = await client.elementIdText(value[i].ELEMENT);
+          result.push(r.value);
         }
+        return asArray || result.length > 1 ? result : result[0];
+      };
 
-        // evidence
+      // convenience to tell us which element wasn't found
 
-        await client.click('[data-tid="button-resistance-evidence"]');
-        expect(
-          await client.waitForVisible(
-            '[data-tid="component-resistance-evidence"]'
-          )
-        ).toBe(true);
-
-        const evidenceDrugs = Object.keys(bamsExpectEntry.expect.evidence);
-        for (let drug in evidenceDrugs) {
-          const evidence = await textForSelector(
-            `[data-tid="panel-${drug}"] [data-tid="evidence"]`
-          );
-          expect(evidence).toEqual(bamsExpectEntry.expect.evidence[drug]);
+      const isExisting = async selector => {
+        const { client } = this.app;
+        const existing = await client.isExisting(selector);
+        if (!existing) {
+          throw `Element not found for selector ${selector}`;
         }
+        return existing;
+      };
 
-        // species
+      // these run even if test is excluded: https://github.com/facebook/jest/issues/4166
 
-        await client.click('[data-tid="button-resistance-species"]');
-        expect(
-          await client.waitForVisible(
-            '[data-tid="component-resistance-species"]'
-          )
-        ).toBe(true);
-        const species = await textForSelector('[data-tid="species"]');
-        expect(species).toEqual(bamsExpectEntry.expect.species);
+      beforeAll(async () => {
+        this.app = new Application({
+          path: ELECTRON_EXECUTABLE_PATH,
+        });
 
-        // all
+        await this.app.start();
+      });
 
-        await client.click('[data-tid="button-resistance-all"]');
-        expect(
-          await client.waitForVisible('[data-tid="component-resistance-all"]')
-        ).toBe(true);
-        const susceptible = await textForSelector(
-          '[data-tid="column-susceptible"] [data-tid="drug"]'
-        );
-        expect(susceptible).toEqual(bamsExpectEntry.expect.all.susceptible);
-        const resistant = await textForSelector(
-          '[data-tid="column-resistant"] [data-tid="drug"]'
-        );
-        expect(resistant).toEqual(bamsExpectEntry.expect.all.resistant);
+      afterAll(async () => {
+        console.log('Quitting app');
+        if (this.app && this.app.isRunning()) {
+          await this.app.stop();
+        }
+      });
 
-        // new
+      it('should open window', async () => {
+        const { client, browserWindow } = this.app;
 
-        await client.click('[data-tid="button-file-new"]');
+        await client.waitUntilWindowLoaded();
         await delay(500);
 
-        // check existence of component
-        expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
+        const title = await browserWindow.getTitle();
+        expect(title).toBe(pkg.productName);
+
+        const isDevToolsOpened = await browserWindow.isDevToolsOpened();
+        expect(isDevToolsOpened).toBeFalsy();
+
+        const isMinimized = await browserWindow.isMinimized();
+        expect(isMinimized).toBeFalsy();
+
+        const isVisible = await browserWindow.isVisible();
+        expect(isVisible).toBeTruthy();
+
+        const isFocused = await browserWindow.isFocused();
+        expect(isFocused).toBeTruthy();
+
+        const bounds = await browserWindow.getBounds();
+
+        expect(bounds.width).toBeGreaterThanOrEqual(640);
+        expect(bounds.height).toBeGreaterThanOrEqual(480);
       });
-    }
-  });
+
+      it("should haven't any logs in console of main window", async () => {
+        const { client } = this.app;
+        const logs = await client.getRenderProcessLogs();
+        // Print renderer process logs
+        logs.forEach(log => {
+          console.log(log.message);
+          console.log(log.source);
+          console.log(log.level);
+        });
+        expect(logs).toHaveLength(0);
+      });
+
+      for (let i = 0; i < exemplarSamplesExpect.length; i++) {
+        const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
+        for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
+          const source = exemplarSamplesExpectEntry.source[j];
+          const extension = source
+            .substr(source.lastIndexOf('.') + 1)
+            .toLowerCase();
+          const isJson = extension === 'json';
+
+          it(`should open source file ${source}`, async () => {
+            const { client, webContents } = this.app;
+            const filePath = path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, source);
+
+            // check existence of component
+            expect(await isExisting('[data-tid="component-upload"]')).toBe(
+              true
+            );
+
+            // check existence of button
+            expect(await isExisting('[data-tid="button-analyse-sample"]')).toBe(
+              true
+            );
+
+            // send file > open event
+            webContents.send('open-file', filePath);
+
+            if (!isJson) {
+              // await UI change
+              await delay(500);
+
+              // check existence of cancel button
+              expect(
+                await isExisting('[data-tid="button-analyse-cancel"]')
+              ).toBe(true);
+
+              // check status text
+              expect(
+                (await client
+                  .element('[data-tid="status-text"]')
+                  .getText()).toLowerCase()
+              ).toBe('analysing');
+
+              // TODO check for progress changes once reinstated
+            }
+            if (exemplarSamplesExpectEntry.expect.reject) {
+              console.log('awaiting rjection');
+              console.log(
+                'exemplarSamplesExpectEntry.expect',
+                JSON.stringify(exemplarSamplesExpectEntry.expect, null, 2)
+              );
+              // should display an error notification rejecting this file
+              await client.waitForVisible(
+                '[data-tid="component-notifications"] [data-tid="notification"]',
+                10 * 60 * 1000
+              );
+              const notifications = await textForSelector(
+                '[data-tid="component-notifications"] [data-tid="notification"]'
+              );
+              console.log('notifications', notifications);
+              expect(
+                notifications[0].includes(
+                  'does not give susceptibility predictions'
+                )
+              ).toBeTruthy();
+            } else {
+              // wait for results to appear
+              await client.waitForVisible(
+                '[data-tid="component-resistance"]',
+                10 * 60 * 1000
+              );
+            }
+          });
+
+          if (!exemplarSamplesExpectEntry.expect.reject) {
+            it('should display the expected results', async () => {
+              const { client } = this.app;
+
+              // click each section and check the result shown in the UI
+
+              // drugs or class
+
+              if (TargetConstants.SPECIES_TB === config.species) {
+                await client.click('[data-tid="button-resistance-drugs"]');
+                expect(
+                  await client.waitForVisible(
+                    '[data-tid="component-resistance-drugs"]'
+                  )
+                ).toBe(true);
+                const firstLineDrugs = await textForSelector(
+                  '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
+                );
+                expectCaseInsensitiveEqual(
+                  firstLineDrugs,
+                  exemplarSamplesExpectEntry.expect.drugs.firstLineDrugs
+                );
+                DEBUG &&
+                  console.log(
+                    'firstLineDrugs',
+                    JSON.stringify(firstLineDrugs, null, 2)
+                  );
+                const secondLineDrugs = await textForSelector(
+                  '[data-tid="panel-second-line-drugs"] [data-tid="drug"]'
+                );
+                expectCaseInsensitiveEqual(
+                  secondLineDrugs,
+                  exemplarSamplesExpectEntry.expect.drugs.secondLineDrugs
+                );
+                DEBUG &&
+                  console.log(
+                    'secondLineDrugs',
+                    JSON.stringify(secondLineDrugs, null, 2)
+                  );
+                if (exemplarSamplesExpectEntry.expect.drugs.resistance) {
+                  const resistance = await textForSelector(
+                    '[data-tid="panel-resistance"] [data-tid="resistance"]'
+                  );
+                  expectCaseInsensitiveEqual(
+                    resistance,
+                    exemplarSamplesExpectEntry.expect.drugs.resistance
+                  );
+                  DEBUG &&
+                    console.log(
+                      'resistance',
+                      JSON.stringify(resistance, null, 2)
+                    );
+                }
+              } else {
+                await client.click('[data-tid="button-resistance-class"]');
+                expect(
+                  await client.waitForVisible(
+                    '[data-tid="component-resistance-class"]'
+                  )
+                ).toBe(true);
+              }
+
+              // evidence
+
+              await client.click('[data-tid="button-resistance-evidence"]');
+              expect(
+                await client.waitForVisible(
+                  '[data-tid="component-resistance-evidence"]'
+                )
+              ).toBe(true);
+
+              const evidenceDrugs = Object.keys(
+                exemplarSamplesExpectEntry.expect.evidence
+              );
+              DEBUG &&
+                console.log(
+                  'evidenceDrugs',
+                  JSON.stringify(evidenceDrugs, null, 2)
+                );
+
+              for (let k = 0; k < evidenceDrugs.length; k++) {
+                const drug = evidenceDrugs[k];
+                const evidence = await textForSelector(
+                  `[data-tid="panel-${drug.toLowerCase()}"] [data-tid="evidence"]`
+                );
+                expectCaseInsensitiveEqual(
+                  evidence,
+                  exemplarSamplesExpectEntry.expect.evidence[drug]
+                );
+                DEBUG &&
+                  console.log(
+                    `evidence[${drug}]`,
+                    JSON.stringify(evidence, null, 2)
+                  );
+              }
+
+              // species
+
+              await client.click('[data-tid="button-resistance-species"]');
+              expect(
+                await client.waitForVisible(
+                  '[data-tid="component-resistance-species"]'
+                )
+              ).toBe(true);
+              const species = await textForSelector(
+                '[data-tid="species"]',
+                false
+              );
+              expectCaseInsensitiveEqual(
+                species,
+                exemplarSamplesExpectEntry.expect.species
+              );
+              DEBUG && console.log('species', JSON.stringify(species, null, 2));
+
+              // all
+
+              await client.click('[data-tid="button-resistance-all"]');
+              expect(
+                await client.waitForVisible(
+                  '[data-tid="component-resistance-all"]'
+                )
+              ).toBe(true);
+              const susceptible = await textForSelector(
+                '[data-tid="column-susceptible"] [data-tid="drug"]'
+              );
+              expectCaseInsensitiveEqual(
+                susceptible,
+                exemplarSamplesExpectEntry.expect.all.susceptible
+              );
+              DEBUG &&
+                console.log(
+                  'susceptible',
+                  JSON.stringify(susceptible, null, 2)
+                );
+
+              const resistant = await textForSelector(
+                '[data-tid="column-resistant"] [data-tid="drug"]'
+              );
+              expectCaseInsensitiveEqual(
+                resistant,
+                exemplarSamplesExpectEntry.expect.all.resistant
+              );
+              DEBUG &&
+                console.log('resistant', JSON.stringify(resistant, null, 2));
+
+              // new
+
+              await client.click('[data-tid="button-file-new"]');
+              await delay(500);
+
+              // check existence of component
+              expect(await isExisting('[data-tid="component-upload"]')).toBe(
+                true
+              );
+            });
+          }
+        }
+      }
+    });
+}

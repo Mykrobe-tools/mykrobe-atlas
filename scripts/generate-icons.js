@@ -29,7 +29,7 @@ Promise.all(promises)
 function generateIconsMac(iconPath) {
   let promises = [];
   const sizes = [16, 32, 128, 256, 512];
-  sizes.forEach((size, index) => {
+  sizes.forEach(size => {
     let sizeRetina = size * 2;
     let filenameBase = `icon_${size}x${size}`;
     let filename = `${filenameBase}.png`;

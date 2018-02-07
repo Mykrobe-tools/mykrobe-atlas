@@ -3,6 +3,7 @@
 exports[`Notification component snapshot renders correctly 1`] = `
 <a
   className="success"
+  data-tid="notification"
   onClick={[Function]}
 >
   <p

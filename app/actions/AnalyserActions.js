@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 
 import * as ActionTypes from '../constants/ActionTypes';
 import * as NotificationCategories from '../constants/NotificationCategories';
-import { showNotification } from './NotificationActions';
+import { showNotification, hideAllNotifications } from './NotificationActions';
 import UploadService from '../services/upload/UploadService';
 import AnalyserService from '../services/analyser/AnalyserService';
 import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
@@ -82,6 +82,8 @@ export function analyseFile(file: File | string, id?: string) {
         dispatch(analyseFileError(error.description));
       });
 
+    dispatch(hideAllNotifications());
+
     dispatch({
       type: ActionTypes.ANALYSE_FILE_ANALYSE,
       analyser,
@@ -155,7 +157,7 @@ function analyseFileError(error: string) {
       })
     );
     if (IS_ELECTRON) {
-      alert(`Error: ${error}`);
+      // alert(`Error: ${error}`);
       dispatch(push('/'));
     }
     dispatch({

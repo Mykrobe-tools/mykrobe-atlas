@@ -34,15 +34,11 @@ if (!fs.existsSync(path.join(folder, '.git'))) {
     command = `git clone --recursive -b add-model-to-output git@github.com:iqbal-lab/Mykrobe-predictor.git "desktop/predictor-binaries/Mykrobe-predictor"`;
   } else {
     // can clone into the absolute folder
-    command = `git clone --recursive -b add-model-to-output git@github.com:iqbal-lab/Mykrobe-predictor.git "${
-      BASE_PATH
-    }"`;
+    command = `git clone --recursive -b add-model-to-output git@github.com:iqbal-lab/Mykrobe-predictor.git "${BASE_PATH}"`;
   }
   executeCommand(command);
 } else {
-  command = `cd "${
-    folder
-  }" && git pull && git submodule update --init --recursive`;
+  command = `cd "${folder}" && git pull && git submodule update --init --recursive`;
   executeCommand(command);
 }
 
@@ -70,9 +66,7 @@ executeCommand(command);
 // build predictor
 
 folder = path.join(BASE_PATH, 'dist');
-command = `cd "${
-  folder
-}" && pyinstaller --noconfirm --workpath=./pyinstaller_build/binary_cache --distpath=./pyinstaller_build mykrobe_predictor_pyinstaller.spec`;
+command = `cd "${folder}" && pyinstaller --noconfirm --workpath=./pyinstaller_build/binary_cache --distpath=./pyinstaller_build mykrobe_predictor_pyinstaller.spec`;
 executeCommand(command);
 
 // copy files

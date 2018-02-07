@@ -19,7 +19,7 @@ class Notifications extends React.Component {
   render() {
     const { notifications } = this.props;
     return (
-      <div className={styles.wrap}>
+      <div className={styles.wrap} data-tid="component-notifications">
         {notifications.map(notification => {
           const { id, content, category } = notification;
           return (

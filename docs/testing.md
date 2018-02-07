@@ -1,4 +1,4 @@
-# Testing
+# Mykrobe Atlas Testing
 
 ## Overview
 
@@ -6,13 +6,15 @@ This app uses the [Jest](http://facebook.github.io/jest/) testing framework.
 
 ## Setup
 
-1. Download the large 'bams' fixtures from [here](https://www.dropbox.com/sh/ic5qx6d7vf9j11q/AADOcM0bZt5EfMpwbQ4kRURoa?dl=0)
+1. Download the large `exemplar-samples` fixtures from [here](https://www.dropbox.com/sh/ic5qx6d7vf9j11q/AADOcM0bZt5EfMpwbQ4kRURoa?dl=0)
 
-2. Move this folder into the project at path `/tests/__fixtures__/bams`
+2. Move this folder into the project at path `/test/__fixtures__/exemplar-samples`
 
 ## Run tests
 
 This project has the concept of 'slow' tests. Typically these are tests which involve analysing a sample or compiling the app and may take several minutes to complete.
+
+Tests which require the current target to be [Desktop](desktop.md) or [Web](web.md) will be skipped accordingly - [About targets](targets.md)
 
 To run the general test suite, skipping slow tests:
 

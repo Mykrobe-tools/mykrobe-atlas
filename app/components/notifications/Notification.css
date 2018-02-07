@@ -1,8 +1,11 @@
 .wrap {
   color: white;
   display: block;
-  padding: 5px 10px;
+  padding: 5px 30px;
   position: relative;
+  margin: 10px auto;
+  border-radius: 3px;
+  max-width: 640px;
 }
 
 .message {
@@ -35,8 +38,13 @@
 }
 
 .close {
+  display: none;
   cursor: pointer;
   position: absolute;
   right: 10px;
   top: 12px;
+}
+
+.wrap:hover .close {
+  display: block;
 }

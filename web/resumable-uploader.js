@@ -16,8 +16,7 @@ function setUploadDirectory(uploadDir) {
   uploadDirectory = uploadDir;
   try {
     fs.mkdirSync(uploadDirectory);
-  }
-  catch (e) {
+  } catch (e) {
     // console.log(e);
   }
 }
@@ -38,10 +37,16 @@ function get(req) {
     message: null,
     filename: chunkFilename,
     originalFilename: filename,
-    identifier: identifier
+    identifier: identifier,
   };
 
-  var validation = validateRequest(chunkNumber, chunkSize, totalSize, identifier, filename);
+  var validation = validateRequest(
+    chunkNumber,
+    chunkSize,
+    totalSize,
+    identifier,
+    filename
+  );
   if (!validation.valid) {
     status.valid = validation.valid;
     status.message = validation.message;
@@ -57,7 +62,7 @@ function get(req) {
   var validChecksum = validateChecksum(chunkFilename, checksum);
   if (!validChecksum) {
     status.valid = false;
-    status.message = 'Uploaded file checksum doesn\'t match original checksum';
+    status.message = "Uploaded file checksum doesn't match original checksum";
     return status;
   }
 
@@ -84,7 +89,7 @@ function post(req) {
     message: null,
     filename: filename,
     originalFilename: originalFilename,
-    identifier: identifier
+    identifier: identifier,
   };
 
   if (!files[fileParameterName] || !files[fileParameterName].size) {
@@ -92,7 +97,13 @@ function post(req) {
     return status;
   }
 
-  var validation = validateRequest(chunkNumber, chunkSize, totalSize, identifier, files[fileParameterName].size);
+  var validation = validateRequest(
+    chunkNumber,
+    chunkSize,
+    totalSize,
+    identifier,
+    files[fileParameterName].size
+  );
   if (!validation.valid) {
     status.message = validation.message;
     return status;
@@ -100,7 +111,7 @@ function post(req) {
 
   var validChecksum = validateChecksum(files[fileParameterName].path, checksum);
   if (!validChecksum) {
-    status.message = 'Uploaded file checksum doesn\'t match original checksum';
+    status.message = "Uploaded file checksum doesn't match original checksum";
     return status;
   }
 
@@ -119,12 +130,10 @@ function post(req) {
       if (currentTestChunk > numberOfChunks) {
         status.complete = true;
         return status;
-      }
-      else {
+      } else {
         return testForUploadCompletion();
       }
-    }
-    else {
+    } else {
       return status;
     }
   }
@@ -132,7 +141,7 @@ function post(req) {
 }
 
 function cleanIdentifier(identifier) {
-  return identifier.replace(/^0-9A-Za-z_-/img, '');
+  return identifier.replace(/^0-9A-Za-z_-/gim, '');
 }
 
 function getChunkFilename(chunkNumber, identifier) {
@@ -140,16 +149,29 @@ function getChunkFilename(chunkNumber, identifier) {
   return path.join(uploadDirectory, `./resumable-${identifier}.${chunkNumber}`);
 }
 
-function validateRequest(chunkNumber, chunkSize, totalSize, identifier, filename, fileSize) {
+function validateRequest(
+  chunkNumber,
+  chunkSize,
+  totalSize,
+  identifier,
+  filename,
+  fileSize
+) {
   identifier = cleanIdentifier(identifier);
 
   var validation = {
     valid: true,
-    message: null
+    message: null,
   };
 
   // Validation: Check if the request is sane
-  if (chunkNumber === 0 || chunkSize === 0 || totalSize === 0 || identifier.length === 0 || filename.length === 0) {
+  if (
+    chunkNumber === 0 ||
+    chunkSize === 0 ||
+    totalSize === 0 ||
+    identifier.length === 0 ||
+    filename.length === 0
+  ) {
     validation.valid = false;
     validation.message = 'Non-resumable request';
     return validation;
@@ -179,7 +201,11 @@ function validateRequest(chunkNumber, chunkSize, totalSize, identifier, filename
     }
 
     // Validation: The chunks in the POST is the last one, and the fil is not the correct size
-    if (numberOfChunks > 1 && chunkNumber === numberOfChunks && fileSize !== ((totalSize % chunkSize) + chunkSize)) {
+    if (
+      numberOfChunks > 1 &&
+      chunkNumber === numberOfChunks &&
+      fileSize !== totalSize % chunkSize + chunkSize
+    ) {
       validation.valid = false;
       validation.message = 'Incorrect final chunk size';
       return validation;
@@ -194,16 +220,19 @@ function validateRequest(chunkNumber, chunkSize, totalSize, identifier, filename
   }
 
   return validation;
-};
+}
 
 function validateChecksum(filename, checksum) {
   var fileData = fs.readFileSync(filename);
-  var generatedChecksum = crypto.createHash('md5').update(fileData).digest('hex');
+  var generatedChecksum = crypto
+    .createHash('md5')
+    .update(fileData)
+    .digest('hex');
   return generatedChecksum === checksum;
 }
 
 module.exports = {
   setUploadDirectory: setUploadDirectory,
   get: get,
-  post: post
+  post: post,
 };

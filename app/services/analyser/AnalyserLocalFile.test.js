@@ -2,75 +2,120 @@ import path from 'path';
 
 import {
   ensurePredictorBinaries,
-  ensureBams,
+  ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
-  BAM_FOLDER_PATH,
+  EXEMPLAR_SAMPLES_FOLDER_PATH,
+  expectCaseInsensitiveEqual,
 } from '../../../desktop/util';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
 import MykrobeConfig from '../MykrobeConfig';
-
-const bamsExpect = require('../../../test/__fixtures__/bams.expect.json');
-
-// prerequisites
-
-ensurePredictorBinaries();
-ensureBams();
-
 const config = new MykrobeConfig();
+
+const GENERATE_JSON_FIXTURES = true;
+
+const exemplarSamplesExpect = require('../../../test/__fixtures__/exemplar-samples.expect.json');
 
 INCLUDE_SLOW_TESTS && jest.setTimeout(10 * 60 * 1000); // 10 minutes
 
-beforeEach(() => {
-  process.env.NODE_ENV = 'development';
-});
-
-afterEach(() => {
-  delete process.env.NODE_ENV;
-});
-
-const asLowerCase = o => {
-  if (Array.isArray(o)) {
-    return o.map(value => value.toLowerCase());
-  }
-  return o.toLowerCase();
-};
-
 describe('AnalyserLocalFile', () => {
-  for (let i = 0; i < bamsExpect.length; i++) {
-    const bamsExpectEntry = bamsExpect[i];
-    const extension = bamsExpectEntry.source
-      .substr(bamsExpectEntry.source.lastIndexOf('.') + 1)
-      .toLowerCase();
-    const isJson = extension === 'json';
-    if (!isJson && !INCLUDE_SLOW_TESTS) {
-      console.log(`Skipping slow test for ${bamsExpectEntry.source}`);
-      continue;
-    }
-    it(`should analyse source file ${bamsExpectEntry.source}`, async done => {
-      const analyser = new AnalyserLocalFile(config);
-      const filePath = path.join(BAM_FOLDER_PATH, bamsExpectEntry.source);
-      analyser
-        .analyseFile(filePath)
-        .on('progress', progress => {
-          console.log('progress', progress);
-        })
-        .on('done', result => {
-          const { transformed } = result;
-          expect(asLowerCase(transformed.speciesPretty)).toEqual(
-            bamsExpectEntry.expect.species
-          );
-          expect(asLowerCase(transformed.resistant)).toEqual(
-            bamsExpectEntry.expect.all.resistant
-          );
-          expect(asLowerCase(transformed.susceptible)).toEqual(
-            bamsExpectEntry.expect.all.susceptible
-          );
-          done();
-        })
-        .on('error', error => {
-          throw error;
-        });
-    });
-  }
+  it('should contain a test', done => {
+    done();
+  });
 });
+
+// dont run if web
+if (config.isWeb()) {
+  console.log('Web - not running index.desktop.e2e.test.js');
+} else {
+  // prerequisites
+
+  ensurePredictorBinaries();
+  ensureExemplarSamples();
+
+  beforeEach(() => {
+    process.env.NODE_ENV = 'development';
+  });
+
+  afterEach(() => {
+    delete process.env.NODE_ENV;
+  });
+
+  describe('AnalyserLocalFile', () => {
+    for (let i = 0; i < exemplarSamplesExpect.length; i++) {
+      const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
+      for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
+        const source = exemplarSamplesExpectEntry.source[j];
+        const extension = source
+          .substr(source.lastIndexOf('.') + 1)
+          .toLowerCase();
+        const isJson = extension === 'json';
+        if (!isJson && !INCLUDE_SLOW_TESTS) {
+          console.log(`Skipping slow test for ${source}`);
+          continue;
+        }
+        it(`should analyse source file ${source}`, async done => {
+          const analyser = new AnalyserLocalFile(config);
+          const filePath = path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, source);
+          analyser
+            .analyseFile(filePath)
+            .on('progress', progress => {
+              console.log('progress', progress);
+            })
+            .on('done', result => {
+              const { json, transformed } = result;
+              if (GENERATE_JSON_FIXTURES) {
+                const fs = require('fs');
+                // write unprocessed json
+                fs.writeFileSync(
+                  `test/__fixtures__/exemplar-samples/${source}.json`,
+                  JSON.stringify(json, null, 2)
+                );
+                // write transformed json
+                fs.writeFileSync(
+                  `test/__fixtures__/exemplar-samples/${source}__AnalyserLocalFile__.json`,
+                  JSON.stringify(transformed, null, 2)
+                );
+              }
+              expectCaseInsensitiveEqual(
+                transformed.speciesPretty,
+                exemplarSamplesExpectEntry.expect.species
+              );
+              expectCaseInsensitiveEqual(
+                transformed.resistant,
+                exemplarSamplesExpectEntry.expect.all.resistant
+              );
+              expectCaseInsensitiveEqual(
+                transformed.susceptible,
+                exemplarSamplesExpectEntry.expect.all.susceptible
+              );
+              expectCaseInsensitiveEqual(
+                transformed.drugsResistance,
+                exemplarSamplesExpectEntry.expect.drugs.resistanceFlags
+              );
+              done();
+            })
+            .on('error', error => {
+              // check if this was expected to be rejected
+              let expectedReject = false;
+              if (exemplarSamplesExpectEntry.expect.reject) {
+                if (
+                  error.description &&
+                  error.description.includes(
+                    'does not give susceptibility predictions'
+                  )
+                ) {
+                  expectedReject = true;
+                }
+              }
+              expect(expectedReject).toBeTruthy();
+              if (!expectedReject) {
+                throw error;
+              }
+              done();
+            });
+        });
+      }
+    }
+  });
+}
