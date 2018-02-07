@@ -1,4 +1,4 @@
-# Coding standards
+# Mykrobe Atlas Coding Standards
 
 Coding standards to follow when working on the app, to ensure consistency and quality. Code is automatically formatted on commit.
 
@@ -90,7 +90,7 @@ If you need global styles, stylesheets with `.global.css` will not go through th
 To run flow:
 
 ```
-$ npm run flow
+$ yarn flow
 ```
 
 [ESLint](http://eslint.org/) is used to enforce consistency and code conventions in JavaScript.
@@ -98,7 +98,7 @@ $ npm run flow
 To run eslint:
 
 ```
-$ npm run lint:js
+$ yarn lint:js
 ```
 
 [Stylelint](https://stylelint.io/) is used to enforce consistency and code conventions in CSS.
@@ -106,7 +106,7 @@ $ npm run lint:js
 To run eslint:
 
 ```
-$ npm run lint:css
+$ yarn lint:css
 ```
 
 Installing a flow linter, eslint and stylelint in your code editor will assist in catching issues before they are committed to source control.

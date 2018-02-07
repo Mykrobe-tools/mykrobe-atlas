@@ -1,4 +1,4 @@
-# Dependencies
+# Mykrobe Atlas Dependencies
 
 Dependencies should be updated when there is a critical security or business reason for doing so.
 

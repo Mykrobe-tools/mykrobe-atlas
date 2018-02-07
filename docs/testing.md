@@ -1,4 +1,4 @@
-# Testing
+# Mykrobe Atlas Testing
 
 ## Overview
 
@@ -13,6 +13,8 @@ This app uses the [Jest](http://facebook.github.io/jest/) testing framework.
 ## Run tests
 
 This project has the concept of 'slow' tests. Typically these are tests which involve analysing a sample or compiling the app and may take several minutes to complete.
+
+Tests which require the current target to be [Desktop](desktop.md) or [Web](web.md) will be skipped accordingly - [About targets](targets.md)
 
 To run the general test suite, skipping slow tests:
 
