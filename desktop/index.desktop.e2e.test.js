@@ -5,6 +5,7 @@ jest.unmock('electron');
 
 import { Application } from 'spectron';
 import path from 'path';
+import fs from 'fs';
 
 import MykrobeConfig from '../app/services/MykrobeConfig';
 import * as TargetConstants from '../app/constants/TargetConstants';
@@ -42,7 +43,8 @@ if (config.isWeb()) {
   ensurePredictorBinaries();
   ensureExemplarSamples();
 
-  // this step is very slow - comment out while adjusting tests
+  // this step is very slow - compiles desktop app and creates distribution images
+  // comment out while adjusting only tests
 
   describe('Desktop e2e prerequisites', () => {
     it('should package app', async () => {
@@ -80,6 +82,17 @@ if (config.isWeb()) {
           throw `Element not found for selector ${selector}`;
         }
         return existing;
+      };
+
+      // convenience to save screenshot
+
+      const saveScreenshot = async filename => {
+        const { browserWindow } = this.app;
+        const imageBuffer = await browserWindow.capturePage();
+        fs.writeFile(
+          path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, filename),
+          imageBuffer
+        );
       };
 
       // these run even if test is excluded: https://github.com/facebook/jest/issues/4166
@@ -183,7 +196,7 @@ if (config.isWeb()) {
               // TODO check for progress changes once reinstated
             }
             if (exemplarSamplesExpectEntry.expect.reject) {
-              console.log('awaiting rjection');
+              console.log('awaiting rejection');
               console.log(
                 'exemplarSamplesExpectEntry.expect',
                 JSON.stringify(exemplarSamplesExpectEntry.expect, null, 2)
@@ -196,7 +209,7 @@ if (config.isWeb()) {
               const notifications = await textForSelector(
                 '[data-tid="component-notifications"] [data-tid="notification"]'
               );
-              console.log('notifications', notifications);
+              await saveScreenshot(`${source}__rejection__.png`);
               expect(
                 notifications[0].includes(
                   'does not give susceptibility predictions'
@@ -226,6 +239,7 @@ if (config.isWeb()) {
                     '[data-tid="component-resistance-drugs"]'
                   )
                 ).toBe(true);
+                await saveScreenshot(`${source}__resistance-drugs__.png`);
                 const firstLineDrugs = await textForSelector(
                   '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
                 );
@@ -271,6 +285,7 @@ if (config.isWeb()) {
                     '[data-tid="component-resistance-class"]'
                   )
                 ).toBe(true);
+                await saveScreenshot(`${source}__resistance-class.png`);
               }
 
               // evidence
@@ -281,6 +296,7 @@ if (config.isWeb()) {
                   '[data-tid="component-resistance-evidence"]'
                 )
               ).toBe(true);
+              await saveScreenshot(`${source}__resistance-evidence.png`);
 
               const evidenceDrugs = Object.keys(
                 exemplarSamplesExpectEntry.expect.evidence
@@ -315,6 +331,7 @@ if (config.isWeb()) {
                   '[data-tid="component-resistance-species"]'
                 )
               ).toBe(true);
+              await saveScreenshot(`${source}__resistance-species.png`);
               const species = await textForSelector(
                 '[data-tid="species"]',
                 false
@@ -333,6 +350,7 @@ if (config.isWeb()) {
                   '[data-tid="component-resistance-all"]'
                 )
               ).toBe(true);
+              await saveScreenshot(`${source}__resistance-all.png`);
               const susceptible = await textForSelector(
                 '[data-tid="column-susceptible"] [data-tid="drug"]'
               );

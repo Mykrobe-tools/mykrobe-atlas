@@ -6,7 +6,7 @@ This app uses the [Jest](http://facebook.github.io/jest/) testing framework.
 
 ## Setup
 
-1. Download the large `exemplar-samples` fixtures from [here](https://www.dropbox.com/sh/ic5qx6d7vf9j11q/AADOcM0bZt5EfMpwbQ4kRURoa?dl=0)
+1. Download the large `exemplar-samples` fixtures from [here](https://www.dropbox.com/sh/7v8foml90gvqapk/AADiRLFx6PIBjbcavV9Spylwa?dl=0)
 
 2. Move this folder into the project at path `/test/__fixtures__/exemplar-samples`
 

@@ -1,6 +1,7 @@
 /* @flow */
 
 import { push } from 'react-router-redux';
+import parsePath from 'parse-filepath';
 
 import * as ActionTypes from '../constants/ActionTypes';
 import * as NotificationCategories from '../constants/NotificationCategories';
@@ -126,10 +127,11 @@ function analyseFileSuccess(
     } else {
       filename = file.name;
     }
+    const parsed = parsePath(filename);
     dispatch(
       showNotification({
         category: NotificationCategories.SUCCESS,
-        content: `Sample ${filename} analysis complete`,
+        content: `Sample ${parsed.basename} analysis complete`,
       })
     );
     dispatch({
