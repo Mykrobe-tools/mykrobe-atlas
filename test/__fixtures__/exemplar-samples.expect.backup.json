@@ -46,7 +46,7 @@
     }
   },
   {
-    "source": ["MDR.fastq.gz.json", "MDR.fastq.gz"],
+    "source": ["MDR.fastq.gz"],
     "expect": {
       "all": {
         "susceptible": [

@@ -15,7 +15,7 @@ export function showNotification({
     if (autoHide) {
       setTimeout(() => {
         dispatch(hide(id));
-      }, 5000);
+      }, 3000);
     }
   };
 }
