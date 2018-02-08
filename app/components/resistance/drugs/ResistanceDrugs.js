@@ -26,7 +26,7 @@ class ResistanceDrugs extends React.Component {
     const { drugsResistance: { xdr, mdr } } = analyser.transformed;
     if (mdr || xdr) {
       return (
-        <Panel title="Resistance">
+        <Panel title="Resistance" columns={4}>
           <div className={styles.drugs}>
             {xdr && (
               <div data-tid="resistance">Extensively Drug Resistant (XDR)</div>
@@ -43,10 +43,10 @@ class ResistanceDrugs extends React.Component {
   render() {
     return (
       <div className={styles.container} data-tid="component-resistance-drugs">
-        <Panel title="First line drugs">
+        <Panel title="First line drugs" columns={4}>
           {this.listDrugsWithIndicators(firstLineDrugs)}
         </Panel>
-        <Panel title="Second line drugs">
+        <Panel title="Second line drugs" columns={4}>
           {this.listDrugsWithIndicators(secondLineDrugs)}
         </Panel>
         {this.renderDrugResistance()}

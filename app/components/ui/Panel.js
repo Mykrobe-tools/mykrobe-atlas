@@ -9,7 +9,7 @@ class Panel extends React.Component {
     const { title, columns, children } = this.props;
     let style;
     if (columns) {
-      style = { width: `${100 * columns / 8}%`, flex: 'initial' };
+      style = { flexBasis: `${100 * columns / 8}%`, flexGrow: 0 };
     }
     const tidTitle = title.replace(/\s/g, '-').toLowerCase();
     const tid = `panel-${tidTitle}`;

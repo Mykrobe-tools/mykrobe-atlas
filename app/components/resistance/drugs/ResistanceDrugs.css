@@ -3,6 +3,7 @@
   padding: 18px;
   overflow-y: auto;
   background-color: white;
+  flex-wrap: wrap;
 }
 
 .drugs {

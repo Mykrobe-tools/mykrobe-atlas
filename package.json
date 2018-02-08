@@ -244,8 +244,5 @@
     "globals": {
       "IS_ELECTRON": false
     }
-  },
-  "eslintIgnore": [
-    "decls"
-  ]
+  }
 }

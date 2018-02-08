@@ -1,9 +1,6 @@
 [ignore]
-<PROJECT_ROOT>/node_modules
-<PROJECT_ROOT>/desktop/static
-<PROJECT_ROOT>/desktop/dist
-<PROJECT_ROOT>/desktop/release
-<PROJECT_ROOT>/desktop/predictor-binaries
+
+.*/node_modules/stylelint/
 
 [include]
 

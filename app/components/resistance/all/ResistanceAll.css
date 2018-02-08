@@ -1,8 +1,5 @@
 .container {
   composes: container from "css/layout.css";
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
   padding: 18px;
   background-color: white;
   overflow-y: auto;
