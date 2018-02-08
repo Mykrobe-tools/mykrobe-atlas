@@ -38,10 +38,14 @@ class AnalyserBaseFile extends EventEmitter {
     }
   }
 
-  failWithError(err: string) {
+  failWithError(err: string | Error) {
+    let message = err;
+    if (err.message) {
+      message = err.message;
+    }
     setTimeout(() => {
       this.emit('error', {
-        description: err,
+        description: message,
       });
     }, 0);
   }

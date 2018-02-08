@@ -16,12 +16,19 @@ class AnalyserJsonTransformer {
 
   stringToJson(string: string) {
     return new Promise((resolve, reject) => {
-      const json = JSON.parse(string);
+      let json;
+
+      try {
+        json = JSON.parse(string);
+      } catch (error) {
+        reject(`Error reading json: ${error.message}`);
+      }
+
       try {
         const transformed = this.transformModel(json);
         resolve({ json, transformed });
       } catch (error) {
-        reject(error);
+        reject(`Error processing json: ${error.message}`);
       }
     });
   }
@@ -51,6 +58,11 @@ class AnalyserJsonTransformer {
   }
 
   transformSampleModel(sourceModel: Object, relatedModels: ?Array<Object>) {
+    // check basic requirements
+    if (!sourceModel.phylogenetics) {
+      throw new Error('Unsupported sample json format');
+    }
+
     let o;
     let susceptibilityModel;
     let key;
