@@ -25,15 +25,15 @@ const uploadService = new UploadService();
 
 export const typePrefix = 'analyser/analyser/';
 
-export const PREPARE = `${typePrefix}PREPARE`;
-export const UPLOAD = `${typePrefix}UPLOAD`;
-export const ANALYSE = `${typePrefix}ANALYSE`;
-export const ERROR = `${typePrefix}ERROR`;
-export const SUCCESS = `${typePrefix}SUCCESS`;
-export const PROGRESS = `${typePrefix}PROGRESS`;
-export const CANCEL = `${typePrefix}CANCEL`;
-export const NEW = `${typePrefix}NEW`;
-export const SAVE = `${typePrefix}SAVE`;
+export const ANALYSE_FILE_PREPARE = `${typePrefix}ANALYSE_FILE_PREPARE`;
+export const ANALYSE_FILE_UPLOAD = `${typePrefix}ANALYSE_FILE_UPLOAD`;
+export const ANALYSE_FILE_ANALYSE = `${typePrefix}ANALYSE_FILE_ANALYSE`;
+export const ANALYSE_FILE_ERROR = `${typePrefix}ANALYSE_FILE_ERROR`;
+export const ANALYSE_FILE_SUCCESS = `${typePrefix}ANALYSE_FILE_SUCCESS`;
+export const ANALYSE_FILE_PROGRESS = `${typePrefix}ANALYSE_FILE_PROGRESS`;
+export const ANALYSE_FILE_CANCEL = `${typePrefix}ANALYSE_FILE_CANCEL`;
+export const ANALYSE_FILE_NEW = `${typePrefix}ANALYSE_FILE_NEW`;
+export const ANALYSE_FILE_SAVE = `${typePrefix}ANALYSE_FILE_SAVE`;
 
 // Selectors
 
@@ -55,16 +55,18 @@ export const getTransformed = createSelector(
 
 function analyseFileUpload() {
   return {
-    type: UPLOAD,
+    type: ANALYSE_FILE_UPLOAD,
   };
 }
 
 function analyseFileProgress(progress: number) {
   return {
-    type: PROGRESS,
+    type: ANALYSE_FILE_PROGRESS,
     progress,
   };
 }
+
+// TODO: refactor and add other action creators
 
 // Reducer
 
@@ -86,7 +88,7 @@ export default function reducer(
   action: Object = {}
 ) {
   switch (action.type) {
-    case PREPARE:
+    case ANALYSE_FILE_PREPARE:
       return {
         ...initialState,
         step: 0,
@@ -95,13 +97,13 @@ export default function reducer(
         id: action.id,
         analysing: true,
       };
-    case UPLOAD:
+    case ANALYSE_FILE_UPLOAD:
       return {
         ...state,
         step: 1,
         stepDescription: 'Uploading',
       };
-    case ANALYSE:
+    case ANALYSE_FILE_ANALYSE:
       return {
         ...state,
         step: 2,
@@ -109,10 +111,10 @@ export default function reducer(
         analysing: true,
         analyser: action.analyser,
       };
-    case CANCEL:
-    case NEW:
+    case ANALYSE_FILE_CANCEL:
+    case ANALYSE_FILE_NEW:
       return initialState;
-    case PROGRESS: {
+    case ANALYSE_FILE_PROGRESS: {
       if (IS_ELECTRON) {
         const { progress, total } = action.progress;
         return {
@@ -130,7 +132,7 @@ export default function reducer(
         };
       }
     }
-    case SUCCESS:
+    case ANALYSE_FILE_SUCCESS:
       return {
         ...state,
         analysing: false,
@@ -138,7 +140,7 @@ export default function reducer(
         json: action.json,
         transformed: action.transformed,
       };
-    case ERROR:
+    case ANALYSE_FILE_ERROR:
       return {
         ...initialState,
         error: action.error,
@@ -177,7 +179,7 @@ function analyseFilePrepare(filename: string) {
       .prepare()
       .then(experiment => {
         dispatch({
-          type: PREPARE,
+          type: ANALYSE_FILE_PREPARE,
           filename,
           id: experiment.id,
         });
@@ -216,7 +218,7 @@ export const analyseFile = (file: File | string, id?: string) => {
     dispatch(hideAllNotifications());
 
     dispatch({
-      type: ANALYSE,
+      type: ANALYSE_FILE_ANALYSE,
       analyser,
     });
 
@@ -234,14 +236,14 @@ export const analyseFileCancel = () => {
         state.analyser.analyser.cancel();
       }
       dispatch({
-        type: CANCEL,
+        type: ANALYSE_FILE_CANCEL,
       });
       dispatch(push('/'));
     };
   }
   uploadService.uploadFile.cancel();
   return {
-    type: CANCEL,
+    type: ANALYSE_FILE_CANCEL,
   };
 };
 
@@ -267,7 +269,7 @@ function analyseFileSuccess(
     // TODO: also send this into an agnostic part of the redux state
     // which can also be used by remote file analyser
     dispatch({
-      type: SUCCESS,
+      type: ANALYSE_FILE_SUCCESS,
       json,
       transformed,
     });
@@ -288,7 +290,7 @@ function analyseFileError(error: string) {
       dispatch(push('/'));
     }
     dispatch({
-      type: ERROR,
+      type: ANALYSE_FILE_ERROR,
       error,
     });
   };
@@ -300,7 +302,7 @@ export const analyseRemoteFile = (file: File) => {
       .prepare()
       .then(experiment => {
         dispatch({
-          type: PREPARE,
+          type: ANALYSE_FILE_PREPARE,
           filename: file.name,
           id: experiment.id,
         });
@@ -309,7 +311,7 @@ export const analyseRemoteFile = (file: File) => {
 
         uploadService.uploadRemoteFile(file).then(() => {
           dispatch({
-            type: ANALYSE,
+            type: ANALYSE_FILE_ANALYSE,
             filename: file.name,
             id: experiment.id,
           });
@@ -345,7 +347,7 @@ export const fetchExperiment = (id: string) => {
       .then(result => {
         const { json, transformed } = result;
         dispatch({
-          type: SUCCESS,
+          type: ANALYSE_FILE_SUCCESS,
           json,
           transformed,
         });
@@ -364,7 +366,7 @@ export const analyseFileNew = () => {
     }
     dispatch(push('/'));
     dispatch({
-      type: NEW,
+      type: ANALYSE_FILE_NEW,
     });
   };
 };
