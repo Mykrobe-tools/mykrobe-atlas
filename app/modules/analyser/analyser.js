@@ -14,6 +14,12 @@ import UploadService from '../../services/upload/UploadService';
 import AnalyserService from '../../services/analyser/AnalyserService';
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
+import {
+  showNotification,
+  hideAllNotifications,
+  NotificationCategories,
+} from '../notifications';
+
 const analyserService = new AnalyserService();
 const uploadService = new UploadService();
 
@@ -44,6 +50,21 @@ export const getTransformed = createSelector(
   getState,
   analyser => analyser.transformed
 );
+
+// Action creators
+
+function analyseFileUpload() {
+  return {
+    type: UPLOAD,
+  };
+}
+
+function analyseFileProgress(progress: number) {
+  return {
+    type: PROGRESS,
+    progress,
+  };
+}
 
 // Reducer
 
@@ -168,12 +189,6 @@ function analyseFilePrepare(filename: string) {
   };
 }
 
-function analyseFileUpload() {
-  return {
-    type: UPLOAD,
-  };
-}
-
 export const analyseFile = (file: File | string, id?: string) => {
   return (dispatch: Function) => {
     if (IS_ELECTRON) {
@@ -256,13 +271,6 @@ function analyseFileSuccess(
       json,
       transformed,
     });
-  };
-}
-
-function analyseFileProgress(progress: number) {
-  return {
-    type: PROGRESS,
-    progress,
   };
 }
 
