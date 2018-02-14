@@ -17,7 +17,7 @@ class AnalyserService {
     return instance;
   }
 
-  analyseFile(file: File, id: string): AnalyserBaseFile {
+  analyseFile(file: string | File, id?: string): AnalyserBaseFile {
     return new AnalyserWebFile(this.config).analyseFile(file, id);
   }
 
