@@ -7,6 +7,7 @@ import auth from './auth';
 import experiments from './experiments';
 import metadata from './metadata';
 import notifications from './notifications';
+import phylogeny from './phylogeny';
 
 const reducer = combineReducers({
   analyser,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   experiments,
   metadata,
   notifications,
+  phylogeny,
 });
 
 export default reducer;
