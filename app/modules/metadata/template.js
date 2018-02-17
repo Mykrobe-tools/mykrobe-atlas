@@ -15,7 +15,7 @@ export const getTemplate = createSelector(
   template => template.template
 );
 
-// Recuder
+// Reducer
 
 const initialState = {
   template: [],

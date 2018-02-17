@@ -26,7 +26,8 @@ export const getTotal = createSelector(
   getState,
   experiments => experiments.total
 );
-// Recuder
+
+// Reducer
 
 const initialState = {
   isFetching: false,

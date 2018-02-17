@@ -22,7 +22,7 @@ export const getFilterValues = createSelector(
   filters => filters.filterValues
 );
 
-// Recuder
+// Reducer
 
 const initialState = {
   isFetching: false,

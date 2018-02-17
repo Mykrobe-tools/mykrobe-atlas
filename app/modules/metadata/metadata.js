@@ -18,7 +18,7 @@ export const getMetadata = createSelector(
   metadata => metadata.metadata
 );
 
-// Recuder
+// Reducer
 
 const initialState = {
   metadata: {
