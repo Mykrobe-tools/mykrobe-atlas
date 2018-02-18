@@ -6,8 +6,8 @@ import organisations from './organisations';
 export {
   getIsFetching,
   getIsSaving,
-  getData,
-  getDataById,
+  getOrganisations,
+  getOrganisationsById,
   updateFailureReason,
   deleteFailureReason,
   requestAllOrganisations,

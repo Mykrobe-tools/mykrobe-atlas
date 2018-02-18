@@ -49,11 +49,11 @@ export const getIsSaving = createSelector(
   getState,
   organisations => organisations.isSaving
 );
-export const getData = createSelector(
+export const getOrganisations = createSelector(
   getState,
   organisations => organisations.data
 );
-export const getDataById = createSelector(getData, data => {
+export const getOrganisationsById = createSelector(getOrganisations, data => {
   let dataById = {};
   data.map(item => {
     dataById[item.id] = item;

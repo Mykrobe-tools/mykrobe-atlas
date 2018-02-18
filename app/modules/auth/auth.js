@@ -63,6 +63,7 @@ export const AUTH_VERIFY_FAIL = `${typePrefix}AUTH_VERIFY_FAIL`;
 
 export const getState = state => (state.auth ? state.auth.auth : undefined);
 
+export const getAuth = state => (getState, auth => auth);
 export const getIsLoading = createSelector(getState, auth => auth.isLoading);
 export const getIsFetching = createSelector(getState, auth => auth.isFetching);
 export const getIsAuthenticated = createSelector(

@@ -9,12 +9,28 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import styles from './Common.css';
-import * as AuthActions from '../../actions/AuthActions';
 import type { AuthType } from '../../types/AuthTypes';
 import type { UserType } from '../../types/UserTypes';
-import * as OrganisationActions from '../../actions/OrganisationActions.js';
+
+import styles from './Common.css';
 import Loading from '../ui/Loading';
+
+import {
+  getAuth,
+  getIsFetching as getAuthIsFetching,
+  getFailureReason,
+  signOut,
+  fetchCurrentUser,
+  updateCurrentUser,
+  deleteCurrentUser,
+  deleteFailureReason,
+} from '../../modules/auth';
+
+import {
+  getIsFetching as getOrganisationsIsFetching,
+  getOrganisations,
+  requestAllOrganisations,
+} from '../../modules/organisations';
 
 class Profile extends React.Component {
   componentWillMount() {
@@ -49,14 +65,14 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { failureReason } = this.props.auth;
+    const { failureReason, isFetching } = this.props;
     const { signOut, organisations } = this.props;
     const auth: AuthType = this.props.auth;
     const user: ?UserType = auth.user;
     if (!user) {
       return null;
     }
-    if (auth.isFetching || organisations.isFetching) {
+    if (isFetching) {
       return (
         <div className={styles.container}>
           <div className={styles.header}>
@@ -197,28 +213,32 @@ class Profile extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
-    organisations: state.organisations,
+    auth: getAuth(state),
+    organisations: getOrganisations(state),
+    failureReason: getFailureReason(state),
+    isFetching: getAuthIsFetching(state) || getOrganisationsIsFetching(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      signOut: AuthActions.signOut,
-      fetchCurrentUser: AuthActions.fetchCurrentUser,
-      updateCurrentUser: AuthActions.updateCurrentUser,
-      deleteFailureReason: AuthActions.deleteFailureReason,
-      deleteCurrentUser: AuthActions.deleteCurrentUser,
-      requestAllOrganisations: OrganisationActions.requestAllOrganisations,
+      signOut,
+      fetchCurrentUser,
+      updateCurrentUser,
+      deleteFailureReason,
+      deleteCurrentUser,
+      requestAllOrganisations,
     },
     dispatch
   );
 }
 
 Profile.propTypes = {
+  failureReason: PropTypes.string,
   auth: PropTypes.object.isRequired,
   organisations: PropTypes.object.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   signOut: PropTypes.func.isRequired,
   fetchCurrentUser: PropTypes.func.isRequired,
   updateCurrentUser: PropTypes.func.isRequired,
