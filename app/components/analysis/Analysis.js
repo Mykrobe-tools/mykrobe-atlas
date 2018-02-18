@@ -2,14 +2,12 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import styles from './Analysis.css';
 import GoogleMapsLoader from 'google-maps';
+
+import styles from './Analysis.css';
 import Phylogeny from '../phylogeny/Phylogeny';
-import { connect } from 'react-redux';
 import Uploading from '../ui/Uploading';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
-import * as NodeActions from '../../actions/NodeActions';
 import MapStyle from './MapStyle';
 import config from '../../config';
 
@@ -138,7 +136,7 @@ class Analysis extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { node } = nextProps;
+    const { highlighted } = nextProps;
     if (nextProps.analyser.analysing) return;
     if (!this._map) {
       this.loadMaps(nextProps.analyser.json);
@@ -151,8 +149,8 @@ class Analysis extends React.Component {
         nextProps.analyser.json.geoDistance.experiments
       );
     }
-    if (node.highlighted.length) {
-      const nodeId = node.highlighted[0];
+    if (highlighted.length) {
+      const nodeId = highlighted[0];
       const marker = this.markerForNodeId(nodeId);
       if (marker) {
         const markerLocation = marker.getPosition();
@@ -207,25 +205,10 @@ class Analysis extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    node: state.node,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      setNodeHighlighted: NodeActions.setNodeHighlighted,
-    },
-    dispatch
-  );
-}
-
 Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired,
+  highlighted: PropTypes.array.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Analysis);
+export default Analysis;
