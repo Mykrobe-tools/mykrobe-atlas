@@ -53,6 +53,10 @@ export const getOrganisations = createSelector(
   getState,
   organisations => organisations.data
 );
+export const getFailureReason = createSelector(
+  getState,
+  organisations => organisations.failureReason
+);
 export const getOrganisationsById = createSelector(getOrganisations, data => {
   let dataById = {};
   data.map(item => {

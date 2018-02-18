@@ -8,6 +8,7 @@ export {
   getIsSaving,
   getOrganisations,
   getOrganisationsById,
+  getFailureReason,
   updateFailureReason,
   deleteFailureReason,
   requestAllOrganisations,

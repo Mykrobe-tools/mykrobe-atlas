@@ -10,8 +10,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import styles from './Common.css';
-import * as OrganisationActions from '../../actions/OrganisationActions';
 import type { OrganisationType } from '../../types/OrganisationTypes';
+
+import {
+  getFailureReason,
+  createOrganisation,
+  deleteFailureReason,
+} from '../../modules/organisations';
 
 class Add extends React.Component {
   handleSubmit(e) {
@@ -30,7 +35,7 @@ class Add extends React.Component {
   }
 
   render() {
-    const { failureReason } = this.props.organisations;
+    const { failureReason } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -82,22 +87,22 @@ class Add extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    organisations: state.organisations,
+    failureReason: getFailureReason(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      createOrganisation: OrganisationActions.createOrganisation,
-      deleteFailureReason: OrganisationActions.deleteFailureReason,
+      createOrganisation,
+      deleteFailureReason,
     },
     dispatch
   );
 }
 
 Add.propTypes = {
-  organisations: PropTypes.object.isRequired,
+  failureReason: PropTypes.string,
   createOrganisation: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
 };
