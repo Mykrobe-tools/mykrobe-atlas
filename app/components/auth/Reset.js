@@ -9,8 +9,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import styles from './Common.css';
-import * as AuthActions from '../../actions/AuthActions';
 import type { AuthResetPasswordType } from '../../types/AuthTypes';
+
+import {
+  getFailureReason,
+  resetPassword,
+  deleteFailureReason,
+} from '../../modules/auth';
 
 class Reset extends React.Component {
   handleSubmit(e) {
@@ -31,7 +36,7 @@ class Reset extends React.Component {
   }
 
   render() {
-    const { failureReason } = this.props.auth;
+    const { failureReason } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -76,22 +81,22 @@ class Reset extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
+    failureReason: getFailureReason(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      resetPassword: AuthActions.resetPassword,
-      deleteFailureReason: AuthActions.deleteFailureReason,
+      resetPassword,
+      deleteFailureReason,
     },
     dispatch
   );
 }
 
 Reset.propTypes = {
-  auth: PropTypes.object.isRequired,
+  failureReason: PropTypes.string,
   resetPassword: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
