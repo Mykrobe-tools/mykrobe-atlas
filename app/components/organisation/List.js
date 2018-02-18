@@ -1,11 +1,19 @@
 /* @flow */
 
+// TODO: split and separate all organisations vs single
+// organisations
+// organisation
+
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import * as OrganisationActions from '../../actions/OrganisationActions.js';
+
+import {
+  getOrganisations,
+  requestAllOrganisations,
+} from '../../modules/organisations';
 
 import styles from './Common.css';
 import Loading from '../ui/Loading';
@@ -80,14 +88,14 @@ class Profile extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    organisations: state.organisations,
+    organisations: getOrganisations(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      requestAllOrganisations: OrganisationActions.requestAllOrganisations,
+      requestAllOrganisations,
     },
     dispatch
   );
