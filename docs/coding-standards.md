@@ -44,10 +44,10 @@ Webpack allows references to imported files to be interpreted from the root of t
 
 ```
 // bad
-import * as MetadataActions from 'actions/MetadataActions';
+import * as Example from 'example/Example';
 
 // good
-import * as MetadataActions from '../../actions/MetadataActions';
+import * as Example from '../../example/Example';
 ```
 
 ## CSS

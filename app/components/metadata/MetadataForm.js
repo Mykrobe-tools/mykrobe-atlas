@@ -10,8 +10,6 @@ import moment from 'moment';
 
 import styles from './MetadataForm.css';
 
-import * as MetadataActions from '../../actions/MetadataActions';
-
 import MetadataFormStep from './MetadataFormStep';
 import MetadataFormSteps from './MetadataFormSteps';
 
@@ -24,6 +22,13 @@ import FormInputDate from '../form/FormInputDate';
 import FormInputRadio from '../form/FormInputRadio';
 import FormSelect from '../form/FormSelect';
 import FormTypeahead from '../form/FormTypeahead';
+
+import {
+  getMetadata,
+  getTemplate,
+  setMetadata,
+  postMetadataForm,
+} from '../../modules/metadata';
 
 const locations = require('../../static/locations.json');
 const drugs = require('../../static/drugs.json');
@@ -1416,16 +1421,16 @@ class MetadataForm extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    metadata: state.metadata.metadata,
-    template: state.metadata.template,
+    metadata: getMetadata(state),
+    template: getTemplate(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      postMetadataForm: MetadataActions.postMetadataForm,
-      setMetadata: MetadataActions.setMetadata,
+      postMetadataForm,
+      setMetadata,
     },
     dispatch
   );

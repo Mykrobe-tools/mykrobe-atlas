@@ -5,10 +5,15 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as NotificationActions from '../../actions/NotificationActions';
+import {
+  getNotifications,
+  hideNotification,
+} from '../../modules/notifications';
 
 import Notification from './Notification';
 import styles from './Notifications.css';
+
+// TODO: refactor into NotificationsContainer and Notifications component
 
 class Notifications extends React.Component {
   onClick(id: Number) {
@@ -45,14 +50,14 @@ Notifications.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    notifications: state.notifications,
+    notifications: getNotifications(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      hideNotification: NotificationActions.hideNotification,
+      hideNotification,
     },
     dispatch
   );
