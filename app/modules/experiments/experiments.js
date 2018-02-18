@@ -29,7 +29,7 @@ export const getTotal = createSelector(
 
 // Reducer
 
-const initialState = {
+export const initialState = {
   isFetching: false,
   samples: [],
   total: 0,
@@ -39,19 +39,22 @@ export default function reducer(
   state: Object = initialState,
   action: Object = {}
 ) {
+  console.log('action', action);
   switch (action.type) {
     case REQUEST_EXPERIMENTS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: true,
         samples: [],
         total: null,
-      });
+      };
     case RECEIVE_EXPERIMENTS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: false,
         samples: action.data.results,
         total: action.data.summary.hits,
-      });
+      };
     default:
       return state;
   }
@@ -59,13 +62,13 @@ export default function reducer(
 
 // Action creators
 
-function requestExperiments() {
+export function requestExperiments() {
   return {
     type: REQUEST_EXPERIMENTS,
   };
 }
 
-function receiveExperiments(
+export function receiveExperiments(
   data: Object = { results: [], summary: { hits: 0 } }
 ) {
   return {
