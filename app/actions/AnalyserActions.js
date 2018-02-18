@@ -98,7 +98,7 @@ export function analyseFile(file: File | string, id?: string) {
 
 export function analyseFileCancel() {
   if (IS_ELECTRON) {
-    return (dispatch, getState) => {
+    return (dispatch: Function, getState: Function) => {
       const state = getState();
       if (state.analyser && state.analyser.analyser) {
         state.analyser.analyser.cancel();
@@ -228,7 +228,7 @@ export function fetchExperiment(id: string) {
 }
 
 export function analyseFileNew() {
-  return (dispatch, getState) => {
+  return (dispatch: Function, getState: Function) => {
     const state = getState();
     if (state.analyser) {
       state.analyser.cancel && state.analyser.cancel();
@@ -241,7 +241,7 @@ export function analyseFileNew() {
 }
 
 export function analyseFileSave() {
-  return (dispatch, getState) => {
+  return (dispatch: Function, getState: Function) => {
     if (IS_ELECTRON) {
       const state = getState();
       const fs = require('fs');

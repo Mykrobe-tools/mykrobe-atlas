@@ -20,7 +20,7 @@ export const getMetadata = createSelector(
 
 // Reducer
 
-const initialState = {
+export const initialState = {
   metadata: {
     location: 'GB',
     labId: '',
@@ -69,6 +69,8 @@ export function setMetadata(metadata: Object) {
 }
 
 // Side effects
+
+// TODO: this needs full lifecycle fetch, success, failure
 
 export function postMetadataForm(id: string, metadata: Object) {
   return (dispatch: Function) => {
