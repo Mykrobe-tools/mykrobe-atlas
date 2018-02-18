@@ -63,7 +63,7 @@ export const AUTH_VERIFY_FAIL = `${typePrefix}AUTH_VERIFY_FAIL`;
 
 export const getState = state => (state.auth ? state.auth.auth : undefined);
 
-export const getAuth = state => (getState, auth => auth);
+export const getAuth = createSelector(getState, auth => auth);
 export const getIsLoading = createSelector(getState, auth => auth.isLoading);
 export const getIsFetching = createSelector(getState, auth => auth.isFetching);
 export const getIsAuthenticated = createSelector(
@@ -79,10 +79,6 @@ export const getAuthToken = createSelector(getState, auth => {
   return auth && auth.user ? auth.user.token : undefined;
 });
 
-console.error(
-  'TODO: replace access to auth values with selectors, especially isAuthenticated'
-);
-
 // Reducer
 
 const initialState: AuthType = {
@@ -90,7 +86,10 @@ const initialState: AuthType = {
   isFetching: false,
 };
 
-export default function reducer(state: AuthType, action: Object) {
+export default function reducer(
+  state: Object = initialState,
+  action: Object = {}
+) {
   switch (action.type) {
     case AUTH_INITIALISE:
       return {

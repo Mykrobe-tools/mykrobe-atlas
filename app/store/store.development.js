@@ -9,26 +9,26 @@ import { createBrowserHistory, createHashHistory } from 'history';
 
 import rootReducer from '../modules';
 
-import {
-  monitorUpload,
-  analyseFile,
-  analyseFileCancel,
-  analyseRemoteFile,
-  fetchExperiment,
-  analyseFileNew,
-  analyseFileSave,
-} from '../modules/analyser';
+// import {
+//   monitorUpload,
+//   analyseFile,
+//   analyseFileCancel,
+//   analyseRemoteFile,
+//   fetchExperiment,
+//   analyseFileNew,
+//   analyseFileSave,
+// } from '../modules/analyser';
 
 // TODO: add other action creators
 
 const actionCreators = {
-  monitorUpload,
-  analyseFile,
-  analyseFileCancel,
-  analyseRemoteFile,
-  fetchExperiment,
-  analyseFileNew,
-  analyseFileSave,
+  // monitorUpload,
+  // analyseFile,
+  // analyseFileCancel,
+  // analyseRemoteFile,
+  // fetchExperiment,
+  // analyseFileNew,
+  // analyseFileSave,
   push,
 };
 

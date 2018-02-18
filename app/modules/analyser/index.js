@@ -17,6 +17,8 @@ export {
   analyseFileSave,
 } from './analyser';
 
+console.log('in modules/analyser/index.js -> analyser', analyser);
+
 const reducer = combineReducers({
   analyser,
 });

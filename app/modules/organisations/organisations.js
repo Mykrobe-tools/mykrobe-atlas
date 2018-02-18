@@ -51,7 +51,7 @@ export const getIsSaving = createSelector(
 );
 export const getOrganisations = createSelector(
   getState,
-  organisations => organisations.data
+  organisations => organisations
 );
 export const getFailureReason = createSelector(
   getState,
