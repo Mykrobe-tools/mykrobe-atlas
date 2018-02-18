@@ -7,7 +7,7 @@
 import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 
-import fetchJson from '../../api/fetchJson';
+import { fetchJson } from '../api';
 import { showNotification, NotificationCategories } from '../notifications';
 import { BASE_URL } from '../../constants/APIConstants.js';
 import type { OrganisationType } from '../../types/OrganisationTypes';
@@ -186,7 +186,7 @@ export function requestAllOrganisations() {
     dispatch({
       type: REQUEST_ALL_ORGANISATIONS,
     });
-    return fetchJson(`${BASE_URL}/organisations`)
+    return dispatch(fetchJson(`${BASE_URL}/organisations`))
       .then(data => {
         dispatch({
           type: REQUEST_ALL_ORGANISATIONS_SUCCESS,
@@ -217,7 +217,7 @@ export function requestOrganisation(id: string) {
       type: REQUEST_ORGANISATION,
       id,
     });
-    return fetchJson(`${BASE_URL}/organisations/${id}`)
+    return dispatch(fetchJson(`${BASE_URL}/organisations/${id}`))
       .then(data => {
         dispatch({
           type: REQUEST_ORGANISATION_SUCCESS,
@@ -257,13 +257,15 @@ export function createOrganisation(organisation: OrganisationType) {
     dispatch({
       type: CREATE_ORGANISATION,
     });
-    return fetchJson(`${BASE_URL}/organisations`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(organisation),
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/organisations`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(organisation),
+      })
+    )
       .then(data => {
         dispatch({
           type: CREATE_ORGANISATION_SUCCESS,
@@ -303,13 +305,15 @@ export function updateOrganisation(organisation: OrganisationType) {
     if (!organisation.id) {
       throw new Error('Missing organisation id');
     }
-    return fetchJson(`${BASE_URL}/organisations/${organisation.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(organisation),
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/organisations/${organisation.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(organisation),
+      })
+    )
       .then((data: OrganisationType) => {
         dispatch({
           type: UPDATE_ORGANISATION_SUCCESS,
@@ -348,9 +352,11 @@ export function deleteOrganisation(organisation: OrganisationType) {
     if (!organisation.id) {
       throw new Error('Missing organisation id');
     }
-    return fetchJson(`${BASE_URL}/organisations/${organisation.id}`, {
-      method: 'DELETE',
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/organisations/${organisation.id}`, {
+        method: 'DELETE',
+      })
+    )
       .then((data: OrganisationType) => {
         dispatch({
           type: DELETE_ORGANISATION_SUCCESS,

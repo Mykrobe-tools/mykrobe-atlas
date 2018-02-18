@@ -2,7 +2,7 @@
 
 import { createSelector } from 'reselect';
 
-import fetchJson from '../../api/fetchJson';
+import { fetchJson } from '../api';
 import { showNotification, NotificationCategories } from '../notifications';
 import { BASE_URL } from '../../constants/APIConstants.js';
 
@@ -77,10 +77,12 @@ export function postMetadataForm(id: string, metadata: Object) {
     dispatch({
       type: POST_METADATA_FORM,
     });
-    return fetchJson(`${BASE_URL}/experiments/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(metadata),
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/experiments/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(metadata),
+      })
+    )
       .then(() => {
         dispatch(
           showNotification({

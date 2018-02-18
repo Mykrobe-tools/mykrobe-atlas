@@ -2,17 +2,25 @@
 
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import nock from 'nock';
 
-import reducer, { initialState, setMetadata } from './metadata';
+import { BASE_URL } from '../../constants/APIConstants.js';
+
+import reducer, {
+  initialState,
+  postMetadataForm,
+  setMetadata,
+} from './metadata';
 
 const createMockStore = configureMockStore([thunk]);
 
-describe('metadata reducer', () => {
+describe('metadata module', () => {
   const store = createMockStore(initialState);
   let mockState;
 
   beforeEach(() => {
     store.clearActions();
+    nock.cleanAll();
   });
 
   it('should return the initial state', () => {
@@ -29,5 +37,13 @@ describe('metadata reducer', () => {
     });
   });
 
-  // TODO: add postMetadataForm test
+  it('should handle "postMetadataForm" action', async () => {
+    nock(BASE_URL)
+      .put('/experiments/1')
+      .reply(200, { status: 'ok' });
+    await store.dispatch(postMetadataForm('1', {}));
+    const dispatchedActions = store.getActions();
+    mockState = reducer(undefined, dispatchedActions[0]);
+    expect(mockState).toMatchSnapshot();
+  });
 });

@@ -4,13 +4,31 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { routerMiddleware, push } from 'react-router-redux';
-import rootReducer from '../reducers';
+
 import { createBrowserHistory, createHashHistory } from 'history';
 
-import * as AnalyserActions from '../actions/AnalyserActions';
+import rootReducer from '../modules';
+
+import {
+  monitorUpload,
+  analyseFile,
+  analyseFileCancel,
+  analyseRemoteFile,
+  fetchExperiment,
+  analyseFileNew,
+  analyseFileSave,
+} from '../modules/analyser';
+
+// TODO: add other action creators
 
 const actionCreators = {
-  ...AnalyserActions,
+  monitorUpload,
+  analyseFile,
+  analyseFileCancel,
+  analyseRemoteFile,
+  fetchExperiment,
+  analyseFileNew,
+  analyseFileSave,
   push,
 };
 
@@ -37,8 +55,8 @@ const store = createStore(rootReducer, enhancer);
 
 if (module.hot) {
   module.hot.accept(
-    '../reducers',
-    () => store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
+    '../modules',
+    () => store.replaceReducer(require('../modules')) // eslint-disable-line global-require
   );
 }
 

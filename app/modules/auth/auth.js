@@ -6,7 +6,7 @@
 import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 
-import fetchJson from '../../api/fetchJson';
+import { fetchJson } from '../api';
 import * as CredentialsHelpers from '../../helpers/CredentialsHelpers';
 import { showNotification, NotificationCategories } from '../notifications';
 import { BASE_URL } from '../../constants/APIConstants.js';
@@ -61,24 +61,26 @@ export const AUTH_VERIFY_FAIL = `${typePrefix}AUTH_VERIFY_FAIL`;
 
 // Selectors
 
-export const getState = state => state.auth.auth;
+export const getState = state => (state.auth ? state.auth.auth : undefined);
 
 export const getIsLoading = createSelector(getState, auth => auth.isLoading);
 export const getIsFetching = createSelector(getState, auth => auth.isFetching);
 export const getIsAuthenticated = createSelector(
   getState,
-  auth => !!(auth.user && auth.user.token)
+  auth => !!(auth && auth.user && auth.user.token)
 );
 export const getFailureReason = createSelector(
   getState,
   auth => auth.failureReason
 );
 export const getUser = createSelector(getState, auth => auth.user);
+export const getAuthToken = createSelector(getState, auth => {
+  return auth && auth.user ? auth.user.token : undefined;
+});
 
 console.error(
   'TODO: replace access to auth values with selectors, especially isAuthenticated'
 );
-;
 
 // Reducer
 
@@ -251,13 +253,15 @@ export function signIn(user: UserType) {
     dispatch({
       type: AUTH_SIGNIN,
     });
-    return fetchJson(`${BASE_URL}/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      })
+    )
       .then((data: UserType) => {
         CredentialsHelpers.saveUser(data);
         dispatch({
@@ -298,13 +302,15 @@ export function signUp(user: UserType) {
     dispatch({
       type: AUTH_SIGNUP,
     });
-    return fetchJson(`${BASE_URL}/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      })
+    )
       .then(data => {
         dispatch({
           type: AUTH_SIGNUP_SUCCESS,
@@ -339,13 +345,15 @@ export function forgotPassword(user: UserType) {
     dispatch({
       type: AUTH_FORGOT_PASSWORD,
     });
-    return fetchJson(`${BASE_URL}/auth/forgot`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/auth/forgot`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      })
+    )
       .then(data => {
         dispatch({
           type: AUTH_FORGOT_PASSWORD_SUCCESS,
@@ -379,13 +387,15 @@ export function resetPassword(reset: AuthResetPasswordType) {
     dispatch({
       type: AUTH_RESET_PASSWORD,
     });
-    return fetchJson(`${BASE_URL}/auth/reset`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(reset),
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/auth/reset`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reset),
+      })
+    )
       .then(data => {
         dispatch({
           type: AUTH_RESET_PASSWORD_SUCCESS,
@@ -440,7 +450,7 @@ export function fetchCurrentUser() {
     dispatch({
       type: AUTH_REQUEST_USER,
     });
-    return fetchJson(`${BASE_URL}/user`)
+    return dispatch(fetchJson(`${BASE_URL}/user`))
       .then(data => {
         dispatch({
           type: AUTH_REQUEST_USER_SUCCESS,
@@ -470,13 +480,15 @@ export function updateCurrentUser(user: UserType) {
     dispatch({
       type: AUTH_UPDATE_USER,
     });
-    return fetchJson(`${BASE_URL}/user`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/user`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      })
+    )
       .then((data: UserType) => {
         dispatch({
           type: AUTH_UPDATE_USER_SUCCESS,
@@ -512,9 +524,11 @@ export function deleteCurrentUser() {
     dispatch({
       type: AUTH_DELETE_USER,
     });
-    return fetchJson(`${BASE_URL}/user`, {
-      method: 'DELETE',
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/user`, {
+        method: 'DELETE',
+      })
+    )
       .then((data: UserType) => {
         dispatch({
           type: AUTH_DELETE_USER_SUCCESS,
@@ -555,13 +569,15 @@ export function verify(verify: AuthVerificationType) {
     dispatch({
       type: AUTH_VERIFY,
     });
-    return fetchJson(`${BASE_URL}/auth/verify`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(verify),
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/auth/verify`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(verify),
+      })
+    )
       .then(data => {
         dispatch({
           type: AUTH_VERIFY_SUCCESS,

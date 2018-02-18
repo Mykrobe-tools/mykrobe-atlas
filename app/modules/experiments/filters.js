@@ -2,7 +2,7 @@
 
 import { createSelector } from 'reselect';
 
-import fetchJson from '../../api/fetchJson';
+import { fetchJson } from '../api';
 import { showNotification, NotificationCategories } from '../notifications';
 import { BASE_URL } from '../../constants/APIConstants.js';
 
@@ -68,7 +68,9 @@ function receiveFilterValues(data: Array<Object> = []) {
 export function fetchFilterValues(filter: string = '') {
   return (dispatch: Function) => {
     dispatch(requestFilterValues(filter));
-    return fetchJson(`${BASE_URL}/experiments/metadata/${filter}/values`)
+    return dispatch(
+      fetchJson(`${BASE_URL}/experiments/metadata/${filter}/values`)
+    )
       .then(data => {
         const options = transformFilterValues(data);
         dispatch(receiveFilterValues(options));

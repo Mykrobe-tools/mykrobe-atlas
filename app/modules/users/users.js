@@ -7,7 +7,7 @@
 import { createSelector } from 'reselect';
 import { push, replace } from 'react-router-redux';
 
-import fetchJson from '../../api/fetchJson';
+import { fetchJson } from '../api';
 import { showNotification, NotificationCategories } from '../notifications';
 import { BASE_URL } from '../../constants/APIConstants.js';
 import type { UserType } from '../../types/UserTypes';
@@ -154,7 +154,7 @@ export function requestAllUsers() {
     dispatch({
       type: REQUEST_ALL_USERS,
     });
-    return fetchJson(`${BASE_URL}/users`)
+    return dispatch(fetchJson(`${BASE_URL}/users`))
       .then(data => {
         dispatch({
           type: REQUEST_ALL_USERS_SUCCESS,
@@ -185,7 +185,7 @@ export function requestUser(id: string) {
       type: REQUEST_USER,
       id,
     });
-    return fetchJson(`${BASE_URL}/users/${id}`)
+    return dispatch(fetchJson(`${BASE_URL}/users/${id}`))
       .then(data => {
         dispatch({
           type: REQUEST_USER_SUCCESS,
@@ -219,13 +219,15 @@ export function createUser(user: UserType) {
     dispatch({
       type: CREATE_USER,
     });
-    return fetchJson(`${BASE_URL}/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      })
+    )
       .then(data => {
         dispatch({
           type: CREATE_USER_SUCCESS,
@@ -260,13 +262,15 @@ export function updateUser(user: UserType) {
     if (!user.id) {
       throw new Error('Missing user id');
     }
-    return fetchJson(`${BASE_URL}/users/${user.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/users/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      })
+    )
       .then((data: UserType) => {
         dispatch({
           type: UPDATE_USER_SUCCESS,
@@ -305,9 +309,11 @@ export function deleteUser(user: UserType) {
     if (!user.id) {
       throw new Error('Missing user id');
     }
-    return fetchJson(`${BASE_URL}/users/${user.id}`, {
-      method: 'DELETE',
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/users/${user.id}`, {
+        method: 'DELETE',
+      })
+    )
       .then((data: UserType) => {
         dispatch({
           type: DELETE_USER_SUCCESS,
@@ -345,12 +351,14 @@ export function assignUserRole(user: UserType) {
     if (!user.id) {
       throw new Error('Missing user id');
     }
-    return fetchJson(`${BASE_URL}/users/${user.id}/role`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    return dispatch(
+      fetchJson(`${BASE_URL}/users/${user.id}/role`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    )
       .then((data: UserType) => {
         dispatch({
           type: ASSIGN_USER_ROLE_SUCCESS,

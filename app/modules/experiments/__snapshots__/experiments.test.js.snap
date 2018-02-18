@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`experiments module should handle "fetchExperiments" action 1`] = `
+Array [
+  Object {
+    "type": "experiments/experiments/REQUEST_EXPERIMENTS",
+  },
+]
+`;
+
+exports[`experiments module should handle "fetchExperiments" action 2`] = `
+Object {
+  "isFetching": false,
+  "samples": Array [
+    Object {
+      "lorem": "ipsum",
+    },
+  ],
+  "total": 1,
+}
+`;

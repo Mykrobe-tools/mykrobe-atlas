@@ -2,7 +2,7 @@
 
 import { createSelector } from 'reselect';
 
-import fetchJson from '../../api/fetchJson';
+import { fetchJson } from '../api';
 import { showNotification, NotificationCategories } from '../notifications';
 import { BASE_URL } from '../../constants/APIConstants.js';
 import * as StringHelpers from '../../helpers/StringHelpers';
@@ -83,7 +83,7 @@ export function fetchExperiments(filters: Object = {}) {
   return (dispatch: Function) => {
     dispatch(requestExperiments());
     const params = StringHelpers.objectToParamString(filters);
-    return fetchJson(`${BASE_URL}/experiments/search?${params}`)
+    return dispatch(fetchJson(`${BASE_URL}/experiments/search?${params}`))
       .then(data => {
         setTimeout(() => {
           dispatch(receiveExperiments(data));

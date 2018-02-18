@@ -9,6 +9,7 @@ export {
   getIsAuthenticated,
   getFailureReason,
   getUser,
+  getAuthToken,
   loadAuth,
   signOut,
   signIn,
