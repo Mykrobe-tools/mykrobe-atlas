@@ -3,6 +3,10 @@
 /* TODO Refactor to use redux-form */
 /* eslint-disable react/no-string-refs */
 
+// TODO: split and separate all organisations vs single
+// organisations
+// organisation
+
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -10,9 +14,17 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 
 import styles from './Common.css';
-import * as OrganisationActions from '../../actions/OrganisationActions';
 import type { OrganisationType } from '../../types/OrganisationTypes';
 import Loading from '../ui/Loading';
+
+import {
+  getOrganisations,
+  getFailureReason,
+  requestOrganisation,
+  updateOrganisation,
+  deleteOrganisation,
+  deleteFailureReason,
+} from '../../modules/organisations';
 
 class Edit extends React.Component {
   id: string;
@@ -51,8 +63,7 @@ class Edit extends React.Component {
   };
 
   render() {
-    const { organisations } = this.props;
-    const { failureReason } = this.props.organisations;
+    const { organisations, failureReason } = this.props;
     const organisation: ?OrganisationType = organisations.data.organisation;
     if (organisations.isFetching) {
       return (
@@ -147,17 +158,18 @@ class Edit extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    organisations: state.organisations,
+    organisations: getOrganisations(state),
+    failureReason: getFailureReason(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      requestOrganisation: OrganisationActions.requestOrganisation,
-      updateOrganisation: OrganisationActions.updateOrganisation,
-      deleteFailureReason: OrganisationActions.deleteFailureReason,
-      deleteOrganisation: OrganisationActions.deleteOrganisation,
+      requestOrganisation,
+      updateOrganisation,
+      deleteFailureReason,
+      deleteOrganisation,
     },
     dispatch
   );
@@ -166,6 +178,7 @@ function mapDispatchToProps(dispatch) {
 Edit.propTypes = {
   match: PropTypes.object.isRequired,
   organisations: PropTypes.object.isRequired,
+  failureReason: PropTypes.string,
   requestOrganisation: PropTypes.func.isRequired,
   updateOrganisation: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
