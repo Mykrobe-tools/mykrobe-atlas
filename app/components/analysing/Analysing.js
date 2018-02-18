@@ -4,10 +4,17 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as AnalyserActions from '../../actions/AnalyserActions';
 import styles from './Analysing.css';
 import AnalysingProgressBar from './AnalysingProgressBar';
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
+
+import {
+  getAnalyser,
+  getIsAnalysing,
+  getProgress,
+  monitorUpload,
+  analyseFileCancel,
+} from '../../modules/analyser';
 
 class Analysing extends React.Component {
   componentDidMount() {
@@ -16,15 +23,15 @@ class Analysing extends React.Component {
   }
 
   render() {
-    const { analyser } = this.props;
+    const { analyser, isAnalysing, progress } = this.props;
     if (IS_ELECTRON) {
       UIHelpers.setProgress(analyser.progress); // eslint-disable-line import/namespace
     }
     return (
       <div className={styles.container}>
-        {analyser.analysing && (
+        {isAnalysing && (
           <AnalysingProgressBar
-            progress={analyser.progress}
+            progress={progress}
             description={analyser.stepDescription}
             filename={analyser.filename}
             onCancel={this.onCancelClick}
@@ -42,21 +49,25 @@ class Analysing extends React.Component {
 
 Analysing.propTypes = {
   analyser: PropTypes.object.isRequired,
+  isAnalysing: PropTypes.bool.isRequired,
   monitorUpload: PropTypes.func.isRequired,
   analyseFileCancel: PropTypes.func.isRequired,
+  progress: PropTypes.number.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser,
+    analyser: getAnalyser(state),
+    isAnalysing: getIsAnalysing(state),
+    progress: getProgress(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      monitorUpload: AnalyserActions.monitorUpload,
-      analyseFileCancel: AnalyserActions.analyseFileCancel,
+      monitorUpload,
+      analyseFileCancel,
     },
     dispatch
   );

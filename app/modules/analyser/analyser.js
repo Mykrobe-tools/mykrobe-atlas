@@ -51,6 +51,11 @@ export const getTransformed = createSelector(
   analyser => analyser.transformed
 );
 
+export const getProgress = createSelector(
+  getState,
+  analyser => analyser.progress
+);
+
 // Action creators
 
 function analyseFileUpload() {

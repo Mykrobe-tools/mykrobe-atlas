@@ -7,6 +7,7 @@ export {
   getAnalyser,
   getIsAnalysing,
   getTransformed,
+  getProgress,
   monitorUpload,
   analyseFile,
   analyseFileCancel,
