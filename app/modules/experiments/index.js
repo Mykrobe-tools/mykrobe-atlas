@@ -5,6 +5,7 @@ import experiments from './experiments';
 import filters from './filters';
 
 export {
+  getExperiments,
   getIsFetching as getIsFetchingExperiments,
   getSamples,
   getTotal,

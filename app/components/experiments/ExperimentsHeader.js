@@ -7,8 +7,9 @@ import { connect } from 'react-redux';
 
 import FormSelect from '../form/FormSelect';
 import FormLabel from '../form/FormLabel';
-import * as ExperimentActions from '../../actions/ExperimentActions';
 import styles from './ExperimentsHeader.css';
+
+import { fetchExperiments, fetchFilterValues } from '../../modules/experiments';
 
 const filters = require('../../static/filters.json');
 
@@ -129,8 +130,8 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      fetchFilterValues: ExperimentActions.fetchFilterValues,
-      fetchExperiments: ExperimentActions.fetchExperiments,
+      fetchFilterValues,
+      fetchExperiments,
     },
     dispatch
   );

@@ -4,37 +4,40 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Library from '../components/library/Library';
-import * as ExperimentActions from '../actions/ExperimentActions';
+import Library from './Library';
 
-class LibraryPage extends React.Component {
+import { fetchExperiments, getExperiments } from '../../modules/experiments';
+
+class LibraryContainer extends React.Component {
   componentDidMount() {
     const { fetchExperiments } = this.props;
     fetchExperiments();
   }
 
   render() {
-    return <Library {...this.props} />;
+    const { experiments } = this.props;
+    return <Library experiments={experiments} />;
   }
 }
 
-LibraryPage.propTypes = {
+LibraryContainer.propTypes = {
+  experiments: PropTypes.object.isRequired,
   fetchExperiments: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    experiments: state.experiments,
+    experiments: getExperiments(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      fetchExperiments: ExperimentActions.fetchExperiments,
+      fetchExperiments: fetchExperiments,
     },
     dispatch
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LibraryPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LibraryContainer);

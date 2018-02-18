@@ -13,7 +13,11 @@ export const RECEIVE_EXPERIMENTS = `${typePrefix}RECEIVE_EXPERIMENTS`;
 
 // Selectors
 
-export const getState = state => state.notifications.notifications;
+export const getState = state => state.experiments.experiments;
+export const getExperiments = createSelector(
+  getState,
+  experiments => experiments
+);
 export const getIsFetching = createSelector(
   getState,
   experiments => experiments.isFetching
