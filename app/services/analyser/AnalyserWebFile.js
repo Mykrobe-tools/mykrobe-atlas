@@ -2,8 +2,12 @@
 
 import AnalyserBaseFile from './AnalyserBaseFile';
 import AnalyserJsonTransformer from './AnalyserJsonTransformer';
-import fetchJson from '../../api/fetchJson';
+import { fetchJson } from '../../modules/api';
 import { BASE_URL } from '../../constants/APIConstants';
+
+import store from '../../store/store';
+
+// TODO: refactor - currently calling fetchJson directly on the store - should be a redux action
 
 class AnalyserWebFile extends AnalyserBaseFile {
   _progress: number;
@@ -45,7 +49,8 @@ class AnalyserWebFile extends AnalyserBaseFile {
   }
 
   fetchExperiment(id: string) {
-    return fetchJson(`${BASE_URL}/experiments/${id}`)
+    return store
+      .dispatch(fetchJson(`${BASE_URL}/experiments/${id}`))
       .then(json => {
         json = this.addExtraData(json);
         const transformer = new AnalyserJsonTransformer();

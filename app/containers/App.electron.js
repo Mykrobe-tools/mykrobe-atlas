@@ -20,7 +20,7 @@ import withAnalyser from '../hoc/withAnalyser';
 
 import styles from './App.css';
 
-import Notifications from '../components/notifications/Notifications';
+import NotificationsContainer from '../components/notifications/NotificationsContainer';
 
 class App extends React.Component {
   state: {
@@ -136,7 +136,7 @@ class App extends React.Component {
       >
         <div className={styles.contentContainer}>{children}</div>
         <div className={styles.notificationsContainer}>
-          <Notifications />
+          <NotificationsContainer />
         </div>
       </Dropzone>
     );

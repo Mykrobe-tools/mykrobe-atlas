@@ -11,7 +11,7 @@ import Analysing from '../components/analysing/Analysing';
 import Header from '../components/header/Header';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
-import Notifications from '../components/notifications/Notifications';
+import NotificationsContainer from '../components/notifications/NotificationsContainer';
 import Loading from '../components/ui/Loading';
 
 import { getAuth, signOut, loadAuth, fetchCurrentUser } from '../modules/auth';
@@ -78,7 +78,7 @@ class App extends React.Component {
           <Analysing />
         </div>
         <div className={styles.notificationsContainer}>
-          <Notifications />
+          <NotificationsContainer />
         </div>
         <div className={styles.headerContainer}>
           <Header

@@ -1,7 +1,8 @@
+/* @flow */
+
 import * as React from 'react';
 import renderer from 'react-test-renderer';
 import Notifications from './Notifications';
-import store from '../../store/store'; // eslint-disable-line import/default
 
 describe('Notifications component snapshot', () => {
   const notifications = [
@@ -23,7 +24,6 @@ describe('Notifications component snapshot', () => {
       <Notifications
         notifications={notifications}
         hideNotification={hideNotification}
-        store={store}
       />
     );
     let tree = component.toJSON();
