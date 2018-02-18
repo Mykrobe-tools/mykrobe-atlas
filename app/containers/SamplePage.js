@@ -6,10 +6,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Sample from '../components/sample/Sample';
-import * as AuthActions from '../actions/AuthActions';
-import * as AnalyserActions from '../actions/AnalyserActions';
-import * as MetadataActions from '../actions/MetadataActions';
 import withAnalyser from '../hoc/withAnalyser';
+
+import { fetchCurrentUser } from '../modules/auth';
+import { fetchExperiment } from '../modules/analyser';
+import { fetchTemplate } from '../modules/metadata';
 
 class SamplePage extends React.Component {
   componentDidMount() {
@@ -45,9 +46,9 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      fetchExperiment: AnalyserActions.fetchExperiment,
-      fetchTemplate: MetadataActions.fetchTemplate,
-      fetchCurrentUser: AuthActions.fetchCurrentUser,
+      fetchExperiment,
+      fetchTemplate,
+      fetchCurrentUser,
     },
     dispatch
   );
