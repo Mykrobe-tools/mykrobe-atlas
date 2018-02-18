@@ -12,11 +12,12 @@ import Header from '../components/header/Header';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
 import Notifications from '../components/notifications/Notifications';
-import * as AuthActions from '../actions/AuthActions';
 import Loading from '../components/ui/Loading';
 
+import { getAuth, signOut, loadAuth, fetchCurrentUser } from '../modules/auth';
+
 class App extends React.Component {
-  state = {
+  state: {
     displayMenu: Boolean,
   };
 
@@ -100,16 +101,16 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
+    auth: getAuth(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      loadAuth: AuthActions.loadAuth,
-      fetchCurrentUser: AuthActions.fetchCurrentUser,
-      signOut: AuthActions.signOut,
+      loadAuth,
+      fetchCurrentUser,
+      signOut,
     },
     dispatch
   );
@@ -121,7 +122,7 @@ App.propTypes = {
   fetchCurrentUser: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

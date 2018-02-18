@@ -5,10 +5,15 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as AuthActions from '../../actions/AuthActions';
-import type { AuthType } from '../../types/AuthTypes';
-import type { UserType } from '../../types/UserTypes';
+
 import styles from './Header.css';
+
+import {
+  signOut,
+  signUp,
+  getIsAuthenticated,
+  getUser,
+} from '../../modules/auth';
 
 class Header extends React.Component {
   onMenuToggleClick(e: Event) {
@@ -18,10 +23,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { displayMenu, signOut } = this.props;
-    const auth: AuthType = this.props.auth;
-    const user: ?UserType = auth.user;
-    const { isAuthenticated } = auth;
+    const { displayMenu, signOut, isAuthenticated, user } = this.props;
     return (
       <div className={styles.container}>
         <a
@@ -80,22 +82,24 @@ class Header extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
+    isAuthenticated: getIsAuthenticated(state),
+    user: getUser(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      signUp: AuthActions.signIn,
-      signOut: AuthActions.signOut,
+      signUp,
+      signOut,
     },
     dispatch
   );
 }
 
 Header.propTypes = {
-  auth: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  user: PropTypes.object,
   signUp: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   displayMenu: PropTypes.bool.isRequired,
