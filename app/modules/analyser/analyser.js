@@ -24,15 +24,6 @@ import { prepareNewExperiment, uploadExperimentFile } from '../experiments';
 const analyserService = new AnalyserService();
 const uploadService = new UploadService();
 
-// let analyserService;
-// let uploadService;
-
-// setTimeout(() => {
-//   console.log('setting vars');
-//   analyserService = new AnalyserService();
-//   uploadService = new UploadService();
-// }, 1000);
-
 export const typePrefix = 'analyser/analyser/';
 
 export const ANALYSE_FILE_PREPARE = `${typePrefix}ANALYSE_FILE_PREPARE`;
@@ -198,6 +189,8 @@ function analyseFilePrepare(filename: string) {
           filename,
           id: experiment.id,
         });
+        // set the id in the global upload service
+        uploadService.setId(experiment.id);
         dispatch(push(`/sample/${experiment.id}`));
       })
       .catch(error => {

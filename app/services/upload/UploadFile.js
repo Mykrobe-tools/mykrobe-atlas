@@ -107,6 +107,7 @@ class UploadFile extends EventEmitter {
       this.emit('upload');
       this.resumable.upload();
     } else {
+      console.log('startUpload - no id set, will retry in 1s');
       setTimeout(() => this.startUpload(), 1000);
     }
   }
