@@ -12,9 +12,10 @@ import { getHighlighted, setNodeHighlighted } from '../../modules/phylogeny';
 
 class AnalysisContainer extends React.Component {
   render() {
-    const { highlighted, setNodeHighlighted } = this.props;
+    const { highlighted, setNodeHighlighted, analyser } = this.props;
     return (
       <Analysis
+        analyser={analyser}
         highlighted={highlighted}
         setNodeHighlighted={setNodeHighlighted}
       />
@@ -38,6 +39,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 AnalysisContainer.propTypes = {
+  analyser: PropTypes.object.isRequired,
   setNodeHighlighted: PropTypes.func.isRequired,
   highlighted: PropTypes.array.isRequired,
 };

@@ -52,7 +52,7 @@ Notification.propTypes = {
   category: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default Notification;

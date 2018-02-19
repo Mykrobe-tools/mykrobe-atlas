@@ -12,9 +12,6 @@ import organisations from './organisations';
 import phylogeny from './phylogeny';
 import users from './users';
 
-console.log('analyser', analyser);
-console.log('in modules/index.js -> analyser', analyser);
-
 const reducer = combineReducers({
   analyser,
   auth,

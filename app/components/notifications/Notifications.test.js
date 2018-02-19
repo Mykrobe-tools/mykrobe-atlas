@@ -7,12 +7,12 @@ import Notifications from './Notifications';
 describe('Notifications component snapshot', () => {
   const notifications = [
     {
-      id: 0,
+      id: '0',
       content: 'Lorem',
       category: 'success',
     },
     {
-      id: 1,
+      id: '1',
       content: 'Ipsum',
       category: 'error',
     },

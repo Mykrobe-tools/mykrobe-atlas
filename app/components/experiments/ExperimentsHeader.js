@@ -2,14 +2,10 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 import FormSelect from '../form/FormSelect';
 import FormLabel from '../form/FormLabel';
 import styles from './ExperimentsHeader.css';
-
-import { fetchExperiments, fetchFilterValues } from '../../modules/experiments';
 
 const filters = require('../../static/filters.json');
 
@@ -72,8 +68,7 @@ class ExperimentsHeader extends React.Component {
       selectedFilterField,
       selectedFilterValue,
     } = this.state;
-    const { experiments } = this.props;
-    const { filterValues } = experiments;
+    const { experiments, filterValues } = this.props;
     return (
       <div className={styles.header}>
         <div className={styles.filters}>
@@ -119,22 +114,9 @@ class ExperimentsHeader extends React.Component {
 
 ExperimentsHeader.propTypes = {
   experiments: PropTypes.object.isRequired,
+  filterValues: PropTypes.array.isRequired,
   fetchFilterValues: PropTypes.func.isRequired,
   fetchExperiments: PropTypes.func.isRequired,
 };
 
-function mapStateToProps() {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      fetchFilterValues,
-      fetchExperiments,
-    },
-    dispatch
-  );
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ExperimentsHeader);
+export default ExperimentsHeader;
