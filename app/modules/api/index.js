@@ -1,3 +1,3 @@
 /* @flow */
 
-export { fetchJson } from './fetchJson';
+export { fetchJson, fetchJsonWithToken } from './fetchJson';

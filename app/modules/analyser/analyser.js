@@ -10,8 +10,8 @@ import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import parsePath from 'parse-filepath';
 
-import UploadService from '../../services/upload/UploadService';
 import AnalyserService from '../../services/analyser/AnalyserService';
+import UploadService from '../../services/upload/UploadService';
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
 import {
@@ -23,6 +23,15 @@ import { prepareNewExperiment, uploadExperimentFile } from '../experiments';
 
 const analyserService = new AnalyserService();
 const uploadService = new UploadService();
+
+// let analyserService;
+// let uploadService;
+
+// setTimeout(() => {
+//   console.log('setting vars');
+//   analyserService = new AnalyserService();
+//   uploadService = new UploadService();
+// }, 1000);
 
 export const typePrefix = 'analyser/analyser/';
 
@@ -38,13 +47,14 @@ export const ANALYSE_FILE_SAVE = `${typePrefix}ANALYSE_FILE_SAVE`;
 
 // Selectors
 
-export const getState = state => state.analyser.analyser;
+export const getState = state =>
+  state.analyser ? state.analyser.analyser : undefined;
 
 export const getAnalyser = createSelector(getState, analyser => analyser);
 
 export const getIsAnalysing = createSelector(
   getState,
-  analyser => analyser.analysing
+  analyser => (analyser ? analyser.analysing : false)
 );
 
 export const getTransformed = createSelector(
@@ -54,7 +64,7 @@ export const getTransformed = createSelector(
 
 export const getProgress = createSelector(
   getState,
-  analyser => analyser.progress
+  analyser => (analyser ? analyser.progress : 0)
 );
 
 // Action creators

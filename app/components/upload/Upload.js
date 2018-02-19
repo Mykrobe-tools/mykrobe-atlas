@@ -4,12 +4,12 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import type { AuthType } from '../../types/AuthTypes';
-
 import styles from './Upload.css';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
 import PopoverMenu from '../ui/PopoverMenu';
+
+import { getIsAuthenticated } from '../../modules/auth';
 
 class Upload extends React.Component {
   _uploadButton: HTMLAnchorElement;
@@ -26,8 +26,7 @@ class Upload extends React.Component {
   }
 
   componentDidMount() {
-    const auth: AuthType = this.props.auth;
-    const { isAuthenticated } = auth;
+    const { isAuthenticated } = this.props;
     const { uploadFile } = this.props.service;
     if (isAuthenticated) {
       uploadFile.bindUploader(this._dropzone, this._uploadButton);
@@ -35,8 +34,7 @@ class Upload extends React.Component {
   }
 
   componentWillUnmount() {
-    const auth: AuthType = this.props.auth;
-    const { isAuthenticated } = auth;
+    const { isAuthenticated } = this.props;
     const { uploadFile } = this.props.service;
     if (isAuthenticated) {
       uploadFile.unbindUploader(this._dropzone, this._uploadButton);
@@ -105,8 +103,7 @@ class Upload extends React.Component {
 
   render() {
     const { isDragActive } = this.state;
-    const auth: AuthType = this.props.auth;
-    const { isAuthenticated } = auth;
+    const { isAuthenticated } = this.props;
     return (
       <div
         className={
@@ -158,13 +155,13 @@ class Upload extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
+    isAuthenticated: getIsAuthenticated(state),
   };
 }
 
 Upload.propTypes = {
   service: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps)(Upload);
