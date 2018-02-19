@@ -33,7 +33,7 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    const { analyseFile, analyseFileNew } = props;
+    const { analyseFile, analyseFileNew, analyseFileSave, push } = props;
     const ipcRenderer = require('electron').ipcRenderer;
 
     ipcRenderer.on('open-file', (e, filePath) => {

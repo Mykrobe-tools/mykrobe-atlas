@@ -240,8 +240,9 @@ export const analyseFileCancel = () => {
   if (IS_ELECTRON) {
     return (dispatch: Function, getState: Function) => {
       const state = getState();
-      if (state.analyser && state.analyser.analyser) {
-        state.analyser.analyser.cancel();
+      const analyser = getAnalyser(state);
+      if (analyser && analyser.analyser) {
+        analyser.analyser.cancel();
       }
       dispatch({
         type: ANALYSE_FILE_CANCEL,
