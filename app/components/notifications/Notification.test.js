@@ -32,6 +32,6 @@ describe('Notification component snapshot', () => {
     );
     let tree = component.toJSON();
     tree.props.onClick({ preventDefault: jest.fn() });
-    expect(onClick).toBeCalledWith(1);
+    expect(onClick).toBeCalledWith('1');
   });
 });
