@@ -19,6 +19,7 @@ import {
   hideAllNotifications,
   NotificationCategories,
 } from '../notifications';
+import { prepareNewExperiment, uploadExperimentFile } from '../experiments';
 
 const analyserService = new AnalyserService();
 const uploadService = new UploadService();
@@ -180,8 +181,7 @@ export const monitorUpload = () => {
 
 function analyseFilePrepare(filename: string) {
   return (dispatch: Function) => {
-    return uploadService
-      .prepare()
+    return dispatch(prepareNewExperiment())
       .then(experiment => {
         dispatch({
           type: ANALYSE_FILE_PREPARE,
@@ -303,8 +303,7 @@ function analyseFileError(error: string) {
 
 export const analyseRemoteFile = (file: File) => {
   return (dispatch: Function) => {
-    return uploadService
-      .prepare()
+    return dispatch(prepareNewExperiment())
       .then(experiment => {
         dispatch({
           type: ANALYSE_FILE_PREPARE,
@@ -314,7 +313,7 @@ export const analyseRemoteFile = (file: File) => {
 
         dispatch(push(`/sample/${experiment.id}`));
 
-        uploadService.uploadRemoteFile(file).then(() => {
+        dispatch(uploadExperimentFile(experiment.id, file)).then(() => {
           dispatch({
             type: ANALYSE_FILE_ANALYSE,
             filename: file.name,

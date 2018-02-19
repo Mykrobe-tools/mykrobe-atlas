@@ -10,6 +10,8 @@ export {
   getSamples,
   getTotal,
   fetchExperiments,
+  prepareNewExperiment,
+  uploadExperimentFile,
 } from './experiments';
 
 export {

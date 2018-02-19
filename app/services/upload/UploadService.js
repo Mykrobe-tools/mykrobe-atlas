@@ -1,16 +1,10 @@
 /* @flow */
 
-import { BASE_URL } from '../../constants/APIConstants';
-import { fetchJson } from '../../modules/api';
 import UploadFile from './UploadFile';
 import UploadBox from './UploadBox';
 import UploadDropbox from './UploadDropbox';
 import UploadGoogleDrive from './UploadGoogleDrive';
 import UploadOneDrive from './UploadOneDrive';
-
-import store from '../../store/store';
-
-// TODO: refactor - currently calling fetchJson directly on the store - should be a redux action
 
 const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 let instance = null;
@@ -35,25 +29,6 @@ class UploadService {
     return instance;
   }
 
-  prepare() {
-    return store
-      .dispatch(
-        fetchJson(`${BASE_URL}/experiments/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-      )
-      .then(data => {
-        this.setId(data.id);
-        return Promise.resolve(data);
-      })
-      .catch(error => {
-        return Promise.reject(error);
-      });
-  }
-
   setId(id: string) {
     this.id = id;
     this.uploadFile.setId(id);
@@ -61,18 +36,6 @@ class UploadService {
 
   getId() {
     return this.id;
-  }
-
-  uploadRemoteFile(file: Object) {
-    return store.dispatch(
-      fetchJson(`${BASE_URL}/experiments/${this.id}/file`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(file),
-      })
-    );
   }
 }
 

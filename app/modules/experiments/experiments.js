@@ -11,6 +11,10 @@ export const typePrefix = 'experiments/experiments/';
 export const REQUEST_EXPERIMENTS = `${typePrefix}REQUEST_EXPERIMENTS`;
 export const RECEIVE_EXPERIMENTS = `${typePrefix}RECEIVE_EXPERIMENTS`;
 
+export const PREPARE_NEW_EXPERIMENT = `${typePrefix}PREPARE_NEW_EXPERIMENT`;
+export const PREPARE_NEW_EXPERIMENT_SUCCESS = `${typePrefix}PREPARE_NEW_EXPERIMENT_SUCCESS`;
+export const PREPARE_NEW_EXPERIMENT_FAILURE = `${typePrefix}PREPARE_NEW_EXPERIMENT_FAILURE`;
+
 // Selectors
 
 export const getState = state => state.experiments.experiments;
@@ -106,5 +110,45 @@ export function fetchExperiments(filters: Object = {}) {
         dispatch(receiveExperiments());
         return Promise.reject(error);
       });
+  };
+}
+
+// retreive an empty experiment with an id for a new experiment upload
+
+export function prepareNewExperiment() {
+  return (dispatch: Function) => {
+    dispatch({
+      type: PREPARE_NEW_EXPERIMENT,
+    });
+    return dispatch(
+      fetchJson(`${BASE_URL}/experiments/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+    ).then(data => {
+      dispatch({
+        type: PREPARE_NEW_EXPERIMENT_SUCCESS,
+        experiment: data,
+      });
+      return Promise.resolve(data);
+    });
+  };
+}
+
+// basic file upload to an experiment
+
+export function uploadExperimentFile(id: string, file: Object) {
+  return (dispatch: Function) => {
+    return dispatch(
+      fetchJson(`${BASE_URL}/experiments/${id}/file`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(file),
+      })
+    );
   };
 }
