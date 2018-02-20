@@ -14,6 +14,17 @@ import { fetchToCurl } from './fetchToCurl';
 
 export const FETCH_JSON = '@@fetch-json-middleware/FETCH_JSON';
 
+class FetchJsonError extends Error {
+  constructor(status, statusText, response) {
+    super();
+    this.name = 'FetchJsonError';
+    this.status = status;
+    this.statusText = statusText;
+    this.response = response;
+    this.message = `${status} - ${statusText}`;
+  }
+}
+
 const isFetchJson = action => {
   return action.hasOwnProperty && action.hasOwnProperty(FETCH_JSON);
 };
@@ -28,10 +39,7 @@ const normalizeTypes = types =>
     return type;
   });
 
-const timeout = ms => new Promise(resolve => setTimeout(resolve, ms));
-
 export const fetchJsonMiddleware = ({ getState }) => next => action => {
-
   // Do not process actions without [FETCH_JSON] property
   if (!isFetchJson(action)) {
     return next(action);
@@ -67,9 +75,47 @@ export const fetchJsonMiddleware = ({ getState }) => next => action => {
   next(REQUEST);
 
   return (async () => {
-    // setTimeout(() => {}, 1000);
-    await timeout(1000);
-    console.log('SUCCESS', SUCCESS);
-    return next(SUCCESS);
+    try {
+      const response = await fetch(url, options);
+      // return next(SUCCESS);
+      if (!response.ok) {
+        if (token && response.status === 401) {
+          return next(signOut());
+        }
+        throw new FetchJsonError(
+          response.status,
+          response.statusText,
+          response
+        );
+      }
+
+      const jsend: JSendType = await response.json();
+      const { status, message, data } = jsend;
+
+      if (!status) {
+        const json = JSON.stringify(jsend, null, 2);
+        throw new FetchJsonError(
+          response.status,
+          `Invalid JSend response ${json}`,
+          response
+        );
+      }
+
+      if (status !== 'success') {
+        throw new FetchJsonError(response.status, message || data, response);
+      }
+
+      console.log('data', JSON.stringify(data, null, 2));
+      return next({ ...SUCCESS, payload: data });
+    } catch (error) {
+      next(FAILURE);
+      next(
+        showNotification({
+          category: NotificationCategories.ERROR,
+          content: error.message || error.statusText,
+        })
+      );
+      throw error;
+    }
   })();
 };

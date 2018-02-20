@@ -452,14 +452,13 @@ export function fetchCurrentUser() {
     });
     dispatch({
       [FETCH_JSON]: {
-        url: 'test',
-        options: {
-          method: 'PUT',
-          body: 'test-body',
-        },
+        url: `${BASE_URL}/user`,
         types: [
           { type: AUTH_REQUEST_USER, meta: { user: 'test-meta' } },
-          AUTH_REQUEST_USER_SUCCESS,
+          {
+            type: AUTH_REQUEST_USER_SUCCESS,
+            meta: { user: 'test-success-user' },
+          },
           AUTH_REQUEST_USER_FAIL,
         ],
       },
