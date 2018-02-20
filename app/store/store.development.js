@@ -7,6 +7,7 @@ import { routerMiddleware, push } from 'react-router-redux';
 
 import { createBrowserHistory, createHashHistory } from 'history';
 
+import { fetchJsonMiddleware } from '../modules/api';
 import rootReducer from '../modules';
 
 // import {
@@ -49,7 +50,9 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     })
   : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk, router, logger));
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk, fetchJsonMiddleware, router, logger)
+);
 
 const store = createStore(rootReducer, enhancer);
 

@@ -6,7 +6,7 @@
 import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 
-import { fetchJson } from '../api';
+import { fetchJson, FETCH_JSON } from '../api';
 import * as CredentialsHelpers from '../../helpers/CredentialsHelpers';
 import { showNotification, NotificationCategories } from '../notifications';
 import { BASE_URL } from '../../constants/APIConstants.js';
@@ -449,6 +449,20 @@ export function fetchCurrentUser() {
   return (dispatch: Function) => {
     dispatch({
       type: AUTH_REQUEST_USER,
+    });
+    dispatch({
+      [FETCH_JSON]: {
+        url: 'test',
+        options: {
+          method: 'PUT',
+          body: 'test-body',
+        },
+        types: [
+          { type: AUTH_REQUEST_USER, meta: { user: 'test-meta' } },
+          AUTH_REQUEST_USER_SUCCESS,
+          AUTH_REQUEST_USER_FAIL,
+        ],
+      },
     });
     return dispatch(fetchJson(`${BASE_URL}/user`))
       .then(data => {
