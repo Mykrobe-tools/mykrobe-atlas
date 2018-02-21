@@ -2,13 +2,13 @@
 
 import { createSelector } from 'reselect';
 
-import { fetchJson } from '../api';
-import { showNotification, NotificationCategories } from '../notifications';
+import { FETCH_JSON } from '../api';
 import { BASE_URL } from '../../constants/APIConstants.js';
 
 export const typePrefix = 'experiments/filters/';
-export const REQUEST_FILTER_VALUES = `${typePrefix}REQUEST_FILTER_VALUES`;
-export const RECEIVE_FILTER_VALUES = `${typePrefix}RECEIVE_FILTER_VALUES`;
+export const FETCH_FILTER_VALUES = `${typePrefix}FETCH_FILTER_VALUES`;
+export const FETCH_FILTER_VALUES_SUCCESS = `${typePrefix}FETCH_FILTER_VALUES_SUCCESS`;
+export const FETCH_FILTER_VALUES_FAILURE = `${typePrefix}FETCH_FILTER_VALUES_FAILURE`;
 
 // Selectors
 
@@ -17,79 +17,9 @@ export const getIsFetching = createSelector(
   getState,
   filters => filters.isFetching
 );
-export const getFilterValues = createSelector(
-  getState,
-  filters => filters.filterValues
+export const getFilterValues = createSelector(getState, filters =>
+  transformFilterValues(filters.filters)
 );
-
-// Reducer
-
-const initialState = {
-  isFetching: false,
-  filterValues: [],
-};
-
-export default function reducer(
-  state: Object = initialState,
-  action: Object = {}
-) {
-  switch (action.type) {
-    case REQUEST_FILTER_VALUES:
-      return Object.assign({}, state, {
-        filterValues: [],
-      });
-    case RECEIVE_FILTER_VALUES:
-      return Object.assign({}, state, {
-        filterValues: action.data,
-      });
-    default:
-      return state;
-  }
-}
-
-// Action creators
-
-function requestFilterValues(filter: string) {
-  return {
-    type: REQUEST_FILTER_VALUES,
-    filter,
-  };
-}
-
-function receiveFilterValues(data: Array<Object> = []) {
-  return {
-    type: RECEIVE_FILTER_VALUES,
-    data,
-  };
-}
-
-// Side effects
-
-export function fetchFilterValues(filter: string = '') {
-  return (dispatch: Function) => {
-    dispatch(requestFilterValues(filter));
-    return dispatch(
-      fetchJson(`${BASE_URL}/experiments/metadata/${filter}/values`)
-    )
-      .then(data => {
-        const options = transformFilterValues(data);
-        dispatch(receiveFilterValues(options));
-        return Promise.resolve(options);
-      })
-      .catch(error => {
-        const { statusText } = error;
-        dispatch(
-          showNotification({
-            category: NotificationCategories.ERROR,
-            content: statusText,
-            autoHide: false,
-          })
-        );
-        dispatch(receiveFilterValues());
-        return Promise.reject(error);
-      });
-  };
-}
 
 function transformFilterValues(data: Array<string> = []) {
   return data.map(option => {
@@ -98,4 +28,57 @@ function transformFilterValues(data: Array<string> = []) {
       label: option,
     };
   });
+}
+
+// Reducer
+
+export const initialState = {
+  isFetching: false,
+  filters: [],
+};
+
+export default function reducer(
+  state: Object = initialState,
+  action: Object = {}
+) {
+  switch (action.type) {
+    case FETCH_FILTER_VALUES:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case FETCH_FILTER_VALUES_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        filters: action.payload,
+      };
+    case FETCH_FILTER_VALUES_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+      };
+    default:
+      return state;
+  }
+}
+
+// Action creators
+
+// Side effects
+
+export function fetchFilterValues(filter: string = '') {
+  return async (dispatch: Function) => {
+    const payload = await dispatch({
+      [FETCH_JSON]: {
+        url: `${BASE_URL}/experiments/metadata/${filter}/values`,
+        types: [
+          FETCH_FILTER_VALUES,
+          FETCH_FILTER_VALUES_SUCCESS,
+          FETCH_FILTER_VALUES_FAILURE,
+        ],
+      },
+    });
+    return payload;
+  };
 }
