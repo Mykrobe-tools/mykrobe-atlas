@@ -13,7 +13,15 @@ const FAILURE = 'FAILURE';
 
 const createMockStore = configureMockStore([thunk, fetchJsonMiddleware]);
 
-const initialState = {};
+const initialState = {
+  auth: {
+    auth: {
+      user: {
+        token: 'MOCK_AUTH_TOKEN_FOR_TESTING',
+      },
+    },
+  },
+};
 
 describe('fetchJsonMiddleware', () => {
   const store = createMockStore(initialState);
@@ -23,14 +31,14 @@ describe('fetchJsonMiddleware', () => {
     nock.cleanAll();
   });
 
-  it('should handle basic request', async () => {
+  it('should handle basic GET request and resolve as promise', async () => {
     const meta = { test: true };
     const payload = { test: true };
     nock(BASE_URL)
       .get('/test/fetchJsonMiddleware')
       .query(true)
       .reply(200, { status: 'success', data: payload });
-    await store.dispatch({
+    const result = await store.dispatch({
       [FETCH_JSON]: {
         url: `${BASE_URL}/test/fetchJsonMiddleware`,
         types: [{ type: REQUEST, meta }, SUCCESS, FAILURE],
@@ -41,6 +49,7 @@ describe('fetchJsonMiddleware', () => {
     expect(dispatchedActions[0].meta).toEqual(meta);
     expect(dispatchedActions[1].type).toEqual(SUCCESS);
     expect(dispatchedActions[1].payload).toEqual(payload);
+    expect(result).toEqual(payload);
     console.log(
       'dispatchedActions',
       JSON.stringify(dispatchedActions, null, 2)

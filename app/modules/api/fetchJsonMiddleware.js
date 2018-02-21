@@ -14,7 +14,7 @@ import { fetchToCurl } from './fetchToCurl';
 
 export const FETCH_JSON = '@@fetch-json-middleware/FETCH_JSON';
 
-class FetchJsonError extends Error {
+export class FetchJsonError extends Error {
   constructor(status, statusText, response) {
     super();
     this.name = 'FetchJsonError';
@@ -106,7 +106,8 @@ export const fetchJsonMiddleware = ({ getState }) => next => action => {
       }
 
       console.log('data', JSON.stringify(data, null, 2));
-      return next({ ...SUCCESS, payload: data });
+      next({ ...SUCCESS, payload: data });
+      return data;
     } catch (error) {
       next(FAILURE);
       next(
