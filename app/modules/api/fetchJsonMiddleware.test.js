@@ -59,18 +59,21 @@ describe('fetchJsonMiddleware', () => {
     nock(BASE_URL)
       .get('/test/fetchJsonMiddleware')
       .reply(200);
-    await store.dispatch({
-      [FETCH_JSON]: {
-        url: `${BASE_URL}/test/fetchJsonMiddleware`,
-        types: [REQUEST, SUCCESS, FAILURE],
-      },
-    });
-    const dispatchedActions = store.getActions();
-    expect(dispatchedActions[0].type).toEqual(REQUEST);
-    expect(dispatchedActions[1].type).toEqual(FAILURE);
-    console.log(
-      'dispatchedActions',
-      JSON.stringify(dispatchedActions, null, 2)
-    );
+    try {
+      await store.dispatch({
+        [FETCH_JSON]: {
+          url: `${BASE_URL}/test/fetchJsonMiddleware`,
+          types: [REQUEST, SUCCESS, FAILURE],
+        },
+      });
+    } catch (error) {
+      const dispatchedActions = store.getActions();
+      expect(dispatchedActions[0].type).toEqual(REQUEST);
+      expect(dispatchedActions[1].type).toEqual(FAILURE);
+      console.log(
+        'dispatchedActions',
+        JSON.stringify(dispatchedActions, null, 2)
+      );
+    }
   });
 });
