@@ -3,7 +3,108 @@
 exports[`experiments module should handle "fetchExperiments" action 1`] = `
 Array [
   Object {
-    "type": "experiments/experiments/REQUEST_EXPERIMENTS",
+    "type": "experiments/experiments/FETCH_EXPERIMENTS",
+  },
+  Object {
+    "payload": Array [
+      Object {
+        "collected": "2016-09-05T08:40:51.620Z",
+        "geoDistance": Object {
+          "analysed": "2016-09-05T08:40:51.620Z",
+          "experiments": Array [
+            Object {
+              "collected": "2016-09-05T08:40:51.620Z",
+              "id": 2,
+              "location": Object {
+                "lat": 51.5074,
+                "long": 0.1278,
+                "name": "London",
+              },
+            },
+            Object {
+              "collected": "2016-09-05T08:40:51.620Z",
+              "id": 3,
+              "location": Object {
+                "lat": 12.97,
+                "long": 77.59,
+                "name": "Bangalore",
+              },
+            },
+          ],
+        },
+        "id": 1,
+        "jaccardIndex": Object {
+          "analysed": "2016-09-05T08:40:51.620Z",
+          "engine": "",
+          "experiments": Array [],
+          "version": "",
+        },
+        "location": Object {
+          "lat": 41.3851,
+          "long": 2.1734,
+          "name": "Barcelona",
+        },
+        "organisation": Object {},
+        "owner": Object {},
+        "resistance": Object {},
+        "snpDistance": Object {
+          "analysed": "2016-09-05T08:40:51.620Z",
+          "engine": "",
+          "experiments": Array [],
+          "version": "",
+        },
+        "uploaded": "2016-09-05T08:40:51.620Z",
+      },
+      Object {
+        "collected": "2016-09-05T08:40:51.620Z",
+        "geoDistance": Object {
+          "analysed": "2016-09-05T08:40:51.620Z",
+          "experiments": Array [
+            Object {
+              "collected": "2016-09-05T08:40:51.620Z",
+              "id": 1,
+              "location": Object {
+                "lat": 41.3851,
+                "long": 2.1734,
+                "name": "Barcelona",
+              },
+            },
+            Object {
+              "collected": "2016-09-05T08:40:51.620Z",
+              "id": 3,
+              "location": Object {
+                "lat": 12.97,
+                "long": 77.59,
+                "name": "Bangalore",
+              },
+            },
+          ],
+        },
+        "id": 2,
+        "jaccardIndex": Object {
+          "analysed": "2016-09-05T08:40:51.620Z",
+          "engine": "",
+          "experiments": Array [],
+          "version": "",
+        },
+        "location": Object {
+          "lat": 51.5074,
+          "long": 0.1278,
+          "name": "London",
+        },
+        "organisation": Object {},
+        "owner": Object {},
+        "resistance": Object {},
+        "snpDistance": Object {
+          "analysed": "2016-09-05T08:40:51.620Z",
+          "engine": "",
+          "experiments": Array [],
+          "version": "",
+        },
+        "uploaded": "2016-09-05T08:40:51.620Z",
+      },
+    ],
+    "type": "experiments/experiments/FETCH_EXPERIMENTS_SUCCESS",
   },
 ]
 `;
@@ -11,11 +112,7 @@ Array [
 exports[`experiments module should handle "fetchExperiments" action 2`] = `
 Object {
   "isFetching": false,
-  "samples": Array [
-    Object {
-      "lorem": "ipsum",
-    },
-  ],
-  "total": 1,
+  "samples": Array [],
+  "total": 0,
 }
 `;
