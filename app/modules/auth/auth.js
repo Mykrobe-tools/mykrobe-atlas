@@ -182,7 +182,7 @@ export default function reducer(
     case AUTH_REQUEST_USER_SUCCESS: {
       const user = {
         ...state.user,
-        ...action.user,
+        ...action.payload,
       };
       return {
         ...state,
@@ -450,41 +450,38 @@ export function fetchCurrentUser() {
     dispatch({
       type: AUTH_REQUEST_USER,
     });
-    dispatch({
+    return dispatch({
       [FETCH_JSON]: {
         url: `${BASE_URL}/user`,
         types: [
-          { type: AUTH_REQUEST_USER, meta: { user: 'test-meta' } },
-          {
-            type: AUTH_REQUEST_USER_SUCCESS,
-            meta: { user: 'test-success-user' },
-          },
+          AUTH_REQUEST_USER,
+          AUTH_REQUEST_USER_SUCCESS,
           AUTH_REQUEST_USER_FAIL,
         ],
       },
     });
-    return dispatch(fetchJson(`${BASE_URL}/user`))
-      .then(data => {
-        dispatch({
-          type: AUTH_REQUEST_USER_SUCCESS,
-          user: data,
-        });
-        return Promise.resolve(data);
-      })
-      .catch(error => {
-        const { statusText } = error;
-        dispatch({
-          type: AUTH_REQUEST_USER_FAIL,
-          statusText,
-        });
-        dispatch(
-          showNotification({
-            category: NotificationCategories.ERROR,
-            content: statusText,
-          })
-        );
-        return Promise.reject(error);
-      });
+    // return dispatch(fetchJson(`${BASE_URL}/user`))
+    //   .then(data => {
+    //     dispatch({
+    //       type: AUTH_REQUEST_USER_SUCCESS,
+    //       user: data,
+    //     });
+    //     return Promise.resolve(data);
+    //   })
+    //   .catch(error => {
+    //     const { statusText } = error;
+    //     dispatch({
+    //       type: AUTH_REQUEST_USER_FAIL,
+    //       statusText,
+    //     });
+    //     dispatch(
+    //       showNotification({
+    //         category: NotificationCategories.ERROR,
+    //         content: statusText,
+    //       })
+    //     );
+    //     return Promise.reject(error);
+    //   });
   };
 }
 

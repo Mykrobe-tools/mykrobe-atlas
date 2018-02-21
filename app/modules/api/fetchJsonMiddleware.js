@@ -5,12 +5,7 @@ import 'isomorphic-fetch';
 import type { JSendType } from '../../types/JSendType';
 
 // TODO: make token access more generic
-import {
-  getAuthToken,
-  signOut,
-  AUTH_SIGNOUT,
-  AUTH_SIGNOUT_SUCCESS,
-} from '../auth/auth';
+import { getAuthToken, signOut } from '../auth';
 
 import {
   showNotification,
@@ -128,7 +123,8 @@ export const fetchJsonMiddleware = store => next => action => {
       next({ ...SUCCESS, payload: data });
       return data;
     } catch (error) {
-      next(FAILURE);
+      const { response, ...rest } = error; // eslint-disable-line
+      next({ ...FAILURE, payload: rest });
       const content = error.message || error.statusText;
       await store.dispatch(
         showNotification({
