@@ -24,6 +24,7 @@ describe('fetchJsonMiddleware', () => {
   });
 
   it('should handle basic request', async () => {
+    const meta = { test: true };
     const payload = { test: true };
     nock(BASE_URL)
       .get('/test/fetchJsonMiddleware')
@@ -32,11 +33,13 @@ describe('fetchJsonMiddleware', () => {
     await store.dispatch({
       [FETCH_JSON]: {
         url: `${BASE_URL}/test/fetchJsonMiddleware`,
-        types: [REQUEST, SUCCESS, FAILURE],
+        types: [{ type: REQUEST, meta }, SUCCESS, FAILURE],
       },
     });
     const dispatchedActions = store.getActions();
-    expect(dispatchedActions).toMatchSnapshot();
+    expect(dispatchedActions[0].type).toEqual(REQUEST);
+    expect(dispatchedActions[0].meta).toEqual(meta);
+    expect(dispatchedActions[1].type).toEqual(SUCCESS);
     expect(dispatchedActions[1].payload).toEqual(payload);
     console.log(
       'dispatchedActions',
