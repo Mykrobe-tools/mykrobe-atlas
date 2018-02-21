@@ -23,6 +23,8 @@ const initialState = {
   },
 };
 
+const debug = true;
+
 describe('fetchJsonMiddleware', () => {
   const store = createMockStore(initialState);
 
@@ -41,6 +43,7 @@ describe('fetchJsonMiddleware', () => {
       [FETCH_JSON]: {
         url: `${BASE_URL}/test/fetchJsonMiddleware`,
         types: [{ type: REQUEST, meta }, SUCCESS, FAILURE],
+        debug,
       },
     });
     const dispatchedActions = store.getActions();
@@ -64,9 +67,35 @@ describe('fetchJsonMiddleware', () => {
         [FETCH_JSON]: {
           url: `${BASE_URL}/test/fetchJsonMiddleware`,
           types: [REQUEST, SUCCESS, FAILURE],
+          debug,
         },
       });
     } catch (error) {
+      expect(error.name).toEqual('FetchJsonError');
+      const dispatchedActions = store.getActions();
+      expect(dispatchedActions[0].type).toEqual(REQUEST);
+      expect(dispatchedActions[1].type).toEqual(FAILURE);
+      console.log(
+        'dispatchedActions',
+        JSON.stringify(dispatchedActions, null, 2)
+      );
+    }
+  });
+
+  it('should reject non-jsend response', async () => {
+    nock(BASE_URL)
+      .get('/test/fetchJsonMiddleware')
+      .reply(200, { data: { test: true } });
+    try {
+      await store.dispatch({
+        [FETCH_JSON]: {
+          url: `${BASE_URL}/test/fetchJsonMiddleware`,
+          types: [REQUEST, SUCCESS, FAILURE],
+          debug,
+        },
+      });
+    } catch (error) {
+      expect(error.name).toEqual('FetchJsonError');
       const dispatchedActions = store.getActions();
       expect(dispatchedActions[0].type).toEqual(REQUEST);
       expect(dispatchedActions[1].type).toEqual(FAILURE);

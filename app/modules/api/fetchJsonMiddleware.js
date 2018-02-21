@@ -47,9 +47,11 @@ export const fetchJsonMiddleware = store => next => action => {
 
   const fetchJsonParameters = action[FETCH_JSON];
 
-  const { url, options = {}, types } = fetchJsonParameters;
+  const { url, options = {}, types, debug = false } = fetchJsonParameters;
 
   const [REQUEST, SUCCESS, FAILURE] = normalizeTypes(types);
+
+  next(REQUEST);
 
   const state = store.getState();
   const token = getAuthToken(state);
@@ -67,17 +69,17 @@ export const fetchJsonMiddleware = store => next => action => {
       Authorization: `Bearer ${token}`,
     };
   }
-  console.log(`fetch ${url} options`, options);
-  const curl = fetchToCurl(url, options);
-  console.log(curl);
 
-  console.log('REQUEST', REQUEST);
-  next(REQUEST);
+  if (debug) {
+    console.log(`fetch ${url} options`, options);
+    const curl = fetchToCurl(url, options);
+    console.log(curl);
+  }
 
   return (async () => {
     try {
       const response = await fetch(url, options);
-      // return next(SUCCESS);
+
       if (!response.ok) {
         if (token && response.status === 401) {
           return next(signOut());
@@ -89,14 +91,21 @@ export const fetchJsonMiddleware = store => next => action => {
         );
       }
 
-      const jsend: JSendType = await response.json();
+      let jsend: JSendType;
+
+      try {
+        jsend = await response.json();
+      } catch (error) {
+        throw new FetchJsonError(response.status, error.message, response);
+      }
+
       const { status, message, data } = jsend;
 
       if (!status) {
         const json = JSON.stringify(jsend, null, 2);
         throw new FetchJsonError(
           response.status,
-          `Invalid JSend response ${json}`,
+          `Invalid JSend response - ${json}`,
           response
         );
       }
@@ -105,7 +114,10 @@ export const fetchJsonMiddleware = store => next => action => {
         throw new FetchJsonError(response.status, message || data, response);
       }
 
-      console.log('data', JSON.stringify(data, null, 2));
+      if (debug) {
+        console.log('data', JSON.stringify(data, null, 2));
+      }
+
       next({ ...SUCCESS, payload: data });
       return data;
     } catch (error) {
