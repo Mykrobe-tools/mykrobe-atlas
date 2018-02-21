@@ -66,7 +66,7 @@ class Profile extends React.Component {
 
   render() {
     const { failureReason, isFetching } = this.props;
-    const { signOut, organisations } = this.props;
+    const { signOut } = this.props;
     const auth: AuthType = this.props.auth;
     const user: ?UserType = auth.user;
     if (!user) {

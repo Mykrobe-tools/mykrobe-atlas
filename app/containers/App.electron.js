@@ -143,7 +143,7 @@ class App extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 

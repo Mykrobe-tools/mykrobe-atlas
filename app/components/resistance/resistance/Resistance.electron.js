@@ -127,7 +127,7 @@ class Resistance extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 

@@ -6,9 +6,9 @@
 import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 
-import { fetchJson, FETCH_JSON } from '../api';
+import { FETCH_JSON } from '../api';
 import * as CredentialsHelpers from '../../helpers/CredentialsHelpers';
-import { showNotification, NotificationCategories } from '../notifications';
+import { showNotification } from '../notifications';
 import { BASE_URL } from '../../constants/APIConstants.js';
 import type {
   AuthResetPasswordType,
@@ -101,6 +101,24 @@ export default function reducer(
         ...state,
         isLoading: false,
         user: action.payload,
+      };
+    case AUTH_SIGNUP:
+      return {
+        ...state,
+        isFetching: true,
+        failureReason: undefined,
+      };
+    case AUTH_SIGNUP_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        user: action.payload,
+      };
+    case AUTH_SIGNUP_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        failureReason: action.payload.statusText,
       };
     case AUTH_SIGNIN:
       return {
@@ -236,12 +254,7 @@ export function signOut() {
     dispatch({
       type: AUTH_SIGNOUT_SUCCESS,
     });
-    dispatch(
-      showNotification({
-        category: NotificationCategories.SUCCESS,
-        content: 'You are now logged out',
-      })
-    );
+    dispatch(showNotification('You are now logged out'));
   };
 }
 
@@ -262,12 +275,7 @@ export function signIn(user: UserType) {
       },
     });
     CredentialsHelpers.saveUser(payload);
-    dispatch(
-      showNotification({
-        category: NotificationCategories.SUCCESS,
-        content: 'You are now logged in',
-      })
-    );
+    dispatch(showNotification('You are now logged in'));
     return payload;
   };
 }
@@ -277,41 +285,19 @@ export function signIn(user: UserType) {
 //
 
 export function signUp(user: UserType) {
-  return (dispatch: Function) => {
-    dispatch({
-      type: AUTH_SIGNUP,
-    });
-    return dispatch(
-      fetchJson(`${BASE_URL}/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+  return async (dispatch: Function) => {
+    const payload = await dispatch({
+      [FETCH_JSON]: {
+        url: `${BASE_URL}/users`,
+        options: {
+          method: 'POST',
+          body: JSON.stringify(user),
         },
-        body: JSON.stringify(user),
-      })
-    )
-      .then(data => {
-        dispatch({
-          type: AUTH_SIGNUP_SUCCESS,
-          user: data,
-        });
-        dispatch(push('/auth/success'));
-        return Promise.resolve(data);
-      })
-      .catch(error => {
-        const { statusText } = error;
-        dispatch({
-          type: AUTH_SIGNUP_FAILURE,
-          statusText,
-        });
-        dispatch(
-          showNotification({
-            category: NotificationCategories.ERROR,
-            content: statusText,
-          })
-        );
-        return Promise.reject(error);
-      });
+        types: [AUTH_SIGNUP, AUTH_SIGNUP_SUCCESS, AUTH_SIGNUP_FAILURE],
+      },
+    });
+    dispatch(push('/auth/success'));
+    return payload;
   };
 }
 
@@ -320,40 +306,23 @@ export function signUp(user: UserType) {
 //
 
 export function forgotPassword(user: UserType) {
-  return (dispatch: Function) => {
-    dispatch({
-      type: AUTH_FORGOT_PASSWORD,
-    });
-    return dispatch(
-      fetchJson(`${BASE_URL}/auth/forgot`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+  return async (dispatch: Function) => {
+    const payload = await dispatch({
+      [FETCH_JSON]: {
+        url: `${BASE_URL}/auth/forgot`,
+        options: {
+          method: 'POST',
+          body: JSON.stringify(user),
         },
-        body: JSON.stringify(user),
-      })
-    )
-      .then(data => {
-        dispatch({
-          type: AUTH_FORGOT_PASSWORD_SUCCESS,
-        });
-        dispatch(push('/auth/forgotsuccess'));
-        return Promise.resolve(data);
-      })
-      .catch(error => {
-        const { statusText } = error;
-        dispatch({
-          type: AUTH_FORGOT_PASSWORD_FAILURE,
-          statusText,
-        });
-        dispatch(
-          showNotification({
-            category: NotificationCategories.ERROR,
-            content: statusText,
-          })
-        );
-        return Promise.reject(error);
-      });
+        types: [
+          AUTH_FORGOT_PASSWORD,
+          AUTH_FORGOT_PASSWORD_SUCCESS,
+          AUTH_FORGOT_PASSWORD_FAILURE,
+        ],
+      },
+    });
+    dispatch(push('/auth/forgotsuccess'));
+    return payload;
   };
 }
 
@@ -362,40 +331,23 @@ export function forgotPassword(user: UserType) {
 //
 
 export function resetPassword(reset: AuthResetPasswordType) {
-  return (dispatch: Function) => {
-    dispatch({
-      type: AUTH_RESET_PASSWORD,
-    });
-    return dispatch(
-      fetchJson(`${BASE_URL}/auth/reset`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+  return async (dispatch: Function) => {
+    const payload = await dispatch({
+      [FETCH_JSON]: {
+        url: `${BASE_URL}/auth/reset`,
+        options: {
+          method: 'POST',
+          body: JSON.stringify(reset),
         },
-        body: JSON.stringify(reset),
-      })
-    )
-      .then(data => {
-        dispatch({
-          type: AUTH_RESET_PASSWORD_SUCCESS,
-        });
-        dispatch(push('/auth/resetsuccess'));
-        return Promise.resolve(data);
-      })
-      .catch(error => {
-        const { statusText } = error;
-        dispatch({
-          type: AUTH_RESET_PASSWORD_FAILURE,
-          statusText,
-        });
-        dispatch(
-          showNotification({
-            category: NotificationCategories.ERROR,
-            content: statusText,
-          })
-        );
-        return Promise.reject(error);
-      });
+        types: [
+          AUTH_RESET_PASSWORD,
+          AUTH_RESET_PASSWORD_SUCCESS,
+          AUTH_RESET_PASSWORD_FAILURE,
+        ],
+      },
+    });
+    dispatch(push('/auth/resetsuccess'));
+    return payload;
   };
 }
 
@@ -455,54 +407,29 @@ export function updateCurrentUser(user: UserType) {
         ],
       },
     });
-    dispatch(
-      showNotification({
-        category: NotificationCategories.SUCCESS,
-        content: 'Profile updated',
-      })
-    );
+    dispatch(showNotification('Profile updated'));
     return payload;
   };
 }
 
 export function deleteCurrentUser() {
-  return (dispatch: Function) => {
-    dispatch({
-      type: AUTH_DELETE_USER,
+  return async (dispatch: Function) => {
+    const payload = await dispatch({
+      [FETCH_JSON]: {
+        url: `${BASE_URL}/user`,
+        options: {
+          method: 'DELETE',
+        },
+        types: [
+          AUTH_DELETE_USER,
+          AUTH_DELETE_USER_SUCCESS,
+          AUTH_DELETE_USER_FAILURE,
+        ],
+      },
     });
-    return dispatch(
-      fetchJson(`${BASE_URL}/user`, {
-        method: 'DELETE',
-      })
-    )
-      .then((data: UserType) => {
-        dispatch({
-          type: AUTH_DELETE_USER_SUCCESS,
-          user: data,
-        });
-        dispatch(
-          showNotification({
-            category: NotificationCategories.SUCCESS,
-            content: 'User deleted',
-          })
-        );
-        dispatch(signOut());
-        return Promise.resolve(data);
-      })
-      .catch(error => {
-        const { statusText } = error;
-        dispatch({
-          type: AUTH_DELETE_USER_FAILURE,
-          statusText,
-        });
-        dispatch(
-          showNotification({
-            category: NotificationCategories.ERROR,
-            content: statusText,
-          })
-        );
-        return Promise.reject(error);
-      });
+    dispatch(showNotification('User deleted'));
+    dispatch(signOut());
+    return payload;
   };
 }
 
@@ -511,41 +438,23 @@ export function deleteCurrentUser() {
 //
 
 export function verify(verify: AuthVerificationType) {
-  return (dispatch: Function) => {
-    dispatch({
-      type: AUTH_VERIFY,
-    });
-    return dispatch(
-      fetchJson(`${BASE_URL}/auth/verify`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+  return async (dispatch: Function) => {
+    try {
+      const payload = await dispatch({
+        [FETCH_JSON]: {
+          url: `${BASE_URL}/auth/verify`,
+          options: {
+            method: 'POST',
+            body: JSON.stringify(verify),
+          },
+          types: [AUTH_VERIFY, AUTH_VERIFY_SUCCESS, AUTH_VERIFY_FAILURE],
         },
-        body: JSON.stringify(verify),
-      })
-    )
-      .then(data => {
-        dispatch({
-          type: AUTH_VERIFY_SUCCESS,
-          user: data,
-        });
-        dispatch(push('/auth/verifysuccess'));
-        return Promise.resolve(data);
-      })
-      .catch(error => {
-        const { statusText } = error;
-        dispatch({
-          type: AUTH_VERIFY_FAILURE,
-          statusText,
-        });
-        dispatch(
-          showNotification({
-            category: NotificationCategories.ERROR,
-            content: statusText,
-          })
-        );
-        dispatch(push('/auth/verifyfailure'));
-        return Promise.reject(error);
       });
+      dispatch(push('/auth/verifysuccess'));
+      return payload;
+    } catch (error) {
+      dispatch(push('/auth/verifyfailure'));
+      throw error;
+    }
   };
 }

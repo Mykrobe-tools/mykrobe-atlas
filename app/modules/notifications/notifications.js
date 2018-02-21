@@ -94,11 +94,22 @@ export default function reducer(
 
 // Side effects
 
-export function showNotification({
-  category,
-  content,
-  autoHide = true,
-}: Object) {
+// export function showNotification({
+//   category = NotificationCategories.SUCCESS,
+//   content,
+//   autoHide = true,
+// }: Object) {
+export function showNotification(notification: Object | string) {
+  if (typeof notification === 'string') {
+    notification = {
+      content: notification,
+    };
+  }
+  const {
+    category = NotificationCategories.SUCCESS,
+    content,
+    autoHide = true,
+  } = notification;
   return (dispatch: Function) => {
     const id = uuid.v4();
     dispatch(show(id, category, content, autoHide));
