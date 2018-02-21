@@ -52,7 +52,7 @@ class Profile extends React.Component {
       firstname: this.refs.firstname.value,
       lastname: this.refs.lastname.value,
       phone: this.refs.phone.value,
-      organisation: this.refs.organisation.value,
+      // organisation: this.refs.organisation.value,
     };
     updateCurrentUser(userObject);
   }
