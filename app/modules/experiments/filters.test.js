@@ -9,7 +9,7 @@ import { BASE_URL } from '../../constants/APIConstants.js';
 
 import reducer, {
   initialState,
-  fetchFilterValues,
+  requestFilterValues,
   getFilterValues,
 } from './filters';
 
@@ -25,12 +25,12 @@ describe('filters module', () => {
     nock.cleanAll();
   });
 
-  it('should handle "fetchFilterValues" action', async () => {
+  it('should handle "requestFilterValues" action', async () => {
     nock(BASE_URL)
       .get('/experiments/metadata/whoOutcomeCategory/values')
       .reply(200, data);
     const payload = await store.dispatch(
-      fetchFilterValues('whoOutcomeCategory')
+      requestFilterValues('whoOutcomeCategory')
     );
     const dispatchedActions = store.getActions();
     dispatchedActions.forEach(dispatchedAction => {

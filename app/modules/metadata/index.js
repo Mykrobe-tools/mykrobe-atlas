@@ -11,7 +11,7 @@ export {
   getIsFetching,
 } from './metadata';
 
-export { getTemplate, fetchTemplate } from './template';
+export { getTemplate, requestTemplate } from './template';
 
 const reducer = combineReducers({
   metadata,

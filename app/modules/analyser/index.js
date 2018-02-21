@@ -12,7 +12,7 @@ export {
   analyseFile,
   analyseFileCancel,
   analyseRemoteFile,
-  fetchExperiment,
+  requestExperiment,
   analyseFileNew,
   analyseFileSave,
 } from './analyser';

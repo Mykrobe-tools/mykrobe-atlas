@@ -9,7 +9,7 @@ export {
   getIsFetching as getIsFetchingExperiments,
   getSamples,
   getTotal,
-  fetchExperiments,
+  requestExperiments,
   prepareNewExperiment,
   uploadExperimentFile,
 } from './experiments';
@@ -17,7 +17,7 @@ export {
 export {
   getIsFetching as getIsFetchingFilters,
   getFilterValues,
-  fetchFilterValues,
+  requestFilterValues,
 } from './filters';
 
 const reducer = combineReducers({

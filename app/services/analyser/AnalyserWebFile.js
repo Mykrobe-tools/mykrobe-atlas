@@ -17,7 +17,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
     this._file = file;
     this._progress = 0;
     this.updateProgress();
-    this.fetchExperiment(id)
+    this.requestExperiment(id)
       .then(result => {
         this._timeout && clearTimeout(this._timeout);
         if (this._progress < 100) {
@@ -47,7 +47,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
     }
   }
 
-  fetchExperiment(id: string) {
+  requestExperiment(id: string) {
     const user = CredentialsHelpers.loadUser();
     let token;
     if (user && user.token) {

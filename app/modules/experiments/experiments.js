@@ -7,9 +7,9 @@ import { BASE_URL } from '../../constants/APIConstants.js';
 import * as StringHelpers from '../../helpers/StringHelpers';
 
 export const typePrefix = 'experiments/experiments/';
-export const FETCH_EXPERIMENTS = `${typePrefix}FETCH_EXPERIMENTS`;
-export const FETCH_EXPERIMENTS_SUCCESS = `${typePrefix}FETCH_EXPERIMENTS_SUCCESS`;
-export const FETCH_EXPERIMENTS_FAILURE = `${typePrefix}FETCH_EXPERIMENTS_FAILURE`;
+export const REQUEST_EXPERIMENTS = `${typePrefix}REQUEST_EXPERIMENTS`;
+export const REQUEST_EXPERIMENTS_SUCCESS = `${typePrefix}REQUEST_EXPERIMENTS_SUCCESS`;
+export const REQUEST_EXPERIMENTS_FAILURE = `${typePrefix}REQUEST_EXPERIMENTS_FAILURE`;
 
 export const PREPARE_NEW_EXPERIMENT = `${typePrefix}PREPARE_NEW_EXPERIMENT`;
 export const PREPARE_NEW_EXPERIMENT_SUCCESS = `${typePrefix}PREPARE_NEW_EXPERIMENT_SUCCESS`;
@@ -53,14 +53,14 @@ export default function reducer(
 ) {
   console.log('action', action);
   switch (action.type) {
-    case FETCH_EXPERIMENTS:
+    case REQUEST_EXPERIMENTS:
       return {
         ...state,
         isFetching: true,
         samples: [],
         total: null,
       };
-    case FETCH_EXPERIMENTS_SUCCESS:
+    case REQUEST_EXPERIMENTS_SUCCESS:
       return {
         ...state,
         isFetching: false,
@@ -74,16 +74,16 @@ export default function reducer(
 
 // Side effects
 
-export function fetchExperiments(filters: Object = {}) {
+export function requestExperiments(filters: Object = {}) {
   return async (dispatch: Function) => {
     const params = StringHelpers.objectToParamString(filters);
     const payload = await dispatch({
       [FETCH_JSON]: {
         url: `${BASE_URL}/experiments/search?${params}`,
         types: [
-          FETCH_EXPERIMENTS,
-          FETCH_EXPERIMENTS_SUCCESS,
-          FETCH_EXPERIMENTS_FAILURE,
+          REQUEST_EXPERIMENTS,
+          REQUEST_EXPERIMENTS_SUCCESS,
+          REQUEST_EXPERIMENTS_FAILURE,
         ],
       },
     });

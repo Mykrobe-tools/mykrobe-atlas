@@ -20,7 +20,7 @@ import {
   getIsFetching as getAuthIsFetching,
   getFailureReason,
   signOut,
-  fetchCurrentUser,
+  requestCurrentUser,
   updateCurrentUser,
   deleteCurrentUser,
   deleteFailureReason,
@@ -34,8 +34,8 @@ import {
 
 class Profile extends React.Component {
   componentWillMount() {
-    const { fetchCurrentUser, requestAllOrganisations } = this.props;
-    fetchCurrentUser();
+    const { requestCurrentUser, requestAllOrganisations } = this.props;
+    requestCurrentUser();
     requestAllOrganisations();
   }
 
@@ -224,7 +224,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       signOut,
-      fetchCurrentUser,
+      requestCurrentUser,
       updateCurrentUser,
       deleteFailureReason,
       deleteCurrentUser,
@@ -240,7 +240,7 @@ Profile.propTypes = {
   organisations: PropTypes.object.isRequired,
   isFetching: PropTypes.bool.isRequired,
   signOut: PropTypes.func.isRequired,
-  fetchCurrentUser: PropTypes.func.isRequired,
+  requestCurrentUser: PropTypes.func.isRequired,
   updateCurrentUser: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
   deleteCurrentUser: PropTypes.func.isRequired,

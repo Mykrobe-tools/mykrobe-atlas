@@ -15,7 +15,7 @@ import rootReducer from '../modules';
 //   analyseFile,
 //   analyseFileCancel,
 //   analyseRemoteFile,
-//   fetchExperiment,
+//   requestExperiment,
 //   analyseFileNew,
 //   analyseFileSave,
 // } from '../modules/analyser';
@@ -27,7 +27,7 @@ const actionCreators = {
   // analyseFile,
   // analyseFileCancel,
   // analyseRemoteFile,
-  // fetchExperiment,
+  // requestExperiment,
   // analyseFileNew,
   // analyseFileSave,
   push,

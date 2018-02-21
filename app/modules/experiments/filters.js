@@ -6,9 +6,9 @@ import { FETCH_JSON } from '../api';
 import { BASE_URL } from '../../constants/APIConstants.js';
 
 export const typePrefix = 'experiments/filters/';
-export const FETCH_FILTER_VALUES = `${typePrefix}FETCH_FILTER_VALUES`;
-export const FETCH_FILTER_VALUES_SUCCESS = `${typePrefix}FETCH_FILTER_VALUES_SUCCESS`;
-export const FETCH_FILTER_VALUES_FAILURE = `${typePrefix}FETCH_FILTER_VALUES_FAILURE`;
+export const REQUEST_FILTER_VALUES = `${typePrefix}REQUEST_FILTER_VALUES`;
+export const REQUEST_FILTER_VALUES_SUCCESS = `${typePrefix}REQUEST_FILTER_VALUES_SUCCESS`;
+export const REQUEST_FILTER_VALUES_FAILURE = `${typePrefix}REQUEST_FILTER_VALUES_FAILURE`;
 
 // Selectors
 
@@ -42,18 +42,18 @@ export default function reducer(
   action: Object = {}
 ) {
   switch (action.type) {
-    case FETCH_FILTER_VALUES:
+    case REQUEST_FILTER_VALUES:
       return {
         ...state,
         isFetching: true,
       };
-    case FETCH_FILTER_VALUES_SUCCESS:
+    case REQUEST_FILTER_VALUES_SUCCESS:
       return {
         ...state,
         isFetching: false,
         filters: action.payload,
       };
-    case FETCH_FILTER_VALUES_FAILURE:
+    case REQUEST_FILTER_VALUES_FAILURE:
       return {
         ...state,
         isFetching: false,
@@ -67,15 +67,15 @@ export default function reducer(
 
 // Side effects
 
-export function fetchFilterValues(filter: string = '') {
+export function requestFilterValues(filter: string = '') {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
         url: `${BASE_URL}/experiments/metadata/${filter}/values`,
         types: [
-          FETCH_FILTER_VALUES,
-          FETCH_FILTER_VALUES_SUCCESS,
-          FETCH_FILTER_VALUES_FAILURE,
+          REQUEST_FILTER_VALUES,
+          REQUEST_FILTER_VALUES_SUCCESS,
+          REQUEST_FILTER_VALUES_FAILURE,
         ],
       },
     });

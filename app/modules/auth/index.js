@@ -19,7 +19,7 @@ export {
   resetPassword,
   updateFailureReason,
   deleteFailureReason,
-  fetchCurrentUser,
+  requestCurrentUser,
   updateCurrentUser,
   deleteCurrentUser,
   verify,

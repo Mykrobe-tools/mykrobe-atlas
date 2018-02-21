@@ -25,8 +25,8 @@ class AnalyserService {
     return new AnalyserWebFile(this.config).analyseBinaryFile(file);
   }
 
-  fetchExperiment(id: string) {
-    return new AnalyserWebFile(this.config).fetchExperiment(id);
+  requestExperiment(id: string) {
+    return new AnalyserWebFile(this.config).requestExperiment(id);
   }
 }
 

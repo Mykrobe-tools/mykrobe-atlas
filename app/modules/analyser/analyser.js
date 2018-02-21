@@ -348,10 +348,10 @@ export const analyseRemoteFile = (file: File) => {
 // each separate method - whether a local file or a remote experiment
 // should update same redux state
 
-export const fetchExperiment = (id: string) => {
+export const requestExperiment = (id: string) => {
   return (dispatch: Function) => {
     analyserService
-      .fetchExperiment(id)
+      .requestExperiment(id)
       .then(result => {
         const { json, transformed } = result;
         dispatch({

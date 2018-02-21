@@ -25,34 +25,34 @@ class ExperimentsHeader extends React.Component {
   }
 
   onClearFiltersClick = (e: Event) => {
-    const { fetchExperiments } = this.props;
+    const { requestExperiments } = this.props;
     e.preventDefault();
     this.setState({
       filterValues: [],
       selectedFilterField: '',
       selectedFilterValue: '',
     });
-    fetchExperiments();
+    requestExperiments();
   };
 
   handleFilterFieldSelection(event: InputEvent) {
-    const { fetchFilterValues } = this.props;
+    const { requestFilterValues } = this.props;
     const filter = event.target.value;
     this.updateFilterState(event);
     if (filter) {
-      fetchFilterValues(filter);
+      requestFilterValues(filter);
     }
   }
 
   handleFilterValueSelection(event: InputEvent) {
-    const { fetchExperiments } = this.props;
+    const { requestExperiments } = this.props;
     const { selectedFilterField } = this.state;
     if (!selectedFilterField) return;
     const params = {
       [selectedFilterField]: event.target.value,
     };
     this.updateFilterState(event);
-    fetchExperiments(params);
+    requestExperiments(params);
   }
 
   updateFilterState(event: InputEvent) {
@@ -115,8 +115,8 @@ class ExperimentsHeader extends React.Component {
 ExperimentsHeader.propTypes = {
   experiments: PropTypes.object.isRequired,
   filterValues: PropTypes.array.isRequired,
-  fetchFilterValues: PropTypes.func.isRequired,
-  fetchExperiments: PropTypes.func.isRequired,
+  requestFilterValues: PropTypes.func.isRequired,
+  requestExperiments: PropTypes.func.isRequired,
 };
 
 export default ExperimentsHeader;

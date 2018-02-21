@@ -40,7 +40,7 @@ export default function reducer(
 
 // Side effects
 
-export function fetchTemplate(user: UserType) {
+export function requestTemplate(user: UserType) {
   return (dispatch: Function) => {
     // todo - integrate with API
     const testData = require('../../../test/__fixtures__/api/template.json');

@@ -14,7 +14,7 @@ import MenuBg from '../components/menu/MenuBg';
 import NotificationsContainer from '../components/notifications/NotificationsContainer';
 import Loading from '../components/ui/Loading';
 
-import { getAuth, signOut, loadAuth, fetchCurrentUser } from '../modules/auth';
+import { getAuth, signOut, loadAuth, requestCurrentUser } from '../modules/auth';
 
 class App extends React.Component {
   state: {
@@ -29,11 +29,11 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    const { loadAuth, fetchCurrentUser, signOut } = this.props;
+    const { loadAuth, requestCurrentUser, signOut } = this.props;
 
     loadAuth().then(user => {
       if (user && user.token) {
-        fetchCurrentUser()
+        requestCurrentUser()
           .then(() => {})
         .catch((error) => { //eslint-disable-line
             signOut();
@@ -109,7 +109,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       loadAuth,
-      fetchCurrentUser,
+      requestCurrentUser,
       signOut,
     },
     dispatch
@@ -119,7 +119,7 @@ function mapDispatchToProps(dispatch) {
 App.propTypes = {
   history: PropTypes.object.isRequired,
   loadAuth: PropTypes.func.isRequired,
-  fetchCurrentUser: PropTypes.func.isRequired,
+  requestCurrentUser: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   children: PropTypes.node,

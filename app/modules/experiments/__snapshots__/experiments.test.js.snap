@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`experiments module should handle "fetchExperiments" action 1`] = `
+exports[`experiments module should handle "requestExperiments" action 1`] = `
 Array [
   Object {
-    "type": "experiments/experiments/FETCH_EXPERIMENTS",
+    "type": "experiments/experiments/REQUEST_EXPERIMENTS",
   },
   Object {
     "payload": Object {
@@ -209,12 +209,12 @@ Array [
         "hits": 2,
       },
     },
-    "type": "experiments/experiments/FETCH_EXPERIMENTS_SUCCESS",
+    "type": "experiments/experiments/REQUEST_EXPERIMENTS_SUCCESS",
   },
 ]
 `;
 
-exports[`experiments module should handle "fetchExperiments" action 2`] = `
+exports[`experiments module should handle "requestExperiments" action 2`] = `
 Object {
   "isFetching": false,
   "samples": Array [

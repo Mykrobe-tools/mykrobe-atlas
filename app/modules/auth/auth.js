@@ -40,9 +40,9 @@ export const AUTH_RESET_PASSWORD_FAILURE = `${typePrefix}AUTH_RESET_PASSWORD_FAI
 export const AUTH_SIGNOUT = `${typePrefix}AUTH_SIGNOUT`;
 export const AUTH_SIGNOUT_SUCCESS = `${typePrefix}AUTH_SIGNOUT_SUCCESS`;
 
-export const AUTH_FETCH_USER = `${typePrefix}AUTH_FETCH_USER`;
-export const AUTH_FETCH_USER_SUCCESS = `${typePrefix}AUTH_FETCH_USER_SUCCESS`;
-export const AUTH_FETCH_USER_FAILURE = `${typePrefix}AUTH_FETCH_USER_FAILURE`;
+export const AUTH_REQUEST_USER = `${typePrefix}AUTH_REQUEST_USER`;
+export const AUTH_REQUEST_USER_SUCCESS = `${typePrefix}AUTH_REQUEST_USER_SUCCESS`;
+export const AUTH_REQUEST_USER_FAILURE = `${typePrefix}AUTH_REQUEST_USER_FAILURE`;
 
 export const AUTH_UPDATE_USER = `${typePrefix}AUTH_UPDATE_USER`;
 export const AUTH_UPDATE_USER_SUCCESS = `${typePrefix}AUTH_UPDATE_USER_SUCCESS`;
@@ -191,14 +191,14 @@ export default function reducer(
         ...state,
         failureReason: undefined,
       };
-    case AUTH_FETCH_USER:
+    case AUTH_REQUEST_USER:
     case AUTH_UPDATE_USER:
       return {
         ...state,
         isFetching: true,
         failureReason: undefined,
       };
-    case AUTH_FETCH_USER_SUCCESS:
+    case AUTH_REQUEST_USER_SUCCESS:
     case AUTH_UPDATE_USER_SUCCESS: {
       const user = {
         ...state.user,
@@ -210,7 +210,7 @@ export default function reducer(
         isFetching: false,
       };
     }
-    case AUTH_FETCH_USER_FAILURE:
+    case AUTH_REQUEST_USER_FAILURE:
       return {
         ...state,
         isFetching: false,
@@ -376,15 +376,15 @@ export function deleteFailureReason() {
 // current user
 //
 
-export function fetchCurrentUser() {
+export function requestCurrentUser() {
   return (dispatch: Function) => {
     return dispatch({
       [FETCH_JSON]: {
         url: `${BASE_URL}/user`,
         types: [
-          AUTH_FETCH_USER,
-          AUTH_FETCH_USER_SUCCESS,
-          AUTH_FETCH_USER_FAILURE,
+          AUTH_REQUEST_USER,
+          AUTH_REQUEST_USER_SUCCESS,
+          AUTH_REQUEST_USER_FAILURE,
         ],
       },
     });

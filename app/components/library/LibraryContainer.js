@@ -7,24 +7,24 @@ import { connect } from 'react-redux';
 import Library from './Library';
 
 import {
-  fetchExperiments,
+  requestExperiments,
   getExperiments,
   getIsFetchingExperiments,
-  fetchFilterValues,
+  requestFilterValues,
   getFilterValues,
   getIsFetchingFilters,
 } from '../../modules/experiments';
 
 class LibraryContainer extends React.Component {
   componentDidMount() {
-    const { fetchExperiments } = this.props;
-    fetchExperiments();
+    const { requestExperiments } = this.props;
+    requestExperiments();
   }
 
   render() {
     const {
-      fetchExperiments,
-      fetchFilterValues,
+      requestExperiments,
+      requestFilterValues,
       experiments,
       isFetchingExperiments,
       filterValues,
@@ -36,8 +36,8 @@ class LibraryContainer extends React.Component {
         isFetchingExperiments={isFetchingExperiments}
         filterValues={filterValues}
         isFetchingFilters={isFetchingFilters}
-        fetchFilterValues={fetchFilterValues}
-        fetchExperiments={fetchExperiments}
+        requestFilterValues={requestFilterValues}
+        requestExperiments={requestExperiments}
       />
     );
   }
@@ -46,8 +46,8 @@ class LibraryContainer extends React.Component {
 LibraryContainer.propTypes = {
   experiments: PropTypes.object.isRequired,
   filterValues: PropTypes.array.isRequired,
-  fetchExperiments: PropTypes.func.isRequired,
-  fetchFilterValues: PropTypes.func.isRequired,
+  requestExperiments: PropTypes.func.isRequired,
+  requestFilterValues: PropTypes.func.isRequired,
   isFetchingExperiments: PropTypes.bool.isRequired,
   isFetchingFilters: PropTypes.bool.isRequired,
 };
@@ -64,8 +64,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      fetchExperiments,
-      fetchFilterValues,
+      requestExperiments,
+      requestFilterValues,
     },
     dispatch
   );
