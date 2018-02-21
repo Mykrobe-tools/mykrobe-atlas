@@ -14,7 +14,12 @@ import MenuBg from '../components/menu/MenuBg';
 import NotificationsContainer from '../components/notifications/NotificationsContainer';
 import Loading from '../components/ui/Loading';
 
-import { getAuth, signOut, loadAuth, requestCurrentUser } from '../modules/auth';
+import {
+  getAuth,
+  signOut,
+  loadAuth,
+  requestCurrentUser,
+} from '../modules/auth';
 
 class App extends React.Component {
   state: {
