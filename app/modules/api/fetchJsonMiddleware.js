@@ -39,7 +39,7 @@ const normalizeTypes = types =>
     return type;
   });
 
-export const fetchJsonMiddleware = ({ getState }) => next => action => {
+export const fetchJsonMiddleware = store => next => action => {
   // Do not process actions without [FETCH_JSON] property
   if (!isFetchJson(action)) {
     return next(action);
@@ -51,7 +51,7 @@ export const fetchJsonMiddleware = ({ getState }) => next => action => {
 
   const [REQUEST, SUCCESS, FAILURE] = normalizeTypes(types);
 
-  const state = getState();
+  const state = store.getState();
   const token = getAuthToken(state);
 
   if (!options.headers) {
@@ -110,10 +110,11 @@ export const fetchJsonMiddleware = ({ getState }) => next => action => {
       return data;
     } catch (error) {
       next(FAILURE);
-      next(
+      const content = error.message || error.statusText;
+      await store.dispatch(
         showNotification({
           category: NotificationCategories.ERROR,
-          content: error.message || error.statusText,
+          content,
         })
       );
       throw error;

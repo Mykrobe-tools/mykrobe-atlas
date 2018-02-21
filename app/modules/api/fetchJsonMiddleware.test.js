@@ -36,7 +36,6 @@ describe('fetchJsonMiddleware', () => {
     const payload = { test: true };
     nock(BASE_URL)
       .get('/test/fetchJsonMiddleware')
-      .query(true)
       .reply(200, { status: 'success', data: payload });
     const result = await store.dispatch({
       [FETCH_JSON]: {
@@ -50,6 +49,25 @@ describe('fetchJsonMiddleware', () => {
     expect(dispatchedActions[1].type).toEqual(SUCCESS);
     expect(dispatchedActions[1].payload).toEqual(payload);
     expect(result).toEqual(payload);
+    console.log(
+      'dispatchedActions',
+      JSON.stringify(dispatchedActions, null, 2)
+    );
+  });
+
+  it('should reject empty response', async () => {
+    nock(BASE_URL)
+      .get('/test/fetchJsonMiddleware')
+      .reply(200);
+    await store.dispatch({
+      [FETCH_JSON]: {
+        url: `${BASE_URL}/test/fetchJsonMiddleware`,
+        types: [REQUEST, SUCCESS, FAILURE],
+      },
+    });
+    const dispatchedActions = store.getActions();
+    expect(dispatchedActions[0].type).toEqual(REQUEST);
+    expect(dispatchedActions[1].type).toEqual(FAILURE);
     console.log(
       'dispatchedActions',
       JSON.stringify(dispatchedActions, null, 2)
