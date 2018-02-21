@@ -4,7 +4,12 @@ import { combineReducers } from 'redux';
 import metadata from './metadata';
 import template from './template';
 
-export { getMetadata, setMetadata, postMetadataForm } from './metadata';
+export {
+  getMetadata,
+  setMetadata,
+  updateMetadata,
+  getIsFetching,
+} from './metadata';
 
 export { getTemplate, fetchTemplate } from './template';
 

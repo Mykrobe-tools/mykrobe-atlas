@@ -28,9 +28,9 @@ describe('experiments module', () => {
       .reply(200, data);
     const payload = await store.dispatch(fetchExperiments());
     const dispatchedActions = store.getActions();
-    for (let dispatchedAction in dispatchedActions) {
+    dispatchedActions.forEach(dispatchedAction => {
       mockState = reducer(mockState, dispatchedAction);
-    }
+    });
     expect(dispatchedActions).toMatchSnapshot();
     expect(mockState).toMatchSnapshot();
     expect(payload).toEqual(data.data);

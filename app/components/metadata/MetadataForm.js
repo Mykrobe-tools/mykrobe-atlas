@@ -27,7 +27,7 @@ import {
   getMetadata,
   getTemplate,
   setMetadata,
-  postMetadataForm,
+  updateMetadata,
 } from '../../modules/metadata';
 
 const locations = require('../../static/locations.json');
@@ -115,11 +115,11 @@ class MetadataForm extends React.Component {
 
   handleSubmit(event: Event) {
     event.preventDefault();
-    const { id, postMetadataForm, resetScroll } = this.props;
+    const { id, updateMetadata, resetScroll } = this.props;
 
     // TODO: Error checking
 
-    postMetadataForm(id, this.state);
+    updateMetadata(id, this.state);
     resetScroll();
   }
 
@@ -1429,7 +1429,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      postMetadataForm,
+      updateMetadata,
       setMetadata,
     },
     dispatch
@@ -1439,7 +1439,7 @@ function mapDispatchToProps(dispatch) {
 MetadataForm.propTypes = {
   metadata: PropTypes.object,
   setMetadata: PropTypes.func,
-  postMetadataForm: PropTypes.func,
+  updateMetadata: PropTypes.func,
   resetScroll: PropTypes.func,
   template: PropTypes.array,
   id: PropTypes.string,

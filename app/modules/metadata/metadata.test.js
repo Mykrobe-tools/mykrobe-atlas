@@ -4,15 +4,12 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 
+import { fetchJsonMiddleware } from '../api';
 import { BASE_URL } from '../../constants/APIConstants.js';
 
-import reducer, {
-  initialState,
-  postMetadataForm,
-  setMetadata,
-} from './metadata';
+import reducer, { initialState, updateMetadata, setMetadata } from './metadata';
 
-const createMockStore = configureMockStore([thunk]);
+const createMockStore = configureMockStore([thunk, fetchJsonMiddleware]);
 
 describe('metadata module', () => {
   const store = createMockStore(initialState);
@@ -33,17 +30,20 @@ describe('metadata module', () => {
     const dispatchedActions = store.getActions();
     mockState = reducer(undefined, dispatchedActions[0]);
     expect(mockState).toEqual({
+      isFetching: false,
       metadata: { lorem: 'ipsum' },
     });
   });
 
-  it('should handle "postMetadataForm" action', async () => {
+  it('should handle "updateMetadata" action', async () => {
     nock(BASE_URL)
       .put('/experiments/1')
-      .reply(200, { status: 'ok' });
-    await store.dispatch(postMetadataForm('1', {}));
+      .reply(200, { status: 'success', data: { lorem: 'ipsum' } });
+    await store.dispatch(updateMetadata('1', {}));
     const dispatchedActions = store.getActions();
-    mockState = reducer(undefined, dispatchedActions[0]);
+    dispatchedActions.forEach(dispatchedAction => {
+      mockState = reducer(mockState, dispatchedAction);
+    });
     expect(mockState).toMatchSnapshot();
   });
 });

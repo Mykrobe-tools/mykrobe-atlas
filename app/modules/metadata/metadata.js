@@ -2,13 +2,16 @@
 
 import { createSelector } from 'reselect';
 
-import { fetchJson } from '../api';
-import { showNotification, NotificationCategories } from '../notifications';
+import { FETCH_JSON } from '../api';
+import { showNotification } from '../notifications';
 import { BASE_URL } from '../../constants/APIConstants.js';
 
 export const typePrefix = 'metadata/metadata/';
 export const SET_METADATA = `${typePrefix}SET_METADATA`;
-export const POST_METADATA_FORM = `${typePrefix}POST_METADATA_FORM`;
+
+export const UPDATE_METADATA = `${typePrefix}UPDATE_METADATA`;
+export const UPDATE_METADATA_SUCCESS = `${typePrefix}UPDATE_METADATA_SUCCESS`;
+export const UPDATE_METADATA_FAILURE = `${typePrefix}UPDATE_METADATA_FAILURE`;
 
 // Selectors
 
@@ -17,10 +20,15 @@ export const getMetadata = createSelector(
   getState,
   metadata => metadata.metadata
 );
+export const getIsFetching = createSelector(
+  getState,
+  metadata => metadata.isFetching
+);
 
 // Reducer
 
 export const initialState = {
+  isFetching: false,
   metadata: {
     location: 'GB',
     labId: '',
@@ -44,15 +52,29 @@ export default function reducer(
   action: Object = {}
 ) {
   switch (action.type) {
-    case POST_METADATA_FORM:
+    case UPDATE_METADATA:
       return {
         ...state,
-        metadata: initialState.metadata,
+        isFetching: true,
+      };
+    case UPDATE_METADATA_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        metadata: {
+          ...initialState.metadata,
+          ...action.payload,
+        },
+      };
+    case UPDATE_METADATA_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
       };
     case SET_METADATA:
       return {
         ...state,
-        metadata: action.metadata,
+        metadata: action.payload,
       };
     default:
       return state;
@@ -64,41 +86,29 @@ export default function reducer(
 export function setMetadata(metadata: Object) {
   return {
     type: SET_METADATA,
-    metadata,
+    payload: metadata,
   };
 }
 
 // Side effects
 
-// TODO: this needs full lifecycle fetch, success, failure
-
-export function postMetadataForm(id: string, metadata: Object) {
-  return (dispatch: Function) => {
-    dispatch({
-      type: POST_METADATA_FORM,
+export function updateMetadata(id: string, metadata: Object) {
+  return async (dispatch: Function) => {
+    const payload = await dispatch({
+      [FETCH_JSON]: {
+        url: `${BASE_URL}/experiments/${id}`,
+        options: {
+          method: 'PUT',
+          body: JSON.stringify(metadata),
+        },
+        types: [
+          UPDATE_METADATA,
+          UPDATE_METADATA_SUCCESS,
+          UPDATE_METADATA_FAILURE,
+        ],
+      },
     });
-    return dispatch(
-      fetchJson(`${BASE_URL}/experiments/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(metadata),
-      })
-    )
-      .then(() => {
-        dispatch(
-          showNotification({
-            category: NotificationCategories.SUCCESS,
-            content: 'Metadata saved',
-          })
-        );
-      })
-      .catch(error => {
-        dispatch(
-          showNotification({
-            category: NotificationCategories.ERROR,
-            content: error.statusText,
-            autoHide: false,
-          })
-        );
-      });
+    dispatch(showNotification('Metadata saved'));
+    return payload;
   };
 }

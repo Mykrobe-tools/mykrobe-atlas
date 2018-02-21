@@ -1,101 +1,204 @@
 {
   "status": "success",
-  "data": [
-    {
-      "id": 1,
-      "organisation": {},
-      "owner": {},
-      "location": {
-        "name": "Barcelona",
-        "lat": 41.3851,
-        "long": 2.1734
+  "data": {
+    "summary": { "hits": 2 },
+    "results": [
+      {
+        "organisation": {
+          "name": "Casper Group",
+          "id": "591ab833d1f7fd000e5083d3"
+        },
+        "owner": {
+          "firstname": "Willy",
+          "lastname": "Hackett",
+          "phone": "957-443-3870 x5326",
+          "email": "Kendrick.Stamm@yahoo.com",
+          "id": "591ab833d1f7fd000e508405"
+        },
+        "metadata": {
+          "patientId": "8af73cc8-7314-4e65-bd72-93b0ae93b471",
+          "siteId": "98fa2136-28e8-44ce-bf7d-3382f2a7afe1",
+          "genderAtBirth": "female",
+          "countryOfBirth": "Tajikistan",
+          "bmi": 21.92948782577033,
+          "injectingDrugUse": "false",
+          "homeless": "true",
+          "imprisoned": "false",
+          "smoker": "false",
+          "diabetic": "true",
+          "hivStatus": "true",
+          "art": "false",
+          "labId": "76a923a7-32e8-45ea-bd03-f3d448fa26a0",
+          "isolateId": "d330573a-64e5-4511-bc2a-3ab1dbdd898c",
+          "collectionDate": "2016-10-24T10:04:46.023Z",
+          "prospectiveIsolate": true,
+          "patientAge": 25,
+          "countryIsolate": "Saint Lucia",
+          "cityIsolate": "West Walterborough",
+          "dateArrived": "2016-08-01T02:22:44.142Z",
+          "anatomicalOrigin": "Other known site",
+          "smear": "++",
+          "wgsPlatform": "NextSeq",
+          "wgsPlatformOther": "ullam",
+          "otherGenotypeInformation": false,
+          "genexpert": "RIF resistant",
+          "hain": "INH/RIF test",
+          "hainRif": "RIF resistant",
+          "hainInh": "INH resistant",
+          "hainFl": "FL test failed",
+          "hainAm": "AM inconclusive",
+          "hainEth": "ETH test failed",
+          "phenotypeInformationFirstLineDrugs": false,
+          "phenotypeInformationOtherDrugs": true,
+          "previousTbinformation": true,
+          "recentMdrTb": "Yes",
+          "priorTreatmentDate": "2016-08-07T01:36:49.818Z",
+          "tbProphylaxis": "Not known",
+          "tbProphylaxisDate": "2016-10-18T09:41:31.618Z",
+          "currentTbinformation": true,
+          "startProgrammaticTreatment": false,
+          "intensiveStartDate": "2016-06-05T10:43:58.807Z",
+          "intensiveStopDate": "2017-01-04T00:51:38.707Z",
+          "startProgrammaticContinuationTreatment": "Yes",
+          "continuationStartDate": "2016-06-15T01:24:40.492Z",
+          "continuationStopDate": "2016-07-31T11:54:48.442Z",
+          "nonStandardTreatment": "No",
+          "sputumSmearConversion": "Not known or not done",
+          "sputumCultureConversion": "Sputum culture negative at 2-3 months",
+          "whoOutcomeCategory": "Not known",
+          "dateOfDeath": "2016-06-23T08:46:28.140Z",
+          "id": "591ab837d1f7fd000e508437"
+        },
+        "location": {
+          "name": "West Ethaport",
+          "lat": -7.9776,
+          "lng": -105.9862,
+          "id": "591ab838d1f7fd000e50851e"
+        },
+        "collected": "2017-03-01T21:42:46.817Z",
+        "uploaded": "2016-11-24T23:48:42.488Z",
+        "jaccardIndex": {
+          "analysed": "2016-07-16T04:52:03.311Z",
+          "engine": "et",
+          "version": "v86673",
+          "experiments": [],
+          "id": "591ab838d1f7fd000e50851d"
+        },
+        "snpDistance": {
+          "analysed": "2017-02-25T13:44:01.747Z",
+          "engine": "quia",
+          "version": "v93582",
+          "experiments": [],
+          "id": "591ab838d1f7fd000e50851c"
+        },
+        "geoDistance": {
+          "analysed": "2016-10-15T22:19:58.241Z",
+          "engine": "numquam",
+          "version": "v40896",
+          "experiments": [],
+          "id": "591ab838d1f7fd000e50851b"
+        },
+        "file": "payment_grocery_invoice.wax",
+        "id": "591ab838d1f7fd000e50851a"
       },
-      "collected": "2016-09-05T08:40:51.620Z",
-      "uploaded": "2016-09-05T08:40:51.620Z",
-      "resistance": {},
-      "jaccardIndex": {
-        "analysed": "2016-09-05T08:40:51.620Z",
-        "engine": "",
-        "version": "",
-        "experiments": []
-      },
-      "snpDistance": {
-        "analysed": "2016-09-05T08:40:51.620Z",
-        "engine": "",
-        "version": "",
-        "experiments": []
-      },
-      "geoDistance": {
-        "analysed": "2016-09-05T08:40:51.620Z",
-        "experiments": [
-          {
-            "id": 2,
-            "collected": "2016-09-05T08:40:51.620Z",
-            "location": {
-              "name": "London",
-              "lat": 51.5074,
-              "long": 0.1278
-            }
-          },
-          {
-            "id": 3,
-            "collected": "2016-09-05T08:40:51.620Z",
-            "location": {
-              "name": "Bangalore",
-              "lat": 12.97,
-              "long": 77.59
-            }
-          }
-        ]
+      {
+        "organisation": {
+          "name": "Ward - Auer",
+          "id": "591ab833d1f7fd000e5083c3"
+        },
+        "owner": {
+          "firstname": "Saige",
+          "lastname": "Marks",
+          "phone": "(773) 716-1334",
+          "email": "Anya46@yahoo.com",
+          "id": "591ab833d1f7fd000e5083f5"
+        },
+        "metadata": {
+          "patientId": "df405f1b-30bf-4b36-bdb8-763f6de8bed2",
+          "siteId": "049fb71d-8157-412e-a289-e5c74cf3d1ef",
+          "genderAtBirth": "male",
+          "countryOfBirth": "Saudi Arabia",
+          "bmi": 23.7909730169333,
+          "injectingDrugUse": "false",
+          "homeless": "true",
+          "imprisoned": "true",
+          "smoker": "false",
+          "diabetic": "true",
+          "hivStatus": "true",
+          "art": "true",
+          "labId": "9eb49874-5cf6-4c79-a55d-2a2155bf9459",
+          "isolateId": "30ccea50-3c19-4c7a-b0a7-07bc791520f2",
+          "collectionDate": "2016-12-13T15:56:17.124Z",
+          "prospectiveIsolate": false,
+          "patientAge": 60,
+          "countryIsolate": "South Africa",
+          "cityIsolate": "Howeview",
+          "dateArrived": "2016-12-23T21:57:37.274Z",
+          "anatomicalOrigin": "Other known site",
+          "smear": "+",
+          "wgsPlatform": "Other",
+          "wgsPlatformOther": "in",
+          "otherGenotypeInformation": false,
+          "genexpert": "Not tested",
+          "hain": "Fluoroquinolone / aminoglycoside / ethambutol test",
+          "hainRif": "RIF inconclusive",
+          "hainInh": "INH resistant",
+          "hainFl": "FL sensitive ",
+          "hainAm": "AM test failed",
+          "hainEth": "ETH resistant",
+          "phenotypeInformationFirstLineDrugs": false,
+          "phenotypeInformationOtherDrugs": false,
+          "previousTbinformation": false,
+          "recentMdrTb": "Not known",
+          "priorTreatmentDate": "2017-05-12T20:19:53.138Z",
+          "tbProphylaxis": "Not known",
+          "tbProphylaxisDate": "2016-10-17T22:25:29.319Z",
+          "currentTbinformation": true,
+          "startProgrammaticTreatment": true,
+          "intensiveStartDate": "2017-05-07T09:07:17.599Z",
+          "intensiveStopDate": "2017-05-11T22:31:01.111Z",
+          "startProgrammaticContinuationTreatment": "Not known",
+          "continuationStartDate": "2017-05-07T18:53:06.144Z",
+          "continuationStopDate": "2016-09-23T06:31:23.538Z",
+          "nonStandardTreatment": "Yes",
+          "sputumSmearConversion": "Not known or not done",
+          "sputumCultureConversion": "Sputum culture positive at 2-3 months",
+          "whoOutcomeCategory": "Lost to follow-up or defaulted",
+          "dateOfDeath": "2016-12-06T00:01:06.750Z",
+          "id": "591ab837d1f7fd000e508427"
+        },
+        "location": {
+          "name": "Mohamedberg",
+          "lat": 15.892,
+          "lng": 61.2435,
+          "id": "591ab838d1f7fd000e5084fb"
+        },
+        "collected": "2017-05-16T03:17:59.282Z",
+        "uploaded": "2016-10-26T17:12:17.333Z",
+        "jaccardIndex": {
+          "analysed": "2016-10-29T06:54:31.060Z",
+          "engine": "eligendi",
+          "version": "v82933",
+          "experiments": [],
+          "id": "591ab838d1f7fd000e5084fa"
+        },
+        "snpDistance": {
+          "analysed": "2017-01-21T01:52:11.092Z",
+          "engine": "enim",
+          "version": "v80049",
+          "experiments": [],
+          "id": "591ab838d1f7fd000e5084f9"
+        },
+        "geoDistance": {
+          "analysed": "2017-03-10T18:09:49.306Z",
+          "engine": "nihil",
+          "version": "v41776",
+          "experiments": [],
+          "id": "591ab838d1f7fd000e5084f8"
+        },
+        "file": "configuration.com",
+        "id": "591ab838d1f7fd000e5084f7"
       }
-    },
-    {
-      "id": 2,
-      "organisation": {},
-      "owner": {},
-      "location": {
-        "name": "London",
-        "lat": 51.5074,
-        "long": 0.1278
-      },
-      "collected": "2016-09-05T08:40:51.620Z",
-      "uploaded": "2016-09-05T08:40:51.620Z",
-      "resistance": {},
-      "jaccardIndex": {
-        "analysed": "2016-09-05T08:40:51.620Z",
-        "engine": "",
-        "version": "",
-        "experiments": []
-      },
-      "snpDistance": {
-        "analysed": "2016-09-05T08:40:51.620Z",
-        "engine": "",
-        "version": "",
-        "experiments": []
-      },
-      "geoDistance": {
-        "analysed": "2016-09-05T08:40:51.620Z",
-        "experiments": [
-          {
-            "id": 1,
-            "collected": "2016-09-05T08:40:51.620Z",
-            "location": {
-              "name": "Barcelona",
-              "lat": 41.3851,
-              "long": 2.1734
-            }
-          },
-          {
-            "id": 3,
-            "collected": "2016-09-05T08:40:51.620Z",
-            "location": {
-              "name": "Bangalore",
-              "lat": 12.97,
-              "long": 77.59
-            }
-          }
-        ]
-      }
-    }
-  ]
+    ]
+  }
 }

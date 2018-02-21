@@ -1,12 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`metadata module should handle "postMetadataForm" action 1`] = `
+exports[`metadata module should handle "updateMetadata" action 1`] = `
 Object {
+  "isFetching": false,
   "metadata": Object {
     "date": "",
     "hivPositive": "",
     "labId": "",
     "location": "GB",
+    "lorem": "ipsum",
     "patientHistory": "",
     "patientId": "",
     "responsiblePersonData": "",
