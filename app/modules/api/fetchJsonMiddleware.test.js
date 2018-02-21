@@ -6,6 +6,7 @@ import nock from 'nock';
 
 import { FETCH_JSON, fetchJsonMiddleware } from './fetchJsonMiddleware';
 import { BASE_URL } from '../../constants/APIConstants.js';
+import { AUTH_SIGNOUT, AUTH_SIGNOUT_SUCCESS } from '../auth/auth';
 
 const REQUEST = 'REQUEST';
 const SUCCESS = 'SUCCESS';
@@ -99,6 +100,34 @@ describe('fetchJsonMiddleware', () => {
       const dispatchedActions = store.getActions();
       expect(dispatchedActions[0].type).toEqual(REQUEST);
       expect(dispatchedActions[1].type).toEqual(FAILURE);
+      console.log(
+        'dispatchedActions',
+        JSON.stringify(dispatchedActions, null, 2)
+      );
+    }
+  });
+
+  it('should sign out if unauthorized', async () => {
+    nock(BASE_URL)
+      .get('/test/fetchJsonMiddleware')
+      .reply(401);
+    try {
+      await store.dispatch({
+        [FETCH_JSON]: {
+          url: `${BASE_URL}/test/fetchJsonMiddleware`,
+          types: [REQUEST, SUCCESS, FAILURE],
+          debug,
+        },
+      });
+    } catch (error) {
+      expect(error.name).toEqual('FetchJsonError');
+      const dispatchedActions = store.getActions();
+      expect(dispatchedActions[0].type).toEqual(REQUEST);
+      expect(dispatchedActions[1].type).toEqual(AUTH_SIGNOUT);
+      expect(dispatchedActions[2].type).toEqual(AUTH_SIGNOUT_SUCCESS);
+      // 3 is a notification
+      expect(dispatchedActions[4].type).toEqual(FAILURE);
+      // 5 is a notification
       console.log(
         'dispatchedActions',
         JSON.stringify(dispatchedActions, null, 2)

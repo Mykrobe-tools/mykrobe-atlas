@@ -4,7 +4,14 @@ import 'isomorphic-fetch';
 
 import type { JSendType } from '../../types/JSendType';
 
-import { getAuthToken, signOut } from '../auth';
+// TODO: make token access more generic
+import {
+  getAuthToken,
+  signOut,
+  AUTH_SIGNOUT,
+  AUTH_SIGNOUT_SUCCESS,
+} from '../auth/auth';
+
 import {
   showNotification,
   NotificationCategories,
@@ -82,7 +89,7 @@ export const fetchJsonMiddleware = store => next => action => {
 
       if (!response.ok) {
         if (token && response.status === 401) {
-          return next(signOut());
+          await store.dispatch(signOut());
         }
         throw new FetchJsonError(
           response.status,
