@@ -64,6 +64,7 @@ export const fetchJsonMiddleware = store => next => action => {
   options.headers = {
     ...options.headers,
     Accept: 'application/json',
+    'Content-Type': 'application/json',
   };
   if (token) {
     options.headers = {
@@ -132,6 +133,8 @@ export const fetchJsonMiddleware = store => next => action => {
           content,
         })
       );
+
+      // TODO add configuration option to optionally re-throw error
       throw error;
     }
   })();

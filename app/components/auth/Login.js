@@ -27,6 +27,7 @@ class Login extends React.Component {
       email: this.refs.email.value,
       password: this.refs.password.value,
     };
+
     signIn(userObject);
   }
 
