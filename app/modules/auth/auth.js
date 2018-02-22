@@ -113,7 +113,6 @@ export default function reducer(
     case AUTH_REQUEST_USER:
     case AUTH_UPDATE_USER:
     case AUTH_RESET_PASSWORD:
-    case AUTH_VERIFY:
       return {
         ...state,
         isFetching: true,
@@ -121,8 +120,7 @@ export default function reducer(
       };
     case AUTH_SIGNIN_SUCCESS:
     case AUTH_REQUEST_USER_SUCCESS:
-    case AUTH_UPDATE_USER_SUCCESS:
-    case AUTH_VERIFY_SUCCESS: {
+    case AUTH_UPDATE_USER_SUCCESS: {
       // TODO: this preserves the auth token which is currently stored inside the user object
       // refactor to store the token separately from the user profile
       const user = {
@@ -141,7 +139,6 @@ export default function reducer(
     case AUTH_UPDATE_USER_FAILURE:
     case AUTH_RESET_PASSWORD_FAILURE:
     case AUTH_FORGOT_PASSWORD_FAILURE:
-    case AUTH_VERIFY_FAILURE:
       return {
         ...state,
         isFetching: false,
