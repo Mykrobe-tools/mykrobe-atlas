@@ -11,11 +11,7 @@ import { bindActionCreators } from 'redux';
 import styles from './Common.css';
 import type { AuthResetPasswordType } from '../../types/AuthTypes';
 
-import {
-  getFailureReason,
-  resetPassword,
-  deleteFailureReason,
-} from '../../modules/auth';
+import { getError, resetPassword, deleteError } from '../../modules/auth';
 
 class Reset extends React.Component {
   handleSubmit(e) {
@@ -31,12 +27,12 @@ class Reset extends React.Component {
   }
 
   componentWillUnmount() {
-    const { deleteFailureReason } = this.props;
-    deleteFailureReason();
+    const { deleteError } = this.props;
+    deleteError();
   }
 
   render() {
-    const { failureReason } = this.props;
+    const { error } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -49,8 +45,8 @@ class Reset extends React.Component {
                 this.handleSubmit(e);
               }}
             >
-              {failureReason && (
-                <div className={styles.formErrors}>{failureReason}</div>
+              {error && (
+                <div className={styles.formErrors}>{error.message}</div>
               )}
               <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="password">
@@ -81,7 +77,7 @@ class Reset extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    failureReason: getFailureReason(state),
+    error: getError(state),
   };
 }
 
@@ -89,16 +85,16 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       resetPassword,
-      deleteFailureReason,
+      deleteError,
     },
     dispatch
   );
 }
 
 Reset.propTypes = {
-  failureReason: PropTypes.string,
+  error: PropTypes.object,
   resetPassword: PropTypes.func.isRequired,
-  deleteFailureReason: PropTypes.func.isRequired,
+  deleteError: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
 };
 

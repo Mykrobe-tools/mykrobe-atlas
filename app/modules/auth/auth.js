@@ -52,12 +52,11 @@ export const AUTH_DELETE_USER = `${typePrefix}AUTH_DELETE_USER`;
 export const AUTH_DELETE_USER_SUCCESS = `${typePrefix}AUTH_DELETE_USER_SUCCESS`;
 export const AUTH_DELETE_USER_FAILURE = `${typePrefix}AUTH_DELETE_USER_FAILURE`;
 
-export const AUTH_UPDATE_FAILURE_REASON = `${typePrefix}AUTH_UPDATE_FAILURE_REASON`;
-export const AUTH_DELETE_FAILURE_REASON = `${typePrefix}AUTH_DELETE_FAILURE_REASON`;
-
 export const AUTH_VERIFY = `${typePrefix}AUTH_VERIFY`;
 export const AUTH_VERIFY_SUCCESS = `${typePrefix}AUTH_VERIFY_SUCCESS`;
 export const AUTH_VERIFY_FAILURE = `${typePrefix}AUTH_VERIFY_FAILURE`;
+
+export const DELETE_ERROR = `${typePrefix}RESET_ERROR`;
 
 // Selectors
 
@@ -70,10 +69,7 @@ export const getIsAuthenticated = createSelector(
   getState,
   auth => !!(auth && auth.user && auth.user.token)
 );
-export const getFailureReason = createSelector(
-  getState,
-  auth => auth.failureReason
-);
+export const getError = createSelector(getState, auth => auth.error);
 export const getUser = createSelector(getState, auth => auth.user);
 export const getAuthToken = createSelector(getState, auth => {
   return auth && auth.user ? auth.user.token : undefined;
@@ -103,118 +99,69 @@ export default function reducer(
         user: action.payload,
       };
     case AUTH_SIGNUP:
-      return {
-        ...state,
-        isFetching: true,
-        failureReason: undefined,
-      };
-    case AUTH_SIGNUP_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-        user: action.payload,
-      };
-    case AUTH_SIGNUP_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-        failureReason: action.payload.statusText,
-      };
     case AUTH_SIGNIN:
+    case AUTH_FORGOT_PASSWORD: {
+      // preserve transient user details
       return {
         ...state,
+        user: action.meta,
         isFetching: true,
-        failureReason: undefined,
+        error: undefined,
       };
-    case AUTH_SIGNIN_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-        user: action.payload,
-      };
-    case AUTH_SIGNIN_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-        failureReason: action.payload.statusText,
-      };
-    case AUTH_FORGOT_PASSWORD:
-      return {
-        ...state,
-        isFetching: true,
-        failureReason: undefined,
-      };
-    case AUTH_FORGOT_PASSWORD_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-      };
-    case AUTH_FORGOT_PASSWORD_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-        failureReason: action.payload.statusText,
-      };
+    }
+    case AUTH_SIGNOUT:
+    case AUTH_REQUEST_USER:
+    case AUTH_UPDATE_USER:
     case AUTH_RESET_PASSWORD:
       return {
         ...state,
         isFetching: true,
-        failureReason: undefined,
+        error: undefined,
       };
-    case AUTH_RESET_PASSWORD_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-      };
-    case AUTH_RESET_PASSWORD_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-        failureReason: action.payload.statusText,
-      };
-    case AUTH_SIGNOUT:
-      return {
-        ...state,
-      };
-    case AUTH_SIGNOUT_SUCCESS:
-      return {
-        ...initialState,
-        isLoading: false,
-      };
-    case AUTH_UPDATE_FAILURE_REASON:
-      return {
-        ...state,
-        failureReason: action.failureReason,
-      };
-    case AUTH_DELETE_FAILURE_REASON:
-      return {
-        ...state,
-        failureReason: undefined,
-      };
-    case AUTH_REQUEST_USER:
-    case AUTH_UPDATE_USER:
-      return {
-        ...state,
-        isFetching: true,
-        failureReason: undefined,
-      };
+    case AUTH_SIGNIN_SUCCESS:
     case AUTH_REQUEST_USER_SUCCESS:
     case AUTH_UPDATE_USER_SUCCESS: {
+      // TODO: this preserves the auth token which is currently stored inside the user object
+      // refactor to store the token separately from the user profile
       const user = {
         ...state.user,
         ...action.payload,
       };
       return {
         ...state,
-        user,
         isFetching: false,
+        user,
       };
     }
+    case AUTH_SIGNUP_FAILURE:
+    case AUTH_SIGNIN_FAILURE:
     case AUTH_REQUEST_USER_FAILURE:
+    case AUTH_UPDATE_USER_FAILURE:
+    case AUTH_RESET_PASSWORD_FAILURE:
+    case AUTH_FORGOT_PASSWORD_FAILURE:
       return {
         ...state,
         isFetching: false,
-        failureReason: action.payload.statusText,
+        error: action.payload,
+      };
+    case AUTH_SIGNUP_SUCCESS:
+    case AUTH_FORGOT_PASSWORD_SUCCESS:
+    case AUTH_RESET_PASSWORD_SUCCESS:
+      // clear transient user details
+      return {
+        ...state,
+        isFetching: false,
+        user: undefined,
+      };
+    case AUTH_SIGNOUT_SUCCESS:
+      return {
+        ...initialState,
+        isLoading: false,
+      };
+    case DELETE_ERROR:
+      return {
+        ...state,
+        error: undefined,
       };
     default:
       return state;
@@ -222,6 +169,14 @@ export default function reducer(
 }
 
 // Side effects
+
+export function deleteError() {
+  return (dispatch: Function) => {
+    dispatch({
+      type: DELETE_ERROR,
+    });
+  };
+}
 
 //
 // Auth token
@@ -254,6 +209,7 @@ export function signOut() {
     dispatch({
       type: AUTH_SIGNOUT_SUCCESS,
     });
+    dispatch(push('/'));
     dispatch(showNotification('You are now logged out'));
   };
 }
@@ -271,7 +227,11 @@ export function signIn(user: UserType) {
           method: 'POST',
           body: JSON.stringify(user),
         },
-        types: [AUTH_SIGNIN, AUTH_SIGNIN_SUCCESS, AUTH_SIGNIN_FAILURE],
+        types: [
+          { type: AUTH_SIGNIN, meta: user },
+          AUTH_SIGNIN_SUCCESS,
+          AUTH_SIGNIN_FAILURE,
+        ],
       },
     });
     CredentialsHelpers.saveUser(payload);
@@ -293,7 +253,11 @@ export function signUp(user: UserType) {
           method: 'POST',
           body: JSON.stringify(user),
         },
-        types: [AUTH_SIGNUP, AUTH_SIGNUP_SUCCESS, AUTH_SIGNUP_FAILURE],
+        types: [
+          { type: AUTH_SIGNUP, meta: user },
+          AUTH_SIGNUP_SUCCESS,
+          AUTH_SIGNUP_FAILURE,
+        ],
       },
     });
     dispatch(push('/auth/success'));
@@ -315,7 +279,7 @@ export function forgotPassword(user: UserType) {
           body: JSON.stringify(user),
         },
         types: [
-          AUTH_FORGOT_PASSWORD,
+          { type: AUTH_FORGOT_PASSWORD, meta: user },
           AUTH_FORGOT_PASSWORD_SUCCESS,
           AUTH_FORGOT_PASSWORD_FAILURE,
         ],
@@ -348,27 +312,6 @@ export function resetPassword(reset: AuthResetPasswordType) {
     });
     dispatch(push('/auth/resetsuccess'));
     return payload;
-  };
-}
-
-//
-// Failure reason
-//
-
-export function updateFailureReason(failureReason: string) {
-  return (dispatch: Function) => {
-    dispatch({
-      type: AUTH_UPDATE_FAILURE_REASON,
-      failureReason,
-    });
-  };
-}
-
-export function deleteFailureReason() {
-  return (dispatch: Function) => {
-    dispatch({
-      type: AUTH_DELETE_FAILURE_REASON,
-    });
   };
 }
 
@@ -447,6 +390,7 @@ export function verify(verify: AuthVerificationType) {
             method: 'POST',
             body: JSON.stringify(verify),
           },
+          debug: true,
           types: [AUTH_VERIFY, AUTH_VERIFY_SUCCESS, AUTH_VERIFY_FAILURE],
         },
       });

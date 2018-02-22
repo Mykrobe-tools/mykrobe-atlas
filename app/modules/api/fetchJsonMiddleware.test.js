@@ -48,15 +48,15 @@ describe('fetchJsonMiddleware', () => {
       },
     });
     const dispatchedActions = store.getActions();
+    console.log(
+      'dispatchedActions',
+      JSON.stringify(dispatchedActions, null, 2)
+    );
     expect(dispatchedActions[0].type).toEqual(REQUEST);
     expect(dispatchedActions[0].meta).toEqual(meta);
     expect(dispatchedActions[1].type).toEqual(SUCCESS);
     expect(dispatchedActions[1].payload).toEqual(payload);
     expect(result).toEqual(payload);
-    console.log(
-      'dispatchedActions',
-      JSON.stringify(dispatchedActions, null, 2)
-    );
   });
 
   it('should reject empty response', async () => {
@@ -74,12 +74,12 @@ describe('fetchJsonMiddleware', () => {
     } catch (error) {
       expect(error.name).toEqual('FetchJsonError');
       const dispatchedActions = store.getActions();
-      expect(dispatchedActions[0].type).toEqual(REQUEST);
-      expect(dispatchedActions[1].type).toEqual(FAILURE);
       console.log(
         'dispatchedActions',
         JSON.stringify(dispatchedActions, null, 2)
       );
+      expect(dispatchedActions[0].type).toEqual(REQUEST);
+      expect(dispatchedActions[1].type).toEqual(FAILURE);
     }
   });
 
@@ -98,12 +98,12 @@ describe('fetchJsonMiddleware', () => {
     } catch (error) {
       expect(error.name).toEqual('FetchJsonError');
       const dispatchedActions = store.getActions();
-      expect(dispatchedActions[0].type).toEqual(REQUEST);
-      expect(dispatchedActions[1].type).toEqual(FAILURE);
       console.log(
         'dispatchedActions',
         JSON.stringify(dispatchedActions, null, 2)
       );
+      expect(dispatchedActions[0].type).toEqual(REQUEST);
+      expect(dispatchedActions[1].type).toEqual(FAILURE);
     }
   });
 
@@ -122,16 +122,17 @@ describe('fetchJsonMiddleware', () => {
     } catch (error) {
       expect(error.name).toEqual('FetchJsonError');
       const dispatchedActions = store.getActions();
-      expect(dispatchedActions[0].type).toEqual(REQUEST);
-      expect(dispatchedActions[1].type).toEqual(AUTH_SIGNOUT);
-      expect(dispatchedActions[2].type).toEqual(AUTH_SIGNOUT_SUCCESS);
-      // 3 is a notification
-      expect(dispatchedActions[4].type).toEqual(FAILURE);
-      // 5 is a notification
       console.log(
         'dispatchedActions',
         JSON.stringify(dispatchedActions, null, 2)
       );
+      expect(dispatchedActions[0].type).toEqual(REQUEST);
+      expect(dispatchedActions[1].type).toEqual(AUTH_SIGNOUT);
+      expect(dispatchedActions[2].type).toEqual(AUTH_SIGNOUT_SUCCESS);
+      // 3 is router push to /
+      // 4 is a notification
+      expect(dispatchedActions[5].type).toEqual(FAILURE);
+      // 6 is a notification
     }
   });
 });

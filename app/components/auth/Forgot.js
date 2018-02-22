@@ -10,11 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import styles from './Common.css';
-import {
-  forgotPassword,
-  getFailureReason,
-  deleteFailureReason,
-} from '../../modules/auth';
+import { forgotPassword, getError, deleteError } from '../../modules/auth';
 import type { UserType } from '../../types/UserTypes';
 
 class Forgot extends React.Component {
@@ -29,12 +25,12 @@ class Forgot extends React.Component {
   }
 
   componentWillUnmount() {
-    const { deleteFailureReason } = this.props;
-    deleteFailureReason();
+    const { deleteError } = this.props;
+    deleteError();
   }
 
   render() {
-    const { failureReason } = this.props;
+    const { error } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -44,8 +40,8 @@ class Forgot extends React.Component {
           <div className={styles.formContainer}>
             <div className={styles.contentTitle}>Forgot password</div>
             <form onSubmit={e => this.handleSubmit(e)}>
-              {failureReason && (
-                <div className={styles.formErrors}>{failureReason}</div>
+              {error && (
+                <div className={styles.formErrors}>{error.message}</div>
               )}
               <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="email">
@@ -89,7 +85,7 @@ class Forgot extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    failureReason: getFailureReason(state),
+    error: getError(state),
   };
 }
 
@@ -97,16 +93,16 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       forgotPassword,
-      deleteFailureReason,
+      deleteError,
     },
     dispatch
   );
 }
 
 Forgot.propTypes = {
-  failureReason: PropTypes.string,
+  error: PropTypes.object,
   forgotPassword: PropTypes.func.isRequired,
-  deleteFailureReason: PropTypes.func.isRequired,
+  deleteError: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Forgot);
