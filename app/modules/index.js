@@ -10,7 +10,6 @@ import metadata from './metadata';
 import notifications from './notifications';
 import organisations from './organisations';
 import phylogeny from './phylogeny';
-import users from './users';
 
 const reducer = combineReducers({
   analyser,
@@ -21,7 +20,6 @@ const reducer = combineReducers({
   organisations,
   phylogeny,
   routing,
-  users,
 });
 
 export default reducer;
