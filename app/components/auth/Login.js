@@ -10,11 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import styles from './Common.css';
-import {
-  signIn,
-  getFailureReason,
-  deleteFailureReason,
-} from '../../modules/auth';
+import { signIn, getError, deleteError } from '../../modules/auth';
 
 import type { UserType } from '../../types/UserTypes';
 
@@ -32,12 +28,12 @@ class Login extends React.Component {
   }
 
   componentWillUnmount() {
-    const { deleteFailureReason } = this.props;
-    deleteFailureReason();
+    const { deleteError } = this.props;
+    deleteError();
   }
 
   render() {
-    const { failureReason } = this.props;
+    const { error } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -47,8 +43,8 @@ class Login extends React.Component {
           <div className={styles.formContainer}>
             <div className={styles.contentTitle}>Log in</div>
             <form onSubmit={e => this.handleSubmit(e)}>
-              {failureReason && (
-                <div className={styles.formErrors}>{failureReason}</div>
+              {error && (
+                <div className={styles.formErrors}>{error.message}</div>
               )}
               <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="email">
@@ -108,7 +104,7 @@ class Login extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    failureReason: getFailureReason(state),
+    error: getError(state),
   };
 }
 
@@ -116,16 +112,16 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       signIn: signIn,
-      deleteFailureReason: deleteFailureReason,
+      deleteError: deleteError,
     },
     dispatch
   );
 }
 
 Login.propTypes = {
-  failureReason: PropTypes.string,
+  error: PropTypes.string,
   signIn: PropTypes.func.isRequired,
-  deleteFailureReason: PropTypes.func.isRequired,
+  deleteError: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

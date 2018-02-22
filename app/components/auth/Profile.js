@@ -18,12 +18,12 @@ import Loading from '../ui/Loading';
 import {
   getAuth,
   getIsFetching as getAuthIsFetching,
-  getFailureReason,
+  getError,
   signOut,
   requestCurrentUser,
   updateCurrentUser,
   deleteCurrentUser,
-  deleteFailureReason,
+  deleteError,
 } from '../../modules/auth';
 
 import {
@@ -40,8 +40,8 @@ class Profile extends React.Component {
   }
 
   componentWillUnmount() {
-    const { deleteFailureReason } = this.props;
-    deleteFailureReason();
+    const { deleteError } = this.props;
+    deleteError();
   }
 
   handleSubmit(e) {
@@ -65,7 +65,7 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { failureReason, isFetching } = this.props;
+    const { error, isFetching } = this.props;
     const { signOut } = this.props;
     const auth: AuthType = this.props.auth;
     const user: ?UserType = auth.user;
@@ -100,8 +100,8 @@ class Profile extends React.Component {
                 this.handleSubmit(e);
               }}
             >
-              {failureReason && (
-                <div className={styles.formErrors}>{failureReason}</div>
+              {error && (
+                <div className={styles.formErrors}>{error.message}</div>
               )}
               <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="email">
@@ -215,7 +215,7 @@ function mapStateToProps(state) {
   return {
     auth: getAuth(state),
     organisations: getOrganisations(state),
-    failureReason: getFailureReason(state),
+    error: getError(state),
     isFetching: getAuthIsFetching(state) || getOrganisationsIsFetching(state),
   };
 }
@@ -226,7 +226,7 @@ function mapDispatchToProps(dispatch) {
       signOut,
       requestCurrentUser,
       updateCurrentUser,
-      deleteFailureReason,
+      deleteError,
       deleteCurrentUser,
       requestOrganisations,
     },
@@ -235,14 +235,14 @@ function mapDispatchToProps(dispatch) {
 }
 
 Profile.propTypes = {
-  failureReason: PropTypes.string,
+  error: PropTypes.string,
   auth: PropTypes.object.isRequired,
   organisations: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
   signOut: PropTypes.func.isRequired,
   requestCurrentUser: PropTypes.func.isRequired,
   updateCurrentUser: PropTypes.func.isRequired,
-  deleteFailureReason: PropTypes.func.isRequired,
+  deleteError: PropTypes.func.isRequired,
   deleteCurrentUser: PropTypes.func.isRequired,
   requestOrganisations: PropTypes.func.isRequired,
 };

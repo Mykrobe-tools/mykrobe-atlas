@@ -12,11 +12,7 @@ import { bindActionCreators } from 'redux';
 import styles from './Common.css';
 import type { UserType } from '../../types/UserTypes';
 
-import {
-  getFailureReason,
-  signUp,
-  deleteFailureReason,
-} from '../../modules/auth';
+import { getError, signUp, deleteError } from '../../modules/auth';
 
 class SignUp extends React.Component {
   handleSubmit(e) {
@@ -33,12 +29,12 @@ class SignUp extends React.Component {
   }
 
   componentWillUnmount() {
-    const { deleteFailureReason } = this.props;
-    deleteFailureReason();
+    const { deleteError } = this.props;
+    deleteError();
   }
 
   render() {
-    const { failureReason } = this.props;
+    const { error } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -52,8 +48,8 @@ class SignUp extends React.Component {
                 this.handleSubmit(e);
               }}
             >
-              {failureReason && (
-                <div className={styles.formErrors}>{failureReason}</div>
+              {error && (
+                <div className={styles.formErrors}>{error.message}</div>
               )}
               <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="email">
@@ -128,7 +124,7 @@ class SignUp extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    failureReason: getFailureReason(state),
+    error: getError(state),
   };
 }
 
@@ -136,16 +132,16 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       signUp,
-      deleteFailureReason,
+      deleteError,
     },
     dispatch
   );
 }
 
 SignUp.propTypes = {
-  failureReason: PropTypes.string,
+  error: PropTypes.string,
   signUp: PropTypes.func.isRequired,
-  deleteFailureReason: PropTypes.func.isRequired,
+  deleteError: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
