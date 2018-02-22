@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "data": [
+    "Not known",
+    "Treatment failed",
+    "Cured",
+    "Treatment success",
+    "Not evaluated",
+    "Treatment completed",
+    "Died",
+    "Lost to follow-up or defaulted"
+  ]
+}

@@ -4,8 +4,11 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as AnalyserActions from '../actions/AnalyserActions';
 import Upload from '../components/upload/Upload';
+
+import { analyseFileCancel, analyseFile } from '../modules/analyser';
+
+import withAnalyser from '../hoc/withAnalyser';
 
 class HomePage extends React.Component {
   render() {
@@ -20,17 +23,15 @@ class HomePage extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser,
-  };
+function mapStateToProps() {
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      analyseFile: AnalyserActions.analyseFile,
-      analyseFileCancel: AnalyserActions.analyseFileCancel,
+      analyseFile,
+      analyseFileCancel,
     },
     dispatch
   );
@@ -42,4 +43,6 @@ HomePage.propTypes = {
   analyseFileCancel: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withAnalyser(HomePage)
+);

@@ -2,8 +2,11 @@
 
 import AnalyserBaseFile from './AnalyserBaseFile';
 import AnalyserJsonTransformer from './AnalyserJsonTransformer';
-import fetchJson from '../../api/fetchJson';
+import { fetchJsonWithToken } from '../../modules/api';
 import { BASE_URL } from '../../constants/APIConstants';
+
+// TODO: refactor to use redux actions, load user from state rather than direct from CredentialsHelpers
+import * as CredentialsHelpers from '../../helpers/CredentialsHelpers';
 
 class AnalyserWebFile extends AnalyserBaseFile {
   _progress: number;
@@ -14,7 +17,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
     this._file = file;
     this._progress = 0;
     this.updateProgress();
-    this.fetchExperiment(id)
+    this.requestExperiment(id)
       .then(result => {
         this._timeout && clearTimeout(this._timeout);
         if (this._progress < 100) {
@@ -44,8 +47,13 @@ class AnalyserWebFile extends AnalyserBaseFile {
     }
   }
 
-  fetchExperiment(id: string) {
-    return fetchJson(`${BASE_URL}/experiments/${id}`)
+  requestExperiment(id: string) {
+    const user = CredentialsHelpers.loadUser();
+    let token;
+    if (user && user.token) {
+      token = user.token;
+    }
+    return fetchJsonWithToken(`${BASE_URL}/experiments/${id}`, {}, token)
       .then(json => {
         json = this.addExtraData(json);
         const transformer = new AnalyserJsonTransformer();

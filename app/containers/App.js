@@ -11,12 +11,18 @@ import Analysing from '../components/analysing/Analysing';
 import Header from '../components/header/Header';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
-import Notifications from '../components/notifications/Notifications';
-import * as AuthActions from '../actions/AuthActions';
+import NotificationsContainer from '../components/notifications/NotificationsContainer';
 import Loading from '../components/ui/Loading';
 
+import {
+  getAuth,
+  signOut,
+  loadAuth,
+  requestCurrentUser,
+} from '../modules/auth';
+
 class App extends React.Component {
-  state = {
+  state: {
     displayMenu: Boolean,
   };
 
@@ -28,11 +34,11 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    const { loadAuth, fetchCurrentUser, signOut } = this.props;
+    const { loadAuth, requestCurrentUser, signOut } = this.props;
 
     loadAuth().then(user => {
       if (user && user.token) {
-        fetchCurrentUser()
+        requestCurrentUser()
           .then(() => {})
         .catch((error) => { //eslint-disable-line
             signOut();
@@ -77,7 +83,7 @@ class App extends React.Component {
           <Analysing />
         </div>
         <div className={styles.notificationsContainer}>
-          <Notifications />
+          <NotificationsContainer />
         </div>
         <div className={styles.headerContainer}>
           <Header
@@ -100,16 +106,16 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
+    auth: getAuth(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      loadAuth: AuthActions.loadAuth,
-      fetchCurrentUser: AuthActions.fetchCurrentUser,
-      signOut: AuthActions.signOut,
+      loadAuth,
+      requestCurrentUser,
+      signOut,
     },
     dispatch
   );
@@ -118,10 +124,10 @@ function mapDispatchToProps(dispatch) {
 App.propTypes = {
   history: PropTypes.object.isRequired,
   loadAuth: PropTypes.func.isRequired,
-  fetchCurrentUser: PropTypes.func.isRequired,
+  requestCurrentUser: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

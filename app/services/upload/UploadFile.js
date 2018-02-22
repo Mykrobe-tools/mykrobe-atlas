@@ -3,9 +3,10 @@
 import Resumablejs from 'resumablejs';
 import SparkMD5 from 'spark-md5';
 import EventEmitter from 'events';
-import store from '../../store/store'; // eslint-disable-line import/default
-import type { UserType } from '../../types/UserTypes';
 import { BASE_URL } from '../../constants/APIConstants';
+
+// TODO: refactor to use redux actions, load user from state rather than direct from CredentialsHelpers
+import * as CredentialsHelpers from '../../helpers/CredentialsHelpers';
 
 class UploadFile extends EventEmitter {
   acceptedExtensions: Array<string>;
@@ -21,7 +22,7 @@ class UploadFile extends EventEmitter {
       minFileSize: 0,
       uploadMethod: 'PUT',
       headers: () => {
-        const user: UserType = store.getState().auth.user;
+        const user = CredentialsHelpers.loadUser();
         if (user && user.token) {
           return {
             Authorization: `Bearer ${user.token}`,
@@ -106,6 +107,7 @@ class UploadFile extends EventEmitter {
       this.emit('upload');
       this.resumable.upload();
     } else {
+      console.log('startUpload - no id set, will retry in 1s');
       setTimeout(() => this.startUpload(), 1000);
     }
   }

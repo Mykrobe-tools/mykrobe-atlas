@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as AuthActions from '../../actions/AuthActions';
 import type { AuthVerificationType } from '../../types/AuthTypes';
 import Loading from '../ui/Loading';
+
+import { verify } from '../../modules/auth';
 
 import styles from './Common.css';
 
@@ -44,7 +45,7 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      verify: AuthActions.verify,
+      verify,
     },
     dispatch
   );

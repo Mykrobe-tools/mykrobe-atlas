@@ -3,16 +3,29 @@
 /* TODO Refactor to use redux-form */
 /* eslint-disable react/no-string-refs */
 
+// TODO: split and separate all organisations vs single
+// organisations
+// organisation
+
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
 
 import styles from './Common.css';
-import * as OrganisationActions from '../../actions/OrganisationActions';
 import type { OrganisationType } from '../../types/OrganisationTypes';
 import Loading from '../ui/Loading';
+
+import {
+  getOrganisation,
+  getOrganisationIsFetching,
+  getOrganisationError,
+  requestOrganisation,
+  updateOrganisation,
+  deleteOrganisation,
+} from '../../modules/organisations';
 
 class Edit extends React.Component {
   id: string;
@@ -22,11 +35,6 @@ class Edit extends React.Component {
     const { id } = this.props.match.params;
     this.id = id;
     requestOrganisation(this.id);
-  }
-
-  componentWillUnmount() {
-    const { deleteFailureReason } = this.props;
-    deleteFailureReason();
   }
 
   handleSubmit(e) {
@@ -41,20 +49,20 @@ class Edit extends React.Component {
   }
 
   deleteOrganisation = () => {
-    const { deleteOrganisation } = this.props;
-    const organisationObject: OrganisationType = {
-      id: this.id,
-    };
+    const { organisation, deleteOrganisation, push } = this.props;
+    // const organisationObject: OrganisationType = {
+    //   id: this.id,
+    // };
     if (confirm('Delete organisation?')) {
-      deleteOrganisation(organisationObject);
+      deleteOrganisation(organisation).then(() => {
+        push('/organisation');
+      });
     }
   };
 
   render() {
-    const { organisations } = this.props;
-    const { failureReason } = this.props.organisations;
-    const organisation: ?OrganisationType = organisations.data.organisation;
-    if (organisations.isFetching) {
+    const { organisation, isFetching, error } = this.props;
+    if (isFetching) {
       return (
         <div className={styles.container}>
           <div className={styles.header}>
@@ -67,10 +75,6 @@ class Edit extends React.Component {
           </div>
         </div>
       );
-    }
-    console.log(organisation);
-    if (!organisation) {
-      return null;
     }
     const { name, template } = organisation;
     return (
@@ -86,8 +90,8 @@ class Edit extends React.Component {
                 this.handleSubmit(e);
               }}
             >
-              {failureReason && (
-                <div className={styles.formErrors}>{failureReason}</div>
+              {error && (
+                <div className={styles.formErrors}>{error.message}</div>
               )}
               <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="name">
@@ -147,17 +151,19 @@ class Edit extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    organisations: state.organisations,
+    organisation: getOrganisation(state),
+    isFetching: getOrganisationIsFetching(state),
+    error: getOrganisationError(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      requestOrganisation: OrganisationActions.requestOrganisation,
-      updateOrganisation: OrganisationActions.updateOrganisation,
-      deleteFailureReason: OrganisationActions.deleteFailureReason,
-      deleteOrganisation: OrganisationActions.deleteOrganisation,
+      requestOrganisation,
+      updateOrganisation,
+      deleteOrganisation,
+      push,
     },
     dispatch
   );
@@ -165,11 +171,13 @@ function mapDispatchToProps(dispatch) {
 
 Edit.propTypes = {
   match: PropTypes.object.isRequired,
-  organisations: PropTypes.object.isRequired,
+  organisation: PropTypes.object.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  error: PropTypes.object,
   requestOrganisation: PropTypes.func.isRequired,
   updateOrganisation: PropTypes.func.isRequired,
-  deleteFailureReason: PropTypes.func.isRequired,
   deleteOrganisation: PropTypes.func.isRequired,
+  push: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

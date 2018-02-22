@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import Notification from './Notification';
 
 describe('Notification component snapshot', () => {
-  const id = 1;
+  const id = '1';
   const category = 'success';
   const content = 'Lorem Ipsum';
   const onClick = jest.fn();
@@ -32,6 +32,6 @@ describe('Notification component snapshot', () => {
     );
     let tree = component.toJSON();
     tree.props.onClick({ preventDefault: jest.fn() });
-    expect(onClick).toBeCalledWith(1);
+    expect(onClick).toBeCalledWith('1');
   });
 });

@@ -2,10 +2,6 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-
-import * as NotificationActions from '../../actions/NotificationActions';
 
 import Notification from './Notification';
 import styles from './Notifications.css';
@@ -43,19 +39,4 @@ Notifications.propTypes = {
   hideNotification: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state) {
-  return {
-    notifications: state.notifications,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      hideNotification: NotificationActions.hideNotification,
-    },
-    dispatch
-  );
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
+export default Notifications;

@@ -8,29 +8,31 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
 
 import styles from './Common.css';
-import * as OrganisationActions from '../../actions/OrganisationActions';
 import type { OrganisationType } from '../../types/OrganisationTypes';
+
+import {
+  createOrganisation,
+  getOrganisationError,
+} from '../../modules/organisations';
 
 class Add extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
-    const { createOrganisation } = this.props;
+    const { createOrganisation, push } = this.props;
 
     const organisationObject: OrganisationType = {
       name: this.refs.name.value,
     };
-    createOrganisation(organisationObject);
-  }
-
-  componentWillUnmount() {
-    const { deleteFailureReason } = this.props;
-    deleteFailureReason();
+    createOrganisation(organisationObject).then(organisation => {
+      push(`/organisation/edit/${organisation.id}`);
+    });
   }
 
   render() {
-    const { failureReason } = this.props.organisations;
+    const { error } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -44,8 +46,8 @@ class Add extends React.Component {
                 this.handleSubmit(e);
               }}
             >
-              {failureReason && (
-                <div className={styles.formErrors}>{failureReason}</div>
+              {error && (
+                <div className={styles.formErrors}>{error.message}</div>
               )}
               <div className={styles.formRow}>
                 <label className={styles.label} htmlFor="name">
@@ -82,24 +84,24 @@ class Add extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    organisations: state.organisations,
+    error: getOrganisationError(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      createOrganisation: OrganisationActions.createOrganisation,
-      deleteFailureReason: OrganisationActions.deleteFailureReason,
+      createOrganisation,
+      push,
     },
     dispatch
   );
 }
 
 Add.propTypes = {
-  organisations: PropTypes.object.isRequired,
+  error: PropTypes.object,
   createOrganisation: PropTypes.func.isRequired,
-  deleteFailureReason: PropTypes.func.isRequired,
+  push: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Add);

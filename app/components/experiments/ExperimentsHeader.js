@@ -2,12 +2,9 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 import FormSelect from '../form/FormSelect';
 import FormLabel from '../form/FormLabel';
-import * as ExperimentActions from '../../actions/ExperimentActions';
 import styles from './ExperimentsHeader.css';
 
 const filters = require('../../static/filters.json');
@@ -28,34 +25,34 @@ class ExperimentsHeader extends React.Component {
   }
 
   onClearFiltersClick = (e: Event) => {
-    const { fetchExperiments } = this.props;
+    const { requestExperiments } = this.props;
     e.preventDefault();
     this.setState({
       filterValues: [],
       selectedFilterField: '',
       selectedFilterValue: '',
     });
-    fetchExperiments();
+    requestExperiments();
   };
 
   handleFilterFieldSelection(event: InputEvent) {
-    const { fetchFilterValues } = this.props;
+    const { requestFilterValues } = this.props;
     const filter = event.target.value;
     this.updateFilterState(event);
     if (filter) {
-      fetchFilterValues(filter);
+      requestFilterValues(filter);
     }
   }
 
   handleFilterValueSelection(event: InputEvent) {
-    const { fetchExperiments } = this.props;
+    const { requestExperiments } = this.props;
     const { selectedFilterField } = this.state;
     if (!selectedFilterField) return;
     const params = {
       [selectedFilterField]: event.target.value,
     };
     this.updateFilterState(event);
-    fetchExperiments(params);
+    requestExperiments(params);
   }
 
   updateFilterState(event: InputEvent) {
@@ -71,8 +68,7 @@ class ExperimentsHeader extends React.Component {
       selectedFilterField,
       selectedFilterValue,
     } = this.state;
-    const { experiments } = this.props;
-    const { filterValues } = experiments;
+    const { experiments, filterValues } = this.props;
     return (
       <div className={styles.header}>
         <div className={styles.filters}>
@@ -118,22 +114,9 @@ class ExperimentsHeader extends React.Component {
 
 ExperimentsHeader.propTypes = {
   experiments: PropTypes.object.isRequired,
-  fetchFilterValues: PropTypes.func.isRequired,
-  fetchExperiments: PropTypes.func.isRequired,
+  filterValues: PropTypes.array.isRequired,
+  requestFilterValues: PropTypes.func.isRequired,
+  requestExperiments: PropTypes.func.isRequired,
 };
 
-function mapStateToProps() {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      fetchFilterValues: ExperimentActions.fetchFilterValues,
-      fetchExperiments: ExperimentActions.fetchExperiments,
-    },
-    dispatch
-  );
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ExperimentsHeader);
+export default ExperimentsHeader;

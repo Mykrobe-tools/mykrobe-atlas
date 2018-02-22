@@ -10,8 +10,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import styles from './Common.css';
-import * as AuthActions from '../../actions/AuthActions';
 import type { UserType } from '../../types/UserTypes';
+
+import {
+  getFailureReason,
+  signUp,
+  deleteFailureReason,
+} from '../../modules/auth';
 
 class SignUp extends React.Component {
   handleSubmit(e) {
@@ -33,7 +38,7 @@ class SignUp extends React.Component {
   }
 
   render() {
-    const { failureReason } = this.props.auth;
+    const { failureReason } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -123,22 +128,22 @@ class SignUp extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
+    failureReason: getFailureReason(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      signUp: AuthActions.signUp,
-      deleteFailureReason: AuthActions.deleteFailureReason,
+      signUp,
+      deleteFailureReason,
     },
     dispatch
   );
 }
 
 SignUp.propTypes = {
-  auth: PropTypes.object.isRequired,
+  failureReason: PropTypes.string,
   signUp: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
 };

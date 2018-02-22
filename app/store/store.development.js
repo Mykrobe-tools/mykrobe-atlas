@@ -4,13 +4,32 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { routerMiddleware, push } from 'react-router-redux';
-import rootReducer from '../reducers';
+
 import { createBrowserHistory, createHashHistory } from 'history';
 
-import * as AnalyserActions from '../actions/AnalyserActions';
+import { fetchJsonMiddleware } from '../modules/api';
+import rootReducer from '../modules';
+
+// import {
+//   monitorUpload,
+//   analyseFile,
+//   analyseFileCancel,
+//   analyseRemoteFile,
+//   requestExperiment,
+//   analyseFileNew,
+//   analyseFileSave,
+// } from '../modules/analyser';
+
+// TODO: add other action creators
 
 const actionCreators = {
-  ...AnalyserActions,
+  // monitorUpload,
+  // analyseFile,
+  // analyseFileCancel,
+  // analyseRemoteFile,
+  // requestExperiment,
+  // analyseFileNew,
+  // analyseFileSave,
   push,
 };
 
@@ -31,14 +50,16 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     })
   : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk, router, logger));
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk, fetchJsonMiddleware, router, logger)
+);
 
 const store = createStore(rootReducer, enhancer);
 
 if (module.hot) {
   module.hot.accept(
-    '../reducers',
-    () => store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
+    '../modules',
+    () => store.replaceReducer(require('../modules')) // eslint-disable-line global-require
   );
 }
 

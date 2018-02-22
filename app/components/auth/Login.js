@@ -10,7 +10,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import styles from './Common.css';
-import * as AuthActions from '../../actions/AuthActions';
+import {
+  signIn,
+  getFailureReason,
+  deleteFailureReason,
+} from '../../modules/auth';
+
 import type { UserType } from '../../types/UserTypes';
 
 class Login extends React.Component {
@@ -22,6 +27,7 @@ class Login extends React.Component {
       email: this.refs.email.value,
       password: this.refs.password.value,
     };
+
     signIn(userObject);
   }
 
@@ -31,7 +37,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { failureReason } = this.props.auth;
+    const { failureReason } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -102,22 +108,22 @@ class Login extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
+    failureReason: getFailureReason(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      signIn: AuthActions.signIn,
-      deleteFailureReason: AuthActions.deleteFailureReason,
+      signIn: signIn,
+      deleteFailureReason: deleteFailureReason,
     },
     dispatch
   );
 }
 
 Login.propTypes = {
-  auth: PropTypes.object.isRequired,
+  failureReason: PropTypes.string,
   signIn: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
 };

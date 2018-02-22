@@ -8,7 +8,12 @@ import ExperimentsHeader from '../experiments/ExperimentsHeader';
 
 class Library extends React.Component {
   render() {
-    const { experiments } = this.props;
+    const {
+      experiments,
+      filterValues,
+      requestExperiments,
+      requestFilterValues,
+    } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -17,7 +22,12 @@ class Library extends React.Component {
         <div className={styles.content}>
           <div className={styles.experiments}>
             <div className={styles.experimentsHeader}>
-              <ExperimentsHeader experiments={experiments} />
+              <ExperimentsHeader
+                experiments={experiments}
+                filterValues={filterValues}
+                requestExperiments={requestExperiments}
+                requestFilterValues={requestFilterValues}
+              />
             </div>
             <div className={styles.experimentsBody}>
               <ExperimentsTable experiments={experiments} />
@@ -31,6 +41,11 @@ class Library extends React.Component {
 
 Library.propTypes = {
   experiments: PropTypes.object.isRequired,
+  filterValues: PropTypes.array.isRequired,
+  requestExperiments: PropTypes.func.isRequired,
+  requestFilterValues: PropTypes.func.isRequired,
+  isFetchingExperiments: PropTypes.bool.isRequired,
+  isFetchingFilters: PropTypes.bool.isRequired,
 };
 
 export default Library;

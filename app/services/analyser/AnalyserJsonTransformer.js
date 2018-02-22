@@ -28,7 +28,7 @@ class AnalyserJsonTransformer {
         const transformed = this.transformModel(json);
         resolve({ json, transformed });
       } catch (error) {
-        reject(`Error processing json: ${error.message}`);
+        reject(error);
       }
     });
   }
@@ -60,7 +60,7 @@ class AnalyserJsonTransformer {
   transformSampleModel(sourceModel: Object, relatedModels: ?Array<Object>) {
     // check basic requirements
     if (!sourceModel.phylogenetics) {
-      throw new Error('Unsupported sample json format');
+      throw 'Unsupported sample json format';
     }
 
     let o;

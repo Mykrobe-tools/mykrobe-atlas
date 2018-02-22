@@ -3,15 +3,24 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as AnalyserActions from '../actions/AnalyserActions';
-import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
+import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import Dropzone from 'react-dropzone';
 import { withRouter } from 'react-router-dom';
 
+import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
+
+import {
+  analyseFileNew,
+  analyseFile,
+  analyseFileSave,
+} from '../modules/analyser';
+
+import withAnalyser from '../hoc/withAnalyser';
+
 import styles from './App.css';
 
-import Notifications from '../components/notifications/Notifications';
+import NotificationsContainer from '../components/notifications/NotificationsContainer';
 
 class App extends React.Component {
   state: {
@@ -24,35 +33,33 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    const { dispatch } = props;
+    const { analyseFile, analyseFileNew, analyseFileSave, push } = props;
     const ipcRenderer = require('electron').ipcRenderer;
 
     ipcRenderer.on('open-file', (e, filePath) => {
       console.log('App open-file');
       if (filePath) {
-        dispatch(AnalyserActions.analyseFile(filePath));
+        analyseFile(filePath);
       }
     });
 
     ipcRenderer.on('menu-file-new', () => {
-      const { dispatch } = props;
-      dispatch(AnalyserActions.analyseFileNew());
+      analyseFileNew();
     });
 
     ipcRenderer.on('menu-about', () => {
-      const { dispatch } = props;
-      dispatch(push('/about'));
+      push('/about');
     });
 
     ipcRenderer.on('menu-file-open', () => {
       const filePath = UIHelpers.openFileDialog(); // eslint-disable-line import/namespace
       if (filePath) {
-        dispatch(AnalyserActions.analyseFile(filePath));
+        analyseFile(filePath);
       }
     });
 
     ipcRenderer.on('menu-file-save-as', () => {
-      dispatch(AnalyserActions.analyseFileSave());
+      analyseFileSave();
     });
   }
 
@@ -81,7 +88,6 @@ class App extends React.Component {
   };
 
   onDropAccepted = files => {
-    const { dispatch } = this.props;
     console.log('onDropAccepted', files);
     this.setState({
       isDragActive: false,
@@ -90,7 +96,7 @@ class App extends React.Component {
       return;
     }
     const filePath = files[0];
-    dispatch(AnalyserActions.analyseFile(filePath));
+    analyseFile(filePath);
   };
 
   onDropRejected = files => {
@@ -130,23 +136,38 @@ class App extends React.Component {
       >
         <div className={styles.contentContainer}>{children}</div>
         <div className={styles.notificationsContainer}>
-          <Notifications />
+          <NotificationsContainer />
         </div>
       </Dropzone>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser,
-  };
+function mapStateToProps() {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      analyseFileSave,
+      analyseFileNew,
+      analyseFile,
+      push,
+    },
+    dispatch
+  );
 }
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  analyseFileSave: PropTypes.func.isRequired,
+  analyseFileNew: PropTypes.func.isRequired,
+  analyseFile: PropTypes.func.isRequired,
+  push: PropTypes.func.isRequired,
   analyser: PropTypes.object.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(withAnalyser(App))
+);

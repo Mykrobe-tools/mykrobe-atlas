@@ -17,8 +17,6 @@ import MykrobeConfig from '../../../services/MykrobeConfig';
 import * as TargetConstants from '../../../constants/TargetConstants';
 
 class Resistance extends React.Component {
-  componen;
-
   render() {
     const { analyser, match } = this.props;
     let content;

@@ -5,7 +5,14 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import styles from './Phylogeny.css';
-import * as NodeActions from '../../actions/NodeActions';
+
+import {
+  getHighlighted,
+  setNodeHighlighted,
+  unsetNodeHighlightedAll,
+} from '../../modules/phylogeny';
+
+import withAnalyser from '../../hoc/withAnalyser';
 
 import PhyloCanvasComponent from '../ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
@@ -77,7 +84,7 @@ class Phylogeny extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { node } = nextProps;
+    const { highlighted } = nextProps;
     if (
       this.props.analyser.transformed.samples !==
       nextProps.analyser.transformed.samples
@@ -90,9 +97,9 @@ class Phylogeny extends React.Component {
         }
       }, 0);
     }
-    if (node.highlighted.length) {
-      console.log('node.highlighted', node.highlighted);
-      const nodeId = node.highlighted[0];
+    if (highlighted.length) {
+      console.log('highlighted', highlighted);
+      const nodeId = highlighted[0];
       const screenPosition = this._phyloCanvas.getPositionOfNodeWithId(nodeId);
       if (screenPosition) {
         const boundingClientRect = this._container.getBoundingClientRect();
@@ -241,16 +248,15 @@ class Phylogeny extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    analyser: state.analyser,
-    node: state.node,
+    highlighted: getHighlighted(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      setNodeHighlighted: NodeActions.setNodeHighlighted,
-      unsetNodeHighlightedAll: NodeActions.unsetNodeHighlightedAll,
+      setNodeHighlighted,
+      unsetNodeHighlightedAll,
     },
     dispatch
   );
@@ -258,10 +264,12 @@ function mapDispatchToProps(dispatch) {
 
 Phylogeny.propTypes = {
   analyser: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired,
+  highlighted: PropTypes.array.isRequired,
   controlsInset: PropTypes.number,
   setNodeHighlighted: PropTypes.func.isRequired,
   unsetNodeHighlightedAll: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Phylogeny);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withAnalyser(Phylogeny)
+);

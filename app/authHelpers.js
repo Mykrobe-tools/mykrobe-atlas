@@ -3,11 +3,13 @@
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper';
 
+import { getIsAuthenticated } from './modules/auth';
+
 export const userIsAuthenticated = connectedRouterRedirect({
   // The url to redirect user to if they fail
   redirectPath: '/auth/login',
   // If selector is true, wrapper will not redirect
-  authenticatedSelector: state => state.auth.isAuthenticated,
+  authenticatedSelector: state => getIsAuthenticated(state),
   // A nice display name for this check
   wrapperDisplayName: 'UserIsAuthenticated',
 });
@@ -21,7 +23,7 @@ export const userIsNotAuthenticated = connectedRouterRedirect({
   // This prevents us from adding the query parameter when we send the user away from the login page
   allowRedirectBack: false,
   // If selector is true, wrapper will not redirect
-  authenticatedSelector: state => !state.auth.isAuthenticated,
+  authenticatedSelector: state => !getIsAuthenticated(state),
   // A nice display name for this check
   wrapperDisplayName: 'UserIsNotAuthenticated',
 });

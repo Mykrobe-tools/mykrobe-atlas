@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`filters module should handle "requestFilterValues" action 1`] = `
+Array [
+  Object {
+    "type": "experiments/filters/REQUEST_FILTER_VALUES",
+  },
+  Object {
+    "payload": Array [
+      "Not known",
+      "Treatment failed",
+      "Cured",
+      "Treatment success",
+      "Not evaluated",
+      "Treatment completed",
+      "Died",
+      "Lost to follow-up or defaulted",
+    ],
+    "type": "experiments/filters/REQUEST_FILTER_VALUES_SUCCESS",
+  },
+]
+`;
+
+exports[`filters module should handle "requestFilterValues" action 2`] = `
+Object {
+  "filters": Array [
+    "Not known",
+    "Treatment failed",
+    "Cured",
+    "Treatment success",
+    "Not evaluated",
+    "Treatment completed",
+    "Died",
+    "Lost to follow-up or defaulted",
+  ],
+  "isFetching": false,
+}
+`;
+
+exports[`filters module should handle "requestFilterValues" action 3`] = `
+Array [
+  Object {
+    "label": "Not known",
+    "value": "Not known",
+  },
+  Object {
+    "label": "Treatment failed",
+    "value": "Treatment failed",
+  },
+  Object {
+    "label": "Cured",
+    "value": "Cured",
+  },
+  Object {
+    "label": "Treatment success",
+    "value": "Treatment success",
+  },
+  Object {
+    "label": "Not evaluated",
+    "value": "Not evaluated",
+  },
+  Object {
+    "label": "Treatment completed",
+    "value": "Treatment completed",
+  },
+  Object {
+    "label": "Died",
+    "value": "Died",
+  },
+  Object {
+    "label": "Lost to follow-up or defaulted",
+    "value": "Lost to follow-up or defaulted",
+  },
+]
+`;

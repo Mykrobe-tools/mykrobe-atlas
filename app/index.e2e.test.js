@@ -64,6 +64,8 @@ if (config.isDesktop()) {
         await driver.navigate().to('http://localhost:3000/');
         // clear cookies to start a new session
         await driver.manage().deleteAllCookies();
+        // refresh
+        await driver.navigate().to('http://localhost:3000/');
       });
 
       it('should navigate to log in screen', async () => {

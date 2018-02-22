@@ -4,9 +4,10 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as AnalyserActions from '../actions/AnalyserActions';
 import Upload from '../components/upload/Upload';
 import UploadService from '../services/upload/UploadService';
+
+import { analyseRemoteFile } from '../modules/analyser';
 
 class HomePage extends React.Component {
   service: UploadService;
@@ -43,7 +44,7 @@ function mapStateToProps() {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      analyseRemoteFile: AnalyserActions.analyseRemoteFile,
+      analyseRemoteFile,
     },
     dispatch
   );

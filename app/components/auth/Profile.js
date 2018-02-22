@@ -9,18 +9,34 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import styles from './Common.css';
-import * as AuthActions from '../../actions/AuthActions';
 import type { AuthType } from '../../types/AuthTypes';
 import type { UserType } from '../../types/UserTypes';
-import * as OrganisationActions from '../../actions/OrganisationActions.js';
+
+import styles from './Common.css';
 import Loading from '../ui/Loading';
+
+import {
+  getAuth,
+  getIsFetching as getAuthIsFetching,
+  getFailureReason,
+  signOut,
+  requestCurrentUser,
+  updateCurrentUser,
+  deleteCurrentUser,
+  deleteFailureReason,
+} from '../../modules/auth';
+
+import {
+  getOrganisationsIsFetching,
+  getOrganisations,
+  requestOrganisations,
+} from '../../modules/organisations';
 
 class Profile extends React.Component {
   componentWillMount() {
-    const { fetchCurrentUser, requestAllOrganisations } = this.props;
-    fetchCurrentUser();
-    requestAllOrganisations();
+    const { requestCurrentUser, requestOrganisations } = this.props;
+    requestCurrentUser();
+    requestOrganisations();
   }
 
   componentWillUnmount() {
@@ -36,7 +52,7 @@ class Profile extends React.Component {
       firstname: this.refs.firstname.value,
       lastname: this.refs.lastname.value,
       phone: this.refs.phone.value,
-      organisation: this.refs.organisation.value,
+      // organisation: this.refs.organisation.value,
     };
     updateCurrentUser(userObject);
   }
@@ -49,14 +65,14 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { failureReason } = this.props.auth;
-    const { signOut, organisations } = this.props;
+    const { failureReason, isFetching } = this.props;
+    const { signOut } = this.props;
     const auth: AuthType = this.props.auth;
     const user: ?UserType = auth.user;
     if (!user) {
       return null;
     }
-    if (auth.isFetching || organisations.isFetching) {
+    if (isFetching) {
       return (
         <div className={styles.container}>
           <div className={styles.header}>
@@ -197,34 +213,38 @@ class Profile extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
-    organisations: state.organisations,
+    auth: getAuth(state),
+    organisations: getOrganisations(state),
+    failureReason: getFailureReason(state),
+    isFetching: getAuthIsFetching(state) || getOrganisationsIsFetching(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      signOut: AuthActions.signOut,
-      fetchCurrentUser: AuthActions.fetchCurrentUser,
-      updateCurrentUser: AuthActions.updateCurrentUser,
-      deleteFailureReason: AuthActions.deleteFailureReason,
-      deleteCurrentUser: AuthActions.deleteCurrentUser,
-      requestAllOrganisations: OrganisationActions.requestAllOrganisations,
+      signOut,
+      requestCurrentUser,
+      updateCurrentUser,
+      deleteFailureReason,
+      deleteCurrentUser,
+      requestOrganisations,
     },
     dispatch
   );
 }
 
 Profile.propTypes = {
+  failureReason: PropTypes.string,
   auth: PropTypes.object.isRequired,
-  organisations: PropTypes.object.isRequired,
+  organisations: PropTypes.array.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   signOut: PropTypes.func.isRequired,
-  fetchCurrentUser: PropTypes.func.isRequired,
+  requestCurrentUser: PropTypes.func.isRequired,
   updateCurrentUser: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
   deleteCurrentUser: PropTypes.func.isRequired,
-  requestAllOrganisations: PropTypes.func.isRequired,
+  requestOrganisations: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

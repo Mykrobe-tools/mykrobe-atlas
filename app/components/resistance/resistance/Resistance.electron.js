@@ -9,7 +9,10 @@ import styles from './Resistance.css';
 import MykrobeConfig from '../../../services/MykrobeConfig';
 import * as TargetConstants from '../../../constants/TargetConstants';
 import Logo from '../../logo/Logo';
-import * as AnalyserActions from '../../../actions/AnalyserActions';
+
+import { analyseFileNew, analyseFileSave } from '../../../modules/analyser';
+
+import withAnalyser from '../../../hoc/withAnalyser';
 
 import ResistanceAllContainer from '../all/ResistanceAllContainer';
 import ResistanceDrugsContainer from '../drugs/ResistanceDrugsContainer';
@@ -124,17 +127,15 @@ class Resistance extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser,
-  };
+function mapStateToProps() {
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      analyseFileSave: AnalyserActions.analyseFileSave,
-      analyseFileNew: AnalyserActions.analyseFileNew,
+      analyseFileSave,
+      analyseFileNew,
     },
     dispatch
   );
@@ -148,5 +149,5 @@ Resistance.propTypes = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Resistance)
+  connect(mapStateToProps, mapDispatchToProps)(withAnalyser(Resistance))
 );

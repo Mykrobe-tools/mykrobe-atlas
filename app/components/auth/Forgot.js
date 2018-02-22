@@ -10,7 +10,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import styles from './Common.css';
-import * as AuthActions from '../../actions/AuthActions';
+import {
+  forgotPassword,
+  getFailureReason,
+  deleteFailureReason,
+} from '../../modules/auth';
 import type { UserType } from '../../types/UserTypes';
 
 class Forgot extends React.Component {
@@ -30,7 +34,7 @@ class Forgot extends React.Component {
   }
 
   render() {
-    const { failureReason } = this.props.auth;
+    const { failureReason } = this.props;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -85,22 +89,22 @@ class Forgot extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.auth,
+    failureReason: getFailureReason(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      forgotPassword: AuthActions.forgotPassword,
-      deleteFailureReason: AuthActions.deleteFailureReason,
+      forgotPassword,
+      deleteFailureReason,
     },
     dispatch
   );
 }
 
 Forgot.propTypes = {
-  auth: PropTypes.object.isRequired,
+  failureReason: PropTypes.string,
   forgotPassword: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
 };

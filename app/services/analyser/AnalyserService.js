@@ -17,7 +17,7 @@ class AnalyserService {
     return instance;
   }
 
-  analyseFile(file: File, id: string): AnalyserBaseFile {
+  analyseFile(file: string | File, id?: string): AnalyserBaseFile {
     return new AnalyserWebFile(this.config).analyseFile(file, id);
   }
 
@@ -25,8 +25,8 @@ class AnalyserService {
     return new AnalyserWebFile(this.config).analyseBinaryFile(file);
   }
 
-  fetchExperiment(id: string) {
-    return new AnalyserWebFile(this.config).fetchExperiment(id);
+  requestExperiment(id: string) {
+    return new AnalyserWebFile(this.config).requestExperiment(id);
   }
 }
 
