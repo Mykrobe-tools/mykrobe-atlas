@@ -27,16 +27,16 @@ import {
 } from '../../modules/auth';
 
 import {
-  getIsFetching as getOrganisationsIsFetching,
+  getOrganisationsIsFetching,
   getOrganisations,
-  requestAllOrganisations,
+  requestOrganisations,
 } from '../../modules/organisations';
 
 class Profile extends React.Component {
   componentWillMount() {
-    const { requestCurrentUser, requestAllOrganisations } = this.props;
+    const { requestCurrentUser, requestOrganisations } = this.props;
     requestCurrentUser();
-    requestAllOrganisations();
+    requestOrganisations();
   }
 
   componentWillUnmount() {
@@ -228,7 +228,7 @@ function mapDispatchToProps(dispatch) {
       updateCurrentUser,
       deleteFailureReason,
       deleteCurrentUser,
-      requestAllOrganisations,
+      requestOrganisations,
     },
     dispatch
   );
@@ -237,14 +237,14 @@ function mapDispatchToProps(dispatch) {
 Profile.propTypes = {
   failureReason: PropTypes.string,
   auth: PropTypes.object.isRequired,
-  organisations: PropTypes.object.isRequired,
+  organisations: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
   signOut: PropTypes.func.isRequired,
   requestCurrentUser: PropTypes.func.isRequired,
   updateCurrentUser: PropTypes.func.isRequired,
   deleteFailureReason: PropTypes.func.isRequired,
   deleteCurrentUser: PropTypes.func.isRequired,
-  requestAllOrganisations: PropTypes.func.isRequired,
+  requestOrganisations: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

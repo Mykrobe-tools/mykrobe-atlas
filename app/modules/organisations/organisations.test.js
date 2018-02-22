@@ -7,10 +7,7 @@ import nock from 'nock';
 import { fetchJsonMiddleware } from '../api';
 import { BASE_URL } from '../../constants/APIConstants.js';
 
-import reducer, {
-  initialState,
-  requestAllOrganisations,
-} from './organisations';
+import reducer, { initialState, requestOrganisations } from './organisations';
 
 const createMockStore = configureMockStore([thunk, fetchJsonMiddleware]);
 const data = require('../../../test/__fixtures__/api/organisations.json');
@@ -24,11 +21,11 @@ describe('organisations module', () => {
     nock.cleanAll();
   });
 
-  it('should handle "requestAllOrganisations" action', async () => {
+  it('should handle "requestOrganisations" action', async () => {
     nock(BASE_URL)
       .get('/organisations')
       .reply(200, data);
-    const payload = await store.dispatch(requestAllOrganisations());
+    const payload = await store.dispatch(requestOrganisations());
     const dispatchedActions = store.getActions();
     dispatchedActions.forEach(dispatchedAction => {
       mockState = reducer(mockState, dispatchedAction);

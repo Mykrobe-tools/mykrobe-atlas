@@ -3,11 +3,10 @@
 exports[`organisation module should handle "requestOrganisation" action 1`] = `
 Array [
   Object {
-    "id": "123",
     "type": "organisations/organisations/REQUEST_ORGANISATION",
   },
   Object {
-    "data": Object {
+    "payload": Object {
       "id": "591ab833d1f7fd000e5083a3",
       "name": "Pacocha, Harris and Metz",
       "template": "",
@@ -19,14 +18,12 @@ Array [
 
 exports[`organisation module should handle "requestOrganisation" action 2`] = `
 Object {
-  "data": Object {
-    "organisation": Object {
-      "id": "591ab833d1f7fd000e5083a3",
-      "name": "Pacocha, Harris and Metz",
-      "template": "",
-    },
-  },
+  "error": undefined,
   "isFetching": false,
-  "isSaving": false,
+  "organisation": Object {
+    "id": "591ab833d1f7fd000e5083a3",
+    "name": "Pacocha, Harris and Metz",
+    "template": "",
+  },
 }
 `;

@@ -7,7 +7,7 @@ import nock from 'nock';
 import { fetchJsonMiddleware } from '../api';
 import { BASE_URL } from '../../constants/APIConstants.js';
 
-import reducer, { initialState, requestOrganisation } from './organisations';
+import reducer, { initialState, requestOrganisation } from './organisation';
 
 const createMockStore = configureMockStore([thunk, fetchJsonMiddleware]);
 const data = require('../../../test/__fixtures__/api/organisation.json');

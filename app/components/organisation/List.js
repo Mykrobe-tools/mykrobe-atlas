@@ -12,7 +12,8 @@ import { Link } from 'react-router-dom';
 
 import {
   getOrganisations,
-  requestAllOrganisations,
+  getOrganisationIsFetching,
+  requestOrganisations,
 } from '../../modules/organisations';
 
 import styles from './Common.css';
@@ -20,12 +21,12 @@ import Loading from '../ui/Loading';
 
 class Profile extends React.Component {
   componentWillMount() {
-    const { requestAllOrganisations } = this.props;
-    requestAllOrganisations();
+    const { requestOrganisations } = this.props;
+    requestOrganisations();
   }
   render() {
-    const { organisations } = this.props;
-    if (organisations.isFetching) {
+    const { organisations, isFetching } = this.props;
+    if (isFetching) {
       return (
         <div className={styles.container}>
           <div className={styles.header}>
@@ -54,24 +55,19 @@ class Profile extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {organisations.data.allOrganisations &&
-                  organisations.data.allOrganisations.map(organisation => {
-                    return (
-                      <tr key={organisation.id}>
-                        <td className={styles.tableCell}>
-                          {organisation.name}
-                        </td>
-                        <td className={styles.tableCell}>
-                          <Link
-                            className={styles.link}
-                            to={`/organisation/edit/${organisation.id}`}
-                          >
-                            Edit
-                          </Link>
-                        </td>
-                      </tr>
-                    );
-                  })}
+                {organisations.map(organisation => (
+                  <tr key={organisation.id}>
+                    <td className={styles.tableCell}>{organisation.name}</td>
+                    <td className={styles.tableCell}>
+                      <Link
+                        className={styles.link}
+                        to={`/organisation/edit/${organisation.id}`}
+                      >
+                        Edit
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
             <div className={styles.formActions}>
@@ -89,21 +85,23 @@ class Profile extends React.Component {
 function mapStateToProps(state) {
   return {
     organisations: getOrganisations(state),
+    isFetching: getOrganisationIsFetching(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      requestAllOrganisations,
+      requestOrganisations,
     },
     dispatch
   );
 }
 
 Profile.propTypes = {
-  organisations: PropTypes.object.isRequired,
-  requestAllOrganisations: PropTypes.func.isRequired,
+  organisations: PropTypes.array.isRequired,
+  requestOrganisations: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
