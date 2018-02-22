@@ -92,7 +92,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 Reset.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.object,
   resetPassword: PropTypes.func.isRequired,
   deleteError: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,

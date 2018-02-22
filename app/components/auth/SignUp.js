@@ -139,7 +139,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 SignUp.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.object,
   signUp: PropTypes.func.isRequired,
   deleteError: PropTypes.func.isRequired,
 };

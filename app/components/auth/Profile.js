@@ -235,7 +235,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 Profile.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.object,
   auth: PropTypes.object.isRequired,
   organisations: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,

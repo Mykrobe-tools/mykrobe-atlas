@@ -119,7 +119,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 Login.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.object,
   signIn: PropTypes.func.isRequired,
   deleteError: PropTypes.func.isRequired,
 };
