@@ -67,7 +67,7 @@ export const getOrganisationsById = createSelector(getOrganisations, data => {
 
 // Reducer
 
-const initialState = {
+export const initialState = {
   isFetching: false,
   isSaving: false,
   data: {},

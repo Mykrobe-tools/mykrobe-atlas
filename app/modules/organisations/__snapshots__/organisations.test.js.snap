@@ -1,0 +1,429 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`organisations module should handle "requestAllOrganisations" action 1`] = `
+Array [
+  Object {
+    "type": "organisations/organisations/REQUEST_ALL_ORGANISATIONS",
+  },
+  Object {
+    "data": Array [
+      Object {
+        "id": "591ab833d1f7fd000e5083a3",
+        "name": "Pacocha, Harris and Metz",
+        "template": "",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a4",
+        "name": "Daugherty and Sons",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a5",
+        "name": "Kreiger - Kovacek",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a6",
+        "name": "Fay - Walsh!",
+        "template": "MGIT",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a7",
+        "name": "Littel Inc",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a8",
+        "name": "Morissette, Abshire and Pfeffer",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a9",
+        "name": "Weber, Stanton and Hagenes",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083aa",
+        "name": "Lang and Sons",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ab",
+        "name": "Fritsch, Hyatt and Muller",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ac",
+        "name": "Wunsch LLC",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ad",
+        "name": "Weissnat - Parisian",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ae",
+        "name": "Hartmann - Kihn",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083af",
+        "name": "Goodwin Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b0",
+        "name": "Kutch Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b1",
+        "name": "Kiehn LLC",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b2",
+        "name": "Leannon - Mertz",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b3",
+        "name": "Ebert Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b4",
+        "name": "Metz and Sons",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b5",
+        "name": "Blanda Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b6",
+        "name": "Hilpert Inc",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b7",
+        "name": "Bode, Pfeffer and Predovic",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b8",
+        "name": "Renner Inc",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b9",
+        "name": "Effertz - Glover",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ba",
+        "name": "Farrell, Christiansen and Marvin",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083bb",
+        "name": "Hahn Inc",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083bc",
+        "name": "Olson, Blick and Feeney",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083bd",
+        "name": "Von, Stokes and Strosin",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083be",
+        "name": "Johnson, Murazik and Gusikowski",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083bf",
+        "name": "Nolan, Kuhn and Maggio",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c0",
+        "name": "Will - Stark",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c1",
+        "name": "Parker - Armstrong",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c2",
+        "name": "Baumbach, Wolff and Leuschke",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c3",
+        "name": "Ward - Auer",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c4",
+        "name": "Smitham LLC",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c5",
+        "name": "Effertz Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c6",
+        "name": "Anderson - Bechtelar",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c7",
+        "name": "Berge Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c8",
+        "name": "Rowe Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c9",
+        "name": "Adams Inc",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ca",
+        "name": "Adams, Shields and Bernier",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083cb",
+        "name": "Steuber, Huels and Altenwerth",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083cc",
+        "name": "Altenwerth, Cronin and Quigley",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083cd",
+        "name": "Zemlak - Strosin",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ce",
+        "name": "Halvorson - Ernser",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083cf",
+        "name": "Dooley, Nolan and Kulas",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083d0",
+        "name": "Heller and Sons",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083d1",
+        "name": "Green and Sons",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083d2",
+        "name": "Dietrich, Halvorson and Witting",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083d3",
+        "name": "Casper Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083d4",
+        "name": "Robel - Schowalter",
+      },
+    ],
+    "type": "organisations/organisations/REQUEST_ALL_ORGANISATIONS_SUCCESS",
+  },
+]
+`;
+
+exports[`organisations module should handle "requestAllOrganisations" action 2`] = `
+Object {
+  "data": Object {
+    "allOrganisations": Array [
+      Object {
+        "id": "591ab833d1f7fd000e5083a3",
+        "name": "Pacocha, Harris and Metz",
+        "template": "",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a4",
+        "name": "Daugherty and Sons",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a5",
+        "name": "Kreiger - Kovacek",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a6",
+        "name": "Fay - Walsh!",
+        "template": "MGIT",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a7",
+        "name": "Littel Inc",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a8",
+        "name": "Morissette, Abshire and Pfeffer",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083a9",
+        "name": "Weber, Stanton and Hagenes",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083aa",
+        "name": "Lang and Sons",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ab",
+        "name": "Fritsch, Hyatt and Muller",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ac",
+        "name": "Wunsch LLC",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ad",
+        "name": "Weissnat - Parisian",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ae",
+        "name": "Hartmann - Kihn",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083af",
+        "name": "Goodwin Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b0",
+        "name": "Kutch Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b1",
+        "name": "Kiehn LLC",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b2",
+        "name": "Leannon - Mertz",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b3",
+        "name": "Ebert Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b4",
+        "name": "Metz and Sons",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b5",
+        "name": "Blanda Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b6",
+        "name": "Hilpert Inc",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b7",
+        "name": "Bode, Pfeffer and Predovic",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b8",
+        "name": "Renner Inc",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083b9",
+        "name": "Effertz - Glover",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ba",
+        "name": "Farrell, Christiansen and Marvin",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083bb",
+        "name": "Hahn Inc",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083bc",
+        "name": "Olson, Blick and Feeney",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083bd",
+        "name": "Von, Stokes and Strosin",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083be",
+        "name": "Johnson, Murazik and Gusikowski",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083bf",
+        "name": "Nolan, Kuhn and Maggio",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c0",
+        "name": "Will - Stark",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c1",
+        "name": "Parker - Armstrong",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c2",
+        "name": "Baumbach, Wolff and Leuschke",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c3",
+        "name": "Ward - Auer",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c4",
+        "name": "Smitham LLC",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c5",
+        "name": "Effertz Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c6",
+        "name": "Anderson - Bechtelar",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c7",
+        "name": "Berge Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c8",
+        "name": "Rowe Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083c9",
+        "name": "Adams Inc",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ca",
+        "name": "Adams, Shields and Bernier",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083cb",
+        "name": "Steuber, Huels and Altenwerth",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083cc",
+        "name": "Altenwerth, Cronin and Quigley",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083cd",
+        "name": "Zemlak - Strosin",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083ce",
+        "name": "Halvorson - Ernser",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083cf",
+        "name": "Dooley, Nolan and Kulas",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083d0",
+        "name": "Heller and Sons",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083d1",
+        "name": "Green and Sons",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083d2",
+        "name": "Dietrich, Halvorson and Witting",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083d3",
+        "name": "Casper Group",
+      },
+      Object {
+        "id": "591ab833d1f7fd000e5083d4",
+        "name": "Robel - Schowalter",
+      },
+    ],
+  },
+  "isFetching": false,
+  "isSaving": false,
+}
+`;
