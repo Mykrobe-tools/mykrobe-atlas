@@ -15,7 +15,7 @@ import type { OrganisationType } from '../../types/OrganisationTypes';
 export const typePrefix = 'organisations/organisations/';
 export const REQUEST_ALL_ORGANISATIONS = `${typePrefix}REQUEST_ALL_ORGANISATIONS`;
 export const REQUEST_ALL_ORGANISATIONS_SUCCESS = `${typePrefix}REQUEST_ALL_ORGANISATIONS_SUCCESS`;
-export const REQUEST_ALL_ORGANISATIONS_FAIL = `${typePrefix}REQUEST_ALL_ORGANISATIONS_FAIL`;
+export const REQUEST_ALL_ORGANISATIONS_FAILURE = `${typePrefix}REQUEST_ALL_ORGANISATIONS_FAILURE`;
 
 export const NEW_ORGANISATION = `${typePrefix}NEW_ORGANISATION`;
 
@@ -201,7 +201,7 @@ export function requestAllOrganisations() {
       .catch(error => {
         const { statusText } = error;
         dispatch({
-          type: REQUEST_ALL_ORGANISATIONS_FAIL,
+          type: REQUEST_ALL_ORGANISATIONS_FAILURE,
           error,
         });
         dispatch(
