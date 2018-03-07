@@ -98,7 +98,7 @@
   {
     "source": ["Mycobacterium_kansasii.bam"],
     "expect": {
-      "reject": true
+      "species": "Mycobacterium kansasii (lineage: Unknown)"
     }
   },
   {
