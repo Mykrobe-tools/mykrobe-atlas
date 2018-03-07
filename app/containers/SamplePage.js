@@ -12,7 +12,7 @@ import { requestCurrentUser } from '../modules/auth';
 import { requestExperiment } from '../modules/analyser';
 import { requestTemplate } from '../modules/metadata';
 
-class SamplePage extends React.Component {
+class SamplePage extends React.Component<*> {
   componentDidMount() {
     const {
       analyser,

@@ -7,7 +7,7 @@ import FormLabel from './FormLabel';
 
 import styles from './FormInputRadio.css';
 
-class FormInputRadio extends React.Component {
+class FormInputRadio extends React.Component<*> {
   render() {
     const { name, onChange, options, selectedOption, title } = this.props;
     return (

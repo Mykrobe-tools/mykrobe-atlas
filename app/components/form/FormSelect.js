@@ -7,7 +7,7 @@ import FormLabel from './FormLabel';
 
 import styles from './FormSelect.css';
 
-class FormSelect extends React.Component {
+class FormSelect extends React.Component<*> {
   render() {
     const { name, onChange, options, placeholder, value, title } = this.props;
     return (

@@ -27,7 +27,7 @@ import {
   deleteOrganisation,
 } from '../../modules/organisations';
 
-class Edit extends React.Component {
+class Edit extends React.Component<*> {
   id: string;
 
   componentWillMount() {

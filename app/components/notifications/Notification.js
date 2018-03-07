@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Notification.css';
 
-class Notification extends React.Component {
+class Notification extends React.Component<*> {
   onClick(event: Event) {
     const { onClick, id } = this.props;
     event.preventDefault();

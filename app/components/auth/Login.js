@@ -14,7 +14,7 @@ import { signIn, getError, deleteError } from '../../modules/auth';
 
 import type { UserType } from '../../types/UserTypes';
 
-class Login extends React.Component {
+class Login extends React.Component<*> {
   handleSubmit(e) {
     e.preventDefault();
     const { signIn } = this.props;

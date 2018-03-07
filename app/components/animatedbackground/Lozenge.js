@@ -9,7 +9,7 @@ const LozengeDimensions = {
   height: 65,
 };
 
-class Lozenge extends React.Component {
+class Lozenge extends React.Component<*> {
   state: {
     initialised: boolean,
     x: number,

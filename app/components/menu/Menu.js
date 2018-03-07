@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './Menu.css';
 import Logo from '../logo/Logo';
 
-class Menu extends React.Component {
+class Menu extends React.Component<*> {
   render() {
     const { displayMenu } = this.props;
     return (

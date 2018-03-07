@@ -12,7 +12,7 @@ import { verify, deleteError } from '../../modules/auth';
 
 import styles from './Common.css';
 
-class Verify extends React.Component {
+class Verify extends React.Component<*> {
   componentWillMount() {
     const { verify } = this.props;
     const { verificationToken } = this.props.match.params;

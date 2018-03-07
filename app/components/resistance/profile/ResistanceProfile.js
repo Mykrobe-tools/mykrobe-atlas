@@ -4,11 +4,15 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ResistanceProfile.css';
 
-class ResistanceProfile extends React.Component {
+class ResistanceProfile extends React.Component<*> {
   render() {
     const { analyser } = this.props;
     if (!analyser || !analyser.transformed) {
       return null;
+    }
+    const { analyser: { transformed: { hasResistance } } } = this.props;
+    if (!hasResistance) {
+      return null; // TODO: show 'empty' view
     }
     const { resistant, susceptible, inconclusive } = analyser.transformed;
     return (

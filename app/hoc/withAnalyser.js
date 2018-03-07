@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { getAnalyser } from '../modules/analyser';
 
 function withAnalyser(WrappedComponent) {
-  class WithAnalyser extends React.Component {
+  class WithAnalyser extends React.Component<*> {
     render() {
       return <WrappedComponent {...this.props} />;
     }

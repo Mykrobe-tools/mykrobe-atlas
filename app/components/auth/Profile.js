@@ -32,7 +32,7 @@ import {
   requestOrganisations,
 } from '../../modules/organisations';
 
-class Profile extends React.Component {
+class Profile extends React.Component<*> {
   componentWillMount() {
     const { requestCurrentUser, requestOrganisations } = this.props;
     requestCurrentUser();

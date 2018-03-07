@@ -5,7 +5,7 @@ import styles from './PhylogenyWithKey.css';
 import Key from '../header/Key';
 import Phylogeny from './Phylogeny';
 
-class PhylogenyWithKey extends React.Component {
+class PhylogenyWithKey extends React.Component<*> {
   render() {
     return (
       <div className={styles.container}>

@@ -9,7 +9,7 @@ import styles from './ExperimentsHeader.css';
 
 const filters = require('../../static/filters.json');
 
-class ExperimentsHeader extends React.Component {
+class ExperimentsHeader extends React.Component<*> {
   state: {
     filterFields: Array<Object>,
     filterValues?: Array<Object>,

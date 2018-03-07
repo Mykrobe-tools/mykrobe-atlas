@@ -18,7 +18,7 @@ import {
   getOrganisationError,
 } from '../../modules/organisations';
 
-class Add extends React.Component {
+class Add extends React.Component<*> {
   handleSubmit(e) {
     e.preventDefault();
     const { createOrganisation, push } = this.props;

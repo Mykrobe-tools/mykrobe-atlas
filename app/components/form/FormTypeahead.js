@@ -29,7 +29,7 @@ const defaults = {
   renderSuggestion: suggestion => <div>{suggestion.label}</div>,
 };
 
-class FormTypeahead extends React.Component {
+class FormTypeahead extends React.Component<*> {
   options: Object;
   state: {
     value: string,

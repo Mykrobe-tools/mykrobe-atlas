@@ -12,7 +12,7 @@ const logosByTargetName = {
   'atlas-tb': require('../../static/atlas-tb-logo.svg'),
 };
 
-class Logo extends React.Component {
+class Logo extends React.Component<*> {
   mykrobeConfig: MykrobeConfig;
 
   constructor(props: Object) {

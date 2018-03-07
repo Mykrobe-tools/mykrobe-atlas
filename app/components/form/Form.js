@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-class Form extends React.Component {
+class Form extends React.Component<*> {
   render() {
     const { children, onSubmit } = this.props;
     return <form onSubmit={event => onSubmit(event)}>{children}</form>;

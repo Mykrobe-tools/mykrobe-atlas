@@ -16,7 +16,7 @@ import {
   analyseFileCancel,
 } from '../../modules/analyser';
 
-class Analysing extends React.Component {
+class Analysing extends React.Component<*> {
   componentDidMount() {
     const { monitorUpload } = this.props;
     monitorUpload();

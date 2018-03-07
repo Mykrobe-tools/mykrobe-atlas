@@ -19,7 +19,7 @@ import {
 import styles from './Common.css';
 import Loading from '../ui/Loading';
 
-class Profile extends React.Component {
+class Profile extends React.Component<*> {
   componentWillMount() {
     const { requestOrganisations } = this.props;
     requestOrganisations();

@@ -9,7 +9,7 @@ import CircularProgress from '../ui/CircularProgress';
 import Logo from '../logo/Logo';
 import * as UIHelpers from '../../helpers/UIHelpers';
 
-class Upload extends React.Component {
+class Upload extends React.Component<*> {
   onOpenClick = () => {
     const { analyseFile } = this.props;
     const filePath = UIHelpers.openFileDialog();

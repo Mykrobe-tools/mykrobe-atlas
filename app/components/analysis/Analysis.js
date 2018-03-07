@@ -11,7 +11,7 @@ import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
 import MapStyle from './MapStyle';
 import config from '../../config';
 
-class Analysis extends React.Component {
+class Analysis extends React.Component<*> {
   _google: Object;
   _map: Object;
   _mapDiv: Object;

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import styles from './MetadataFormSteps.css';
 
-class MetadataFormSteps extends React.Component {
+class MetadataFormSteps extends React.Component<*> {
   state: {
     step: number,
     steps: number,

@@ -20,7 +20,7 @@ const secondLineDrugs = [
   'Kanamycin',
 ];
 
-class ResistanceDrugs extends React.Component {
+class ResistanceDrugs extends React.Component<*> {
   renderDrugResistance() {
     const { analyser } = this.props;
     const { drugsResistance: { xdr, mdr } } = analyser.transformed;
@@ -41,6 +41,10 @@ class ResistanceDrugs extends React.Component {
   }
 
   render() {
+    const { analyser: { transformed: { hasResistance } } } = this.props;
+    if (!hasResistance) {
+      return null; // TODO: show 'empty' view
+    }
     return (
       <div className={styles.container} data-tid="component-resistance-drugs">
         <Panel title="First line drugs" columns={4}>

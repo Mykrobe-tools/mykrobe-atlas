@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styles from './ResistanceSpecies.css';
 import Panel from '../../ui/Panel';
 
-class ResistanceSpecies extends React.Component {
+class ResistanceSpecies extends React.Component<*> {
   render() {
     const { analyser } = this.props;
     const { speciesPretty } = analyser.transformed;

@@ -7,9 +7,13 @@ import Panel from '../../ui/Panel';
 
 // TODO: push route on state change
 
-class ResistanceEvidence extends React.Component {
+class ResistanceEvidence extends React.Component<*> {
   render() {
     const { analyser } = this.props;
+    const { analyser: { transformed: { hasResistance } } } = this.props;
+    if (!hasResistance) {
+      return null; // TODO: show 'empty' view
+    }
     const { evidence } = analyser.transformed;
     let panels = [];
     for (let title in evidence) {

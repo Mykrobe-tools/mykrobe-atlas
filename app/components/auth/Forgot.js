@@ -13,7 +13,7 @@ import styles from './Common.css';
 import { forgotPassword, getError, deleteError } from '../../modules/auth';
 import type { UserType } from '../../types/UserTypes';
 
-class Forgot extends React.Component {
+class Forgot extends React.Component<*> {
   handleSubmit(e) {
     e.preventDefault();
     const { forgotPassword } = this.props;

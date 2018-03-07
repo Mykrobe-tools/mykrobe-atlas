@@ -7,7 +7,7 @@ import FormLabel from './FormLabel';
 
 import styles from './FormInputCheckbox.css';
 
-class FormInputCheckbox extends React.Component {
+class FormInputCheckbox extends React.Component<*> {
   render() {
     const { name, onChange, options, selectedOptions, title } = this.props;
     return (

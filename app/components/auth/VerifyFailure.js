@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './Common.css';
 
-class VerifySuccess extends React.Component {
+class VerifySuccess extends React.Component<*> {
   render() {
     return (
       <div className={styles.container}>

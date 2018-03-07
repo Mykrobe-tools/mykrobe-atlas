@@ -27,7 +27,7 @@ const treeTypes = [
 ];
 const AUTO_ZOOM_SAMPLES = true;
 
-class Phylogeny extends React.Component {
+class Phylogeny extends React.Component<*> {
   state: {
     treeType: string,
   };

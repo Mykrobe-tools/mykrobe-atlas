@@ -21,7 +21,7 @@ import {
   requestCurrentUser,
 } from '../modules/auth';
 
-class App extends React.Component {
+class App extends React.Component<*> {
   state: {
     displayMenu: Boolean,
   };

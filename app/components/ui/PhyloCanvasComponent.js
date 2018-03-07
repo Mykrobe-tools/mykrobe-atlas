@@ -22,7 +22,7 @@ class DrawEventTree extends Tree {
   }
 }
 
-class PhyloCanvasComponent extends React.Component {
+class PhyloCanvasComponent extends React.Component<*> {
   _drawDeferredTimeout: number;
   _resize: (e: Event) => void;
   _mouseMove: (e: MouseEvent) => void;

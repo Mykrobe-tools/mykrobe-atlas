@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Fieldset.css';
 
-class Fieldset extends React.Component {
+class Fieldset extends React.Component<*> {
   render() {
     const { children, legend } = this.props;
     return (

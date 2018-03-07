@@ -7,9 +7,13 @@ import ResistanceProfile from '../profile/ResistanceProfile';
 import Panel from '../../ui/Panel';
 import Phylogeny from '../../phylogeny/Phylogeny';
 
-class ResistanceAll extends React.Component {
+class ResistanceAll extends React.Component<*> {
   render() {
     const { analyser } = this.props;
+    const { analyser: { transformed: { hasResistance } } } = this.props;
+    if (!hasResistance) {
+      return null; // TODO: show 'empty' view
+    }
     return (
       <div className={styles.container} data-tid="component-resistance-all">
         <Panel title="Resistance Profile" columns={IS_ELECTRON ? undefined : 3}>

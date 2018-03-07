@@ -6,7 +6,7 @@ import styles from './Metadata.css';
 
 import MetadataForm from './MetadataForm';
 
-class Metadata extends React.Component {
+class Metadata extends React.Component<*> {
   _ref;
 
   resetScroll = () => {

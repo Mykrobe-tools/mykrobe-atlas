@@ -33,7 +33,7 @@ import {
 const locations = require('../../static/locations.json');
 const drugs = require('../../static/drugs.json');
 
-class MetadataForm extends React.Component {
+class MetadataForm extends React.Component<*> {
   state: {
     patientId: string,
     siteId: string,

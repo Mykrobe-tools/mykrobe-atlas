@@ -9,7 +9,7 @@ import FormLabel from './FormLabel';
 
 import styles from './FormInputDate.css';
 
-class FormInputDate extends React.Component {
+class FormInputDate extends React.Component<*> {
   render() {
     const { name, onChange, title, value } = this.props;
     return (

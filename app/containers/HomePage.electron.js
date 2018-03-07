@@ -10,7 +10,7 @@ import { analyseFileCancel, analyseFile } from '../modules/analyser';
 
 import withAnalyser from '../hoc/withAnalyser';
 
-class HomePage extends React.Component {
+class HomePage extends React.Component<*> {
   render() {
     const { analyseFile, analyseFileCancel, analyser } = this.props;
     return (

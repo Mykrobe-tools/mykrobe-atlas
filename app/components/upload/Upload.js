@@ -11,7 +11,7 @@ import PopoverMenu from '../ui/PopoverMenu';
 
 import { getIsAuthenticated } from '../../modules/auth';
 
-class Upload extends React.Component {
+class Upload extends React.Component<*> {
   _uploadButton: HTMLAnchorElement;
   _dropzone: Element;
   state: {
