@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styles from './ResistanceAll.css';
 import ResistanceProfile from '../profile/ResistanceProfile';
 import Panel from '../../ui/Panel';
-import Empty from '../../ui/Empty';
+import ResistanceEmpty from '../empty/ResistanceEmpty';
 import Phylogeny from '../../phylogeny/Phylogeny';
 
 class ResistanceAll extends React.Component<*> {
@@ -14,10 +14,7 @@ class ResistanceAll extends React.Component<*> {
     const { analyser: { transformed: { hasResistance } } } = this.props;
     if (!hasResistance) {
       return (
-        <Empty
-          title={'No Resistance Profile'}
-          subtitle={'The analysis has no resistance profile'}
-        />
+        <ResistanceEmpty />
       );
     }
     return (

@@ -3,6 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ResistanceProfile.css';
+import ResistanceEmpty from '../empty/ResistanceEmpty';
 
 class ResistanceProfile extends React.Component<*> {
   render() {
@@ -12,7 +13,7 @@ class ResistanceProfile extends React.Component<*> {
     }
     const { analyser: { transformed: { hasResistance } } } = this.props;
     if (!hasResistance) {
-      return null; // TODO: show 'empty' view
+      return <ResistanceEmpty />
     }
     const { resistant, susceptible, inconclusive } = analyser.transformed;
     return (

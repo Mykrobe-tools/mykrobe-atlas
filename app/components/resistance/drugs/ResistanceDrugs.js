@@ -4,6 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ResistanceDrugs.css';
 import Panel from '../../ui/Panel';
+import ResistanceEmpty from '../empty/ResistanceEmpty';
 
 const firstLineDrugs = [
   'Isoniazid',
@@ -43,7 +44,7 @@ class ResistanceDrugs extends React.Component<*> {
   render() {
     const { analyser: { transformed: { hasResistance } } } = this.props;
     if (!hasResistance) {
-      return null; // TODO: show 'empty' view
+      return <ResistanceEmpty />
     }
     return (
       <div className={styles.container} data-tid="component-resistance-drugs">

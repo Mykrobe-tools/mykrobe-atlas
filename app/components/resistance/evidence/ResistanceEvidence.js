@@ -4,6 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ResistanceEvidence.css';
 import Panel from '../../ui/Panel';
+import ResistanceEmpty from '../empty/ResistanceEmpty';
 
 // TODO: push route on state change
 
@@ -12,7 +13,7 @@ class ResistanceEvidence extends React.Component<*> {
     const { analyser } = this.props;
     const { analyser: { transformed: { hasResistance } } } = this.props;
     if (!hasResistance) {
-      return null; // TODO: show 'empty' view
+      return <ResistanceEmpty />
     }
     const { evidence } = analyser.transformed;
     let panels = [];
