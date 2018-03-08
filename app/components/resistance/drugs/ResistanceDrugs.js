@@ -44,7 +44,7 @@ class ResistanceDrugs extends React.Component<*> {
   render() {
     const { analyser: { transformed: { hasResistance } } } = this.props;
     if (!hasResistance) {
-      return <ResistanceEmpty />
+      return <ResistanceEmpty />;
     }
     return (
       <div className={styles.container} data-tid="component-resistance-drugs">

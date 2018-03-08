@@ -13,9 +13,7 @@ class ResistanceAll extends React.Component<*> {
     const { analyser } = this.props;
     const { analyser: { transformed: { hasResistance } } } = this.props;
     if (!hasResistance) {
-      return (
-        <ResistanceEmpty />
-      );
+      return <ResistanceEmpty />;
     }
     return (
       <div className={styles.container} data-tid="component-resistance-all">
