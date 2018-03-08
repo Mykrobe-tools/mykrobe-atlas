@@ -13,7 +13,11 @@ class ResistanceProfile extends React.Component<*> {
     }
     const { analyser: { transformed: { hasResistance } } } = this.props;
     if (!hasResistance) {
-      return <ResistanceEmpty />;
+      return (
+        <div className={styles.empty} data-tid="component-resistance-profile">
+          <ResistanceEmpty />
+        </div>
+      );
     }
     const { resistant, susceptible, inconclusive } = analyser.transformed;
     return (

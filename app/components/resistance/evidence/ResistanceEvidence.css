@@ -9,3 +9,8 @@
 .evidence {
   padding: 8px 0;
 }
+
+.empty {
+  display: flex;
+  flex: 1;
+}

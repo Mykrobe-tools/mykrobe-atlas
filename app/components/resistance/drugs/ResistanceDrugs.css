@@ -44,3 +44,8 @@
   font-family: FontAwesome;
   content: "\f146\00a0";
 }
+
+.empty {
+  display: flex;
+  flex: 1;
+}

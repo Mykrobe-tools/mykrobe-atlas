@@ -13,7 +13,11 @@ class ResistanceEvidence extends React.Component<*> {
     const { analyser } = this.props;
     const { analyser: { transformed: { hasResistance } } } = this.props;
     if (!hasResistance) {
-      return <ResistanceEmpty />;
+      return (
+        <div className={styles.empty} data-tid="component-resistance-evidence">
+          <ResistanceEmpty />
+        </div>
+      );
     }
     const { evidence } = analyser.transformed;
     let panels = [];

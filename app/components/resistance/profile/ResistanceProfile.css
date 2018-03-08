@@ -30,3 +30,8 @@
   composes: columnTitle;
   color: var(--color-inconclusive);
 }
+
+.empty {
+  display: flex;
+  flex: 1;
+}

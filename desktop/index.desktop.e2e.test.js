@@ -240,43 +240,45 @@ if (config.isWeb()) {
                   )
                 ).toBe(true);
                 await saveScreenshot(`${source}__resistance-drugs__.png`);
-                const firstLineDrugs = await textForSelector(
-                  '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
-                );
-                expectCaseInsensitiveEqual(
-                  firstLineDrugs,
-                  exemplarSamplesExpectEntry.expect.drugs.firstLineDrugs
-                );
-                DEBUG &&
-                  console.log(
-                    'firstLineDrugs',
-                    JSON.stringify(firstLineDrugs, null, 2)
-                  );
-                const secondLineDrugs = await textForSelector(
-                  '[data-tid="panel-second-line-drugs"] [data-tid="drug"]'
-                );
-                expectCaseInsensitiveEqual(
-                  secondLineDrugs,
-                  exemplarSamplesExpectEntry.expect.drugs.secondLineDrugs
-                );
-                DEBUG &&
-                  console.log(
-                    'secondLineDrugs',
-                    JSON.stringify(secondLineDrugs, null, 2)
-                  );
-                if (exemplarSamplesExpectEntry.expect.drugs.resistance) {
-                  const resistance = await textForSelector(
-                    '[data-tid="panel-resistance"] [data-tid="resistance"]'
+                if (exemplarSamplesExpectEntry.expect.drugs) {
+                  const firstLineDrugs = await textForSelector(
+                    '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
                   );
                   expectCaseInsensitiveEqual(
-                    resistance,
-                    exemplarSamplesExpectEntry.expect.drugs.resistance
+                    firstLineDrugs,
+                    exemplarSamplesExpectEntry.expect.drugs.firstLineDrugs
                   );
                   DEBUG &&
                     console.log(
-                      'resistance',
-                      JSON.stringify(resistance, null, 2)
+                      'firstLineDrugs',
+                      JSON.stringify(firstLineDrugs, null, 2)
                     );
+                  const secondLineDrugs = await textForSelector(
+                    '[data-tid="panel-second-line-drugs"] [data-tid="drug"]'
+                  );
+                  expectCaseInsensitiveEqual(
+                    secondLineDrugs,
+                    exemplarSamplesExpectEntry.expect.drugs.secondLineDrugs
+                  );
+                  DEBUG &&
+                    console.log(
+                      'secondLineDrugs',
+                      JSON.stringify(secondLineDrugs, null, 2)
+                    );
+                  if (exemplarSamplesExpectEntry.expect.drugs.resistance) {
+                    const resistance = await textForSelector(
+                      '[data-tid="panel-resistance"] [data-tid="resistance"]'
+                    );
+                    expectCaseInsensitiveEqual(
+                      resistance,
+                      exemplarSamplesExpectEntry.expect.drugs.resistance
+                    );
+                    DEBUG &&
+                      console.log(
+                        'resistance',
+                        JSON.stringify(resistance, null, 2)
+                      );
+                  }
                 }
               } else {
                 await client.click('[data-tid="button-resistance-class"]');
@@ -297,30 +299,31 @@ if (config.isWeb()) {
                 )
               ).toBe(true);
               await saveScreenshot(`${source}__resistance-evidence.png`);
-
-              const evidenceDrugs = Object.keys(
-                exemplarSamplesExpectEntry.expect.evidence
-              );
-              DEBUG &&
-                console.log(
-                  'evidenceDrugs',
-                  JSON.stringify(evidenceDrugs, null, 2)
-                );
-
-              for (let k = 0; k < evidenceDrugs.length; k++) {
-                const drug = evidenceDrugs[k];
-                const evidence = await textForSelector(
-                  `[data-tid="panel-${drug.toLowerCase()}"] [data-tid="evidence"]`
-                );
-                expectCaseInsensitiveEqual(
-                  evidence,
-                  exemplarSamplesExpectEntry.expect.evidence[drug]
+              if (exemplarSamplesExpectEntry.expect.evidence) {
+                const evidenceDrugs = Object.keys(
+                  exemplarSamplesExpectEntry.expect.evidence
                 );
                 DEBUG &&
                   console.log(
-                    `evidence[${drug}]`,
-                    JSON.stringify(evidence, null, 2)
+                    'evidenceDrugs',
+                    JSON.stringify(evidenceDrugs, null, 2)
                   );
+
+                for (let k = 0; k < evidenceDrugs.length; k++) {
+                  const drug = evidenceDrugs[k];
+                  const evidence = await textForSelector(
+                    `[data-tid="panel-${drug.toLowerCase()}"] [data-tid="evidence"]`
+                  );
+                  expectCaseInsensitiveEqual(
+                    evidence,
+                    exemplarSamplesExpectEntry.expect.evidence[drug]
+                  );
+                  DEBUG &&
+                    console.log(
+                      `evidence[${drug}]`,
+                      JSON.stringify(evidence, null, 2)
+                    );
+                }
               }
 
               // species
@@ -351,29 +354,30 @@ if (config.isWeb()) {
                 )
               ).toBe(true);
               await saveScreenshot(`${source}__resistance-all.png`);
-              const susceptible = await textForSelector(
-                '[data-tid="column-susceptible"] [data-tid="drug"]'
-              );
-              expectCaseInsensitiveEqual(
-                susceptible,
-                exemplarSamplesExpectEntry.expect.all.susceptible
-              );
-              DEBUG &&
-                console.log(
-                  'susceptible',
-                  JSON.stringify(susceptible, null, 2)
+              if (exemplarSamplesExpectEntry.expect.all) {
+                const susceptible = await textForSelector(
+                  '[data-tid="column-susceptible"] [data-tid="drug"]'
                 );
+                expectCaseInsensitiveEqual(
+                  susceptible,
+                  exemplarSamplesExpectEntry.expect.all.susceptible
+                );
+                DEBUG &&
+                  console.log(
+                    'susceptible',
+                    JSON.stringify(susceptible, null, 2)
+                  );
 
-              const resistant = await textForSelector(
-                '[data-tid="column-resistant"] [data-tid="drug"]'
-              );
-              expectCaseInsensitiveEqual(
-                resistant,
-                exemplarSamplesExpectEntry.expect.all.resistant
-              );
-              DEBUG &&
-                console.log('resistant', JSON.stringify(resistant, null, 2));
-
+                const resistant = await textForSelector(
+                  '[data-tid="column-resistant"] [data-tid="drug"]'
+                );
+                expectCaseInsensitiveEqual(
+                  resistant,
+                  exemplarSamplesExpectEntry.expect.all.resistant
+                );
+                DEBUG &&
+                  console.log('resistant', JSON.stringify(resistant, null, 2));
+              }
               // new
 
               await client.click('[data-tid="button-file-new"]');
