@@ -96,6 +96,12 @@
     }
   },
   {
+    "source": ["Mycobacterium_kansasii.bam.json"],
+    "expect": {
+      "species": "Mycobacterium kansasii (lineage: Unknown)"
+    }
+  },
+  {
     "source": ["RIF_monoresistant.fastq.gz.json"],
     "expect": {
       "all": {

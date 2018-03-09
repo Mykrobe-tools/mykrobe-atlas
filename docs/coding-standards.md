@@ -6,7 +6,7 @@ Coding standards to follow when working on the app, to ensure consistency and qu
 
 Follow the [standardjs.com](http://standardjs.com) conventions, unless otherwise outlined below.
 
-Check the `rules` block of the `.eslintrc` config file in the project root to see which options differ from the stadardjs documentation:
+Check the `rules` block of the `.eslintrc` config file in the project root to see which options differ from the standardjs documentation:
 
 
 ### Avoid bind
@@ -50,10 +50,6 @@ import * as Example from 'example/Example';
 import * as Example from '../../example/Example';
 ```
 
-## CSS
-
-Follow the [stylelint standard](https://github.com/stylelint/stylelint-config-standard) conventions, unless otherwise outlined below.
-
 ### Use composes
 
 Use `composes` to import styles from other classes, rather than adding multiple class names to an element.
@@ -83,9 +79,9 @@ All `.css` file extensions will use css-modules unless it has `.global.css`.
 If you need global styles, stylesheets with `.global.css` will not go through the css-modules loader. e.g. `app.global.css`
 
 
-## Flow and Linting
+## Flow, linting and formatting
 
-[Flow](https://flowtype.org/) is used to enforce and check types.
+[Flow](https://flowtype.org/) is used to check types.
 
 To run flow:
 
@@ -93,20 +89,18 @@ To run flow:
 $ yarn flow
 ```
 
-[ESLint](http://eslint.org/) is used to enforce consistency and code conventions in JavaScript.
+[ESLint](http://eslint.org/) and [Prettier](https://prettier.io/) are used to enforce consistency and code conventions in JavaScript and CSS.
 
-To run eslint:
-
-```
-$ yarn lint:js
-```
-
-[Stylelint](https://stylelint.io/) is used to enforce consistency and code conventions in CSS.
-
-To run eslint:
+To lint with eslint and prettier
 
 ```
-$ yarn lint:css
+$ yarn lint
 ```
 
-Installing a flow linter, eslint and stylelint in your code editor will assist in catching issues before they are committed to source control.
+To format js and css files with prettier
+
+```
+$ yarn prettier
+```
+
+Installing a flow linter, eslint and prettier with format-on-save enabled in your code editor will assist in catching issues before they are committed to source control.

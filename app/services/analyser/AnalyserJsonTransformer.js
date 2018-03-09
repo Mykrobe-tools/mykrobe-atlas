@@ -14,26 +14,30 @@ class AnalyserJsonTransformer {
     return this.stringToJson(jsonString);
   }
 
-  stringToJson(string: string) {
+  stringToJson(string: string): Promise<{ json: Object, transformed: Object }> {
     return new Promise((resolve, reject) => {
       let json;
 
       try {
         json = JSON.parse(string);
       } catch (error) {
-        reject(`Error reading json: ${error.message}`);
+        return reject(`Error reading json: ${error.message}`);
+      }
+
+      if (!json) {
+        return reject(`Error reading json`);
       }
 
       try {
         const transformed = this.transformModel(json);
-        resolve({ json, transformed });
+        return resolve({ json, transformed });
       } catch (error) {
-        reject(error);
+        return reject(error);
       }
     });
   }
 
-  transformModel(sourceModel: Object) {
+  transformModel(sourceModel: Object): Object {
     if (sourceModel.snpDistance) {
       // just do the first one for now
       const sampleIds = Object.keys(sourceModel.snpDistance.newick);
@@ -57,159 +61,76 @@ class AnalyserJsonTransformer {
     }
   }
 
-  transformSampleModel(sourceModel: Object, relatedModels: ?Array<Object>) {
+  transformSampleModel(
+    sourceModel: Object,
+    relatedModels: ?Array<Object>
+  ): Object {
     // check basic requirements
     if (!sourceModel.phylogenetics) {
-      throw 'Unsupported sample json format';
+      throw new Error('Unsupported sample json format');
     }
 
+    let transformed = {};
+
+    // can we display anything?
+
+    transformed = {
+      ...this.transformFlags(sourceModel),
+      ...transformed,
+    };
+
+    const { hasSpecies, hasResistance } = transformed;
+
+    if (!hasSpecies && !hasResistance) {
+      throw new Error(
+        `This sample does not appear to contain any Mycobacterial data (or it is amplicon data, which is not supported), and therefore the predictor does not give susceptibility predictions`
+      );
+    }
+
+    // style species for display
+
+    transformed = {
+      ...this.transformSpecies(sourceModel),
+      ...transformed,
+    };
+
+    // return now if there is no resistance to show
+
+    if (!hasResistance) {
+      return transformed;
+    }
+
+    transformed.susceptible = [];
+    transformed.resistant = [];
+    transformed.inconclusive = [];
+    transformed.positive = [];
+    transformed.negative = [];
+    transformed.inducible = [];
+
+    transformed.evidence = this._sortObject(transformed.evidence);
+
+    /*
+
+    the "Resistant" allele N times is in [alternate][median_depth]
+    the "Susceptible" allele N times is in [reference][median_depth]
+
+    by default. This changes to:
+
+    [alternate][kmer_count]
+    and
+    [reference][kmer_count]
+
+    for another data type (which we now support but didn't previously).
+
+    */
+
     let o;
-    let susceptibilityModel;
     let key;
-    let calledVariants; // eslint-disable-line
-    let calledGenes; // eslint-disable-line
     let value;
     let isInducible;
     let virulenceModel;
-    let model = {};
 
-    // is this a valid species?
-
-    // build array of included species
-    model.species = Object.keys(sourceModel.phylogenetics.species);
-    // if ( kTargetSpeciesTB === MykrobeTarget.species ) {
-    // sourceSpecies = sourceModel.phylogenetics.species;
-    // }
-    // else {
-    //     sourceSpecies = sourceModel.species;
-    // }
-    // for ( key in sourceSpecies ) {
-    //     value = sourceSpecies[key].toLowerCase();
-    //     if ( 'major' === value ) {
-    //         model.species.push(key);
-    //     }
-    // }
-
-    model.lineage = [];
-    if (TargetConstants.SPECIES_TB === this.config.species) {
-      model.lineage = Object.keys(sourceModel.phylogenetics.lineage);
-      // sourceLineage = sourceModel.phylogenetics.lineage;
-      // for ( key in sourceLineage ) {
-      // value = sourceLineage[key].toLowerCase();
-      // if ( 'major' === value ) {
-      // model.lineage.push(key);
-      // }
-      // }
-    }
-
-    let speciesPretty = '';
-    let unstyledSpeciesPretty = '';
-
-    if (TargetConstants.SPECIES_TB === this.config.species) {
-      const s = model.species
-        ? model.species.join(' / ').replace(/_/g, ' ')
-        : 'undefined';
-      const l = model.lineage
-        ? ' (lineage: ' + model.lineage.join(', ').replace(/_/g, ' ') + ')'
-        : '';
-      speciesPretty = `<em>${s}</em>${l}`;
-      unstyledSpeciesPretty = `${s}${l}`;
-    } else {
-      speciesPretty = model.species
-        ? model.species.join(' / ').replace(/_/g, ' ')
-        : 'undefined';
-      unstyledSpeciesPretty = speciesPretty;
-    }
-
-    model.speciesPretty = unstyledSpeciesPretty;
-
-    if (TargetConstants.SPECIES_TB === this.config.species) {
-      // Could also be 'Mycobacterium_kansasii' in one of the exemplar samples - at present this is still rejected
-      if (model.species.indexOf('Mycobacterium_tuberculosis') === -1) {
-        throw `This sample does not appear to contain any Mycobacterial data (or it is amplicon data, which is not supported), and therefore the predictor does not give susceptibility predictions`;
-      }
-    }
-
-    model.susceptible = [];
-    model.resistant = [];
-    model.inconclusive = [];
-    model.positive = [];
-    model.negative = [];
-    model.inducible = [];
-
-    susceptibilityModel = sourceModel['susceptibility'];
-
-    // calledVariants = sourceModel['called_variants'];
-    // calledGenes = sourceModel['called_genes'];
-
-    model.evidence = {};
-
-    /*
-    for (key in calledVariants) {
-      const mutation = calledVariants[key];
-      const title = mutation['induced_resistance'];
-      const genes = key.split('_');
-      // group by title
-      o = [];
-      if (model.evidence[title]) {
-        o = model.evidence[title];
-      } else {
-        // initialise
-        model.evidence[title] = o;
-      }
-      o.push([
-        'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
-        'Resistant allele seen ' + mutation['R_median_cov'] + ' times',
-        'Susceptible allele seen ' + mutation['S_median_cov'] + ' times',
-      ]);
-    }
-
-    for (key in calledGenes) {
-      const spot = calledGenes[key];
-      const title = spot['induced_resistance'];
-      // group by title
-      o = [];
-      if (model.evidence[title]) {
-        o = model.evidence[title];
-      } else {
-        // initialise
-        model.evidence[title] = o;
-      }
-      o.push([
-        key + ' gene found',
-        'Percent recovered: ' + spot['per_cov'] + '%',
-        'Median coverage: ' + spot['median_cov'],
-      ]);
-    }
-    */
-
-    model.evidence = this._sortObject(model.evidence);
-
-    // ignore the values
-    model.phyloGroup = Object.keys(sourceModel.phylogenetics.phylo_group);
-
-    /*
-It should be I491F in rpoB – it shouldn't be repeated like that in the output, sorry!
-
-Otherwise the "Resistant" allele N times is in [alternate][median_depth]
-and  the "Susceptible" allele N times is in [reference][median_depth]
-
-by default.
-
-However, as Zam mentioned, this changes to:
-
-[alternate][kmer_count]
-and
-[reference][kmer_count]
-
-for another data type (which we now support but didn't previously).
-
-I'll have to add another k,v in the output which specifies whether to use "median_depth" or "kmer_count".
-
-The phrasing would also change from
-"has been seen X times" to something like "X kmers from the resistance/susceptible allele"
-
-    */
+    const susceptibilityModel = sourceModel['susceptibility'];
 
     const genotypeModel = sourceModel.genotype_model || 'median_depth';
 
@@ -218,25 +139,25 @@ The phrasing would also change from
       value = predict.substr(0, 1);
       isInducible = predict.indexOf('INDUCIBLE') !== -1;
       if (value === 'S') {
-        model.susceptible.push(key);
+        transformed.susceptible.push(key);
       } else if (value === 'R') {
-        model.resistant.push(key);
+        transformed.resistant.push(key);
       } else if (value === 'N') {
-        model.inconclusive.push(key);
+        transformed.inconclusive.push(key);
       }
       if (isInducible) {
-        model.inducible.push(key);
+        transformed.inducible.push(key);
       }
       if ('called_by' in susceptibilityModel[key]) {
         const calledBy = susceptibilityModel[key]['called_by'];
         for (let calledByKey in calledBy) {
           // group by title
           o = [];
-          if (model.evidence[key]) {
-            o = model.evidence[key];
+          if (transformed.evidence[key]) {
+            o = transformed.evidence[key];
           } else {
             // initialise
-            model.evidence[key] = o;
+            transformed.evidence[key] = o;
           }
           const genes = calledByKey.split('_');
           // if in format I491F-I491F, split and take just I491F
@@ -269,9 +190,9 @@ The phrasing would also change from
       for (key in virulenceModel) {
         value = virulenceModel[key].toUpperCase();
         if (value === 'POSITIVE') {
-          model.positive.push(key);
+          transformed.positive.push(key);
         } else if (value === 'NEGATIVE') {
-          model.negative.push(key);
+          transformed.negative.push(key);
         }
       }
     }
@@ -282,28 +203,28 @@ The phrasing would also change from
     };
 
     if (
-      model.resistant.indexOf('Isoniazid') !== -1 &&
-      model.resistant.indexOf('Rifampicin') !== -1
+      transformed.resistant.indexOf('Isoniazid') !== -1 &&
+      transformed.resistant.indexOf('Rifampicin') !== -1
     ) {
       drugsResistance.mdr = true;
       /*
         If MDR AND R to both fluoroquinolones and one of the other these 3 (Amikacin, Kanamycin, Capreomycin), then call it XDR (Extensively Drug Resistant)
         */
-      if (model.resistant.indexOf('Quinolones')) {
+      if (transformed.resistant.indexOf('Quinolones')) {
         if (
-          model.resistant.indexOf('Amikacin') !== -1 ||
-          model.resistant.indexOf('Kanamycin') !== -1 ||
-          model.resistant.indexOf('Capreomycin') !== -1
+          transformed.resistant.indexOf('Amikacin') !== -1 ||
+          transformed.resistant.indexOf('Kanamycin') !== -1 ||
+          transformed.resistant.indexOf('Capreomycin') !== -1
         ) {
           drugsResistance.xdr = true;
         }
       }
     }
 
-    model.drugsResistance = drugsResistance;
+    transformed.drugsResistance = drugsResistance;
 
     // tree and neighbours
-    if (sourceModel.neighbours) {
+    if (sourceModel.neighbours && relatedModels) {
       let neighbourKeys = Object.keys(sourceModel.neighbours);
       let samples = {};
       for (let i = 0; i < 2; i++) {
@@ -314,12 +235,93 @@ The phrasing would also change from
         neighbourSampleModel.id = sampleId;
         samples[sampleId] = neighbourSampleModel;
       }
-      model.samples = samples;
+      transformed.samples = samples;
 
-      model.tree = sourceModel.tree;
+      transformed.tree = sourceModel.tree;
     }
 
-    return model;
+    return transformed;
+  }
+
+  /*
+    {
+      "phylogenetics": {
+      "lineage": {
+        "Beijing_East_Asia": {
+          "percent_coverage": 100,
+          "median_depth": 36
+        }
+      },
+      "sub_complex": {
+        "Unknown": {
+          "percent_coverage": -1,
+          "median_depth": -1
+        }
+      },
+      "phylo_group": {
+        "Mycobacterium_tuberculosis_complex": {
+          "percent_coverage": 99.496,
+          "median_depth": 38
+        }
+      },
+      "species": {
+        "Mycobacterium_tuberculosis": {
+          "percent_coverage": 98.454,
+          "median_depth": 34
+        }
+      }
+    },
+  */
+
+  /*
+  test if the phylo_group is either:
+  1) Non_tuberculosis_mycobacterium_complex, in which case only the species will be shown an no AMR predictions
+  2) Mycobacterium_tuberculosis_complex, in which case both species and AMR prediction will be performed.
+  */
+
+  transformFlags(
+    sourceModel: Object
+  ): { hasSpecies: boolean, hasResistance: boolean } {
+    const phyloGroup = Object.keys(sourceModel.phylogenetics.phylo_group);
+    let hasSpecies = false;
+    let hasResistance = false;
+
+    if (phyloGroup.indexOf('Non_tuberculosis_mycobacterium_complex') !== -1) {
+      hasSpecies = true;
+    }
+    if (phyloGroup.indexOf('Mycobacterium_tuberculosis_complex') !== -1) {
+      hasSpecies = true;
+      hasResistance = true;
+    }
+
+    return { hasSpecies, hasResistance };
+  }
+
+  transformSpecies(
+    sourceModel: Object
+  ): { lineage: Array<string>, species: Array<string>, speciesPretty: string } {
+    const species = Object.keys(sourceModel.phylogenetics.species);
+
+    let lineage = [];
+    if (TargetConstants.SPECIES_TB === this.config.species) {
+      lineage = Object.keys(sourceModel.phylogenetics.lineage);
+    }
+
+    let speciesPretty = '';
+
+    if (TargetConstants.SPECIES_TB === this.config.species) {
+      const s = species ? species.join(' / ').replace(/_/g, ' ') : 'undefined';
+      const l = lineage.length
+        ? ' (lineage: ' + lineage.join(', ').replace(/_/g, ' ') + ')'
+        : '';
+      speciesPretty = `${s}${l}`;
+    } else {
+      speciesPretty = species
+        ? species.join(' / ').replace(/_/g, ' ')
+        : 'undefined';
+    }
+
+    return { lineage, species, speciesPretty };
   }
 
   _sortObject(o: Object) {
@@ -341,4 +343,5 @@ The phrasing would also change from
     return sorted;
   }
 }
+
 export default AnalyserJsonTransformer;

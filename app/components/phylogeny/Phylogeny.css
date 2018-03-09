@@ -1,10 +1,10 @@
 .container {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   background-color: white;
 }
 
 .contentContainer {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   position: relative;
 }
 
@@ -16,12 +16,12 @@
 }
 
 .zoomControl {
-  composes: overlayControl from "css/controls.css";
+  composes: overlayControl from 'css/controls.css';
   padding: 0 12px;
 }
 
 .zoomControlText {
-  composes: overlayControlText from "css/controls.css";
+  composes: overlayControlText from 'css/controls.css';
 }
 
 .demoTreeTypeContainer {

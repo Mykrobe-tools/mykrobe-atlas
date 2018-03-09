@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import Notification from './Notification';
 import styles from './Notifications.css';
 
-class Notifications extends React.Component {
+class Notifications extends React.Component<*> {
   onClick(id: Number) {
     const { hideNotification } = this.props;
     hideNotification(id);

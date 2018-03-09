@@ -7,7 +7,7 @@ import FormLabel from './FormLabel';
 
 import styles from './FormInputText.css';
 
-class FormInputText extends React.Component {
+class FormInputText extends React.Component<*> {
   render() {
     const { name, onChange, placeholder, title, type, value } = this.props;
     const initialValue =

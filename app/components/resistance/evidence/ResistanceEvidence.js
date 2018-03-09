@@ -4,12 +4,21 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ResistanceEvidence.css';
 import Panel from '../../ui/Panel';
+import ResistanceEmpty from '../empty/ResistanceEmpty';
 
 // TODO: push route on state change
 
-class ResistanceEvidence extends React.Component {
+class ResistanceEvidence extends React.Component<*> {
   render() {
     const { analyser } = this.props;
+    const { analyser: { transformed: { hasResistance } } } = this.props;
+    if (!hasResistance) {
+      return (
+        <div className={styles.empty} data-tid="component-resistance-evidence">
+          <ResistanceEmpty />
+        </div>
+      );
+    }
     const { evidence } = analyser.transformed;
     let panels = [];
     for (let title in evidence) {

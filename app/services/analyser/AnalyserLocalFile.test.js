@@ -66,11 +66,13 @@ if (config.isWeb()) {
               const { json, transformed } = result;
               if (GENERATE_JSON_FIXTURES) {
                 const fs = require('fs');
-                // write unprocessed json
-                fs.writeFileSync(
-                  `test/__fixtures__/exemplar-samples/${source}.json`,
-                  JSON.stringify(json, null, 2)
-                );
+                if (!isJson) {
+                  // write unprocessed json
+                  fs.writeFileSync(
+                    `test/__fixtures__/exemplar-samples/${source}.json`,
+                    JSON.stringify(json, null, 2)
+                  );
+                }
                 // write transformed json
                 fs.writeFileSync(
                   `test/__fixtures__/exemplar-samples/${source}__AnalyserLocalFile__.json`,
@@ -81,21 +83,24 @@ if (config.isWeb()) {
                 transformed.speciesPretty,
                 exemplarSamplesExpectEntry.expect.species
               );
-              expectCaseInsensitiveEqual(
-                transformed.resistant,
-                exemplarSamplesExpectEntry.expect.all.resistant
-              );
-              expectCaseInsensitiveEqual(
-                transformed.susceptible,
-                exemplarSamplesExpectEntry.expect.all.susceptible
-              );
-              expectCaseInsensitiveEqual(
-                transformed.drugsResistance,
-                exemplarSamplesExpectEntry.expect.drugs.resistanceFlags
-              );
+              if (transformed.hasResistance) {
+                expectCaseInsensitiveEqual(
+                  transformed.resistant,
+                  exemplarSamplesExpectEntry.expect.all.resistant
+                );
+                expectCaseInsensitiveEqual(
+                  transformed.susceptible,
+                  exemplarSamplesExpectEntry.expect.all.susceptible
+                );
+                expectCaseInsensitiveEqual(
+                  transformed.drugsResistance,
+                  exemplarSamplesExpectEntry.expect.drugs.resistanceFlags
+                );
+              }
               done();
             })
             .on('error', error => {
+              console.error(error);
               // check if this was expected to be rejected
               let expectedReject = false;
               if (exemplarSamplesExpectEntry.expect.reject) {

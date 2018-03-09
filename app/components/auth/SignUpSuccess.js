@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import styles from './Common.css';
 
-class SignUpSuccess extends React.Component {
+class SignUpSuccess extends React.Component<*> {
   render() {
     return (
       <div className={styles.container}>

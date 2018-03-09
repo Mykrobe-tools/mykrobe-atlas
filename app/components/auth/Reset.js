@@ -13,7 +13,7 @@ import type { AuthResetPasswordType } from '../../types/AuthTypes';
 
 import { getError, resetPassword, deleteError } from '../../modules/auth';
 
-class Reset extends React.Component {
+class Reset extends React.Component<*> {
   handleSubmit(e) {
     e.preventDefault();
     const { resetPassword } = this.props;

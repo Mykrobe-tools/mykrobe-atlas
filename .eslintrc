@@ -5,8 +5,6 @@
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:react/recommended",
-    "prettier",
-    "prettier/react",
     "plugin:flowtype/recommended"
   ],
   "env": {
@@ -17,30 +15,17 @@
   },
   "plugins": [
     "import",
-    "prettier",
     "react",
     "flowtype"
   ],
   "rules": {
-    // Use prettier for whitespace and max-line enforcement
-    "prettier/prettier": ["error", {
-      "singleQuote": true,
-      "semi": true,
-      "trailingComma": "es5"
-    }],
     // Don't require display names
     "react/display-name": ["off"],
     "no-console": ["off"],
     "no-constant-condition": ["off"]
   },
   "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [
-          ".js"
-        ]
-      }
-    },
+    "import/resolver": "webpack",
     "import/ignore": [".css$","node_modules/*"],
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true

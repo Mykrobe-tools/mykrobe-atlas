@@ -7,11 +7,11 @@ input {
   -moz-osx-font-smoothing: grayscale;
   font-kerning: normal;
   font-variant-numeric: proportional-nums;
-  font-feature-settings: "pnum";
+  font-feature-settings: 'pnum';
 }
 
 body {
-  font-family: "Minion-Regular", serif;
+  font-family: 'Minion-Regular', serif;
   font-size: 19px;
   line-height: calc(1 * 24 / 19);
   color: var(--color-text);

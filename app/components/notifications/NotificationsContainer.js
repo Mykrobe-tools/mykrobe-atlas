@@ -12,7 +12,7 @@ import {
 
 import Notifications from './Notifications';
 
-class NotificationsContainer extends React.Component {
+class NotificationsContainer extends React.Component<*> {
   render() {
     const { notifications, hideNotification } = this.props;
     return (

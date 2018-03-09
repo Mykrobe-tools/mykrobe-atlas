@@ -4,6 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ResistanceDrugs.css';
 import Panel from '../../ui/Panel';
+import ResistanceEmpty from '../empty/ResistanceEmpty';
 
 const firstLineDrugs = [
   'Isoniazid',
@@ -20,7 +21,7 @@ const secondLineDrugs = [
   'Kanamycin',
 ];
 
-class ResistanceDrugs extends React.Component {
+class ResistanceDrugs extends React.Component<*> {
   renderDrugResistance() {
     const { analyser } = this.props;
     const { drugsResistance: { xdr, mdr } } = analyser.transformed;
@@ -41,6 +42,14 @@ class ResistanceDrugs extends React.Component {
   }
 
   render() {
+    const { analyser: { transformed: { hasResistance } } } = this.props;
+    if (!hasResistance) {
+      return (
+        <div className={styles.empty} data-tid="component-resistance-drugs">
+          <ResistanceEmpty />
+        </div>
+      );
+    }
     return (
       <div className={styles.container} data-tid="component-resistance-drugs">
         <Panel title="First line drugs" columns={4}>
@@ -54,7 +63,7 @@ class ResistanceDrugs extends React.Component {
     );
   }
 
-  listDrugsWithIndicators(drugs) {
+  listDrugsWithIndicators(drugs: Array<string>) {
     const { analyser } = this.props;
     const { resistant, susceptible, inconclusive } = analyser.transformed;
     let elements = [];

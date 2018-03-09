@@ -3,14 +3,12 @@
 const pathLib = require('path');
 const fs = require('fs');
 
-// This plugin will modify imports to import sources with a '.electron' suffix
+// This plugin will modify imports and requires to resolve sources with a '.electron' suffix
 // Only if process.PLATFORM === 'electron'
 
 const DEBUG = false;
 
-const resolveImport = (path, state) => {
-  var source = path.node.source.value;
-
+const resolvedPath = (source, state) => {
   if (process.env.PLATFORM !== 'electron') {
     return;
   }
@@ -91,15 +89,37 @@ const resolveImport = (path, state) => {
       relativeImportPath = `./${relativeImportPath}`;
     }
     DEBUG && console.log('******** relativeImportPath: ', relativeImportPath);
-    path.node.source.value = relativeImportPath;
+    return relativeImportPath;
   }
-  // return path;
+}
+
+// See http://astexplorer.net/ for exploring AST
+
+// import './module';
+
+const importDeclaration = (path: any, state: any) => {
+  const newPath = resolvedPath(path.node.source.value, state);
+  if ( newPath ) {
+    path.node.source.value = newPath;
+  }
 };
+
+// require('./module');
+
+const callExpression = (path: any, state: any) => {
+  if ( path.node.callee.name === 'require') {
+    const newPath = resolvedPath(path.node.arguments[0].value, state);
+    if ( newPath ) {
+      path.node.arguments[0].value = newPath;
+    }
+  }
+}
 
 module.exports = function() {
   return {
     visitor: {
-      ImportDeclaration: resolveImport,
+      ImportDeclaration: importDeclaration,
+      CallExpression: callExpression,
     },
   };
 };

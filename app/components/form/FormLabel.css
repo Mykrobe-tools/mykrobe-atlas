@@ -1,5 +1,5 @@
 .wrap {
-  composes: wrap from "css/form.css";
+  composes: wrap from 'css/form.css';
 }
 
 .label {

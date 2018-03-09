@@ -6,7 +6,7 @@ import styles from './Library.css';
 import ExperimentsTable from '../experiments/ExperimentsTable';
 import ExperimentsHeader from '../experiments/ExperimentsHeader';
 
-class Library extends React.Component {
+class Library extends React.Component<*> {
   render() {
     const {
       experiments,

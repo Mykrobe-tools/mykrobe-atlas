@@ -7,7 +7,7 @@ import FormLabel from './FormLabel';
 
 import styles from './FormTextarea.css';
 
-class FormTextarea extends React.Component {
+class FormTextarea extends React.Component<*> {
   render() {
     const {
       name,

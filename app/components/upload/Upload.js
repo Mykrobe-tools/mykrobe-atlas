@@ -11,12 +11,13 @@ import PopoverMenu from '../ui/PopoverMenu';
 
 import { getIsAuthenticated } from '../../modules/auth';
 
-class Upload extends React.Component {
+type State = {
+  isDragActive: boolean,
+};
+
+class Upload extends React.Component<*, State> {
   _uploadButton: HTMLAnchorElement;
   _dropzone: Element;
-  state: {
-    isDragActive: boolean,
-  };
 
   constructor(props: Object) {
     super(props);

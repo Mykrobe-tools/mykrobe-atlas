@@ -1,6 +1,6 @@
 .button {
-  composes: fontSecondary from "css/typography.css";
-  composes: fontSecondarySizeNormal from "css/typography.css";
+  composes: fontSecondary from 'css/typography.css';
+  composes: fontSecondarySizeNormal from 'css/typography.css';
   text-transform: uppercase;
   height: 36px;
   padding: 0 18px;
@@ -63,7 +63,7 @@
 }
 
 .overlayControlText {
-  composes: fontSecondary from "css/typography.css";
-  composes: fontSecondarySizeSmall from "css/typography.css";
+  composes: fontSecondary from 'css/typography.css';
+  composes: fontSecondarySizeSmall from 'css/typography.css';
   margin-left: 4px;
 }

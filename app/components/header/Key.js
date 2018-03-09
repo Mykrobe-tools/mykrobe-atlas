@@ -6,7 +6,7 @@ import styles from './Key.css';
 import { connect } from 'react-redux';
 import type { SampleType } from '../../types/SampleType';
 
-class Key extends React.Component {
+class Key extends React.Component<*> {
   getSampleWithId(nodeId: string): ?SampleType {
     const { analyser } = this.props;
     const { samples } = analyser.transformed;

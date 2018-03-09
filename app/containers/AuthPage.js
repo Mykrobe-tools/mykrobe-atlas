@@ -21,7 +21,7 @@ import { userIsNotAuthenticated, userIsAuthenticated } from '../authHelpers';
 const AuthenticatedProfile = userIsAuthenticated(Profile);
 const UnauthenticatedLogin = userIsNotAuthenticated(Login);
 
-class AuthPage extends React.Component {
+class AuthPage extends React.Component<*> {
   render() {
     const { match } = this.props;
     return (

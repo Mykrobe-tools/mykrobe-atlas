@@ -1,5 +1,5 @@
 .container {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   position: relative;
 }
 
@@ -12,7 +12,7 @@
 }
 
 .zoomControl {
-  composes: overlayControl from "css/controls.css";
+  composes: overlayControl from 'css/controls.css';
 }
 
 .zoomControl + .zoomControl {

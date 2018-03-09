@@ -1,5 +1,5 @@
 .container {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   flex-direction: column;
   background-color: white;
   overflow-y: auto;
@@ -13,7 +13,7 @@
 }
 
 .title {
-  composes: titleExtraLarge from "css/typography.css";
+  composes: titleExtraLarge from 'css/typography.css';
   text-align: center;
   width: 100%;
   padding: 30px 30px 0;

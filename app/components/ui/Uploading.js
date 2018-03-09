@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Uploading.css';
 
-class Uploading extends React.Component {
+class Uploading extends React.Component<*> {
   render() {
     const { sectionName } = this.props;
     return (

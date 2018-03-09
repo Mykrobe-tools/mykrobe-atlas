@@ -7,7 +7,7 @@ import moment from 'moment';
 import styles from './ExperimentsTable.css';
 import Loading from '../ui/Loading';
 
-class ExperimentsTable extends React.Component {
+class ExperimentsTable extends React.Component<*> {
   render() {
     const { experiments } = this.props;
     let tableContent;

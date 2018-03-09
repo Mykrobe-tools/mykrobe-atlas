@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-class MetadataFormStep extends React.Component {
+class MetadataFormStep extends React.Component<*> {
   render() {
     const { children } = this.props;
     return <div>{children}</div>;

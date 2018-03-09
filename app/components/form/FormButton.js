@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import styles from './FormButton.css';
 
-class FormButton extends React.Component {
+class FormButton extends React.Component<*> {
   onClick(event: Event) {
     const { onClick } = this.props;
     if (onClick) {

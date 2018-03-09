@@ -5,7 +5,7 @@
 /* toggle */
 
 .toggle {
-  composes: buttonOutlineLarge from "css/controls.css";
+  composes: buttonOutlineLarge from 'css/controls.css';
 }
 
 .toggleArrow {
@@ -60,7 +60,7 @@
 
 .popover::after {
   left: 50%;
-  content: " ";
+  content: ' ';
   height: 0;
   width: 0;
   position: absolute;
@@ -102,8 +102,8 @@
 }
 
 .popoverLink {
-  composes: fontSecondary from "css/typography.css";
-  composes: fontSecondarySizeSmall from "css/typography.css";
+  composes: fontSecondary from 'css/typography.css';
+  composes: fontSecondarySizeSmall from 'css/typography.css';
   color: var(--color-grey-dark);
   display: block;
   padding: 13px 12px; /* makes height ~44px */

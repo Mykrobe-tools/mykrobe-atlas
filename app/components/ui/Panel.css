@@ -12,7 +12,7 @@
 }
 
 .panelTitle {
-  composes: subtitleRuled from "css/typography.css";
+  composes: subtitleRuled from 'css/typography.css';
 }
 
 .panelChildrenContainer {

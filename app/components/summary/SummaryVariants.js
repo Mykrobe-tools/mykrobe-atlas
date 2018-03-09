@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './SummaryVariants.css';
 
-class SummaryVariants extends React.Component {
+class SummaryVariants extends React.Component<*> {
   render() {
     return (
       <div className={styles.container}>

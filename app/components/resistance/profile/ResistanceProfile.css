@@ -1,5 +1,5 @@
 .container {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   flex-direction: row;
 }
 
@@ -12,7 +12,7 @@
 }
 
 .columnTitle {
-  composes: subtitle from "css/typography.css";
+  composes: subtitle from 'css/typography.css';
   padding: 8px 0;
 }
 
@@ -29,4 +29,9 @@
 .columnTitleInconclusive {
   composes: columnTitle;
   color: var(--color-inconclusive);
+}
+
+.empty {
+  display: flex;
+  flex: 1;
 }

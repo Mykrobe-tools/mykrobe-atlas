@@ -8,7 +8,7 @@ import List from '../components/organisation/List';
 import Add from '../components/organisation/Add';
 import Edit from '../components/organisation/Edit';
 
-class OrganisationPage extends React.Component {
+class OrganisationPage extends React.Component<*> {
   render() {
     const { match } = this.props;
     return (

@@ -9,7 +9,7 @@ import UploadService from '../services/upload/UploadService';
 
 import { analyseRemoteFile } from '../modules/analyser';
 
-class HomePage extends React.Component {
+class HomePage extends React.Component<*> {
   service: UploadService;
 
   constructor() {

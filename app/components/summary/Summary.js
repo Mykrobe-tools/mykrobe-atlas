@@ -9,7 +9,7 @@ import Panel from '../ui/Panel';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';
 
-class Summary extends React.Component {
+class Summary extends React.Component<*> {
   render() {
     const { analyser } = this.props;
     let content;

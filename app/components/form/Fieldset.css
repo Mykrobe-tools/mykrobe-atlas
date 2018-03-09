@@ -12,9 +12,8 @@
 }
 
 .legend {
-  composes: subtitleSmall from "css/typography.css";
+  composes: subtitleSmall from 'css/typography.css';
   composes: ruleTop;
   color: var(--color-tint-primary);
   font-weight: bold;
 }
-

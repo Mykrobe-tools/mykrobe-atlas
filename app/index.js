@@ -5,10 +5,11 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 
-import routes from './routes';
 import store, { history } from './store/store'; // eslint-disable-line import/default
 import './app.global.css';
 import './css/main.css';
+
+const routes = require('./routes');
 
 render(
   <Provider store={store}>

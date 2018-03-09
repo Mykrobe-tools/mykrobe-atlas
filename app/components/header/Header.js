@@ -15,7 +15,7 @@ import {
   getUser,
 } from '../../modules/auth';
 
-class Header extends React.Component {
+class Header extends React.Component<*> {
   onMenuToggleClick(e: Event) {
     const { toggleMenu } = this.props;
     e.preventDefault();

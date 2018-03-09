@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import styles from './FormLabel.css';
 
-class FormLabel extends React.Component {
+class FormLabel extends React.Component<*> {
   render() {
     const { children, htmlFor, label } = this.props;
     return (

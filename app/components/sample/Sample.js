@@ -10,7 +10,7 @@ import MetadataContainer from '../metadata/MetadataContainer';
 import Resistance from '../resistance/resistance/Resistance';
 import SummaryContainer from '../summary/SummaryContainer';
 
-class Sample extends React.Component {
+class Sample extends React.Component<*> {
   render() {
     const { match } = this.props;
     return (

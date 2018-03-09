@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import styles from './SummaryMetadata.css';
 
-class SummaryMetadata extends React.Component {
+class SummaryMetadata extends React.Component<*> {
   render() {
     return (
       <div className={styles.container}>

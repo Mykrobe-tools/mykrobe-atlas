@@ -15,7 +15,7 @@ import {
   getIsFetchingFilters,
 } from '../../modules/experiments';
 
-class LibraryContainer extends React.Component {
+class LibraryContainer extends React.Component<*> {
   componentDidMount() {
     const { requestExperiments } = this.props;
     requestExperiments();

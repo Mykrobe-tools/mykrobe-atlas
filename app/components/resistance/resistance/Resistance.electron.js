@@ -20,12 +20,12 @@ import ResistanceClassContainer from '../class/ResistanceClassContainer';
 import ResistanceEvidenceContainer from '../evidence/ResistanceEvidenceContainer';
 import ResistanceSpeciesContainer from '../species/ResistanceSpeciesContainer';
 
-class Resistance extends React.Component {
+class Resistance extends React.Component<*> {
   render() {
     const { match, analyseFileNew, analyseFileSave } = this.props;
     const path = '/results/resistance';
     const config = new MykrobeConfig();
-
+    const { analyser: { transformed: { hasResistance } } } = this.props;
     return (
       <div className={styles.container} data-tid="component-resistance">
         <div className={styles.header}>
@@ -102,7 +102,11 @@ class Resistance extends React.Component {
           <Route
             exact
             path={match.url}
-            component={() => <Redirect to={`${match.url}/all`} />}
+            component={() => (
+              <Redirect
+                to={hasResistance ? `${match.url}/all` : `${match.url}/species`}
+              />
+            )}
           />
           <Route path={`${match.url}/all`} component={ResistanceAllContainer} />
           <Route

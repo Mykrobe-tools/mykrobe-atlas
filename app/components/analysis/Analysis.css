@@ -1,5 +1,5 @@
 .container {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   background-color: white;
   flex-direction: column;
 }
@@ -30,18 +30,18 @@
 }
 
 .mapAndPhylogenyContainer {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   background-color: white;
 }
 
 .mapContainer {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
 }
 
 .map {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
 }
 
 .phylogenyContainer {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
 }

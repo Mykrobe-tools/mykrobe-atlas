@@ -22,11 +22,11 @@ import styles from './App.css';
 
 import NotificationsContainer from '../components/notifications/NotificationsContainer';
 
-class App extends React.Component {
-  state: {
-    isDragActive: boolean,
-  };
+type State = {
+  isDragActive: boolean,
+};
 
+class App extends React.Component<*, State> {
   state = {
     isDragActive: false,
   };
@@ -95,6 +95,7 @@ class App extends React.Component {
     if (!files.length) {
       return;
     }
+    const { analyseFile } = this.props;
     const filePath = files[0];
     analyseFile(filePath);
   };

@@ -1,9 +1,9 @@
 .wrap {
-  composes: wrap from "css/form.css";
+  composes: wrap from 'css/form.css';
 }
 
 .label {
-  composes: label from "css/form.css";
+  composes: label from 'css/form.css';
 }
 
 .inputWrap {
@@ -14,7 +14,7 @@
   position: absolute;
   right: 0;
   font-family: FontAwesome;
-  content: "\f0d7";
+  content: '\f0d7';
   font-size: 19px;
   line-height: 24px;
   color: var(--color-grey-mid);
@@ -23,6 +23,6 @@
 }
 
 .input {
-  composes: input from "css/form.css";
+  composes: input from 'css/form.css';
   padding-right: 24px;
 }

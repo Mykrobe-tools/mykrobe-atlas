@@ -1,5 +1,5 @@
 .container {
-  composes: containerAbsolute from "css/layout.css";
+  composes: containerAbsolute from 'css/layout.css';
   pointer-events: none;
   width: 100%;
 }

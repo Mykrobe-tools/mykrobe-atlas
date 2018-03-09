@@ -1,4 +1,3 @@
-
 /*
 set up base appearance using flexbox
 and filling the main window
@@ -41,9 +40,9 @@ body {
   display: flex;
 }
 
-@import "css/constants.global.css";
-@import "css/typography.global.css";
-@import "css/form.global.css";
+@import 'css/constants.global.css';
+@import 'css/typography.global.css';
+@import 'css/form.global.css';
 
 /* third-party css bypass processing */
-@import "css/vendor.css";
+@import 'css/vendor.css';

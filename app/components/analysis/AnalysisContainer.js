@@ -10,7 +10,7 @@ import Analysis from './Analysis';
 
 import { getHighlighted, setNodeHighlighted } from '../../modules/phylogeny';
 
-class AnalysisContainer extends React.Component {
+class AnalysisContainer extends React.Component<*> {
   render() {
     const { highlighted, setNodeHighlighted, analyser } = this.props;
     return (

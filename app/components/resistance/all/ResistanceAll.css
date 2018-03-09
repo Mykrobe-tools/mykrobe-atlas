@@ -1,6 +1,11 @@
 .container {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   padding: 18px;
   background-color: white;
   overflow-y: auto;
+}
+
+.empty {
+  display: flex;
+  flex: 1;
 }
