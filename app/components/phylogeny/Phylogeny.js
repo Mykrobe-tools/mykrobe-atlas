@@ -27,10 +27,11 @@ const treeTypes = [
 ];
 const AUTO_ZOOM_SAMPLES = true;
 
-class Phylogeny extends React.Component<*> {
-  state: {
-    treeType: string,
-  };
+type State = {
+  treeType: string,
+};
+
+class Phylogeny extends React.Component<*, State> {
   _phyloCanvas: PhyloCanvasComponent;
   _phyloCanvasTooltip: PhyloCanvasTooltip;
   _container: Element;

@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 
 import styles from './MetadataFormSteps.css';
 
-class MetadataFormSteps extends React.Component<*> {
-  state: {
-    step: number,
-    steps: number,
-  };
+type State = {
+  step: number,
+  steps: number,
+};
 
+class MetadataFormSteps extends React.Component<*, State> {
   constructor(props: Object) {
     super(props);
     this.state = {

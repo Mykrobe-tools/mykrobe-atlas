@@ -1,6 +1,5 @@
-
 .container {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
 }
 
 .containerDragActive {
@@ -9,7 +8,7 @@
 }
 
 .contentContainer {
-  composes: containerAbsolute from "css/layout.css";
+  composes: containerAbsolute from 'css/layout.css';
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -53,18 +52,18 @@
 }
 
 .button {
-  composes: buttonOutlineLarge from "css/controls.css";
+  composes: buttonOutlineLarge from 'css/controls.css';
 }
 
 .progressTextContainer {
-  composes: containerAbsolute from "css/layout.css";
+  composes: containerAbsolute from 'css/layout.css';
   align-items: center;
   justify-content: center;
   pointer-events: none;
 }
 
 .progressStatus {
-  composes: fontSecondary from "css/typography.css";
+  composes: fontSecondary from 'css/typography.css';
   position: absolute;
   bottom: 140px;
   left: 64px;
@@ -73,13 +72,13 @@
 }
 
 .progressTitle {
-  composes: fontSecondary from "css/typography.css";
+  composes: fontSecondary from 'css/typography.css';
   font-size: 96px;
   color: var(--color-grey-light);
 }
 
 .dots {
-  composes: containerAbsolute from "css/layout.css";
+  composes: containerAbsolute from 'css/layout.css';
   pointer-events: none;
   flex-direction: row;
   align-items: center;
@@ -112,22 +111,46 @@
 }
 
 @keyframes dotone {
-  0% { opacity: 0; }
-  20% { opacity: 0; }
-  60% { opacity: 1; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes dottwo {
-  0% { opacity: 0; }
-  30% { opacity: 0; }
-  70% { opacity: 1; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes dotthree {
-  0% { opacity: 0; }
-  40% { opacity: 0; }
-  80% { opacity: 1; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }

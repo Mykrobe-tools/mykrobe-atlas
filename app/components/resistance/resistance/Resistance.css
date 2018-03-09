@@ -1,5 +1,5 @@
 .container {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   flex-direction: column;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .headerTitle {
-  composes: fontSizeLarge from "css/typography.css";
+  composes: fontSizeLarge from 'css/typography.css';
   color: var(--color-tint-primary);
   padding-bottom: 16px;
 }
@@ -30,8 +30,8 @@
 }
 
 .navigationItem {
-  composes: fontSecondary from "css/typography.css";
-  composes: fontSecondarySizeSmall from "css/typography.css";
+  composes: fontSecondary from 'css/typography.css';
+  composes: fontSecondarySizeSmall from 'css/typography.css';
   text-transform: uppercase;
   height: 24px;
   padding: 0 12px;

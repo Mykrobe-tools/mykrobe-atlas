@@ -5,15 +5,15 @@ import styles from './PhyloCanvasTooltip.css';
 import type { SampleType } from '../../types/SampleType';
 import moment from 'moment';
 
-class PhyloCanvasTooltip extends React.Component<*> {
-  state: {
-    visible: boolean,
-    isMain: boolean,
-    node: ?SampleType,
-    x: number,
-    y: number,
-  };
+type State = {
+  visible: boolean,
+  isMain: boolean,
+  node: ?SampleType,
+  x: number,
+  y: number,
+};
 
+class PhyloCanvasTooltip extends React.Component<*, State> {
   constructor() {
     super();
     this.state = {

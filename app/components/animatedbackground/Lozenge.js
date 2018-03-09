@@ -9,17 +9,18 @@ const LozengeDimensions = {
   height: 65,
 };
 
-class Lozenge extends React.Component<*> {
-  state: {
-    initialised: boolean,
-    x: number,
-    y: number,
-    scale: number,
-    rotation: number,
-    vx: number,
-    vr: number,
-  };
-  _raf: number;
+type State = {
+  initialised: boolean,
+  x: number,
+  y: number,
+  scale: number,
+  rotation: number,
+  vx: number,
+  vr: number,
+};
+
+class Lozenge extends React.Component<*, State> {
+  _raf: AnimationFrameID;
 
   constructor(props: Object) {
     super(props);

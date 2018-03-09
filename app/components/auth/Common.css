@@ -1,5 +1,5 @@
 .container {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   flex-direction: column;
 }
 
@@ -12,18 +12,18 @@
 }
 
 .title {
-  composes: fontSizeLarge from "css/typography.css";
+  composes: fontSizeLarge from 'css/typography.css';
 }
 
 .contentContainer {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   padding: 30px 40px;
   background: white;
   flex: 1;
 }
 
 .contentTitle {
-  composes: fontSizeExtraLarge from "css/typography.css";
+  composes: fontSizeExtraLarge from 'css/typography.css';
   line-height: 1;
   border-bottom: 1px solid var(--color-grey-light);
   padding-bottom: 30px;
@@ -31,7 +31,7 @@
 }
 
 .formContainer {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   flex-direction: column;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .formRow {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
 }
 
 .formRow + .formRow {
@@ -48,11 +48,11 @@
 }
 
 .label {
-  composes: label from "css/form.css";
+  composes: label from 'css/form.css';
 }
 
 .input {
-  composes: input from "css/form.css";
+  composes: input from 'css/form.css';
   width: 50%;
 }
 
@@ -65,7 +65,7 @@
   position: absolute;
   right: 0;
   font-family: FontAwesome;
-  content: "\f0d7";
+  content: '\f0d7';
   font-size: 19px;
   line-height: 24px;
   color: var(--color-grey-mid);
@@ -84,19 +84,19 @@
 }
 
 .button {
-  composes: buttonPrimary from "css/controls.css";
+  composes: buttonPrimary from 'css/controls.css';
 }
 
 .buttonBorderless {
-  composes: buttonBorderless from "css/controls.css";
+  composes: buttonBorderless from 'css/controls.css';
 }
 
 .buttonOutline {
-  composes: buttonOutline from "css/controls.css";
+  composes: buttonOutline from 'css/controls.css';
 }
 
 .buttonPrimary {
-  composes: buttonPrimary from "css/controls.css";
+  composes: buttonPrimary from 'css/controls.css';
 }
 
 .formActions {
@@ -108,7 +108,7 @@
 }
 
 .destructiveAction {
-  composes: buttonBorderless from "css/controls.css";
+  composes: buttonBorderless from 'css/controls.css';
   margin-left: auto;
   padding: 0;
 }

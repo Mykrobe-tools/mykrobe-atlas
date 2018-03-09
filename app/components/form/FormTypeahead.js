@@ -29,12 +29,13 @@ const defaults = {
   renderSuggestion: suggestion => <div>{suggestion.label}</div>,
 };
 
-class FormTypeahead extends React.Component<*> {
+type State = {
+  value: string,
+  suggestions: Array<Object>,
+};
+
+class FormTypeahead extends React.Component<*, State> {
   options: Object;
-  state: {
-    value: string,
-    suggestions: Array<Object>,
-  };
 
   constructor(props: Object) {
     super(props);

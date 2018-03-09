@@ -1,5 +1,5 @@
 .container {
-  composes: container from "css/layout.css";
+  composes: container from 'css/layout.css';
   flex-direction: column;
 }
 
@@ -28,8 +28,8 @@
 }
 
 .navigationItem {
-  composes: fontSecondary from "css/typography.css";
-  composes: fontSecondarySizeNormal from "css/typography.css";
+  composes: fontSecondary from 'css/typography.css';
+  composes: fontSecondarySizeNormal from 'css/typography.css';
   text-transform: uppercase;
   padding: 10px 15px;
   border-radius: 500px;

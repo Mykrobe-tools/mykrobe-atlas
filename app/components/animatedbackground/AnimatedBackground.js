@@ -5,11 +5,12 @@ import Lozenge from './Lozenge';
 import styles from './AnimatedBackground.css';
 import lozengeStyles from './Lozenge.css';
 
-class AnimatedBackground extends React.Component<*> {
-  state: {
-    width: number,
-    height: number,
-  };
+type State = {
+  width: number,
+  height: number,
+};
+
+class AnimatedBackground extends React.Component<*, State> {
   _resize: (e: Event) => void;
   _container: Element;
 
@@ -19,7 +20,7 @@ class AnimatedBackground extends React.Component<*> {
       width: 1024,
       height: 768,
     };
-    this._resize = e => this.resize(e);
+    this._resize = () => this.resize();
   }
 
   componentDidMount() {

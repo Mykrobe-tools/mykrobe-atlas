@@ -21,17 +21,14 @@ import {
   requestCurrentUser,
 } from '../modules/auth';
 
-class App extends React.Component<*> {
-  state: {
-    displayMenu: Boolean,
-  };
+type State = {
+  displayMenu: boolean,
+};
 
-  constructor(props: Object) {
-    super(props);
-    this.state = {
-      displayMenu: false,
-    };
-  }
+class App extends React.Component<*, State> {
+  state = {
+    displayMenu: false,
+  };
 
   componentWillMount() {
     const { loadAuth, requestCurrentUser, signOut } = this.props;
@@ -40,7 +37,7 @@ class App extends React.Component<*> {
       if (user && user.token) {
         requestCurrentUser()
           .then(() => {})
-        .catch((error) => { //eslint-disable-line
+          .catch(() => {
             signOut();
           });
       }

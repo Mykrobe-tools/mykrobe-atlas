@@ -35,8 +35,8 @@
 }
 
 .actionItem {
-  composes: fontSecondary from "css/typography.css";
-  composes: fontSecondarySizeSmall from "css/typography.css";
+  composes: fontSecondary from 'css/typography.css';
+  composes: fontSecondarySizeSmall from 'css/typography.css';
   text-transform: uppercase;
   cursor: pointer;
 }

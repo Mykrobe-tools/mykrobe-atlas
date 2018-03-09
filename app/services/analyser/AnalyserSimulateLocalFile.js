@@ -14,20 +14,19 @@ class AnalyserSimulateLocalFile extends AnalyserBaseFile {
     this._progress += 10;
     this.emit('progress', {
       progress: this._progress,
-      total: 100
+      total: 100,
     });
-    if ( this._progress ===100 ) {
+    if (this._progress === 100) {
       this.sendResult();
-    }
-    else {
+    } else {
       setTimeout(this.incrementProgress, 500);
     }
-  }
+  };
 
   sendResult = () => {
     const jsonString = require('./__mocks__/doneWithJsonString.json');
     this.doneWithJsonString(JSON.stringify(jsonString));
-  }
+  };
 
   analyseBinaryFile(file: File): AnalyserSimulateLocalFile {
     // this._progress = 0;

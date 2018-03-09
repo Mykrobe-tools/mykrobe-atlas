@@ -1,9 +1,9 @@
 .susceptibilityWrap {
-  composes: wrap from "css/form.css";
+  composes: wrap from 'css/form.css';
 }
 
 .susceptibilityLabel {
-  composes: label from "css/form.css";
+  composes: label from 'css/form.css';
 }
 
 .susceptibilityRows {
