@@ -129,7 +129,9 @@ class UploadFile extends EventEmitter {
       ? 'slice'
       : resumableFile.file.mozSlice
         ? 'mozSlice'
-        : resumableFile.file.webkitSlice ? 'webkitSlice' : 'slice';
+        : resumableFile.file.webkitSlice
+          ? 'webkitSlice'
+          : 'slice';
     let startByte;
     let endByte;
     let bytes;

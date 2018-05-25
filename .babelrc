@@ -19,10 +19,7 @@
 	"env": {
 		"production": {
 			"presets": ["react-optimize"],
-			"plugins": [
-				"transform-remove-console",
-				"./babel-plugin-electron-module-resolver"
-			]
+			"plugins": ["./babel-plugin-electron-module-resolver"]
 		},
 		"development": {
 			"plugins": ["./babel-plugin-electron-module-resolver"]

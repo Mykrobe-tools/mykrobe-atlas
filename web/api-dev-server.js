@@ -66,14 +66,16 @@ app.get('/api/experiments/:id/upload-status', (req, res) => {
 });
 
 // Serve experiment api fixture
-app.get('/api/experiments/:id', (req, res, next) => { // eslint-disable-line
+app.get('/api/experiments/:id', (req, res) => {
+  // eslint-disable-line
   res.sendFile(
     path.resolve(__dirname, '../test/__fixtures__/api/experiment.json')
   );
 });
 
 // Serve all other api fixtures
-app.get('/api/:endpoint', (req, res, next) => { // eslint-disable-line
+app.get('/api/:endpoint', (req, res) => {
+  // eslint-disable-line
   const { endpoint } = req.params;
   res.sendFile(
     path.resolve(__dirname, '../test/__fixtures__/api', `${endpoint}.json`)
@@ -84,7 +86,8 @@ app.get('/api/:endpoint', (req, res, next) => { // eslint-disable-line
 app.use(
   '/treeplace',
   proxy('13.69.243.89:8000', {
-    forwardPath: (req, res) => { // eslint-disable-line
+    forwardPath: req => {
+      // eslint-disable-line
       return `/treeplace${require('url')
         .parse(req.url)
         .path.substr(1)}`;

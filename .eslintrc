@@ -13,11 +13,7 @@
     "es6": true,
     "jest": true
   },
-  "plugins": [
-    "import",
-    "react",
-    "flowtype"
-  ],
+  "plugins": ["import", "react", "flowtype"],
   "rules": {
     // Don't require display names
     "react/display-name": ["off"],
@@ -26,9 +22,12 @@
   },
   "settings": {
     "import/resolver": "webpack",
-    "import/ignore": [".css$","node_modules/*"],
+    "import/ignore": [".css$", "node_modules/*"],
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true
+    },
+    "react": {
+      "version": "16.2"
     }
   },
   "globals": {

@@ -120,7 +120,8 @@ function setTitleInHtmlFile(filePath, title) {
 }
 
 function copyFile(filePath, copyPath) {
-  return new Promise((resolve, reject) => { // eslint-disable-line
+  return new Promise(resolve => {
+    // eslint-disable-line
     let stat = false;
     try {
       stat = fs.statSync(copyPath);
