@@ -6,40 +6,61 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "test:fast": "jest",
-    "test": "cross-env INCLUDE_SLOW_TESTS=true jest",
-    "test:e2e": "cross-env INCLUDE_SLOW_TESTS=true jest -t 'e2e'",
+    "test:fast":
+      "cross-env API_URL=https://api.atlas-dev.makeandship.com AUTH_COOKIE_NAME=api.atlas.makeandship.com jest",
+    "test":
+      "cross-env API_URL=https://api.atlas-dev.makeandship.com AUTH_COOKIE_NAME=api.atlas.makeandship.com INCLUDE_SLOW_TESTS=true jest",
+    "test:e2e": "yarn test -t 'e2e'",
     "test:watch": "yarn test:fast --watch",
     "flow": "flow",
     "lint": "yarn lint:eslint && yarn lint:prettier",
     "lint:eslint": "eslint --ext .js app",
-    "lint:prettier": "prettier -l 'app/**/*.{js,css}' || (echo '\nThese files are not formatted correctly. Did you forget to run \"yarn prettier\"?' && false)",
+    "lint:prettier":
+      "prettier -l 'app/**/*.{js,css}' || (echo '\nThese files are not formatted correctly. Did you forget to run \"yarn prettier\"?' && false)",
     "prettier": "prettier --write 'app/**/*.{js,css}'",
     "precommit": "yarn lint && yarn test:fast",
-    "desktop-hot-server": "cross-env PLATFORM=electron babel-node desktop/dev-server.js",
-    "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js --progress --profile --colors",
-    "desktop-build-renderer": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.production.js --progress --profile --colors",
+    "desktop-hot-server":
+      "cross-env PLATFORM=electron NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0 --port 3000 --inline --history-api-fallback --progress --config ./desktop/webpack.config.development.js",
+    "desktop-build-main":
+      "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js --progress --profile --colors",
+    "desktop-build-renderer":
+      "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.production.js --progress --profile --colors",
     "desktop-build": "yarn desktop-build-main && yarn desktop-build-renderer",
-    "desktop-start": "cross-env PLATFORM=electron NODE_ENV=production electron ./desktop/static/",
-    "desktop-start-hot": "cross-env HOT=1 PLATFORM=electron NODE_ENV=development electron -r babel-register -r babel-polyfill ./desktop/index.desktop",
-    "desktop-package": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js",
-    "desktop-package:win": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --win --x64",
-    "desktop-package:all": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --all",
-    "desktop-dev": "cross-env PLATFORM=electron concurrently \"yarn desktop-hot-server\" \"yarn desktop-start-hot\"",
-    "desktop-dist": "cross-env DEBUG=electron-builder,electron-builder:* PLATFORM=electron babel-node ./desktop/dist.js",
-    "desktop-dist:win": "cross-env PLATFORM=electron babel-node ./desktop/dist.js --win --x64",
-    "desktop-dist:all": "cross-env PLATFORM=electron babel-node ./desktop/dist.js --all --x64",
-    "build-predictor-binaries": "babel-node ./desktop/build-predictor-binaries.js",
+    "desktop-start":
+      "cross-env PLATFORM=electron NODE_ENV=production electron ./desktop/static/",
+    "desktop-start-hot":
+      "cross-env HOT=1 PLATFORM=electron NODE_ENV=development electron -r babel-register -r babel-polyfill ./desktop/index.desktop",
+    "desktop-package":
+      "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js",
+    "desktop-package:win":
+      "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --win --x64",
+    "desktop-package:all":
+      "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --all",
+    "desktop-dev":
+      "cross-env PLATFORM=electron concurrently \"yarn desktop-hot-server\" \"yarn desktop-start-hot\"",
+    "desktop-dist":
+      "cross-env DEBUG=electron-builder,electron-builder:* PLATFORM=electron babel-node ./desktop/dist.js",
+    "desktop-dist:win":
+      "cross-env PLATFORM=electron babel-node ./desktop/dist.js --win --x64",
+    "desktop-dist:all":
+      "cross-env PLATFORM=electron babel-node ./desktop/dist.js --all --x64",
+    "build-predictor-binaries":
+      "babel-node ./desktop/build-predictor-binaries.js",
     "postinstall": "electron-builder install-app-deps",
     "set-target": "babel-node scripts/set-target.js",
     "generate-icons": "babel-node scripts/generate-icons.js",
     "web-api-server": "babel-node web/api-dev-server.js",
     "web-hot-server": "babel-node web/dev-server.js",
-    "web-dev": "concurrently \"yarn web-hot-server\" \"yarn web-api-server\" \"yarn web-open\"",
+    "web-dev-server":
+      "cross-env NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0 --port 3000 --inline --history-api-fallback --progress --config ./web/webpack.config.development.js",
+    "web-dev":
+      "concurrently \"yarn web-hot-server\" \"yarn web-api-server\" \"yarn web-open\"",
     "web-open": "open http://localhost:3000",
-    "web-build": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config web/webpack.config.production.js --progress --profile --colors",
+    "web-build":
+      "cross-env NODE_ENV=production webpack -p --progress --config ./web/webpack.config.production.js",
     "web-build-server": "babel-node web/build/simple-server.js",
-    "web-build-simple-server": "concurrently \"yarn web-build-server\" \"yarn web-open\""
+    "web-build-simple-server":
+      "concurrently \"yarn web-build-server\" \"yarn web-open\""
   },
   "build": {
     "appId": "com.mykrobe.atlas-desktop-tb",
@@ -68,20 +89,14 @@
       ]
     },
     "win": {
-      "target": [
-        "nsis",
-        "portable"
-      ],
+      "target": ["nsis", "portable"],
       "icon": "./desktop/resources/icon/atlas-desktop-tb/icon.ico"
     },
     "nsis": {
       "perMachine": true
     },
     "linux": {
-      "target": [
-        "deb",
-        "AppImage"
-      ]
+      "target": ["deb", "AppImage"]
     },
     "fileAssociations": [
       {
@@ -111,23 +126,35 @@
     "electron": "./node_modules/.bin/electron"
   },
   "devDependencies": {
+    "css-loader": "^0.28.7",
+    "css-modules-require-hook": "^4.2.2",
+    "dotenv-webpack": "^1.5.5",
+    "electron-debug": "^1.0.1",
+    "electron-devtools-installer": "^2.2.1",
+    "file-loader": "^1.1.6",
+    "flow-typed": "^2.3.0",
+    "autoprefixer": "^8.4.1",
     "asar": "^0.12.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.13.1",
     "babel-eslint": "^8.0.2",
+    "babel-jest": "^22.0.0",
+    "babel-loader": "^7.1.4",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
+    "babel-plugin-transform-remove-console": "^6.8.5",
     "babel-plugin-transform-runtime": "^6.12.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-minify": "^0.2.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-minify": "^0.4.1",
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-optimize": "^1.0.1",
     "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.9.0",
+    "babel-register": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "body-parser": "^1.16.0",
+    "clean-webpack-plugin": "^0.1.19",
     "concurrently": "^3.5.1",
     "connect-multiparty": "^2.1.0",
     "cors": "^2.8.1",
@@ -155,11 +182,12 @@
     "eslint-plugin-standard": "^3.0.1",
     "express": "^4.14.0",
     "express-http-proxy": "^1.1.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "fbjs-scripts": "^0.7.1",
     "flow-bin": "^0.59.0",
     "fs-extra": "^4.0.2",
     "gulp-util": "^3.0.8",
-    "html-webpack-plugin": "^2.22.0",
+    "html-webpack-plugin": "^3.0.7",
     "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "inquirer": "^4.0.0",
@@ -167,29 +195,24 @@
     "minimist": "^1.2.0",
     "module": "^1.2.5",
     "nock": "^9.1.0",
+    "postcss-loader": "^2.1.4",
     "prettier": "^1.9.2",
     "prop-types": "^15.6.0",
     "react-test-renderer": "^16.2.0",
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.2.1",
+    "sass-loader": "^7.0.1",
     "selenium-webdriver": "^3.6.0",
     "spectron": "^3.7.2",
-    "style-loader": "^0.13.1",
+    "style-loader": "^0.21.0",
+    "url-loader": "^1.0.1",
     "url-search-params": "^0.10.0",
-    "webpack-hot-middleware": "^2.12.1",
-    "webpack-merge": "^4.1.1"
+    "webpack": "^4.8.1",
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-server": "^3.1.4",
+    "webpack-merge": "^4.1.2"
   },
   "dependencies": {
-    "babel-jest": "^22.0.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-remove-console": "^6.8.5",
-    "css-loader": "^0.28.7",
-    "css-modules-require-hook": "^4.2.2",
-    "electron-debug": "^1.0.1",
-    "electron-devtools-installer": "^2.2.1",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "file-loader": "^1.1.6",
-    "flow-typed": "^2.3.0",
     "font-awesome": "^4.6.3",
     "fuse.js": "^2.6.1",
     "google-maps": "^3.2.1",
@@ -202,7 +225,6 @@
     "moment": "^2.14.1",
     "parse-filepath": "^1.0.2",
     "phylocanvas": "^2.6.1",
-    "postcss": "^6.0.14",
     "react": "^16.2.0",
     "react-autosuggest": "^9.3.2",
     "react-cookie": "^1.0.5",
@@ -217,12 +239,9 @@
     "redux-thunk": "^2.1.0",
     "reselect": "^3.0.1",
     "resumablejs": "23/resumable.js",
-    "source-map-support": "^0.4.2",
     "spark-md5": "^3.0.0",
     "tmp": "^0.0.33",
-    "url-loader": "^0.6.2",
-    "webpack": "^3.10.0",
-    "webpack-dev-middleware": "^2.0.1"
+    "url-search-params-polyfill": "^4.0.0"
   },
   "devEngines": {
     "node": "6.x"
@@ -231,7 +250,8 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(css)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/_mocks/jestFileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/test/_mocks/jestFileMock.js"
     },
     "modulePathIgnorePatterns": [
       "<rootDir>/node_modules",

@@ -12,11 +12,11 @@ RUN echo "deb mirror://mirrors.ubuntu.com/mirrors.txt trusty main restricted uni
 	echo "deb mirror://mirrors.ubuntu.com/mirrors.txt trusty-security main restricted universe multiverse" >> /etc/apt/sources.list
 
 # install required software before using nvm/node/npm/bower
-RUN apt-get update 
-RUN apt-get install -y curl 
-RUN apt-get install -y git 
-RUN apt-get install -y python 
-RUN apt-get install -y build-essential 
+RUN apt-get update
+RUN apt-get install -y curl
+RUN apt-get install -y git
+RUN apt-get install -y python
+RUN apt-get install -y build-essential
 RUN apt-get install -y imagemagick
 RUN apt-get install -y libssl-dev
 
@@ -34,6 +34,7 @@ ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
 ENV API_URL   $API_URL
+ENV AUTH_COOKIE_NAME api.atlas-dev.makeandship.com
 
 # install global packages
 RUN npm install -g forever

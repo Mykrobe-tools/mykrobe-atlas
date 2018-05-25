@@ -3,7 +3,7 @@
 import { createSelector } from 'reselect';
 
 import { FETCH_JSON } from '../api';
-import { BASE_URL } from '../../constants/APIConstants.js';
+import { API_URL } from '../../constants/APIConstants.js';
 
 export const typePrefix = 'experiments/filters/';
 export const REQUEST_FILTER_VALUES = `${typePrefix}REQUEST_FILTER_VALUES`;
@@ -71,7 +71,7 @@ export function requestFilterValues(filter: string = '') {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/experiments/metadata/${filter}/values`,
+        url: `${API_URL}/experiments/metadata/${filter}/values`,
         types: [
           REQUEST_FILTER_VALUES,
           REQUEST_FILTER_VALUES_SUCCESS,

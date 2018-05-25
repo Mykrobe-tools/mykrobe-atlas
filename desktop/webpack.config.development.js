@@ -1,30 +1,23 @@
 /* @flow */
 
-/* eslint max-len: 0 */
-import webpack from 'webpack';
-import merge from 'webpack-merge';
-import baseConfig from '../webpack.config.development';
-import path from 'path';
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
-export default merge(baseConfig, {
-  entry: {
-    index: [
-      'webpack/hot/dev-server',
-      'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr&reload=true',
-      path.resolve(__dirname, '../app/index.js'),
-    ],
-  },
+const webpackConfig = require('../webpack.config.development');
 
-  output: {
-    path: path.join(__dirname, 'static'),
-    publicPath: 'http://localhost:3000/static/',
-  },
+const appHtmlTitle = 'Mykrobe Atlas';
 
+module.exports = merge(webpackConfig, {
+  target: 'electron-renderer',
   plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'index.template.html'),
+      title: appHtmlTitle,
+    }),
     new webpack.DefinePlugin({
       IS_ELECTRON: JSON.stringify(true),
     }),
   ],
-
-  target: 'electron-renderer',
 });

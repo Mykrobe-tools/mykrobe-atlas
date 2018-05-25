@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 
 import { FETCH_JSON } from '../api';
 import { showNotification } from '../notifications';
-import { BASE_URL } from '../../constants/APIConstants.js';
+import { API_URL } from '../../constants/APIConstants.js';
 import type { OrganisationType } from '../../types/OrganisationTypes';
 
 export const typePrefix = 'organisations/organisations/';
@@ -97,7 +97,7 @@ export function requestOrganisation(id: string) {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/organisations/${id}`,
+        url: `${API_URL}/organisations/${id}`,
         types: [
           REQUEST_ORGANISATION,
           REQUEST_ORGANISATION_SUCCESS,
@@ -123,7 +123,7 @@ export function createOrganisation(organisation: OrganisationType) {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/organisations`,
+        url: `${API_URL}/organisations`,
         options: {
           method: 'POST',
           body: JSON.stringify(organisation),
@@ -147,7 +147,7 @@ export function updateOrganisation(organisation: OrganisationType) {
     }
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/organisations/${organisation.id}`,
+        url: `${API_URL}/organisations/${organisation.id}`,
         options: {
           method: 'PUT',
           body: JSON.stringify(organisation),
@@ -171,7 +171,7 @@ export function deleteOrganisation(organisation: OrganisationType) {
     }
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/organisations/${organisation.id}`,
+        url: `${API_URL}/organisations/${organisation.id}`,
         options: {
           method: 'DELETE',
         },

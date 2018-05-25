@@ -1,36 +1,31 @@
 {
-  "presets": [
-    [
-      "env",
-      {
-        "targets": {
-          "browsers": ["last 2 versions"]
-        }
-      }
-    ],
-    "stage-0",
-    "react"
-  ],
-  "plugins": [
-    "add-module-exports",
-    "transform-runtime",
-    "transform-flow-strip-types"
-  ],
-  "env": {
-    "production": {
-      "presets": [
-        [
-          "minify",
-          {
-            "mangle": false
-          }
-        ],
-        "react-optimize"
-      ],
-      "plugins": ["transform-remove-console", "./babel-plugin-electron-module-resolver"]
-    },
-    "development": {
-      "plugins": ["./babel-plugin-electron-module-resolver"]
-    }
-  }
+	"presets": [
+		[
+			"env",
+			{
+				"targets": {
+					"browsers": ["last 2 versions"]
+				}
+			}
+		],
+		"stage-0",
+		"react"
+	],
+	"plugins": [
+		"add-module-exports",
+		"transform-runtime",
+		"transform-flow-strip-types"
+	],
+	"env": {
+		"production": {
+			"presets": ["react-optimize"],
+			"plugins": [
+				"transform-remove-console",
+				"./babel-plugin-electron-module-resolver"
+			]
+		},
+		"development": {
+			"plugins": ["./babel-plugin-electron-module-resolver"]
+		}
+	}
 }

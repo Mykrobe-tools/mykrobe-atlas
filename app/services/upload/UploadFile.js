@@ -3,7 +3,7 @@
 import Resumablejs from 'resumablejs';
 import SparkMD5 from 'spark-md5';
 import EventEmitter from 'events';
-import { BASE_URL } from '../../constants/APIConstants';
+import { API_URL } from '../../constants/APIConstants';
 
 // TODO: refactor to use redux actions, load user from state rather than direct from CredentialsHelpers
 import * as CredentialsHelpers from '../../helpers/CredentialsHelpers';
@@ -30,10 +30,10 @@ class UploadFile extends EventEmitter {
         }
       },
       target: () => {
-        return `${BASE_URL}/experiments/${this.id}/file`;
+        return `${API_URL}/experiments/${this.id}/file`;
       },
       testTarget: () => {
-        return `${BASE_URL}/experiments/${this.id}/upload-status`;
+        return `${API_URL}/experiments/${this.id}/upload-status`;
       },
       fileType: this.acceptedExtensions,
       query: (resumableFile, resumableObj) => {

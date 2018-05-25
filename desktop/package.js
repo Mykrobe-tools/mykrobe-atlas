@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const gutil = require('gulp-util');
 const electronCfg = require('./webpack.config.electron');
 const cfg = require('./webpack.config.production');
-// const cfg = require('./webpack.config.production.logging');
 const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
@@ -89,7 +88,8 @@ function startPack() {
   build(electronCfg)
     .then(() => build(cfg))
     .then(() => del(path.resolve(__dirname, 'release')))
-    .then(paths => { // eslint-disable-line
+    .then(paths => {
+      // eslint-disable-line
       platforms.forEach(plat => {
         archs.forEach(arch => {
           pack(plat, arch, log(plat, arch));
@@ -136,7 +136,8 @@ function pack(plat, arch, cb) {
 }
 
 function log(plat, arch) {
-  return (err, filepath) => { // eslint-disable-line
+  return (err, filepath) => {
+    // eslint-disable-line
     if (err) {
       return console.error(err);
     }

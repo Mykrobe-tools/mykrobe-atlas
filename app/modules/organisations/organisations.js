@@ -3,7 +3,7 @@
 import { createSelector } from 'reselect';
 
 import { FETCH_JSON } from '../api';
-import { BASE_URL } from '../../constants/APIConstants.js';
+import { API_URL } from '../../constants/APIConstants.js';
 
 export const typePrefix = 'organisations/organisations/';
 export const REQUEST_ORGANISATIONS = `${typePrefix}REQUEST_ORGANISATIONS`;
@@ -76,7 +76,7 @@ export function requestOrganisations() {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/organisations`,
+        url: `${API_URL}/organisations`,
         types: [
           REQUEST_ORGANISATIONS,
           REQUEST_ORGANISATIONS_SUCCESS,
