@@ -6,9 +6,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require('path');
 
+const pkg = require('../package.json');
 const webpackConfig = require('../webpack.config.production');
 
-const appHtmlTitle = 'Mykrobe Atlas';
+const appHtmlTitle = pkg.productName;
 
 module.exports = merge(webpackConfig, {
   output: {

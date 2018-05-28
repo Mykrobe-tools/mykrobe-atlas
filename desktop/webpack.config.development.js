@@ -5,9 +5,10 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
+const pkg = require('../package.json');
 const webpackConfig = require('../webpack.config.development');
 
-const appHtmlTitle = 'Mykrobe Atlas';
+const appHtmlTitle = pkg.productName;
 
 module.exports = merge(webpackConfig, {
   target: 'electron-renderer',

@@ -6,7 +6,9 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig from '../webpack.config.production';
 import path from 'path';
 
-const appHtmlTitle = 'Mykrobe Atlas';
+const pkg = require('../package.json');
+
+const appHtmlTitle = pkg.productName;
 
 const config = merge(baseConfig, {
   target: 'electron-renderer',
