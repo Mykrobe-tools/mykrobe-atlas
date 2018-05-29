@@ -6,61 +6,41 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "test:fast":
-      "cross-env API_URL=https://api.atlas-dev.makeandship.com AUTH_COOKIE_NAME=api.atlas.makeandship.com jest",
-    "test":
-      "cross-env API_URL=https://api.atlas-dev.makeandship.com AUTH_COOKIE_NAME=api.atlas.makeandship.com INCLUDE_SLOW_TESTS=true jest",
+    "test:fast": "cross-env API_URL=https://api.atlas-dev.makeandship.com AUTH_COOKIE_NAME=api.atlas.makeandship.com jest",
+    "test": "cross-env API_URL=https://api.atlas-dev.makeandship.com AUTH_COOKIE_NAME=api.atlas.makeandship.com INCLUDE_SLOW_TESTS=true jest",
     "test:e2e": "yarn test -t 'e2e'",
     "test:watch": "yarn test:fast --watch",
     "flow": "flow",
     "lint": "yarn lint:eslint && yarn lint:prettier",
     "lint:eslint": "eslint ./",
-    "lint:prettier":
-      "prettier -l './**/*.{js,json,css,scss}' || (echo '\nThese files are not formatted correctly. Did you forget to run \"yarn prettier\"?' && false)",
+    "lint:prettier": "prettier -l './**/*.{js,json,css,scss}' || (echo '\nThese files are not formatted correctly. Did you forget to run \"yarn prettier\"?' && false)",
     "prettier": "prettier --write './**/*.{js,json,css,scss}'",
     "precommit": "yarn lint && yarn test:fast",
-    "desktop-hot-server":
-      "cross-env PLATFORM=electron NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0 --port 3000 --inline --history-api-fallback --progress --config ./desktop/webpack.config.development.js",
-    "desktop-build-main":
-      "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js --progress --profile --colors",
-    "desktop-build-renderer":
-      "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.production.js --progress --profile --colors",
+    "desktop-hot-server": "cross-env PLATFORM=electron NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0 --port 3000 --inline --history-api-fallback --progress --config ./desktop/webpack.config.development.js",
+    "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js --progress --profile --colors",
+    "desktop-build-renderer": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.production.js --progress --profile --colors",
     "desktop-build": "yarn desktop-build-main && yarn desktop-build-renderer",
-    "desktop-start":
-      "cross-env PLATFORM=electron NODE_ENV=production electron ./desktop/static/",
-    "desktop-start-hot":
-      "cross-env HOT=1 PLATFORM=electron NODE_ENV=development electron -r babel-register -r babel-polyfill ./desktop/index.desktop",
-    "desktop-package":
-      "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js",
-    "desktop-package:win":
-      "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --win --x64",
-    "desktop-package:all":
-      "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --all",
-    "desktop-dev":
-      "cross-env PLATFORM=electron concurrently \"yarn desktop-hot-server\" \"yarn desktop-start-hot\"",
-    "desktop-dist":
-      "cross-env DEBUG=electron-builder,electron-builder:* PLATFORM=electron babel-node ./desktop/dist.js",
-    "desktop-dist:win":
-      "cross-env PLATFORM=electron babel-node ./desktop/dist.js --win --x64",
-    "desktop-dist:all":
-      "cross-env PLATFORM=electron babel-node ./desktop/dist.js --all --x64",
-    "build-predictor-binaries":
-      "babel-node ./desktop/build-predictor-binaries.js",
+    "desktop-start": "cross-env PLATFORM=electron NODE_ENV=production electron ./desktop/static/",
+    "desktop-start-hot": "cross-env HOT=1 PLATFORM=electron NODE_ENV=development electron -r babel-register -r babel-polyfill ./desktop/index.desktop",
+    "desktop-package": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js",
+    "desktop-package:win": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --win --x64",
+    "desktop-package:all": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --all",
+    "desktop-dev": "cross-env PLATFORM=electron concurrently \"yarn desktop-hot-server\" \"yarn desktop-start-hot\"",
+    "desktop-dist": "cross-env DEBUG=electron-builder,electron-builder:* PLATFORM=electron babel-node ./desktop/dist.js",
+    "desktop-dist:win": "cross-env PLATFORM=electron babel-node ./desktop/dist.js --win --x64",
+    "desktop-dist:all": "cross-env PLATFORM=electron babel-node ./desktop/dist.js --all --x64",
+    "build-predictor-binaries": "babel-node ./desktop/build-predictor-binaries.js",
     "postinstall": "electron-builder install-app-deps",
     "set-target": "babel-node scripts/set-target.js",
     "generate-icons": "babel-node scripts/generate-icons.js",
     "web-api-server": "babel-node web/api-dev-server.js",
     "web-hot-server": "babel-node web/dev-server.js",
-    "web-dev-server":
-      "cross-env NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0 --port 3000 --inline --history-api-fallback --progress --config ./web/webpack.config.development.js",
-    "web-dev":
-      "concurrently \"yarn web-hot-server\" \"yarn web-api-server\" \"yarn web-open\"",
+    "web-dev-server": "cross-env NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0 --port 3000 --inline --history-api-fallback --progress --config ./web/webpack.config.development.js",
+    "web-dev": "concurrently \"yarn web-hot-server\" \"yarn web-api-server\" \"yarn web-open\"",
     "web-open": "open http://localhost:3000",
-    "web-build":
-      "cross-env NODE_ENV=production webpack -p --progress --config ./web/webpack.config.production.js",
+    "web-build": "cross-env NODE_ENV=production webpack -p --progress --config ./web/webpack.config.production.js",
     "web-build-server": "babel-node web/build/simple-server.js",
-    "web-build-simple-server":
-      "concurrently \"yarn web-build-server\" \"yarn web-open\""
+    "web-build-simple-server": "concurrently \"yarn web-build-server\" \"yarn web-open\""
   },
   "build": {
     "appId": "com.mykrobe.atlas-desktop-tb",
@@ -89,14 +69,20 @@
       ]
     },
     "win": {
-      "target": ["nsis", "portable"],
+      "target": [
+        "nsis",
+        "portable"
+      ],
       "icon": "./desktop/resources/icon/atlas-desktop-tb/icon.ico"
     },
     "nsis": {
       "perMachine": true
     },
     "linux": {
-      "target": ["deb", "AppImage"]
+      "target": [
+        "deb",
+        "AppImage"
+      ]
     },
     "fileAssociations": [
       {
@@ -131,7 +117,6 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.13.1",
     "babel-eslint": "^8.0.2",
-    "babel-jest": "^22.0.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-dev-expression": "^0.2.1",
@@ -156,9 +141,6 @@
     "del": "^3.0.0",
     "devtron": "^1.2.1",
     "dotenv-webpack": "^1.5.5",
-    "electron": "^1.7.9",
-    "electron-builder": "^20.14.7",
-    "electron-debug": "^1.0.1",
     "electron-devtools-installer": "^2.2.1",
     "electron-log": "^2.2.11",
     "electron-packager": "^12.1.0",
@@ -211,6 +193,10 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
+    "babel-jest": "^23.0.1",
+    "electron": "^2.0.2",
+    "electron-builder": "^20.15.1",
+    "electron-debug": "^2.0.0",
     "font-awesome": "^4.6.3",
     "fuse.js": "^2.6.1",
     "google-maps": "^3.2.1",
@@ -249,8 +235,7 @@
   "jest": {
     "moduleNameMapper": {
       "\\.(css)$": "identity-obj-proxy",
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "<rootDir>/test/_mocks/jestFileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/_mocks/jestFileMock.js"
     },
     "modulePathIgnorePatterns": [
       "<rootDir>/node_modules",
