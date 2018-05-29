@@ -171,6 +171,15 @@ app.on('ready', async () => {
               mainWindow.send('menu-file-save-as');
             },
           },
+          {
+            type: 'separator',
+          },
+          {
+            label: 'Save Screenshot…',
+            click() {
+              mainWindow.send('menu-capture-page');
+            },
+          },
         ],
       },
       {

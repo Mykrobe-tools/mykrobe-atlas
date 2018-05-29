@@ -4,7 +4,6 @@ jest.setTimeout(10 * 60 * 1000); // 10 minutes
 
 import http from 'http';
 const { execSync } = require('child_process');
-require('chromedriver');
 const webdriver = require('selenium-webdriver');
 
 import { INCLUDE_SLOW_TESTS } from '../desktop/util';
@@ -52,7 +51,7 @@ if (config.isDesktop()) {
             execSync('yarn web-build', { stdio: [0, 1, 2] });
             server = require('../web/build/simple-server');
           });
-          driver = new webdriver.Builder().forBrowser('chrome').build();
+          driver = new webdriver.Builder().forBrowser('safari').build();
         }
       });
 

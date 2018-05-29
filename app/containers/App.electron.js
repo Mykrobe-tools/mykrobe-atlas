@@ -1,5 +1,7 @@
 /* @flow */
 
+import fs from 'fs';
+
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -61,7 +63,30 @@ class App extends React.Component<*, State> {
     ipcRenderer.on('menu-file-save-as', () => {
       analyseFileSave();
     });
+
+    ipcRenderer.on('menu-capture-page', () => {
+      const filePath = UIHelpers.saveFileDialog('screenshot.png'); // eslint-disable-line import/namespace
+      if (filePath) {
+        this.onCapturePage(filePath);
+      }
+    });
+
+    ipcRenderer.on('capture-page', (e, filePath) => {
+      console.log('App capture-page');
+      this.onCapturePage(filePath);
+    });
   }
+
+  onCapturePage = filePath => {
+    const { BrowserWindow } = require('electron').remote;
+    const browserWindow = BrowserWindow.getFocusedWindow();
+    if (filePath) {
+      browserWindow.capturePage(image => {
+        fs.writeFileSync(filePath, image.toPNG());
+        console.log('Saved', filePath);
+      });
+    }
+  };
 
   onDragEnter = e => {
     const dt = e.dataTransfer;

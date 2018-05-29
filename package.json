@@ -25,7 +25,7 @@
     "desktop-package": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js",
     "desktop-package:win": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --win --x64",
     "desktop-package:all": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --all",
-    "desktop-dev": "cross-env PLATFORM=electron concurrently \"yarn desktop-hot-server\" \"yarn desktop-start-hot\"",
+    "desktop-dev": "cross-env PLATFORM=electron UPGRADE_EXTENSIONS=1 concurrently \"yarn desktop-hot-server\" \"yarn desktop-start-hot\"",
     "desktop-dist": "cross-env DEBUG=electron-builder,electron-builder:* PLATFORM=electron babel-node ./desktop/dist.js",
     "desktop-dist:win": "cross-env PLATFORM=electron babel-node ./desktop/dist.js --win --x64",
     "desktop-dist:all": "cross-env PLATFORM=electron babel-node ./desktop/dist.js --all --x64",
@@ -42,7 +42,7 @@
     "web-build-simple-server": "concurrently \"yarn web-build-server\" \"yarn web-open\""
   },
   "build": {
-    "appId": "com.mykrobe.atlas-tb",
+    "appId": "com.mykrobe.atlas-desktop-tb",
     "publish": {
       "provider": "github",
       "owner": "iqbal-lab",
@@ -50,7 +50,7 @@
     },
     "mac": {
       "category": "public.app-category.tools",
-      "icon": "./desktop/resources/icon/atlas-tb/icon.icns"
+      "icon": "./desktop/resources/icon/atlas-desktop-tb/icon.icns"
     },
     "dmg": {
       "contents": [
@@ -72,7 +72,7 @@
         "nsis",
         "portable"
       ],
-      "icon": "./desktop/resources/icon/atlas-tb/icon.ico"
+      "icon": "./desktop/resources/icon/atlas-desktop-tb/icon.ico"
     },
     "nsis": {
       "perMachine": true
@@ -196,7 +196,6 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
-    "chromedriver": "^2.38.3",
     "fbjs-scripts": "^0.8.3",
     "font-awesome": "^4.6.3",
     "fs-extra": "^6.0.1",
@@ -231,7 +230,7 @@
   "devEngines": {
     "node": "6.x"
   },
-  "targetName": "atlas-tb",
+  "targetName": "atlas-desktop-tb",
   "jest": {
     "moduleNameMapper": {
       "\\.(css)$": "identity-obj-proxy",
