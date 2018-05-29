@@ -62,6 +62,7 @@ SamplePage.propTypes = {
   requestCurrentUser: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withAnalyser(SamplePage)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAnalyser(SamplePage));

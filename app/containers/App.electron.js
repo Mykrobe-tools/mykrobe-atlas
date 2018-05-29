@@ -170,5 +170,8 @@ App.propTypes = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(withAnalyser(App))
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withAnalyser(App))
 );

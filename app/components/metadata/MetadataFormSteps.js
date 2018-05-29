@@ -54,7 +54,7 @@ class MetadataFormSteps extends React.Component<*, State> {
 
   render() {
     const { step, steps } = this.state;
-    const percent = Math.round((step + 1) / steps * 100);
+    const percent = Math.round(((step + 1) / steps) * 100);
     const isLastStep = !!(step < steps - 1);
     return (
       <div className={styles.wrap}>

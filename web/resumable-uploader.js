@@ -204,7 +204,7 @@ function validateRequest(
     if (
       numberOfChunks > 1 &&
       chunkNumber === numberOfChunks &&
-      fileSize !== totalSize % chunkSize + chunkSize
+      fileSize !== (totalSize % chunkSize) + chunkSize
     ) {
       validation.valid = false;
       validation.message = 'Incorrect final chunk size';

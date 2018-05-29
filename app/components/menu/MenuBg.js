@@ -10,7 +10,7 @@ class MenuBg extends React.Component<*> {
     return (
       <div
         className={displayMenu ? styles.containerDisplayed : styles.container}
-        onClick={() => toggleMenu()}
+        onClick={toggleMenu}
       />
     );
   }

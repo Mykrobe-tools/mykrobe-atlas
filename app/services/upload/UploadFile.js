@@ -151,7 +151,7 @@ class UploadFile extends EventEmitter {
       var spark = SparkMD5.ArrayBuffer.hash(e.target.result);
       resumableFile.hashes.push(spark);
       if (numChunks > offset + 1) {
-        this.emit('progress', Math.floor(offset / numChunks * 100));
+        this.emit('progress', Math.floor((offset / numChunks) * 100));
         this.computeChecksums(resumableFile, offset + 1, fileReader);
       } else {
         this.startUpload();

@@ -71,4 +71,7 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LibraryContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LibraryContainer);

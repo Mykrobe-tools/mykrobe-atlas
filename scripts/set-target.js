@@ -52,9 +52,6 @@ function setTarget(targetName) {
     );
   }
 
-  const electronHtmlPath = path.resolve(__dirname, '../desktop/index.html');
-  const webHtmlPath = path.resolve(__dirname, '../web/index.html');
-
   // change the bundled settings in /package.json
   rootPackageJson.targetName = targetName;
   rootPackageJson.productName = productName;
@@ -67,10 +64,6 @@ function setTarget(targetName) {
     .then(() => {
       // change the bundled settings in /desktop/static/package.json
       updateStaticPackageJson();
-      return setTitleInHtmlFile(electronHtmlPath, productName);
-    })
-    .then(() => {
-      return setTitleInHtmlFile(webHtmlPath, productName);
     })
     .then(() => {
       const filePath = path.resolve(
@@ -95,26 +88,6 @@ function writeJsonToFile(filePath, json) {
         return reject(err);
       }
       resolve();
-    });
-  });
-}
-
-function setTitleInHtmlFile(filePath, title) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filePath, 'utf8', (err, data) => {
-      if (err) {
-        return reject(err);
-      }
-      const html = data.replace(
-        /<title>[\s\S]*?<\/title>/,
-        `<title>${title}</title>`
-      );
-      fs.writeFile(filePath, html, 'utf8', err => {
-        if (err) {
-          return reject(err);
-        }
-        resolve();
-      });
     });
   });
 }

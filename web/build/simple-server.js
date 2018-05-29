@@ -4,7 +4,7 @@ import express from 'express';
 import path from 'path';
 
 const app = express();
-const host = process.env.HOST || 'localhost';
+const host = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 3000;
 
 // static assets
@@ -33,3 +33,5 @@ process.on('SIGTERM', () => {
     process.exit(0);
   });
 });
+
+export default server;

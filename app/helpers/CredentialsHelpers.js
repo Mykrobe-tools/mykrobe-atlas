@@ -1,12 +1,14 @@
 /* @flow */
 
-import cookie from 'react-cookie';
+import Cookies from 'universal-cookie';
 import jwtDecode from 'jwt-decode';
 import { AUTH_COOKIE_NAME } from '../constants/APIConstants.js';
 import type { UserType } from '../types/UserTypes';
 
+const cookies = new Cookies();
+
 export function loadUser(): ?UserType {
-  const userJson: string = cookie.load(AUTH_COOKIE_NAME, { path: '/' });
+  const userJson: string = cookies.get(AUTH_COOKIE_NAME, { doNotParse: true });
   let user: UserType;
   if (userJson) {
     try {
@@ -23,7 +25,7 @@ export function loadUser(): ?UserType {
 }
 
 export function deleteUser() {
-  cookie.remove(AUTH_COOKIE_NAME, { path: '/' });
+  cookies.remove(AUTH_COOKIE_NAME, { path: '/' });
 }
 
 export function saveUser(user: UserType) {
@@ -31,5 +33,5 @@ export function saveUser(user: UserType) {
   const userObject = {
     token: user.token,
   };
-  cookie.save(AUTH_COOKIE_NAME, JSON.stringify(userObject), { path: '/' });
+  cookies.set(AUTH_COOKIE_NAME, JSON.stringify(userObject), { path: '/' });
 }

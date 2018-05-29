@@ -1447,4 +1447,7 @@ MetadataForm.propTypes = {
   id: PropTypes.string,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MetadataForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MetadataForm);

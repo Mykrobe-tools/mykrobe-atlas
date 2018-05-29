@@ -180,4 +180,7 @@ Edit.propTypes = {
   push: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Edit);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Edit);

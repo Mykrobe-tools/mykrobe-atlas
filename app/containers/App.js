@@ -52,12 +52,12 @@ class App extends React.Component<*, State> {
     });
   }
 
-  toggleMenu() {
+  toggleMenu = () => {
     const { displayMenu } = this.state;
     this.setState({
       displayMenu: !displayMenu,
     });
-  }
+  };
 
   render() {
     const { auth, children } = this.props;
@@ -83,17 +83,11 @@ class App extends React.Component<*, State> {
           <NotificationsContainer />
         </div>
         <div className={styles.headerContainer}>
-          <Header
-            displayMenu={displayMenu}
-            toggleMenu={() => this.toggleMenu()}
-          />
+          <Header displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
         </div>
         <div className={styles.menuContainer}>
           <Menu displayMenu={displayMenu} />
-          <MenuBg
-            displayMenu={displayMenu}
-            toggleMenu={() => this.toggleMenu()}
-          />
+          <MenuBg displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
         </div>
         <div className={styles.contentContainer}>{children}</div>
       </div>
@@ -127,4 +121,9 @@ App.propTypes = {
   children: PropTypes.node,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
