@@ -11,14 +11,21 @@ Check the `rules` block of the `.eslintrc` config file in the project root to se
 
 ### Avoid bind
 
-Avoid using `bind` to pass the context of `this` to a component. Instead a reference can be passed via arrow functions.
+Avoid using `bind` to pass the context of `this` to a component, this causes the component to be re-rendered each time as it creates a new function. Instead a reference can be passed via arrow functions.
 
 ```
 // bad
 <Component onClick={onClick.bind(this)} />
 
+// bad
+<Component onClick={(event) => onClick(event)} />
+
 // good
-<Component onClick={(event) => {onClick(event)}} />
+const onClick = event => {
+	// handle event
+}
+
+<Component onClick={this.onClick} />
 ```
 
 ### Use destructuring
@@ -29,13 +36,13 @@ Use destructuring to avoid long object chains.
 // bad
 <Component
 	name={this.props.name}
-	onClick={(event) => this.props.onClick(event)} />
+	onClick={this.props.onClick} />
 
 // good
 const {name, onClick} = this.props;
 <Component
 	name={name}
-	onClick={(event) => onClick(event)} />
+	onClick={onClick} />
 ```
 
 ### Use relative import paths

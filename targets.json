@@ -1,28 +1,15 @@
 [
   {
-    "value": "atlas-desktop-s-aureus",
+    "value": "atlas-s-aureus",
     "name":
       "Mykrobe Atlas S.Aureus - Desktop (Placeholder, not yet implemented)",
     "productName": "Mykrobe Atlas S.Aureus",
-    "appId": "com.mykrobe.atlas-desktop-s-aureus"
-  },
-  {
-    "value": "atlas-desktop-tb",
-    "name": "Mykrobe Atlas TB - Desktop",
-    "productName": "Mykrobe Atlas TB",
-    "appId": "com.mykrobe.atlas-desktop-tb"
+    "appId": "com.mykrobe.atlas-s-aureus"
   },
   {
     "value": "atlas-tb",
-    "name": "Mykrobe Atlas TB - Web",
+    "name": "Mykrobe Atlas TB - Web and Desktop",
     "productName": "Mykrobe Atlas TB",
     "appId": "com.mykrobe.atlas-tb"
-  },
-  {
-    "value": "atlas-desktop-enterics",
-    "name":
-      "Mykrobe Atlas Enterics - Desktop (Placeholder, not yet implemented",
-    "productName": "Mykrobe Atlas Enterics",
-    "appId": "com.mykrobe.atlas-desktop-enterics"
   }
 ]

@@ -2,7 +2,7 @@
 
 ## Setup
 
-Select a *Web* target – [About targets](targets.md)
+Set the desired target – [About targets](targets.md)
 
 ```
 $ yarn set-target
