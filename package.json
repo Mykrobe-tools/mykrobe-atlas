@@ -45,7 +45,7 @@
     "appId": "com.mykrobe.atlas-desktop-tb",
     "publish": {
       "provider": "github",
-      "owner": "iqbal-lab",
+      "owner": "mykrobe-tools",
       "repo": "mykrobe-atlas"
     },
     "mac": {
