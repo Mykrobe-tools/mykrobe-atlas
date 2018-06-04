@@ -4,22 +4,28 @@
 
 ## Install
 
-* Install package manager
+- Install package manager
 
 	```
 	$ brew install yarn
 	```
 
-* If using `nvm`, set the Node version
+- If using `nvm`, set the Node version
 
 	```
 	$ nvm use
 	```
 
-* Install dependencies
+- Install dependencies
 
 	```
 	$ yarn
+	```
+
+- Set environment varaibles
+
+	```
+	$ cp .env.example .env
 	```
 
 ## See next
