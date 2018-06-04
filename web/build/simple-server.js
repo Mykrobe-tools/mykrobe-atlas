@@ -4,16 +4,16 @@ import express from 'express';
 import path from 'path';
 
 const app = express();
-const host = process.env.HOST || 'localhost';
+const host = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 3000;
 
 // static assets
-app.use('/static/', express.static(path.resolve(__dirname, 'static')));
+app.use('/', express.static(path.resolve(__dirname, 'static')));
 
 // serve html for all unmatched routes
 app.get('*', (req, res, next) => {
   if (req.accepts('html')) {
-    res.sendFile(path.resolve(__dirname, 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'static', 'index.html'));
   } else {
     next();
   }
@@ -33,3 +33,5 @@ process.on('SIGTERM', () => {
     process.exit(0);
   });
 });
+
+export default server;

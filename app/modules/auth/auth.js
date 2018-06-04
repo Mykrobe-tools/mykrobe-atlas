@@ -9,7 +9,7 @@ import { push } from 'react-router-redux';
 import { FETCH_JSON } from '../api';
 import * as CredentialsHelpers from '../../helpers/CredentialsHelpers';
 import { showNotification } from '../notifications';
-import { BASE_URL } from '../../constants/APIConstants.js';
+import { API_URL } from '../../constants/APIConstants.js';
 import type {
   AuthResetPasswordType,
   AuthVerificationType,
@@ -222,7 +222,7 @@ export function signIn(user: UserType) {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/auth/login`,
+        url: `${API_URL}/auth/login`,
         options: {
           method: 'POST',
           body: JSON.stringify(user),
@@ -248,7 +248,7 @@ export function signUp(user: UserType) {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/users`,
+        url: `${API_URL}/users`,
         options: {
           method: 'POST',
           body: JSON.stringify(user),
@@ -273,7 +273,7 @@ export function forgotPassword(user: UserType) {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/auth/forgot`,
+        url: `${API_URL}/auth/forgot`,
         options: {
           method: 'POST',
           body: JSON.stringify(user),
@@ -298,7 +298,7 @@ export function resetPassword(reset: AuthResetPasswordType) {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/auth/reset`,
+        url: `${API_URL}/auth/reset`,
         options: {
           method: 'POST',
           body: JSON.stringify(reset),
@@ -323,7 +323,7 @@ export function requestCurrentUser() {
   return (dispatch: Function) => {
     return dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/user`,
+        url: `${API_URL}/user`,
         types: [
           AUTH_REQUEST_USER,
           AUTH_REQUEST_USER_SUCCESS,
@@ -338,7 +338,7 @@ export function updateCurrentUser(user: UserType) {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/user`,
+        url: `${API_URL}/user`,
         options: {
           method: 'PUT',
           body: JSON.stringify(user),
@@ -359,7 +359,7 @@ export function deleteCurrentUser() {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/user`,
+        url: `${API_URL}/user`,
         options: {
           method: 'DELETE',
         },
@@ -385,7 +385,7 @@ export function verify(verify: AuthVerificationType) {
     try {
       const payload = await dispatch({
         [FETCH_JSON]: {
-          url: `${BASE_URL}/auth/verify`,
+          url: `${API_URL}/auth/verify`,
           options: {
             method: 'POST',
             body: JSON.stringify(verify),

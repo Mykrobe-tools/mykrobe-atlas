@@ -3,7 +3,7 @@
 import AnalyserBaseFile from './AnalyserBaseFile';
 import AnalyserJsonTransformer from './AnalyserJsonTransformer';
 import { fetchJsonWithToken } from '../../modules/api';
-import { BASE_URL } from '../../constants/APIConstants';
+import { API_URL } from '../../constants/APIConstants';
 
 // TODO: refactor to use redux actions, load user from state rather than direct from CredentialsHelpers
 import * as CredentialsHelpers from '../../helpers/CredentialsHelpers';
@@ -53,7 +53,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
     if (user && user.token) {
       token = user.token;
     }
-    return fetchJsonWithToken(`${BASE_URL}/experiments/${id}`, {}, token)
+    return fetchJsonWithToken(`${API_URL}/experiments/${id}`, {}, token)
       .then(json => {
         json = this.addExtraData(json);
         const transformer = new AnalyserJsonTransformer();

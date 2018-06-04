@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 
 import { fetchJsonMiddleware } from '../api';
-import { BASE_URL } from '../../constants/APIConstants.js';
+import { API_URL } from '../../constants/APIConstants.js';
 
 import reducer, { initialState, updateMetadata, setMetadata } from './metadata';
 
@@ -36,7 +36,7 @@ describe('metadata module', () => {
   });
 
   it('should handle "updateMetadata" action', async () => {
-    nock(BASE_URL)
+    nock(API_URL)
       .put('/experiments/1')
       .reply(200, { status: 'success', data: { lorem: 'ipsum' } });
     await store.dispatch(updateMetadata('1', {}));

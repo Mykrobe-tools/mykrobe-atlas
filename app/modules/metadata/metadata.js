@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 
 import { FETCH_JSON } from '../api';
 import { showNotification } from '../notifications';
-import { BASE_URL } from '../../constants/APIConstants.js';
+import { API_URL } from '../../constants/APIConstants.js';
 
 export const typePrefix = 'metadata/metadata/';
 export const SET_METADATA = `${typePrefix}SET_METADATA`;
@@ -96,7 +96,7 @@ export function updateMetadata(id: string, metadata: Object) {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/experiments/${id}`,
+        url: `${API_URL}/experiments/${id}`,
         options: {
           method: 'PUT',
           body: JSON.stringify(metadata),

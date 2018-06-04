@@ -1,5 +1,3 @@
-/* @flow */
-
 const pathLib = require('path');
 const fs = require('fs');
 
@@ -91,29 +89,29 @@ const resolvedPath = (source, state) => {
     DEBUG && console.log('******** relativeImportPath: ', relativeImportPath);
     return relativeImportPath;
   }
-}
+};
 
 // See http://astexplorer.net/ for exploring AST
 
 // import './module';
 
-const importDeclaration = (path: any, state: any) => {
+const importDeclaration = (path, state) => {
   const newPath = resolvedPath(path.node.source.value, state);
-  if ( newPath ) {
+  if (newPath) {
     path.node.source.value = newPath;
   }
 };
 
 // require('./module');
 
-const callExpression = (path: any, state: any) => {
-  if ( path.node.callee.name === 'require') {
+const callExpression = (path, state) => {
+  if (path.node.callee.name === 'require') {
     const newPath = resolvedPath(path.node.arguments[0].value, state);
-    if ( newPath ) {
+    if (newPath) {
       path.node.arguments[0].value = newPath;
     }
   }
-}
+};
 
 module.exports = function() {
   return {

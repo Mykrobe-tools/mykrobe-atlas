@@ -1,22 +1,17 @@
 /* @flow */
 
-const webpack = require('webpack');
-const gutil = require('gulp-util');
-const electronCfg = require('./webpack.config.electron');
-const cfg = require('./webpack.config.production');
-// const cfg = require('./webpack.config.production.logging');
+import { execSync } from 'child_process';
 const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
 const argv = require('minimist')(process.argv.slice(2));
 const pkg = require('../package.json');
 const path = require('path');
-const deps = Object.keys(pkg.dependencies);
-const devDeps = Object.keys(pkg.devDependencies);
 
 import { updateStaticPackageJson } from './util';
 
 import archPlatArgs from './util/archPlatArgs';
+
 const { platforms, archs } = archPlatArgs();
 
 const icon = path.resolve(__dirname, `resources/icon/${pkg.targetName}/icon`);
@@ -30,20 +25,6 @@ const DEFAULT_OPTS = {
   icon: icon,
   version: '',
   'extend-info': path.resolve(__dirname, 'resources/plist/extend-info.plist'),
-  ignore: [
-    '^/test($|/)',
-    '^/release($|/)',
-    '^/index.desktop.js',
-    '^/yarn.lock',
-    '^/(.*).map',
-    'skeleton.k15.ctx',
-  ]
-    .concat(devDeps.map(name => `/node_modules/${name}($|/)`))
-    .concat(
-      deps
-        .filter(name => !electronCfg.externals.includes(name))
-        .map(name => `/node_modules/${name}($|/)`)
-    ),
 };
 
 // this is the version of Electron to use
@@ -67,41 +48,32 @@ if (version) {
   });
 }
 
-function build(cfg) {
-  return new Promise((resolve, reject) => {
-    // console.log('build', JSON.stringify(cfg, null, 2));
-    webpack(cfg, (err, stats) => {
-      if (err) return reject(err);
-      gutil.log(
-        '[webpack:build]',
-        stats.toString({
-          chunks: false, // Makes the build much quieter
-          colors: true,
-        })
-      );
-      resolve(stats);
-    });
-  });
-}
-
 function startPack() {
-  console.log('start pack...');
-  build(electronCfg)
-    .then(() => build(cfg))
-    .then(() => del(path.resolve(__dirname, 'release')))
-    .then(paths => { // eslint-disable-line
-      platforms.forEach(plat => {
-        archs.forEach(arch => {
-          pack(plat, arch, log(plat, arch));
-        });
-      });
-    })
-    .catch(err => {
+  console.log('Start pack...');
+  (async () => {
+    try {
+      console.log('Building shell...');
+      execSync('yarn desktop-build-main', { stdio: [0, 1, 2] });
+      console.log('Building renderer...');
+      execSync('yarn desktop-build-renderer', { stdio: [0, 1, 2] });
+      await del(path.resolve(__dirname, 'release'));
+      console.log('Packaging releases...');
+      for (let i = 0; i < platforms.length; i++) {
+        const plat = platforms[i];
+        for (let j = 0; j < archs.length; j++) {
+          const arch = archs[j];
+          console.log(`Packing ${plat} ${arch}`);
+          const appPaths = await pack(plat, arch);
+          console.log(appPaths);
+        }
+      }
+    } catch (err) {
       console.error(err);
-    });
+    }
+  })();
 }
 
-function pack(plat, arch, cb) {
+async function pack(plat, arch) {
   // there is no darwin ia32 electron
   if (plat === 'darwin' && arch === 'ia32') {
     return;
@@ -130,16 +102,6 @@ function pack(plat, arch, cb) {
   });
   console.log('opts:', JSON.stringify(opts, null, 2));
 
-  return packager(opts).then(appPaths => {
-    cb(null, appPaths);
-  });
-}
-
-function log(plat, arch) {
-  return (err, filepath) => { // eslint-disable-line
-    if (err) {
-      return console.error(err);
-    }
-    console.log(`${plat}-${arch} finished!`);
-  };
+  const appPaths = await packager(opts);
+  return appPaths;
 }

@@ -98,4 +98,7 @@ Reset.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Reset);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Reset);

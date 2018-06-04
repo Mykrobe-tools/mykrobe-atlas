@@ -25,7 +25,11 @@ class Resistance extends React.Component<*> {
     const { match, analyseFileNew, analyseFileSave } = this.props;
     const path = '/results/resistance';
     const config = new MykrobeConfig();
-    const { analyser: { transformed: { hasResistance } } } = this.props;
+    const {
+      analyser: {
+        transformed: { hasResistance },
+      },
+    } = this.props;
     return (
       <div className={styles.container} data-tid="component-resistance">
         <div className={styles.header}>
@@ -153,5 +157,8 @@ Resistance.propTypes = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(withAnalyser(Resistance))
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(withAnalyser(Resistance))
 );

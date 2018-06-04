@@ -54,4 +54,7 @@ HomePage.propTypes = {
   analyseRemoteFile: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomePage);

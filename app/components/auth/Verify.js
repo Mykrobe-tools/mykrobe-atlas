@@ -63,4 +63,7 @@ Verify.propTypes = {
   match: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Verify);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Verify);

@@ -6,10 +6,12 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import baseConfig from '../webpack.config.production';
 import path from 'path';
 
-const config = merge(baseConfig, {
-  devtool: false,
+const pkg = require('../package.json');
 
-  entry: { index: path.resolve(__dirname, '../app/index') },
+const appHtmlTitle = pkg.productName;
+
+const config = merge(baseConfig, {
+  target: 'electron-renderer',
 
   output: {
     path: path.resolve(__dirname, 'static'),
@@ -17,16 +19,13 @@ const config = merge(baseConfig, {
 
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: path.resolve(__dirname, '../desktop/index.html'),
-      inject: false,
+      template: path.join(__dirname, 'index.template.html'),
+      title: appHtmlTitle,
     }),
     new webpack.DefinePlugin({
       IS_ELECTRON: JSON.stringify(true),
     }),
   ],
-
-  target: 'electron-renderer',
 });
 
 export default config;

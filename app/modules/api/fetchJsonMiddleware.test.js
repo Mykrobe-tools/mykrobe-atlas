@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 
 import { FETCH_JSON, fetchJsonMiddleware } from './fetchJsonMiddleware';
-import { BASE_URL } from '../../constants/APIConstants.js';
+import { API_URL } from '../../constants/APIConstants.js';
 import { AUTH_SIGNOUT, AUTH_SIGNOUT_SUCCESS } from '../auth/auth';
 
 const REQUEST = 'REQUEST';
@@ -37,12 +37,12 @@ describe('fetchJsonMiddleware', () => {
   it('should handle basic GET request and resolve as promise', async () => {
     const meta = { test: true };
     const payload = { test: true };
-    nock(BASE_URL)
+    nock(API_URL)
       .get('/test/fetchJsonMiddleware')
       .reply(200, { status: 'success', data: payload });
     const result = await store.dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/test/fetchJsonMiddleware`,
+        url: `${API_URL}/test/fetchJsonMiddleware`,
         types: [{ type: REQUEST, meta }, SUCCESS, FAILURE],
         debug,
       },
@@ -60,13 +60,13 @@ describe('fetchJsonMiddleware', () => {
   });
 
   it('should reject empty response', async () => {
-    nock(BASE_URL)
+    nock(API_URL)
       .get('/test/fetchJsonMiddleware')
       .reply(200);
     try {
       await store.dispatch({
         [FETCH_JSON]: {
-          url: `${BASE_URL}/test/fetchJsonMiddleware`,
+          url: `${API_URL}/test/fetchJsonMiddleware`,
           types: [REQUEST, SUCCESS, FAILURE],
           debug,
         },
@@ -84,13 +84,13 @@ describe('fetchJsonMiddleware', () => {
   });
 
   it('should reject non-jsend response', async () => {
-    nock(BASE_URL)
+    nock(API_URL)
       .get('/test/fetchJsonMiddleware')
       .reply(200, { data: { test: true } });
     try {
       await store.dispatch({
         [FETCH_JSON]: {
-          url: `${BASE_URL}/test/fetchJsonMiddleware`,
+          url: `${API_URL}/test/fetchJsonMiddleware`,
           types: [REQUEST, SUCCESS, FAILURE],
           debug,
         },
@@ -108,13 +108,13 @@ describe('fetchJsonMiddleware', () => {
   });
 
   it('should sign out if unauthorized', async () => {
-    nock(BASE_URL)
+    nock(API_URL)
       .get('/test/fetchJsonMiddleware')
       .reply(401);
     try {
       await store.dispatch({
         [FETCH_JSON]: {
-          url: `${BASE_URL}/test/fetchJsonMiddleware`,
+          url: `${API_URL}/test/fetchJsonMiddleware`,
           types: [REQUEST, SUCCESS, FAILURE],
           debug,
         },

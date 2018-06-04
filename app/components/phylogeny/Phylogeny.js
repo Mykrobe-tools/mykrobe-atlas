@@ -271,6 +271,7 @@ Phylogeny.propTypes = {
   unsetNodeHighlightedAll: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withAnalyser(Phylogeny)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAnalyser(Phylogeny));

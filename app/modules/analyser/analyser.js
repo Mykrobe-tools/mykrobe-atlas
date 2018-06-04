@@ -126,7 +126,7 @@ export default function reducer(
         const { progress, total } = action.progress;
         return {
           ...state,
-          progress: Math.round(100 * progress / total),
+          progress: Math.round((100 * progress) / total),
         };
       } else {
         const progress = Math.max(

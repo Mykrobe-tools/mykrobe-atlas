@@ -43,6 +43,7 @@ HomePage.propTypes = {
   analyseFileCancel: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withAnalyser(HomePage)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAnalyser(HomePage));

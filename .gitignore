@@ -57,3 +57,6 @@ web/tmp
 
 # large test fixtures
 test/__fixtures__/exemplar-samples
+
+# Environment
+.env

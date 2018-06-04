@@ -11,7 +11,7 @@ class CircularProgress extends React.Component<*> {
     const height = this.props.radius * 2;
     const viewBox = `0 0 ${width} ${height}`;
     const dashArray = radius * Math.PI * 2;
-    const dashOffset = dashArray - dashArray * percentage / 100;
+    const dashOffset = dashArray - (dashArray * percentage) / 100;
     return (
       <svg
         className={styles.container}

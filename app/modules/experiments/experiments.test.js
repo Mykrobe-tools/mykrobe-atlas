@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 
 import { fetchJsonMiddleware } from '../api';
-import { BASE_URL } from '../../constants/APIConstants.js';
+import { API_URL } from '../../constants/APIConstants.js';
 
 import reducer, { initialState, requestExperiments } from './experiments';
 
@@ -22,7 +22,7 @@ describe('experiments module', () => {
   });
 
   it('should handle "requestExperiments" action', async () => {
-    nock(BASE_URL)
+    nock(API_URL)
       .get('/experiments/search')
       .query(true)
       .reply(200, data);

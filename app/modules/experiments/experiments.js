@@ -3,7 +3,7 @@
 import { createSelector } from 'reselect';
 
 import { FETCH_JSON } from '../api';
-import { BASE_URL } from '../../constants/APIConstants.js';
+import { API_URL } from '../../constants/APIConstants.js';
 import * as StringHelpers from '../../helpers/StringHelpers';
 
 export const typePrefix = 'experiments/experiments/';
@@ -79,7 +79,7 @@ export function requestExperiments(filters: Object = {}) {
     const params = StringHelpers.objectToParamString(filters);
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/experiments/search?${params}`,
+        url: `${API_URL}/experiments/search?${params}`,
         types: [
           REQUEST_EXPERIMENTS,
           REQUEST_EXPERIMENTS_SUCCESS,
@@ -97,7 +97,7 @@ export function prepareNewExperiment() {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/experiments/`,
+        url: `${API_URL}/experiments/`,
         options: {
           method: 'POST',
         },
@@ -118,7 +118,7 @@ export function uploadExperimentFile(id: string, file: Object) {
   return async (dispatch: Function) => {
     const payload = await dispatch({
       [FETCH_JSON]: {
-        url: `${BASE_URL}/experiments/${id}/file`,
+        url: `${API_URL}/experiments/${id}/file`,
         options: {
           method: 'PUT',
           body: JSON.stringify(file),

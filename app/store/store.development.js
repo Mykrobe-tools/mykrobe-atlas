@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { routerMiddleware, push } from 'react-router-redux';
 
-import { createBrowserHistory, createHashHistory } from 'history';
+import { createBrowserHistory } from 'history';
 
 import { fetchJsonMiddleware } from '../modules/api';
 import rootReducer from '../modules';
@@ -38,9 +38,7 @@ const logger = createLogger({
   collapsed: true,
 });
 
-export const history = IS_ELECTRON
-  ? createHashHistory()
-  : createBrowserHistory();
+export const history = createBrowserHistory();
 
 const router = routerMiddleware(history);
 

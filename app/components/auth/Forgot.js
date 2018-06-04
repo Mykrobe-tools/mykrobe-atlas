@@ -105,4 +105,7 @@ Forgot.propTypes = {
   deleteError: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Forgot);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Forgot);

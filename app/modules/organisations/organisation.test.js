@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 
 import { fetchJsonMiddleware } from '../api';
-import { BASE_URL } from '../../constants/APIConstants.js';
+import { API_URL } from '../../constants/APIConstants.js';
 
 import reducer, { initialState, requestOrganisation } from './organisation';
 
@@ -22,7 +22,7 @@ describe('organisation module', () => {
   });
 
   it('should handle "requestOrganisation" action', async () => {
-    nock(BASE_URL)
+    nock(API_URL)
       .get('/organisations/123')
       .reply(200, data);
     const payload = await store.dispatch(requestOrganisation('123'));

@@ -3,7 +3,7 @@
 import Resumablejs from 'resumablejs';
 import SparkMD5 from 'spark-md5';
 import EventEmitter from 'events';
-import { BASE_URL } from '../../constants/APIConstants';
+import { API_URL } from '../../constants/APIConstants';
 
 // TODO: refactor to use redux actions, load user from state rather than direct from CredentialsHelpers
 import * as CredentialsHelpers from '../../helpers/CredentialsHelpers';
@@ -30,10 +30,10 @@ class UploadFile extends EventEmitter {
         }
       },
       target: () => {
-        return `${BASE_URL}/experiments/${this.id}/file`;
+        return `${API_URL}/experiments/${this.id}/file`;
       },
       testTarget: () => {
-        return `${BASE_URL}/experiments/${this.id}/upload-status`;
+        return `${API_URL}/experiments/${this.id}/upload-status`;
       },
       fileType: this.acceptedExtensions,
       query: (resumableFile, resumableObj) => {
@@ -129,7 +129,9 @@ class UploadFile extends EventEmitter {
       ? 'slice'
       : resumableFile.file.mozSlice
         ? 'mozSlice'
-        : resumableFile.file.webkitSlice ? 'webkitSlice' : 'slice';
+        : resumableFile.file.webkitSlice
+          ? 'webkitSlice'
+          : 'slice';
     let startByte;
     let endByte;
     let bytes;
@@ -149,7 +151,7 @@ class UploadFile extends EventEmitter {
       var spark = SparkMD5.ArrayBuffer.hash(e.target.result);
       resumableFile.hashes.push(spark);
       if (numChunks > offset + 1) {
-        this.emit('progress', Math.floor(offset / numChunks * 100));
+        this.emit('progress', Math.floor((offset / numChunks) * 100));
         this.computeChecksums(resumableFile, offset + 1, fileReader);
       } else {
         this.startUpload();

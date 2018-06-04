@@ -22,7 +22,6 @@ exports[`FormInputCheckbox component snapshot renders correctly with a single in
     >
       <label
         className="label"
-        htmlFor={undefined}
       >
         <input
           checked={false}
@@ -61,7 +60,6 @@ exports[`FormInputCheckbox component snapshot renders correctly with multiple in
     >
       <label
         className="label"
-        htmlFor={undefined}
       >
         <input
           checked={true}
@@ -79,7 +77,6 @@ exports[`FormInputCheckbox component snapshot renders correctly with multiple in
     >
       <label
         className="label"
-        htmlFor={undefined}
       >
         <input
           checked={false}
@@ -97,7 +94,6 @@ exports[`FormInputCheckbox component snapshot renders correctly with multiple in
     >
       <label
         className="label"
-        htmlFor={undefined}
       >
         <input
           checked={true}

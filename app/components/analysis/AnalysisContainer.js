@@ -44,6 +44,7 @@ AnalysisContainer.propTypes = {
   highlighted: PropTypes.array.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withAnalyser(AnalysisContainer)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withAnalyser(AnalysisContainer));

@@ -16,11 +16,11 @@ import {
 } from '../../modules/auth';
 
 class Header extends React.Component<*> {
-  onMenuToggleClick(e: Event) {
+  onMenuToggleClick = (e: Event) => {
     const { toggleMenu } = this.props;
     e.preventDefault();
     toggleMenu();
-  }
+  };
 
   render() {
     const { displayMenu, signOut, isAuthenticated, user } = this.props;
@@ -29,7 +29,7 @@ class Header extends React.Component<*> {
         <a
           href="#"
           className={styles.menuToggle}
-          onClick={e => this.onMenuToggleClick(e)}
+          onClick={this.onMenuToggleClick}
         >
           <span
             className={displayMenu ? styles.menuIconClose : styles.menuIconOpen}
@@ -106,4 +106,7 @@ Header.propTypes = {
   toggleMenu: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

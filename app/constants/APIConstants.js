@@ -1,9 +1,12 @@
 /* @flow */
 
-export const BASE_URL: string =
-  process.env.API_URL || 'https://api.atlas-dev.makeandship.com';
+if (!process.env.API_URL) {
+  throw new Error(`Fatal - process.env.API_URL is undefined`);
+}
 
-// export const BASE_URL = 'https://localhost:3001';
-// export const BASE_URL = 'http://13.69.243.89:8000';
+if (!process.env.AUTH_COOKIE_NAME) {
+  throw new Error(`Fatal - process.env.AUTH_COOKIE_NAME is undefined`);
+}
 
-export const USER_COOKIE_NAME = 'api.atlas.makeandship.com';
+export const API_URL = process.env.API_URL;
+export const AUTH_COOKIE_NAME = process.env.AUTH_COOKIE_NAME;

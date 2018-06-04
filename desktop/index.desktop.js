@@ -19,11 +19,6 @@ let ready = false;
 const SHOW_DEV_TOOLS = process.env.NODE_ENV === 'development';
 // const SHOW_DEV_TOOLS = true;
 
-// if (process.env.NODE_ENV === 'production') {
-//   const sourceMapSupport = require('source-map-support') // eslint-disable-line
-//   sourceMapSupport.install();
-// }
-
 if (process.env.NODE_ENV === 'development') {
   require('electron-debug')(); // eslint-disable-line global-require
   const path = require('path');
@@ -81,7 +76,11 @@ app.on('ready', async () => {
     minHeight: 600,
   });
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
+  if (process.env.NODE_ENV == 'production') {
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
+  } else {
+    mainWindow.loadURL('http://localhost:3000');
+  }
 
   mainWindow.webContents.on('did-finish-load', () => {
     if (SHOW_DEV_TOOLS) {
@@ -170,6 +169,15 @@ app.on('ready', async () => {
             accelerator: 'CmdOrCtrl+Shift+S',
             click() {
               mainWindow.send('menu-file-save-as');
+            },
+          },
+          {
+            type: 'separator',
+          },
+          {
+            label: 'Save Screenshot…',
+            click() {
+              mainWindow.send('menu-capture-page');
             },
           },
         ],

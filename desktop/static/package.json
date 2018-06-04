@@ -1,12 +1,8 @@
 {
-  "targetName": "atlas-desktop-tb",
+  "targetName": "atlas-tb",
   "name": "mykrobe",
   "productName": "Mykrobe Atlas TB",
   "version": "0.2.0",
   "main": "./main.js",
-  "dependencies": {
-    "font-awesome": "^4.6.3"
-  },
-  "description": "Mykrobe Atlas UI",
-  "executableVersion": "v0.5.6-0-gbd7923a-dirty"
+  "description": "Mykrobe Atlas UI"
 }
