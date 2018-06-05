@@ -78,10 +78,9 @@ class App extends React.Component<*, State> {
   }
 
   onCapturePage = filePath => {
-    const { BrowserWindow } = require('electron').remote;
-    const browserWindow = BrowserWindow.getFocusedWindow();
+    const currentWindow = require('electron').remote.getCurrentWindow();
     if (filePath) {
-      browserWindow.capturePage(image => {
+      currentWindow.capturePage(image => {
         fs.writeFileSync(filePath, image.toPNG());
         console.log('Saved', filePath);
       });
