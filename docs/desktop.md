@@ -2,13 +2,13 @@
 
 ## Setup
 
-1. Select a *Desktop* target – [About targets](targets.md)
+1. Set the desired target – [About targets](targets.md)
 
 	```
 	$ yarn set-target
 	```
 
-2.	[Build Predictor Binaries](desktop-predictor-binaries.md) – The desktop app requires a local executable version of Predictor
+2.	[Build Predictor Binaries](desktop-predictor-binaries.md) – The desktop app requires a local executable version of Atlas
 
 ## Run development version
 
