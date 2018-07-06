@@ -6,20 +6,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
+import Notifications from 'makeandship-js-common/src/components/notifications/Notifications';
+
 import styles from './App.css';
 import Analysing from '../components/analysing/Analysing';
 import Header from '../components/header/Header';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
-import NotificationsContainer from '../components/notifications/NotificationsContainer';
 import Loading from '../components/ui/Loading';
 
-import {
-  getAuth,
-  signOut,
-  loadAuth,
-  requestCurrentUser,
-} from '../modules/auth';
+import { getIsFetching as getAuthIsFetching } from 'makeandship-js-common/src/modules/auth';
+import { getCurrentUserIsFetching } from '../modules/users';
 
 type State = {
   displayMenu: boolean,
@@ -31,17 +28,17 @@ class App extends React.Component<*, State> {
   };
 
   componentWillMount() {
-    const { loadAuth, requestCurrentUser, signOut } = this.props;
-
-    loadAuth().then(user => {
-      if (user && user.token) {
-        requestCurrentUser()
-          .then(() => {})
-          .catch(() => {
-            signOut();
-          });
-      }
-    });
+    // TODO: ininitialising auth and sign out shoudl now be handled by sagas - check
+    // const { loadAuth, requestCurrentUser, signOut } = this.props;
+    // loadAuth().then(user => {
+    //   if (user && user.token) {
+    //     requestCurrentUser()
+    //       .then(() => {})
+    //       .catch(() => {
+    //         signOut();
+    //       });
+    //   }
+    // });
   }
 
   componentDidMount() {
@@ -60,17 +57,10 @@ class App extends React.Component<*, State> {
   };
 
   render() {
-    const { auth, children } = this.props;
+    const { isFetching, children } = this.props;
     const { displayMenu } = this.state;
 
-    let showLoadingView = false;
-    if (!auth.user) {
-      if (auth.isLoading || auth.isFetching) {
-        showLoadingView = true;
-      }
-    }
-
-    if (showLoadingView) {
+    if (isFetching) {
       return <Loading />;
     }
 
@@ -79,9 +69,7 @@ class App extends React.Component<*, State> {
         <div className={styles.analysingContainer}>
           <Analysing />
         </div>
-        <div className={styles.notificationsContainer}>
-          <NotificationsContainer />
-        </div>
+        <Notifications />
         <div className={styles.headerContainer}>
           <Header displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
         </div>
@@ -97,27 +85,17 @@ class App extends React.Component<*, State> {
 
 function mapStateToProps(state) {
   return {
-    auth: getAuth(state),
+    isFetching: getCurrentUserIsFetching(state) || getAuthIsFetching(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      loadAuth,
-      requestCurrentUser,
-      signOut,
-    },
-    dispatch
-  );
+  return bindActionCreators({}, dispatch);
 }
 
 App.propTypes = {
   history: PropTypes.object.isRequired,
-  loadAuth: PropTypes.func.isRequired,
-  requestCurrentUser: PropTypes.func.isRequired,
-  signOut: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
+  isFetching: PropTypes.bool.isRequired,
   children: PropTypes.node,
 };
 

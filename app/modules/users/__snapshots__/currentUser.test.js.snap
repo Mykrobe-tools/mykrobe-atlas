@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user module should create user execute request 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      Object {
+        "action": Object {
+          "payload": Object {
+            "test": true,
+          },
+          "type": "users/currentUser/CREATE_CURRENT_USER",
+        },
+        "actionType": [Function],
+        "crudOptions": Object {
+          "onSuccess": [Function],
+          "operationId": "usersCreate",
+        },
+        "parameters": Object {
+          "body": Object {
+            "test": true,
+          },
+        },
+        "type": "CREATE",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`user module should delete user execute request 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      Object {
+        "action": Object {
+          "payload": undefined,
+          "type": "users/currentUser/DELETE_CURRENT_USER",
+        },
+        "actionType": [Function],
+        "crudOptions": Object {
+          "onSuccess": [Function],
+          "operationId": "currentUserDelete",
+        },
+        "parameters": undefined,
+        "type": "DELETE",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`user module should request user execute request 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      Object {
+        "action": Object {
+          "payload": undefined,
+          "type": "users/currentUser/REQUEST_CURRENT_USER",
+        },
+        "actionType": [Function],
+        "crudOptions": Object {
+          "onFailure": [Function],
+          "operationId": "currentUserGet",
+        },
+        "parameters": undefined,
+        "type": "REQUEST",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`user module should update user execute request 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "CALL": Object {
+    "args": Array [
+      Object {
+        "action": Object {
+          "payload": Object {
+            "test": true,
+          },
+          "type": "users/currentUser/UPDATE_CURRENT_USER",
+        },
+        "actionType": [Function],
+        "crudOptions": Object {
+          "onSuccess": [Function],
+          "operationId": "currentUserUpdate",
+        },
+        "parameters": Object {
+          "body": Object {
+            "test": true,
+          },
+        },
+        "type": "UPDATE",
+      },
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;

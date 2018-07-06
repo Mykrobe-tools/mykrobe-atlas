@@ -9,7 +9,7 @@ import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
 import PopoverMenu from '../ui/PopoverMenu';
 
-import { getIsAuthenticated } from '../../modules/auth';
+import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
 
 type State = {
   isDragActive: boolean,

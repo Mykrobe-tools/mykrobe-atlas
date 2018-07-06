@@ -10,7 +10,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import styles from './Common.css';
-import { forgotPassword, getError, deleteError } from '../../modules/auth';
+import {
+  forgotPassword,
+  getError,
+} from 'makeandship-js-common/src/modules/auth';
 import type { UserType } from '../../types/UserTypes';
 
 class Forgot extends React.Component<*> {
@@ -22,11 +25,6 @@ class Forgot extends React.Component<*> {
       email: this.refs.email.value,
     };
     forgotPassword(userObject);
-  }
-
-  componentWillUnmount() {
-    const { deleteError } = this.props;
-    deleteError();
   }
 
   render() {
@@ -93,7 +91,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       forgotPassword,
-      deleteError,
     },
     dispatch
   );

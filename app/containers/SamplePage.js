@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Sample from '../components/sample/Sample';
 import withAnalyser from '../hoc/withAnalyser';
 
-import { requestCurrentUser } from '../modules/auth';
+import { requestCurrentUser } from '../modules/users';
 import { requestExperiment } from '../modules/analyser';
 import { requestTemplate } from '../modules/metadata';
 

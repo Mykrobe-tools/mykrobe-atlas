@@ -1,58 +1,67 @@
 /* @flow */
 
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { createLogger } from 'redux-logger';
-import { routerMiddleware, push } from 'react-router-redux';
+import { createStore, applyMiddleware, compose as vanillaCompose } from 'redux';
 
-import { createBrowserHistory } from 'history';
+import thunk from 'redux-thunk';
+import { routerMiddleware } from 'react-router-redux';
+import createSagaMiddleware from 'redux-saga';
+import createHistory from 'history/createBrowserHistory';
+import { createLogger } from 'redux-logger';
 
 import { fetchJsonMiddleware } from '../modules/api';
-import rootReducer from '../modules';
+import { rootReducer, rootSaga } from '../modules';
 
-// import {
-//   monitorUpload,
-//   analyseFile,
-//   analyseFileCancel,
-//   analyseRemoteFile,
-//   requestExperiment,
-//   analyseFileNew,
-//   analyseFileSave,
-// } from '../modules/analyser';
+import {
+  signIn,
+  verify,
+  setToken,
+  clearToken,
+} from 'makeandship-js-common/src/modules/auth';
 
-// TODO: add other action creators
+const devToolsPresent =
+  window && typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function';
 
-const actionCreators = {
-  // monitorUpload,
-  // analyseFile,
-  // analyseFileCancel,
-  // analyseRemoteFile,
-  // requestExperiment,
-  // analyseFileNew,
-  // analyseFileSave,
-  push,
-};
+let compose;
 
-const logger = createLogger({
-  level: 'info',
-  collapsed: true,
-});
+if (devToolsPresent) {
+  const actionCreators = {
+    signIn,
+    verify,
+    setToken,
+    clearToken,
+  };
+  const actionsBlacklist = [];
+  compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+    actionCreators,
+    actionsBlacklist,
+  });
+} else {
+  compose = vanillaCompose;
+}
 
-export const history = createBrowserHistory();
+export const history = createHistory();
 
 const router = routerMiddleware(history);
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-      actionCreators,
-    })
-  : compose;
+const sagaMiddleware = createSagaMiddleware();
 
-const enhancer = composeEnhancers(
-  applyMiddleware(thunk, fetchJsonMiddleware, router, logger)
-);
+const middleware = [thunk, fetchJsonMiddleware, sagaMiddleware, router];
+
+const actionsBlacklist = [];
+const logger = createLogger({
+  level: 'info',
+  collapsed: true,
+  predicate: (getState, action) => {
+    return actionsBlacklist.indexOf(action.type) === -1;
+  },
+});
+middleware.push(logger);
+
+const enhancer = compose(applyMiddleware(...middleware));
 
 const store = createStore(rootReducer, enhancer);
+
+sagaMiddleware.run(rootSaga);
 
 if (module.hot) {
   module.hot.accept(

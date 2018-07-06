@@ -3,12 +3,14 @@
 import type { JSendType } from '../../types/JSendType';
 
 // TODO: make token access more generic
-import { getAuthToken, signOut } from '../auth';
-
+import {
+  getAccessToken,
+  signOut,
+} from 'makeandship-js-common/src/modules/auth';
 import {
   showNotification,
   NotificationCategories,
-} from '../notifications/notifications';
+} from 'makeandship-js-common/src/modules/notifications';
 
 import { fetchToCurl } from './fetchToCurl';
 
@@ -54,7 +56,7 @@ export const fetchJsonMiddleware = store => next => action => {
   next(REQUEST);
 
   const state = store.getState();
-  const token = getAuthToken(state);
+  const token = getAccessToken(state);
 
   if (!options.headers) {
     options.headers = {};

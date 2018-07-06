@@ -16,10 +16,13 @@ import Verify from '../components/auth/Verify';
 import VerifySuccess from '../components/auth/VerifySuccess';
 import VerifyFailure from '../components/auth/VerifyFailure';
 
-import { userIsNotAuthenticated, userIsAuthenticated } from '../authHelpers';
+import {
+  withUserIsNotAuthenticatedRedirect,
+  withUserIsAuthenticatedRedirect,
+} from 'makeandship-js-common/src/modules/auth/util';
 
-const AuthenticatedProfile = userIsAuthenticated(Profile);
-const UnauthenticatedLogin = userIsNotAuthenticated(Login);
+const AuthenticatedProfile = withUserIsNotAuthenticatedRedirect(Profile);
+const UnauthenticatedLogin = withUserIsAuthenticatedRedirect(Login);
 
 class AuthPage extends React.Component<*> {
   render() {

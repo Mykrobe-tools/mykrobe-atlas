@@ -1,11 +1,14 @@
 /* @flow */
 
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+
 import thunk from 'redux-thunk';
-import { createBrowserHistory, createHashHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux';
+import createSagaMiddleware from 'redux-saga';
+import { createBrowserHistory, createHashHistory } from 'history';
+
+import { rootReducer, rootSaga } from '../modules';
 import { fetchJsonMiddleware } from '../modules/api';
-import rootReducer from '../modules';
 
 export const history = IS_ELECTRON
   ? createHashHistory()
@@ -13,7 +16,14 @@ export const history = IS_ELECTRON
 
 const router = routerMiddleware(history);
 
-const enhancer = applyMiddleware(thunk, fetchJsonMiddleware, router);
+const sagaMiddleware = createSagaMiddleware();
+
+const middleware = [thunk, fetchJsonMiddleware, sagaMiddleware, router];
+
+const enhancer = compose(applyMiddleware(...middleware));
 
 const store = createStore(rootReducer, enhancer);
+
+sagaMiddleware.run(rootSaga);
+
 export default store;

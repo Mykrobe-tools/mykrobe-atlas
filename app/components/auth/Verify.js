@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import type { AuthVerificationType } from '../../types/AuthTypes';
 import Loading from '../ui/Loading';
 
-import { verify, deleteError } from '../../modules/auth';
+import { verify } from 'makeandship-js-common/src/modules/auth';
 
 import styles from './Common.css';
 
@@ -20,11 +20,6 @@ class Verify extends React.Component<*> {
       verificationToken,
     };
     verify(userObject);
-  }
-
-  componentWillUnmount() {
-    const { deleteError } = this.props;
-    deleteError();
   }
 
   render() {
@@ -51,7 +46,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       verify,
-      deleteError,
     },
     dispatch
   );

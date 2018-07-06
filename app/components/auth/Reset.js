@@ -11,7 +11,10 @@ import { bindActionCreators } from 'redux';
 import styles from './Common.css';
 import type { AuthResetPasswordType } from '../../types/AuthTypes';
 
-import { getError, resetPassword, deleteError } from '../../modules/auth';
+import {
+  getError,
+  resetPassword,
+} from 'makeandship-js-common/src/modules/auth';
 
 class Reset extends React.Component<*> {
   handleSubmit(e) {

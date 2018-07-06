@@ -22,7 +22,7 @@ import withAnalyser from '../hoc/withAnalyser';
 
 import styles from './App.css';
 
-import NotificationsContainer from '../components/notifications/NotificationsContainer';
+import Notifications from 'makeandship-js-common/src/components/notifications/Notifications';
 
 type State = {
   isDragActive: boolean,
@@ -160,9 +160,7 @@ class App extends React.Component<*, State> {
         accept=".json,.bam,.gz,.fastq"
       >
         <div className={styles.contentContainer}>{children}</div>
-        <div className={styles.notificationsContainer}>
-          <NotificationsContainer />
-        </div>
+        <Notifications />
       </Dropzone>
     );
   }
