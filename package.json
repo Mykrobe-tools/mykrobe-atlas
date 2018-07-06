@@ -205,7 +205,7 @@
     "google-maps": "^3.2.1",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
-    "jest": "^23.0.1",
+    "jest": "^22.4.3",
     "jwt-decode": "^2.2.0",
     "load-script": "^1.0.0",
     "lodash": "^4.15.0",
@@ -237,6 +237,9 @@
   },
   "targetName": "atlas-tb",
   "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(makeandship-js-common|makeandship-api-common|swagger-client)).+\\.js$"
+    ],
     "moduleNameMapper": {
       "\\.(css)$": "identity-obj-proxy",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/_mocks/jestFileMock.js"

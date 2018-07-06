@@ -17,6 +17,17 @@ import {
   setToken,
   clearToken,
 } from 'makeandship-js-common/src/modules/auth';
+import {
+  deleteCurrentUser,
+  requestCurrentUser,
+  requestUser,
+  requestUsers,
+} from '../modules/users';
+import {
+  setFormData,
+  clearFormData,
+} from 'makeandship-js-common/src/modules/form';
+import { showNotification } from 'makeandship-js-common/src/modules/notifications';
 
 const devToolsPresent =
   window && typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function';
@@ -29,6 +40,13 @@ if (devToolsPresent) {
     verify,
     setToken,
     clearToken,
+    deleteCurrentUser,
+    requestCurrentUser,
+    requestUser,
+    requestUsers,
+    setFormData,
+    clearFormData,
+    showNotification,
   };
   const actionsBlacklist = [];
   compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({

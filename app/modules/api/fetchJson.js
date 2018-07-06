@@ -3,6 +3,7 @@
 import type { JSendType } from '../../types/JSendType';
 
 import {
+  getIsAuthenticated,
   getAccessToken,
   signOut,
 } from 'makeandship-js-common/src/modules/auth';
@@ -27,7 +28,8 @@ import { fetchToCurl } from './fetchToCurl';
 export function fetchJson(url: string, options: any = {}) {
   return (dispatch: Function, getState: Function) => {
     const state = getState();
-    const token = getAccessToken(state);
+    const isAuthenticated = getIsAuthenticated(state);
+    const token = isAuthenticated ? getAccessToken(state) : undefined;
     return fetchJsonWithTokenAndDispatch(url, options, token, dispatch);
   };
 }

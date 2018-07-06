@@ -5,6 +5,7 @@ import type { JSendType } from '../../types/JSendType';
 // TODO: make token access more generic
 import {
   getAccessToken,
+  getIsAuthenticated,
   signOut,
 } from 'makeandship-js-common/src/modules/auth';
 import {
@@ -56,7 +57,8 @@ export const fetchJsonMiddleware = store => next => action => {
   next(REQUEST);
 
   const state = store.getState();
-  const token = getAccessToken(state);
+  const isAuthenticated = getIsAuthenticated(state);
+  const token = isAuthenticated ? getAccessToken(state) : undefined;
 
   if (!options.headers) {
     options.headers = {};

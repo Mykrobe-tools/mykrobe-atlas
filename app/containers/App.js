@@ -13,7 +13,6 @@ import Analysing from '../components/analysing/Analysing';
 import Header from '../components/header/Header';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
-import Loading from '../components/ui/Loading';
 
 import { getIsFetching as getAuthIsFetching } from 'makeandship-js-common/src/modules/auth';
 import { getCurrentUserIsFetching } from '../modules/users';
@@ -26,20 +25,6 @@ class App extends React.Component<*, State> {
   state = {
     displayMenu: false,
   };
-
-  componentWillMount() {
-    // TODO: ininitialising auth and sign out shoudl now be handled by sagas - check
-    // const { loadAuth, requestCurrentUser, signOut } = this.props;
-    // loadAuth().then(user => {
-    //   if (user && user.token) {
-    //     requestCurrentUser()
-    //       .then(() => {})
-    //       .catch(() => {
-    //         signOut();
-    //       });
-    //   }
-    // });
-  }
 
   componentDidMount() {
     this.props.history.listen(() => {
@@ -57,19 +42,15 @@ class App extends React.Component<*, State> {
   };
 
   render() {
-    const { isFetching, children } = this.props;
+    const { children } = this.props;
     const { displayMenu } = this.state;
-
-    if (isFetching) {
-      return <Loading />;
-    }
 
     return (
       <div className={styles.container}>
+        <div className={styles.contentContainer}>{children}</div>
         <div className={styles.analysingContainer}>
           <Analysing />
         </div>
-        <Notifications />
         <div className={styles.headerContainer}>
           <Header displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
         </div>
@@ -77,7 +58,7 @@ class App extends React.Component<*, State> {
           <Menu displayMenu={displayMenu} />
           <MenuBg displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
         </div>
-        <div className={styles.contentContainer}>{children}</div>
+        <Notifications />
       </div>
     );
   }

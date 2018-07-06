@@ -22,6 +22,7 @@ exports[`FormInputRadio component snapshot renders correctly with a single input
     >
       <label
         className="label"
+        htmlFor={undefined}
       >
         <input
           checked={true}
@@ -60,6 +61,7 @@ exports[`FormInputRadio component snapshot renders correctly with multiple input
     >
       <label
         className="label"
+        htmlFor={undefined}
       >
         <input
           checked={false}
@@ -77,6 +79,7 @@ exports[`FormInputRadio component snapshot renders correctly with multiple input
     >
       <label
         className="label"
+        htmlFor={undefined}
       >
         <input
           checked={false}
@@ -94,6 +97,7 @@ exports[`FormInputRadio component snapshot renders correctly with multiple input
     >
       <label
         className="label"
+        htmlFor={undefined}
       >
         <input
           checked={true}
