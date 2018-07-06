@@ -1,5 +1,5 @@
 .header {
-  composes: container from 'css/layout.css';
+  composes: container from 'styles/layout.css';
   align-items: center;
   justify-content: space-between;
 }
@@ -27,8 +27,8 @@
 }
 
 .clearFilters {
-  composes: fontSecondary from 'css/typography.css';
-  composes: fontSizeSmall from 'css/typography.css';
+  composes: fontSecondary from 'styles/typography.css';
+  composes: fontSizeSmall from 'styles/typography.css';
   color: var(--color-grey-dark);
   text-transform: uppercase;
   display: block;

@@ -12,15 +12,15 @@
 }
 
 .title {
-  composes: font from 'css/typography.css';
-  composes: fontSizeLarge from 'css/typography.css';
+  composes: font from 'styles/typography.css';
+  composes: fontSizeLarge from 'styles/typography.css';
   color: var(--color-grey-mid);
   margin: 15px 0 10px;
 }
 
 .text {
-  composes: font from 'css/typography.css';
-  composes: fontSizeNormal from 'css/typography.css';
+  composes: font from 'styles/typography.css';
+  composes: fontSizeNormal from 'styles/typography.css';
   color: var(--color-grey-mid);
   margin: 0;
 }

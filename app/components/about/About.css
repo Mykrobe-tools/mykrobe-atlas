@@ -1,5 +1,5 @@
 .container {
-  composes: container from 'css/layout.css';
+  composes: container from 'styles/layout.css';
   flex-direction: column;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .content {
-  composes: container from 'css/layout.css';
+  composes: container from 'styles/layout.css';
   background-color: white;
   padding: 20px 30px;
   flex-direction: column;

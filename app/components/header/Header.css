@@ -1,5 +1,5 @@
 .container {
-  composes: container from 'css/layout.css';
+  composes: container from 'styles/layout.css';
   height: var(--header-height);
   align-items: center;
   padding: 0 40px;
@@ -8,7 +8,7 @@
 .account {
   display: flex;
   align-items: center;
-  composes: fontSizeSmall from 'css/typography.css';
+  composes: fontSizeSmall from 'styles/typography.css';
   margin-left: auto;
   color: var(--color-grey-mid);
   pointer-events: auto;
@@ -23,8 +23,8 @@
 }
 
 .signUpLink {
-  composes: buttonPrimary from 'css/controls.css';
-  composes: fontSecondarySizeSmall from 'css/typography.css';
+  composes: buttonPrimary from 'styles/controls.css';
+  composes: fontSecondarySizeSmall from 'styles/typography.css';
   margin-left: 20px;
 }
 

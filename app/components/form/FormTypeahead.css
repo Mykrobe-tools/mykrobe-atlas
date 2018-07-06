@@ -1,16 +1,16 @@
 .wrap {
-  composes: wrap from 'css/form.css';
+  composes: wrap from 'styles/form.css';
   width: 100%;
 }
 
 .label {
-  composes: label from 'css/form.css';
+  composes: label from 'styles/form.css';
 }
 
 /* Styling for Autosuggest sub-component */
 
 .input {
-  composes: input from 'css/form.css';
+  composes: input from 'styles/form.css';
   position: relative;
   z-index: 3;
   width: 100%;

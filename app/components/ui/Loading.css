@@ -1,6 +1,6 @@
 .container {
-  composes: container from 'css/layout.css';
-  composes: containerCenterContent from 'css/layout.css';
+  composes: container from 'styles/layout.css';
+  composes: containerCenterContent from 'styles/layout.css';
 }
 
 .activityIndicator {

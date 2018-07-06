@@ -1,5 +1,5 @@
 .container {
-  composes: container from 'css/layout.css';
+  composes: container from 'styles/layout.css';
   padding: 18px;
   overflow-y: auto;
   background-color: white;

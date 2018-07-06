@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import store, { history } from './store/store'; // eslint-disable-line import/default
 import './app.global.css';
-import './css/main.css';
+import './styles/main.css';
 
 // import used moment locales individually, otherwise excluded by webpack config
 import moment from 'moment';

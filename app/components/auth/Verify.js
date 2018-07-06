@@ -53,7 +53,6 @@ function mapDispatchToProps(dispatch) {
 
 Verify.propTypes = {
   verify: PropTypes.func.isRequired,
-  deleteError: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
 };
 

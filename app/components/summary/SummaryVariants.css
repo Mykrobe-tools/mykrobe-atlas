@@ -1,10 +1,10 @@
 .container {
-  composes: container from 'css/layout.css';
+  composes: container from 'styles/layout.css';
   flex-direction: column;
 }
 
 .title {
-  composes: subtitle from 'css/typography.css';
+  composes: subtitle from 'styles/typography.css';
   color: var(--color-grey-mid);
   padding: 8px 0;
 }

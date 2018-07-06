@@ -29,7 +29,7 @@
 
 .title {
   padding-top: 20px;
-  composes: fontSizeLarge from 'css/typography.css';
+  composes: fontSizeLarge from 'styles/typography.css';
   color: var(--color-grey-mid);
 }
 

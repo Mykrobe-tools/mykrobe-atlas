@@ -29,11 +29,6 @@ class Reset extends React.Component<*> {
     resetPassword(userObject);
   }
 
-  componentWillUnmount() {
-    const { deleteError } = this.props;
-    deleteError();
-  }
-
   render() {
     const { error } = this.props;
     return (
@@ -88,7 +83,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       resetPassword,
-      deleteError,
     },
     dispatch
   );
@@ -97,7 +91,6 @@ function mapDispatchToProps(dispatch) {
 Reset.propTypes = {
   error: PropTypes.object,
   resetPassword: PropTypes.func.isRequired,
-  deleteError: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
 };
 

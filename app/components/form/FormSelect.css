@@ -1,9 +1,9 @@
 .wrap {
-  composes: wrap from 'css/form.css';
+  composes: wrap from 'styles/form.css';
 }
 
 .label {
-  composes: label from 'css/form.css';
+  composes: label from 'styles/form.css';
 }
 
 .inputWrap {
@@ -23,6 +23,6 @@
 }
 
 .input {
-  composes: input from 'css/form.css';
+  composes: input from 'styles/form.css';
   padding-right: 24px;
 }

@@ -99,7 +99,6 @@ function mapDispatchToProps(dispatch) {
 Forgot.propTypes = {
   error: PropTypes.object,
   forgotPassword: PropTypes.func.isRequired,
-  deleteError: PropTypes.func.isRequired,
 };
 
 export default connect(
