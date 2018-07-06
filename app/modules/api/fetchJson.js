@@ -1,7 +1,5 @@
 /* @flow */
 
-import 'isomorphic-fetch';
-
 import type { JSendType } from '../../types/JSendType';
 
 import { getAuthToken, signOut } from '../auth';

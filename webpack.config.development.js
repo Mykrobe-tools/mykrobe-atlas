@@ -5,6 +5,11 @@ const merge = require('webpack-merge');
 
 const webpackConfig = require('./webpack.config');
 
+const cssRegex = /\.global\.css$/;
+const cssModuleRegex = /^((?!\.global).)*\.css$/;
+const sassRegex = /\.global\.(scss|sass)$/;
+const sassModuleRegex = /^((?!\.global).)*\.(scss|sass)$/;
+
 // devtool: https://webpack.js.org/configuration/devtool/#development
 
 module.exports = merge(webpackConfig, {
@@ -21,7 +26,7 @@ module.exports = merge(webpackConfig, {
   module: {
     rules: [
       {
-        test: /\.global\.css$/,
+        test: cssRegex,
         use: [
           {
             loader: 'style-loader',
@@ -38,7 +43,7 @@ module.exports = merge(webpackConfig, {
         ],
       },
       {
-        test: /^((?!\.global).)*\.css$/,
+        test: cssModuleRegex,
         use: [
           {
             loader: 'style-loader',
@@ -49,7 +54,6 @@ module.exports = merge(webpackConfig, {
               modules: true,
               sourceMap: true,
               importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]',
             },
           },
           {
@@ -60,7 +64,7 @@ module.exports = merge(webpackConfig, {
 
       // SASS support - compile all .global.scss files and pipe it to style.css
       {
-        test: /\.global\.(scss|sass)$/,
+        test: sassRegex,
         use: [
           {
             loader: 'style-loader',
@@ -69,6 +73,7 @@ module.exports = merge(webpackConfig, {
             loader: 'css-loader',
             options: {
               sourceMap: true,
+              importLoaders: 2,
             },
           },
           {
@@ -83,7 +88,7 @@ module.exports = merge(webpackConfig, {
 
       // SASS support - compile all other .scss files and pipe it to style.css
       {
-        test: /^((?!\.global).)*\.(scss|sass)$/,
+        test: sassModuleRegex,
         use: [
           {
             loader: 'style-loader',
@@ -93,8 +98,7 @@ module.exports = merge(webpackConfig, {
             options: {
               modules: true,
               sourceMap: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]__[hash:base64:5]',
+              importLoaders: 2,
             },
           },
           {
