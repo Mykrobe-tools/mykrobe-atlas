@@ -11,7 +11,10 @@ import { bindActionCreators } from 'redux';
 import styles from './Common.css';
 import type { AuthResetPasswordType } from '../../types/AuthTypes';
 
-import { getError, resetPassword, deleteError } from '../../modules/auth';
+import {
+  getError,
+  resetPassword,
+} from 'makeandship-js-common/src/modules/auth';
 
 class Reset extends React.Component<*> {
   handleSubmit(e) {
@@ -24,11 +27,6 @@ class Reset extends React.Component<*> {
       password: this.refs.password.value,
     };
     resetPassword(userObject);
-  }
-
-  componentWillUnmount() {
-    const { deleteError } = this.props;
-    deleteError();
   }
 
   render() {
@@ -85,7 +83,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       resetPassword,
-      deleteError,
     },
     dispatch
   );
@@ -94,7 +91,6 @@ function mapDispatchToProps(dispatch) {
 Reset.propTypes = {
   error: PropTypes.object,
   resetPassword: PropTypes.func.isRequired,
-  deleteError: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
 };
 

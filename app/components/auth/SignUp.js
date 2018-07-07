@@ -12,12 +12,16 @@ import { bindActionCreators } from 'redux';
 import styles from './Common.css';
 import type { UserType } from '../../types/UserTypes';
 
-import { getError, signUp, deleteError } from '../../modules/auth';
+import {
+  createCurrentUser,
+  getCurrentUserIsFetching,
+  getCurrentUserError,
+} from '../../modules/users';
 
 class SignUp extends React.Component<*> {
   handleSubmit(e) {
     e.preventDefault();
-    const { signUp } = this.props;
+    const { createCurrentUser } = this.props;
 
     const userObject: UserType = {
       email: this.refs.email.value,
@@ -25,12 +29,7 @@ class SignUp extends React.Component<*> {
       lastname: this.refs.lastname.value,
       password: this.refs.password.value,
     };
-    signUp(userObject);
-  }
-
-  componentWillUnmount() {
-    const { deleteError } = this.props;
-    deleteError();
+    createCurrentUser(userObject);
   }
 
   render() {
@@ -124,15 +123,15 @@ class SignUp extends React.Component<*> {
 
 function mapStateToProps(state) {
   return {
-    error: getError(state),
+    isFetching: getCurrentUserIsFetching(state),
+    error: getCurrentUserError(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      signUp,
-      deleteError,
+      createCurrentUser,
     },
     dispatch
   );
@@ -140,8 +139,7 @@ function mapDispatchToProps(dispatch) {
 
 SignUp.propTypes = {
   error: PropTypes.object,
-  signUp: PropTypes.func.isRequired,
-  deleteError: PropTypes.func.isRequired,
+  createCurrentUser: PropTypes.func.isRequired,
 };
 
 export default connect(

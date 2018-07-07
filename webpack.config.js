@@ -2,7 +2,6 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
 
 const dirNode = 'node_modules';
 const dirApp = path.join(__dirname, 'app');
@@ -10,6 +9,7 @@ const dirApp = path.join(__dirname, 'app');
 module.exports = {
   entry: {
     bundle: [
+      'whatwg-fetch',
       'babel-polyfill',
       'url-search-params-polyfill',
       path.join(dirApp, 'index'),
@@ -19,7 +19,6 @@ module.exports = {
     modules: [dirApp, dirNode],
   },
   plugins: [
-    new Dotenv(),
     // Don't bundle moment locales - instead, add a require to each specific locale e.g. require('moment/locale/en');
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
@@ -29,7 +28,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules\/(?!(makeandship-js-common))/,
+        exclude: /node_modules\/(?!(makeandship-js-common|makeandship-api-common|swagger-client))/,
       },
       // IMAGES
       {

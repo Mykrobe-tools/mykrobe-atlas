@@ -9,22 +9,25 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import type { AuthType } from '../../types/AuthTypes';
 import type { UserType } from '../../types/UserTypes';
 
 import styles from './Common.css';
 import Loading from '../ui/Loading';
 
+import { signOut } from 'makeandship-js-common/src/modules/auth';
+
 import {
-  getAuth,
-  getIsFetching as getAuthIsFetching,
-  getError,
-  signOut,
   requestCurrentUser,
   updateCurrentUser,
   deleteCurrentUser,
-  deleteError,
-} from '../../modules/auth';
+  getCurrentUser,
+  getCurrentUserIsFetching,
+  getCurrentUserError,
+  createCurrentUserAvatar,
+  updateCurrentUserAvatar,
+  deleteCurrentUserAvatar,
+  getCurrentUserAvatarIsFetching,
+} from '../../modules/users';
 
 import {
   getOrganisationsIsFetching,
@@ -37,11 +40,6 @@ class Profile extends React.Component<*> {
     const { requestCurrentUser, requestOrganisations } = this.props;
     requestCurrentUser();
     requestOrganisations();
-  }
-
-  componentWillUnmount() {
-    const { deleteError } = this.props;
-    deleteError();
   }
 
   handleSubmit(e) {
@@ -65,11 +63,8 @@ class Profile extends React.Component<*> {
   };
 
   render() {
-    const { error, isFetching } = this.props;
-    const { signOut } = this.props;
-    const auth: AuthType = this.props.auth;
-    const user: ?UserType = auth.user;
-    if (!user) {
+    const { error, isFetching, signOut, currentUser } = this.props;
+    if (!currentUser) {
       return null;
     }
     if (isFetching) {
@@ -86,7 +81,7 @@ class Profile extends React.Component<*> {
         </div>
       );
     }
-    const { email, firstname, lastname, phone, organisation } = user;
+    const { email, firstname, lastname, phone, organisation } = currentUser;
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -213,10 +208,13 @@ class Profile extends React.Component<*> {
 
 function mapStateToProps(state) {
   return {
-    auth: getAuth(state),
     organisations: getOrganisations(state),
-    error: getError(state),
-    isFetching: getAuthIsFetching(state) || getOrganisationsIsFetching(state),
+    isFetching:
+      getCurrentUserIsFetching(state) ||
+      getCurrentUserAvatarIsFetching(state) ||
+      getOrganisationsIsFetching(state),
+    error: getCurrentUserError(state),
+    currentUser: getCurrentUser(state),
   };
 }
 
@@ -226,23 +224,27 @@ function mapDispatchToProps(dispatch) {
       signOut,
       requestCurrentUser,
       updateCurrentUser,
-      deleteError,
       deleteCurrentUser,
       requestOrganisations,
+      createCurrentUserAvatar,
+      updateCurrentUserAvatar,
+      deleteCurrentUserAvatar,
     },
     dispatch
   );
 }
 
 Profile.propTypes = {
-  error: PropTypes.object,
-  auth: PropTypes.object.isRequired,
+  updateCurrentUserAvatar: PropTypes.func.isRequired,
+  createCurrentUserAvatar: PropTypes.func.isRequired,
+  deleteCurrentUserAvatar: PropTypes.func.isRequired,
+  error: PropTypes.any,
+  currentUser: PropTypes.any,
   organisations: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
   signOut: PropTypes.func.isRequired,
   requestCurrentUser: PropTypes.func.isRequired,
   updateCurrentUser: PropTypes.func.isRequired,
-  deleteError: PropTypes.func.isRequired,
   deleteCurrentUser: PropTypes.func.isRequired,
   requestOrganisations: PropTypes.func.isRequired,
 };

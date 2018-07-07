@@ -1,12 +1,15 @@
 /* @flow */
 
+// provide fetch() method while running jest in Node
+import 'isomorphic-fetch';
+
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 
 import { FETCH_JSON, fetchJsonMiddleware } from './fetchJsonMiddleware';
 import { API_URL } from '../../constants/APIConstants.js';
-import { AUTH_SIGNOUT, AUTH_SIGNOUT_SUCCESS } from '../auth/auth';
+import { SIGNOUT } from 'makeandship-js-common/src/modules/auth/auth';
 
 const REQUEST = 'REQUEST';
 const SUCCESS = 'SUCCESS';
@@ -17,8 +20,8 @@ const createMockStore = configureMockStore([thunk, fetchJsonMiddleware]);
 const initialState = {
   auth: {
     auth: {
-      user: {
-        token: 'MOCK_AUTH_TOKEN_FOR_TESTING',
+      token: {
+        accessToken: 'MOCK_AUTH_TOKEN_FOR_TESTING',
       },
     },
   },
@@ -127,12 +130,8 @@ describe('fetchJsonMiddleware', () => {
         JSON.stringify(dispatchedActions, null, 2)
       );
       expect(dispatchedActions[0].type).toEqual(REQUEST);
-      expect(dispatchedActions[1].type).toEqual(AUTH_SIGNOUT);
-      expect(dispatchedActions[2].type).toEqual(AUTH_SIGNOUT_SUCCESS);
-      // 3 is router push to /
-      // 4 is a notification
-      expect(dispatchedActions[5].type).toEqual(FAILURE);
-      // 6 is a notification
+      expect(dispatchedActions[1].type).toEqual(SIGNOUT);
+      expect(dispatchedActions[2].type).toEqual(FAILURE);
     }
   });
 });

@@ -40,9 +40,9 @@ body {
   display: flex;
 }
 
-@import 'css/constants.global.css';
-@import 'css/typography.global.css';
-@import 'css/form.global.css';
+@import 'styles/constants.global.css';
+@import 'styles/typography.global.css';
+@import 'styles/form.global.css';
 
 /* third-party css bypass processing */
-@import 'css/vendor.css';
+@import 'styles/vendor.css';

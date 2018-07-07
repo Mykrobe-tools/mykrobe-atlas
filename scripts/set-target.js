@@ -68,9 +68,12 @@ function setTarget(targetName) {
     .then(() => {
       const filePath = path.resolve(
         __dirname,
-        `../app/css/target/${targetName}.css`
+        `../app/styles/target/${targetName}.css`
       );
-      const copyPath = path.resolve(__dirname, '../app/css/target/current.css');
+      const copyPath = path.resolve(
+        __dirname,
+        '../app/styles/target/current.css'
+      );
       return copyFile(filePath, copyPath);
     })
     .then(() => {

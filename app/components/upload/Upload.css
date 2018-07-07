@@ -1,5 +1,5 @@
 .container {
-  composes: container from 'css/layout.css';
+  composes: container from 'styles/layout.css';
 }
 
 .containerDragActive {
@@ -8,7 +8,7 @@
 }
 
 .contentContainer {
-  composes: containerAbsolute from 'css/layout.css';
+  composes: containerAbsolute from 'styles/layout.css';
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -32,7 +32,7 @@
 }
 
 .title {
-  font-size: 24px; /* composes: fontSizeLarge from "css/typography.css"; */
+  font-size: 24px; /* composes: fontSizeLarge from "styles/typography.css"; */
   text-align: center;
   margin-bottom: 30px;
 }
@@ -52,18 +52,18 @@
 }
 
 .button {
-  composes: buttonOutlineLarge from 'css/controls.css';
+  composes: buttonOutlineLarge from 'styles/controls.css';
 }
 
 .progressTextContainer {
-  composes: containerAbsolute from 'css/layout.css';
+  composes: containerAbsolute from 'styles/layout.css';
   align-items: center;
   justify-content: center;
   pointer-events: none;
 }
 
 .progressStatus {
-  composes: fontSecondary from 'css/typography.css';
+  composes: fontSecondary from 'styles/typography.css';
   position: absolute;
   bottom: 140px;
   left: 64px;
@@ -72,13 +72,13 @@
 }
 
 .progressTitle {
-  composes: fontSecondary from 'css/typography.css';
+  composes: fontSecondary from 'styles/typography.css';
   font-size: 96px;
   color: var(--color-grey-light);
 }
 
 .dots {
-  composes: containerAbsolute from 'css/layout.css';
+  composes: containerAbsolute from 'styles/layout.css';
   pointer-events: none;
   flex-direction: row;
   align-items: center;

@@ -3,7 +3,7 @@
 import { createSelector } from 'reselect';
 
 import { FETCH_JSON } from '../api';
-import { showNotification } from '../notifications';
+import { showNotification } from 'makeandship-js-common/src/modules/notifications';
 import { API_URL } from '../../constants/APIConstants.js';
 
 export const typePrefix = 'metadata/metadata/';

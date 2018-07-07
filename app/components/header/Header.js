@@ -10,10 +10,10 @@ import styles from './Header.css';
 
 import {
   signOut,
-  signUp,
   getIsAuthenticated,
-  getUser,
-} from '../../modules/auth';
+} from 'makeandship-js-common/src/modules/auth';
+
+import { getCurrentUser } from '../../modules/users';
 
 class Header extends React.Component<*> {
   onMenuToggleClick = (e: Event) => {
@@ -23,7 +23,7 @@ class Header extends React.Component<*> {
   };
 
   render() {
-    const { displayMenu, signOut, isAuthenticated, user } = this.props;
+    const { displayMenu, signOut, isAuthenticated, currentUser } = this.props;
     return (
       <div className={styles.container}>
         <a
@@ -37,7 +37,7 @@ class Header extends React.Component<*> {
         </a>
         {isAuthenticated ? (
           <div className={styles.account}>
-            {user && (
+            {currentUser && (
               <Link
                 to="/auth/profile"
                 className={styles.authLink}
@@ -83,14 +83,13 @@ class Header extends React.Component<*> {
 function mapStateToProps(state) {
   return {
     isAuthenticated: getIsAuthenticated(state),
-    user: getUser(state),
+    currentUser: getCurrentUser(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      signUp,
       signOut,
     },
     dispatch
@@ -99,8 +98,7 @@ function mapDispatchToProps(dispatch) {
 
 Header.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  user: PropTypes.object,
-  signUp: PropTypes.func.isRequired,
+  currentUser: PropTypes.object,
   signOut: PropTypes.func.isRequired,
   displayMenu: PropTypes.bool.isRequired,
   toggleMenu: PropTypes.func.isRequired,

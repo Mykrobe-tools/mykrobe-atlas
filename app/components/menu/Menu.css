@@ -1,5 +1,5 @@
 .container {
-  composes: container from 'css/layout.css';
+  composes: container from 'styles/layout.css';
   width: 260px;
   height: 100%;
   background: white;
@@ -34,8 +34,8 @@
 }
 
 .navigationLink {
-  composes: fontSecondary from 'css/typography.css';
-  composes: fontSecondarySizeSmall from 'css/typography.css';
+  composes: fontSecondary from 'styles/typography.css';
+  composes: fontSecondarySizeSmall from 'styles/typography.css';
   display: block;
   padding: 13px 0;
   color: var(--color-grey-dark);

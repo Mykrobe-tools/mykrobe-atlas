@@ -9,13 +9,13 @@
 }
 
 .progressBarLabel {
-  composes: font from 'css/typography.css';
-  composes: fontSizeSmall from 'css/typography.css';
+  composes: font from 'styles/typography.css';
+  composes: fontSizeSmall from 'styles/typography.css';
   text-align: center;
 }
 
 .cancel {
-  composes: fontSecondary from 'css/typography.css';
+  composes: fontSecondary from 'styles/typography.css';
   pointer-events: auto;
   color: var(--color-grey-dark);
 }

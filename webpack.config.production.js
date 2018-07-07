@@ -1,7 +1,13 @@
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpackConfig = require('./webpack.config');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const cssRegex = /\.global\.css$/;
+const cssModuleRegex = /^((?!\.global).)*\.css$/;
+const sassRegex = /\.global\.(scss|sass)$/;
+const sassModuleRegex = /^((?!\.global).)*\.(scss|sass)$/;
 
 module.exports = merge(webpackConfig, {
   mode: 'production',
@@ -10,88 +16,77 @@ module.exports = merge(webpackConfig, {
     rules: [
       // Extract all .global.css to style.css as is
       {
-        test: /\.global\.css$/,
-        use: ExtractTextPlugin.extract({
-          publicPath: './',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: true,
-              },
+        test: cssRegex,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
             },
-            {
-              loader: 'postcss-loader',
-            },
-          ],
-          fallback: 'style-loader',
-        }),
+          },
+          {
+            loader: 'postcss-loader',
+          },
+        ],
       },
       // Pipe other styles through css modules and append to style.css
       {
-        test: /^((?!\.global).)*\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                minimize: true,
-                importLoaders: 1,
-                localIdentName: '[name]__[local]__[hash:base64:5]',
-              },
+        test: cssModuleRegex,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 1,
             },
-            {
-              loader: 'postcss-loader',
-            },
-          ],
-        }),
+          },
+          {
+            loader: 'postcss-loader',
+          },
+        ],
       },
       // Add SASS support  - compile all .global.scss files and pipe it to style.css
       {
-        test: /\.global\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: true,
-              },
+        test: sassRegex,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
             },
-            {
-              loader: 'postcss-loader',
-            },
-            {
-              loader: 'sass-loader',
-              options: { precision: 8 },
-            },
-          ],
-          fallback: 'style-loader',
-        }),
+          },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'sass-loader',
+            options: { precision: 8 },
+          },
+        ],
       },
       // Add SASS support  - compile all other .scss files and pipe it to style.css
       {
-        test: /^((?!\.global).)*\.(scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                minimize: true,
-                importLoaders: 1,
-                localIdentName: '[name]__[local]__[hash:base64:5]',
-              },
+        test: sassModuleRegex,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 2,
             },
-            {
-              loader: 'postcss-loader',
-            },
-            {
-              loader: 'sass-loader',
-              options: { precision: 8 },
-            },
-          ],
-        }),
+          },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'sass-loader',
+            options: { precision: 8 },
+          },
+        ],
       },
       // WOFF Font
       {
@@ -149,16 +144,50 @@ module.exports = merge(webpackConfig, {
       },
     ],
   },
-  plugins: [new ExtractTextPlugin('style.css')],
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',
+      chunkFilename: '[name].[hash].chunk.css',
+    }),
+  ],
   optimization: {
     minimizer: [
-      new UglifyJSPlugin({
+      new UglifyJsPlugin({
         uglifyOptions: {
+          parse: {
+            // we want uglify-js to parse ecma 8 code. However, we don't want it
+            // to apply any minfication steps that turns valid ecma 5 code
+            // into invalid ecma 5 code. This is why the 'compress' and 'output'
+            // sections only apply transformations that are ecma 5 safe
+            // https://github.com/facebook/create-react-app/pull/4234
+            ecma: 8,
+          },
           compress: {
             drop_console: true,
+            ecma: 5,
+            warnings: false,
+            // Disabled because of an issue with Uglify breaking seemingly valid code:
+            // https://github.com/facebook/create-react-app/issues/2376
+            // Pending further investigation:
+            // https://github.com/mishoo/UglifyJS2/issues/2011
+            comparisons: false,
+          },
+          mangle: {
+            safari10: true,
+          },
+          output: {
+            ecma: 5,
+            comments: false,
+            // Turned on because emoji and regex is not minified properly using default
+            // https://github.com/facebook/create-react-app/issues/2488
+            ascii_only: true,
           },
         },
+        parallel: true,
+        cache: true,
+        sourceMap: false,
       }),
+      new OptimizeCSSAssetsPlugin(),
     ],
   },
 });

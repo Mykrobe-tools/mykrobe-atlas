@@ -10,8 +10,8 @@
 }
 
 .tooltipContainer {
-  composes: fontSecondary from 'css/typography.css';
-  composes: fontSecondarySizeSmall from 'css/typography.css';
+  composes: fontSecondary from 'styles/typography.css';
+  composes: fontSecondarySizeSmall from 'styles/typography.css';
   position: relative;
   background-color: white;
   border: 1px solid var(--color-rule);
@@ -46,7 +46,7 @@
 }
 
 .title {
-  composes: subtitle from 'css/typography.css';
+  composes: subtitle from 'styles/typography.css';
   padding-top: 8px;
 }
 

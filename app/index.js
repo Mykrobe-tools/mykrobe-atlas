@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import store, { history } from './store/store'; // eslint-disable-line import/default
 import './app.global.css';
-import './css/main.css';
+import './styles/main.css';
 
 // import used moment locales individually, otherwise excluded by webpack config
 import moment from 'moment';
@@ -26,6 +26,17 @@ let element = document.getElementById('app-root');
 if (!element) {
   throw new Error(`Fatal - div with id 'app-root' not found`);
 }
+
+console.log('process.env.NODE_ENV', JSON.stringify(process.env.NODE_ENV));
+console.log('process.env.API_URL', JSON.stringify(process.env.API_URL));
+console.log(
+  'process.env.API_SWAGGER_URL',
+  JSON.stringify(process.env.API_SWAGGER_URL)
+);
+console.log(
+  'process.env.AUTH_COOKIE_NAME',
+  JSON.stringify(process.env.AUTH_COOKIE_NAME)
+);
 
 const renderRoot = () => {
   const routes = require('./routes');

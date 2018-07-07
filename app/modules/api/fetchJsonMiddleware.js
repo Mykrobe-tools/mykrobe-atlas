@@ -1,16 +1,17 @@
 /* @flow */
 
-import 'isomorphic-fetch';
-
 import type { JSendType } from '../../types/JSendType';
 
 // TODO: make token access more generic
-import { getAuthToken, signOut } from '../auth';
-
+import {
+  getAccessToken,
+  getIsAuthenticated,
+  signOut,
+} from 'makeandship-js-common/src/modules/auth';
 import {
   showNotification,
   NotificationCategories,
-} from '../notifications/notifications';
+} from 'makeandship-js-common/src/modules/notifications';
 
 import { fetchToCurl } from './fetchToCurl';
 
@@ -56,7 +57,8 @@ export const fetchJsonMiddleware = store => next => action => {
   next(REQUEST);
 
   const state = store.getState();
-  const token = getAuthToken(state);
+  const isAuthenticated = getIsAuthenticated(state);
+  const token = isAuthenticated ? getAccessToken(state) : undefined;
 
   if (!options.headers) {
     options.headers = {};

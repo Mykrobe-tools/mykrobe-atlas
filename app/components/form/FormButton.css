@@ -1,8 +1,8 @@
 .wrap {
-  composes: wrap from 'css/form.css';
+  composes: wrap from 'styles/form.css';
 }
 
 .input {
-  composes: buttonPrimary from 'css/controls.css';
+  composes: buttonPrimary from 'styles/controls.css';
   cursor: pointer;
 }

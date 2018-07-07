@@ -10,11 +10,18 @@ import App from './containers/App';
 import AuthPage from './containers/AuthPage';
 import OrganisationPage from './containers/OrganisationPage';
 
-import { userIsAuthenticated } from './authHelpers';
+import {
+  withUserIsNotAuthenticatedRedirect,
+  // withUserIsAuthenticatedRedirect,
+} from 'makeandship-js-common/src/modules/auth/util';
 
-const AuthenticatedLibraryContainer = userIsAuthenticated(LibraryContainer);
-const AuthenticatedSamplePage = userIsAuthenticated(SamplePage);
-const AuthenticatedOrganisationPage = userIsAuthenticated(OrganisationPage);
+const AuthenticatedLibraryContainer = withUserIsNotAuthenticatedRedirect(
+  LibraryContainer
+);
+const AuthenticatedSamplePage = withUserIsNotAuthenticatedRedirect(SamplePage);
+const AuthenticatedOrganisationPage = withUserIsNotAuthenticatedRedirect(
+  OrganisationPage
+);
 
 export default (
   <App>

@@ -1,5 +1,5 @@
 .container {
-  composes: container from 'css/layout.css';
+  composes: container from 'styles/layout.css';
   background-color: var(--color-background);
 }
 
@@ -14,33 +14,28 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 5;
 }
 
 .analysingContainer {
-  composes: containerAbsolute from 'css/layout.css';
+  composes: containerAbsolute from 'styles/layout.css';
   bottom: auto;
-  z-index: 4;
   pointer-events: none;
   width: 100%;
 }
 
 .headerContainer {
-  composes: containerAbsolute from 'css/layout.css';
+  composes: containerAbsolute from 'styles/layout.css';
   bottom: auto;
-  z-index: 3;
   pointer-events: none;
 }
 
 .menuContainer {
-  composes: container from 'css/layout.css';
+  composes: container from 'styles/layout.css';
   display: block;
-  z-index: 2;
   flex: initial;
   pointer-events: none;
 }
 
 .contentContainer {
-  composes: containerAbsolute from 'css/layout.css';
-  z-index: 1;
+  composes: containerAbsolute from 'styles/layout.css';
 }

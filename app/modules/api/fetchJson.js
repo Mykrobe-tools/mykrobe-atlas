@@ -1,14 +1,16 @@
 /* @flow */
 
-import 'isomorphic-fetch';
-
 import type { JSendType } from '../../types/JSendType';
 
-import { getAuthToken, signOut } from '../auth';
+import {
+  getIsAuthenticated,
+  getAccessToken,
+  signOut,
+} from 'makeandship-js-common/src/modules/auth';
 import {
   showNotification,
   NotificationCategories,
-} from '../notifications/notifications';
+} from 'makeandship-js-common/src/modules/notifications';
 
 import { fetchToCurl } from './fetchToCurl';
 
@@ -26,7 +28,8 @@ import { fetchToCurl } from './fetchToCurl';
 export function fetchJson(url: string, options: any = {}) {
   return (dispatch: Function, getState: Function) => {
     const state = getState();
-    const token = getAuthToken(state);
+    const isAuthenticated = getIsAuthenticated(state);
+    const token = isAuthenticated ? getAccessToken(state) : undefined;
     return fetchJsonWithTokenAndDispatch(url, options, token, dispatch);
   };
 }

@@ -16,10 +16,13 @@ import Verify from '../components/auth/Verify';
 import VerifySuccess from '../components/auth/VerifySuccess';
 import VerifyFailure from '../components/auth/VerifyFailure';
 
-import { userIsNotAuthenticated, userIsAuthenticated } from '../authHelpers';
+import {
+  withUserIsNotAuthenticatedRedirect,
+  withUserIsAuthenticatedRedirect,
+} from 'makeandship-js-common/src/modules/auth/util';
 
-const AuthenticatedProfile = userIsAuthenticated(Profile);
-const UnauthenticatedLogin = userIsNotAuthenticated(Login);
+const AuthenticatedProfile = withUserIsNotAuthenticatedRedirect(Profile);
+const UnauthenticatedLogin = withUserIsAuthenticatedRedirect(Login);
 
 class AuthPage extends React.Component<*> {
   render() {
@@ -28,7 +31,7 @@ class AuthPage extends React.Component<*> {
       <Switch>
         <Route path={`${match.url}/login`} component={UnauthenticatedLogin} />
         <Route path={`${match.url}/signup`} component={SignUp} />
-        <Route path={`${match.url}/success`} component={SignUpSuccess} />
+        <Route path={`${match.url}/signupsuccess`} component={SignUpSuccess} />
         <Route path={`${match.url}/forgot`} component={Forgot} />
         <Route path={`${match.url}/forgotsuccess`} component={ForgotSuccess} />
         <Route path={`${match.url}/profile`} component={AuthenticatedProfile} />

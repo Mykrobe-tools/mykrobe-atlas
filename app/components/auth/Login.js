@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import styles from './Common.css';
-import { signIn, getError, deleteError } from '../../modules/auth';
+import { signIn, getError } from 'makeandship-js-common/src/modules/auth';
 
 import type { UserType } from '../../types/UserTypes';
 
@@ -25,11 +25,6 @@ class Login extends React.Component<*> {
     };
 
     signIn(userObject);
-  }
-
-  componentWillUnmount() {
-    const { deleteError } = this.props;
-    deleteError();
   }
 
   render() {
@@ -111,8 +106,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      signIn: signIn,
-      deleteError: deleteError,
+      signIn,
     },
     dispatch
   );
@@ -121,7 +115,6 @@ function mapDispatchToProps(dispatch) {
 Login.propTypes = {
   error: PropTypes.object,
   signIn: PropTypes.func.isRequired,
-  deleteError: PropTypes.func.isRequired,
 };
 
 export default connect(

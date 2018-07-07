@@ -18,7 +18,8 @@ import {
   showNotification,
   hideAllNotifications,
   NotificationCategories,
-} from '../notifications';
+} from 'makeandship-js-common/src/modules/notifications';
+
 import { prepareNewExperiment, uploadExperimentFile } from '../experiments';
 
 const analyserService = new AnalyserService();

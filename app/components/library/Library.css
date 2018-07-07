@@ -1,5 +1,5 @@
 .container {
-  composes: containerAbsolute from 'css/layout.css';
+  composes: containerAbsolute from 'styles/layout.css';
   flex-direction: column;
 }
 
@@ -12,8 +12,8 @@
 }
 
 .title {
-  composes: font from 'css/typography.css';
-  composes: fontSizeLarge from 'css/typography.css';
+  composes: font from 'styles/typography.css';
+  composes: fontSizeLarge from 'styles/typography.css';
 }
 
 .content {
