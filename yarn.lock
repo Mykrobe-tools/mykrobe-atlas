@@ -4698,12 +4698,12 @@ flow-bin@^0.73.0:
   resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.73.0.tgz#da1b90a02b0ef9c439f068c2fc14968db83be425"
 
 flow-parser@^0.*:
-  version "0.75.0"
-  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.75.0.tgz#9a1891c48051c73017b6b5cc07b3681fda3fdfb0"
+  version "0.76.0"
+  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.76.0.tgz#f7d4c4d26df74805c3a0babd5d8ea4c2cd57190b"
 
 flow-typed@^2.3.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/flow-typed/-/flow-typed-2.5.0.tgz#4aa388a0af6ac6b5344ca5ca5228cd58a12dc70f"
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/flow-typed/-/flow-typed-2.5.1.tgz#0ff565cc94d2af8c557744ba364b6f14726a6b9f"
   dependencies:
     "@octokit/rest" "^15.2.6"
     babel-polyfill "^6.26.0"
@@ -5459,8 +5459,8 @@ homedir-polyfill@^1.0.1:
     parse-passwd "^1.0.0"
 
 hosted-git-info@^2.1.4, hosted-git-info@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.6.1.tgz#6e4cee78b01bb849dcf93527708c69fdbee410df"
+  version "2.7.1"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
 
 hpack.js@^2.1.6:
   version "2.1.6"
@@ -7254,7 +7254,7 @@ make-dir@^1.0.0, make-dir@^1.1.0:
 
 "makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common.git":
   version "0.0.1"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common.git#2654523cb8101beb581e01f79a968a2b222d2991"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common.git#799a056f5170c28ad3aab49e8968431bb276f24e"
   dependencies:
     ajv "^6.5.1"
     babel-jest "^23.0.1"
