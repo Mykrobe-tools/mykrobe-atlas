@@ -9,14 +9,17 @@ import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
 import PopoverMenu from '../ui/PopoverMenu';
 
-import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
+import {
+  getIsAuthenticated,
+  getAccessToken,
+} from 'makeandship-js-common/src/modules/auth';
 
 type State = {
   isDragActive: boolean,
 };
 
 class Upload extends React.Component<*, State> {
-  _uploadButton: HTMLAnchorElement;
+  _uploadButton: Element;
   _dropzone: Element;
 
   constructor(props: Object) {
@@ -26,13 +29,30 @@ class Upload extends React.Component<*, State> {
     };
   }
 
-  componentDidMount() {
-    const { isAuthenticated } = this.props;
-    const { uploadFile } = this.props.service;
-    if (isAuthenticated) {
-      uploadFile.bindUploader(this._dropzone, this._uploadButton);
+  setDropzoneRef = (ref: ?Element) => {
+    if (!ref) {
+      return;
     }
-  }
+    this._dropzone = ref;
+    this.bindUploader();
+  };
+
+  setUploadButtonRef = (ref: ?Element) => {
+    if (!ref) {
+      return;
+    }
+    this._uploadButton = ref;
+    this.bindUploader();
+  };
+
+  bindUploader = () => {
+    const { isAuthenticated, accessToken } = this.props;
+    const { uploadFile } = this.props.service;
+    if (isAuthenticated && this._dropzone && this._uploadButton) {
+      uploadFile.bindUploader(this._dropzone, this._uploadButton);
+      uploadFile.setAccessToken(accessToken);
+    }
+  };
 
   componentWillUnmount() {
     const { isAuthenticated } = this.props;
@@ -41,6 +61,17 @@ class Upload extends React.Component<*, State> {
       uploadFile.unbindUploader(this._dropzone, this._uploadButton);
     }
   }
+
+  componentDidUpdate = prevProps => {
+    const { uploadFile } = this.props.service;
+    if (
+      this.props.accessToken &&
+      this.props.accessToken !== prevProps.accessToken
+    ) {
+      // pass updated token into uploader (TODO: redux-saga)
+      uploadFile.setAccessToken(this.props.accessToken);
+    }
+  };
 
   onDragOver() {
     this.setState({
@@ -105,6 +136,7 @@ class Upload extends React.Component<*, State> {
   render() {
     const { isDragActive } = this.state;
     const { isAuthenticated } = this.props;
+    const popoverMenuLinks = this.popoverMenuLinks();
     return (
       <div
         className={
@@ -112,15 +144,9 @@ class Upload extends React.Component<*, State> {
             ? styles.containerDragActive
             : styles.container
         }
-        onDragOver={e => {
-          this.onDragOver(e);
-        }}
-        onDragLeave={e => {
-          this.onDragLeave(e);
-        }}
-        ref={ref => {
-          this._dropzone = ref;
-        }}
+        onDragOver={this.onDragOver}
+        onDragLeave={this.onDragLeave}
+        ref={this.setDropzoneRef}
         data-tid="component-upload"
       >
         <AnimatedBackground />
@@ -134,16 +160,13 @@ class Upload extends React.Component<*, State> {
             </div>
             {isAuthenticated && (
               <div className={styles.buttonContainer}>
-                <button
-                  type="button"
+                <span
                   className={styles.buttonOffscreen}
-                  ref={ref => {
-                    this._uploadButton = ref;
-                  }}
+                  ref={this.setUploadButtonRef}
                 />
                 <PopoverMenu
                   toggleText="Analyse Sample"
-                  links={this.popoverMenuLinks()}
+                  links={popoverMenuLinks}
                 />
               </div>
             )}
@@ -157,12 +180,14 @@ class Upload extends React.Component<*, State> {
 function mapStateToProps(state) {
   return {
     isAuthenticated: getIsAuthenticated(state),
+    accessToken: getAccessToken(state),
   };
 }
 
 Upload.propTypes = {
   service: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  accessToken: PropTypes.string,
 };
 
 export default connect(mapStateToProps)(Upload);

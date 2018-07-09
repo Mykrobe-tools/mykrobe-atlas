@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 
-import store, { history } from './store/store'; // eslint-disable-line import/default
+import store, { history } from './store';
 import './app.global.css';
 import './styles/main.css';
 

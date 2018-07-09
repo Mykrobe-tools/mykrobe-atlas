@@ -5,14 +5,26 @@ import SparkMD5 from 'spark-md5';
 import EventEmitter from 'events';
 import { API_URL } from '../../constants/APIConstants';
 
-// TODO: refactor to use redux-saga, load token from state rather than direct from CredentialsHelpers
-import * as CredentialsHelpers from '../../helpers/CredentialsHelpers';
-
 class UploadFile extends EventEmitter {
   acceptedExtensions: Array<string>;
   resumable: Object;
   props: Object;
   id: string;
+  accessToken: string;
+
+  setAccessToken = (accessToken: string) => {
+    this.accessToken = accessToken;
+  };
+
+  // TODO: refactor to use redux-saga, load token from state rather than via Component
+
+  headers = () => {
+    if (this.accessToken) {
+      return {
+        Authorization: `Bearer ${this.accessToken}`,
+      };
+    }
+  };
 
   constructor(acceptedExtensions: Array<string>) {
     super();
@@ -21,18 +33,7 @@ class UploadFile extends EventEmitter {
       maxFiles: 1,
       minFileSize: 0,
       uploadMethod: 'PUT',
-      headers: () => {
-        // TODO: this is currently not an async function
-        // likely to hit a situation in which the token needs refreshing before use
-        // at present we cannot handle that situation
-        const token = CredentialsHelpers.accessToken();
-        console.log('UploadFile token: ', token);
-        if (token) {
-          return {
-            Authorization: `Bearer ${token}`,
-          };
-        }
-      },
+      headers: this.headers,
       target: () => {
         return `${API_URL}/experiments/${this.id}/file`;
       },

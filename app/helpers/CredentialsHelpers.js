@@ -2,12 +2,14 @@
 
 // TODO: rewrite services to use redux-saga so we don't have to access store directly here
 
-import store from '../store/store';
+import store from '../store';
 import { getAccessToken } from 'makeandship-js-common/src/modules/auth';
 
 export function accessToken(): ?string {
-  console('store', store);
-  debugger;
+  if (!store.getState) {
+    console.log('No store . getState');
+    return;
+  }
   const state = store.getState();
   const accessToken = getAccessToken(state);
   debugger;
