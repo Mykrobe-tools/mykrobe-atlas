@@ -13,8 +13,8 @@ const module = createEntityModule('experiment', {
   create: {
     operationId: 'experimentsCreate',
     onSuccess: function*() {
-      yield put(showNotification('Experiment created'));
-      yield put(push('/experiments'));
+      // yield put(showNotification('Experiment created'));
+      // yield put(push('/experiments'));
     },
   },
   request: {
@@ -23,15 +23,15 @@ const module = createEntityModule('experiment', {
   update: {
     operationId: 'experimentsUpdateById',
     onSuccess: function*() {
-      yield put(showNotification('Experiment updated'));
-      yield put(push('/experiments'));
+      // yield put(showNotification('Experiment updated'));
+      // yield put(push('/experiments'));
     },
   },
   delete: {
     operationId: 'experimentsDeleteById',
     onSuccess: function*() {
-      yield put(showNotification('Experiment deleted'));
-      yield put(push('/experiments'));
+      // yield put(showNotification('Experiment deleted'));
+      // yield put(push('/experiments'));
     },
   },
 });

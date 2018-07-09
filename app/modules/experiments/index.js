@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 
 import experiments, { experimentsSaga } from './experiments';
 import experiment, { experimentSaga } from './experiment';
+import experimentFile, { experimentFileSaga } from './experimentFile';
 import filters from './filters';
 
 export {
@@ -25,6 +26,12 @@ export {
 } from './experiment';
 
 export {
+  updateExperimentFile,
+  getIsFetching as getIsFetchingExperimentFile,
+  experimentFileSaga,
+} from './experimentFile';
+
+export {
   getIsFetching as getIsFetchingFilters,
   getFilterValues,
   requestFilterValues,
@@ -33,11 +40,16 @@ export {
 const reducer = combineReducers({
   experiments,
   experiment,
+  experimentFile,
   filters,
 });
 
 export default reducer;
 
 export function* rootExperimentsSaga(): Generator<*, *, *> {
-  yield all([fork(experimentsSaga), fork(experimentSaga)]);
+  yield all([
+    fork(experimentsSaga),
+    fork(experimentSaga),
+    fork(experimentFileSaga),
+  ]);
 }
