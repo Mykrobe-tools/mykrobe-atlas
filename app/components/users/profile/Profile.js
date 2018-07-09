@@ -9,10 +9,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import type { UserType } from '../../types/UserTypes';
+import type { UserType } from '../../../types/UserTypes';
 
-import styles from './Common.css';
-import Loading from '../ui/Loading';
+import styles from '../../auth/Common.css';
+import Loading from '../../ui/Loading';
 
 import { signOut } from 'makeandship-js-common/src/modules/auth';
 
@@ -27,13 +27,13 @@ import {
   updateCurrentUserAvatar,
   deleteCurrentUserAvatar,
   getCurrentUserAvatarIsFetching,
-} from '../../modules/users';
+} from '../../../modules/users';
 
 import {
   getOrganisationsIsFetching,
   getOrganisations,
   requestOrganisations,
-} from '../../modules/organisations';
+} from '../../../modules/organisations';
 
 class Profile extends React.Component<*> {
   componentWillMount() {

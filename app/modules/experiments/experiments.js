@@ -1,118 +1,48 @@
 /* @flow */
 
-import { createSelector } from 'reselect';
+import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
 import { FETCH_JSON } from '../api';
 import { API_URL } from '../../constants/APIConstants.js';
-import * as StringHelpers from '../../helpers/StringHelpers';
 
 export const typePrefix = 'experiments/experiments/';
-export const REQUEST_EXPERIMENTS = `${typePrefix}REQUEST_EXPERIMENTS`;
-export const REQUEST_EXPERIMENTS_SUCCESS = `${typePrefix}REQUEST_EXPERIMENTS_SUCCESS`;
-export const REQUEST_EXPERIMENTS_FAILURE = `${typePrefix}REQUEST_EXPERIMENTS_FAILURE`;
 
-export const PREPARE_NEW_EXPERIMENT = `${typePrefix}PREPARE_NEW_EXPERIMENT`;
-export const PREPARE_NEW_EXPERIMENT_SUCCESS = `${typePrefix}PREPARE_NEW_EXPERIMENT_SUCCESS`;
-export const PREPARE_NEW_EXPERIMENT_FAILURE = `${typePrefix}PREPARE_NEW_EXPERIMENT_FAILURE`;
+const module = createEntityModule('experiments', {
+  typePrefix,
+  initialData: [],
+  getState: state => state.experiments.experiments,
+  create: {
+    // TODO: refactor into separate 'experiment' module
+    operationId: 'experimentsCreate',
+  },
+  request: {
+    operationId: 'experimentsList',
+  },
+});
+
+const {
+  reducer,
+  actionType,
+  actions: { createEntity, requestEntity },
+  selectors: { getEntity, getError, getIsFetching },
+  sagas: { entitySaga },
+} = module;
+
+export {
+  createEntity as createExperiment,
+  requestEntity as requestExperiments,
+  getEntity as getExperiments,
+  getError,
+  getIsFetching,
+  entitySaga as experimentsSaga,
+  actionType as experimentsActionType,
+};
+
+// TODO: refactor into separate 'experiment' module with swagger id
 
 export const UPLOAD_EXPERIMENT_FILE = `${typePrefix}UPLOAD_EXPERIMENT_FILE`;
 export const UPLOAD_EXPERIMENT_FILE_SUCCESS = `${typePrefix}UPLOAD_EXPERIMENT_FILE_SUCCESS`;
 export const UPLOAD_EXPERIMENT_FILE_FAILURE = `${typePrefix}UPLOAD_EXPERIMENT_FILE_FAILURE`;
-
-// Selectors
-
-export const getState = state => state.experiments.experiments;
-export const getExperiments = createSelector(
-  getState,
-  experiments => experiments
-);
-export const getIsFetching = createSelector(
-  getState,
-  experiments => experiments.isFetching
-);
-export const getSamples = createSelector(
-  getState,
-  experiments => experiments.samples
-);
-export const getTotal = createSelector(
-  getState,
-  experiments => experiments.total
-);
-
-// Reducer
-
-export const initialState = {
-  isFetching: false,
-  samples: [],
-  total: 0,
-};
-
-export default function reducer(
-  state: Object = initialState,
-  action: Object = {}
-) {
-  console.log('action', action);
-  switch (action.type) {
-    case REQUEST_EXPERIMENTS:
-      return {
-        ...state,
-        isFetching: true,
-        samples: [],
-        total: null,
-      };
-    case REQUEST_EXPERIMENTS_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-        samples: action.payload.results,
-        total: action.payload.summary.hits,
-      };
-    default:
-      return state;
-  }
-}
-
-// Side effects
-
-export function requestExperiments(filters: Object = {}) {
-  return async (dispatch: Function) => {
-    const params = StringHelpers.objectToParamString(filters);
-    const payload = await dispatch({
-      [FETCH_JSON]: {
-        url: `${API_URL}/experiments/search?${params}`,
-        types: [
-          REQUEST_EXPERIMENTS,
-          REQUEST_EXPERIMENTS_SUCCESS,
-          REQUEST_EXPERIMENTS_FAILURE,
-        ],
-      },
-    });
-    return payload;
-  };
-}
-
-// retreive an empty experiment with an id for a new experiment upload
-
-export function prepareNewExperiment() {
-  return async (dispatch: Function) => {
-    const payload = await dispatch({
-      [FETCH_JSON]: {
-        url: `${API_URL}/experiments/`,
-        options: {
-          method: 'POST',
-        },
-        types: [
-          PREPARE_NEW_EXPERIMENT,
-          PREPARE_NEW_EXPERIMENT_SUCCESS,
-          PREPARE_NEW_EXPERIMENT_FAILURE,
-        ],
-      },
-    });
-    return payload;
-  };
-}
-
-// basic file upload to an experiment
 
 export function uploadExperimentFile(id: string, file: Object) {
   return async (dispatch: Function) => {
@@ -133,3 +63,5 @@ export function uploadExperimentFile(id: string, file: Object) {
     return payload;
   };
 }
+
+export default reducer;

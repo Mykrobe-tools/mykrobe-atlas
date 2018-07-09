@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './Common.css';
 
-class SignUpSuccess extends React.Component<*> {
+class SignupSuccess extends React.Component<*> {
   render() {
     return (
       <div className={styles.container}>
@@ -28,4 +28,4 @@ class SignUpSuccess extends React.Component<*> {
   }
 }
 
-export default SignUpSuccess;
+export default SignupSuccess;

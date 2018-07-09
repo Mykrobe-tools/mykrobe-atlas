@@ -15,7 +15,7 @@ import api, { rootApiSaga } from 'makeandship-js-common/src/modules/api';
 import form from 'makeandship-js-common/src/modules/form';
 
 import analyser from './analyser';
-import experiments from './experiments';
+import experiments, { rootExperimentsSaga } from './experiments';
 import metadata from './metadata';
 import organisations from './organisations';
 import phylogeny from './phylogeny';
@@ -54,7 +54,13 @@ const handleErrors = saga =>
     });
   };
 
-const sagas = [rootApiSaga, rootAuthSaga, rootUsersSaga, rootNotificationsSaga];
+const sagas = [
+  rootApiSaga,
+  rootAuthSaga,
+  rootExperimentsSaga,
+  rootUsersSaga,
+  rootNotificationsSaga,
+];
 
 export function* rootSaga(): Generator<*, *, *> {
   yield all(sagas.map(handleErrors).map(saga => call(saga)));

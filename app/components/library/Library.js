@@ -13,6 +13,7 @@ class Library extends React.Component<*> {
       filterValues,
       requestExperiments,
       requestFilterValues,
+      isFetchingExperiments,
     } = this.props;
     return (
       <div className={styles.container}>
@@ -30,7 +31,10 @@ class Library extends React.Component<*> {
               />
             </div>
             <div className={styles.experimentsBody}>
-              <ExperimentsTable experiments={experiments} />
+              <ExperimentsTable
+                isFetching={isFetchingExperiments}
+                experiments={experiments}
+              />
             </div>
           </div>
         </div>
@@ -40,7 +44,7 @@ class Library extends React.Component<*> {
 }
 
 Library.propTypes = {
-  experiments: PropTypes.object.isRequired,
+  experiments: PropTypes.array.isRequired,
   filterValues: PropTypes.array.isRequired,
   requestExperiments: PropTypes.func.isRequired,
   requestFilterValues: PropTypes.func.isRequired,
