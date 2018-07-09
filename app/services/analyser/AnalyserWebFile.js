@@ -48,11 +48,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
   }
 
   requestExperiment(id: string) {
-    const user = CredentialsHelpers.loadUser();
-    let token;
-    if (user && user.token) {
-      token = user.token;
-    }
+    const token = CredentialsHelpers.accessToken();
     return fetchJsonWithToken(`${API_URL}/experiments/${id}`, {}, token)
       .then(json => {
         json = this.addExtraData(json);
