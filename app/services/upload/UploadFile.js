@@ -1,7 +1,6 @@
 /* @flow */
 
 import Resumablejs from 'resumablejs';
-import SparkMD5 from 'spark-md5';
 import EventEmitter from 'events';
 import { API_URL } from '../../constants/APIConstants';
 

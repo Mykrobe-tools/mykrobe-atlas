@@ -32,13 +32,6 @@ class Upload extends React.Component<*, State> {
     isDragActive: false,
   };
 
-  // constructor(props: Object) {
-  //   super(props);
-  //   this.state = {
-  //     isDragActive: false,
-  //   };
-  // }
-
   setDropzoneRef = (ref: ?Element) => {
     if (!ref) {
       return;

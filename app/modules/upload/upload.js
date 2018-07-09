@@ -1,6 +1,6 @@
 /* @flow */
 
-import { eventChannel, channel } from 'redux-saga';
+import { channel } from 'redux-saga';
 import {
   all,
   fork,
@@ -45,6 +45,9 @@ import UploadOneDrive from '../../services/upload/UploadOneDrive';
 const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
 const computeChecksumChannel = channel();
+const uploadFileChannel = channel();
+
+// TODO: refactor these and move into module
 
 const _uploadFile = new UploadFile(acceptedExtensions);
 const _uploadBox = new UploadBox();
@@ -64,6 +67,9 @@ export const COMPUTE_CHECKSUMS_PROGRESS = `${typePrefix}COMPUTE_CHECKSUMS_PROGRE
 export const COMPUTE_CHECKSUMS_COMPLETE = `${typePrefix}COMPUTE_CHECKSUMS_COMPLETE`;
 
 export const UPLOAD_FILE = `${typePrefix}UPLOAD_FILE`;
+export const UPLOAD_FILE_PROGRESS = `${typePrefix}UPLOAD_FILE_PROGRESS`;
+export const UPLOAD_FILE_ERROR = `${typePrefix}UPLOAD_FILE_ERROR`;
+export const UPLOAD_FILE_DONE = `${typePrefix}UPLOAD_FILE_DONE`;
 
 // Actions
 
@@ -87,13 +93,7 @@ export const uploadFileUnassignDrop = (payload: any) => ({
   payload,
 });
 
-// bind / unbind uploader - for resumablejs to bind to UI components
-
-// upload a file from local computer
-// create the experiemtn to get the id
-// set the id in the
-
-// set the values on resumablejs when available
+// set the values on resumablejs instance when components are available
 
 function* uploadFileAssignDropWatcher() {
   yield takeEvery(UPLOAD_FILE_ASSIGN_DROP, function*(action: any) {
@@ -124,35 +124,26 @@ export function* accessTokenWorker(): Generator<*, *, *> {
   yield apply(_uploadFile, 'setAccessToken', [accessToken]);
 }
 
-// watch for files added by resumablejs
-
-function createFileAddedEventEmitterChannel(uploadFile) {
-  return eventChannel(emit => {
-    const fileAddedHandler = file => {
-      emit(file);
-    };
-
-    // setup the subscription
-    uploadFile.on('fileAdded', fileAddedHandler);
-
-    // the subscriber must return an unsubscribe function
-    // this will be invoked when the saga calls `channel.close` method
-    const unsubscribe = () => {
-      uploadFile.off('fileAdded', fileAddedHandler);
-    };
-
-    return unsubscribe;
-  });
-}
+// take emitted events, put actions into channel
+// then send those into the main channel
 
 export function* fileAddedEventEmitterWatcher(): Generator<*, *, *> {
-  const fileAddedChannel = yield call(
-    createFileAddedEventEmitterChannel,
-    _uploadFile
-  );
+  _uploadFile
+    .on('fileAdded', payload => {
+      uploadFileChannel.put({ type: FILE_ADDED, payload });
+    })
+    .on('progress', payload => {
+      uploadFileChannel.put({ type: UPLOAD_FILE_PROGRESS, payload });
+    })
+    .on('error', payload => {
+      uploadFileChannel.put({ type: UPLOAD_FILE_ERROR, payload });
+    })
+    .on('done', payload => {
+      uploadFileChannel.put({ type: UPLOAD_FILE_DONE, payload });
+    });
   while (true) {
-    const payload = yield take(fileAddedChannel);
-    yield put({ type: FILE_ADDED, payload });
+    const action = yield take(uploadFileChannel);
+    yield put(action);
   }
 }
 
@@ -192,6 +183,8 @@ export function* computeChecksumsWorker(action: any): Generator<*, *, *> {
     payload: action.payload,
   });
 }
+
+// TODO: move into separate utility module
 
 export function computeChecksums(
   resumableFile: Object,
@@ -234,10 +227,8 @@ export function computeChecksums(
         type: COMPUTE_CHECKSUMS_PROGRESS,
         payload: Math.floor((offset / numChunks) * 100),
       });
-      // this.emit('progress', Math.floor((offset / numChunks) * 100));
       computeChecksums(resumableFile, offset + 1, fileReader);
     } else {
-      // this.startUpload();
       computeChecksumChannel.put({
         type: COMPUTE_CHECKSUMS_COMPLETE,
       });
