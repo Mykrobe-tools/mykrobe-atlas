@@ -2,7 +2,7 @@
 
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import { all, spawn, call } from 'redux-saga/effects';
+import { all, spawn, call, fork } from 'redux-saga/effects';
 
 import {
   authReducer as auth,
@@ -20,6 +20,7 @@ import metadata from './metadata';
 import organisations from './organisations';
 import phylogeny from './phylogeny';
 import users, { rootUsersSaga } from './users';
+import { uploadSaga } from './upload/upload';
 
 export const rootReducer = combineReducers({
   api,
@@ -60,8 +61,10 @@ const sagas = [
   rootExperimentsSaga,
   rootUsersSaga,
   rootNotificationsSaga,
+  uploadSaga,
 ];
 
 export function* rootSaga(): Generator<*, *, *> {
-  yield all(sagas.map(handleErrors).map(saga => call(saga)));
+  // yield all(sagas.map(handleErrors).map(saga => call(saga)));
+  yield all(sagas.map(saga => fork(saga)));
 }

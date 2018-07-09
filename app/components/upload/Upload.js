@@ -14,6 +14,12 @@ import {
   getAccessToken,
 } from 'makeandship-js-common/src/modules/auth';
 
+import {
+  uploadFileAssignDrop,
+  uploadFileAssignBrowse,
+  uploadFileUnassignDrop,
+} from '../../modules/upload/upload';
+
 type State = {
   isDragActive: boolean,
 };
@@ -22,19 +28,24 @@ class Upload extends React.Component<*, State> {
   _uploadButton: Element;
   _dropzone: Element;
 
-  constructor(props: Object) {
-    super(props);
-    this.state = {
-      isDragActive: false,
-    };
-  }
+  state = {
+    isDragActive: false,
+  };
+
+  // constructor(props: Object) {
+  //   super(props);
+  //   this.state = {
+  //     isDragActive: false,
+  //   };
+  // }
 
   setDropzoneRef = (ref: ?Element) => {
     if (!ref) {
       return;
     }
     this._dropzone = ref;
-    this.bindUploader();
+    const { uploadFileAssignDrop } = this.props;
+    uploadFileAssignDrop(this._dropzone);
   };
 
   setUploadButtonRef = (ref: ?Element) => {
@@ -42,36 +53,16 @@ class Upload extends React.Component<*, State> {
       return;
     }
     this._uploadButton = ref;
-    this.bindUploader();
-  };
-
-  bindUploader = () => {
-    const { isAuthenticated, accessToken } = this.props;
-    const { uploadFile } = this.props.service;
-    if (isAuthenticated && this._dropzone && this._uploadButton) {
-      uploadFile.bindUploader(this._dropzone, this._uploadButton);
-      uploadFile.setAccessToken(accessToken);
-    }
+    const { uploadFileAssignBrowse } = this.props;
+    uploadFileAssignBrowse(this._uploadButton);
   };
 
   componentWillUnmount() {
-    const { isAuthenticated } = this.props;
-    const { uploadFile } = this.props.service;
-    if (isAuthenticated) {
-      uploadFile.unbindUploader(this._dropzone, this._uploadButton);
+    const { uploadFileUnassignDrop } = this.props;
+    if (this._dropzone) {
+      uploadFileUnassignDrop(this._dropzone);
     }
   }
-
-  componentDidUpdate = prevProps => {
-    const { uploadFile } = this.props.service;
-    if (
-      this.props.accessToken &&
-      this.props.accessToken !== prevProps.accessToken
-    ) {
-      // pass updated token into uploader (TODO: redux-saga)
-      uploadFile.setAccessToken(this.props.accessToken);
-    }
-  };
 
   onDragOver() {
     this.setState({
@@ -177,17 +168,25 @@ class Upload extends React.Component<*, State> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    isAuthenticated: getIsAuthenticated(state),
-    accessToken: getAccessToken(state),
-  };
-}
-
 Upload.propTypes = {
   service: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   accessToken: PropTypes.string,
+  uploadFileAssignDrop: PropTypes.func.isRequired,
+  uploadFileAssignBrowse: PropTypes.func.isRequired,
+  uploadFileUnassignDrop: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Upload);
+const withRedux = connect(
+  state => ({
+    isAuthenticated: getIsAuthenticated(state),
+    accessToken: getAccessToken(state),
+  }),
+  {
+    uploadFileAssignDrop,
+    uploadFileAssignBrowse,
+    uploadFileUnassignDrop,
+  }
+);
+
+export default withRedux(Upload);
