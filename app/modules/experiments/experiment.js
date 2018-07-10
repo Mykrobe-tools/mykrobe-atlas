@@ -72,8 +72,15 @@ export const getExperimentMetadata = createSelector(
   experiment => experiment.metadata
 );
 
+// TODO: remove once we are receiving sufficiently detailed data from API
+
+export const getExperiment = createSelector(getEntity, experiment => {
+  const experimentWithExtraData = addExtraData(experiment);
+  return experimentWithExtraData;
+});
+
 export const getExperimentTransformed = createSelector(
-  getEntity,
+  getExperiment,
   experiment => {
     const transformer = new AnalyserJsonTransformer();
     const transformed = transformer.transformModel(experiment);
@@ -87,34 +94,10 @@ export {
   requestEntity as requestExperiment,
   updateEntity as updateExperiment,
   deleteEntity as deleteExperiment,
-  getEntity as getExperiment,
   getError,
   getIsFetching,
   actionType as experimentActionType,
+  entitySaga as experimentSaga,
 };
 
 export default reducer;
-
-// Side effects
-
-export function* experimentWatcher(): Generator<*, *, *> {
-  yield takeEvery(
-    [
-      actionType(CREATE, SUCCESS),
-      actionType(REQUEST, SUCCESS),
-      actionType(UPDATE, SUCCESS),
-    ],
-    experimentWorker
-  );
-}
-
-export function* experimentWorker(): Generator<*, *, *> {
-  const experiment = yield select(getEntity);
-  const experimentWithExtraData = addExtraData(experiment);
-  yield put({ type: actionType(SET), payload: experimentWithExtraData });
-}
-
-export function* experimentSaga(): Generator<*, *, *> {
-  const sagas = [entitySaga, experimentWatcher];
-  yield all(sagas.map(saga => fork(saga)));
-}

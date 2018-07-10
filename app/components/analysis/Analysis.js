@@ -30,6 +30,9 @@ class Analysis extends React.Component<*> {
   }
 
   loadMaps(experiment: Object) {
+    if (!experiment.geoDistance) {
+      return;
+    }
     const { experiments } = experiment.geoDistance;
     GoogleMapsLoader.load(google => {
       const options = {

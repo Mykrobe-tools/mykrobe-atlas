@@ -123,6 +123,9 @@ class Phylogeny extends React.Component<*, State> {
     const { experimentTransformed, controlsInset } = this.props;
     const { treeType } = this.state;
     const newick = experimentTransformed.tree;
+    if (!newick) {
+      return null;
+    }
     const insetStyle = { margin: `${controlsInset}px` };
     return (
       <div className={styles.container}>
@@ -219,6 +222,9 @@ class Phylogeny extends React.Component<*, State> {
   }
 
   zoomSamples() {
+    if (!this._phyloCanvas) {
+      return;
+    }
     this._phyloCanvas.zoomToNodesWithIds(this.getSampleIds());
   }
 
@@ -232,6 +238,9 @@ class Phylogeny extends React.Component<*, State> {
   }
 
   updateHighlightedSamples(samples) {
+    if (!this._phyloCanvas) {
+      return;
+    }
     this._phyloCanvas.resetHighlightedNodes();
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
