@@ -65,6 +65,9 @@ class AnalyserJsonTransformer {
     sourceModel: Object,
     relatedModels: ?Array<Object>
   ): Object {
+    if (!sourceModel) {
+      return {};
+    }
     // check basic requirements
     if (!sourceModel.phylogenetics) {
       throw new Error('Unsupported sample json format');

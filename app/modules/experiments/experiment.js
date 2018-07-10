@@ -14,6 +14,8 @@ import {
 import { showNotification } from 'makeandship-js-common/src/modules/notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
+import AnalyserJsonTransformer from '../../services/analyser/AnalyserJsonTransformer';
+
 import { addExtraData } from './utils';
 
 const module = createEntityModule('experiment', {
@@ -70,6 +72,15 @@ export const getExperimentMetadata = createSelector(
   experiment => experiment.metadata
 );
 
+export const getExperimentTransformed = createSelector(
+  getEntity,
+  experiment => {
+    const transformer = new AnalyserJsonTransformer();
+    const transformed = transformer.transformModel(experiment);
+    return transformed;
+  }
+);
+
 export {
   newEntity as newExperiment,
   createEntity as createExperiment,
@@ -101,10 +112,6 @@ export function* experimentWorker(): Generator<*, *, *> {
   const experiment = yield select(getEntity);
   const experimentWithExtraData = addExtraData(experiment);
   yield put({ type: actionType(SET), payload: experimentWithExtraData });
-
-  // TODO: also create transformed data
-  const transformer = new AnalyserJsonTransformer();
-  const transformed = transformer.transformModel(json);
 }
 
 export function* experimentSaga(): Generator<*, *, *> {

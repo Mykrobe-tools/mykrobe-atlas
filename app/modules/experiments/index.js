@@ -21,6 +21,7 @@ export {
 
 export {
   getExperiment,
+  getExperimentTransformed,
   getExperimentMetadata,
   getIsFetching as getIsFetchingExperiment,
   createExperiment,

@@ -4,7 +4,10 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getExperiment } from '../modules/experiments';
+import {
+  getExperiment,
+  getExperimentTransformed,
+} from '../modules/experiments';
 
 function withExperiment(WrappedComponent: React.ElementProps<*>) {
   class WithExperiment extends React.Component<*> {
@@ -19,10 +22,12 @@ function withExperiment(WrappedComponent: React.ElementProps<*>) {
 
   const withRedux = connect(state => ({
     experiment: getExperiment(state),
+    experimentTransformed: getExperimentTransformed(state),
   }));
 
   WithExperiment.propTypes = {
     experiment: PropTypes.object,
+    experimentTransformed: PropTypes.object,
   };
 
   return withRedux(WithExperiment);
