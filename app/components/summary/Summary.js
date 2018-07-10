@@ -11,33 +11,43 @@ import SummaryVariants from './SummaryVariants';
 
 class Summary extends React.Component<*> {
   render() {
-    const { analyser } = this.props;
+    const { experiment, experimentTransformed } = this.props;
     let content;
-    if (analyser.analysing) {
-      content = <Uploading sectionName="Summary" />;
-    } else {
-      content = (
-        <div className={styles.content}>
-          <div className={styles.summaryContainer}>
-            <Panel title="Metadata" columns={8}>
-              <SummaryMetadata analyser={analyser} />
-            </Panel>
-            <Panel title="Resistance Profile" columns={4}>
-              <ResistanceProfile analyser={analyser} />
-            </Panel>
-            <Panel title="Variants Inducing Resistance" columns={4}>
-              <SummaryVariants analyser={analyser} />
-            </Panel>
-          </div>
+    // if (analyser.analysing) {
+    //   content = <Uploading sectionName="Summary" />;
+    // } else {
+    content = (
+      <div className={styles.content}>
+        <div className={styles.summaryContainer}>
+          <Panel title="Metadata" columns={8}>
+            <SummaryMetadata
+              experiment={experiment}
+              experimentTransformed={experimentTransformed}
+            />
+          </Panel>
+          <Panel title="Resistance Profile" columns={4}>
+            <ResistanceProfile
+              experiment={experiment}
+              experimentTransformed={experimentTransformed}
+            />
+          </Panel>
+          <Panel title="Variants Inducing Resistance" columns={4}>
+            <SummaryVariants
+              experiment={experiment}
+              experimentTransformed={experimentTransformed}
+            />
+          </Panel>
         </div>
-      );
-    }
+      </div>
+    );
+    // }
     return <div className={styles.container}>{content}</div>;
   }
 }
 
 Summary.propTypes = {
-  analyser: PropTypes.object,
+  experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
 };
 
 export default Summary;

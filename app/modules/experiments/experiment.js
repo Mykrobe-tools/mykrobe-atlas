@@ -1,16 +1,9 @@
 /* @flow */
 
-import { all, fork, takeEvery, put, select } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
 
-import {
-  CREATE,
-  REQUEST,
-  UPDATE,
-  SUCCESS,
-  SET,
-} from 'makeandship-js-common/src/modules/generic/actions';
 import { showNotification } from 'makeandship-js-common/src/modules/notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 

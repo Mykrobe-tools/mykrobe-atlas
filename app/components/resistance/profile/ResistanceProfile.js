@@ -7,15 +7,8 @@ import ResistanceEmpty from '../empty/ResistanceEmpty';
 
 class ResistanceProfile extends React.Component<*> {
   render() {
-    const { analyser } = this.props;
-    if (!analyser || !analyser.transformed) {
-      return null;
-    }
-    const {
-      analyser: {
-        transformed: { hasResistance },
-      },
-    } = this.props;
+    const { experimentTransformed } = this.props;
+    const { hasResistance } = experimentTransformed;
     if (!hasResistance) {
       return (
         <div className={styles.empty} data-tid="component-resistance-profile">
@@ -23,7 +16,7 @@ class ResistanceProfile extends React.Component<*> {
         </div>
       );
     }
-    const { resistant, susceptible, inconclusive } = analyser.transformed;
+    const { resistant, susceptible, inconclusive } = experimentTransformed;
     return (
       <div className={styles.container} data-tid="component-resistance-profile">
         {this.column(
@@ -71,7 +64,8 @@ class ResistanceProfile extends React.Component<*> {
 }
 
 ResistanceProfile.propTypes = {
-  analyser: PropTypes.object.isRequired,
+  experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
 };
 
 export default ResistanceProfile;

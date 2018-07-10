@@ -1,6 +1,6 @@
 /* @flow */
 
-import withAnalyser from '../../hoc/withAnalyser';
 import Summary from './Summary';
+import withExperiment from '../../hoc/withExperiment';
 
-export default withAnalyser(Summary);
+export default withExperiment(Summary);

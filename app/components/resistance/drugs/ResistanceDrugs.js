@@ -23,10 +23,10 @@ const secondLineDrugs = [
 
 class ResistanceDrugs extends React.Component<*> {
   renderDrugResistance() {
-    const { analyser } = this.props;
+    const { experimentTransformed } = this.props;
     const {
       drugsResistance: { xdr, mdr },
-    } = analyser.transformed;
+    } = experimentTransformed;
     if (mdr || xdr) {
       return (
         <Panel title="Resistance" columns={4}>
@@ -44,11 +44,8 @@ class ResistanceDrugs extends React.Component<*> {
   }
 
   render() {
-    const {
-      analyser: {
-        transformed: { hasResistance },
-      },
-    } = this.props;
+    const { experimentTransformed } = this.props;
+    const { hasResistance } = experimentTransformed;
     if (!hasResistance) {
       return (
         <div className={styles.empty} data-tid="component-resistance-drugs">
@@ -70,8 +67,8 @@ class ResistanceDrugs extends React.Component<*> {
   }
 
   listDrugsWithIndicators(drugs: Array<string>) {
-    const { analyser } = this.props;
-    const { resistant, susceptible, inconclusive } = analyser.transformed;
+    const { experimentTransformed } = this.props;
+    const { resistant, susceptible, inconclusive } = experimentTransformed;
     let elements = [];
     drugs.forEach((drug, index) => {
       let indicators = [];
@@ -108,7 +105,8 @@ class ResistanceDrugs extends React.Component<*> {
 }
 
 ResistanceDrugs.propTypes = {
-  analyser: PropTypes.object.isRequired,
+  experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
 };
 
 export default ResistanceDrugs;

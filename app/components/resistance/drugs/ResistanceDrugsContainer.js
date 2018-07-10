@@ -1,6 +1,6 @@
 /* @flow */
 
 import ResistanceDrugs from './ResistanceDrugs';
-import withAnalyser from '../../../hoc/withAnalyser';
+import withExperiment from '../../../hoc/withExperiment';
 
-export default withAnalyser(ResistanceDrugs);
+export default withExperiment(ResistanceDrugs);
