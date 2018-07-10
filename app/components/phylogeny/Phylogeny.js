@@ -12,7 +12,7 @@ import {
   unsetNodeHighlightedAll,
 } from '../../modules/phylogeny';
 
-import withAnalyser from '../../hoc/withAnalyser';
+import withExperiment from '../../hoc/withExperiment';
 
 import PhyloCanvasComponent from '../ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
@@ -264,7 +264,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 Phylogeny.propTypes = {
-  analyser: PropTypes.object.isRequired,
+  experiment: PropTypes.object.isRequired,
   highlighted: PropTypes.array.isRequired,
   controlsInset: PropTypes.number,
   setNodeHighlighted: PropTypes.func.isRequired,
@@ -274,4 +274,4 @@ Phylogeny.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAnalyser(Phylogeny));
+)(withExperiment(Phylogeny));

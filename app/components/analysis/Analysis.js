@@ -25,14 +25,12 @@ class Analysis extends React.Component<*> {
   }
 
   componentDidMount() {
-    const { analyser } = this.props;
-    const sample = analyser.json;
-    if (analyser.analysing) return;
-    this.loadMaps(sample);
+    const { experiment } = this.props;
+    this.loadMaps(experiment);
   }
 
-  loadMaps(sample: Object) {
-    const { experiments } = sample.geoDistance;
+  loadMaps(experiment: Object) {
+    const { experiments } = experiment.geoDistance;
     GoogleMapsLoader.load(google => {
       const options = {
         center: { lat: 51.5074, lng: 0.1278 },
@@ -43,14 +41,14 @@ class Analysis extends React.Component<*> {
       };
       this._google = google;
       this._map = new google.maps.Map(this._mapDiv, options);
-      this.updateMarkers(sample, experiments);
+      this.updateMarkers(experiment, experiments);
     });
   }
 
   getSampleWithId(nodeId) {
-    const sample = this.props.analyser.json;
-    const { experiments } = sample.geoDistance;
-    const samples = [sample].concat(experiments);
+    const { experiment } = this.props;
+    const { experiments } = experiment.geoDistance;
+    const samples = [experiment].concat(experiments);
     let selectedSample;
     let isMain = false;
     samples.forEach((sample, index) => {
@@ -65,9 +63,9 @@ class Analysis extends React.Component<*> {
   }
 
   getSampleIds() {
-    const sample = this.props.analyser.json;
-    const { experiments } = sample.geoDistance;
-    const samples = [sample].concat(experiments);
+    const { experiment } = this.props;
+    const { experiments } = experiment.geoDistance;
+    const samples = [experiment].concat(experiments);
     return samples.map(sample => {
       return sample.id;
     });
@@ -137,18 +135,15 @@ class Analysis extends React.Component<*> {
 
   componentWillReceiveProps(nextProps) {
     const { highlighted } = nextProps;
-    if (nextProps.analyser.analysing) return;
-    if (!nextProps.analyser.json || !nextProps.analyser.json.geoDistance)
-      return;
     if (!this._map) {
-      this.loadMaps(nextProps.analyser.json);
+      this.loadMaps(nextProps.experiment);
     } else if (
-      this.props.analyser.json.geoDistance.experiments !==
-      nextProps.analyser.json.geoDistance.experiments
+      this.props.experiment.geoDistance.experiments !==
+      nextProps.experiment.geoDistance.experiments
     ) {
       this.updateMarkers(
-        nextProps.analyser.json,
-        nextProps.analyser.json.geoDistance.experiments
+        nextProps.experiment,
+        nextProps.experiment.geoDistance.experiments
       );
     }
     if (highlighted.length) {
@@ -176,35 +171,32 @@ class Analysis extends React.Component<*> {
   }
 
   render() {
-    const { analyser } = this.props;
+    const { experiment } = this.props;
     let content;
-    if (analyser.analysing) {
-      content = <Uploading sectionName="Analysis" />;
-    } else {
-      if (!analyser.transformed) {
-        return null;
-      }
-      content = (
-        <div className={styles.content}>
-          <div className={styles.mapAndPhylogenyContainer}>
-            <div className={styles.mapContainer}>
-              <div
-                ref={ref => {
-                  this._mapDiv = ref;
-                }}
-                className={styles.map}
-              />
-              <PhyloCanvasTooltip
-                ref={ref => {
-                  this._phyloCanvasTooltip = ref;
-                }}
-              />
-            </div>
-            <Phylogeny className={styles.phylogenyContainer} />
+    // TODO: rework 'analysing' state based on file upload etc.
+    // if (analyser.analysing) {
+    //   content = <Uploading sectionName="Analysis" />;
+    // } else {
+    content = (
+      <div className={styles.content}>
+        <div className={styles.mapAndPhylogenyContainer}>
+          <div className={styles.mapContainer}>
+            <div
+              ref={ref => {
+                this._mapDiv = ref;
+              }}
+              className={styles.map}
+            />
+            <PhyloCanvasTooltip
+              ref={ref => {
+                this._phyloCanvasTooltip = ref;
+              }}
+            />
           </div>
+          <Phylogeny className={styles.phylogenyContainer} />
         </div>
-      );
-    }
+      </div>
+    );
 
     return <div className={styles.container}>{content}</div>;
   }
@@ -212,7 +204,7 @@ class Analysis extends React.Component<*> {
 
 Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
+  experiment: PropTypes.object.isRequired,
   highlighted: PropTypes.array.isRequired,
 };
 

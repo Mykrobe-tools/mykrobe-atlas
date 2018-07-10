@@ -5,6 +5,8 @@ import AnalyserJsonTransformer from './AnalyserJsonTransformer';
 import { fetchJsonWithToken } from '../../modules/api';
 import { API_URL } from '../../constants/APIConstants';
 
+import { addExtraData } from '../../modules/experiments/utils';
+
 // TODO: refactor to use redux actions, load user from state rather than direct from CredentialsHelpers
 import * as CredentialsHelpers from '../../helpers/CredentialsHelpers';
 
@@ -51,7 +53,7 @@ class AnalyserWebFile extends AnalyserBaseFile {
     const token = CredentialsHelpers.accessToken();
     return fetchJsonWithToken(`${API_URL}/experiments/${id}`, {}, token)
       .then(json => {
-        json = this.addExtraData(json);
+        json = addExtraData(json);
         const transformer = new AnalyserJsonTransformer();
         const transformed = transformer.transformModel(json);
         const result = { json, transformed };
@@ -60,27 +62,6 @@ class AnalyserWebFile extends AnalyserBaseFile {
       .catch(error => {
         return Promise.reject(error);
       });
-  }
-
-  addExtraData(json: Object) {
-    const testData = require('../../../test/__fixtures__/api/experiment.json')
-      .data;
-    if (!json.location) {
-      json.location = testData.location;
-    }
-    if (!json.geoDistance) {
-      json.geoDistance = testData.geoDistance;
-    }
-    if (json.geoDistance.experiments.length === 0) {
-      json.geoDistance.experiments = testData.geoDistance.experiments;
-    }
-    if (!json.snpDistance) {
-      json.snpDistance = testData.snpDistance;
-    }
-    if (!json.snpDistance.newick) {
-      json.snpDistance.newick = testData.snpDistance.newick;
-    }
-    return json;
   }
 }
 

@@ -4,32 +4,32 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getAnalyser } from '../modules/analyser';
+import { getExperiment } from '../modules/experiments';
 
-function withAnalyser(WrappedComponent: React.ElementProps<*>) {
-  class WithAnalyser extends React.Component<*> {
+function withExperiment(WrappedComponent: React.ElementProps<*>) {
+  class WithExperiment extends React.Component<*> {
     render() {
       return <WrappedComponent {...this.props} />;
     }
   }
 
-  WithAnalyser.displayName = `WithAnalyser(${getDisplayName(
+  WithExperiment.displayName = `WithExperiment(${getDisplayName(
     WrappedComponent
   )})`;
 
   const withRedux = connect(state => ({
-    analyser: getAnalyser(state),
+    experiment: getExperiment(state),
   }));
 
-  WithAnalyser.propTypes = {
-    analyser: PropTypes.object.isRequired,
+  WithExperiment.propTypes = {
+    experiment: PropTypes.object,
   };
 
-  return withRedux(WithAnalyser);
+  return withRedux(WithExperiment);
 }
 
 function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
 
-export default withAnalyser;
+export default withExperiment;

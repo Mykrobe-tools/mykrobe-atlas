@@ -1,11 +1,20 @@
 /* @flow */
 
-import { put } from 'redux-saga/effects';
+import { all, fork, takeEvery, put, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
 
+import {
+  CREATE,
+  REQUEST,
+  UPDATE,
+  SUCCESS,
+  SET,
+} from 'makeandship-js-common/src/modules/generic/actions';
 import { showNotification } from 'makeandship-js-common/src/modules/notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
+
+import { addExtraData } from './utils';
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experiment/',
@@ -27,15 +36,15 @@ const module = createEntityModule('experiment', {
   update: {
     operationId: 'experimentsUpdateById',
     onSuccess: function*() {
-      // yield put(showNotification('Experiment updated'));
+      yield put(showNotification('Experiment saved'));
       // yield put(push('/experiments'));
     },
   },
   delete: {
     operationId: 'experimentsDeleteById',
     onSuccess: function*() {
-      // yield put(showNotification('Experiment deleted'));
-      // yield put(push('/experiments'));
+      yield put(showNotification('Experiment deleted'));
+      yield put(push('/experiments'));
     },
   },
 });
@@ -70,8 +79,35 @@ export {
   getEntity as getExperiment,
   getError,
   getIsFetching,
-  entitySaga as experimentSaga,
   actionType as experimentActionType,
 };
 
 export default reducer;
+
+// Side effects
+
+export function* experimentWatcher(): Generator<*, *, *> {
+  yield takeEvery(
+    [
+      actionType(CREATE, SUCCESS),
+      actionType(REQUEST, SUCCESS),
+      actionType(UPDATE, SUCCESS),
+    ],
+    experimentWorker
+  );
+}
+
+export function* experimentWorker(): Generator<*, *, *> {
+  const experiment = yield select(getEntity);
+  const experimentWithExtraData = addExtraData(experiment);
+  yield put({ type: actionType(SET), payload: experimentWithExtraData });
+
+  // TODO: also create transformed data
+  const transformer = new AnalyserJsonTransformer();
+  const transformed = transformer.transformModel(json);
+}
+
+export function* experimentSaga(): Generator<*, *, *> {
+  const sagas = [entitySaga, experimentWatcher];
+  yield all(sagas.map(saga => fork(saga)));
+}
