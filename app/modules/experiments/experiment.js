@@ -12,6 +12,9 @@ const module = createEntityModule('experiment', {
   initialData: {},
   create: {
     operationId: 'experimentsCreate',
+    // url: function*(url) {
+    //   return yield 'http://localhost:3001/experiments';
+    // },
     onSuccess: function*() {
       // yield put(showNotification('Experiment created'));
       // yield put(push('/experiments'));

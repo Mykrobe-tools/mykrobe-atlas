@@ -4,6 +4,8 @@ import Resumablejs from 'resumablejs';
 import EventEmitter from 'events';
 import { API_URL } from '../../constants/APIConstants';
 
+// const API_URL = 'http://localhost:3001';
+
 class UploadFile extends EventEmitter {
   acceptedExtensions: Array<string>;
   resumable: Object;
