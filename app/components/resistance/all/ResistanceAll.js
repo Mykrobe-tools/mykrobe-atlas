@@ -11,11 +11,8 @@ import Phylogeny from '../../phylogeny/Phylogeny';
 class ResistanceAll extends React.Component<*> {
   render() {
     const { analyser } = this.props;
-    const {
-      analyser: {
-        transformed: { hasResistance },
-      },
-    } = this.props;
+    const hasResistance =
+      analyser && analyser.transformed && analyser.transformed.hasResistance;
     if (!hasResistance) {
       return (
         <div className={styles.empty} data-tid="component-resistance-all">

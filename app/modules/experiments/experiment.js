@@ -2,6 +2,7 @@
 
 import { put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
+import { createSelector } from 'reselect';
 
 import { showNotification } from 'makeandship-js-common/src/modules/notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
@@ -52,6 +53,13 @@ const {
   selectors: { getEntity, getError, getIsFetching },
   sagas: { entitySaga },
 } = module;
+
+// Selectors
+
+export const getExperimentMetadata = createSelector(
+  getEntity,
+  experiment => experiment.metadata
+);
 
 export {
   newEntity as newExperiment,
