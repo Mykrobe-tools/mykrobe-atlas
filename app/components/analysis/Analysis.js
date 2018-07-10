@@ -138,6 +138,8 @@ class Analysis extends React.Component<*> {
   componentWillReceiveProps(nextProps) {
     const { highlighted } = nextProps;
     if (nextProps.analyser.analysing) return;
+    if (!nextProps.analyser.json || !nextProps.analyser.json.geoDistance)
+      return;
     if (!this._map) {
       this.loadMaps(nextProps.analyser.json);
     } else if (
@@ -179,6 +181,9 @@ class Analysis extends React.Component<*> {
     if (analyser.analysing) {
       content = <Uploading sectionName="Analysis" />;
     } else {
+      if (!analyser.transformed) {
+        return null;
+      }
       content = (
         <div className={styles.content}>
           <div className={styles.mapAndPhylogenyContainer}>
