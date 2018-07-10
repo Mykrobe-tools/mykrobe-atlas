@@ -167,7 +167,7 @@ export function* fileAddedWorker(action: any): Generator<*, *, *> {
   const experiment = yield select(getExperiment);
   // TODO: use the id as a unique identifier for all actions
   yield apply(_uploadFile, 'setId', [experiment.id]);
-  // yield put(push(`/sample/${experiment.id}`));
+  yield put(push(`/sample/${experiment.id}`));
   yield put({ type: COMPUTE_CHECKSUMS, payload: action.payload });
 }
 

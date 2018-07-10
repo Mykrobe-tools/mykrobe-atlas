@@ -5,32 +5,27 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Sample from '../components/sample/Sample';
-import withAnalyser from '../hoc/withAnalyser';
+import Sample from '../../components/sample/Sample';
+import withAnalyser from '../../hoc/withAnalyser';
 
-import { requestCurrentUser } from '../modules/users';
-import { requestExperiment } from '../modules/analyser';
-import { requestTemplate } from '../modules/metadata';
+import { requestCurrentUser } from '../../modules/users';
+import {
+  requestExperiment,
+  requestExperimentMetadataTemplate,
+} from '../../modules/experiments';
 
-class SamplePage extends React.Component<*> {
+class SampleContainer extends React.Component<*> {
   componentDidMount() {
     const {
       analyser,
       requestExperiment,
-      requestTemplate,
-      requestCurrentUser,
+      requestExperimentMetadataTemplate,
     } = this.props;
     const { id } = this.props.match.params;
     if (!analyser.analysing && !analyser.json) {
       requestExperiment(id);
     }
-
-    // re-fetch user details before requesting template
-    // this ensures the correct organisation/template is used,
-    // as it may have changed since the user logged in
-    requestCurrentUser().then(user => {
-      requestTemplate(user);
-    });
+    requestExperimentMetadataTemplate();
   }
 
   render() {
@@ -47,22 +42,22 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       requestExperiment,
-      requestTemplate,
+      requestExperimentMetadataTemplate,
       requestCurrentUser,
     },
     dispatch
   );
 }
 
-SamplePage.propTypes = {
+SampleContainer.propTypes = {
   match: PropTypes.object.isRequired,
   analyser: PropTypes.object.isRequired,
   requestExperiment: PropTypes.func.isRequired,
-  requestTemplate: PropTypes.func.isRequired,
+  requestExperimentMetadataTemplate: PropTypes.func.isRequired,
   requestCurrentUser: PropTypes.func.isRequired,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAnalyser(SamplePage));
+)(withAnalyser(SampleContainer));

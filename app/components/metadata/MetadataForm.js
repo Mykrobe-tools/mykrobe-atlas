@@ -25,12 +25,15 @@ import FormInputRadio from '../form/FormInputRadio';
 import FormSelect from '../form/FormSelect';
 import FormTypeahead from '../form/FormTypeahead';
 
+import { setFormData, getFormData } from 'makeandship-js-common/src/modules/form';
+
 import {
-  getMetadata,
-  getTemplate,
-  setMetadata,
-  updateMetadata,
-} from '../../modules/metadata';
+  getExperimentMetadata,
+  getExperimentMetadataTemplate,
+  updateExperimentMetadata,
+} from '../../modules/experiments';
+
+export const FORM_KEY = 'experiments/experimentsMetadata';
 
 const locations = require('../../static/locations.json');
 const drugs = require('../../static/drugs.json');
@@ -106,8 +109,8 @@ class MetadataForm extends React.Component<*, State> {
   }
 
   handleFormChange() {
-    const { setMetadata } = this.props;
-    setMetadata(this.state);
+    const { setFormData } = this.props;
+    setFormData(FORM_KEY, this.state);
   }
 
   handleStepChange() {
@@ -1423,16 +1426,16 @@ class MetadataForm extends React.Component<*, State> {
 
 function mapStateToProps(state) {
   return {
-    metadata: getMetadata(state),
-    template: getTemplate(state),
+    metadata: getExperimentMetadata(state),
+    template: getExperimentMetadataTemplate(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      updateMetadata,
-      setMetadata,
+      updateExperimentMetadata,
+      setFormData,
     },
     dispatch
   );
@@ -1440,8 +1443,8 @@ function mapDispatchToProps(dispatch) {
 
 MetadataForm.propTypes = {
   metadata: PropTypes.object,
-  setMetadata: PropTypes.func,
-  updateMetadata: PropTypes.func,
+  setFormData: PropTypes.func,
+  updateExperimentMetadata: PropTypes.func,
   resetScroll: PropTypes.func,
   template: PropTypes.array,
   id: PropTypes.string,

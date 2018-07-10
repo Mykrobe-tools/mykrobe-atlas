@@ -9,6 +9,9 @@ import experimentFile, { experimentFileSaga } from './experimentFile';
 import experimentMetadata, {
   experimentMetadataSaga,
 } from './experimentMetadata';
+import experimentMetadataTemplate, {
+  experimentMetadataTemplateSaga,
+} from './experimentMetadataTemplate';
 import filters from './filters';
 
 export {
@@ -36,9 +39,17 @@ export {
 
 export {
   updateExperimentMetadata,
+  getExperimentMetadata,
   getIsFetching as getIsFetchingExperimentMetadata,
   experimentMetadataSaga,
 } from './experimentMetadata';
+
+export {
+  requestExperimentMetadataTemplate,
+  getExperimentMetadataTemplate,
+  getIsFetching as getIsFetchingExperimentMetadataTemplate,
+  experimentMetadataTemplateSaga,
+} from './experimentMetadataTemplate';
 
 export {
   getIsFetching as getIsFetchingFilters,
@@ -51,6 +62,7 @@ const reducer = combineReducers({
   experiment,
   experimentFile,
   experimentMetadata,
+  experimentMetadataTemplate,
   filters,
 });
 
@@ -62,5 +74,6 @@ export function* rootExperimentsSaga(): Generator<*, *, *> {
     fork(experimentSaga),
     fork(experimentFileSaga),
     fork(experimentMetadataSaga),
+    fork(experimentMetadataTemplateSaga),
   ]);
 }

@@ -5,7 +5,22 @@ import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experimentMetadata/',
   getState: state => state.experiments.experimentMetadata,
-  initialData: {},
+  initialData: {
+    location: 'GB',
+    labId: '',
+    date: '',
+    responsiblePersonId: '',
+    responsiblePersonData: '',
+    patientId: '',
+    sampleId: '',
+    sequencingMachine: '',
+    patientHistory: '',
+    sampleType: '',
+    susceptibility: {},
+    hivPositive: '',
+    treatedForTB: '',
+    shareSequence: true,
+  },
   update: {
     operationId: 'experimentUpdateMetadata',
   },

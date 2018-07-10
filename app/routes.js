@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import LibraryContainer from './components/library/LibraryContainer';
-import SamplePage from './containers/SamplePage';
+import SampleContainer from './components/sample/SampleContainer';
 import HomePage from './containers/HomePage';
 import App from './containers/App';
 import OrganisationPage from './containers/OrganisationPage';
@@ -20,7 +20,9 @@ import {
 const AuthenticatedLibraryContainer = withUserIsNotAuthenticatedRedirect(
   LibraryContainer
 );
-const AuthenticatedSamplePage = withUserIsNotAuthenticatedRedirect(SamplePage);
+const AuthenticatedSampleContainer = withUserIsNotAuthenticatedRedirect(
+  SampleContainer
+);
 const AuthenticatedOrganisationPage = withUserIsNotAuthenticatedRedirect(
   OrganisationPage
 );
@@ -35,7 +37,7 @@ export default (
       <Route path="/library" component={AuthenticatedLibraryContainer} />
       <Route path="/auth" component={AuthRoutes} />
       <Route path="/users" component={AuthenticatedUsersRoutes} />
-      <Route path="/sample/:id" component={AuthenticatedSamplePage} />
+      <Route path="/sample/:id" component={AuthenticatedSampleContainer} />
       <Route path="/organisation" component={AuthenticatedOrganisationPage} />
     </Switch>
   </App>
