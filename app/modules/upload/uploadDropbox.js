@@ -1,25 +1,8 @@
 /* @flow */
 
-import { channel } from 'redux-saga';
-import {
-  all,
-  fork,
-  put,
-  take,
-  race,
-  takeEvery,
-  select,
-  call,
-  apply,
-  takeLatest,
-} from 'redux-saga/effects';
+import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import loadScript from 'load-script';
-
-import {
-  showNotification,
-  NotificationCategories,
-} from 'makeandship-js-common/src/modules/notifications';
 
 import config from '../../config';
 
@@ -36,9 +19,8 @@ export const UPLOAD_DROPBOX = `${typePrefix}UPLOAD_DROPBOX`;
 
 // Actions
 
-export const uploadDropbox = (payload: any) => ({
+export const uploadDropbox = () => ({
   type: UPLOAD_DROPBOX,
-  payload,
 });
 
 // Side effects
@@ -57,11 +39,11 @@ const loadDropbox = async () => {
           'data-app-key': config.DROPBOX_APP_KEY,
         },
       },
-      (error, script) => {
+      error => {
         if (error) {
-          return reject(error);
+          reject(error);
         }
-        return resolve(script);
+        resolve();
       }
     );
   });
@@ -95,30 +77,24 @@ export function* uploadDropboxWorker(): Generator<*, *, *> {
     yield call(loadDropbox);
   }
   const files = yield call(dropboxChoose);
-  if (files) {
-    const id = yield call(createExperimentId);
-    if (!id) {
-      yield put(
-        showNotification({
-          category: NotificationCategories.ERROR,
-          content: 'Unable to create new upload',
-          autoHide: false,
-        })
-      );
-      return;
-    }
-    const file = {
-      name: files[0].name,
-      path: files[0].link,
-      provider: 'dropbox',
-    };
-    yield put(
-      updateExperimentFile({
-        id,
-        file,
-      })
-    );
+  if (!files) {
+    return;
   }
+  const experimentId = yield call(createExperimentId);
+  if (!experimentId) {
+    return;
+  }
+  const experimentFile = {
+    name: files[0].name,
+    path: files[0].link,
+    provider: 'dropbox',
+  };
+  yield put(
+    updateExperimentFile({
+      id: experimentId,
+      file: experimentFile,
+    })
+  );
 }
 
 export function* uploadDropboxSaga(): Generator<*, *, *> {

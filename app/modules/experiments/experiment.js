@@ -10,7 +10,10 @@ import {
   CREATE,
 } from 'makeandship-js-common/src/modules/generic/actions';
 
-import { showNotification } from 'makeandship-js-common/src/modules/notifications';
+import {
+  showNotification,
+  NotificationCategories,
+} from 'makeandship-js-common/src/modules/notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
 import AnalyserJsonTransformer from '../../services/analyser/AnalyserJsonTransformer';
@@ -114,6 +117,12 @@ export function* createExperimentId(): Generator<*, *, *> {
     failure: take(actionType(CREATE, FAILURE)),
   });
   if (!success) {
+    yield put(
+      showNotification({
+        category: NotificationCategories.ERROR,
+        content: 'Unable to create new upload',
+      })
+    );
     return yield false;
   }
   const experiment = yield select(getExperiment);
