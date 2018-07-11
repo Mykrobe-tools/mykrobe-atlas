@@ -19,7 +19,7 @@ import experiments, { rootExperimentsSaga } from './experiments';
 import organisations, { rootOrganisationsSaga } from './organisations';
 import phylogeny from './phylogeny';
 import users, { rootUsersSaga } from './users';
-import { uploadSaga } from './upload/upload';
+import { rootUploadSaga } from './upload';
 
 export const rootReducer = combineReducers({
   api,
@@ -41,7 +41,7 @@ const sagas = [
   rootOrganisationsSaga,
   rootUsersSaga,
   rootNotificationsSaga,
-  uploadSaga,
+  rootUploadSaga,
 ];
 
 // allow uncaught errors to crash, so we get a better stack trace

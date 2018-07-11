@@ -15,32 +15,18 @@ import {
 } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import loadScript from 'load-script';
+
+import {
+  showNotification,
+  NotificationCategories,
+} from 'makeandship-js-common/src/modules/notifications';
+
 import config from '../../config';
 
 const DROPBOX_SDK_URL = 'https://www.dropbox.com/static/api/2/dropins.js';
 const SCRIPT_ID = 'dropboxjs';
 
-import {
-  SUCCESS,
-  FAILURE,
-  CREATE,
-} from 'makeandship-js-common/src/modules/generic/actions';
-
-import {
-  INITIALISE_SUCCESS,
-  SET_TOKEN,
-  CHECK_TOKEN_SUCCESS,
-  REFRESH_TOKEN_SUCCESS,
-  REFRESH_TOKEN_FAIL,
-  getAccessToken,
-  checkToken,
-} from 'makeandship-js-common/src/modules/auth/auth';
-
-import {
-  createExperiment,
-  getExperiment,
-  experimentActionType,
-} from '../experiments/experiment';
+import { updateExperimentFile, createExperimentId } from '../experiments';
 
 const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
@@ -110,11 +96,28 @@ export function* uploadDropboxWorker(): Generator<*, *, *> {
   }
   const files = yield call(dropboxChoose);
   if (files) {
-    this.emit('fileSelected', {
+    const id = yield call(createExperimentId);
+    if (!id) {
+      yield put(
+        showNotification({
+          category: NotificationCategories.ERROR,
+          content: 'Unable to create new upload',
+          autoHide: false,
+        })
+      );
+      return;
+    }
+    const file = {
       name: files[0].name,
       path: files[0].link,
       provider: 'dropbox',
-    });
+    };
+    yield put(
+      updateExperimentFile({
+        id,
+        file,
+      })
+    );
   }
 }
 

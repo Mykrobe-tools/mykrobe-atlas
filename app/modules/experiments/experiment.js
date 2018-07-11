@@ -1,8 +1,14 @@
 /* @flow */
 
-import { put } from 'redux-saga/effects';
+import { put, take, race, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
+
+import {
+  SUCCESS,
+  FAILURE,
+  CREATE,
+} from 'makeandship-js-common/src/modules/generic/actions';
 
 import { showNotification } from 'makeandship-js-common/src/modules/notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
@@ -97,3 +103,19 @@ export {
 };
 
 export default reducer;
+
+// Side effects
+
+export function* createExperimentId(): Generator<*, *, *> {
+  // create an id for the experiment
+  yield put(createEntity());
+  const { success } = yield race({
+    success: take(actionType(CREATE, SUCCESS)),
+    failure: take(actionType(CREATE, FAILURE)),
+  });
+  if (!success) {
+    return yield false;
+  }
+  const experiment = yield select(getExperiment);
+  return yield experiment.id;
+}

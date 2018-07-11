@@ -18,7 +18,8 @@ import {
   uploadFileAssignDrop,
   uploadFileAssignBrowse,
   uploadFileUnassignDrop,
-} from '../../modules/upload/upload';
+  uploadDropbox,
+} from '../../modules/upload';
 
 type State = {
   isDragActive: boolean,
@@ -70,12 +71,8 @@ class Upload extends React.Component<*, State> {
   }
 
   popoverMenuLinks() {
-    const {
-      uploadBox,
-      uploadDropbox,
-      uploadGoogleDrive,
-      uploadOneDrive,
-    } = this.props.service;
+    const { uploadBox, uploadGoogleDrive, uploadOneDrive } = this.props.service;
+    const { uploadDropbox } = this.props;
     return [
       {
         text: 'Computer',
@@ -90,7 +87,7 @@ class Upload extends React.Component<*, State> {
         text: 'Dropbox',
         onClick: (e: Event) => {
           e.preventDefault();
-          uploadDropbox.trigger();
+          uploadDropbox();
         },
       },
       {
@@ -168,6 +165,7 @@ Upload.propTypes = {
   uploadFileAssignDrop: PropTypes.func.isRequired,
   uploadFileAssignBrowse: PropTypes.func.isRequired,
   uploadFileUnassignDrop: PropTypes.func.isRequired,
+  uploadDropbox: PropTypes.func.isRequired,
 };
 
 const withRedux = connect(
@@ -179,6 +177,7 @@ const withRedux = connect(
     uploadFileAssignDrop,
     uploadFileAssignBrowse,
     uploadFileUnassignDrop,
+    uploadDropbox,
   }
 );
 

@@ -29,6 +29,7 @@ export {
   updateExperiment,
   deleteExperiment,
   experimentSaga,
+  createExperimentId,
 } from './experiment';
 
 export {
