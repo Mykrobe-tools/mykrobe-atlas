@@ -6,6 +6,7 @@ import { uploadSaga } from './upload';
 import { uploadDropboxSaga } from './uploadDropbox';
 import { uploadGoogleDriveSaga } from './uploadGoogleDrive';
 import { uploadBoxSaga } from './uploadBox';
+import { uploadOneDriveSaga } from './uploadOneDrive';
 
 export {
   uploadFileAssignDrop,
@@ -17,6 +18,7 @@ export {
 export { uploadDropbox, uploadDropboxSaga } from './uploadDropbox';
 export { uploadGoogleDrive, uploadGoogleDriveSaga } from './uploadGoogleDrive';
 export { uploadBox, uploadBoxSaga } from './uploadBox';
+export { uploadOneDrive, uploadOneDriveSaga } from './uploadOneDrive';
 
 export function* rootUploadSaga(): Generator<*, *, *> {
   yield all([
@@ -24,5 +26,6 @@ export function* rootUploadSaga(): Generator<*, *, *> {
     fork(uploadDropboxSaga),
     fork(uploadGoogleDriveSaga),
     fork(uploadBoxSaga),
+    fork(uploadOneDriveSaga),
   ]);
 }

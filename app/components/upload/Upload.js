@@ -9,10 +9,7 @@ import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
 import PopoverMenu from '../ui/PopoverMenu';
 
-import {
-  getIsAuthenticated,
-  getAccessToken,
-} from 'makeandship-js-common/src/modules/auth';
+import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
 
 import {
   uploadFileAssignDrop,
@@ -21,6 +18,7 @@ import {
   uploadDropbox,
   uploadGoogleDrive,
   uploadBox,
+  uploadOneDrive,
 } from '../../modules/upload';
 
 type State = {
@@ -73,8 +71,12 @@ class Upload extends React.Component<*, State> {
   }
 
   popoverMenuLinks() {
-    const { uploadOneDrive } = this.props.service;
-    const { uploadDropbox, uploadGoogleDrive, uploadBox } = this.props;
+    const {
+      uploadDropbox,
+      uploadGoogleDrive,
+      uploadBox,
+      uploadOneDrive,
+    } = this.props;
     return [
       {
         text: 'Computer',
@@ -110,7 +112,7 @@ class Upload extends React.Component<*, State> {
         text: 'OneDrive',
         onClick: (e: Event) => {
           e.preventDefault();
-          uploadOneDrive.trigger();
+          uploadOneDrive();
         },
       },
     ];
@@ -161,21 +163,19 @@ class Upload extends React.Component<*, State> {
 }
 
 Upload.propTypes = {
-  service: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  accessToken: PropTypes.string,
   uploadFileAssignDrop: PropTypes.func.isRequired,
   uploadFileAssignBrowse: PropTypes.func.isRequired,
   uploadFileUnassignDrop: PropTypes.func.isRequired,
   uploadDropbox: PropTypes.func.isRequired,
   uploadGoogleDrive: PropTypes.func.isRequired,
   uploadBox: PropTypes.func.isRequired,
+  uploadOneDrive: PropTypes.func.isRequired,
 };
 
 const withRedux = connect(
   state => ({
     isAuthenticated: getIsAuthenticated(state),
-    accessToken: getAccessToken(state),
   }),
   {
     uploadFileAssignDrop,
@@ -184,6 +184,7 @@ const withRedux = connect(
     uploadDropbox,
     uploadGoogleDrive,
     uploadBox,
+    uploadOneDrive,
   }
 );
 
