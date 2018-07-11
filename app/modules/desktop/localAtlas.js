@@ -211,11 +211,16 @@ function* analyseFileSuccessWatcher() {
   yield takeEvery(ANALYSE_FILE_SUCCESS, analyseFileSuccessWorker);
 }
 
-export function* analyseFileSuccessWorker(action: any): Generator<*, *, *> {
+export function* analyseFileSuccessWorker(): Generator<*, *, *> {
+  const json = yield select(getJson);
   const filePath = yield select(getFilePath);
   const parsed = parsePath(filePath);
-  // set the result as the experiment - the transformed version is now geenrated on demand by selector
-  yield put({ type: experimentActionType(SET), payload: action.payload.json });
+  // set the result as the experiment - the transformed version is now generated on-demand by selector
+  // only one sample from Predictor
+  const sampleIds = Object.keys(json);
+  const sampleId = sampleIds[0];
+  const sampleModel = json[sampleId];
+  yield put({ type: experimentActionType(SET), payload: sampleModel });
   yield put(push('/results'));
   yield put(showNotification(`Sample ${parsed.basename} analysis complete`));
   yield call(setSaveEnabled, true);

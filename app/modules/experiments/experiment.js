@@ -68,6 +68,9 @@ export const getExperimentMetadata = createSelector(
 // TODO: remove once we are receiving sufficiently detailed data from API
 
 export const getExperiment = createSelector(getEntity, experiment => {
+  if (IS_ELECTRON) {
+    return experiment;
+  }
   const experimentWithExtraData = addExtraData(experiment);
   return experimentWithExtraData;
 });

@@ -54,9 +54,14 @@ class AnalyserJsonTransformer {
     } else {
       // only one sample from Predictor
       const sampleIds = Object.keys(sourceModel);
-      const sampleId = sampleIds[0];
-      const sampleModel = sourceModel[sampleId];
-      const transformedSampleModel = this.transformSampleModel(sampleModel);
+      if (sampleIds.length === 1) {
+        const sampleId = sampleIds[0];
+        const sampleModel = sourceModel[sampleId];
+        const transformedSampleModel = this.transformSampleModel(sampleModel);
+        return transformedSampleModel;
+      }
+      // Already unwrapped
+      const transformedSampleModel = this.transformSampleModel(sourceModel);
       return transformedSampleModel;
     }
   }
