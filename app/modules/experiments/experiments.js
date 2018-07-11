@@ -5,8 +5,8 @@ import { createCollectionModule } from 'makeandship-js-common/src/modules/generi
 const module = createCollectionModule('experiments', {
   typePrefix: 'experiments/experiments/',
   getState: state => state.experiments.experiments,
-  operationId: 'experimentsList',
-  initialData: [],
+  operationId: 'experimentsSearch',
+  initialData: { results: [] },
 });
 
 const {

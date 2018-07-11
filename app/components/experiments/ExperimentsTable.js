@@ -16,7 +16,7 @@ class ExperimentsTable extends React.Component<*> {
       return <Loading />;
     }
 
-    if (!experiments || !experiments.length) {
+    if (!experiments.results || !experiments.results.length) {
       tableContent = (
         <tr>
           <td className={styles.tableData} colSpan="5">
@@ -25,7 +25,7 @@ class ExperimentsTable extends React.Component<*> {
         </tr>
       );
     } else {
-      tableContent = experiments.map(experiment => (
+      tableContent = experiments.results.map(experiment => (
         <tr key={experiment.id}>
           <td className={styles.tableData}>
             <Link
