@@ -8,7 +8,7 @@ import config from '../../config';
 
 const ONEDRIVE_SDK_URL = 'https://js.live.net/v7.0/OneDrive.js';
 
-import { updateExperimentFile, createExperimentId } from '../experiments';
+import { updateExperimentProvider, createExperimentId } from '../experiments';
 
 const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
@@ -61,9 +61,6 @@ function* uploadOneDriveWatcher() {
 }
 
 export function* uploadOneDriveWorker(): Generator<*, *, *> {
-  if (!isOneDriveReady()) {
-    yield call(loadOneDrive);
-  }
   const files = yield call(oneDriveChoose);
   if (!files) {
     return;
@@ -78,7 +75,7 @@ export function* uploadOneDriveWorker(): Generator<*, *, *> {
     provider: 'oneDrive',
   };
   yield put(
-    updateExperimentFile({
+    updateExperimentProvider({
       id: experimentId,
       file: experimentFile,
     })
@@ -86,5 +83,8 @@ export function* uploadOneDriveWorker(): Generator<*, *, *> {
 }
 
 export function* uploadOneDriveSaga(): Generator<*, *, *> {
+  if (!isOneDriveReady()) {
+    yield call(loadOneDrive);
+  }
   yield all([fork(uploadOneDriveWatcher)]);
 }

@@ -5,7 +5,8 @@ import { combineReducers } from 'redux';
 
 import experiments, { experimentsSaga } from './experiments';
 import experiment, { experimentSaga } from './experiment';
-import experimentFile, { experimentFileSaga } from './experimentFile';
+import { experimentFileSaga } from './experimentFile';
+import { experimentProviderSaga } from './experimentProvider';
 import { experimentMetadataSaga } from './experimentMetadata';
 import experimentMetadataTemplate, {
   experimentMetadataTemplateSaga,
@@ -39,6 +40,12 @@ export {
 } from './experimentFile';
 
 export {
+  updateExperimentProvider,
+  getIsFetching as getIsFetchingExperimentProvider,
+  experimentProviderSaga,
+} from './experimentProvider';
+
+export {
   updateExperimentMetadata,
   getIsFetching as getIsFetchingExperimentMetadata,
   experimentMetadataSaga,
@@ -60,7 +67,6 @@ export {
 const reducer = combineReducers({
   experiments,
   experiment,
-  experimentFile,
   experimentMetadataTemplate,
   filters,
 });
@@ -74,5 +80,6 @@ export function* rootExperimentsSaga(): Generator<*, *, *> {
     fork(experimentFileSaga),
     fork(experimentMetadataSaga),
     fork(experimentMetadataTemplateSaga),
+    fork(experimentProviderSaga),
   ]);
 }

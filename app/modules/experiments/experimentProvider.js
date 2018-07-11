@@ -3,11 +3,11 @@
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
 const module = createEntityModule('experiment', {
-  typePrefix: 'experiments/experimentFile/',
-  getState: state => state.experiments.experimentFile,
+  typePrefix: 'experiments/experimentProvider/',
+  getState: state => state.experiments.experimentProvider,
   initialData: {},
   update: {
-    operationId: 'experimentUploadFile',
+    operationId: 'experimentProviderUpload',
   },
 });
 
@@ -20,12 +20,12 @@ const {
 } = module;
 
 export {
-  updateEntity as updateExperimentFile,
-  getEntity as getExperimentFile,
+  updateEntity as updateExperimentProvider,
+  getEntity as getExperimentProvider,
   getError,
   getIsFetching,
-  entitySaga as experimentFileSaga,
-  actionType as experimentFileActionType,
+  entitySaga as experimentProviderSaga,
+  actionType as experimentProviderActionType,
 };
 
 export default reducer;

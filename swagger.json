@@ -1690,8 +1690,8 @@
     "/experiments/{id}/file": {
       "put": {
         "tags": ["Experiments"],
-        "description": "Download file from 3rd party or upload local file",
-        "operationId": "experimentDownloadFile",
+        "description": "Upload experiment file",
+        "operationId": "experimentUploadFile",
         "consumes": ["multipart/form-data"],
         "produces": ["application/json"],
         "security": [{ "Bearer": [] }],
@@ -1704,18 +1704,12 @@
             "description": "The experiment id"
           },
           {
-            "in": "body",
+            "in": "formData",
             "name": "file",
-            "description": "The file to download",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": { "type": "string" },
-                "path": { "type": "string" },
-                "provider": { "type": "string" },
-                "accessToken": { "type": "string" }
-              }
-            }
+            "description": "The file to upload",
+            "type": "string",
+            "format": "binary",
+            "required": true
           }
         ],
         "responses": {
@@ -1752,6 +1746,54 @@
             "schema": { "type": "string", "format": "binary" }
           },
           "401": { "description": "Failed authentication" }
+        }
+      }
+    },
+    "/experiments/{id}/provider": {
+      "put": {
+        "tags": ["Experiments"],
+        "description": "Upload a file via a 3rd party provider",
+        "operationId": "experimentProviderUpload",
+        "produces": ["application/json"],
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "The experiment id"
+          },
+          {
+            "in": "body",
+            "name": "file",
+            "description":
+              "Description of the file to retrieve from a 3rd party provider",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "path": { "type": "string" },
+                "provider": { "type": "string" },
+                "accessToken": {
+                  "type": "string",
+                  "description": "Use when provider is Google"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "properties": {
+                "status": { "type": "string" },
+                "data": { "type": "string" }
+              },
+              "example": { "status": "success", "data": "Successful response" }
+            }
+          }
         }
       }
     },

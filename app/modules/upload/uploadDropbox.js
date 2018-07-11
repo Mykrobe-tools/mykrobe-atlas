@@ -6,10 +6,10 @@ import loadScript from 'load-script';
 
 import config from '../../config';
 
-const DROPBOX_SDK_URL = 'https://www.dropbox.com/static/api/2/dropins.js';
 const SCRIPT_ID = 'dropboxjs';
+const DROPBOX_SDK_URL = 'https://www.dropbox.com/static/api/2/dropins.js';
 
-import { updateExperimentFile, createExperimentId } from '../experiments';
+import { updateExperimentProvider, createExperimentId } from '../experiments';
 
 const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
@@ -51,20 +51,24 @@ const loadDropbox = async () => {
 
 const dropboxChoose = async () => {
   return new Promise(resolve => {
-    window.Dropbox.choose({
-      success: files => {
-        resolve(files);
-      },
-      cancel: () => {
-        resolve();
-      },
-      linkType: 'direct',
-      multiselect: false,
-      extensions: acceptedExtensions.map(ext => {
-        // dropbox requires a fullstop at the start of extension
-        return `.${ext}`;
-      }),
-    });
+    try {
+      window.Dropbox.choose({
+        success: files => {
+          resolve(files);
+        },
+        cancel: () => {
+          resolve();
+        },
+        linkType: 'direct',
+        multiselect: false,
+        extensions: acceptedExtensions.map(ext => {
+          // dropbox requires a fullstop at the start of extension
+          return `.${ext}`;
+        }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   });
 };
 
@@ -73,9 +77,6 @@ function* uploadDropboxWatcher() {
 }
 
 export function* uploadDropboxWorker(): Generator<*, *, *> {
-  if (!isDropboxReady()) {
-    yield call(loadDropbox);
-  }
   const files = yield call(dropboxChoose);
   if (!files) {
     return;
@@ -90,7 +91,7 @@ export function* uploadDropboxWorker(): Generator<*, *, *> {
     provider: 'dropbox',
   };
   yield put(
-    updateExperimentFile({
+    updateExperimentProvider({
       id: experimentId,
       file: experimentFile,
     })
@@ -98,5 +99,9 @@ export function* uploadDropboxWorker(): Generator<*, *, *> {
 }
 
 export function* uploadDropboxSaga(): Generator<*, *, *> {
+  // cannot load and initiaite on-demand as it uses a pop-up window which requires suer interaction
+  if (!isDropboxReady()) {
+    yield call(loadDropbox);
+  }
   yield all([fork(uploadDropboxWatcher)]);
 }

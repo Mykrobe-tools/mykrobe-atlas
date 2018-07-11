@@ -8,7 +8,7 @@ import config from '../../config';
 
 const BOX_SDK_URL = 'https://cdn01.boxcdn.net/js/static/select.js';
 
-import { updateExperimentFile, createExperimentId } from '../experiments';
+import { updateExperimentProvider, createExperimentId } from '../experiments';
 
 const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
@@ -63,9 +63,6 @@ function* uploadBoxWatcher() {
 }
 
 export function* uploadBoxWorker(): Generator<*, *, *> {
-  if (!isBoxReady()) {
-    yield call(loadBox);
-  }
   const files = yield call(boxChoose);
   if (!files) {
     return;
@@ -80,7 +77,7 @@ export function* uploadBoxWorker(): Generator<*, *, *> {
     provider: 'box',
   };
   yield put(
-    updateExperimentFile({
+    updateExperimentProvider({
       id: experimentId,
       file: experimentFile,
     })
@@ -88,5 +85,8 @@ export function* uploadBoxWorker(): Generator<*, *, *> {
 }
 
 export function* uploadBoxSaga(): Generator<*, *, *> {
+  if (!isBoxReady()) {
+    yield call(loadBox);
+  }
   yield all([fork(uploadBoxWatcher)]);
 }

@@ -9,7 +9,7 @@ import config from '../../config';
 const SCOPE = ['https://www.googleapis.com/auth/drive.readonly'];
 const GOOGLE_SDK_URL = 'https://apis.google.com/js/api.js';
 
-import { updateExperimentFile, createExperimentId } from '../experiments';
+import { updateExperimentProvider, createExperimentId } from '../experiments';
 
 const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
@@ -26,7 +26,7 @@ export const uploadGoogleDrive = () => ({
 // Side effects
 
 const isGoogleDriveReady = () => {
-  return !!window.google.picker;
+  return !!window.google && !!window.google.picker;
 };
 
 const loadGoogleDrive = async () => {
@@ -93,9 +93,6 @@ function* uploadGoogleDriveWatcher() {
 }
 
 export function* uploadGoogleDriveWorker(): Generator<*, *, *> {
-  if (!isGoogleDriveReady()) {
-    yield call(loadGoogleDrive);
-  }
   const token = window.gapi.auth.getToken();
   let oauthToken = token && token.access_token;
   if (!oauthToken) {
@@ -123,7 +120,7 @@ export function* uploadGoogleDriveWorker(): Generator<*, *, *> {
     provider: 'googleDrive',
   };
   yield put(
-    updateExperimentFile({
+    updateExperimentProvider({
       id: experimentId,
       file: experimentFile,
     })
@@ -131,5 +128,8 @@ export function* uploadGoogleDriveWorker(): Generator<*, *, *> {
 }
 
 export function* uploadGoogleDriveSaga(): Generator<*, *, *> {
+  if (!isGoogleDriveReady()) {
+    yield call(loadGoogleDrive);
+  }
   yield all([fork(uploadGoogleDriveWatcher)]);
 }
