@@ -1,7 +1,6 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import styles from './SummaryVariants.css';
 
 class SummaryVariants extends React.Component<*> {
@@ -33,9 +32,5 @@ class SummaryVariants extends React.Component<*> {
     );
   }
 }
-
-SummaryVariants.propTypes = {
-  analyser: PropTypes.object.isRequired,
-};
 
 export default SummaryVariants;
