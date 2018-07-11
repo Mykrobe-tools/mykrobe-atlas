@@ -47,8 +47,7 @@ class Upload extends React.Component<*> {
   };
 
   renderContentAnalysing = () => {
-    const { analyser } = this.props;
-    const { progress } = analyser;
+    const { progress } = this.props;
     let statusText = 'Constructing genome';
     if (0 === progress) {
       statusText = 'Analysing';
@@ -64,7 +63,7 @@ class Upload extends React.Component<*> {
             <div className={styles.dotThree} />
           </div>
         ) : (
-          <div className={styles.progressTitle}>{analyser.progress}%</div>
+          <div className={styles.progressTitle}>{progress}%</div>
         )}
         <CircularProgress percentage={progress} />
         <div className={styles.progressStatus} data-tid="status-text">
@@ -85,12 +84,12 @@ class Upload extends React.Component<*> {
   };
 
   render() {
-    const { analyser } = this.props;
+    const { isAnalysing } = this.props;
     return (
       <div className={styles.container} data-tid="component-upload">
         <AnimatedBackground />
         <div className={styles.contentContainer}>
-          {analyser.analysing
+          {isAnalysing
             ? this.renderContentAnalysing()
             : this.renderContentDefault()}
         </div>
@@ -100,9 +99,10 @@ class Upload extends React.Component<*> {
 }
 
 Upload.propTypes = {
-  analyser: PropTypes.object.isRequired,
   analyseFile: PropTypes.func.isRequired,
   analyseFileCancel: PropTypes.func.isRequired,
+  isAnalysing: PropTypes.bool,
+  progress: PropTypes.number,
 };
 
 export default Upload;

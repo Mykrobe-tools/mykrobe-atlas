@@ -2,48 +2,51 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Upload from '../components/upload/Upload';
 
-import { analyseFileCancel, analyseFile } from '../modules/analyser';
-
-import withAnalyser from '../hoc/withAnalyser';
+import {
+  analyseFileCancel,
+  analyseFile,
+  getIsAnalysing,
+  getProgress,
+} from '../modules/desktop';
 
 class HomePage extends React.Component<*> {
   render() {
-    const { analyseFile, analyseFileCancel, analyser } = this.props;
+    const {
+      analyseFile,
+      analyseFileCancel,
+      isAnalysing,
+      progress,
+    } = this.props;
     return (
       <Upload
         analyseFile={analyseFile}
         analyseFileCancel={analyseFileCancel}
-        analyser={analyser}
+        isAnalysing={isAnalysing}
+        progress={progress}
       />
     );
   }
 }
 
-function mapStateToProps() {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      analyseFile,
-      analyseFileCancel,
-    },
-    dispatch
-  );
-}
-
 HomePage.propTypes = {
-  analyser: PropTypes.object.isRequired,
   analyseFile: PropTypes.func.isRequired,
   analyseFileCancel: PropTypes.func.isRequired,
+  isAnalysing: PropTypes.bool,
+  progress: PropTypes.number,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withAnalyser(HomePage));
+const withRedux = connect(
+  state => ({
+    isAnalysing: getIsAnalysing(state),
+    progress: getProgress(state),
+  }),
+  {
+    analyseFile,
+    analyseFileCancel,
+  }
+);
+
+export default withRedux(HomePage);

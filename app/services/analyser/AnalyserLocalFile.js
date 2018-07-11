@@ -9,7 +9,6 @@ import AnalyserBaseFile from './AnalyserBaseFile';
 import MykrobeConfig from '../MykrobeConfig';
 const tmp = require('tmp');
 
-// $FlowFixMe: Ignore Electron require
 const app = require('electron').remote.app;
 const platform = os.platform(); // eslint-disable-line global-require
 const arch = os.arch();

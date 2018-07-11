@@ -16,9 +16,7 @@ import {
   analyseFileNew,
   analyseFile,
   analyseFileSave,
-} from '../modules/analyser';
-
-import withAnalyser from '../hoc/withAnalyser';
+} from '../modules/desktop';
 
 import styles from './App.css';
 
@@ -132,21 +130,8 @@ class App extends React.Component<*, State> {
   };
 
   render() {
-    const { analyser, children } = this.props;
+    const { children } = this.props;
     const { isDragActive } = this.state;
-
-    /*
-    Get application menu and disable save as...
-    TODO: move this into its own component using redux state to change menu state
-    */
-
-    // $FlowFixMe: Ignore Electron require
-    const remote = require('electron').remote;
-    const menu = remote.Menu.getApplicationMenu();
-    if (process.platform === 'darwin') {
-      const canSave = analyser.json !== false;
-      menu.items[1].submenu.items[4].enabled = canSave;
-    }
 
     return (
       <Dropzone
@@ -187,7 +172,6 @@ App.propTypes = {
   analyseFileNew: PropTypes.func.isRequired,
   analyseFile: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
 };
 
@@ -195,5 +179,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(withAnalyser(App))
+  )(App)
 );
