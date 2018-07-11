@@ -1,8 +1,10 @@
 /* @flow */
 
 import EventEmitter from 'events';
-import AnalyserJsonTransformer from './AnalyserJsonTransformer';
-import MykrobeConfig from '../MykrobeConfig';
+
+// TODO: we can remove the transformer - it is created on demand by a redux selector
+import AnalyserJsonTransformer from '../experiments/AnalyserJsonTransformer';
+import MykrobeConfig from '../../services/MykrobeConfig';
 
 class AnalyserBaseFile extends EventEmitter {
   targetConfig: MykrobeConfig;
