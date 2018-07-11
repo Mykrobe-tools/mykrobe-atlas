@@ -333,7 +333,6 @@ function* uploadFileWatcher() {
 }
 
 export function* uploadFileWorker(action: any): Generator<*, *, *> {
-  console.log('uploadFileWorker', action);
   // this will request a fresh token if necessary
   yield put(checkToken());
   const { failure } = yield race({

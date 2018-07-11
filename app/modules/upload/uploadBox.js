@@ -79,9 +79,10 @@ export function* uploadBoxWorker(): Generator<*, *, *> {
   yield put(
     updateExperimentProvider({
       id: experimentId,
-      file: experimentFile,
+      ...experimentFile,
     })
   );
+  yield put(push(`/sample/${experimentId}`));
 }
 
 export function* uploadBoxSaga(): Generator<*, *, *> {
