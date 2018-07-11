@@ -11,36 +11,36 @@ import SummaryVariants from './SummaryVariants';
 
 class Summary extends React.Component<*> {
   render() {
-    const { experiment, experimentTransformed } = this.props;
+    const { experiment, experimentTransformed, isBusy } = this.props;
     let content;
-    // if (analyser.analysing) {
-    //   content = <Uploading sectionName="Summary" />;
-    // } else {
-    content = (
-      <div className={styles.content}>
-        <div className={styles.summaryContainer}>
-          <Panel title="Metadata" columns={8}>
-            <SummaryMetadata
-              experiment={experiment}
-              experimentTransformed={experimentTransformed}
-            />
-          </Panel>
-          <Panel title="Resistance Profile" columns={4}>
-            <ResistanceProfile
-              experiment={experiment}
-              experimentTransformed={experimentTransformed}
-            />
-          </Panel>
-          <Panel title="Variants Inducing Resistance" columns={4}>
-            <SummaryVariants
-              experiment={experiment}
-              experimentTransformed={experimentTransformed}
-            />
-          </Panel>
+    if (isBusy) {
+      content = <Uploading sectionName="Summary" />;
+    } else {
+      content = (
+        <div className={styles.content}>
+          <div className={styles.summaryContainer}>
+            <Panel title="Metadata" columns={8}>
+              <SummaryMetadata
+                experiment={experiment}
+                experimentTransformed={experimentTransformed}
+              />
+            </Panel>
+            <Panel title="Resistance Profile" columns={4}>
+              <ResistanceProfile
+                experiment={experiment}
+                experimentTransformed={experimentTransformed}
+              />
+            </Panel>
+            <Panel title="Variants Inducing Resistance" columns={4}>
+              <SummaryVariants
+                experiment={experiment}
+                experimentTransformed={experimentTransformed}
+              />
+            </Panel>
+          </div>
         </div>
-      </div>
-    );
-    // }
+      );
+    }
     return <div className={styles.container}>{content}</div>;
   }
 }
@@ -48,6 +48,7 @@ class Summary extends React.Component<*> {
 Summary.propTypes = {
   experiment: PropTypes.object.isRequired,
   experimentTransformed: PropTypes.object.isRequired,
+  isBusy: PropTypes.bool,
 };
 
 export default Summary;

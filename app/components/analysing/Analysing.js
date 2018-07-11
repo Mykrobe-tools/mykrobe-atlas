@@ -51,7 +51,7 @@ Analysing.propTypes = {
   uploadFileCancel: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 

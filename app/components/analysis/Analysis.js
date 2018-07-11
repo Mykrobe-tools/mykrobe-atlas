@@ -9,7 +9,6 @@ import Phylogeny from '../phylogeny/Phylogeny';
 import Uploading from '../ui/Uploading';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
 import MapStyle from './MapStyle';
-import config from '../../config';
 
 class Analysis extends React.Component<*> {
   _google: Object;
@@ -18,9 +17,9 @@ class Analysis extends React.Component<*> {
   _markers: Object;
   _phyloCanvasTooltip: PhyloCanvasTooltip;
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
-    GoogleMapsLoader.KEY = config.GOOGLE_MAPS_API_KEY;
+    GoogleMapsLoader.KEY = process.env.GOOGLE_MAPS_API_KEY;
     GoogleMapsLoader.REGION = 'GB';
   }
 
@@ -174,33 +173,32 @@ class Analysis extends React.Component<*> {
   }
 
   render() {
-    const { experiment } = this.props;
+    const { isBusy } = this.props;
     let content;
-    // TODO: rework 'analysing' state based on file upload etc.
-    // if (analyser.analysing) {
-    //   content = <Uploading sectionName="Analysis" />;
-    // } else {
-    content = (
-      <div className={styles.content}>
-        <div className={styles.mapAndPhylogenyContainer}>
-          <div className={styles.mapContainer}>
-            <div
-              ref={ref => {
-                this._mapDiv = ref;
-              }}
-              className={styles.map}
-            />
-            <PhyloCanvasTooltip
-              ref={ref => {
-                this._phyloCanvasTooltip = ref;
-              }}
-            />
+    if (isBusy) {
+      content = <Uploading sectionName="Analysis" />;
+    } else {
+      content = (
+        <div className={styles.content}>
+          <div className={styles.mapAndPhylogenyContainer}>
+            <div className={styles.mapContainer}>
+              <div
+                ref={ref => {
+                  this._mapDiv = ref;
+                }}
+                className={styles.map}
+              />
+              <PhyloCanvasTooltip
+                ref={ref => {
+                  this._phyloCanvasTooltip = ref;
+                }}
+              />
+            </div>
+            <Phylogeny className={styles.phylogenyContainer} />
           </div>
-          <Phylogeny className={styles.phylogenyContainer} />
         </div>
-      </div>
-    );
-
+      );
+    }
     return <div className={styles.container}>{content}</div>;
   }
 }
@@ -209,6 +207,7 @@ Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
   experiment: PropTypes.object.isRequired,
   highlighted: PropTypes.array.isRequired,
+  isBusy: PropTypes.node,
 };
 
 export default Analysis;

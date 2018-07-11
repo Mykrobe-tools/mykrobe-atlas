@@ -4,13 +4,9 @@ import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import loadScript from 'load-script';
 
-import config from '../../config';
-
 const BOX_SDK_URL = 'https://cdn01.boxcdn.net/js/static/select.js';
 
 import { updateExperimentProvider, createExperimentId } from '../experiments';
-
-const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
 export const typePrefix = 'upload/uploadBox/';
 
@@ -25,7 +21,7 @@ export const uploadBox = () => ({
 // Side effects
 
 const options = {
-  clientId: config.BOX_CLIENT_ID,
+  clientId: process.env.BOX_CLIENT_ID,
   linkType: 'direct',
   multiselect: 'false',
 };

@@ -4,14 +4,10 @@ import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import loadScript from 'load-script';
 
-import config from '../../config';
-
 const SCOPE = ['https://www.googleapis.com/auth/drive.readonly'];
 const GOOGLE_SDK_URL = 'https://apis.google.com/js/api.js';
 
 import { updateExperimentProvider, createExperimentId } from '../experiments';
-
-const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
 export const typePrefix = 'upload/uploadGoogleDrive/';
 
@@ -48,7 +44,7 @@ const authoriseApp = async () => {
   return new Promise(resolve => {
     window.gapi.auth.authorize(
       {
-        client_id: config.GOOGLE_DRIVE_CLIENT_ID,
+        client_id: process.env.GOOGLE_DRIVE_CLIENT_ID,
         scope: SCOPE,
         immediate: false,
       },
@@ -64,7 +60,7 @@ const googleDriveChoose = async (oauthToken: string) => {
     const picker = new window.google.picker.PickerBuilder();
     picker.addView(window.google.picker.ViewId.DOCS);
     picker.setOAuthToken(oauthToken);
-    picker.setDeveloperKey(config.GOOGLE_DRIVE_DEVELOPER_KEY);
+    picker.setDeveloperKey(process.env.GOOGLE_DRIVE_DEVELOPER_KEY);
     picker.setCallback(data => {
       const action = data[window.google.picker.Response.ACTION];
       if (action === window.google.picker.Action.PICKED) {

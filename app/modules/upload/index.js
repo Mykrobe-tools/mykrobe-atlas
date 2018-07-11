@@ -3,13 +3,14 @@
 import { all, fork } from 'redux-saga/effects';
 import { combineReducers } from 'redux';
 
-import uploadFile, { uploadFileSaga } from './uploadFile';
+import uploadFileReducer, { uploadFileSaga } from './uploadFile';
 import { uploadDropboxSaga } from './uploadDropbox';
 import { uploadGoogleDriveSaga } from './uploadGoogleDrive';
 import { uploadBoxSaga } from './uploadBox';
 import { uploadOneDriveSaga } from './uploadOneDrive';
 
 export {
+  uploadFile,
   uploadFileCancel,
   uploadFileAssignDrop,
   uploadFileAssignBrowse,
@@ -29,7 +30,7 @@ export { uploadBox, uploadBoxSaga } from './uploadBox';
 export { uploadOneDrive, uploadOneDriveSaga } from './uploadOneDrive';
 
 const uploadReducer = combineReducers({
-  uploadFile,
+  uploadFile: uploadFileReducer,
 });
 
 export default uploadReducer;

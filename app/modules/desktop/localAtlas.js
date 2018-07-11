@@ -5,8 +5,6 @@ import {
   all,
   fork,
   put,
-  take,
-  race,
   takeEvery,
   select,
   apply,

@@ -4,13 +4,9 @@ import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import loadScript from 'load-script';
 
-import config from '../../config';
-
 const ONEDRIVE_SDK_URL = 'https://js.live.net/v7.0/OneDrive.js';
 
 import { updateExperimentProvider, createExperimentId } from '../experiments';
-
-const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
 export const typePrefix = 'upload/uploadOneDrive/';
 
@@ -42,7 +38,7 @@ const loadOneDrive = async () => {
 const oneDriveChoose = async () => {
   return new Promise(resolve => {
     window.OneDrive.open({
-      clientId: config.ONEDRIVE_CLIENT_ID,
+      clientId: process.env.ONEDRIVE_CLIENT_ID,
       action: 'download',
       multiSelect: false,
       openInNewWindow: true,

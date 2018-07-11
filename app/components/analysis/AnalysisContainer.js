@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import withExperiment from '../../hoc/withExperiment';
+import withFileUpload from '../../hoc/withFileUpload';
 import Analysis from './Analysis';
 
 import { getHighlighted, setNodeHighlighted } from '../../modules/phylogeny';
@@ -26,4 +27,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withExperiment(Analysis));
+)(withExperiment(withFileUpload(Analysis)));

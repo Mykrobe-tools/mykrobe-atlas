@@ -4,8 +4,6 @@ import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import loadScript from 'load-script';
 
-import config from '../../config';
-
 const SCRIPT_ID = 'dropboxjs';
 const DROPBOX_SDK_URL = 'https://www.dropbox.com/static/api/2/dropins.js';
 
@@ -36,7 +34,7 @@ const loadDropbox = async () => {
       {
         attrs: {
           id: SCRIPT_ID,
-          'data-app-key': config.DROPBOX_APP_KEY,
+          'data-app-key': process.env.DROPBOX_APP_KEY,
         },
       },
       error => {

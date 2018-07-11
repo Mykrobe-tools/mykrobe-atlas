@@ -239,7 +239,6 @@ function* fileAddedWatcher() {
 }
 
 export function* fileAddedWorker(action: any): Generator<*, *, *> {
-  // create an id for the experiment
   const experimentId = yield call(createExperimentId);
   if (!experimentId) {
     return;
@@ -332,7 +331,7 @@ function* uploadFileWatcher() {
   yield takeEvery(UPLOAD_FILE, uploadFileWorker);
 }
 
-export function* uploadFileWorker(action: any): Generator<*, *, *> {
+export function* uploadFileWorker(): Generator<*, *, *> {
   // this will request a fresh token if necessary
   yield put(checkToken());
   const { failure } = yield race({
