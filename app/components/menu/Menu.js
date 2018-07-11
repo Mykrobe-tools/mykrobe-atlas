@@ -38,7 +38,7 @@ class Menu extends React.Component<*> {
           </li>
           <li className={styles.navigationItem}>
             <NavLink
-              to="/organisation"
+              to="/organisations"
               className={styles.navigationLink}
               activeClassName={styles.navigationLinkActive}
             >

@@ -7,7 +7,7 @@ import LibraryContainer from './components/library/LibraryContainer';
 import SampleContainer from './components/sample/SampleContainer';
 import HomePage from './containers/HomePage';
 import App from './containers/App';
-import OrganisationPage from './containers/OrganisationPage';
+import OrganisationsRoutes from './components/organisations/OrganisationsRoutes';
 import AuthRoutes from './components/auth/AuthRoutes';
 import UsersRoutes from './components/users/UsersRoutes';
 
@@ -23,8 +23,8 @@ const AuthenticatedLibraryContainer = withUserIsNotAuthenticatedRedirect(
 const AuthenticatedSampleContainer = withUserIsNotAuthenticatedRedirect(
   SampleContainer
 );
-const AuthenticatedOrganisationPage = withUserIsNotAuthenticatedRedirect(
-  OrganisationPage
+const AuthenticatedOrganisationsRoutes = withUserIsNotAuthenticatedRedirect(
+  OrganisationsRoutes
 );
 const AuthenticatedUsersRoutes = withUserIsNotAuthenticatedRedirect(
   UsersRoutes
@@ -38,7 +38,10 @@ export default (
       <Route path="/auth" component={AuthRoutes} />
       <Route path="/users" component={AuthenticatedUsersRoutes} />
       <Route path="/sample/:id" component={AuthenticatedSampleContainer} />
-      <Route path="/organisation" component={AuthenticatedOrganisationPage} />
+      <Route
+        path="/organisations"
+        component={AuthenticatedOrganisationsRoutes}
+      />
     </Switch>
   </App>
 );

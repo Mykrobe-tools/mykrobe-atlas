@@ -1,9 +1,5 @@
 /* @flow */
 
-// TODO: split and separate all organisations vs single
-// organisations
-// organisation
-
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -14,6 +10,7 @@ import {
   getOrganisations,
   getOrganisationIsFetching,
   requestOrganisations,
+  newOrganisation,
 } from '../../modules/organisations';
 
 import styles from './Common.css';
@@ -24,6 +21,10 @@ class Profile extends React.Component<*> {
     const { requestOrganisations } = this.props;
     requestOrganisations();
   }
+  onNewOrganisationClick = () => {
+    const { newOrganisation } = this.props;
+    newOrganisation();
+  };
   render() {
     const { organisations, isFetching } = this.props;
     if (isFetching) {
@@ -61,7 +62,7 @@ class Profile extends React.Component<*> {
                     <td className={styles.tableCell}>
                       <Link
                         className={styles.link}
-                        to={`/organisation/edit/${organisation.id}`}
+                        to={`/organisations/${organisation.id}`}
                       >
                         Edit
                       </Link>
@@ -72,7 +73,9 @@ class Profile extends React.Component<*> {
             </table>
             <div className={styles.formActions}>
               <div>
-                <Link to="/organisation/add">Add new organisation</Link>
+                <a onClick={this.onNewOrganisationClick}>
+                  Add new organisation
+                </a>
               </div>
             </div>
           </div>
@@ -93,6 +96,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       requestOrganisations,
+      newOrganisation,
     },
     dispatch
   );
@@ -101,6 +105,7 @@ function mapDispatchToProps(dispatch) {
 Profile.propTypes = {
   organisations: PropTypes.array.isRequired,
   requestOrganisations: PropTypes.func.isRequired,
+  newOrganisation: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired,
 };
 

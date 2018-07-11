@@ -16,7 +16,7 @@ import form from 'makeandship-js-common/src/modules/form';
 
 import analyser from './analyser';
 import experiments, { rootExperimentsSaga } from './experiments';
-import organisations from './organisations';
+import organisations, { rootOrganisationsSaga } from './organisations';
 import phylogeny from './phylogeny';
 import users, { rootUsersSaga } from './users';
 import { uploadSaga } from './upload/upload';
@@ -38,6 +38,7 @@ const sagas = [
   rootApiSaga,
   rootAuthSaga,
   rootExperimentsSaga,
+  rootOrganisationsSaga,
   rootUsersSaga,
   rootNotificationsSaga,
   uploadSaga,

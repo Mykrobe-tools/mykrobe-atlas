@@ -1,18 +1,10 @@
 /* @flow */
 
-/* TODO Refactor to use redux-form */
-/* eslint-disable react/no-string-refs */
-
-// TODO: split and separate all organisations vs single
-// organisations
-// organisation
-
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
-import { push } from 'react-router-redux';
+import { goBack, push } from 'react-router-redux';
 
 import styles from './Common.css';
 import type { OrganisationType } from '../../types/OrganisationTypes';
@@ -22,6 +14,7 @@ import {
   getOrganisation,
   getOrganisationIsFetching,
   getOrganisationError,
+  createOrganisation,
   requestOrganisation,
   updateOrganisation,
   deleteOrganisation,
@@ -31,37 +24,46 @@ class Edit extends React.Component<*> {
   id: string;
 
   componentWillMount() {
-    const { requestOrganisation } = this.props;
-    const { id } = this.props.match.params;
-    this.id = id;
-    requestOrganisation(this.id);
+    const { requestOrganisation, organisationId, isNew } = this.props;
+    if (!isNew) {
+      requestOrganisation(organisationId);
+    }
   }
 
-  handleSubmit(e) {
+  handleSubmit = e => {
     e.preventDefault();
-    const { updateOrganisation } = this.props;
+    const {
+      createOrganisation,
+      updateOrganisation,
+      isNew,
+      organisationId,
+    } = this.props;
     const organisationObject: OrganisationType = {
-      id: this.id,
+      id: organisationId,
       name: this.refs.name.value,
       template: this.refs.template.value,
     };
-    updateOrganisation(organisationObject);
-  }
+    if (isNew) {
+      createOrganisation(organisationObject);
+    } else {
+      updateOrganisation(organisationObject);
+    }
+  };
+
+  onCancelClick = () => {
+    const { goBack } = this.props;
+    goBack();
+  };
 
   deleteOrganisation = () => {
-    const { organisation, deleteOrganisation, push } = this.props;
-    // const organisationObject: OrganisationType = {
-    //   id: this.id,
-    // };
+    const { organisation, deleteOrganisation } = this.props;
     if (confirm('Delete organisation?')) {
-      deleteOrganisation(organisation).then(() => {
-        push('/organisation');
-      });
+      deleteOrganisation(organisation);
     }
   };
 
   render() {
-    const { organisation, isFetching, error } = this.props;
+    const { isNew, organisation, isFetching, error } = this.props;
     if (isFetching) {
       return (
         <div className={styles.container}>
@@ -76,7 +78,14 @@ class Edit extends React.Component<*> {
         </div>
       );
     }
-    const { name, template } = organisation;
+    let name, template;
+    if (isNew || !organisation) {
+      name = '';
+      template = 'MODS';
+    } else {
+      name = organisation.name;
+      template = organisation.template;
+    }
     return (
       <div className={styles.container}>
         <div className={styles.header}>
@@ -84,12 +93,10 @@ class Edit extends React.Component<*> {
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.formContainer}>
-            <div className={styles.contentTitle}>Edit organisation</div>
-            <form
-              onSubmit={e => {
-                this.handleSubmit(e);
-              }}
-            >
+            <div className={styles.contentTitle}>
+              {isNew ? 'New organisation' : 'Edit organisation'}
+            </div>
+            <form onSubmit={this.handleSubmit}>
               {error && (
                 <div className={styles.formErrors}>{error.message}</div>
               )}
@@ -128,18 +135,20 @@ class Edit extends React.Component<*> {
               <div className={styles.formActions}>
                 <button className={styles.button} type="submit">
                   <span>
-                    <i className="fa fa-chevron-circle-right" /> Update
+                    <i className="fa fa-chevron-circle-right" /> Save
                     organisation
                   </span>
                 </button>
                 <div>
-                  <Link to="/organisation/list">View all organisations</Link>
+                  <a onClick={this.onCancelClick}>Cancel</a>
                 </div>
-                <div className={styles.destructiveAction}>
-                  <a onClick={this.deleteOrganisation}>
-                    <i className="fa fa-trash" /> Delete organisation
-                  </a>
-                </div>
+                {!isNew && (
+                  <div className={styles.destructiveAction}>
+                    <a onClick={this.deleteOrganisation}>
+                      <i className="fa fa-trash" /> Delete organisation
+                    </a>
+                  </div>
+                )}
               </div>
             </form>
           </div>
@@ -149,21 +158,29 @@ class Edit extends React.Component<*> {
   }
 }
 
-function mapStateToProps(state) {
+const getOrganisationId = props => props.match.params.organisationId;
+const isNewOrganisationId = organisationId =>
+  !organisationId || organisationId === 'new';
+
+function mapStateToProps(state, ownProps) {
   return {
     organisation: getOrganisation(state),
     isFetching: getOrganisationIsFetching(state),
     error: getOrganisationError(state),
+    organisationId: getOrganisationId(ownProps),
+    isNew: isNewOrganisationId(getOrganisationId(ownProps)),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
+      createOrganisation,
       requestOrganisation,
       updateOrganisation,
       deleteOrganisation,
       push,
+      goBack,
     },
     dispatch
   );
@@ -171,13 +188,17 @@ function mapDispatchToProps(dispatch) {
 
 Edit.propTypes = {
   match: PropTypes.object.isRequired,
-  organisation: PropTypes.object.isRequired,
+  organisation: PropTypes.object,
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.object,
+  createOrganisation: PropTypes.func.isRequired,
   requestOrganisation: PropTypes.func.isRequired,
   updateOrganisation: PropTypes.func.isRequired,
   deleteOrganisation: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
+  goBack: PropTypes.func.isRequired,
+  isNew: PropTypes.bool.isRequired,
+  organisationId: PropTypes.string,
 };
 
 export default connect(

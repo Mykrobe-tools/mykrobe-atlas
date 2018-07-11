@@ -1,89 +1,33 @@
 /* @flow */
 
-import { createSelector } from 'reselect';
+import { createCollectionModule } from 'makeandship-js-common/src/modules/generic';
+// import { getFiltersParameters } from './organisationsFilters';
 
-import { FETCH_JSON } from '../api';
-import { API_URL } from '../../constants/APIConstants.js';
+const collectionName = 'organisations';
 
-export const typePrefix = 'organisations/organisations/';
-export const REQUEST_ORGANISATIONS = `${typePrefix}REQUEST_ORGANISATIONS`;
-export const REQUEST_ORGANISATIONS_SUCCESS = `${typePrefix}REQUEST_ORGANISATIONS_SUCCESS`;
-export const REQUEST_ORGANISATIONS_FAILURE = `${typePrefix}REQUEST_ORGANISATIONS_FAILURE`;
+// TODO: implement geenric filter parameters module - read <-> location search string in web client
 
-// Selectors
-
-export const getState = state => state.organisations.organisations;
-export const getIsFetching = createSelector(
-  getState,
-  organisations => organisations.isFetching
-);
-export const getError = createSelector(
-  getState,
-  organisations => organisations.error
-);
-export const getOrganisations = createSelector(
-  getState,
-  organisations => organisations.organisations
-);
-export const getOrganisationsById = createSelector(getOrganisations, data => {
-  let dataById = {};
-  data.map(item => {
-    dataById[item.id] = item;
-  });
-  return dataById;
+const module = createCollectionModule(collectionName, {
+  operationId: 'organisationsList',
+  // parameters: getFiltersParameters,
+  initialData: [],
 });
 
-// Reducer
+const {
+  reducer,
+  actionType,
+  actions: { requestCollection },
+  selectors: { getCollection, getError, getIsFetching },
+  sagas: { collectionSaga },
+} = module;
 
-export const initialState = {
-  isFetching: false,
-  organisations: [],
+export {
+  actionType as organisationsActionType,
+  requestCollection as requestOrganisations,
+  getCollection as getOrganisations,
+  getError,
+  getIsFetching,
+  collectionSaga as organisationsSaga,
 };
 
-export default function reducer(
-  state: Object = initialState,
-  action: Object = {}
-) {
-  switch (action.type) {
-    case REQUEST_ORGANISATIONS:
-      return {
-        ...state,
-        isFetching: true,
-        error: undefined,
-      };
-    case REQUEST_ORGANISATIONS_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-        organisations: action.payload,
-      };
-    case REQUEST_ORGANISATIONS_FAILURE:
-      return {
-        ...state,
-        isFetching: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
-}
-
-// Action creators
-
-// Side effects
-
-export function requestOrganisations() {
-  return async (dispatch: Function) => {
-    const payload = await dispatch({
-      [FETCH_JSON]: {
-        url: `${API_URL}/organisations`,
-        types: [
-          REQUEST_ORGANISATIONS,
-          REQUEST_ORGANISATIONS_SUCCESS,
-          REQUEST_ORGANISATIONS_FAILURE,
-        ],
-      },
-    });
-    return payload;
-  };
-}
+export default reducer;
