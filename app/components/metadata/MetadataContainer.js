@@ -1,6 +1,6 @@
 /* @flow */
 
-import withAnalyser from '../../hoc/withAnalyser';
+import withFileUpload from '../../hoc/withFileUpload';
 import Metadata from './Metadata';
 
-export default withAnalyser(Metadata);
+export default withFileUpload(Metadata);

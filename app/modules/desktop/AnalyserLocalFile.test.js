@@ -9,7 +9,7 @@ import {
 } from '../../../desktop/util';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
-import MykrobeConfig from '../MykrobeConfig';
+import MykrobeConfig from '../../services/MykrobeConfig';
 const config = new MykrobeConfig();
 
 const GENERATE_JSON_FIXTURES = true;

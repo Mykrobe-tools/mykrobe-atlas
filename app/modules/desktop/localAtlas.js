@@ -25,7 +25,7 @@ import { SET } from 'makeandship-js-common/src/modules/generic/actions';
 import { experimentActionType } from '../../modules/experiments/experiment';
 
 import MykrobeConfig from '../../services/MykrobeConfig';
-import AnalyserLocalFile from '../../services/analyser/AnalyserLocalFile';
+import AnalyserLocalFile from './AnalyserLocalFile';
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
 import {

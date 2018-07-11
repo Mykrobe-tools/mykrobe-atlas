@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Sample from '../../components/sample/Sample';
-import withAnalyser from '../../hoc/withAnalyser';
+import withFileUpload from '../../hoc/withFileUpload';
 
 import { requestCurrentUser } from '../../modules/users';
 import {
@@ -17,12 +17,12 @@ import {
 class SampleContainer extends React.Component<*> {
   componentDidMount() {
     const {
-      analyser,
       requestExperiment,
       requestExperimentMetadataTemplate,
+      isBusy,
     } = this.props;
     const { id } = this.props.match.params;
-    if (!analyser.analysing && !analyser.json) {
+    if (!isBusy) {
       requestExperiment(id);
     }
     requestExperimentMetadataTemplate();
@@ -51,13 +51,12 @@ function mapDispatchToProps(dispatch) {
 
 SampleContainer.propTypes = {
   match: PropTypes.object.isRequired,
-  analyser: PropTypes.object.isRequired,
+  isBusy: PropTypes.bool.isRequired,
   requestExperiment: PropTypes.func.isRequired,
   requestExperimentMetadataTemplate: PropTypes.func.isRequired,
-  requestCurrentUser: PropTypes.func.isRequired,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAnalyser(SampleContainer));
+)(withFileUpload(SampleContainer));

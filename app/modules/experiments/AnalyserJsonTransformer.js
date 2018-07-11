@@ -1,6 +1,6 @@
 /* @flow */
 
-import MykrobeConfig from '../MykrobeConfig';
+import MykrobeConfig from '../../services/MykrobeConfig';
 import * as TargetConstants from '../../constants/TargetConstants';
 
 class AnalyserJsonTransformer {

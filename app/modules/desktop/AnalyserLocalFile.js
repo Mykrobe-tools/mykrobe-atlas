@@ -6,7 +6,7 @@ import os from 'os';
 import { spawn } from 'child_process';
 import * as TargetConstants from '../../constants/TargetConstants';
 import AnalyserBaseFile from './AnalyserBaseFile';
-import MykrobeConfig from '../MykrobeConfig';
+import MykrobeConfig from '../../services/MykrobeConfig';
 const tmp = require('tmp');
 
 const app = require('electron').remote.app;

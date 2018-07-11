@@ -103,7 +103,7 @@ export const getProgress = createSelector(
   getChecksumProgress,
   getUploadProgress,
   (checksumProgress, uploadProgress) =>
-    checksumProgress * 0.2 + uploadProgress * 0.8
+    Math.round(checksumProgress * 0.2 + uploadProgress * 0.8)
 );
 
 // Actions

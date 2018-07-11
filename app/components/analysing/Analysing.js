@@ -8,19 +8,13 @@ import styles from './Analysing.css';
 import AnalysingProgressBar from './AnalysingProgressBar';
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
-import {
-  getIsBusy,
-  getProgress,
-  getChecksumProgress,
-  getUploadProgress,
-  getIsComputingChecksums,
-  getIsUploading,
-  uploadFileCancel,
-} from '../../modules/upload';
+import withFileUpload from '../../hoc/withFileUpload';
+
+import { uploadFileCancel } from '../../modules/upload';
 
 class Analysing extends React.Component<*> {
   render() {
-    const { isBusy, progress, isComputingChecksums, isUploading } = this.props;
+    const { isBusy, progress, isComputingChecksums } = this.props;
     if (IS_ELECTRON) {
       UIHelpers.setProgress(progress); // eslint-disable-line import/namespace
     }
@@ -54,18 +48,11 @@ Analysing.propTypes = {
   uploadProgess: PropTypes.number.isRequired,
   isComputingChecksums: PropTypes.bool.isRequired,
   isUploading: PropTypes.bool.isRequired,
-  uploadFileCancel: PropTypes.function.isRequired,
+  uploadFileCancel: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
-  return {
-    progress: getProgress(state),
-    isBusy: getIsBusy(state),
-    checksumProgress: getChecksumProgress(state),
-    uploadProgess: getUploadProgress(state),
-    isComputingChecksums: getIsComputingChecksums(state),
-    isUploading: getIsUploading(state),
-  };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -75,4 +62,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Analysing);
+)(withFileUpload(Analysing));

@@ -14,17 +14,16 @@ class Metadata extends React.Component<*> {
   };
 
   render() {
-    const { analyser, match } = this.props;
+    const { isBusy, match } = this.props;
     return (
       <div ref={ref => (this._ref = ref)} className={styles.container}>
-        {analyser &&
-          analyser.analysing && (
-            <div className={styles.uploadingMessage}>
-              <div className={styles.uploadingMessageTitle}>
-                Your sample is uploading
-              </div>
+        {isBusy && (
+          <div className={styles.uploadingMessage}>
+            <div className={styles.uploadingMessageTitle}>
+              Your sample is uploading
             </div>
-          )}
+          </div>
+        )}
         <div className={styles.formContainer}>
           <MetadataForm id={match.params.id} resetScroll={this.resetScroll} />
         </div>
@@ -34,7 +33,7 @@ class Metadata extends React.Component<*> {
 }
 
 Metadata.propTypes = {
-  analyser: PropTypes.object.isRequired,
+  isBusy: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
 };
 

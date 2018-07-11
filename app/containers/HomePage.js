@@ -1,60 +1,12 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import Upload from '../components/upload/Upload';
-import UploadService from '../services/upload/UploadService';
-
-import { analyseRemoteFile } from '../modules/analyser';
 
 class HomePage extends React.Component<*> {
-  service: UploadService;
-
-  constructor() {
-    super();
-    this.service = new UploadService();
-  }
-
-  componentDidMount() {
-    const { analyseRemoteFile } = this.props;
-    this.service.uploadDropbox.on('fileSelected', analyseRemoteFile);
-    this.service.uploadBox.on('fileSelected', analyseRemoteFile);
-    this.service.uploadGoogleDrive.on('fileSelected', analyseRemoteFile);
-    this.service.uploadOneDrive.on('fileSelected', analyseRemoteFile);
-  }
-
-  componentWillUnmount() {
-    this.service.uploadDropbox.removeAllListeners('fileSelected');
-    this.service.uploadBox.removeAllListeners('fileSelected');
-    this.service.uploadGoogleDrive.removeAllListeners('fileSelected');
-    this.service.uploadOneDrive.removeAllListeners('fileSelected');
-  }
-
   render() {
-    return <Upload service={this.service} {...this.props} />;
+    return <Upload {...this.props} />;
   }
 }
 
-function mapStateToProps() {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      analyseRemoteFile,
-    },
-    dispatch
-  );
-}
-
-HomePage.propTypes = {
-  analyseRemoteFile: PropTypes.func.isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HomePage);
+export default HomePage;

@@ -16,13 +16,15 @@ import Uploading from '../../ui/Uploading';
 import MykrobeConfig from '../../../services/MykrobeConfig';
 import * as TargetConstants from '../../../constants/TargetConstants';
 
+import withFileUpload from '../../../hoc/withFileUpload';
+
 class Resistance extends React.Component<*> {
   render() {
-    const { analyser, match } = this.props;
+    const { isBusy, match } = this.props;
     let content;
     const config = new MykrobeConfig();
 
-    if (analyser.analysing) {
+    if (isBusy) {
       content = <Uploading sectionName="Resistance" />;
     } else {
       content = (
@@ -127,16 +129,14 @@ class Resistance extends React.Component<*> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    analyser: state.analyser,
-  };
+function mapStateToProps() {
+  return {};
 }
 
 Resistance.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
+  isBusy: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
 };
 
-export default withRouter(connect(mapStateToProps)(Resistance));
+export default withRouter(connect(mapStateToProps)(withFileUpload(Resistance)));

@@ -16,7 +16,7 @@ import {
 } from 'makeandship-js-common/src/modules/notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
-import AnalyserJsonTransformer from '../../services/analyser/AnalyserJsonTransformer';
+import AnalyserJsonTransformer from './AnalyserJsonTransformer';
 
 import { addExtraData } from './utils';
 
