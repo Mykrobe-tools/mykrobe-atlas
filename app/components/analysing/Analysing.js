@@ -9,31 +9,31 @@ import AnalysingProgressBar from './AnalysingProgressBar';
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
 import {
-  getAnalyser,
-  getIsAnalysing,
+  getIsBusy,
   getProgress,
-  monitorUpload,
-  analyseFileCancel,
-} from '../../modules/analyser';
+  getChecksumProgress,
+  getUploadProgress,
+  getIsComputingChecksums,
+  getIsUploading,
+  uploadFileCancel,
+} from '../../modules/upload';
 
 class Analysing extends React.Component<*> {
-  componentDidMount() {
-    const { monitorUpload } = this.props;
-    monitorUpload();
-  }
-
   render() {
-    const { analyser, isAnalysing, progress } = this.props;
+    const { isBusy, progress, isComputingChecksums, isUploading } = this.props;
     if (IS_ELECTRON) {
-      UIHelpers.setProgress(analyser.progress); // eslint-disable-line import/namespace
+      UIHelpers.setProgress(progress); // eslint-disable-line import/namespace
     }
+    const description = isComputingChecksums
+      ? 'Computing checksums'
+      : 'Uploading';
     return (
       <div className={styles.container}>
-        {isAnalysing && (
+        {isBusy && (
           <AnalysingProgressBar
             progress={progress}
-            description={analyser.stepDescription}
-            filename={analyser.filename}
+            description={description}
+            filename={'filename in here'}
             onCancel={this.onCancelClick}
           />
         )}
@@ -42,35 +42,34 @@ class Analysing extends React.Component<*> {
   }
 
   onCancelClick = () => {
-    const { analyseFileCancel } = this.props;
-    analyseFileCancel();
+    const { uploadFileCancel } = this.props;
+    uploadFileCancel();
   };
 }
 
 Analysing.propTypes = {
-  analyser: PropTypes.object.isRequired,
-  isAnalysing: PropTypes.bool.isRequired,
-  monitorUpload: PropTypes.func.isRequired,
-  analyseFileCancel: PropTypes.func.isRequired,
   progress: PropTypes.number.isRequired,
+  isBusy: PropTypes.bool.isRequired,
+  checksumProgress: PropTypes.number.isRequired,
+  uploadProgess: PropTypes.number.isRequired,
+  isComputingChecksums: PropTypes.bool.isRequired,
+  isUploading: PropTypes.bool.isRequired,
+  uploadFileCancel: PropTypes.function.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    analyser: getAnalyser(state),
-    isAnalysing: getIsAnalysing(state),
     progress: getProgress(state),
+    isBusy: getIsBusy(state),
+    checksumProgress: getChecksumProgress(state),
+    uploadProgess: getUploadProgress(state),
+    isComputingChecksums: getIsComputingChecksums(state),
+    isUploading: getIsUploading(state),
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      monitorUpload,
-      analyseFileCancel,
-    },
-    dispatch
-  );
+  return bindActionCreators({ uploadFileCancel }, dispatch);
 }
 
 export default connect(

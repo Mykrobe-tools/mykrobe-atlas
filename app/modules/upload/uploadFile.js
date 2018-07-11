@@ -12,14 +12,9 @@ import {
   call,
   apply,
 } from 'redux-saga/effects';
+import { createSelector } from 'reselect';
 import SparkMD5 from 'spark-md5';
 import { push } from 'react-router-redux';
-
-import {
-  SUCCESS,
-  FAILURE,
-  CREATE,
-} from 'makeandship-js-common/src/modules/generic/actions';
 
 import {
   INITIALISE_SUCCESS,
@@ -31,32 +26,33 @@ import {
   checkToken,
 } from 'makeandship-js-common/src/modules/auth/auth';
 
-import {
-  createExperiment,
-  getExperiment,
-  experimentActionType,
-} from '../experiments/experiment';
+import { createExperimentId } from '../experiments/experiment';
 
-import UploadFile from '../../services/upload/UploadFile';
-import UploadBox from '../../services/upload/UploadBox';
-import UploadDropbox from '../../services/upload/UploadDropbox';
-import UploadGoogleDrive from '../../services/upload/UploadGoogleDrive';
-import UploadOneDrive from '../../services/upload/UploadOneDrive';
+// TODO: refactor this into saga module, remove need for event emitters and channels
+import UploadFile from './UploadFileLegacy';
 
 const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
 const computeChecksumChannel = channel();
 const uploadFileChannel = channel();
 
-// TODO: refactor these and move into module
-
 const _uploadFile = new UploadFile(acceptedExtensions);
-const _uploadBox = new UploadBox();
-const _uploadDropbox = new UploadDropbox(acceptedExtensions);
-const _uploadGoogleDrive = new UploadGoogleDrive();
-const _uploadOneDrive = new UploadOneDrive();
 
-export const typePrefix = 'upload/upload/';
+_uploadFile
+  .on('fileAdded', payload => {
+    uploadFileChannel.put({ type: FILE_ADDED, payload });
+  })
+  .on('progress', payload => {
+    uploadFileChannel.put({ type: UPLOAD_FILE_PROGRESS, payload });
+  })
+  .on('error', payload => {
+    uploadFileChannel.put({ type: UPLOAD_FILE_ERROR, payload });
+  })
+  .on('done', payload => {
+    uploadFileChannel.put({ type: UPLOAD_FILE_DONE, payload });
+  });
+
+export const typePrefix = 'upload/uploadFile/';
 
 export const UPLOAD_FILE_ASSIGN_DROP = `${typePrefix}UPLOAD_FILE_ASSIGN_DROP`;
 export const UPLOAD_FILE_ASSIGN_BROWSE = `${typePrefix}UPLOAD_FILE_ASSIGN_BROWSE`;
@@ -68,15 +64,57 @@ export const COMPUTE_CHECKSUMS_PROGRESS = `${typePrefix}COMPUTE_CHECKSUMS_PROGRE
 export const COMPUTE_CHECKSUMS_COMPLETE = `${typePrefix}COMPUTE_CHECKSUMS_COMPLETE`;
 
 export const UPLOAD_FILE = `${typePrefix}UPLOAD_FILE`;
+export const UPLOAD_FILE_CANCEL = `${typePrefix}UPLOAD_FILE_CANCEL`;
 export const UPLOAD_FILE_PROGRESS = `${typePrefix}UPLOAD_FILE_PROGRESS`;
 export const UPLOAD_FILE_ERROR = `${typePrefix}UPLOAD_FILE_ERROR`;
 export const UPLOAD_FILE_DONE = `${typePrefix}UPLOAD_FILE_DONE`;
+
+// Selectors
+
+export const getState = (state: any) => state.upload.uploadFile;
+
+export const getIsUploading = createSelector(
+  getState,
+  state => state.isUploading
+);
+
+export const getUploadProgress = createSelector(
+  getState,
+  state => state.uploadProgress
+);
+
+export const getIsComputingChecksums = createSelector(
+  getState,
+  state => state.isComputingChecksums
+);
+
+export const getChecksumProgress = createSelector(
+  getState,
+  state => state.checksumProgress
+);
+
+export const getIsBusy = createSelector(
+  getIsUploading,
+  getIsComputingChecksums,
+  (isUploading, isComputingChecksums) => isUploading || isComputingChecksums
+);
+
+export const getProgress = createSelector(
+  getChecksumProgress,
+  getUploadProgress,
+  (checksumProgress, uploadProgress) =>
+    checksumProgress * 0.2 + uploadProgress * 0.8
+);
 
 // Actions
 
 export const uploadFile = (payload: any) => ({
   type: UPLOAD_FILE,
   payload,
+});
+
+export const uploadFileCancel = () => ({
+  type: UPLOAD_FILE_CANCEL,
 });
 
 export const uploadFileAssignDrop = (payload: any) => ({
@@ -93,6 +131,65 @@ export const uploadFileUnassignDrop = (payload: any) => ({
   type: UPLOAD_FILE_UNASSIGN_DROP,
   payload,
 });
+
+// Reducer
+
+const initialState = {
+  isUploading: false,
+  isComputingChecksums: false,
+  uploadProgress: 0,
+  checksumProgress: 0,
+};
+
+export default function reducer(
+  state: Object = initialState,
+  action: Object = {}
+) {
+  switch (action.type) {
+    case FILE_ADDED:
+    case UPLOAD_FILE_CANCEL:
+      return {
+        ...initialState,
+      };
+    case COMPUTE_CHECKSUMS:
+      return {
+        ...state,
+        isComputingChecksums: true,
+      };
+    case COMPUTE_CHECKSUMS_PROGRESS:
+      return {
+        ...state,
+        checksumProgress: action.payload,
+      };
+    case COMPUTE_CHECKSUMS_COMPLETE:
+      return {
+        ...state,
+        isComputingChecksums: false,
+      };
+    case UPLOAD_FILE:
+      return {
+        ...state,
+        isUploading: true,
+      };
+    case UPLOAD_FILE_PROGRESS:
+      return {
+        ...state,
+        uploadProgress: action.payload,
+      };
+    case UPLOAD_FILE_DONE:
+      return {
+        ...state,
+        isUploading: false,
+      };
+    case UPLOAD_FILE_ERROR:
+      return {
+        ...initialState,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+}
 
 // set the values on resumablejs instance when components are available
 
@@ -129,19 +226,6 @@ export function* accessTokenWorker(): Generator<*, *, *> {
 // then send those into the main channel
 
 export function* fileAddedEventEmitterWatcher(): Generator<*, *, *> {
-  _uploadFile
-    .on('fileAdded', payload => {
-      uploadFileChannel.put({ type: FILE_ADDED, payload });
-    })
-    .on('progress', payload => {
-      uploadFileChannel.put({ type: UPLOAD_FILE_PROGRESS, payload });
-    })
-    .on('error', payload => {
-      uploadFileChannel.put({ type: UPLOAD_FILE_ERROR, payload });
-    })
-    .on('done', payload => {
-      uploadFileChannel.put({ type: UPLOAD_FILE_DONE, payload });
-    });
   while (true) {
     const action = yield take(uploadFileChannel);
     yield put(action);
@@ -156,18 +240,13 @@ function* fileAddedWatcher() {
 
 export function* fileAddedWorker(action: any): Generator<*, *, *> {
   // create an id for the experiment
-  yield put(createExperiment());
-  const { success } = yield race({
-    success: take(experimentActionType(CREATE, SUCCESS)),
-    failure: take(experimentActionType(CREATE, FAILURE)),
-  });
-  if (!success) {
+  const experimentId = yield call(createExperimentId);
+  if (!experimentId) {
     return;
   }
-  const experiment = yield select(getExperiment);
   // TODO: use the id as a unique identifier for all actions
-  yield apply(_uploadFile, 'setId', [experiment.id]);
-  yield put(push(`/sample/${experiment.id}`));
+  yield apply(_uploadFile, 'setId', [experimentId]);
+  yield put(push(`/sample/${experimentId}`));
   yield put({ type: COMPUTE_CHECKSUMS, payload: action.payload });
 }
 
@@ -268,7 +347,17 @@ export function* uploadFileWorker(action: any): Generator<*, *, *> {
   yield apply(_uploadFile, 'startUpload');
 }
 
-export function* uploadSaga(): Generator<*, *, *> {
+// cancel the upload
+
+function* uploadFileCancelWatcher() {
+  yield takeEvery(UPLOAD_FILE_CANCEL, uploadFileCancelWorker);
+}
+
+export function* uploadFileCancelWorker(): Generator<*, *, *> {
+  yield apply(_uploadFile, 'cancel');
+}
+
+export function* uploadFileSaga(): Generator<*, *, *> {
   yield all([
     fork(fileAddedEventEmitterWatcher),
     fork(fileAddedWatcher),
@@ -279,5 +368,6 @@ export function* uploadSaga(): Generator<*, *, *> {
     fork(uploadFileAssignDropWatcher),
     fork(uploadFileUnassignDropWatcher),
     fork(uploadFileAssignBrowseWatcher),
+    fork(uploadFileCancelWatcher),
   ]);
 }

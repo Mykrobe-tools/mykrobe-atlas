@@ -19,7 +19,7 @@ import experiments, { rootExperimentsSaga } from './experiments';
 import organisations, { rootOrganisationsSaga } from './organisations';
 import phylogeny from './phylogeny';
 import users, { rootUsersSaga } from './users';
-import { rootUploadSaga } from './upload';
+import upload, { rootUploadSaga } from './upload';
 
 export const rootReducer = combineReducers({
   api,
@@ -32,6 +32,7 @@ export const rootReducer = combineReducers({
   organisations,
   phylogeny,
   routing,
+  upload,
 });
 
 const sagas = [
