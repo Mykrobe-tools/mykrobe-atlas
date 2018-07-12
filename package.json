@@ -6,8 +6,8 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "test:fast": "cross-env jest",
-    "test": "cross-env INCLUDE_SLOW_TESTS=true jest",
+    "test:fast": "cross-env BABEL_DISABLE_CACHE=1 INCLUDE_SLOW_TESTS=false jest",
+    "test": "cross-env BABEL_DISABLE_CACHE=1 INCLUDE_SLOW_TESTS=true jest",
     "test:e2e": "yarn test -t 'e2e'",
     "test:watch": "yarn test:fast --watch",
     "flow": "flow",
