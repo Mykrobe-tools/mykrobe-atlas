@@ -8,7 +8,7 @@ export const UNSET_NODE_HIGHLIGHTED_ALL = `${typePrefix}UNSET_NODE_HIGHLIGHTED_A
 
 // Selectors
 
-export const getState = state => state.phylogeny.node;
+export const getState = (state: any) => state.phylogeny.node;
 
 export const getHighlighted = createSelector(
   getState,

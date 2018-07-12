@@ -10,7 +10,7 @@ jest.mock('./MetadataForm', () => {
 });
 
 const isBusyWithCurrentRoute = true;
-const match = { params: { id: 123 } };
+const match = { params: { experimentId: 123 } };
 
 describe('Metadata component snapshot', () => {
   it('renders correctly', () => {
