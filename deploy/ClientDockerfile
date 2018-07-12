@@ -34,17 +34,32 @@ ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
 ENV API_URL   $API_URL
-ENV AUTH_COOKIE_NAME api.atlas-dev.makeandship.com
+ENV AUTH_COOKIE_NAME $AUTH_COOKIE_NAME
+
+# Add the keys and set permissions
+RUN mkdir -p /root/.ssh && \
+    chmod 0700 /root/.ssh && \
+    echo "IdentityFile /root/.ssh/bitbucket-readonly" >> /root/.ssh/config
+
+ADD bitbucket-readonly /root/.ssh/
+
+RUN chmod 600 /root/.ssh/bitbucket-readonly && \
+    ssh-keyscan bitbucket.org > /root/.ssh/known_hosts
+
+# install yarn
+RUN apt-get install apt-transport-https
+RUN apt-get update && apt-get install yarn
 
 # install global packages
-RUN npm install -g forever
+RUN yarn global add forever
 
 # server installation directory
 RUN mkdir /app
 
 # install dependencies as a cachable step
 ADD package.json /tmp/package.json
-RUN cd /tmp && npm install
+ADD yarn.lock /tmp/yarn.lock
+RUN cd /tmp && yarn install
 
 # push this app to the deployment directory
 WORKDIR /app
@@ -52,6 +67,10 @@ ADD . /app
 
 # move cached installs into the app
 RUN cp -a /tmp/node_modules /app/
+
+# Remove SSH keys
+RUN rm /app/bitbucket-readonly
+RUN rm -rf /root/.ssh
 
 # run app on 3000
 EXPOSE 3000
