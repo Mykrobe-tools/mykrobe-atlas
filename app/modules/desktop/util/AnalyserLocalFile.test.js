@@ -1,3 +1,5 @@
+/* @flow */
+
 import path from 'path';
 
 import {
@@ -6,15 +8,13 @@ import {
   INCLUDE_SLOW_TESTS,
   EXEMPLAR_SAMPLES_FOLDER_PATH,
   expectCaseInsensitiveEqual,
-} from '../../../desktop/util';
+} from '../../../../desktop/util';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
-import MykrobeConfig from '../../services/MykrobeConfig';
-const config = new MykrobeConfig();
 
 const GENERATE_JSON_FIXTURES = true;
 
-const exemplarSamplesExpect = require('../../../test/__fixtures__/exemplar-samples.expect.json');
+const exemplarSamplesExpect = require('../../../../test/__fixtures__/exemplar-samples.expect.json');
 
 INCLUDE_SLOW_TESTS && jest.setTimeout(10 * 60 * 1000); // 10 minutes
 
@@ -51,7 +51,7 @@ describe('AnalyserLocalFile', () => {
         continue;
       }
       it(`should analyse source file ${source}`, async done => {
-        const analyser = new AnalyserLocalFile(config);
+        const analyser = new AnalyserLocalFile();
         const filePath = path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, source);
         analyser
           .analyseFile(filePath)

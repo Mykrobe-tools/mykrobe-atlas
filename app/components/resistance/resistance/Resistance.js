@@ -13,24 +13,22 @@ import ResistanceSpeciesContainer from '../species/ResistanceSpeciesContainer';
 
 import styles from './Resistance.css';
 import Uploading from '../../ui/Uploading';
-import MykrobeConfig from '../../../services/MykrobeConfig';
 import * as TargetConstants from '../../../constants/TargetConstants';
 
 import withFileUpload from '../../../hoc/withFileUpload';
 
 class Resistance extends React.Component<*> {
   render() {
-    const { isBusy, match } = this.props;
+    const { isBusyWithCurrentRoute, match } = this.props;
     let content;
-    const config = new MykrobeConfig();
 
-    if (isBusy) {
+    if (isBusyWithCurrentRoute) {
       content = <Uploading sectionName="Resistance" />;
     } else {
       content = (
         <div className={styles.content}>
           <div className={styles.header}>
-            {TargetConstants.SPECIES_TB === config.species ? (
+            {TargetConstants.SPECIES_TB === TargetConstants.SPECIES ? (
               <div className={styles.navigation}>
                 <NavLink
                   to={`${match.url}/all`}
@@ -134,8 +132,7 @@ function mapStateToProps() {
 }
 
 Resistance.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  isBusy: PropTypes.bool.isRequired,
+  isBusyWithCurrentRoute: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
 };
 

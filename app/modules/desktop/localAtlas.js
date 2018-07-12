@@ -22,8 +22,7 @@ import { SET } from 'makeandship-js-common/src/modules/generic/actions';
 
 import { experimentActionType } from '../../modules/experiments/experiment';
 
-import MykrobeConfig from '../../services/MykrobeConfig';
-import AnalyserLocalFile from './AnalyserLocalFile';
+import AnalyserLocalFile from './util/AnalyserLocalFile';
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
 import {
@@ -34,7 +33,7 @@ import {
 
 // TODO: refactor - does this need to be an event emitter?
 const _analyserLocalFileChannel = channel();
-const _analyserLocalFile = new AnalyserLocalFile(new MykrobeConfig());
+const _analyserLocalFile = new AnalyserLocalFile();
 
 _analyserLocalFile
   .on('progress', progress => {
@@ -74,11 +73,6 @@ export const getIsAnalysing = createSelector(
   state => state.isAnalysing
 );
 
-export const getTransformed = createSelector(
-  getState,
-  state => state.transformed
-);
-
 export const getProgress = createSelector(getState, state => state.progress);
 
 export const getFilePath = createSelector(getState, state => state.filePath);
@@ -107,12 +101,9 @@ export const analyseFileProgress = (payload: number) => ({
   payload,
 });
 
-export const analyseFileSuccess = (json: any, transformed: any) => ({
+export const analyseFileSuccess = (payload: any) => ({
   type: ANALYSE_FILE_SUCCESS,
-  payload: {
-    json,
-    transformed,
-  },
+  payload,
 });
 
 export const analyseFileCancel = () => ({
@@ -132,7 +123,6 @@ const initialState = {
   error: null,
   progress: 0,
   json: null,
-  transformed: null,
 };
 
 export default function reducer(
@@ -161,8 +151,7 @@ export default function reducer(
       return {
         ...state,
         isAnalysing: false,
-        json: action.payload.json,
-        transformed: action.payload.transformed,
+        json: action.payload,
       };
     case ANALYSE_FILE_ERROR:
       return {

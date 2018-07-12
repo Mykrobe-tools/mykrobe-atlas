@@ -1,15 +1,29 @@
 /* @flow */
 
-import MykrobeConfig from '../../services/MykrobeConfig';
-import * as TargetConstants from '../../constants/TargetConstants';
+import * as TargetConstants from '../../../constants/TargetConstants';
+
+export type AnalyserJsonTransformerResult = {
+  lineage: Array<string>,
+  species: Array<string>,
+  speciesPretty: string,
+  hasSpecies: boolean,
+  hasResistance: boolean,
+  susceptible: Array<string>,
+  resistant: Array<string>,
+  inconclusive: Array<string>,
+  positive: Array<string>,
+  negative: Array<string>,
+  inducible: Array<string>,
+  evidence: any,
+  drugsResistance: {
+    mdr: boolean,
+    xdr: boolean,
+  },
+  samples?: any,
+  tree?: any,
+};
 
 class AnalyserJsonTransformer {
-  config: MykrobeConfig;
-
-  constructor(config: MykrobeConfig = new MykrobeConfig()) {
-    this.config = config;
-  }
-
   transform(jsonString: string) {
     return this.stringToJson(jsonString);
   }
@@ -78,7 +92,7 @@ class AnalyserJsonTransformer {
       throw new Error('Unsupported sample json format');
     }
 
-    let transformed = {};
+    let transformed: AnalyserJsonTransformerResult = {};
 
     // can we display anything?
 
@@ -311,13 +325,13 @@ class AnalyserJsonTransformer {
     const species = Object.keys(sourceModel.phylogenetics.species);
 
     let lineage = [];
-    if (TargetConstants.SPECIES_TB === this.config.species) {
+    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
       lineage = Object.keys(sourceModel.phylogenetics.lineage);
     }
 
     let speciesPretty = '';
 
-    if (TargetConstants.SPECIES_TB === this.config.species) {
+    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
       const s = species ? species.join(' / ').replace(/_/g, ' ') : 'undefined';
       const l = lineage.length
         ? ' (lineage: ' + lineage.join(', ').replace(/_/g, ' ') + ')'

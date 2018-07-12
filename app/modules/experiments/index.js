@@ -18,8 +18,6 @@ import experimentsMetadataChoices, {
   experimentsMetadataChoicesSaga,
 } from './experimentsMetadataChoices';
 
-import filters from './filters';
-
 export {
   getExperiments,
   getIsFetching as getIsFetchingExperiments,
@@ -82,19 +80,12 @@ export {
   experimentsMetadataChoicesSaga,
 } from './experimentsMetadataChoices';
 
-export {
-  getIsFetching as getIsFetchingFilters,
-  getFilterValues,
-  requestFilterValues,
-} from './filters';
-
 const reducer = combineReducers({
   experiments,
   experimentsFilters,
   experimentsMetadataChoices,
   experiment,
   experimentMetadataTemplate,
-  filters,
 });
 
 export default reducer;

@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Sample from '../../components/sample/Sample';
-import withFileUpload from '../../hoc/withFileUpload';
+import ExperimentNavigation from './ExperimentNavigation';
+import ExperimentRoutes from './ExperimentRoutes';
 
 import { requestCurrentUser } from '../../modules/users';
 import {
@@ -14,23 +14,24 @@ import {
   requestExperimentMetadataTemplate,
 } from '../../modules/experiments';
 
-class SampleContainer extends React.Component<*> {
+import styles from './ExperimentContainer.css';
+
+class ExperimentContainer extends React.Component<*> {
   componentDidMount() {
-    const {
-      requestExperiment,
-      requestExperimentMetadataTemplate,
-      isBusy,
-    } = this.props;
-    const { id } = this.props.match.params;
-    if (!isBusy) {
-      requestExperiment(id);
-    }
+    const { requestExperiment, requestExperimentMetadataTemplate } = this.props;
+    const { experimentId } = this.props.match.params;
+    requestExperiment(experimentId);
     requestExperimentMetadataTemplate();
   }
 
   render() {
     const { match } = this.props;
-    return <Sample match={match} />;
+    return (
+      <div className={styles.container}>
+        <ExperimentNavigation match={match} />
+        <ExperimentRoutes match={match} />
+      </div>
+    );
   }
 }
 
@@ -49,9 +50,8 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-SampleContainer.propTypes = {
+ExperimentContainer.propTypes = {
   match: PropTypes.object.isRequired,
-  isBusy: PropTypes.bool.isRequired,
   requestExperiment: PropTypes.func.isRequired,
   requestExperimentMetadataTemplate: PropTypes.func.isRequired,
 };
@@ -59,4 +59,4 @@ SampleContainer.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withFileUpload(SampleContainer));
+)(ExperimentContainer);

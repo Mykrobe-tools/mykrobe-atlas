@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Library.css';
+import styles from './Experiments.css';
 import ExperimentsTable from '../experiments/ExperimentsTable';
 import ExperimentsHeader from '../experiments/ExperimentsHeader';
 
-class Library extends React.Component<*> {
+class Experiments extends React.Component<*> {
   render() {
     const {
       experiments,
@@ -43,7 +43,7 @@ class Library extends React.Component<*> {
   }
 }
 
-Library.propTypes = {
+Experiments.propTypes = {
   experiments: PropTypes.object.isRequired,
   filterValues: PropTypes.array.isRequired,
   requestExperiments: PropTypes.func.isRequired,
@@ -52,4 +52,4 @@ Library.propTypes = {
   isFetchingFilters: PropTypes.bool.isRequired,
 };
 
-export default Library;
+export default Experiments;

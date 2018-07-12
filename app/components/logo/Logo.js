@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Logo.css';
-import MykrobeConfig from '../../services/MykrobeConfig';
+import * as TargetConstants from '../../constants/TargetConstants';
 
 const logosByTargetName = {
   'atlas-desktop-enterics': require('../../static/atlas-enterics-logo.svg'),
@@ -13,13 +13,6 @@ const logosByTargetName = {
 };
 
 class Logo extends React.Component<*> {
-  mykrobeConfig: MykrobeConfig;
-
-  constructor(props: Object) {
-    super(props);
-    this.mykrobeConfig = new MykrobeConfig();
-  }
-
   render() {
     const { width, height } = this.props;
     let style = {
@@ -34,7 +27,7 @@ class Logo extends React.Component<*> {
       <img
         className={styles.logo}
         style={style}
-        src={logosByTargetName[this.mykrobeConfig.targetName]}
+        src={logosByTargetName[TargetConstants.TARGET_NAME]}
       />
     );
   }

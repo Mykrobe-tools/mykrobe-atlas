@@ -14,6 +14,12 @@
   text-align: center;
 }
 
+.view {
+  composes: fontSecondary from 'styles/typography.css';
+  pointer-events: auto;
+  color: var(--color-grey-dark);
+}
+
 .cancel {
   composes: fontSecondary from 'styles/typography.css';
   pointer-events: auto;

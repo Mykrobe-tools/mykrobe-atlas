@@ -5,8 +5,7 @@
 }
 
 .content {
-  flex: 1;
-  display: flex;
+  composes: container from 'styles/layout.css';
 }
 
 .header {

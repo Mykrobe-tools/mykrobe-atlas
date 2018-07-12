@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Library from './Library';
+import Experiments from './Experiments';
 
 import {
   requestExperiments,
@@ -12,12 +12,10 @@ import {
   getExperiments,
   getExperimentsMetadataChoices,
   getIsFetchingExperiments,
-  requestFilterValues,
-  getFilterValues,
-  getIsFetchingFilters,
+  getIsFetchingExperimentsMetadataChoices,
 } from '../../modules/experiments';
 
-class LibraryContainer extends React.Component<*> {
+class ExperimentsContainer extends React.Component<*> {
   componentDidMount() {
     const {
       requestExperiments,
@@ -30,22 +28,20 @@ class LibraryContainer extends React.Component<*> {
   render() {
     const {
       requestExperiments,
-      requestFilterValues,
       experiments,
       isFetchingExperiments,
-      filterValues,
-      isFetchingFilters,
+      isFetchingExperimentsMetadataChoices,
       experimentsMetadataChoices,
       requestExperimentsMetadataChoices,
     } = this.props;
     return (
-      <Library
+      <Experiments
         experiments={experiments}
         experimentsMetadataChoices={experimentsMetadataChoices}
         isFetchingExperiments={isFetchingExperiments}
-        filterValues={filterValues}
-        isFetchingFilters={isFetchingFilters}
-        requestFilterValues={requestFilterValues}
+        isFetchingExperimentsMetadataChoices={
+          isFetchingExperimentsMetadataChoices
+        }
         requestExperiments={requestExperiments}
         requestExperimentsMetadataChoices={requestExperimentsMetadataChoices}
       />
@@ -53,14 +49,12 @@ class LibraryContainer extends React.Component<*> {
   }
 }
 
-LibraryContainer.propTypes = {
+ExperimentsContainer.propTypes = {
   experiments: PropTypes.object.isRequired,
   experimentsMetadataChoices: PropTypes.object,
-  filterValues: PropTypes.array.isRequired,
   requestExperiments: PropTypes.func.isRequired,
-  requestFilterValues: PropTypes.func.isRequired,
   isFetchingExperiments: PropTypes.bool.isRequired,
-  isFetchingFilters: PropTypes.bool.isRequired,
+  isFetchingExperimentsMetadataChoices: PropTypes.bool.isRequired,
   requestExperimentsMetadataChoices: PropTypes.func.isRequired,
 };
 
@@ -69,8 +63,9 @@ function mapStateToProps(state) {
     experiments: getExperiments(state),
     experimentsMetadataChoices: getExperimentsMetadataChoices(state),
     isFetchingExperiments: getIsFetchingExperiments(state),
-    filterValues: getFilterValues(state),
-    isFetchingFilters: getIsFetchingFilters(state),
+    isFetchingExperimentsMetadataChoices: getIsFetchingExperimentsMetadataChoices(
+      state
+    ),
   };
 }
 
@@ -79,7 +74,6 @@ function mapDispatchToProps(dispatch) {
     {
       requestExperiments,
       requestExperimentsMetadataChoices,
-      requestFilterValues,
     },
     dispatch
   );
@@ -88,4 +82,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LibraryContainer);
+)(ExperimentsContainer);

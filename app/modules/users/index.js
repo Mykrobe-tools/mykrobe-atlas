@@ -7,6 +7,7 @@ import currentUser, { currentUserSaga } from './currentUser';
 import currentUserAvatar, { currentUserAvatarSaga } from './currentUserAvatar';
 import users, { usersSaga } from './users';
 import user, { userSaga } from './user';
+import usersFilters, { syncUsersFiltersSaga } from './usersFilters';
 
 export {
   createCurrentUser,
@@ -51,6 +52,7 @@ const usersReducer = combineReducers({
   currentUserAvatar,
   currentUser,
   users,
+  usersFilters,
   user,
 });
 
@@ -61,6 +63,7 @@ export function* rootUsersSaga(): Generator<*, *, *> {
     fork(currentUserAvatarSaga),
     fork(currentUserSaga),
     fork(usersSaga),
+    fork(syncUsersFiltersSaga),
     fork(userSaga),
   ]);
 }

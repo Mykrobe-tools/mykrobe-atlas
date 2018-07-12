@@ -2,11 +2,19 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import styles from './AnalysingProgressBar.css';
 
 class AnalysingProgressBar extends React.Component<*> {
   render() {
-    const { description, progress, filename, onCancel } = this.props;
+    const {
+      description,
+      progress,
+      filename,
+      experimentId,
+      onCancel,
+    } = this.props;
     var text = `${description} ${filename} ${progress}%`;
     if (progress === 100) {
       text = 'Check species and scan for resistance';
@@ -18,15 +26,17 @@ class AnalysingProgressBar extends React.Component<*> {
           style={{ width: `${progress}%` }}
         />
         <div className={styles.progressBarLabel}>
-          {text}
+          <span>
+            {text}
+            <span> &middot; </span>
+            <Link to={`/experiments/${experimentId}`} className={styles.view}>
+              View
+            </Link>
+          </span>
           {progress < 100 && (
             <span>
               <span> &middot; </span>
-              <a
-                href="#"
-                onClick={event => onCancel(event)}
-                className={styles.cancel}
-              >
+              <a onClick={onCancel} className={styles.cancel}>
                 Cancel
               </a>
             </span>
@@ -41,7 +51,8 @@ AnalysingProgressBar.propTypes = {
   filename: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   progress: PropTypes.number.isRequired,
-  onCancel: PropTypes.func.isRequired,
+  onCancel: PropTypes.func,
+  experimentId: PropTypes.string,
 };
 
 export default AnalysingProgressBar;

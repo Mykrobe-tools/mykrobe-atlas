@@ -1,23 +1,21 @@
 /* @flow */
 
 import Resumablejs from 'resumablejs';
-import EventEmitter from 'events';
-import { API_URL } from '../../constants/APIConstants';
+import { API_URL } from '../../../constants/APIConstants';
 
-// const API_URL = 'http://localhost:3001';
+export const typePrefix = 'upload/uploadFileResumable/';
 
-class UploadFile extends EventEmitter {
+export const RESUMABLE_UPLOAD_FILE_ADDED = `${typePrefix}RESUMABLE_UPLOAD_FILE_ADDED`;
+export const RESUMABLE_UPLOAD_PROGRESS = `${typePrefix}RESUMABLE_UPLOAD_PROGRESS`;
+export const RESUMABLE_UPLOAD_ERROR = `${typePrefix}RESUMABLE_UPLOAD_ERROR`;
+export const RESUMABLE_UPLOAD_DONE = `${typePrefix}RESUMABLE_UPLOAD_DONE`;
+
+class ResumableUpload {
   acceptedExtensions: Array<string>;
   resumable: Object;
-  props: Object;
+  actionChannel: any;
   id: string;
   accessToken: string;
-
-  setAccessToken = (accessToken: string) => {
-    this.accessToken = accessToken;
-  };
-
-  // TODO: refactor to use redux-saga, load token from state rather than via Component
 
   headers = () => {
     if (this.accessToken) {
@@ -29,8 +27,8 @@ class UploadFile extends EventEmitter {
     }
   };
 
-  constructor(acceptedExtensions: Array<string>) {
-    super();
+  constructor(actionChannel: any, acceptedExtensions: Array<string>) {
+    this.actionChannel = actionChannel;
     this.acceptedExtensions = acceptedExtensions;
     this.resumable = new Resumablejs({
       maxFiles: 1,
@@ -51,25 +49,45 @@ class UploadFile extends EventEmitter {
         };
       },
       maxFilesErrorCallback: () => {
-        this.onUploadError('Please upload one file at a time');
+        this.actionChannel.put({
+          type: RESUMABLE_UPLOAD_ERROR,
+          payload: 'Please upload one file at a time',
+        });
       },
       fileTypeErrorCallback: () => {
-        this.onUploadError('This filetype is unsupported');
+        this.actionChannel.put({
+          type: RESUMABLE_UPLOAD_ERROR,
+          payload: 'This filetype is unsupported',
+        });
       },
     });
     this.resumable.on('fileError', (file, message) => {
-      this.onUploadError(`There was an error with the upload: ${message}`);
+      this.actionChannel.put({
+        type: RESUMABLE_UPLOAD_ERROR,
+        payload: message,
+      });
     });
     this.resumable.on('fileAdded', file => {
-      this.emit('fileAdded', file);
+      this.actionChannel.put({
+        type: RESUMABLE_UPLOAD_FILE_ADDED,
+        payload: file,
+      });
     });
     this.resumable.on('fileProgress', () => {
-      this.onUploadProgress();
+      const uploadProgress = Math.floor(this.resumable.progress() * 100);
+      this.actionChannel.put({
+        type: RESUMABLE_UPLOAD_PROGRESS,
+        payload: uploadProgress,
+      });
     });
     this.resumable.on('fileSuccess', file => {
-      this.onFileUploadComplete(file);
+      this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE, payload: file });
     });
   }
+
+  setAccessToken = (accessToken: string) => {
+    this.accessToken = accessToken;
+  };
 
   setId(id: string) {
     this.id = id;
@@ -99,22 +117,9 @@ class UploadFile extends EventEmitter {
     this.resumable.cancel();
   }
 
-  onUploadProgress() {
-    const uploadProgress = Math.floor(this.resumable.progress() * 100);
-    this.emit('progress', uploadProgress);
-  }
-
-  onUploadError(error: string) {
-    this.emit('error', error);
-  }
-
-  onFileUploadComplete(file: Object) {
-    this.emit('done', file.file);
-  }
-
   startUpload() {
     this.resumable.upload();
   }
 }
 
-export default UploadFile;
+export default ResumableUpload;

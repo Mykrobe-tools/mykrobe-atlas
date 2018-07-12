@@ -9,13 +9,13 @@ jest.mock('./MetadataForm', () => {
   return '';
 });
 
-const isBusy = true;
-const match = { params: { id: 123 } };
+const isBusyWithCurrentRoute = true;
+const match = { params: { experimentId: 123 } };
 
 describe('Metadata component snapshot', () => {
   it('renders correctly', () => {
     const component = renderer.create(
-      <Metadata isBusy={isBusy} match={match} />
+      <Metadata isBusyWithCurrentRoute={isBusyWithCurrentRoute} match={match} />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();

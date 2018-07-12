@@ -4,12 +4,11 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 
-import { fetchJsonMiddleware } from '../api';
 import { API_URL } from '../../constants/APIConstants.js';
 
 import reducer, { requestExperiments } from './experiments';
 
-const createMockStore = configureMockStore([thunk, fetchJsonMiddleware]);
+const createMockStore = configureMockStore([thunk]);
 const data = require('../../../test/__fixtures__/api/experiments.json');
 
 describe('experiments module', () => {

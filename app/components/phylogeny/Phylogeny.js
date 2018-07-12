@@ -66,23 +66,23 @@ class Phylogeny extends React.Component<*, State> {
     return index !== -1;
   }
 
-  onNodeMouseOver(node) {
+  onNodeMouseOver = node => {
     const { setNodeHighlighted } = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
       setNodeHighlighted(node.id, true);
     }
-  }
+  };
 
-  onNodeMouseOut(node) {
+  onNodeMouseOut = node => {
     const { setNodeHighlighted } = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
       setNodeHighlighted(node.id, false);
     }
-  }
+  };
 
-  onLoad() {
+  onLoad = () => {
     console.log('onLoad');
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     const { highlighted } = nextProps;
@@ -119,6 +119,18 @@ class Phylogeny extends React.Component<*, State> {
     }
   }
 
+  onContainerRef = (ref: any) => {
+    this._container = ref;
+  };
+
+  onPhyloCanvasRef = (ref: any) => {
+    this._phyloCanvas = ref;
+  };
+
+  onPhyloCanvasTooltipRef = (ref: any) => {
+    this._phyloCanvasTooltip = ref;
+  };
+
   render() {
     const { experimentTransformed, controlsInset } = this.props;
     const { treeType } = this.state;
@@ -129,27 +141,14 @@ class Phylogeny extends React.Component<*, State> {
     const insetStyle = { margin: `${controlsInset}px` };
     return (
       <div className={styles.container}>
-        <div
-          className={styles.contentContainer}
-          ref={ref => {
-            this._container = ref;
-          }}
-        >
+        <div className={styles.contentContainer} ref={this.onContainerRef}>
           <PhyloCanvasComponent
-            ref={ref => {
-              this._phyloCanvas = ref;
-            }}
+            ref={this.onPhyloCanvasRef}
             treeType={treeType}
             data={newick}
-            onNodeMouseOver={node => {
-              this.onNodeMouseOver(node);
-            }}
-            onNodeMouseOut={node => {
-              this.onNodeMouseOut(node);
-            }}
-            onLoad={() => {
-              this.onLoad();
-            }}
+            onNodeMouseOver={this.onNodeMouseOver}
+            onNodeMouseOut={this.onNodeMouseOut}
+            onLoad={this.onLoad}
             controlsInset={controlsInset}
           />
           <div className={styles.controlsContainer} style={insetStyle}>
@@ -189,11 +188,7 @@ class Phylogeny extends React.Component<*, State> {
               </div>
             ))}
           </div>
-          <PhyloCanvasTooltip
-            ref={ref => {
-              this._phyloCanvasTooltip = ref;
-            }}
-          />
+          <PhyloCanvasTooltip ref={this.onPhyloCanvasTooltipRef} />
         </div>
       </div>
     );
@@ -221,12 +216,12 @@ class Phylogeny extends React.Component<*, State> {
     return nodeIds;
   }
 
-  zoomSamples() {
+  zoomSamples = () => {
     if (!this._phyloCanvas) {
       return;
     }
     this._phyloCanvas.zoomToNodesWithIds(this.getSampleIds());
-  }
+  };
 
   componentDidMount() {
     const { experimentTransformed } = this.props;

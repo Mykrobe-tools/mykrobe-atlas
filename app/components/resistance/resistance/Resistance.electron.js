@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import { withRouter, Route, Redirect, Switch, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Resistance.css';
-import MykrobeConfig from '../../../services/MykrobeConfig';
 import * as TargetConstants from '../../../constants/TargetConstants';
 import Logo from '../../logo/Logo';
 
@@ -29,7 +28,6 @@ class Resistance extends React.Component<*> {
       experimentTransformed,
     } = this.props;
     const path = '/results/resistance';
-    const config = new MykrobeConfig();
     const { hasResistance } = experimentTransformed;
     return (
       <div className={styles.container} data-tid="component-resistance">
@@ -46,7 +44,7 @@ class Resistance extends React.Component<*> {
             >
               All
             </NavLink>
-            {TargetConstants.SPECIES_TB === config.species ? (
+            {TargetConstants.SPECIES_TB === TargetConstants.SPECIES ? (
               <NavLink
                 to={`${path}/drugs`}
                 className={styles.navigationItem}

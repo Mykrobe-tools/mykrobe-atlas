@@ -14,7 +14,13 @@ import { uploadFileCancel } from '../../modules/upload';
 
 class Analysing extends React.Component<*> {
   render() {
-    const { isBusy, progress, isComputingChecksums } = this.props;
+    const {
+      isBusy,
+      progress,
+      isComputingChecksums,
+      fileName,
+      experimentId,
+    } = this.props;
     if (IS_ELECTRON) {
       UIHelpers.setProgress(progress); // eslint-disable-line import/namespace
     }
@@ -27,8 +33,9 @@ class Analysing extends React.Component<*> {
           <AnalysingProgressBar
             progress={progress}
             description={description}
-            filename={'filename in here'}
+            filename={fileName}
             onCancel={this.onCancelClick}
+            experimentId={experimentId}
           />
         )}
       </div>
@@ -49,6 +56,8 @@ Analysing.propTypes = {
   isComputingChecksums: PropTypes.bool.isRequired,
   isUploading: PropTypes.bool.isRequired,
   uploadFileCancel: PropTypes.func.isRequired,
+  fileName: PropTypes.string,
+  experimentId: PropTypes.string,
 };
 
 function mapStateToProps() {

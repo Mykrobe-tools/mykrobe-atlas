@@ -172,29 +172,30 @@ class Analysis extends React.Component<*> {
     }
   }
 
+  setMapRef = (ref: any) => {
+    this._mapDiv = ref;
+  };
+
+  setPhyloCanvasTooltipRef = (ref: any) => {
+    this._phyloCanvasTooltip = ref;
+  };
+
   render() {
-    const { isBusy } = this.props;
+    const { isBusyWithCurrentRoute } = this.props;
     let content;
-    if (isBusy) {
+    if (isBusyWithCurrentRoute) {
       content = <Uploading sectionName="Analysis" />;
     } else {
       content = (
         <div className={styles.content}>
           <div className={styles.mapAndPhylogenyContainer}>
             <div className={styles.mapContainer}>
-              <div
-                ref={ref => {
-                  this._mapDiv = ref;
-                }}
-                className={styles.map}
-              />
-              <PhyloCanvasTooltip
-                ref={ref => {
-                  this._phyloCanvasTooltip = ref;
-                }}
-              />
+              <div ref={this.setMapRef} className={styles.map} />
+              <PhyloCanvasTooltip ref={this.setPhyloCanvasTooltipRef} />
             </div>
-            <Phylogeny className={styles.phylogenyContainer} />
+            <div className={styles.phylogenyContainer}>
+              <Phylogeny />
+            </div>
           </div>
         </div>
       );
@@ -207,7 +208,7 @@ Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
   experiment: PropTypes.object.isRequired,
   highlighted: PropTypes.array.isRequired,
-  isBusy: PropTypes.node,
+  isBusyWithCurrentRoute: PropTypes.bool,
 };
 
 export default Analysis;

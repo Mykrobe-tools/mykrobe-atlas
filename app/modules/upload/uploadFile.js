@@ -13,7 +13,6 @@ import {
   apply,
 } from 'redux-saga/effects';
 import { createSelector } from 'reselect';
-import SparkMD5 from 'spark-md5';
 import { push } from 'react-router-redux';
 
 import {
@@ -28,46 +27,38 @@ import {
 
 import { createExperimentId } from '../experiments/experiment';
 
-// TODO: refactor this into saga module, remove need for event emitters and channels
-import UploadFile from './UploadFileLegacy';
+import ResumableUpload, {
+  RESUMABLE_UPLOAD_FILE_ADDED,
+  RESUMABLE_UPLOAD_PROGRESS,
+  RESUMABLE_UPLOAD_ERROR,
+  RESUMABLE_UPLOAD_DONE,
+} from './util/ResumableUpload';
+
+import ComputeChecksums, {
+  COMPUTE_CHECKSUMS_PROGRESS,
+  COMPUTE_CHECKSUMS_COMPLETE,
+} from './util/ComputeChecksums';
 
 const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
-const computeChecksumChannel = channel();
-const uploadFileChannel = channel();
-
-const _uploadFile = new UploadFile(acceptedExtensions);
-
-_uploadFile
-  .on('fileAdded', payload => {
-    uploadFileChannel.put({ type: FILE_ADDED, payload });
-  })
-  .on('progress', payload => {
-    uploadFileChannel.put({ type: UPLOAD_FILE_PROGRESS, payload });
-  })
-  .on('error', payload => {
-    uploadFileChannel.put({ type: UPLOAD_FILE_ERROR, payload });
-  })
-  .on('done', payload => {
-    uploadFileChannel.put({ type: UPLOAD_FILE_DONE, payload });
-  });
+const _computeChecksumChannel = channel();
+const _uploadFileChannel = channel();
+const _uploadFile = new ResumableUpload(_uploadFileChannel, acceptedExtensions);
+const _computeChecksums = new ComputeChecksums(_computeChecksumChannel);
 
 export const typePrefix = 'upload/uploadFile/';
+
+export const UPLOAD_FILE = `${typePrefix}UPLOAD_FILE`;
+export const UPLOAD_FILE_CANCEL = `${typePrefix}UPLOAD_FILE_CANCEL`;
 
 export const UPLOAD_FILE_ASSIGN_DROP = `${typePrefix}UPLOAD_FILE_ASSIGN_DROP`;
 export const UPLOAD_FILE_ASSIGN_BROWSE = `${typePrefix}UPLOAD_FILE_ASSIGN_BROWSE`;
 export const UPLOAD_FILE_UNASSIGN_DROP = `${typePrefix}UPLOAD_FILE_UNASSIGN_DROP`;
 
-export const FILE_ADDED = `${typePrefix}FILE_ADDED`;
 export const COMPUTE_CHECKSUMS = `${typePrefix}COMPUTE_CHECKSUMS`;
-export const COMPUTE_CHECKSUMS_PROGRESS = `${typePrefix}COMPUTE_CHECKSUMS_PROGRESS`;
-export const COMPUTE_CHECKSUMS_COMPLETE = `${typePrefix}COMPUTE_CHECKSUMS_COMPLETE`;
 
-export const UPLOAD_FILE = `${typePrefix}UPLOAD_FILE`;
-export const UPLOAD_FILE_CANCEL = `${typePrefix}UPLOAD_FILE_CANCEL`;
-export const UPLOAD_FILE_PROGRESS = `${typePrefix}UPLOAD_FILE_PROGRESS`;
-export const UPLOAD_FILE_ERROR = `${typePrefix}UPLOAD_FILE_ERROR`;
-export const UPLOAD_FILE_DONE = `${typePrefix}UPLOAD_FILE_DONE`;
+export const SET_EXPERIMENT_ID = `${typePrefix}SET_EXPERIMENT_ID`;
+export const SET_FILE_NAME = `${typePrefix}SET_FILE_NAME`;
 
 // Selectors
 
@@ -106,6 +97,13 @@ export const getProgress = createSelector(
     Math.round(checksumProgress * 0.2 + uploadProgress * 0.8)
 );
 
+export const getFileName = createSelector(getState, state => state.fileName);
+
+export const getExperimentId = createSelector(
+  getState,
+  state => state.experimentId
+);
+
 // Actions
 
 export const uploadFile = (payload: any) => ({
@@ -132,6 +130,16 @@ export const uploadFileUnassignDrop = (payload: any) => ({
   payload,
 });
 
+export const setExperimentId = (payload: string) => ({
+  type: SET_EXPERIMENT_ID,
+  payload,
+});
+
+export const setFileName = (payload: string) => ({
+  type: SET_FILE_NAME,
+  payload,
+});
+
 // Reducer
 
 const initialState = {
@@ -146,10 +154,20 @@ export default function reducer(
   action: Object = {}
 ) {
   switch (action.type) {
-    case FILE_ADDED:
+    case RESUMABLE_UPLOAD_FILE_ADDED:
     case UPLOAD_FILE_CANCEL:
       return {
         ...initialState,
+      };
+    case SET_FILE_NAME:
+      return {
+        ...state,
+        fileName: action.payload,
+      };
+    case SET_EXPERIMENT_ID:
+      return {
+        ...state,
+        experimentId: action.payload,
       };
     case COMPUTE_CHECKSUMS:
       return {
@@ -171,17 +189,17 @@ export default function reducer(
         ...state,
         isUploading: true,
       };
-    case UPLOAD_FILE_PROGRESS:
+    case RESUMABLE_UPLOAD_PROGRESS:
       return {
         ...state,
         uploadProgress: action.payload,
       };
-    case UPLOAD_FILE_DONE:
+    case RESUMABLE_UPLOAD_DONE:
       return {
         ...state,
         isUploading: false,
       };
-    case UPLOAD_FILE_ERROR:
+    case RESUMABLE_UPLOAD_ERROR:
       return {
         ...initialState,
         error: action.payload,
@@ -227,7 +245,7 @@ export function* accessTokenWorker(): Generator<*, *, *> {
 
 export function* fileAddedEventEmitterWatcher(): Generator<*, *, *> {
   while (true) {
-    const action = yield take(uploadFileChannel);
+    const action = yield take(_uploadFileChannel);
     yield put(action);
   }
 }
@@ -235,7 +253,7 @@ export function* fileAddedEventEmitterWatcher(): Generator<*, *, *> {
 // process the added file
 
 function* fileAddedWatcher() {
-  yield takeEvery(FILE_ADDED, fileAddedWorker);
+  yield takeEvery(RESUMABLE_UPLOAD_FILE_ADDED, fileAddedWorker);
 }
 
 export function* fileAddedWorker(action: any): Generator<*, *, *> {
@@ -245,7 +263,9 @@ export function* fileAddedWorker(action: any): Generator<*, *, *> {
   }
   // TODO: use the id as a unique identifier for all actions
   yield apply(_uploadFile, 'setId', [experimentId]);
-  yield put(push(`/sample/${experimentId}`));
+  yield put(setExperimentId(experimentId));
+  yield put(setFileName(action.payload.fileName));
+  yield put(push(`/experiments/${experimentId}`));
   yield put({ type: COMPUTE_CHECKSUMS, payload: action.payload });
 }
 
@@ -256,7 +276,10 @@ function* computeChecksumsWatcher() {
 }
 
 export function* computeChecksumsWorker(action: any): Generator<*, *, *> {
-  yield call(computeChecksums, action.payload);
+  // TODO: ComputeChecksums never works after being cancelled - investigate
+  // as a workaround, reinstantiate each upload
+  // _computeChecksums = new ComputeChecksums(_computeChecksumChannel);
+  yield apply(_computeChecksums, 'computeChecksums', [action.payload]);
   yield take(COMPUTE_CHECKSUMS_COMPLETE);
   yield put({
     type: UPLOAD_FILE,
@@ -264,63 +287,10 @@ export function* computeChecksumsWorker(action: any): Generator<*, *, *> {
   });
 }
 
-// TODO: move into separate utility module
-
-export function computeChecksums(
-  resumableFile: Object,
-  offset: number = 0,
-  fileReader: ?FileReader = null
-) {
-  const round = resumableFile.resumableObj.getOpt('forceChunkSize')
-    ? Math.ceil
-    : Math.floor;
-  const chunkSize = resumableFile.getOpt('chunkSize');
-  const numChunks = Math.max(round(resumableFile.file.size / chunkSize), 1);
-  const forceChunkSize = resumableFile.getOpt('forceChunkSize');
-  const func = resumableFile.file.slice
-    ? 'slice'
-    : resumableFile.file.mozSlice
-      ? 'mozSlice'
-      : resumableFile.file.webkitSlice
-        ? 'webkitSlice'
-        : 'slice';
-  let startByte;
-  let endByte;
-  let bytes;
-
-  resumableFile.hashes = resumableFile.hashes || [];
-  fileReader = fileReader || new FileReader();
-
-  startByte = offset * chunkSize;
-  endByte = Math.min(resumableFile.file.size, (offset + 1) * chunkSize);
-
-  if (resumableFile.file.size - endByte < chunkSize && !forceChunkSize) {
-    endByte = resumableFile.file.size;
-  }
-  bytes = resumableFile.file[func](startByte, endByte);
-
-  fileReader.onloadend = e => {
-    var spark = SparkMD5.ArrayBuffer.hash(e.target.result);
-    resumableFile.hashes.push(spark);
-    if (numChunks > offset + 1) {
-      computeChecksumChannel.put({
-        type: COMPUTE_CHECKSUMS_PROGRESS,
-        payload: Math.floor((offset / numChunks) * 100),
-      });
-      computeChecksums(resumableFile, offset + 1, fileReader);
-    } else {
-      computeChecksumChannel.put({
-        type: COMPUTE_CHECKSUMS_COMPLETE,
-      });
-    }
-  };
-  fileReader.readAsArrayBuffer(bytes);
-}
-
 // watch, pass into the main channel
 
 function* computeChecksumsChannelWatcher() {
-  yield takeEvery(computeChecksumChannel, function*(action: any) {
+  yield takeEvery(_computeChecksumChannel, function*(action: any) {
     yield put(action);
   });
 }
@@ -353,6 +323,7 @@ function* uploadFileCancelWatcher() {
 
 export function* uploadFileCancelWorker(): Generator<*, *, *> {
   yield apply(_uploadFile, 'cancel');
+  yield apply(_computeChecksums, 'cancel');
 }
 
 export function* uploadFileSaga(): Generator<*, *, *> {

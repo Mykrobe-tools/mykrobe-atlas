@@ -8,7 +8,6 @@ import createSagaMiddleware from 'redux-saga';
 import { createBrowserHistory, createHashHistory } from 'history';
 
 import { rootReducer, rootSaga } from '../modules';
-import { fetchJsonMiddleware } from '../modules/api';
 
 export const history = IS_ELECTRON
   ? createHashHistory()
@@ -18,7 +17,7 @@ const router = routerMiddleware(history);
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middleware = [thunk, fetchJsonMiddleware, sagaMiddleware, router];
+const middleware = [thunk, sagaMiddleware, router];
 
 const enhancer = compose(applyMiddleware(...middleware));
 

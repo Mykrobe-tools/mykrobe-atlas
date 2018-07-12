@@ -8,7 +8,6 @@ import createSagaMiddleware from 'redux-saga';
 import createHistory from 'history/createBrowserHistory';
 import { createLogger } from 'redux-logger';
 
-import { fetchJsonMiddleware } from '../modules/api';
 import { rootReducer, rootSaga } from '../modules';
 
 import {
@@ -64,7 +63,7 @@ const router = routerMiddleware(history);
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middleware = [thunk, fetchJsonMiddleware, sagaMiddleware, router];
+const middleware = [thunk, sagaMiddleware, router];
 
 const actionsBlacklist = [];
 const logger = createLogger({
