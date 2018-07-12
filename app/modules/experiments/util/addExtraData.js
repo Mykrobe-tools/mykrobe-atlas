@@ -1,7 +1,7 @@
 /* @flow */
 
-export const addExtraData = (json: Object) => {
-  const testData = require('./__fixtures__/experiment.json').data;
+export default (json: Object) => {
+  const testData = require('../__fixtures__/experiment.json').data;
   if (!json.location) {
     json.location = testData.location;
   }

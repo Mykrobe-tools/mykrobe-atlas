@@ -3,7 +3,7 @@
 import EventEmitter from 'events';
 
 // TODO: we can remove the transformer - it is created on demand by a redux selector
-import AnalyserJsonTransformer from '../experiments/AnalyserJsonTransformer';
+import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransformer';
 
 class AnalyserBaseFile extends EventEmitter {
   extensionForFileName(fileName: string) {

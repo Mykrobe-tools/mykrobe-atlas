@@ -16,9 +16,8 @@ import {
 } from 'makeandship-js-common/src/modules/notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
-import AnalyserJsonTransformer from './AnalyserJsonTransformer';
-
-import { addExtraData } from './utils';
+import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
+import addExtraData from './util/addExtraData';
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experiment/',

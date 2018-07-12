@@ -1,6 +1,27 @@
 /* @flow */
 
-import * as TargetConstants from '../../constants/TargetConstants';
+import * as TargetConstants from '../../../constants/TargetConstants';
+
+export type AnalyserJsonTransformerResult = {
+  lineage: Array<string>,
+  species: Array<string>,
+  speciesPretty: string,
+  hasSpecies: boolean,
+  hasResistance: boolean,
+  susceptible: Array<string>,
+  resistant: Array<string>,
+  inconclusive: Array<string>,
+  positive: Array<string>,
+  negative: Array<string>,
+  inducible: Array<string>,
+  evidence: any,
+  drugsResistance: {
+    mdr: boolean,
+    xdr: boolean,
+  },
+  samples?: any,
+  tree?: any,
+};
 
 class AnalyserJsonTransformer {
   transform(jsonString: string) {
@@ -71,7 +92,7 @@ class AnalyserJsonTransformer {
       throw new Error('Unsupported sample json format');
     }
 
-    let transformed = {};
+    let transformed: AnalyserJsonTransformerResult = {};
 
     // can we display anything?
 

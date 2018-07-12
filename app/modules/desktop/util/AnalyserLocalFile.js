@@ -5,7 +5,7 @@ import fs from 'fs';
 import os from 'os';
 import { spawn } from 'child_process';
 
-import * as TargetConstants from '../../constants/TargetConstants';
+import * as TargetConstants from '../../../constants/TargetConstants';
 import AnalyserBaseFile from './AnalyserBaseFile';
 
 const tmp = require('tmp');
