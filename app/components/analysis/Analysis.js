@@ -172,6 +172,14 @@ class Analysis extends React.Component<*> {
     }
   }
 
+  setMapRef = (ref: any) => {
+    this._mapDiv = ref;
+  };
+
+  setPhyloCanvasTooltipRef = (ref: any) => {
+    this._phyloCanvasTooltip = ref;
+  };
+
   render() {
     const { isBusyWithCurrentRoute } = this.props;
     let content;
@@ -182,17 +190,8 @@ class Analysis extends React.Component<*> {
         <div className={styles.content}>
           <div className={styles.mapAndPhylogenyContainer}>
             <div className={styles.mapContainer}>
-              <div
-                ref={ref => {
-                  this._mapDiv = ref;
-                }}
-                className={styles.map}
-              />
-              <PhyloCanvasTooltip
-                ref={ref => {
-                  this._phyloCanvasTooltip = ref;
-                }}
-              />
+              <div ref={this.setMapRef} className={styles.map} />
+              <PhyloCanvasTooltip ref={this.setPhyloCanvasTooltipRef} />
             </div>
             <div className={styles.phylogenyContainer}>
               <Phylogeny />
@@ -209,7 +208,7 @@ Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
   experiment: PropTypes.object.isRequired,
   highlighted: PropTypes.array.isRequired,
-  isBusyWithCurrentRoute: PropTypes.node,
+  isBusyWithCurrentRoute: PropTypes.bool,
 };
 
 export default Analysis;
