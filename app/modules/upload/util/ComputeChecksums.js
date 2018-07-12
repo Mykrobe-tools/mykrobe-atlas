@@ -28,7 +28,7 @@ class ResumableUpload {
     if (this.isCancelled) {
       if (offset === 0 && !fileReader) {
         // we are starting again
-        self.isCancelled = false;
+        this.isCancelled = false;
       } else {
         return;
       }

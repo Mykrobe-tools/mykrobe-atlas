@@ -44,8 +44,7 @@ const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 const _computeChecksumChannel = channel();
 const _uploadFileChannel = channel();
 const _uploadFile = new ResumableUpload(_uploadFileChannel, acceptedExtensions);
-
-let _computeChecksums;
+const _computeChecksums = new ComputeChecksums(_computeChecksumChannel);
 
 export const typePrefix = 'upload/uploadFile/';
 
@@ -279,7 +278,7 @@ function* computeChecksumsWatcher() {
 export function* computeChecksumsWorker(action: any): Generator<*, *, *> {
   // TODO: ComputeChecksums never works after being cancelled - investigate
   // as a workaround, reinstantiate each upload
-  _computeChecksums = new ComputeChecksums(_computeChecksumChannel);
+  // _computeChecksums = new ComputeChecksums(_computeChecksumChannel);
   yield apply(_computeChecksums, 'computeChecksums', [action.payload]);
   yield take(COMPUTE_CHECKSUMS_COMPLETE);
   yield put({
