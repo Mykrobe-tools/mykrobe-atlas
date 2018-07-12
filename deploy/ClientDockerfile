@@ -20,6 +20,10 @@ RUN apt-get install -y build-essential
 RUN apt-get install -y imagemagick
 RUN apt-get install -y libssl-dev
 
+# add package manager for yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list
+
 # download and install nvm
 RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash \
 	&& source $NVM_DIR/nvm.sh \
