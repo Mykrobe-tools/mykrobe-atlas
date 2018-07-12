@@ -19,10 +19,10 @@ import withFileUpload from '../../../hoc/withFileUpload';
 
 class Resistance extends React.Component<*> {
   render() {
-    const { isBusy, match } = this.props;
+    const { isBusyWithCurrentRoute, match } = this.props;
     let content;
 
-    if (isBusy) {
+    if (isBusyWithCurrentRoute) {
       content = <Uploading sectionName="Resistance" />;
     } else {
       content = (
@@ -132,8 +132,7 @@ function mapStateToProps() {
 }
 
 Resistance.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  isBusy: PropTypes.bool.isRequired,
+  isBusyWithCurrentRoute: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
 };
 

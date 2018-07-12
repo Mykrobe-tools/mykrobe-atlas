@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 
 import ExperimentNavigation from './ExperimentNavigation';
 import ExperimentRoutes from './ExperimentRoutes';
-import withFileUpload from '../../hoc/withFileUpload';
 
 import { requestCurrentUser } from '../../modules/users';
 import {
@@ -19,15 +18,9 @@ import styles from './ExperimentContainer.css';
 
 class ExperimentContainer extends React.Component<*> {
   componentDidMount() {
-    const {
-      requestExperiment,
-      requestExperimentMetadataTemplate,
-      isBusy,
-    } = this.props;
+    const { requestExperiment, requestExperimentMetadataTemplate } = this.props;
     const { experimentId } = this.props.match.params;
-    if (!isBusy) {
-      requestExperiment(experimentId);
-    }
+    requestExperiment(experimentId);
     requestExperimentMetadataTemplate();
   }
 
@@ -59,7 +52,6 @@ function mapDispatchToProps(dispatch) {
 
 ExperimentContainer.propTypes = {
   match: PropTypes.object.isRequired,
-  isBusy: PropTypes.bool.isRequired,
   requestExperiment: PropTypes.func.isRequired,
   requestExperimentMetadataTemplate: PropTypes.func.isRequired,
 };
@@ -67,4 +59,4 @@ ExperimentContainer.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withFileUpload(ExperimentContainer));
+)(ExperimentContainer);

@@ -11,9 +11,13 @@ import SummaryVariants from './SummaryVariants';
 
 class Summary extends React.Component<*> {
   render() {
-    const { experiment, experimentTransformed, isBusy } = this.props;
+    const {
+      experiment,
+      experimentTransformed,
+      isBusyWithCurrentRoute,
+    } = this.props;
     let content;
-    if (isBusy) {
+    if (isBusyWithCurrentRoute) {
       content = <Uploading sectionName="Summary" />;
     } else {
       content = (
@@ -46,7 +50,7 @@ class Summary extends React.Component<*> {
 Summary.propTypes = {
   experiment: PropTypes.object.isRequired,
   experimentTransformed: PropTypes.object.isRequired,
-  isBusy: PropTypes.bool,
+  isBusyWithCurrentRoute: PropTypes.bool,
 };
 
 export default Summary;

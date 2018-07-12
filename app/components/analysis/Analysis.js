@@ -173,9 +173,9 @@ class Analysis extends React.Component<*> {
   }
 
   render() {
-    const { isBusy } = this.props;
+    const { isBusyWithCurrentRoute } = this.props;
     let content;
-    if (isBusy) {
+    if (isBusyWithCurrentRoute) {
       content = <Uploading sectionName="Analysis" />;
     } else {
       content = (
@@ -209,7 +209,7 @@ Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
   experiment: PropTypes.object.isRequired,
   highlighted: PropTypes.array.isRequired,
-  isBusy: PropTypes.node,
+  isBusyWithCurrentRoute: PropTypes.node,
 };
 
 export default Analysis;

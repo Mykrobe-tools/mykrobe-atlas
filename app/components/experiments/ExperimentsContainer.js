@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Library from './Library';
+import Experiments from './Experiments';
 
 import {
   requestExperiments,
@@ -39,7 +39,7 @@ class ExperimentsContainer extends React.Component<*> {
       requestExperimentsMetadataChoices,
     } = this.props;
     return (
-      <Library
+      <Experiments
         experiments={experiments}
         experimentsMetadataChoices={experimentsMetadataChoices}
         isFetchingExperiments={isFetchingExperiments}

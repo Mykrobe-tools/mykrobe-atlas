@@ -14,10 +14,10 @@ class Metadata extends React.Component<*> {
   };
 
   render() {
-    const { isBusy, match } = this.props;
+    const { isBusyWithCurrentRoute, match } = this.props;
     return (
       <div ref={ref => (this._ref = ref)} className={styles.container}>
-        {isBusy && (
+        {isBusyWithCurrentRoute && (
           <div className={styles.uploadingMessage}>
             <div className={styles.uploadingMessageTitle}>
               Your sample is uploading
@@ -25,7 +25,10 @@ class Metadata extends React.Component<*> {
           </div>
         )}
         <div className={styles.formContainer}>
-          <MetadataForm id={match.params.id} resetScroll={this.resetScroll} />
+          <MetadataForm
+            id={match.params.experimentId}
+            resetScroll={this.resetScroll}
+          />
         </div>
       </div>
     );
@@ -33,7 +36,7 @@ class Metadata extends React.Component<*> {
 }
 
 Metadata.propTypes = {
-  isBusy: PropTypes.bool.isRequired,
+  isBusyWithCurrentRoute: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired,
 };
 
