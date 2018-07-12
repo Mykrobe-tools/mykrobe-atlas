@@ -46,15 +46,19 @@ ADD bitbucket-readonly /root/.ssh/
 RUN chmod 600 /root/.ssh/bitbucket-readonly && \
     ssh-keyscan bitbucket.org > /root/.ssh/known_hosts
 
+# install yarn
+RUN apt-get install apt-transport-https
+RUN apt-get update && apt-get install yarn
+
 # install global packages
-RUN npm install -g forever
+RUN yarn global add forever
 
 # server installation directory
 RUN mkdir /app
 
 # install dependencies as a cachable step
 ADD package.json /tmp/package.json
-RUN cd /tmp && npm install
+RUN cd /tmp && yarn install
 
 # push this app to the deployment directory
 WORKDIR /app
