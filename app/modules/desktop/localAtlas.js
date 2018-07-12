@@ -22,7 +22,6 @@ import { SET } from 'makeandship-js-common/src/modules/generic/actions';
 
 import { experimentActionType } from '../../modules/experiments/experiment';
 
-import MykrobeConfig from '../../services/MykrobeConfig';
 import AnalyserLocalFile from './AnalyserLocalFile';
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
@@ -34,7 +33,7 @@ import {
 
 // TODO: refactor - does this need to be an event emitter?
 const _analyserLocalFileChannel = channel();
-const _analyserLocalFile = new AnalyserLocalFile(new MykrobeConfig());
+const _analyserLocalFile = new AnalyserLocalFile();
 
 _analyserLocalFile
   .on('progress', progress => {

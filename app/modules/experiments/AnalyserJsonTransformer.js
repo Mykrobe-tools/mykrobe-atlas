@@ -1,15 +1,8 @@
 /* @flow */
 
-import MykrobeConfig from '../../services/MykrobeConfig';
 import * as TargetConstants from '../../constants/TargetConstants';
 
 class AnalyserJsonTransformer {
-  config: MykrobeConfig;
-
-  constructor(config: MykrobeConfig = new MykrobeConfig()) {
-    this.config = config;
-  }
-
   transform(jsonString: string) {
     return this.stringToJson(jsonString);
   }
@@ -311,13 +304,13 @@ class AnalyserJsonTransformer {
     const species = Object.keys(sourceModel.phylogenetics.species);
 
     let lineage = [];
-    if (TargetConstants.SPECIES_TB === this.config.species) {
+    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
       lineage = Object.keys(sourceModel.phylogenetics.lineage);
     }
 
     let speciesPretty = '';
 
-    if (TargetConstants.SPECIES_TB === this.config.species) {
+    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
       const s = species ? species.join(' / ').replace(/_/g, ' ') : 'undefined';
       const l = lineage.length
         ? ' (lineage: ' + lineage.join(', ').replace(/_/g, ' ') + ')'

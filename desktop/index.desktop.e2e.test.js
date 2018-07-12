@@ -6,9 +6,7 @@ jest.unmock('electron');
 import { Application } from 'spectron';
 import path from 'path';
 
-import MykrobeConfig from '../app/services/MykrobeConfig';
 import * as TargetConstants from '../app/constants/TargetConstants';
-const config = new MykrobeConfig();
 
 const DEBUG = true;
 
@@ -230,7 +228,7 @@ INCLUDE_SLOW_TESTS &&
 
             // drugs or class
 
-            if (TargetConstants.SPECIES_TB === config.species) {
+            if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
               await client.click('[data-tid="button-resistance-drugs"]');
               expect(
                 await client.waitForVisible(

@@ -4,16 +4,8 @@ import EventEmitter from 'events';
 
 // TODO: we can remove the transformer - it is created on demand by a redux selector
 import AnalyserJsonTransformer from '../experiments/AnalyserJsonTransformer';
-import MykrobeConfig from '../../services/MykrobeConfig';
 
 class AnalyserBaseFile extends EventEmitter {
-  targetConfig: MykrobeConfig;
-
-  constructor(targetConfig: MykrobeConfig) {
-    super();
-    this.targetConfig = targetConfig;
-  }
-
   extensionForFileName(fileName: string) {
     const extension = fileName.substr(fileName.lastIndexOf('.'));
     return extension.toLowerCase();

@@ -4,11 +4,11 @@ import path from 'path';
 import fs from 'fs';
 import os from 'os';
 import { spawn } from 'child_process';
+
 import * as TargetConstants from '../../constants/TargetConstants';
 import AnalyserBaseFile from './AnalyserBaseFile';
-import MykrobeConfig from '../../services/MykrobeConfig';
-const tmp = require('tmp');
 
+const tmp = require('tmp');
 const app = require('electron').remote.app;
 const platform = os.platform(); // eslint-disable-line global-require
 const arch = os.arch();
@@ -21,8 +21,8 @@ class AnalyserLocalFile extends AnalyserBaseFile {
   didReceiveError: boolean;
   tmpObj: ?Object;
 
-  constructor(targetConfig: MykrobeConfig) {
-    super(targetConfig);
+  constructor() {
+    super();
     app &&
       app.on('quit', () => {
         this.cancel();
@@ -210,7 +210,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       dirToBin = path.join(
         rootDir,
         `desktop/resources/bin/${
-          this.targetConfig.targetName
+          TargetConstants.TARGET_NAME
         }/${platform}-${arch}/bin`
       );
     } else {
@@ -223,14 +223,14 @@ class AnalyserLocalFile extends AnalyserBaseFile {
   pathToBin() {
     const UnsupportedError = new Error({
       message: 'Unsupported configuration',
-      config: this.targetConfig,
+      config: TargetConstants,
     });
 
     const dirToBin = this.dirToBin();
 
     let pathToBin = '';
 
-    if (TargetConstants.SPECIES_TB === this.targetConfig.species) {
+    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
       pathToBin = path.join(
         dirToBin,
         platform === 'win32' ? 'mykrobe_predictor.exe' : 'mykrobe_predictor'
