@@ -11,6 +11,13 @@ import { experimentMetadataSaga } from './experimentMetadata';
 import experimentMetadataTemplate, {
   experimentMetadataTemplateSaga,
 } from './experimentMetadataTemplate';
+import experimentsFilters, {
+  syncExperimentsFiltersSaga,
+} from './experimentsFilters';
+import experimentsMetadataChoices, {
+  experimentsMetadataChoicesSaga,
+} from './experimentsMetadataChoices';
+
 import filters from './filters';
 
 export {
@@ -19,6 +26,15 @@ export {
   requestExperiments,
   experimentsSaga,
 } from './experiments';
+
+export {
+  setExperimentsFilters,
+  resetExperimentsFilters,
+  getExperimentsFilters,
+  getExperimentsHasDataFilters,
+  getExperimentsFiltersSaga,
+  experimentsFiltersActionType,
+} from './experimentsFilters';
 
 export {
   getExperiment,
@@ -59,6 +75,14 @@ export {
 } from './experimentMetadataTemplate';
 
 export {
+  requestExperimentsMetadataChoices,
+  getExperimentsMetadataChoices,
+  getError as getExperimentsMetadataChoicesError,
+  getIsFetching as getIsFetchingExperimentsMetadataChoices,
+  experimentsMetadataChoicesSaga,
+} from './experimentsMetadataChoices';
+
+export {
   getIsFetching as getIsFetchingFilters,
   getFilterValues,
   requestFilterValues,
@@ -66,6 +90,8 @@ export {
 
 const reducer = combineReducers({
   experiments,
+  experimentsFilters,
+  experimentsMetadataChoices,
   experiment,
   experimentMetadataTemplate,
   filters,
@@ -76,10 +102,12 @@ export default reducer;
 export function* rootExperimentsSaga(): Generator<*, *, *> {
   yield all([
     fork(experimentsSaga),
+    fork(experimentsMetadataChoicesSaga),
     fork(experimentSaga),
     fork(experimentFileSaga),
     fork(experimentMetadataSaga),
     fork(experimentMetadataTemplateSaga),
     fork(experimentProviderSaga),
+    fork(syncExperimentsFiltersSaga),
   ]);
 }

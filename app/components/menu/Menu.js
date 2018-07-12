@@ -29,7 +29,7 @@ class Menu extends React.Component<*> {
           </li>
           <li className={styles.navigationItem}>
             <NavLink
-              to="/library"
+              to="/experiments"
               className={styles.navigationLink}
               activeClassName={styles.navigationLinkActive}
             >

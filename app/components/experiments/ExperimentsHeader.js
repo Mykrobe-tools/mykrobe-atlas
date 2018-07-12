@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import pluralize from 'pluralize';
 
 import FormSelect from '../form/FormSelect';
 import FormLabel from '../form/FormLabel';
@@ -69,6 +70,10 @@ class ExperimentsHeader extends React.Component<*, State> {
       selectedFilterValue,
     } = this.state;
     const { experiments, filterValues } = this.props;
+    const total = experiments.summary && experiments.summary.hits;
+    const title = total
+      ? `${total.toLocaleString()} ${pluralize('Experiment', total)}`
+      : 'Experiments';
     return (
       <div className={styles.header}>
         <div className={styles.filters}>
@@ -104,16 +109,14 @@ class ExperimentsHeader extends React.Component<*, State> {
             )}
           </div>
         </div>
-        {experiments.total && (
-          <div className={styles.count}>{experiments.total} found</div>
-        )}
+        <div className={styles.count}>{title}</div>
       </div>
     );
   }
 }
 
 ExperimentsHeader.propTypes = {
-  experiments: PropTypes.array.isRequired,
+  experiments: PropTypes.object.isRequired,
   filterValues: PropTypes.array.isRequired,
   requestFilterValues: PropTypes.func.isRequired,
   requestExperiments: PropTypes.func.isRequired,
