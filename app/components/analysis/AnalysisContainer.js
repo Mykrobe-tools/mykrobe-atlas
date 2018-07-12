@@ -1,27 +1,13 @@
 /* @flow */
 
-import * as React from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import withAnalyser from '../../hoc/withAnalyser';
+import withExperiment from '../../hoc/withExperiment';
+import withFileUpload from '../../hoc/withFileUpload';
 import Analysis from './Analysis';
 
 import { getHighlighted, setNodeHighlighted } from '../../modules/phylogeny';
-
-class AnalysisContainer extends React.Component<*> {
-  render() {
-    const { highlighted, setNodeHighlighted, analyser } = this.props;
-    return (
-      <Analysis
-        analyser={analyser}
-        highlighted={highlighted}
-        setNodeHighlighted={setNodeHighlighted}
-      />
-    );
-  }
-}
 
 function mapStateToProps(state) {
   return {
@@ -38,13 +24,7 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-AnalysisContainer.propTypes = {
-  analyser: PropTypes.object.isRequired,
-  setNodeHighlighted: PropTypes.func.isRequired,
-  highlighted: PropTypes.array.isRequired,
-};
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAnalyser(AnalysisContainer));
+)(withExperiment(withFileUpload(Analysis)));

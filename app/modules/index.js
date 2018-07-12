@@ -2,7 +2,7 @@
 
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import { all, spawn, call } from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
 
 import {
   authReducer as auth,
@@ -14,48 +14,39 @@ import notifications, {
 import api, { rootApiSaga } from 'makeandship-js-common/src/modules/api';
 import form from 'makeandship-js-common/src/modules/form';
 
-import analyser from './analyser';
-import experiments from './experiments';
-import metadata from './metadata';
-import organisations from './organisations';
+// import analyser from './analyser';
+import experiments, { rootExperimentsSaga } from './experiments';
+import organisations, { rootOrganisationsSaga } from './organisations';
 import phylogeny from './phylogeny';
 import users, { rootUsersSaga } from './users';
+import upload, { rootUploadSaga } from './upload';
 
 export const rootReducer = combineReducers({
   api,
   auth,
   form,
   users,
-  analyser,
+  // analyser,
   experiments,
-  metadata,
   notifications,
   organisations,
   phylogeny,
   routing,
+  upload,
 });
 
-const handleErrors = saga =>
-  function*() {
-    // Using spawn (instead of fork) spins up each saga in its own 'process'
-    // meaning that an error propagating up through one of sagas, won't bring
-    // down the root saga
-    yield spawn(function*() {
-      try {
-        // Try and call the saga. We expect these top level sagas to be
-        // blocking and run for the lifetime of the app, so we should never
-        // reach the next line after this yield
-        yield call(saga);
-        console.error(`Unexpected top-level saga termination ${saga.name}`);
-      } catch (err) {
-        // A top-level saga errored out
-        console.error(`Saga error in ${saga.name}. ${err}`);
-      }
-    });
-  };
+const sagas = [
+  rootApiSaga,
+  rootAuthSaga,
+  rootExperimentsSaga,
+  rootOrganisationsSaga,
+  rootUsersSaga,
+  rootNotificationsSaga,
+  rootUploadSaga,
+];
 
-const sagas = [rootApiSaga, rootAuthSaga, rootUsersSaga, rootNotificationsSaga];
+// allow uncaught errors to crash, so we get a better stack trace
 
 export function* rootSaga(): Generator<*, *, *> {
-  yield all(sagas.map(handleErrors).map(saga => call(saga)));
+  yield all(sagas.map(saga => fork(saga)));
 }

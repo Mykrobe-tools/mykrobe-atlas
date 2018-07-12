@@ -7,9 +7,11 @@ import Panel from '../../ui/Panel';
 
 class ResistanceSpecies extends React.Component<*> {
   render() {
-    const { analyser } = this.props;
-    const { speciesPretty } = analyser.transformed;
-
+    const { experimentTransformed } = this.props;
+    const { speciesPretty } = experimentTransformed;
+    if (!speciesPretty) {
+      return null;
+    }
     return (
       <div className={styles.container} data-tid="component-resistance-species">
         <Panel title="Species" columns={8}>
@@ -25,7 +27,8 @@ class ResistanceSpecies extends React.Component<*> {
 }
 
 ResistanceSpecies.propTypes = {
-  analyser: PropTypes.object.isRequired,
+  experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
 };
 
 export default ResistanceSpecies;

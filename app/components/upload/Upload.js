@@ -11,34 +11,50 @@ import PopoverMenu from '../ui/PopoverMenu';
 
 import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
 
+import {
+  uploadFileAssignDrop,
+  uploadFileAssignBrowse,
+  uploadFileUnassignDrop,
+  uploadDropbox,
+  uploadGoogleDrive,
+  uploadBox,
+  uploadOneDrive,
+} from '../../modules/upload';
+
 type State = {
   isDragActive: boolean,
 };
 
 class Upload extends React.Component<*, State> {
-  _uploadButton: HTMLAnchorElement;
+  _uploadButton: Element;
   _dropzone: Element;
 
-  constructor(props: Object) {
-    super(props);
-    this.state = {
-      isDragActive: false,
-    };
-  }
+  state = {
+    isDragActive: false,
+  };
 
-  componentDidMount() {
-    const { isAuthenticated } = this.props;
-    const { uploadFile } = this.props.service;
-    if (isAuthenticated) {
-      uploadFile.bindUploader(this._dropzone, this._uploadButton);
+  setDropzoneRef = (ref: ?Element) => {
+    if (!ref) {
+      return;
     }
-  }
+    this._dropzone = ref;
+    const { uploadFileAssignDrop } = this.props;
+    uploadFileAssignDrop(this._dropzone);
+  };
+
+  setUploadButtonRef = (ref: ?Element) => {
+    if (!ref) {
+      return;
+    }
+    this._uploadButton = ref;
+    const { uploadFileAssignBrowse } = this.props;
+    uploadFileAssignBrowse(this._uploadButton);
+  };
 
   componentWillUnmount() {
-    const { isAuthenticated } = this.props;
-    const { uploadFile } = this.props.service;
-    if (isAuthenticated) {
-      uploadFile.unbindUploader(this._dropzone, this._uploadButton);
+    const { uploadFileUnassignDrop } = this.props;
+    if (this._dropzone) {
+      uploadFileUnassignDrop(this._dropzone);
     }
   }
 
@@ -56,11 +72,11 @@ class Upload extends React.Component<*, State> {
 
   popoverMenuLinks() {
     const {
-      uploadBox,
       uploadDropbox,
       uploadGoogleDrive,
+      uploadBox,
       uploadOneDrive,
-    } = this.props.service;
+    } = this.props;
     return [
       {
         text: 'Computer',
@@ -75,28 +91,28 @@ class Upload extends React.Component<*, State> {
         text: 'Dropbox',
         onClick: (e: Event) => {
           e.preventDefault();
-          uploadDropbox.trigger();
+          uploadDropbox();
         },
       },
       {
         text: 'Box',
         onClick: (e: Event) => {
           e.preventDefault();
-          uploadBox.trigger();
+          uploadBox();
         },
       },
       {
         text: 'Google Drive',
         onClick: (e: Event) => {
           e.preventDefault();
-          uploadGoogleDrive.trigger();
+          uploadGoogleDrive();
         },
       },
       {
         text: 'OneDrive',
         onClick: (e: Event) => {
           e.preventDefault();
-          uploadOneDrive.trigger();
+          uploadOneDrive();
         },
       },
     ];
@@ -105,6 +121,7 @@ class Upload extends React.Component<*, State> {
   render() {
     const { isDragActive } = this.state;
     const { isAuthenticated } = this.props;
+    const popoverMenuLinks = this.popoverMenuLinks();
     return (
       <div
         className={
@@ -112,15 +129,9 @@ class Upload extends React.Component<*, State> {
             ? styles.containerDragActive
             : styles.container
         }
-        onDragOver={e => {
-          this.onDragOver(e);
-        }}
-        onDragLeave={e => {
-          this.onDragLeave(e);
-        }}
-        ref={ref => {
-          this._dropzone = ref;
-        }}
+        onDragOver={this.onDragOver}
+        onDragLeave={this.onDragLeave}
+        ref={this.setDropzoneRef}
         data-tid="component-upload"
       >
         <AnimatedBackground />
@@ -134,16 +145,13 @@ class Upload extends React.Component<*, State> {
             </div>
             {isAuthenticated && (
               <div className={styles.buttonContainer}>
-                <button
-                  type="button"
+                <span
                   className={styles.buttonOffscreen}
-                  ref={ref => {
-                    this._uploadButton = ref;
-                  }}
+                  ref={this.setUploadButtonRef}
                 />
                 <PopoverMenu
                   toggleText="Analyse Sample"
-                  links={this.popoverMenuLinks()}
+                  links={popoverMenuLinks}
                 />
               </div>
             )}
@@ -154,15 +162,30 @@ class Upload extends React.Component<*, State> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    isAuthenticated: getIsAuthenticated(state),
-  };
-}
-
 Upload.propTypes = {
-  service: PropTypes.object.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  uploadFileAssignDrop: PropTypes.func.isRequired,
+  uploadFileAssignBrowse: PropTypes.func.isRequired,
+  uploadFileUnassignDrop: PropTypes.func.isRequired,
+  uploadDropbox: PropTypes.func.isRequired,
+  uploadGoogleDrive: PropTypes.func.isRequired,
+  uploadBox: PropTypes.func.isRequired,
+  uploadOneDrive: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Upload);
+const withRedux = connect(
+  state => ({
+    isAuthenticated: getIsAuthenticated(state),
+  }),
+  {
+    uploadFileAssignDrop,
+    uploadFileAssignBrowse,
+    uploadFileUnassignDrop,
+    uploadDropbox,
+    uploadGoogleDrive,
+    uploadBox,
+    uploadOneDrive,
+  }
+);
+
+export default withRedux(Upload);

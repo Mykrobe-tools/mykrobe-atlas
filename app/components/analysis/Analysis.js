@@ -9,7 +9,6 @@ import Phylogeny from '../phylogeny/Phylogeny';
 import Uploading from '../ui/Uploading';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
 import MapStyle from './MapStyle';
-import config from '../../config';
 
 class Analysis extends React.Component<*> {
   _google: Object;
@@ -18,21 +17,22 @@ class Analysis extends React.Component<*> {
   _markers: Object;
   _phyloCanvasTooltip: PhyloCanvasTooltip;
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
-    GoogleMapsLoader.KEY = config.GOOGLE_MAPS_API_KEY;
+    GoogleMapsLoader.KEY = process.env.GOOGLE_MAPS_API_KEY;
     GoogleMapsLoader.REGION = 'GB';
   }
 
   componentDidMount() {
-    const { analyser } = this.props;
-    const sample = analyser.json;
-    if (analyser.analysing) return;
-    this.loadMaps(sample);
+    const { experiment } = this.props;
+    this.loadMaps(experiment);
   }
 
-  loadMaps(sample: Object) {
-    const { experiments } = sample.geoDistance;
+  loadMaps(experiment: Object) {
+    if (!experiment.geoDistance) {
+      return;
+    }
+    const { experiments } = experiment.geoDistance;
     GoogleMapsLoader.load(google => {
       const options = {
         center: { lat: 51.5074, lng: 0.1278 },
@@ -43,14 +43,14 @@ class Analysis extends React.Component<*> {
       };
       this._google = google;
       this._map = new google.maps.Map(this._mapDiv, options);
-      this.updateMarkers(sample, experiments);
+      this.updateMarkers(experiment, experiments);
     });
   }
 
   getSampleWithId(nodeId) {
-    const sample = this.props.analyser.json;
-    const { experiments } = sample.geoDistance;
-    const samples = [sample].concat(experiments);
+    const { experiment } = this.props;
+    const { experiments } = experiment.geoDistance;
+    const samples = [experiment].concat(experiments);
     let selectedSample;
     let isMain = false;
     samples.forEach((sample, index) => {
@@ -65,9 +65,9 @@ class Analysis extends React.Component<*> {
   }
 
   getSampleIds() {
-    const sample = this.props.analyser.json;
-    const { experiments } = sample.geoDistance;
-    const samples = [sample].concat(experiments);
+    const { experiment } = this.props;
+    const { experiments } = experiment.geoDistance;
+    const samples = [experiment].concat(experiments);
     return samples.map(sample => {
       return sample.id;
     });
@@ -137,16 +137,15 @@ class Analysis extends React.Component<*> {
 
   componentWillReceiveProps(nextProps) {
     const { highlighted } = nextProps;
-    if (nextProps.analyser.analysing) return;
     if (!this._map) {
-      this.loadMaps(nextProps.analyser.json);
+      this.loadMaps(nextProps.experiment);
     } else if (
-      this.props.analyser.json.geoDistance.experiments !==
-      nextProps.analyser.json.geoDistance.experiments
+      this.props.experiment.geoDistance.experiments !==
+      nextProps.experiment.geoDistance.experiments
     ) {
       this.updateMarkers(
-        nextProps.analyser.json,
-        nextProps.analyser.json.geoDistance.experiments
+        nextProps.experiment,
+        nextProps.experiment.geoDistance.experiments
       );
     }
     if (highlighted.length) {
@@ -174,9 +173,9 @@ class Analysis extends React.Component<*> {
   }
 
   render() {
-    const { analyser } = this.props;
+    const { isBusy } = this.props;
     let content;
-    if (analyser.analysing) {
+    if (isBusy) {
       content = <Uploading sectionName="Analysis" />;
     } else {
       content = (
@@ -200,15 +199,15 @@ class Analysis extends React.Component<*> {
         </div>
       );
     }
-
     return <div className={styles.container}>{content}</div>;
   }
 }
 
 Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
+  experiment: PropTypes.object.isRequired,
   highlighted: PropTypes.array.isRequired,
+  isBusy: PropTypes.node,
 };
 
 export default Analysis;

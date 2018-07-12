@@ -10,9 +10,9 @@ import MykrobeConfig from '../../../services/MykrobeConfig';
 import * as TargetConstants from '../../../constants/TargetConstants';
 import Logo from '../../logo/Logo';
 
-import { analyseFileNew, analyseFileSave } from '../../../modules/analyser';
+import { analyseFileNew, analyseFileSave } from '../../../modules/desktop';
 
-import withAnalyser from '../../../hoc/withAnalyser';
+import withExperiment from '../../../hoc/withExperiment';
 
 import ResistanceAllContainer from '../all/ResistanceAllContainer';
 import ResistanceDrugsContainer from '../drugs/ResistanceDrugsContainer';
@@ -22,14 +22,15 @@ import ResistanceSpeciesContainer from '../species/ResistanceSpeciesContainer';
 
 class Resistance extends React.Component<*> {
   render() {
-    const { match, analyseFileNew, analyseFileSave } = this.props;
+    const {
+      match,
+      analyseFileNew,
+      analyseFileSave,
+      experimentTransformed,
+    } = this.props;
     const path = '/results/resistance';
     const config = new MykrobeConfig();
-    const {
-      analyser: {
-        transformed: { hasResistance },
-      },
-    } = this.props;
+    const { hasResistance } = experimentTransformed;
     return (
       <div className={styles.container} data-tid="component-resistance">
         <div className={styles.header}>
@@ -152,7 +153,8 @@ function mapDispatchToProps(dispatch) {
 Resistance.propTypes = {
   analyseFileSave: PropTypes.func.isRequired,
   analyseFileNew: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
+  experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
 };
 
@@ -160,5 +162,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(withAnalyser(Resistance))
+  )(withExperiment(Resistance))
 );

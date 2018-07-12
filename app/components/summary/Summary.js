@@ -11,22 +11,31 @@ import SummaryVariants from './SummaryVariants';
 
 class Summary extends React.Component<*> {
   render() {
-    const { analyser } = this.props;
+    const { experiment, experimentTransformed, isBusy } = this.props;
     let content;
-    if (analyser.analysing) {
+    if (isBusy) {
       content = <Uploading sectionName="Summary" />;
     } else {
       content = (
         <div className={styles.content}>
           <div className={styles.summaryContainer}>
             <Panel title="Metadata" columns={8}>
-              <SummaryMetadata analyser={analyser} />
+              <SummaryMetadata
+                experiment={experiment}
+                experimentTransformed={experimentTransformed}
+              />
             </Panel>
             <Panel title="Resistance Profile" columns={4}>
-              <ResistanceProfile analyser={analyser} />
+              <ResistanceProfile
+                experiment={experiment}
+                experimentTransformed={experimentTransformed}
+              />
             </Panel>
             <Panel title="Variants Inducing Resistance" columns={4}>
-              <SummaryVariants analyser={analyser} />
+              <SummaryVariants
+                experiment={experiment}
+                experimentTransformed={experimentTransformed}
+              />
             </Panel>
           </div>
         </div>
@@ -37,7 +46,9 @@ class Summary extends React.Component<*> {
 }
 
 Summary.propTypes = {
-  analyser: PropTypes.object,
+  experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
+  isBusy: PropTypes.bool,
 };
 
 export default Summary;

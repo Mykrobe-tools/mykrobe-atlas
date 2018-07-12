@@ -9,21 +9,21 @@ import ResistanceEmpty from '../empty/ResistanceEmpty';
 // TODO: push route on state change
 
 class ResistanceEvidence extends React.Component<*> {
+  renderEmpty() {
+    return (
+      <div className={styles.empty} data-tid="component-resistance-evidence">
+        <ResistanceEmpty />
+      </div>
+    );
+  }
+
   render() {
-    const { analyser } = this.props;
-    const {
-      analyser: {
-        transformed: { hasResistance },
-      },
-    } = this.props;
+    const { experimentTransformed } = this.props;
+    const { hasResistance } = experimentTransformed;
     if (!hasResistance) {
-      return (
-        <div className={styles.empty} data-tid="component-resistance-evidence">
-          <ResistanceEmpty />
-        </div>
-      );
+      return this.renderEmpty();
     }
-    const { evidence } = analyser.transformed;
+    const { evidence } = experimentTransformed;
     let panels = [];
     for (let title in evidence) {
       const values = evidence[title][0];
@@ -39,6 +39,9 @@ class ResistanceEvidence extends React.Component<*> {
         </Panel>
       );
     }
+    if (!panels.length) {
+      return this.renderEmpty();
+    }
     return (
       <div
         className={styles.container}
@@ -51,7 +54,8 @@ class ResistanceEvidence extends React.Component<*> {
 }
 
 ResistanceEvidence.propTypes = {
-  analyser: PropTypes.object.isRequired,
+  experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
 };
 
 export default ResistanceEvidence;

@@ -26,11 +26,18 @@ import FormSelect from '../form/FormSelect';
 import FormTypeahead from '../form/FormTypeahead';
 
 import {
-  getMetadata,
-  getTemplate,
-  setMetadata,
-  updateMetadata,
-} from '../../modules/metadata';
+  setFormData,
+  setFormDataForKeyPath,
+  getFormData,
+} from 'makeandship-js-common/src/modules/form';
+
+import {
+  getExperimentMetadata,
+  getExperimentMetadataTemplate,
+  updateExperimentMetadata,
+} from '../../modules/experiments';
+
+export const FORM_KEY = 'experiments/experimentsMetadata';
 
 const locations = require('../../static/locations.json');
 const drugs = require('../../static/drugs.json');
@@ -97,115 +104,102 @@ type State = {
 class MetadataForm extends React.Component<*, State> {
   constructor(props: Object) {
     super(props);
-    this.state = props.metadata;
+    const { metadata, setFormData } = props;
+    setFormData(FORM_KEY, metadata);
   }
 
-  componentWillUnmount() {
-    const { setMetadata } = this.props;
-    setMetadata(this.state);
-  }
+  componentDidUpdate = prevProps => {
+    if (this.props.metadata !== prevProps.metadata) {
+      const { metadata, setFormData } = this.props;
+      setFormData(FORM_KEY, metadata);
+    }
+  };
 
-  handleFormChange() {
-    const { setMetadata } = this.props;
-    setMetadata(this.state);
-  }
-
-  handleStepChange() {
+  handleStepChange = () => {
     const { resetScroll } = this.props;
     resetScroll();
-  }
+  };
 
-  handleSubmit(event: Event) {
+  handleSubmit = (event: Event) => {
     event.preventDefault();
-    const { id, updateMetadata, resetScroll } = this.props;
+    const { formData, updateExperimentMetadata, resetScroll } = this.props;
 
     // TODO: Error checking
 
-    updateMetadata(id, this.state);
+    updateExperimentMetadata(formData);
     resetScroll();
-  }
+  };
 
-  handleDateChange(field: string, date: moment) {
-    this.setState({
-      [field]: date.format(),
-    });
-  }
+  handleDateChange = (field: string, date: moment) => {
+    const { setFormDataForKeyPath } = this.props;
+    setFormDataForKeyPath(FORM_KEY, field, date.format());
+  };
 
-  handleCheckboxChange(event: InputEvent) {
-    var state = {
-      [event.target.name]: event.target.checked,
-    };
-    this.setState(state);
-  }
+  handleCheckboxChange = (event: InputEvent) => {
+    const { setFormDataForKeyPath } = this.props;
+    setFormDataForKeyPath(FORM_KEY, event.target.name, event.target.checked);
+  };
 
-  handleChange(event: InputEvent) {
-    var state = {
-      [event.target.name]: event.target.value,
-    };
-    this.setState(state);
-  }
+  handleChange = (event: InputEvent) => {
+    const { setFormDataForKeyPath } = this.props;
+    setFormDataForKeyPath(FORM_KEY, event.target.name, event.target.value);
+  };
 
-  handleTypeaheadChange(name: string, value: string) {
-    var state = {
-      [name]: value,
-    };
-    this.setState(state);
-  }
+  handleTypeaheadChange = (name: string, value: string) => {
+    const { setFormDataForKeyPath } = this.props;
+    setFormDataForKeyPath(FORM_KEY, name, value);
+  };
 
-  handleSusceptibilityChange(drug: string, event: InputEvent) {
-    var state = {};
-    state.susceptibility = Object.assign({}, this.state.susceptibility, {
-      [drug]: event.target.value,
-    });
-    this.setState(state);
-  }
-
-  handleSusceptibilityNotTestedChange(drug: string, event: InputEvent) {
-    var state = {};
-    state.susceptibilityNotTestedReason = Object.assign(
-      {},
-      this.state.susceptibilityNotTestedReason,
-      {
-        [drug]: event.target.value,
-      }
+  handleSusceptibilityChange = (drug: string, event: InputEvent) => {
+    const { setFormDataForKeyPath } = this.props;
+    setFormDataForKeyPath(
+      FORM_KEY,
+      `susceptibility.${drug}`,
+      event.target.value
     );
-    this.setState(state);
-    console.log('state:', this.state);
-  }
+  };
 
-  handleDrugOutsidePhaseChange(drug: string, event: InputEvent) {
-    var state = {};
-    state.drugOutsidePhase = Object.assign({}, this.state.drugOutsidePhase, {
-      [drug]: event.target.value,
-    });
-    this.setState(state);
-  }
-
-  handleDrugOutsidePhaseStartDateChange(drug: string, date: moment) {
-    var state = {};
-    state.drugOutsidePhaseStartDate = Object.assign(
-      {},
-      this.state.drugOutsidePhaseStartDate,
-      {
-        [drug]: date.format(),
-      }
+  handleSusceptibilityNotTestedChange = (drug: string, event: InputEvent) => {
+    const { setFormDataForKeyPath } = this.props;
+    setFormDataForKeyPath(
+      FORM_KEY,
+      `susceptibilityNotTestedReason.${drug}`,
+      event.target.value
     );
-    this.setState(state);
-  }
+  };
 
-  handleDrugOutsidePhaseEndDateChange(drug: string, date: moment) {
-    var state = {};
-    state.drugOutsidePhaseEndDate = Object.assign(
-      {},
-      this.state.drugOutsidePhaseEndDate,
-      {
-        [drug]: date.format(),
-      }
+  handleDrugOutsidePhaseChange = (drug: string, event: InputEvent) => {
+    const { setFormDataForKeyPath } = this.props;
+    setFormDataForKeyPath(
+      FORM_KEY,
+      `drugOutsidePhase.${drug}`,
+      event.target.value
     );
-    this.setState(state);
-  }
+  };
+
+  handleDrugOutsidePhaseStartDateChange = (drug: string, date: moment) => {
+    const { setFormDataForKeyPath } = this.props;
+    setFormDataForKeyPath(
+      FORM_KEY,
+      `drugOutsidePhaseStartDate.${drug}`,
+      date.format()
+    );
+  };
+
+  handleDrugOutsidePhaseEndDateChange = (drug: string, date: moment) => {
+    const { setFormDataForKeyPath } = this.props;
+    setFormDataForKeyPath(
+      FORM_KEY,
+      `drugOutsidePhaseEndDate.${drug}`,
+      date.format()
+    );
+  };
 
   render() {
+    const { template, formData } = this.props;
+    if (!formData) {
+      return null;
+    }
     const {
       patientId,
       siteId,
@@ -261,14 +255,12 @@ class MetadataForm extends React.Component<*, State> {
       drugOutsidePhase,
       drugOutsidePhaseStartDate,
       drugOutsidePhaseEndDate,
-    } = this.state;
-    const { template } = this.props;
+    } = formData;
     return (
-      <Form onSubmit={event => this.handleSubmit(event)}>
+      <Form onSubmit={this.handleSubmit}>
         <MetadataFormSteps
-          onFormChange={() => this.handleFormChange()}
-          onStepChange={() => this.handleStepChange()}
-          onSubmit={event => this.handleSubmit(event)}
+          onStepChange={this.handleStepChange}
+          onSubmit={this.handleSubmit}
         >
           <MetadataFormStep label="Patient">
             <Fieldset legend="Patient">
@@ -280,7 +272,7 @@ class MetadataForm extends React.Component<*, State> {
                     type="text"
                     required
                     value={patientId}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -292,7 +284,7 @@ class MetadataForm extends React.Component<*, State> {
                     type="text"
                     required
                     value={siteId}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -320,7 +312,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'Not known / unavailable',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -336,9 +328,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: location.name,
                       };
                     })}
-                    onChange={(name, value) =>
-                      this.handleTypeaheadChange(name, value)
-                    }
+                    onChange={this.handleTypeaheadChange}
                   />
                 </FormRow>
               )}
@@ -352,7 +342,7 @@ class MetadataForm extends React.Component<*, State> {
                     name="bmi"
                     type="text"
                     value={bmi}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -367,7 +357,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'unknown', label: 'Not Known' },
                     ]}
                     selectedOption={injectingDrugUse}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -382,7 +372,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'unknown', label: 'Not Known' },
                     ]}
                     selectedOption={homeless}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -397,7 +387,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'unknown', label: 'Not Known' },
                     ]}
                     selectedOption={imprisoned}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -412,7 +402,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'unknown', label: 'Not Known' },
                     ]}
                     selectedOption={smoker}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -444,7 +434,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'Not known',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -472,7 +462,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'Not known',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -487,7 +477,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'unknown', label: 'Not Known' },
                     ]}
                     selectedOption={art}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -504,7 +494,7 @@ class MetadataForm extends React.Component<*, State> {
                     type="text"
                     value={labId}
                     required
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -516,7 +506,7 @@ class MetadataForm extends React.Component<*, State> {
                     type="text"
                     value={isolateId}
                     required
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -543,7 +533,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'no', label: 'No' },
                     ]}
                     selectedOption={prospectiveIsolate}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -554,7 +544,7 @@ class MetadataForm extends React.Component<*, State> {
                     name="patientAge"
                     type="text"
                     value={patientAge}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -571,9 +561,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: location.name,
                       };
                     })}
-                    onChange={(name, value) =>
-                      this.handleTypeaheadChange(name, value)
-                    }
+                    onChange={this.handleTypeaheadChange}
                   />
                 </FormRow>
               )}
@@ -585,7 +573,7 @@ class MetadataForm extends React.Component<*, State> {
                     type="text"
                     value={cityIsolate}
                     required
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -641,7 +629,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'Not known',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -673,7 +661,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'Not known',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -707,7 +695,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'Other',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -719,7 +707,7 @@ class MetadataForm extends React.Component<*, State> {
                     type="text"
                     value={wgsPlatformOther}
                     required
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -733,7 +721,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'no', label: 'No' },
                     ]}
                     selectedOption={otherGenotypeInformation}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -761,7 +749,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'Not tested',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -789,7 +777,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'Not tested',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -817,7 +805,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'RIF test failed',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -845,7 +833,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'INH test failed',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -873,7 +861,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'FL test failed',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -901,7 +889,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'AM test failed',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -929,7 +917,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'ETH test failed',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -946,7 +934,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'no', label: 'No' },
                     ]}
                     selectedOption={phenotypeInformationFirstLineDrugs}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -971,7 +959,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'no', label: 'No' },
                     ]}
                     selectedOption={phenotypeInformationOtherDrugs}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -1001,7 +989,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'no', label: 'No' },
                     ]}
                     selectedOption={previousTbinformation}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -1016,7 +1004,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'notKnown', label: 'Not Known' },
                     ]}
                     selectedOption={recentMdrTb}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -1045,7 +1033,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'notKnown', label: 'Not Known' },
                     ]}
                     selectedOption={tbProphylaxis}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -1075,7 +1063,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'no', label: 'No' },
                     ]}
                     selectedOption={currentTbinformation}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -1090,7 +1078,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'no', label: 'No' },
                     ]}
                     selectedOption={startProgrammaticTreatment}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -1130,7 +1118,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'notKnown', label: 'Not Known' },
                     ]}
                     selectedOption={startProgrammaticContinuationTreatment}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -1170,7 +1158,7 @@ class MetadataForm extends React.Component<*, State> {
                       { value: 'notKnown', label: 'Not Known' },
                     ]}
                     selectedOption={nonStandardTreatment}
-                    onChange={event => this.handleChange(event)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -1260,7 +1248,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'Not known or not done',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -1284,7 +1272,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'Not known or not done',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -1330,7 +1318,7 @@ class MetadataForm extends React.Component<*, State> {
                         label: 'Not known',
                       },
                     ]}
-                    onChange={e => this.handleChange(e)}
+                    onChange={this.handleChange}
                   />
                 </FormRow>
               )}
@@ -1355,7 +1343,10 @@ class MetadataForm extends React.Component<*, State> {
   }
 
   resistanceOptionsForDrugs(drugs: Object) {
-    const { susceptibility, susceptibilityNotTestedReason } = this.state;
+    const {
+      susceptibility,
+      susceptibilityNotTestedReason,
+    } = this.props.formData;
     return drugs.map((drug, index) => {
       const selectedOption = (susceptibility && susceptibility[drug]) || '';
       const notTested = selectedOption === 'U';
@@ -1376,7 +1367,7 @@ class MetadataForm extends React.Component<*, State> {
               { value: 'I', label: 'Inconclusive' },
               { value: 'U', label: 'Not tested' },
             ]}
-            selectedOption={susceptibility[drug]}
+            selectedOption={susceptibility && susceptibility[drug]}
             onChange={event => this.handleSusceptibilityChange(drug, event)}
           />
           {notTested && (
@@ -1419,29 +1410,52 @@ class MetadataForm extends React.Component<*, State> {
       );
     });
   }
+  static defaultProps = {
+    metadata: {
+      location: 'GB',
+      labId: '',
+      date: '',
+      responsiblePersonId: '',
+      responsiblePersonData: '',
+      patientId: '',
+      sampleId: '',
+      sequencingMachine: '',
+      patientHistory: '',
+      sampleType: '',
+      susceptibility: {},
+      susceptibilityNotTestedReason: {},
+      hivPositive: '',
+      treatedForTB: '',
+      shareSequence: true,
+    },
+  };
 }
 
 function mapStateToProps(state) {
   return {
-    metadata: getMetadata(state),
-    template: getTemplate(state),
+    metadata: getExperimentMetadata(state),
+    template: getExperimentMetadataTemplate(state),
+    formData: getFormData(state, FORM_KEY),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      updateMetadata,
-      setMetadata,
+      updateExperimentMetadata,
+      setFormData,
+      setFormDataForKeyPath,
     },
     dispatch
   );
 }
 
 MetadataForm.propTypes = {
+  formData: PropTypes.object,
   metadata: PropTypes.object,
-  setMetadata: PropTypes.func,
-  updateMetadata: PropTypes.func,
+  setFormData: PropTypes.func,
+  setFormDataForKeyPath: PropTypes.func,
+  updateExperimentMetadata: PropTypes.func,
   resetScroll: PropTypes.func,
   template: PropTypes.array,
   id: PropTypes.string,

@@ -12,7 +12,7 @@ import {
   unsetNodeHighlightedAll,
 } from '../../modules/phylogeny';
 
-import withAnalyser from '../../hoc/withAnalyser';
+import withExperiment from '../../hoc/withExperiment';
 
 import PhyloCanvasComponent from '../ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
@@ -87,12 +87,12 @@ class Phylogeny extends React.Component<*, State> {
   componentWillReceiveProps(nextProps) {
     const { highlighted } = nextProps;
     if (
-      this.props.analyser.transformed.samples !==
-      nextProps.analyser.transformed.samples
+      this.props.experimentTransformed.samples !==
+      nextProps.experimentTransformed.samples
     ) {
       // new samples
       setTimeout(() => {
-        this.updateHighlightedSamples(nextProps.analyser.transformed.samples);
+        this.updateHighlightedSamples(nextProps.experimentTransformed.samples);
         if (AUTO_ZOOM_SAMPLES) {
           this.zoomSamples();
         }
@@ -120,9 +120,12 @@ class Phylogeny extends React.Component<*, State> {
   }
 
   render() {
-    const { analyser, controlsInset } = this.props;
+    const { experimentTransformed, controlsInset } = this.props;
     const { treeType } = this.state;
-    const newick = analyser.transformed.tree;
+    const newick = experimentTransformed.tree;
+    if (!newick) {
+      return null;
+    }
     const insetStyle = { margin: `${controlsInset}px` };
     return (
       <div className={styles.container}>
@@ -173,7 +176,9 @@ class Phylogeny extends React.Component<*, State> {
                 onClick={() => {
                   this.setState({ treeType: thisTreeType });
                   setTimeout(() => {
-                    this.updateHighlightedSamples(analyser.transformed.samples);
+                    this.updateHighlightedSamples(
+                      experimentTransformed.samples
+                    );
                     if (AUTO_ZOOM_SAMPLES) {
                       this.zoomSamples();
                     }
@@ -195,8 +200,8 @@ class Phylogeny extends React.Component<*, State> {
   }
 
   getSampleWithId(nodeId): ?SampleType {
-    const { analyser } = this.props;
-    const { samples } = analyser.transformed;
+    const { experimentTransformed } = this.props;
+    const { samples } = experimentTransformed;
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
       if (sample.id === nodeId) {
@@ -206,8 +211,8 @@ class Phylogeny extends React.Component<*, State> {
   }
 
   getSampleIds(): Array<string> {
-    const { analyser } = this.props;
-    const { samples } = analyser.transformed;
+    const { experimentTransformed } = this.props;
+    const { samples } = experimentTransformed;
     let nodeIds = [];
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
@@ -217,12 +222,15 @@ class Phylogeny extends React.Component<*, State> {
   }
 
   zoomSamples() {
+    if (!this._phyloCanvas) {
+      return;
+    }
     this._phyloCanvas.zoomToNodesWithIds(this.getSampleIds());
   }
 
   componentDidMount() {
-    const { analyser } = this.props;
-    const { samples } = analyser.transformed;
+    const { experimentTransformed } = this.props;
+    const { samples } = experimentTransformed;
     this.updateHighlightedSamples(samples);
     if (AUTO_ZOOM_SAMPLES) {
       this.zoomSamples();
@@ -230,6 +238,9 @@ class Phylogeny extends React.Component<*, State> {
   }
 
   updateHighlightedSamples(samples) {
+    if (!this._phyloCanvas) {
+      return;
+    }
     this._phyloCanvas.resetHighlightedNodes();
     for (let sampleKey in samples) {
       const sample = samples[sampleKey];
@@ -264,7 +275,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 Phylogeny.propTypes = {
-  analyser: PropTypes.object.isRequired,
+  experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
   highlighted: PropTypes.array.isRequired,
   controlsInset: PropTypes.number,
   setNodeHighlighted: PropTypes.func.isRequired,
@@ -274,4 +286,4 @@ Phylogeny.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAnalyser(Phylogeny));
+)(withExperiment(Phylogeny));

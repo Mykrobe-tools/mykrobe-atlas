@@ -113,7 +113,7 @@ class ExperimentsHeader extends React.Component<*, State> {
 }
 
 ExperimentsHeader.propTypes = {
-  experiments: PropTypes.object.isRequired,
+  experiments: PropTypes.array.isRequired,
   filterValues: PropTypes.array.isRequired,
   requestFilterValues: PropTypes.func.isRequired,
   requestExperiments: PropTypes.func.isRequired,

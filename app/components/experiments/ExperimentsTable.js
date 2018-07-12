@@ -9,12 +9,14 @@ import Loading from '../ui/Loading';
 
 class ExperimentsTable extends React.Component<*> {
   render() {
-    const { experiments } = this.props;
+    const { isFetching, experiments } = this.props;
     let tableContent;
 
-    if (experiments.isFetching) {
+    if (isFetching) {
       return <Loading />;
-    } else if (experiments.samples.length === 0) {
+    }
+
+    if (!experiments.results || !experiments.results.length) {
       tableContent = (
         <tr>
           <td className={styles.tableData} colSpan="5">
@@ -23,7 +25,7 @@ class ExperimentsTable extends React.Component<*> {
         </tr>
       );
     } else {
-      tableContent = experiments.samples.map(experiment => (
+      tableContent = experiments.results.map(experiment => (
         <tr key={experiment.id}>
           <td className={styles.tableData}>
             <Link
@@ -72,7 +74,8 @@ class ExperimentsTable extends React.Component<*> {
 }
 
 ExperimentsTable.propTypes = {
-  experiments: PropTypes.object.isRequired,
+  experiments: PropTypes.array,
+  isFetching: PropTypes.bool,
 };
 
 export default ExperimentsTable;

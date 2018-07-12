@@ -29,7 +29,7 @@ export class FetchJsonError extends Error {
 }
 
 const isFetchJson = action => {
-  return action.hasOwnProperty && action.hasOwnProperty(FETCH_JSON);
+  return action && action.hasOwnProperty && action.hasOwnProperty(FETCH_JSON);
 };
 
 const normalizeTypes = types =>

@@ -44,7 +44,7 @@ class LibraryContainer extends React.Component<*> {
 }
 
 LibraryContainer.propTypes = {
-  experiments: PropTypes.object.isRequired,
+  experiments: PropTypes.array.isRequired,
   filterValues: PropTypes.array.isRequired,
   requestExperiments: PropTypes.func.isRequired,
   requestFilterValues: PropTypes.func.isRequired,

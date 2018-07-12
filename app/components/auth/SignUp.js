@@ -18,7 +18,7 @@ import {
   getCurrentUserError,
 } from '../../modules/users';
 
-class SignUp extends React.Component<*> {
+class Signup extends React.Component<*> {
   handleSubmit(e) {
     e.preventDefault();
     const { createCurrentUser } = this.props;
@@ -137,7 +137,7 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-SignUp.propTypes = {
+Signup.propTypes = {
   error: PropTypes.object,
   createCurrentUser: PropTypes.func.isRequired,
 };
@@ -145,4 +145,4 @@ SignUp.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignUp);
+)(Signup);

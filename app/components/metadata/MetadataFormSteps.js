@@ -47,11 +47,6 @@ class MetadataFormSteps extends React.Component<*, State> {
     this.setState({ step: 0 });
   }
 
-  componentDidUpdate() {
-    const { onFormChange } = this.props;
-    onFormChange();
-  }
-
   render() {
     const { step, steps } = this.state;
     const percent = Math.round(((step + 1) / steps) * 100);
@@ -191,7 +186,6 @@ class MetadataFormSteps extends React.Component<*, State> {
 
 MetadataFormSteps.propTypes = {
   children: PropTypes.array.isRequired,
-  onFormChange: PropTypes.func.isRequired,
   onStepChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

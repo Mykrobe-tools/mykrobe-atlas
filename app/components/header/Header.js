@@ -39,7 +39,7 @@ class Header extends React.Component<*> {
           <div className={styles.account}>
             {currentUser && (
               <Link
-                to="/auth/profile"
+                to="/users/profile"
                 className={styles.authLink}
                 data-tid="button-my-profile"
               >

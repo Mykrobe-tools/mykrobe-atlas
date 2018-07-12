@@ -1,6 +1,6 @@
 /* @flow */
 
-import withAnalyser from '../../../hoc/withAnalyser';
+import withExperiment from '../../../hoc/withExperiment';
 import ResistanceClass from './ResistanceClass';
 
-export default withAnalyser(ResistanceClass);
+export default withExperiment(ResistanceClass);

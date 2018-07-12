@@ -28,6 +28,7 @@ import {
   clearFormData,
 } from 'makeandship-js-common/src/modules/form';
 import { showNotification } from 'makeandship-js-common/src/modules/notifications';
+// import { ANALYSE_FILE_PROGRESS } from '../modules/analyser/analyser';
 
 const devToolsPresent =
   window && typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function';

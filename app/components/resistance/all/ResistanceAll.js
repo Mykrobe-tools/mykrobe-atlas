@@ -10,12 +10,8 @@ import Phylogeny from '../../phylogeny/Phylogeny';
 
 class ResistanceAll extends React.Component<*> {
   render() {
-    const { analyser } = this.props;
-    const {
-      analyser: {
-        transformed: { hasResistance },
-      },
-    } = this.props;
+    const { experiment, experimentTransformed } = this.props;
+    const { hasResistance } = experimentTransformed;
     if (!hasResistance) {
       return (
         <div className={styles.empty} data-tid="component-resistance-all">
@@ -26,7 +22,10 @@ class ResistanceAll extends React.Component<*> {
     return (
       <div className={styles.container} data-tid="component-resistance-all">
         <Panel title="Resistance Profile" columns={IS_ELECTRON ? undefined : 3}>
-          <ResistanceProfile analyser={analyser} />
+          <ResistanceProfile
+            experiment={experiment}
+            experimentTransformed={experimentTransformed}
+          />
         </Panel>
         {!IS_ELECTRON && (
           <Panel title="Phylogeny" columns={5}>
@@ -39,7 +38,8 @@ class ResistanceAll extends React.Component<*> {
 }
 
 ResistanceAll.propTypes = {
-  analyser: PropTypes.object.isRequired,
+  experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
 };
 
 export default ResistanceAll;
