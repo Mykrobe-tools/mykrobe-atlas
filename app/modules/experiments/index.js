@@ -75,6 +75,14 @@ export {
 } from './experimentMetadataTemplate';
 
 export {
+  requestExperimentsMetadataChoices,
+  getExperimentsMetadataChoices,
+  getError as getExperimentsMetadataChoicesError,
+  getIsFetching as getIsFetchingExperimentsMetadataChoices,
+  experimentsMetadataChoicesSaga,
+} from './experimentsMetadataChoices';
+
+export {
   getIsFetching as getIsFetchingFilters,
   getFilterValues,
   requestFilterValues,
