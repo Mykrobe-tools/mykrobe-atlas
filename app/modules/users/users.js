@@ -1,12 +1,11 @@
 /* @flow */
 
 import { createCollectionModule } from 'makeandship-js-common/src/modules/generic';
-import { addQueryToUrl } from '../location';
+import { getUsersFiltersSaga } from './usersFilters';
 
-const collectionName = 'users';
-
-const module = createCollectionModule(collectionName, {
-  url: addQueryToUrl,
+const module = createCollectionModule('users', {
+  operationId: 'usersList',
+  parameters: getUsersFiltersSaga,
 });
 
 const {
