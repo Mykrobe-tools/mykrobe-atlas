@@ -10,6 +10,12 @@ cd /var/go/releases/client/$CURRENT_VERSION
 
 cp -rf /var/lib/go-agent/pipelines/${TARGET_ENVIRONMENT}-atlas/. .
 
+# copy the ssh key
+cp /var/go/.ssh/bitbucket-readonly .
+
 # build the target container
 subber deploy/docker-compose.yml
 docker-compose -f deploy/docker-compose.yml build
+
+# build is done remove the ssh key
+rm bitbucket-readonly
