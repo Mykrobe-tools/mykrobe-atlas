@@ -194,7 +194,9 @@ class Analysis extends React.Component<*> {
                 }}
               />
             </div>
-            <Phylogeny className={styles.phylogenyContainer} />
+            <div className={styles.phylogenyContainer}>
+              <Phylogeny />
+            </div>
           </div>
         </div>
       );

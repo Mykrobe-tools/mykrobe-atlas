@@ -29,7 +29,7 @@ class ExperimentsTable extends React.Component<*> {
         <tr key={experiment.id}>
           <td className={styles.tableData}>
             <Link
-              to={`/sample/${experiment.id}`}
+              to={`/experiments/${experiment.id}`}
               className={styles.experimentLink}
             >
               {experiment.id}

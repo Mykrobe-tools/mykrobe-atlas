@@ -1,8 +1,9 @@
 .container {
-  composes: container from 'styles/layout.css';
+  display: flex;
+  /* composes: container from 'styles/layout.css'; */
   background-color: white;
   flex-direction: column;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .uploadingMessage {

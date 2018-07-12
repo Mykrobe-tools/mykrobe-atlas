@@ -1,5 +1,6 @@
 .container {
   composes: container from 'styles/layout.css';
+  flex: 1;
   background-color: var(--color-background);
 }
 
@@ -30,12 +31,12 @@
 }
 
 .menuContainer {
-  composes: container from 'styles/layout.css';
+  composes: containerAbsolute from 'styles/layout.css';
   display: block;
   flex: initial;
   pointer-events: none;
 }
 
 .contentContainer {
-  composes: containerAbsolute from 'styles/layout.css';
+  composes: container from 'styles/layout.css';
 }

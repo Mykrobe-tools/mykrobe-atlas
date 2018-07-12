@@ -2,14 +2,14 @@
   composes: container from 'styles/layout.css';
   flex-direction: column;
   background-color: white;
-  overflow-y: auto;
 }
 
 .summaryContainer {
-  display: flex;
+  composes: container from 'styles/layout.css';
   flex-wrap: wrap;
   flex-direction: row;
   padding: 18px;
+  align-items: stretch;
 }
 
 .title {

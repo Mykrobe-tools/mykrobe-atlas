@@ -94,7 +94,7 @@ export function* uploadDropboxWorker(): Generator<*, *, *> {
       ...experimentFile,
     })
   );
-  yield put(push(`/sample/${experimentId}`));
+  yield put(push(`/experiments/${experimentId}`));
 }
 
 export function* uploadDropboxSaga(): Generator<*, *, *> {

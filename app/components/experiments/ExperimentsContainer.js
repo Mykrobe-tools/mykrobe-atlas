@@ -17,7 +17,7 @@ import {
   getIsFetchingFilters,
 } from '../../modules/experiments';
 
-class LibraryContainer extends React.Component<*> {
+class ExperimentsContainer extends React.Component<*> {
   componentDidMount() {
     const {
       requestExperiments,
@@ -53,7 +53,7 @@ class LibraryContainer extends React.Component<*> {
   }
 }
 
-LibraryContainer.propTypes = {
+ExperimentsContainer.propTypes = {
   experiments: PropTypes.object.isRequired,
   experimentsMetadataChoices: PropTypes.object,
   filterValues: PropTypes.array.isRequired,
@@ -88,4 +88,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LibraryContainer);
+)(ExperimentsContainer);

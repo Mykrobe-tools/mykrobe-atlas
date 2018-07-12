@@ -4,7 +4,7 @@
 }
 
 .summaryContainer {
-  flex: 1;
+  composes: container from 'styles/layout.css';
   padding: 8px 0;
 }
 

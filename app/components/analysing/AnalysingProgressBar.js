@@ -29,7 +29,7 @@ class AnalysingProgressBar extends React.Component<*> {
           <span>
             {text}
             <span> &middot; </span>
-            <Link to={`/sample/${experimentId}`} className={styles.view}>
+            <Link to={`/experiments/${experimentId}`} className={styles.view}>
               View
             </Link>
           </span>

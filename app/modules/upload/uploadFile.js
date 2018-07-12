@@ -277,7 +277,7 @@ export function* fileAddedWorker(action: any): Generator<*, *, *> {
   yield apply(_uploadFile, 'setId', [experimentId]);
   yield put(setExperimentId(experimentId));
   yield put(setFileName(action.payload.fileName));
-  yield put(push(`/sample/${experimentId}`));
+  yield put(push(`/experiments/${experimentId}`));
   yield put({ type: COMPUTE_CHECKSUMS, payload: action.payload });
 }
 
