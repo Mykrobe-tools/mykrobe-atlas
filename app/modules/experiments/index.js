@@ -11,6 +11,8 @@ import { experimentMetadataSaga } from './experimentMetadata';
 import experimentMetadataTemplate, {
   experimentMetadataTemplateSaga,
 } from './experimentMetadataTemplate';
+import experimentsFilters from './experimentsFilters';
+
 import filters from './filters';
 
 export {
@@ -19,6 +21,15 @@ export {
   requestExperiments,
   experimentsSaga,
 } from './experiments';
+
+export {
+  setExperimentsFilters,
+  resetExperimentsFilters,
+  getExperimentsFilters,
+  getExperimentsHasDataFilters,
+  getExperimentsFiltersParameters,
+  experimentsFiltersActionType,
+} from './experimentsFilters';
 
 export {
   getExperiment,
@@ -66,6 +77,7 @@ export {
 
 const reducer = combineReducers({
   experiments,
+  experimentsFilters,
   experiment,
   experimentMetadataTemplate,
   filters,
