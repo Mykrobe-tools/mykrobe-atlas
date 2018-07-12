@@ -74,7 +74,7 @@ class ExperimentsTable extends React.Component<*> {
 }
 
 ExperimentsTable.propTypes = {
-  experiments: PropTypes.array,
+  experiments: PropTypes.object,
   isFetching: PropTypes.bool,
 };
 

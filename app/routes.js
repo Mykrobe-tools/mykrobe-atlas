@@ -34,7 +34,7 @@ export default (
   <App>
     <Switch>
       <Route exact path="/" component={HomePage} />
-      <Route path="/library" component={AuthenticatedLibraryContainer} />
+      <Route path="/experiments" component={AuthenticatedLibraryContainer} />
       <Route path="/auth" component={AuthRoutes} />
       <Route path="/users" component={AuthenticatedUsersRoutes} />
       <Route path="/sample/:id" component={AuthenticatedSampleContainer} />

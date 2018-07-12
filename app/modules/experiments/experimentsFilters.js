@@ -1,6 +1,9 @@
 /* @flow */
 
-import { createFiltersModule } from 'makeandship-js-common/src/modules/generic';
+import {
+  createFiltersModule,
+  createSyncFiltersWithReactRouterRedux,
+} from 'makeandship-js-common/src/modules/generic';
 
 const module = createFiltersModule('experimentsFilters', {
   typePrefix: 'experiments/experimentsFilters',
@@ -12,7 +15,7 @@ const {
   actionType,
   actions: { setFilters, resetFilters },
   selectors: { getFilters, getHasDataFilters },
-  sagas: { getParameters },
+  sagas: { getFiltersSaga },
 } = module;
 
 export {
@@ -20,8 +23,19 @@ export {
   resetFilters as resetExperimentsFilters,
   getFilters as getExperimentsFilters,
   getHasDataFilters as getExperimentsHasDataFilters,
-  getParameters as getExperimentsFiltersParameters,
+  getFiltersSaga as getExperimentsFiltersSaga,
   actionType as experimentsFiltersActionType,
 };
 
 export default reducer;
+
+const syncModule = createSyncFiltersWithReactRouterRedux({
+  locationPathname: '/experiments',
+  actionType,
+  getFilters,
+  setFilters,
+});
+
+const { syncFiltersWithReactRouterReduxSaga } = syncModule;
+
+export { syncFiltersWithReactRouterReduxSaga as syncExperimentsFiltersSaga };
