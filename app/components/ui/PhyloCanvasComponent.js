@@ -263,6 +263,10 @@ class PhyloCanvasComponent extends React.Component<*> {
     }
   }
 
+  onPhyloCanvasDivRef = (ref: any) => {
+    this._phyloCanvasDiv = ref;
+  };
+
   render() {
     const { controlsInset } = this.props;
     const insetStyle = { margin: `${controlsInset}px` };
@@ -270,9 +274,7 @@ class PhyloCanvasComponent extends React.Component<*> {
       <div className={styles.container}>
         <div
           id="phyloCanvasDiv"
-          ref={ref => {
-            this._phyloCanvasDiv = ref;
-          }}
+          ref={this.onPhyloCanvasDivRef}
           className={styles.container}
         />
         <div className={styles.controlsContainer} style={insetStyle}>
