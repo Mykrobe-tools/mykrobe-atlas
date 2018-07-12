@@ -10,7 +10,12 @@ import notifications, {
 import form from 'makeandship-js-common/src/modules/form';
 
 import desktop, { rootDesktopSaga } from './desktop';
-import experiments, { rootExperimentsSaga } from './experiments';
+
+// just use the single experiment reducer in desktop, but retain same overall shape
+import experiment from './experiments/experiment';
+const experiments = combineReducers({
+  experiment,
+});
 
 export const rootReducer = combineReducers({
   form,
@@ -20,7 +25,7 @@ export const rootReducer = combineReducers({
   desktop,
 });
 
-const sagas = [rootExperimentsSaga, rootNotificationsSaga, rootDesktopSaga];
+const sagas = [rootNotificationsSaga, rootDesktopSaga];
 
 // allow uncaught errors to crash, so we get a better stack trace
 

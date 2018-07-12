@@ -22,6 +22,8 @@ export {
   getIsComputingChecksums,
   getUploadProgress,
   getChecksumProgress,
+  getExperimentId,
+  getFileName,
 } from './uploadFile';
 
 export { uploadDropbox, uploadDropboxSaga } from './uploadDropbox';

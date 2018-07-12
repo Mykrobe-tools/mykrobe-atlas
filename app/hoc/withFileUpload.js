@@ -11,6 +11,8 @@ import {
   getUploadProgress,
   getIsComputingChecksums,
   getIsUploading,
+  getFileName,
+  getExperimentId,
 } from '../modules/upload';
 
 function withFileUpload(WrappedComponent: React.ElementProps<*>) {
@@ -31,6 +33,8 @@ function withFileUpload(WrappedComponent: React.ElementProps<*>) {
     uploadProgess: getUploadProgress(state),
     isComputingChecksums: getIsComputingChecksums(state),
     isUploading: getIsUploading(state),
+    fileName: getFileName(state),
+    experimentId: getExperimentId(state),
   }));
 
   WithFileUpload.propTypes = {
@@ -40,6 +44,8 @@ function withFileUpload(WrappedComponent: React.ElementProps<*>) {
     uploadProgess: PropTypes.number.isRequired,
     isComputingChecksums: PropTypes.bool.isRequired,
     isUploading: PropTypes.bool.isRequired,
+    fileName: PropTypes.string,
+    experimentId: PropTypes.string,
   };
 
   return withRedux(WithFileUpload);

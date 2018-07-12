@@ -14,7 +14,6 @@ import notifications, {
 import api, { rootApiSaga } from 'makeandship-js-common/src/modules/api';
 import form from 'makeandship-js-common/src/modules/form';
 
-// import analyser from './analyser';
 import experiments, { rootExperimentsSaga } from './experiments';
 import organisations, { rootOrganisationsSaga } from './organisations';
 import phylogeny from './phylogeny';
@@ -26,7 +25,6 @@ export const rootReducer = combineReducers({
   auth,
   form,
   users,
-  // analyser,
   experiments,
   notifications,
   organisations,

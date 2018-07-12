@@ -63,6 +63,9 @@ export const COMPUTE_CHECKSUMS = `${typePrefix}COMPUTE_CHECKSUMS`;
 export const COMPUTE_CHECKSUMS_PROGRESS = `${typePrefix}COMPUTE_CHECKSUMS_PROGRESS`;
 export const COMPUTE_CHECKSUMS_COMPLETE = `${typePrefix}COMPUTE_CHECKSUMS_COMPLETE`;
 
+export const SET_EXPERIMENT_ID = `${typePrefix}SET_EXPERIMENT_ID`;
+export const SET_FILE_NAME = `${typePrefix}SET_FILE_NAME`;
+
 export const UPLOAD_FILE = `${typePrefix}UPLOAD_FILE`;
 export const UPLOAD_FILE_CANCEL = `${typePrefix}UPLOAD_FILE_CANCEL`;
 export const UPLOAD_FILE_PROGRESS = `${typePrefix}UPLOAD_FILE_PROGRESS`;
@@ -106,6 +109,13 @@ export const getProgress = createSelector(
     Math.round(checksumProgress * 0.2 + uploadProgress * 0.8)
 );
 
+export const getFileName = createSelector(getState, state => state.fileName);
+
+export const getExperimentId = createSelector(
+  getState,
+  state => state.experimentId
+);
+
 // Actions
 
 export const uploadFile = (payload: any) => ({
@@ -132,6 +142,16 @@ export const uploadFileUnassignDrop = (payload: any) => ({
   payload,
 });
 
+export const setExperimentId = (payload: string) => ({
+  type: SET_EXPERIMENT_ID,
+  payload,
+});
+
+export const setFileName = (payload: string) => ({
+  type: SET_FILE_NAME,
+  payload,
+});
+
 // Reducer
 
 const initialState = {
@@ -150,6 +170,16 @@ export default function reducer(
     case UPLOAD_FILE_CANCEL:
       return {
         ...initialState,
+      };
+    case SET_FILE_NAME:
+      return {
+        ...state,
+        fileName: action.payload,
+      };
+    case SET_EXPERIMENT_ID:
+      return {
+        ...state,
+        experimentId: action.payload,
       };
     case COMPUTE_CHECKSUMS:
       return {
@@ -245,6 +275,8 @@ export function* fileAddedWorker(action: any): Generator<*, *, *> {
   }
   // TODO: use the id as a unique identifier for all actions
   yield apply(_uploadFile, 'setId', [experimentId]);
+  yield put(setExperimentId(experimentId));
+  yield put(setFileName(action.payload.fileName));
   yield put(push(`/sample/${experimentId}`));
   yield put({ type: COMPUTE_CHECKSUMS, payload: action.payload });
 }
