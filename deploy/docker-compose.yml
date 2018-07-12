@@ -10,3 +10,4 @@ atlas-client:
     - HOST=0.0.0.0
     - PORT=3000
     - API_URL={{API_URL}}
+    - AUTH_COOKIE_NAME={{AUTH_COOKIE_NAME}}
