@@ -75,7 +75,7 @@ RUN rm -rf /root/.ssh
 EXPOSE 3000
 
 # build a server for production
-RUN npm run web-build
+RUN yarn web-build
 
 # run up the server
-CMD NODE_ENV=$NODE_ENV npm run web-build-server
+CMD NODE_ENV=$NODE_ENV yarn web-build-server
