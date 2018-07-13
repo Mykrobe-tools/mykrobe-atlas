@@ -1,3 +1,5 @@
+@import '~styles/colors.global';
+
 .container {
   composes: containerAbsolute from 'styles/layout.css';
   flex-direction: column;
@@ -17,12 +19,9 @@
 }
 
 .content {
-  background: white;
-  padding: 30px 40px;
   flex: 1;
-  overflow-y: auto;
 }
 
 .experimentsHeader {
-  margin-bottom: 20px;
+  composes: global(py-3);
 }
