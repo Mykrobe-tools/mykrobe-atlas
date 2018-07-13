@@ -153,7 +153,6 @@ export default function reducer(
   action: Object = {}
 ) {
   switch (action.type) {
-    case RESUMABLE_UPLOAD_FILE_ADDED:
     case UPLOAD_FILE_CANCEL:
       return {
         ...initialState,
@@ -195,12 +194,11 @@ export default function reducer(
       };
     case RESUMABLE_UPLOAD_DONE:
       return {
-        ...state,
-        isUploading: false,
+        ...initialState,
       };
     case RESUMABLE_UPLOAD_ERROR:
       return {
-        ...initialState,
+        ...state,
         error: action.payload,
       };
     default:
@@ -251,6 +249,13 @@ function* fileAddedWatcher() {
 }
 
 export function* fileAddedWorker(action: any): Generator<*, *, *> {
+  const isBusy = yield select(getIsBusy);
+  if (isBusy) {
+    alert(
+      'Please cancel or wait for current upload to finish before uploading another sample'
+    );
+    return;
+  }
   const experimentId = yield call(createExperimentId);
   if (!experimentId) {
     return;
