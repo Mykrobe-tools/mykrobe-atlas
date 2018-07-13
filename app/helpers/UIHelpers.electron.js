@@ -1,5 +1,7 @@
 /* @flow */
 
+import * as APIConstants from '../constants/APIConstants';
+
 export function openFileDialog() {
   const { dialog, BrowserWindow } = require('electron').remote;
   const browserWindow = BrowserWindow.getFocusedWindow();
@@ -10,7 +12,7 @@ export function openFileDialog() {
     filters: [
       {
         name: 'Extensions',
-        extensions: ['json', 'bam', 'gz', 'fastq'],
+        extensions: APIConstants.API_SAMPLE_EXTENSIONS_ARRAY,
       },
     ],
   });

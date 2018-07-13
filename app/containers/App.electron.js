@@ -11,6 +11,7 @@ import Dropzone from 'react-dropzone';
 import { withRouter } from 'react-router-dom';
 
 import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
+import * as APIConstants from '../constants/APIConstants';
 
 import {
   analyseFileNew,
@@ -142,7 +143,7 @@ class App extends React.Component<*, State> {
         onDragEnter={this.onDragEnter}
         disableClick
         multiple={false}
-        accept=".json,.bam,.gz,.fastq"
+        accept={APIConstants.API_SAMPLE_EXTENSIONS_STRING_WITH_DOTS}
       >
         <div className={styles.contentContainer}>{children}</div>
         <Notifications />
