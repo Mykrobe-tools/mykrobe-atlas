@@ -5,8 +5,8 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 
 import Login from './Login';
-import Signup from './Signup';
-import SignupSuccess from './SignupSuccess';
+import SignUp from './Signup';
+import SignUpSuccess from './SignupSuccess';
 import Verify from './Verify';
 import VerifySuccess from './VerifySuccess';
 import Forgot from './Forgot';
