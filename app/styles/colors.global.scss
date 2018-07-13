@@ -22,7 +22,7 @@ $color-app-amber: #f90;
 $color-panel-light: #fbfaf8;
 
 $color-rule: $color-grey-light;
-$color-placeholder-text: $color-grey-light;
+$color-placeholder-text: darken($color-grey-light, 10%);
 $color-blue-hover: darken($color-blue, 5%);
 $color-blue-hover-text: darken($color-blue, 15%);
 $color-dark-green-hover: darken($color-dark-green, 5%);

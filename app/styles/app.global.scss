@@ -1,5 +1,3 @@
-// override defaults before importing
-
 @font-face {
 	font-family: 'Minion-Regular';
 	src: url('./webfonts/2AB146_0_0.eot');
@@ -17,6 +15,10 @@
 
 @import '~styles/colors.global';
 
+// override defaults before importing
+
+$grid-gutter-width: 30px;
+
 $font-family-base: 'Minion-Regular', serif;
 $font-size-base: 19/16 * 1rem;
 $body-color: $color-text;
@@ -25,11 +27,15 @@ $headings-font-weight: normal;
 $headings-color: $color-tint-primary;
 
 $input-bg: $color-panel-light;
+$input-placeholder-color: $color-placeholder-text;
 
 $btn-border-radius: 500px;
 $btn-padding-x: 1.2rem;
+$btn-padding-y: 0.5rem;
 
 @import '~makeandship-js-common/src/styles/default.global';
+
+// now override generated classes
 
 .btn {
 	font-family: 'Bryant2-Bold', sans-serif;
