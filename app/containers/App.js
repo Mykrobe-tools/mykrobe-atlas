@@ -11,7 +11,7 @@ import Notifications from 'makeandship-js-common/src/components/notifications/No
 
 import styles from './App.css';
 import Analysing from '../components/analysing/Analysing';
-import Header from '../components/header/Header';
+import MenuButton from '../components/menu/MenuButton';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
 import DragAndDrop from '../components/dragAndDrop/DragAndDrop';
@@ -46,7 +46,6 @@ class App extends React.Component<*, State> {
   render() {
     const { children } = this.props;
     const { displayMenu } = this.state;
-
     return (
       <DragAndDrop className={styles.container}>
         <Container fluid className={styles.contentWrap}>
@@ -55,13 +54,11 @@ class App extends React.Component<*, State> {
         <div className={styles.analysingContainer}>
           <Analysing />
         </div>
-        <div className={styles.headerContainer}>
-          <Header displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
-        </div>
         <div className={styles.menuContainer}>
-          <Menu displayMenu={displayMenu} />
           <MenuBg displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
+          <Menu displayMenu={displayMenu} />
         </div>
+        <MenuButton displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
         <Notifications />
       </DragAndDrop>
     );

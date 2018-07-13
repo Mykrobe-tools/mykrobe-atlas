@@ -7,7 +7,6 @@
   transform: translateX(-260px);
   transition: transform 0.3s;
   position: relative;
-  z-index: 2;
   pointer-events: auto;
 }
 

@@ -1,0 +1,46 @@
+@import '~styles/colors.global';
+
+.container {
+	background-color: $color-background;
+}
+
+.contentWrap {
+	display: flex;
+	flex: 1;
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+	align-items: center;
+	flex-direction: row;
+	position: relative;
+}
+
+.account {
+	composes: fontSizeSmall from 'styles/typography.css';
+	display: flex;
+	align-items: center;
+	color: $color-grey-mid;
+	margin-left: auto;
+}
+
+.authLink + .authLink::before {
+	content: '\a0\a0\b7\a0\a0';
+}
+
+.authLink {
+	color: $color-grey-dark;
+}
+
+.signUpLink {
+	composes: buttonPrimary from 'styles/controls.css';
+	composes: fontSecondarySizeSmall from 'styles/typography.css';
+	margin-left: 20px;
+}
+
+.title {
+	composes: fontSizeLarge from 'styles/typography.css';
+	composes: containerAbsolute from 'styles/layout.css';
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	pointer-events: none;
+}

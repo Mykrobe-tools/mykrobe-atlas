@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './Upload.css';
+import styles from './Upload.scss';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import CircularProgress from '../ui/CircularProgress';
 import Logo from '../logo/Logo';

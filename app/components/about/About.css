@@ -13,7 +13,6 @@
 .actions {
   display: flex;
   margin-left: auto;
-  z-index: 2;
 }
 
 .close {

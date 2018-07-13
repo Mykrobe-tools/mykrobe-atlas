@@ -2,7 +2,14 @@
 
 .container {
 	composes: container from 'styles/layout.css';
+	flex-direction: column;
+	position: relative;
+}
+
+.contentWrap {
+	composes: containerAbsolute from 'styles/layout.css';
 	background-color: $color-background;
+	pointer-events: none;
 }
 
 .contentContainer {
@@ -10,6 +17,7 @@
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	pointer-events: none;
 }
 
 .content {
@@ -41,6 +49,7 @@
 	align-items: center;
 	justify-content: center;
 	bottom: 60px;
+	pointer-events: auto;
 }
 
 .buttonOffscreen {
@@ -57,7 +66,6 @@
 	composes: containerAbsolute from 'styles/layout.css';
 	align-items: center;
 	justify-content: center;
-	pointer-events: none;
 }
 
 .progressStatus {
@@ -77,7 +85,6 @@
 
 .dots {
 	composes: containerAbsolute from 'styles/layout.css';
-	pointer-events: none;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;

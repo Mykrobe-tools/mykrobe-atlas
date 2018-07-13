@@ -9,6 +9,7 @@ import styles from './Upload.scss';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
 import PopoverMenu from '../ui/PopoverMenu';
+import Header from '../header/Header';
 
 import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
 
@@ -84,31 +85,34 @@ class Upload extends React.Component<*> {
     const { isAuthenticated } = this.props;
     const popoverMenuLinks = this.popoverMenuLinks();
     return (
-      <Row className={styles.container} data-tid="component-upload">
-        <AnimatedBackground />
-        <div className={styles.contentContainer}>
-          <div className={styles.content}>
-            <div className={styles.logoWrap}>
-              <Logo width={192} />
-            </div>
-            <div className={styles.title}>
-              Outbreak and resistance analysis in minutes
-            </div>
-            {isAuthenticated && (
-              <div className={styles.buttonContainer}>
-                <span
-                  className={styles.buttonOffscreen}
-                  ref={this.setUploadButtonRef}
-                />
-                <PopoverMenu
-                  toggleText="Analyse Sample"
-                  links={popoverMenuLinks}
-                />
+      <div className={styles.container} data-tid="component-upload">
+        <Row className={styles.contentWrap}>
+          <AnimatedBackground />
+          <div className={styles.contentContainer}>
+            <div className={styles.content}>
+              <div className={styles.logoWrap}>
+                <Logo width={192} />
               </div>
-            )}
+              <div className={styles.title}>
+                Outbreak and resistance analysis in minutes
+              </div>
+              {isAuthenticated && (
+                <div className={styles.buttonContainer}>
+                  <span
+                    className={styles.buttonOffscreen}
+                    ref={this.setUploadButtonRef}
+                  />
+                  <PopoverMenu
+                    toggleText="Analyse Sample"
+                    links={popoverMenuLinks}
+                  />
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </Row>
+        </Row>
+        <Header />
+      </div>
     );
   }
 }

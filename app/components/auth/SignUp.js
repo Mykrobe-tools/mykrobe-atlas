@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 import {
   PasswordInput,
@@ -20,6 +20,8 @@ import {
   getCurrentUserIsFetching,
   getCurrentUserError,
 } from '../../modules/users';
+
+import Header from '../header/Header';
 
 import { signupSchema } from '../../schemas/auth';
 import styles from './Common.scss';
@@ -58,9 +60,7 @@ class Signup extends React.Component<*> {
     const { isFetching, onSubmit, error } = this.props;
     return (
       <div className={styles.container}>
-        <Row className={styles.header}>
-          <div className={styles.title}>Account</div>
-        </Row>
+        <Header title={'Account'} />
         <DecoratedForm
           formKey="auth/signup"
           schema={signupSchema}
