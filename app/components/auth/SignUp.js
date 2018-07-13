@@ -20,9 +20,8 @@ import {
   getCurrentUserError,
 } from '../../modules/users';
 
-import Header from '../header/Header';
 import { signupSchema } from '../../schemas/auth';
-import styles from './Common.scss';
+import Header from '../header/Header';
 
 const uiSchema = {
   email: {
@@ -57,7 +56,7 @@ class Signup extends React.Component<*> {
   render() {
     const { isFetching, onSubmit, error } = this.props;
     return (
-      <div className={styles.container}>
+      <div>
         <Header title={'Account'} />
         <DecoratedForm
           formKey="auth/signup"

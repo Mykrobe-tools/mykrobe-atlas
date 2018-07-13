@@ -18,9 +18,8 @@ import {
   LinkButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import Header from '../header/Header';
 import { loginSchema } from '../../schemas/auth';
-import styles from './Common.scss';
+import Header from '../header/Header';
 
 const uiSchema = {
   email: {
@@ -36,9 +35,8 @@ class Login extends React.Component<*> {
   render() {
     const { isFetching, onSubmit, error } = this.props;
     return (
-      <div className={styles.container}>
+      <div>
         <Header title={'Account'} />
-
         <DecoratedForm
           formKey="auth/login"
           schema={loginSchema}

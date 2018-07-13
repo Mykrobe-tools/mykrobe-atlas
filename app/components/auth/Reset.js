@@ -1,100 +1,86 @@
 /* @flow */
 
-/* TODO Refactor to use redux-form */
-/* eslint-disable react/no-string-refs */
-
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import styles from './Common.scss';
-import type { AuthResetPasswordType } from '../../types/AuthTypes';
 
 import {
-  getError,
   resetPassword,
+  getIsFetching,
+  getError,
 } from 'makeandship-js-common/src/modules/auth';
 
-class Reset extends React.Component<*> {
-  handleSubmit(e) {
-    e.preventDefault();
-    const { resetPassword } = this.props;
-    const { resetPasswordToken } = this.props.match.params;
+import {
+  DecoratedForm,
+  FormFooter,
+  PasswordInput,
+} from 'makeandship-js-common/src/components/ui/form';
+import { SubmitButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
-    const userObject: AuthResetPasswordType = {
-      resetPasswordToken: resetPasswordToken,
-      password: this.refs.password.value,
-    };
-    resetPassword(userObject);
-  }
+import { resetPasswordSchema } from '../../schemas/auth';
+import { validatePasswordMatch } from './Signup';
+import Header from '../header/Header';
+import styles from './Common.scss';
+
+const uiSchema = {
+  password: {
+    'ui:widget': PasswordInput,
+  },
+  confirmPassword: {
+    'ui:widget': PasswordInput,
+  },
+};
+
+class Signup extends React.Component<*> {
+  onSubmit = formData => {
+    const { resetPassword, match } = this.props;
+    const { resetPasswordToken } = match.params;
+    resetPassword({
+      resetPasswordToken,
+      ...formData,
+    });
+  };
 
   render() {
-    const { error } = this.props;
+    const { isFetching, error } = this.props;
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.title}>Reset Password</div>
-        </div>
-        <div className={styles.contentContainer}>
-          <div className={styles.formContainer}>
-            <form
-              onSubmit={e => {
-                this.handleSubmit(e);
-              }}
-            >
-              {error && (
-                <div className={styles.formErrors}>{error.message}</div>
-              )}
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="password">
-                  Password
-                </label>
-                <input
-                  className={styles.input}
-                  autoFocus
-                  type="password"
-                  id="password"
-                  ref="password"
-                />
-              </div>
-              <div className={styles.formActions}>
-                <button className={styles.button} type="submit">
-                  <span>
-                    <i className="fa fa-chevron-circle-right" /> Reset
-                  </span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+        <Header title={'Account'} />
+        <DecoratedForm
+          formKey="auth/reset"
+          schema={resetPasswordSchema}
+          uiSchema={uiSchema}
+          onSubmit={this.onSubmit}
+          isFetching={isFetching}
+          error={error}
+          validate={validatePasswordMatch}
+        >
+          <FormFooter>
+            <SubmitButton>Reset password</SubmitButton>
+          </FormFooter>
+        </DecoratedForm>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    error: getError(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      resetPassword,
-    },
-    dispatch
-  );
-}
-
-Reset.propTypes = {
-  error: PropTypes.object,
+Signup.propTypes = {
+  match: PropTypes.any,
+  isFetching: PropTypes.bool.isRequired,
   resetPassword: PropTypes.func.isRequired,
-  match: PropTypes.object.isRequired,
+  error: PropTypes.any,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Reset);
+const withRedux = connect(
+  state => ({
+    isFetching: getIsFetching(state),
+    error: getError(state),
+  }),
+  dispatch => ({
+    resetPassword(formData) {
+      dispatch(resetPassword(formData));
+    },
+  })
+);
+
+export default withRedux(Signup);

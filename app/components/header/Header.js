@@ -23,12 +23,6 @@ import {
 import { getCurrentUser } from '../../modules/users';
 
 class Header extends React.Component<*> {
-  onMenuToggleClick = (e: Event) => {
-    const { toggleMenu } = this.props;
-    e.preventDefault();
-    toggleMenu();
-  };
-
   render() {
     const { signOut, isAuthenticated, currentUser, title } = this.props;
     return (
@@ -103,8 +97,6 @@ Header.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   currentUser: PropTypes.object,
   signOut: PropTypes.func.isRequired,
-  displayMenu: PropTypes.bool.isRequired,
-  toggleMenu: PropTypes.func.isRequired,
   title: PropTypes.string,
 };
 
