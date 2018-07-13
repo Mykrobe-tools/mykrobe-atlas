@@ -52,7 +52,6 @@ RUN chmod 600 /root/.ssh/bitbucket-readonly && \
 
 # install yarn
 RUN apt-get install apt-transport-https
-# RUN apt-get update && apt-get install yarn
 RUN npm install -g yarn
 
 # server installation directory
