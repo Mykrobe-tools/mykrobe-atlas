@@ -4,12 +4,12 @@ import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import loadScript from 'load-script';
 
+import * as APIConstants from '../../constants/APIConstants';
+
 const SCRIPT_ID = 'dropboxjs';
 const DROPBOX_SDK_URL = 'https://www.dropbox.com/static/api/2/dropins.js';
 
 import { updateExperimentProvider, createExperimentId } from '../experiments';
-
-const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
 
 export const typePrefix = 'upload/uploadDropbox/';
 
@@ -59,10 +59,7 @@ const dropboxChoose = async () => {
         },
         linkType: 'direct',
         multiselect: false,
-        extensions: acceptedExtensions.map(ext => {
-          // dropbox requires a fullstop at the start of extension
-          return `.${ext}`;
-        }),
+        extensions: APIConstants.API_SAMPLE_EXTENSIONS_ARRAY_WITH_DOTS,
       });
     } catch (error) {
       console.log(error);

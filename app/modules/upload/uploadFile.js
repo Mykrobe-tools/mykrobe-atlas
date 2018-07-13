@@ -30,6 +30,7 @@ import {
   NotificationCategories,
 } from '../../../node_modules/makeandship-js-common/src/modules/notifications';
 
+import * as APIConstants from '../../constants/APIConstants';
 import { createExperimentId } from '../experiments/experiment';
 
 import ResumableUpload, {
@@ -44,11 +45,12 @@ import ComputeChecksums, {
   COMPUTE_CHECKSUMS_COMPLETE,
 } from './util/ComputeChecksums';
 
-const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
-
 const _computeChecksumChannel = channel();
 const _uploadFileChannel = channel();
-const _uploadFile = new ResumableUpload(_uploadFileChannel, acceptedExtensions);
+const _uploadFile = new ResumableUpload(
+  _uploadFileChannel,
+  APIConstants.API_SAMPLE_EXTENSIONS_ARRAY
+);
 const _computeChecksums = new ComputeChecksums(_computeChecksumChannel);
 
 export const typePrefix = 'upload/uploadFile/';
