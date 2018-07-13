@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
+import { Container } from 'reactstrap';
 
 import Notifications from 'makeandship-js-common/src/components/notifications/Notifications';
 
@@ -48,7 +49,9 @@ class App extends React.Component<*, State> {
 
     return (
       <DragAndDrop className={styles.container}>
-        <div className={styles.contentContainer}>{children}</div>
+        <Container fluid className={styles.contentWrap}>
+          {children}
+        </Container>
         <div className={styles.analysingContainer}>
           <Analysing />
         </div>

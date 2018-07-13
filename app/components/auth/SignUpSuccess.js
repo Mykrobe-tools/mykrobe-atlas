@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import styles from './Common.css';
+import styles from './Common.scss';
 
 class SignupSuccess extends React.Component<*> {
   render() {

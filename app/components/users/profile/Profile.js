@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux';
 
 import type { UserType } from '../../../types/UserTypes';
 
-import styles from '../../auth/Common.css';
+import styles from '../../auth/Common.scss';
 import Loading from '../../ui/Loading';
 
 import { signOut } from 'makeandship-js-common/src/modules/auth';

@@ -1,3 +1,5 @@
+@import '~styles/colors.global';
+
 .container {
   composes: container from 'styles/layout.css';
   flex-direction: column;
@@ -9,6 +11,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  background-color: $color-background;
 }
 
 .title {
@@ -16,10 +19,7 @@
 }
 
 .contentContainer {
-  composes: container from 'styles/layout.css';
-  padding: 30px 40px;
   background: white;
-  flex: 1;
 }
 
 .contentTitle {

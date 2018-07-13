@@ -4738,7 +4738,7 @@ follow-redirects@^1.0.0, follow-redirects@^1.3.0:
   dependencies:
     debug "^3.1.0"
 
-font-awesome@^4.6.3, font-awesome@^4.7.0:
+font-awesome@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
 
@@ -7274,7 +7274,7 @@ make-dir@^1.0.0, make-dir@^1.1.0:
 
 "makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common.git":
   version "0.0.1"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common.git#6f0294081b757c5a90b8b8a71cc78d89a5dde3eb"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common.git#63fa585fe8bff56cb3d0e13047554f54b49be8d2"
   dependencies:
     ajv "^6.5.1"
     babel-jest "^23.0.1"

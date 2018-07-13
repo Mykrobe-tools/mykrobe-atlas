@@ -3,8 +3,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Row } from 'reactstrap';
 
-import styles from './Upload.css';
+import styles from './Upload.scss';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
 import PopoverMenu from '../ui/PopoverMenu';
@@ -83,7 +84,7 @@ class Upload extends React.Component<*> {
     const { isAuthenticated } = this.props;
     const popoverMenuLinks = this.popoverMenuLinks();
     return (
-      <div className={styles.container} data-tid="component-upload">
+      <Row className={styles.container} data-tid="component-upload">
         <AnimatedBackground />
         <div className={styles.contentContainer}>
           <div className={styles.content}>
@@ -107,7 +108,7 @@ class Upload extends React.Component<*> {
             )}
           </div>
         </div>
-      </div>
+      </Row>
     );
   }
 }

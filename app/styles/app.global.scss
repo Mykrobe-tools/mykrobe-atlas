@@ -1,0 +1,67 @@
+// override defaults before importing
+
+@font-face {
+	font-family: 'Minion-Regular';
+	src: url('./webfonts/2AB146_0_0.eot');
+	src: url('./webfonts/2AB146_0_0.eot?#iefix') format('embedded-opentype'),
+		url('./webfonts/2AB146_0_0.woff') format('woff'),
+		url('./webfonts/2AB146_0_0.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Bryant2-Bold';
+	src: url('./webfonts/BryantWebBold.eot');
+	src: url('./webfonts/BryantWebBold.eot?#iefix') format('embedded-opentype'),
+		url('./webfonts/BryantWebBold.woff') format('woff');
+}
+
+@import '~styles/colors.global';
+
+$font-family-base: 'Minion-Regular', serif;
+$font-size-base: 19/16 * 1rem;
+$body-color: $color-text;
+
+$headings-font-weight: normal;
+$headings-color: $color-tint-primary;
+
+$input-bg: $color-panel-light;
+
+$btn-border-radius: 500px;
+$btn-padding-x: 1.2rem;
+
+@import '~makeandship-js-common/src/styles/default.global';
+
+.btn {
+	font-family: 'Bryant2-Bold', sans-serif;
+	text-transform: uppercase;
+	font-size: 14/16 * 1rem;
+}
+
+/* fill the window */
+
+html {
+	display: flex;
+	flex: 1 0 auto;
+	flex-direction: column;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex: 1 0 auto;
+	flex-direction: column;
+}
+
+#app-root,
+#app-root > [data-reactroot] {
+	display: flex;
+	flex: 1 0 auto;
+	flex-direction: column;
+}
+
+@import 'constants.global.css';
+
+/* third-party css bypass processing */
+@import 'vendor.css';

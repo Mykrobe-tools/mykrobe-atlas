@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import styles from './Common.css';
+import styles from './Common.scss';
 import type { AuthResetPasswordType } from '../../types/AuthTypes';
 
 import {

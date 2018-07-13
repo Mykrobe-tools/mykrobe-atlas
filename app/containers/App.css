@@ -1,7 +1,12 @@
 .container {
   composes: container from 'styles/layout.css';
   flex: 1;
-  background-color: var(--color-background);
+}
+
+.contentWrap {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .containerDragActive {

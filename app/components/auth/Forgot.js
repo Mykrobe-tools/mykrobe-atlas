@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import styles from './Common.css';
+import styles from './Common.scss';
 import {
   forgotPassword,
   getError,

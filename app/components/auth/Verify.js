@@ -10,7 +10,7 @@ import Loading from '../ui/Loading';
 
 import { verify } from 'makeandship-js-common/src/modules/auth';
 
-import styles from './Common.css';
+import styles from './Common.scss';
 
 class Verify extends React.Component<*> {
   componentWillMount() {

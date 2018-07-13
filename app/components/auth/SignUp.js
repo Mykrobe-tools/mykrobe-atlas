@@ -1,16 +1,19 @@
 /* @flow */
 
-/* TODO Refactor to use redux-form */
-/* eslint-disable react/no-string-refs */
-
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Row } from 'reactstrap';
 
-import styles from './Common.css';
-import type { UserType } from '../../types/UserTypes';
+import {
+  PasswordInput,
+  DecoratedForm,
+  FormFooter,
+} from 'makeandship-js-common/src/components/ui/form';
+import {
+  SubmitButton,
+  LinkButton,
+} from 'makeandship-js-common/src/components/ui/Buttons';
 
 import {
   createCurrentUser,
@@ -18,131 +21,83 @@ import {
   getCurrentUserError,
 } from '../../modules/users';
 
-class Signup extends React.Component<*> {
-  handleSubmit(e) {
-    e.preventDefault();
-    const { createCurrentUser } = this.props;
+import { signupSchema } from '../../schemas/auth';
+import styles from './Common.scss';
 
-    const userObject: UserType = {
-      email: this.refs.email.value,
-      firstname: this.refs.firstname.value,
-      lastname: this.refs.lastname.value,
-      password: this.refs.password.value,
-    };
-    createCurrentUser(userObject);
+const uiSchema = {
+  email: {
+    'ui:placeholder': 'sam.smith@example.com',
+    'ui:autofocus': true,
+  },
+  firstname: {
+    'ui:placeholder': 'Sam',
+  },
+  lastname: {
+    'ui:placeholder': 'Smith',
+  },
+  password: {
+    'ui:widget': PasswordInput,
+  },
+  confirmPassword: {
+    'ui:widget': PasswordInput,
+  },
+};
+
+export const validatePasswordMatch = (formData: any, errors: any) => {
+  if (
+    formData.confirmPassword &&
+    formData.password !== formData.confirmPassword
+  ) {
+    errors.confirmPassword.addError("Passwords don't match");
   }
+  return errors;
+};
 
+class Signup extends React.Component<*> {
   render() {
-    const { error } = this.props;
+    const { isFetching, onSubmit, error } = this.props;
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
+        <Row className={styles.header}>
           <div className={styles.title}>Account</div>
-        </div>
-        <div className={styles.contentContainer}>
-          <div className={styles.formContainer}>
-            <div className={styles.contentTitle}>Sign up</div>
-            <form
-              onSubmit={e => {
-                this.handleSubmit(e);
-              }}
-            >
-              {error && (
-                <div className={styles.formErrors}>{error.message}</div>
-              )}
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="email">
-                  Email
-                </label>
-                <input
-                  className={styles.input}
-                  autoFocus
-                  type="email"
-                  id="email"
-                  ref="email"
-                  placeholder="sam.smith@example.com"
-                  defaultValue=""
-                />
-              </div>
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="firstname">
-                  First name
-                </label>
-                <input
-                  className={styles.input}
-                  type="text"
-                  id="firstname"
-                  ref="firstname"
-                  placeholder="Sam"
-                  defaultValue=""
-                />
-              </div>
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="lastname">
-                  Last name
-                </label>
-                <input
-                  className={styles.input}
-                  type="text"
-                  id="lastname"
-                  ref="lastname"
-                  placeholder="Smith"
-                  defaultValue=""
-                />
-              </div>
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="password">
-                  Password
-                </label>
-                <input
-                  className={styles.input}
-                  type="password"
-                  id="password"
-                  ref="password"
-                />
-              </div>
-              <div className={styles.formActions}>
-                <button className={styles.button} type="submit">
-                  <span>
-                    <i className="fa fa-chevron-circle-right" /> Sign up
-                  </span>
-                </button>
-                <div>
-                  <Link className={styles.buttonBorderless} to="/auth/login">
-                    Log in
-                  </Link>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
+        </Row>
+        <DecoratedForm
+          formKey="auth/signup"
+          schema={signupSchema}
+          uiSchema={uiSchema}
+          onSubmit={onSubmit}
+          isFetching={isFetching}
+          validate={validatePasswordMatch}
+          error={error}
+        >
+          <FormFooter>
+            <div>
+              <SubmitButton marginRight>Sign up</SubmitButton>
+              <LinkButton to="/auth/login">Log in</LinkButton>
+            </div>
+          </FormFooter>
+        </DecoratedForm>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    isFetching: getCurrentUserIsFetching(state),
-    error: getCurrentUserError(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      createCurrentUser,
-    },
-    dispatch
-  );
-}
-
 Signup.propTypes = {
-  error: PropTypes.object,
-  createCurrentUser: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  error: PropTypes.any,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Signup);
+const withRedux = connect(
+  state => ({
+    isFetching: getCurrentUserIsFetching(state),
+    error: getCurrentUserError(state),
+  }),
+  dispatch => ({
+    onSubmit(formData) {
+      dispatch(createCurrentUser(formData));
+    },
+  })
+);
+
+export default withRedux(Signup);

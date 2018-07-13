@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import styles from './Common.css';
+import styles from './Common.scss';
 
 class VerifySuccess extends React.Component<*> {
   render() {

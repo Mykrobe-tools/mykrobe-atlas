@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import styles from './Common.css';
+import styles from './Common.scss';
 import { signIn, getError } from 'makeandship-js-common/src/modules/auth';
 
 import type { UserType } from '../../types/UserTypes';
