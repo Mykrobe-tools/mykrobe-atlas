@@ -12,35 +12,15 @@ import PopoverMenu from '../ui/PopoverMenu';
 import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
 
 import {
-  uploadFileAssignDrop,
   uploadFileAssignBrowse,
-  uploadFileUnassignDrop,
   uploadDropbox,
   uploadGoogleDrive,
   uploadBox,
   uploadOneDrive,
 } from '../../modules/upload';
 
-type State = {
-  isDragActive: boolean,
-};
-
-class Upload extends React.Component<*, State> {
+class Upload extends React.Component<*> {
   _uploadButton: Element;
-  _dropzone: Element;
-
-  state = {
-    isDragActive: false,
-  };
-
-  setDropzoneRef = (ref: ?Element) => {
-    if (!ref) {
-      return;
-    }
-    this._dropzone = ref;
-    const { uploadFileAssignDrop } = this.props;
-    uploadFileAssignDrop(this._dropzone);
-  };
 
   setUploadButtonRef = (ref: ?Element) => {
     if (!ref) {
@@ -50,25 +30,6 @@ class Upload extends React.Component<*, State> {
     const { uploadFileAssignBrowse } = this.props;
     uploadFileAssignBrowse(this._uploadButton);
   };
-
-  componentWillUnmount() {
-    const { uploadFileUnassignDrop } = this.props;
-    if (this._dropzone) {
-      uploadFileUnassignDrop(this._dropzone);
-    }
-  }
-
-  onDragOver() {
-    this.setState({
-      isDragActive: true,
-    });
-  }
-
-  onDragLeave() {
-    this.setState({
-      isDragActive: false,
-    });
-  }
 
   popoverMenuLinks() {
     const {
@@ -119,21 +80,10 @@ class Upload extends React.Component<*, State> {
   }
 
   render() {
-    const { isDragActive } = this.state;
     const { isAuthenticated } = this.props;
     const popoverMenuLinks = this.popoverMenuLinks();
     return (
-      <div
-        className={
-          isDragActive && isAuthenticated
-            ? styles.containerDragActive
-            : styles.container
-        }
-        onDragOver={this.onDragOver}
-        onDragLeave={this.onDragLeave}
-        ref={this.setDropzoneRef}
-        data-tid="component-upload"
-      >
+      <div className={styles.container} data-tid="component-upload">
         <AnimatedBackground />
         <div className={styles.contentContainer}>
           <div className={styles.content}>
@@ -164,9 +114,7 @@ class Upload extends React.Component<*, State> {
 
 Upload.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
-  uploadFileAssignDrop: PropTypes.func.isRequired,
   uploadFileAssignBrowse: PropTypes.func.isRequired,
-  uploadFileUnassignDrop: PropTypes.func.isRequired,
   uploadDropbox: PropTypes.func.isRequired,
   uploadGoogleDrive: PropTypes.func.isRequired,
   uploadBox: PropTypes.func.isRequired,
@@ -178,9 +126,7 @@ const withRedux = connect(
     isAuthenticated: getIsAuthenticated(state),
   }),
   {
-    uploadFileAssignDrop,
     uploadFileAssignBrowse,
-    uploadFileUnassignDrop,
     uploadDropbox,
     uploadGoogleDrive,
     uploadBox,

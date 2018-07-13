@@ -12,6 +12,7 @@ import { uploadOneDriveSaga } from './uploadOneDrive';
 export {
   uploadFile,
   uploadFileCancel,
+  uploadFileDrop,
   uploadFileAssignDrop,
   uploadFileAssignBrowse,
   uploadFileUnassignDrop,

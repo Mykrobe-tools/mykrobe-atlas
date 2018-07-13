@@ -93,6 +93,13 @@ class ResumableUpload {
     this.id = id;
   }
 
+  onDrop(e: any) {
+    const files = e.dataTransfer && e.dataTransfer.files;
+    if (files) {
+      this.resumable.addFiles(files);
+    }
+  }
+
   assignDrop(dropzoneEl: Element) {
     this.resumable.assignDrop(dropzoneEl);
   }

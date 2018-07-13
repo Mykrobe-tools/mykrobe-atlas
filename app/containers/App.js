@@ -13,6 +13,7 @@ import Analysing from '../components/analysing/Analysing';
 import Header from '../components/header/Header';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
+import DragAndDrop from '../components/dragAndDrop/DragAndDrop';
 
 import { getIsFetching as getAuthIsFetching } from 'makeandship-js-common/src/modules/auth';
 import { getCurrentUserIsFetching } from '../modules/users';
@@ -46,7 +47,7 @@ class App extends React.Component<*, State> {
     const { displayMenu } = this.state;
 
     return (
-      <div className={styles.container}>
+      <DragAndDrop className={styles.container}>
         <div className={styles.contentContainer}>{children}</div>
         <div className={styles.analysingContainer}>
           <Analysing />
@@ -59,7 +60,7 @@ class App extends React.Component<*, State> {
           <MenuBg displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
         </div>
         <Notifications />
-      </div>
+      </DragAndDrop>
     );
   }
 }
