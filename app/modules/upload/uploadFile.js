@@ -25,6 +25,11 @@ import {
   checkToken,
 } from 'makeandship-js-common/src/modules/auth/auth';
 
+import {
+  showNotification,
+  NotificationCategories,
+} from '../../../node_modules/makeandship-js-common/src/modules/notifications';
+
 import { createExperimentId } from '../experiments/experiment';
 
 import ResumableUpload, {
@@ -265,9 +270,6 @@ function* computeChecksumsWatcher() {
 }
 
 export function* computeChecksumsWorker(action: any): Generator<*, *, *> {
-  // TODO: ComputeChecksums never works after being cancelled - investigate
-  // as a workaround, reinstantiate each upload
-  // _computeChecksums = new ComputeChecksums(_computeChecksumChannel);
   yield apply(_computeChecksums, 'computeChecksums', [action.payload]);
   yield take(COMPUTE_CHECKSUMS_COMPLETE);
   yield put({
@@ -304,15 +306,31 @@ export function* uploadFileWorker(): Generator<*, *, *> {
   yield apply(_uploadFile, 'startUpload');
 }
 
-// cancel the upload
+// upload events
 
-function* uploadFileCancelWatcher() {
-  yield takeEvery(UPLOAD_FILE_CANCEL, uploadFileCancelWorker);
+function* resumableUploadDoneWatcher() {
+  yield takeEvery(RESUMABLE_UPLOAD_DONE, function*() {
+    yield put(showNotification('Upload complete'));
+  });
 }
 
-export function* uploadFileCancelWorker(): Generator<*, *, *> {
-  yield apply(_uploadFile, 'cancel');
-  yield apply(_computeChecksums, 'cancel');
+function* resumableUploadErrorWatcher() {
+  yield takeEvery(RESUMABLE_UPLOAD_ERROR, function*(action: any) {
+    yield put(
+      showNotification({
+        category: NotificationCategories.ERROR,
+        content: action.payload,
+      })
+    );
+  });
+}
+
+function* uploadFileCancelWatcher() {
+  yield takeEvery(UPLOAD_FILE_CANCEL, function*() {
+    yield apply(_uploadFile, 'cancel');
+    yield apply(_computeChecksums, 'cancel');
+    yield put(showNotification('Upload cancelled'));
+  });
 }
 
 export function* uploadFileSaga(): Generator<*, *, *> {
@@ -326,5 +344,7 @@ export function* uploadFileSaga(): Generator<*, *, *> {
     fork(uploadFileAssignBrowseWatcher),
     fork(uploadFileCancelWatcher),
     fork(uploadFileDropWatcher),
+    fork(resumableUploadErrorWatcher),
+    fork(resumableUploadDoneWatcher),
   ]);
 }

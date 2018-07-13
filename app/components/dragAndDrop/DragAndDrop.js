@@ -24,10 +24,6 @@ class Upload extends React.Component<*, State> {
 
   onDragOver = e => {
     e.preventDefault();
-    const { isAuthenticated } = this.props;
-    if (!isAuthenticated) {
-      return false;
-    }
     if (!shouldAcceptDropEvent(e)) {
       return false;
     }
@@ -43,6 +39,10 @@ class Upload extends React.Component<*, State> {
     this.setState({
       isDragActive: false,
     });
+    const { isAuthenticated } = this.props;
+    if (!isAuthenticated) {
+      return false;
+    }
     if (shouldAcceptDropEvent(e)) {
       uploadFileDrop(e);
     }
