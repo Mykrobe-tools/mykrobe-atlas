@@ -3,7 +3,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Container } from 'reactstrap';
 
 import {
   PasswordInput,
@@ -22,7 +21,6 @@ import {
 } from '../../modules/users';
 
 import Header from '../header/Header';
-
 import { signupSchema } from '../../schemas/auth';
 import styles from './Common.scss';
 
