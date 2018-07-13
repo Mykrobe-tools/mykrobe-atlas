@@ -1,32 +1,18 @@
 .container {
-  composes: container from 'styles/layout.css';
-  flex-direction: column;
-}
-
-.content {
-  flex: 1;
   display: flex;
+  flex: 1;
   flex-direction: column;
 }
 
-.header {
+.navigationWrap {
   background-color: var(--color-buff-dark);
-  padding: 12px;
+}
+
+.navigationContainer {
+  composes: global(py-3);
   display: flex;
   align-items: center;
-  flex-direction: column;
   justify-content: center;
-}
-
-.headerTitle {
-  composes: fontSizeLarge from 'styles/typography.css';
-  color: var(--color-tint-primary);
-  padding-bottom: 16px;
-}
-
-.navigation {
-  margin: 0 auto;
-  display: flex;
 }
 
 .navigationItem {

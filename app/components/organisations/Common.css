@@ -3,24 +3,14 @@
   flex-direction: column;
 }
 
-.header {
-  height: var(--header-height);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .title {
   composes: fontSizeLarge from 'styles/typography.css';
 }
 
 .contentContainer {
   composes: container from 'styles/layout.css';
-  padding: 30px 40px;
-  background: white;
-  flex: 1;
-  overflow-y: auto;
+  composes: global(py-3);
+  flex-direction: column;
 }
 
 .contentTitle {

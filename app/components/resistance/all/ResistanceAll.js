@@ -3,6 +3,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ResistanceAll.css';
+import { Row, Col } from 'reactstrap';
+
 import ResistanceProfile from '../profile/ResistanceProfile';
 import Panel from '../../ui/Panel';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
@@ -20,7 +22,7 @@ class ResistanceAll extends React.Component<*> {
       );
     }
     return (
-      <div className={styles.container} data-tid="component-resistance-all">
+      <Row className={styles.container} data-tid="component-resistance-all">
         <Panel title="Resistance Profile" columns={IS_ELECTRON ? undefined : 3}>
           <ResistanceProfile
             experiment={experiment}
@@ -32,7 +34,7 @@ class ResistanceAll extends React.Component<*> {
             <Phylogeny controlsInset={0} />
           </Panel>
         )}
-      </div>
+      </Row>
     );
   }
 }

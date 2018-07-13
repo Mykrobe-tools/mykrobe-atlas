@@ -1,0 +1,34 @@
+@import '~styles/colors.global';
+
+.container {
+	background-color: $color-background;
+}
+
+.contentWrap {
+	display: flex;
+	flex-direction: column;
+}
+
+.title {
+	composes: font from 'styles/typography.css';
+	composes: fontSizeLarge from 'styles/typography.css';
+}
+
+.navigation {
+	display: flex;
+	padding-bottom: 20px;
+	align-items: center;
+	justify-content: center;
+}
+
+.navigationItem {
+	composes: button from 'styles/controls.css';
+	background: none;
+	color: $color-tint-primary;
+}
+
+.navigationItemActive {
+	composes: navigationItem;
+	color: white;
+	background-color: $color-tint-primary;
+}

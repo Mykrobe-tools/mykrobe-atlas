@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import { Row, Col } from 'reactstrap';
 
 import {
   getOrganisations,
@@ -15,6 +16,7 @@ import {
 
 import styles from './Common.css';
 import Loading from '../ui/Loading';
+import Header from '../header/Header';
 
 class Profile extends React.Component<*> {
   componentWillMount() {
@@ -42,44 +44,44 @@ class Profile extends React.Component<*> {
       );
     }
     return (
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.title}>Organisations</div>
-        </div>
-        <div className={styles.contentContainer}>
-          <div className={styles.formContainer}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th className={styles.tableHeading}>Name</th>
-                  <th className={styles.tableHeading}>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {organisations.map(organisation => (
-                  <tr key={organisation.id}>
-                    <td className={styles.tableCell}>{organisation.name}</td>
-                    <td className={styles.tableCell}>
-                      <Link
-                        className={styles.link}
-                        to={`/organisations/${organisation.id}`}
-                      >
-                        Edit
-                      </Link>
-                    </td>
+      <div>
+        <Header title={'Organisations'} />
+        <Row>
+          <Col>
+            <div className={styles.contentContainer}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th className={styles.tableHeading}>Name</th>
+                    <th className={styles.tableHeading}>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className={styles.formActions}>
-              <div>
-                <a onClick={this.onNewOrganisationClick}>
-                  Add new organisation
-                </a>
+                </thead>
+                <tbody>
+                  {organisations.map(organisation => (
+                    <tr key={organisation.id}>
+                      <td className={styles.tableCell}>{organisation.name}</td>
+                      <td className={styles.tableCell}>
+                        <Link
+                          className={styles.link}
+                          to={`/organisations/${organisation.id}`}
+                        >
+                          Edit
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className={styles.formActions}>
+                <div>
+                  <a onClick={this.onNewOrganisationClick}>
+                    Add new organisation
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
       </div>
     );
   }
