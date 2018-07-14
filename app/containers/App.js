@@ -48,9 +48,7 @@ class App extends React.Component<*, State> {
     const { displayMenu } = this.state;
     return (
       <DragAndDrop className={styles.container}>
-        <Container fluid className={styles.contentWrap}>
-          {children}
-        </Container>
+        <div className={styles.contentContainer}>{children}</div>
         <div className={styles.analysingContainer}>
           <Analysing />
         </div>

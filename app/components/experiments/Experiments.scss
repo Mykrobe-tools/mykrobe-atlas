@@ -1,27 +1,27 @@
 @import '~styles/colors.global';
 
 .container {
-  composes: containerAbsolute from 'styles/layout.css';
-  flex-direction: column;
+	composes: container from 'styles/layout.css';
+	flex-direction: column;
 }
 
 .header {
-  height: var(--header-height);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+	height: var(--header-height);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .title {
-  composes: font from 'styles/typography.css';
-  composes: fontSizeLarge from 'styles/typography.css';
+	composes: font from 'styles/typography.css';
+	composes: fontSizeLarge from 'styles/typography.css';
 }
 
 .content {
-  flex: 1;
+	flex: 1;
 }
 
 .experimentsHeader {
-  composes: global(py-3);
+	composes: global(py-3);
 }

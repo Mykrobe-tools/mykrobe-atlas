@@ -1,5 +1,8 @@
 .container {
-  flex: 1;
+  composes: container from 'styles/layout.css';
+  padding: 18px;
+  background-color: white;
+  overflow-y: auto;
 }
 
 .empty {

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Row, Col } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 import styles from './Header.scss';
 
@@ -26,53 +26,51 @@ class Header extends React.Component<*> {
   render() {
     const { signOut, isAuthenticated, currentUser, title } = this.props;
     return (
-      <Row className={styles.container}>
-        <Col>
-          <div className={styles.contentWrap}>
-            {title && <div className={styles.title}>{title}</div>}
-            {isAuthenticated ? (
-              <div className={styles.account}>
-                {currentUser && (
-                  <Link
-                    to="/users/profile"
-                    className={styles.authLink}
-                    data-tid="button-my-profile"
-                  >
-                    <i className="fa fa-user" /> My profile
-                  </Link>
-                )}
-                <a
-                  href="#"
-                  className={styles.authLink}
-                  onClick={() => {
-                    signOut();
-                  }}
-                  data-tid="button-sign-out"
-                >
-                  Sign out
-                </a>
-              </div>
-            ) : (
-              <div className={styles.account}>
+      <Container fluid className={styles.container}>
+        <div className={styles.contentWrap}>
+          {title && <div className={styles.title}>{title}</div>}
+          {isAuthenticated ? (
+            <div className={styles.account}>
+              {currentUser && (
                 <Link
-                  to="/auth/login"
+                  to="/users/profile"
                   className={styles.authLink}
-                  data-tid="button-log-in"
+                  data-tid="button-my-profile"
                 >
-                  <i className="fa fa-user" /> Log in
+                  <i className="fa fa-user" /> My profile
                 </Link>
-                <Link
-                  to="/auth/signup"
-                  className={styles.signUpLink}
-                  data-tid="button-sign-up"
-                >
-                  Sign up
-                </Link>
-              </div>
-            )}
-          </div>
-        </Col>
-      </Row>
+              )}
+              <a
+                href="#"
+                className={styles.authLink}
+                onClick={() => {
+                  signOut();
+                }}
+                data-tid="button-sign-out"
+              >
+                Sign out
+              </a>
+            </div>
+          ) : (
+            <div className={styles.account}>
+              <Link
+                to="/auth/login"
+                className={styles.authLink}
+                data-tid="button-log-in"
+              >
+                <i className="fa fa-user" /> Log in
+              </Link>
+              <Link
+                to="/auth/signup"
+                className={styles.signUpLink}
+                data-tid="button-sign-up"
+              >
+                Sign up
+              </Link>
+            </div>
+          )}
+        </div>
+      </Container>
     );
   }
 }

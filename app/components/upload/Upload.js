@@ -3,7 +3,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row } from 'reactstrap';
 
 import styles from './Upload.scss';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
@@ -86,31 +85,29 @@ class Upload extends React.Component<*> {
     const popoverMenuLinks = this.popoverMenuLinks();
     return (
       <div className={styles.container} data-tid="component-upload">
-        <Row className={styles.contentWrap}>
-          <AnimatedBackground />
-          <div className={styles.contentContainer}>
-            <div className={styles.content}>
-              <div className={styles.logoWrap}>
-                <Logo width={192} />
-              </div>
-              <div className={styles.title}>
-                Outbreak and resistance analysis in minutes
-              </div>
-              {isAuthenticated && (
-                <div className={styles.buttonContainer}>
-                  <span
-                    className={styles.buttonOffscreen}
-                    ref={this.setUploadButtonRef}
-                  />
-                  <PopoverMenu
-                    toggleText="Analyse Sample"
-                    links={popoverMenuLinks}
-                  />
-                </div>
-              )}
+        <AnimatedBackground />
+        <div className={styles.contentContainer}>
+          <div className={styles.content}>
+            <div className={styles.logoWrap}>
+              <Logo width={192} />
             </div>
+            <div className={styles.title}>
+              Outbreak and resistance analysis in minutes
+            </div>
+            {isAuthenticated && (
+              <div className={styles.buttonContainer}>
+                <span
+                  className={styles.buttonOffscreen}
+                  ref={this.setUploadButtonRef}
+                />
+                <PopoverMenu
+                  toggleText="Analyse Sample"
+                  links={popoverMenuLinks}
+                />
+              </div>
+            )}
           </div>
-        </Row>
+        </div>
         <Header />
       </div>
     );

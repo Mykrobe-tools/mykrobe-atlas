@@ -3,14 +3,9 @@
   flex: 1;
 }
 
-.contentWrap {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
-.contentContainer {
-  composes: container from 'styles/layout.css';
+.containerDragActive {
+  composes: container;
+  border: 12px solid var(--color-grey-mid);
 }
 
 .notificationsContainer {
@@ -21,9 +16,26 @@
   right: 0;
 }
 
+.analysingContainer {
+  composes: containerAbsolute from 'styles/layout.css';
+  bottom: auto;
+  pointer-events: none;
+  width: 100%;
+}
+
+.headerContainer {
+  composes: containerAbsolute from 'styles/layout.css';
+  bottom: auto;
+  pointer-events: none;
+}
+
 .menuContainer {
   composes: containerAbsolute from 'styles/layout.css';
   display: block;
   flex: initial;
   pointer-events: none;
+}
+
+.contentContainer {
+  composes: container from 'styles/layout.css';
 }

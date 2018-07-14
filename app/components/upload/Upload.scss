@@ -3,12 +3,12 @@
 .container {
 	composes: container from 'styles/layout.css';
 	flex-direction: column;
+	background-color: $color-background;
 	position: relative;
 }
 
 .contentWrap {
 	composes: containerAbsolute from 'styles/layout.css';
-	background-color: $color-background;
 	pointer-events: none;
 }
 
