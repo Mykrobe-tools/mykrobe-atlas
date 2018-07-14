@@ -1,7 +1,7 @@
 /* @flow */
 
 export default {
-  title: 'Edit User',
+  title: 'User',
   type: 'object',
   properties: {
     email: {
