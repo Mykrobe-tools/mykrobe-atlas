@@ -1,14 +1,12 @@
 @import '~styles/colors.global';
 
 .container {
-	composes: container from 'styles/layout.css';
 	background-color: $color-background;
-	flex-direction: column;
 }
 
 .title {
-	composes: font from 'styles/typography.css';
-	composes: fontSizeLarge from 'styles/typography.css';
+	composes: font from 'styles/typography.scss';
+	composes: fontSizeLarge from 'styles/typography.scss';
 }
 
 .navigation {
@@ -19,7 +17,7 @@
 }
 
 .navigationItem {
-	composes: button from 'styles/controls.css';
+	composes: button from 'styles/controls.scss';
 	background-color: transparent;
 	color: $color-tint-primary;
 }

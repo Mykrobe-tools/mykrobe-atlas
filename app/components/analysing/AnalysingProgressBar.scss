@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+}
+
+.progressBarContainer {
+  background-color: var(--color-tint-primary);
+  height: 10px;
+  transition: width 2s;
+}
+
+.progressBarLabel {
+  composes: font from 'styles/typography.scss';
+  composes: fontSizeSmall from 'styles/typography.scss';
+  text-align: center;
+}
+
+.view {
+  composes: fontSecondary from 'styles/typography.scss';
+  pointer-events: auto;
+  color: var(--color-grey-dark);
+}
+
+.cancel {
+  composes: fontSecondary from 'styles/typography.scss';
+  pointer-events: auto;
+  color: var(--color-grey-dark);
+}

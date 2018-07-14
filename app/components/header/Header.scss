@@ -16,7 +16,7 @@
 }
 
 .account {
-	composes: fontSizeSmall from 'styles/typography.css';
+	composes: fontSizeSmall from 'styles/typography.scss';
 	display: flex;
 	align-items: center;
 	color: $color-grey-mid;
@@ -32,14 +32,14 @@
 }
 
 .signUpLink {
-	composes: buttonPrimary from 'styles/controls.css';
-	composes: fontSecondarySizeSmall from 'styles/typography.css';
+	composes: buttonPrimary from 'styles/controls.scss';
+	composes: fontSecondarySizeSmall from 'styles/typography.scss';
 	margin-left: 20px;
 }
 
 .title {
-	composes: fontSizeLarge from 'styles/typography.css';
-	composes: containerAbsolute from 'styles/layout.css';
+	composes: fontSizeLarge from 'styles/typography.scss';
+	composes: containerAbsolute from 'styles/layout.scss';
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;

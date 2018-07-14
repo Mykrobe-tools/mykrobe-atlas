@@ -1,0 +1,8 @@
+.wrap {
+  composes: wrap from 'styles/form.scss';
+}
+
+.input {
+  composes: buttonPrimary from 'styles/controls.scss';
+  cursor: pointer;
+}

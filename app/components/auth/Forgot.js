@@ -3,6 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Container } from 'reactstrap';
 
 import {
   forgotPassword,
@@ -20,6 +21,7 @@ import {
 
 import { forgotPasswordSchema } from '../../schemas/auth';
 import Header from '../header/Header';
+import styles from './Common.scss';
 
 const uiSchema = {
   email: {
@@ -32,26 +34,28 @@ class Forgot extends React.Component<*> {
   render() {
     const { isFetching, onSubmit, error } = this.props;
     return (
-      <div>
+      <div className={styles.container}>
         <Header title={'Account'} />
-        <DecoratedForm
-          formKey="auth/forgot"
-          schema={forgotPasswordSchema}
-          uiSchema={uiSchema}
-          onSubmit={onSubmit}
-          isFetching={isFetching}
-          error={error}
-        >
-          <FormFooter>
-            <div>
-              <SubmitButton marginRight>Get new password</SubmitButton>
-              <LinkButton to="/auth/login" marginRight>
-                Log in
-              </LinkButton>
-              <LinkButton to="/auth/signup">Sign up</LinkButton>
-            </div>
-          </FormFooter>
-        </DecoratedForm>
+        <Container fluid>
+          <DecoratedForm
+            formKey="auth/forgot"
+            schema={forgotPasswordSchema}
+            uiSchema={uiSchema}
+            onSubmit={onSubmit}
+            isFetching={isFetching}
+            error={error}
+          >
+            <FormFooter>
+              <div>
+                <SubmitButton marginRight>Get new password</SubmitButton>
+                <LinkButton to="/auth/login" marginRight>
+                  Log in
+                </LinkButton>
+                <LinkButton to="/auth/signup">Sign up</LinkButton>
+              </div>
+            </FormFooter>
+          </DecoratedForm>
+        </Container>
       </div>
     );
   }

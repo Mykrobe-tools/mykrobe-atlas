@@ -1,7 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
-import styles from './Loading.css';
+import styles from './Loading.scss';
 
 class Loading extends React.Component<*> {
   render() {

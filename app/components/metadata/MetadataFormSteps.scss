@@ -1,0 +1,131 @@
+.wrap {
+  display: block;
+}
+
+/* header */
+
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.percent {
+  composes: fontSecondary from 'styles/typography.scss';
+  border: 10px solid var(--color-grey-panel);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 20px;
+  position: relative;
+  padding: 45px;
+}
+
+.percentContent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.percentValue {
+  composes: fontSizeExtraLarge from 'styles/typography.scss';
+  position: relative;
+  z-index: 2;
+}
+
+.percentSign {
+  position: relative;
+  z-index: 2;
+}
+
+.titleHead {
+  color: var(--color-grey-dark);
+  margin: 0;
+}
+
+.titleSubhead {
+  color: var(--color-grey-mid);
+  margin: 0;
+}
+
+/* tabs */
+
+.tabs {
+  display: flex;
+}
+
+.tab {
+  composes: fontSecondary from 'styles/typography.scss';
+  composes: fontSecondarySizeNormal from 'styles/typography.scss';
+  border-bottom: 3px solid rgba(13, 125, 160, 0.2);
+  flex: 1;
+  padding-bottom: 16px;
+  text-align: center;
+  line-height: 1;
+}
+
+.tabActive {
+  composes: tab;
+  border-bottom-color: var(--color-tint-primary);
+  color: var(--color-tint-primary);
+}
+
+/* controls */
+
+.controlsTop {
+  display: flex;
+  align-items: center;
+  padding: 30px 0;
+}
+
+.controlsBottom {
+  align-items: center;
+  border-top: 1px solid var(--color-grey-light);
+  justify-content: space-between;
+  display: flex;
+  margin-top: 20px;
+  padding: 30px 0;
+}
+
+.controls {
+  align-items: center;
+  display: flex;
+  margin-left: auto;
+}
+
+.controls > * + * {
+  margin-left: 20px;
+}
+
+.buttonBorderless {
+  composes: buttonBorderless from 'styles/controls.scss';
+}
+
+.buttonOutline {
+  composes: buttonOutline from 'styles/controls.scss';
+}
+
+.buttonPrimary {
+  composes: buttonPrimary from 'styles/controls.scss';
+}
+
+/* steps */
+
+.stepTitle {
+  composes: fontSizeExtraLarge from 'styles/typography.scss';
+  line-height: 1;
+  margin: 0;
+}
+
+.step {
+  display: none;
+}
+
+.stepActive {
+  display: block;
+}

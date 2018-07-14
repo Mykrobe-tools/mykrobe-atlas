@@ -9,7 +9,7 @@ import { Container } from 'reactstrap';
 
 import Notifications from 'makeandship-js-common/src/components/notifications/Notifications';
 
-import styles from './App.css';
+import styles from './App.scss';
 import Analysing from '../components/analysing/Analysing';
 import MenuButton from '../components/menu/MenuButton';
 import Menu from '../components/menu/Menu';

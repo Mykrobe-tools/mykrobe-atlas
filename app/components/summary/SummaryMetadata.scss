@@ -1,0 +1,27 @@
+.container {
+  composes: container from 'styles/layout.scss';
+  flex-direction: row;
+}
+
+.summaryContainer {
+  composes: container from 'styles/layout.scss';
+  padding: 8px 0;
+}
+
+.summaryContainer + .summaryContainer {
+  margin-left: 24px;
+}
+
+.table {
+  border-collapse: collapse;
+}
+
+.table td {
+  color: var(--color-grey-mid);
+  padding: 0;
+}
+
+.table td + td {
+  color: var(--color-text);
+  padding-left: 12px;
+}

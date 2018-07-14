@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { goBack, push } from 'react-router-redux';
 
-import styles from './Common.css';
+import styles from './Common.scss';
 import type { OrganisationType } from '../../types/OrganisationTypes';
 import Loading from '../ui/Loading';
 

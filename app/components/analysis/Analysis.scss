@@ -1,0 +1,46 @@
+.container {
+  composes: container from 'styles/layout.scss';
+  background-color: white;
+  flex-direction: column;
+}
+
+.content {
+  composes: container from 'styles/layout.scss';
+}
+
+.header {
+  background-color: var(--color-buff-dark);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.headerTitle {
+  display: flex;
+  flex-direction: row;
+
+  /*
+  composes: fontSizeLarge from "styles/typography.scss";
+  color: var(--color-tint-primary);
+  padding-bottom: 16px;
+  */
+}
+
+.mapAndPhylogenyContainer {
+  composes: container from 'styles/layout.scss';
+  background-color: white;
+}
+
+.mapContainer {
+  composes: container from 'styles/layout.scss';
+}
+
+.map {
+  composes: container from 'styles/layout.scss';
+}
+
+.phylogenyContainer {
+  composes: container from 'styles/layout.scss';
+}

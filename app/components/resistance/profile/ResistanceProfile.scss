@@ -1,0 +1,37 @@
+.container {
+  composes: container from 'styles/layout.scss';
+  flex-direction: row;
+}
+
+.column {
+  flex: 1;
+}
+
+.column + .column {
+  margin-left: 12px;
+}
+
+.columnTitle {
+  composes: subtitle from 'styles/typography.scss';
+  padding: 8px 0;
+}
+
+.columnTitleSusceptible {
+  composes: columnTitle;
+  color: var(--color-susceptible);
+}
+
+.columnTitleResistant {
+  composes: columnTitle;
+  color: var(--color-resistant);
+}
+
+.columnTitleInconclusive {
+  composes: columnTitle;
+  color: var(--color-inconclusive);
+}
+
+.empty {
+  display: flex;
+  flex: 1;
+}

@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  /* composes: container from 'styles/layout.scss'; */
+  background-color: white;
+  flex-direction: column;
+  /* overflow-y: auto; */
+}
+
+.uploadingMessage {
+  margin: 0 auto;
+  max-width: 50%;
+  text-align: center;
+}
+
+.uploadingMessageTitle {
+  composes: font from 'styles/typography.scss';
+  composes: fontSizeExtraLarge from 'styles/typography.scss';
+  color: var(--color-tint-primary);
+  line-height: 1;
+  padding-top: 30px;
+}
+
+.uploadingMessageText {
+  composes: font from 'styles/typography.scss';
+  composes: fontSizeLarge from 'styles/typography.scss';
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0 30px;
+  flex-shrink: 0;
+}
+
+.formHeader {
+  display: flex;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-rule);
+  margin-bottom: 24px;
+}
+
+.formHeaderTitle {
+  composes: fontSecondary from 'styles/typography.scss';
+  composes: fontSecondarySizeNormal from 'styles/typography.scss';
+  color: var(--color-tint-primary);
+}
+
+.formHeaderActions {
+  display: flex;
+  margin-left: auto;
+}
+
+.formHeaderAction {
+  composes: fontSecondary from 'styles/typography.scss';
+  composes: fontSecondarySizeNormal from 'styles/typography.scss';
+  color: var(--color-tint-primary);
+}

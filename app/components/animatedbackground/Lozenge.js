@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Lozenge.css';
+import styles from './Lozenge.scss';
 
 const LozengeDimensions = {
   width: 185,

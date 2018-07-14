@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './ResistanceProfile.css';
+import styles from './ResistanceProfile.scss';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
 
 class ResistanceProfile extends React.Component<*> {

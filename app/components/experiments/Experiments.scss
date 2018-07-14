@@ -1,7 +1,7 @@
 @import '~styles/colors.global';
 
 .container {
-	composes: container from 'styles/layout.css';
+	composes: container from 'styles/layout.scss';
 	flex-direction: column;
 }
 
@@ -14,8 +14,8 @@
 }
 
 .title {
-	composes: font from 'styles/typography.css';
-	composes: fontSizeLarge from 'styles/typography.css';
+	composes: font from 'styles/typography.scss';
+	composes: fontSizeLarge from 'styles/typography.scss';
 }
 
 .content {

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './ResistanceSpecies.css';
+import styles from './ResistanceSpecies.scss';
 import Panel from '../../ui/Panel';
 
 class ResistanceSpecies extends React.Component<*> {

@@ -67,7 +67,7 @@ body {
 	flex-direction: column;
 }
 
-@import 'constants.global.css';
+@import 'constants.global.scss';
 
 /* third-party css bypass processing */
-@import 'vendor.css';
+@import 'vendor.scss';

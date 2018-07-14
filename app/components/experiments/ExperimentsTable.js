@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import styles from './ExperimentsTable.css';
+import styles from './ExperimentsTable.scss';
 import Loading from '../ui/Loading';
 
 class ExperimentsTable extends React.Component<*> {

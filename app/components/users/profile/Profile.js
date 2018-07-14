@@ -3,6 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Container } from 'reactstrap';
 import DocumentTitle from 'react-document-title';
 
 import {
@@ -29,6 +30,7 @@ import Header from '../../header/Header';
 // TODO: this is effectively a variation of EditUser - consolidate
 
 import { profileSchema } from '../../../schemas/users';
+import styles from './Profile.scss';
 
 const uiSchema = {
   email: {
@@ -66,27 +68,29 @@ class Profile extends React.Component<*> {
     const { isFetching, error, currentUser } = this.props;
     return (
       <DocumentTitle title="Profile">
-        <div>
+        <div className={styles.container}>
           <Header title={'Profile'} />
-          <DecoratedForm
-            formKey="users/profile"
-            schema={profileSchema}
-            uiSchema={uiSchema}
-            onSubmit={this.onSubmit}
-            isFetching={isFetching}
-            error={error}
-            formData={currentUser}
-          >
-            <FormFooter>
-              <div>
-                <SubmitButton marginRight>Save profile</SubmitButton>
-                <CancelButton />
-              </div>
-              <DestructiveButton onClick={this.onDelete}>
-                Delete account
-              </DestructiveButton>
-            </FormFooter>
-          </DecoratedForm>
+          <Container fluid>
+            <DecoratedForm
+              formKey="users/profile"
+              schema={profileSchema}
+              uiSchema={uiSchema}
+              onSubmit={this.onSubmit}
+              isFetching={isFetching}
+              error={error}
+              formData={currentUser}
+            >
+              <FormFooter>
+                <div>
+                  <SubmitButton marginRight>Save profile</SubmitButton>
+                  <CancelButton />
+                </div>
+                <DestructiveButton onClick={this.onDelete}>
+                  Delete account
+                </DestructiveButton>
+              </FormFooter>
+            </DecoratedForm>
+          </Container>
         </div>
       </DocumentTitle>
     );

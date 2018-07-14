@@ -19,7 +19,7 @@ import {
   analyseFileSave,
 } from '../modules/desktop';
 
-import styles from './App.css';
+import styles from './App.scss';
 
 import Notifications from 'makeandship-js-common/src/components/notifications/Notifications';
 

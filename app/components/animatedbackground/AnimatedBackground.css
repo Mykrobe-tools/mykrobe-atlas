@@ -1,5 +1,0 @@
-.container {
-  composes: containerAbsolute from 'styles/layout.css';
-  overflow: hidden;
-  pointer-events: none;
-}

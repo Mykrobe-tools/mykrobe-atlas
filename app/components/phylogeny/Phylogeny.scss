@@ -1,0 +1,42 @@
+.container {
+  composes: container from 'styles/layout.scss';
+  background-color: white;
+}
+
+.contentContainer {
+  composes: container from 'styles/layout.scss';
+  position: relative;
+}
+
+.controlsContainer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.zoomControl {
+  composes: overlayControl from 'styles/controls.scss';
+  padding: 0 12px;
+}
+
+.zoomControlText {
+  composes: overlayControlText from 'styles/controls.scss';
+}
+
+.demoTreeTypeContainer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.demoTreeTypeSelected {
+  cursor: pointer;
+  color: var(--color-grey-mid);
+}
+
+.demoTreeType {
+  cursor: pointer;
+  color: var(--color-grey-light);
+}

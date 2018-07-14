@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { Container } from 'reactstrap';
 
 import {
   FormHeader,
@@ -10,17 +11,20 @@ import {
 import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import Header from '../header/Header';
+import styles from './Common.scss';
 
 const ForgotSuccess = () => (
-  <div>
+  <div className={styles.container}>
     <Header title={'Account'} />
-    <FormHeader title="Forgot password" />
-    <p className="pt-3">Password reset instructions have been sent</p>
-    <FormFooter>
-      <PrimaryButton tag={Link} to="/">
-        Home
-      </PrimaryButton>
-    </FormFooter>
+    <Container fluid>
+      <FormHeader title="Forgot password" />
+      <p className="pt-3">Password reset instructions have been sent</p>
+      <FormFooter>
+        <PrimaryButton tag={Link} to="/">
+          Home
+        </PrimaryButton>
+      </FormFooter>
+    </Container>
   </div>
 );
 

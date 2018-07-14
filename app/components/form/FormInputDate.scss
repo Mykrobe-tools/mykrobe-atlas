@@ -1,0 +1,15 @@
+.wrap {
+  composes: wrap from 'styles/form.scss';
+}
+
+.wrap + .wrap {
+  margin-top: 8px;
+}
+
+.label {
+  composes: label from 'styles/form.scss';
+}
+
+.input {
+  composes: input from 'styles/form.scss';
+}

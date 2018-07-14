@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './ResistanceAll.css';
+import styles from './ResistanceAll.scss';
 import ResistanceProfile from '../profile/ResistanceProfile';
 import Panel from '../../ui/Panel';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
