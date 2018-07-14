@@ -3,6 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { goBack } from 'react-router-redux';
 import { Container } from 'reactstrap';
 import DocumentTitle from 'react-document-title';
 
@@ -50,13 +51,19 @@ class Profile extends React.Component<*> {
     requestCurrentUser();
   }
 
-  onDelete = e => {
+  onDeleteClick = e => {
     const { deleteCurrentUser } = this.props;
     e && e.preventDefault();
     if (!confirm(`Delete account? This cannot be undone.`)) {
       return;
     }
     deleteCurrentUser();
+  };
+
+  onCancelClick = e => {
+    e && e.preventDefault();
+    const { goBack } = this.props;
+    goBack();
   };
 
   onSubmit = formData => {
@@ -83,9 +90,9 @@ class Profile extends React.Component<*> {
               <FormFooter>
                 <div>
                   <SubmitButton marginRight>Save profile</SubmitButton>
-                  <CancelButton />
+                  <CancelButton onClick={this.onCancelClick} />
                 </div>
-                <DestructiveButton onClick={this.onDelete}>
+                <DestructiveButton onClick={this.onDeleteClick}>
                   Delete account
                 </DestructiveButton>
               </FormFooter>
@@ -102,6 +109,7 @@ Profile.propTypes = {
   requestCurrentUser: PropTypes.func.isRequired,
   updateCurrentUser: PropTypes.func.isRequired,
   deleteCurrentUser: PropTypes.func.isRequired,
+  goBack: PropTypes.func.isRequired,
   error: PropTypes.any,
   currentUser: PropTypes.any,
 };
@@ -112,17 +120,12 @@ const withRedux = connect(
     error: getCurrentUserError(state),
     currentUser: getCurrentUser(state),
   }),
-  dispatch => ({
-    updateCurrentUser(user) {
-      dispatch(updateCurrentUser(user));
-    },
-    requestCurrentUser() {
-      dispatch(requestCurrentUser());
-    },
-    deleteCurrentUser() {
-      dispatch(deleteCurrentUser());
-    },
-  })
+  {
+    updateCurrentUser,
+    requestCurrentUser,
+    deleteCurrentUser,
+    goBack,
+  }
 );
 
 export default withRedux(Profile);
