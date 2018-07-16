@@ -8,10 +8,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { goBack, push } from 'react-router-redux';
+import { Container } from 'reactstrap';
 
-import styles from './Common.css';
+import styles from './Common.scss';
 import type { OrganisationType } from '../../types/OrganisationTypes';
-import Loading from '../ui/Loading';
+import Header from '../header/Header';
 
 import {
   getOrganisation,
@@ -23,6 +24,25 @@ import {
   deleteOrganisation,
 } from '../../modules/organisations';
 
+import {
+  Select,
+  DecoratedForm,
+  FormFooter,
+} from 'makeandship-js-common/src/components/ui/form';
+import {
+  SubmitButton,
+  CancelButton,
+  DestructiveButton,
+} from 'makeandship-js-common/src/components/ui/Buttons';
+
+import { organisationSchema } from '../../schemas/organisations';
+
+const uiSchema = {
+  template: {
+    'ui:widget': Select,
+  },
+};
+
 class Edit extends React.Component<*> {
   id: string;
 
@@ -33,32 +53,23 @@ class Edit extends React.Component<*> {
     }
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const {
-      createOrganisation,
-      updateOrganisation,
-      isNew,
-      organisationId,
-    } = this.props;
-    const organisationObject: OrganisationType = {
-      id: organisationId,
-      name: this.refs.name.value,
-      template: this.refs.template.value,
-    };
+  onSubmit = formData => {
+    const { createOrganisation, updateOrganisation, isNew } = this.props;
     if (isNew) {
-      createOrganisation(organisationObject);
+      createOrganisation(formData);
     } else {
-      updateOrganisation(organisationObject);
+      updateOrganisation(formData);
     }
   };
 
-  onCancelClick = () => {
+  onCancelClick = e => {
+    e && e.preventDefault();
     const { goBack } = this.props;
     goBack();
   };
 
-  deleteOrganisation = () => {
+  onDeleteClick = e => {
+    e && e.preventDefault();
     const { organisation, deleteOrganisation } = this.props;
     if (confirm('Delete organisation?')) {
       deleteOrganisation(organisation);
@@ -67,95 +78,34 @@ class Edit extends React.Component<*> {
 
   render() {
     const { isNew, organisation, isFetching, error } = this.props;
-    if (isFetching) {
-      return (
-        <div className={styles.container}>
-          <div className={styles.header}>
-            <div className={styles.title}>Organisation</div>
-          </div>
-          <div className={styles.contentContainer}>
-            <div className={styles.formContainer}>
-              <Loading />
-            </div>
-          </div>
-        </div>
-      );
-    }
-    let name, template;
-    if (isNew || !organisation) {
-      name = '';
-      template = 'MODS';
-    } else {
-      name = organisation.name;
-      template = organisation.template;
-    }
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.title}>Organisations</div>
-        </div>
-        <div className={styles.contentContainer}>
-          <div className={styles.formContainer}>
-            <div className={styles.contentTitle}>
-              {isNew ? 'New organisation' : 'Edit organisation'}
-            </div>
-            <form onSubmit={this.handleSubmit}>
-              {error && (
-                <div className={styles.formErrors}>{error.message}</div>
+        <Header title={'Organisation'} />
+        <Container fluid>
+          <DecoratedForm
+            formKey="organisations/organisation"
+            schema={organisationSchema}
+            uiSchema={uiSchema}
+            onSubmit={this.onSubmit}
+            isFetching={isFetching}
+            error={error}
+            formData={organisation}
+          >
+            <FormFooter>
+              <div>
+                <SubmitButton marginRight>
+                  {isNew ? 'Create organisation' : 'Save organisation'}
+                </SubmitButton>
+                <CancelButton onClick={this.onCancelClick} />
+              </div>
+              {!isNew && (
+                <DestructiveButton onClick={this.onDeleteClick}>
+                  Delete organisation
+                </DestructiveButton>
               )}
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="name">
-                  Name
-                </label>
-                <input
-                  className={styles.input}
-                  type="text"
-                  id="name"
-                  ref="name"
-                  placeholder="Org name"
-                  defaultValue={name}
-                />
-              </div>
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="organisation">
-                  Template
-                </label>
-                <div className={styles.selectWrap}>
-                  <select
-                    className={styles.select}
-                    ref="template"
-                    id="template"
-                    defaultValue={template}
-                  >
-                    <option />
-                    <option>MGIT</option>
-                    <option>LJ</option>
-                    <option>Microtitre plate</option>
-                    <option>MODS</option>
-                  </select>
-                </div>
-              </div>
-              <div className={styles.formActions}>
-                <button className={styles.button} type="submit">
-                  <span>
-                    <i className="fa fa-chevron-circle-right" /> Save
-                    organisation
-                  </span>
-                </button>
-                <div>
-                  <a onClick={this.onCancelClick}>Cancel</a>
-                </div>
-                {!isNew && (
-                  <div className={styles.destructiveAction}>
-                    <a onClick={this.deleteOrganisation}>
-                      <i className="fa fa-trash" /> Delete organisation
-                    </a>
-                  </div>
-                )}
-              </div>
-            </form>
-          </div>
-        </div>
+            </FormFooter>
+          </DecoratedForm>
+        </Container>
       </div>
     );
   }

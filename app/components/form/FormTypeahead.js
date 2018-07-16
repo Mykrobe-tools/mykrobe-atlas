@@ -7,7 +7,7 @@ import Fuse from 'fuse.js';
 
 import FormLabel from './FormLabel';
 
-import styles from './FormTypeahead.css';
+import styles from './FormTypeahead.scss';
 
 const defaults = {
   // allow custom overriding of typeahead logic: filtering

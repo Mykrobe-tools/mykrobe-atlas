@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import Lozenge from './Lozenge';
-import styles from './AnimatedBackground.css';
-import lozengeStyles from './Lozenge.css';
+import styles from './AnimatedBackground.scss';
+import lozengeStyles from './Lozenge.scss';
 
 type State = {
   width: number,

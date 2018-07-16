@@ -2,30 +2,30 @@
 
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { Container } from 'reactstrap';
 
-import styles from './Common.css';
+import {
+  FormHeader,
+  FormFooter,
+} from 'makeandship-js-common/src/components/ui/form';
+import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
-class SignupSuccess extends React.Component<*> {
-  render() {
-    return (
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.title}>Account</div>
-        </div>
-        <div className={styles.contentContainer}>
-          <div className={styles.formContainer}>
-            <div className={styles.contentTitle}>Forgot password</div>
-            <div>Password reset instructions have been sent</div>
-            <div className={styles.formActions}>
-              <Link className={styles.button} to="/">
-                Home
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
+import Header from '../header/Header';
+import styles from './Common.scss';
 
-export default SignupSuccess;
+const ForgotSuccess = () => (
+  <div className={styles.container}>
+    <Header title={'Account'} />
+    <Container fluid>
+      <FormHeader title="Forgot password" />
+      <p className="pt-3">Password reset instructions have been sent</p>
+      <FormFooter>
+        <PrimaryButton tag={Link} to="/">
+          Home
+        </PrimaryButton>
+      </FormFooter>
+    </Container>
+  </div>
+);
+
+export default ForgotSuccess;

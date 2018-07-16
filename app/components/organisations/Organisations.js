@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import { Container } from 'reactstrap';
 
 import {
   getOrganisations,
@@ -13,8 +14,9 @@ import {
   newOrganisation,
 } from '../../modules/organisations';
 
-import styles from './Common.css';
+import styles from './Common.scss';
 import Loading from '../ui/Loading';
+import Header from '../header/Header';
 
 class Profile extends React.Component<*> {
   componentWillMount() {
@@ -43,11 +45,9 @@ class Profile extends React.Component<*> {
     }
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.title}>Organisations</div>
-        </div>
-        <div className={styles.contentContainer}>
-          <div className={styles.formContainer}>
+        <Header title={'Organisations'} />
+        <Container fluid>
+          <div className={styles.contentContainer}>
             <table className={styles.table}>
               <thead>
                 <tr>
@@ -79,7 +79,7 @@ class Profile extends React.Component<*> {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </div>
     );
   }

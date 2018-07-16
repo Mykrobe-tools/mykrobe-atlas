@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import styles from './SummaryMetadata.css';
+import styles from './SummaryMetadata.scss';
 
 class SummaryMetadata extends React.Component<*> {
   render() {

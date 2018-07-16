@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
 
-import styles from './Analysis.css';
+import styles from './Analysis.scss';
 import Phylogeny from '../phylogeny/Phylogeny';
 import Uploading from '../ui/Uploading';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';

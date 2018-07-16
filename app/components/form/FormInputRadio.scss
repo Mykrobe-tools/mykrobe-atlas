@@ -1,0 +1,26 @@
+.wrap {
+  composes: wrap from 'styles/form.scss';
+}
+
+.label {
+  composes: label from 'styles/form.scss';
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  vertical-align: top;
+}
+
+.item {
+  padding-right: 24px;
+}
+
+.item:last-child {
+  padding-right: 0;
+}
+
+.input {
+  margin-right: 8px;
+  cursor: pointer;
+}

@@ -1,0 +1,48 @@
+@import '~styles/colors.global';
+
+.container {
+	composes: container from 'styles/layout.scss';
+	width: 260px;
+	height: 100%;
+	background: white;
+	flex-direction: column;
+	transform: translateX(-260px);
+	transition: transform 0.3s;
+	position: relative;
+	pointer-events: auto;
+}
+
+.containerDisplayed {
+	composes: container;
+	transform: translateX(0);
+}
+
+.logoWrap {
+	border-top: 1px solid $color-rule;
+	margin: 84px 0 20px 30px;
+	padding-top: 20px;
+}
+
+.navigation {
+	margin: 0 0 0 30px;
+	padding: 0;
+	border-bottom: 1px solid $color-rule;
+}
+
+.navigationItem {
+	border-top: 1px solid $color-rule;
+	list-style: none;
+}
+
+.navigationLink {
+	composes: fontSecondary from 'styles/typography.scss';
+	composes: fontSecondarySizeSmall from 'styles/typography.scss';
+	display: block;
+	padding: 13px 0;
+	color: $color-grey-dark;
+}
+
+.navigationLinkActive {
+	composes: navigationLink;
+	color: $color-tint-primary;
+}

@@ -1,0 +1,59 @@
+@import '~styles/colors.global';
+
+.wrap {
+	composes: wrap from 'styles/form.scss';
+	width: 100%;
+}
+
+.label {
+	composes: label from 'styles/form.scss';
+}
+
+/* Styling for Autosuggest sub-component */
+
+.input {
+	composes: input from 'styles/form.scss';
+	position: relative;
+	z-index: 3;
+	width: 100%;
+}
+
+.container {
+	position: relative;
+	width: 50%;
+}
+
+.suggestionsContainer {
+	position: absolute;
+	top: 100%;
+	margin-top: -2px;
+	display: block;
+	border: 1px solid $color-grey-light;
+	border-top: 0;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	background-color: #fff;
+	z-index: 2;
+	width: 100%;
+}
+
+.suggestionsContainer:empty {
+	border: 0;
+}
+
+.suggestionsList {
+	margin: 0;
+	padding: 2px 0 0;
+	list-style-type: none;
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+.suggestion {
+	cursor: pointer;
+	padding: 10px 20px;
+}
+
+.suggestionFocused {
+	background-color: $color-grey-light;
+}

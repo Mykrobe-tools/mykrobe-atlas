@@ -2,9 +2,12 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Experiments.css';
+import { Container, Row, Col } from 'reactstrap';
+
+import styles from './Experiments.scss';
 import ExperimentsTable from '../experiments/ExperimentsTable';
 import ExperimentsHeader from '../experiments/ExperimentsHeader';
+import Header from '../header/Header';
 
 class Experiments extends React.Component<*> {
   render() {
@@ -17,27 +20,23 @@ class Experiments extends React.Component<*> {
     } = this.props;
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.title}>Library</div>
-        </div>
-        <div className={styles.content}>
-          <div className={styles.experiments}>
-            <div className={styles.experimentsHeader}>
-              <ExperimentsHeader
-                experiments={experiments}
-                filterValues={filterValues}
-                requestExperiments={requestExperiments}
-                requestFilterValues={requestFilterValues}
-              />
-            </div>
-            <div className={styles.experimentsBody}>
-              <ExperimentsTable
-                isFetching={isFetchingExperiments}
-                experiments={experiments}
-              />
-            </div>
+        <Header title={'Experiments'} />
+        <Container fluid>
+          <div className={styles.experimentsHeader}>
+            <ExperimentsHeader
+              experiments={experiments}
+              filterValues={filterValues}
+              requestExperiments={requestExperiments}
+              requestFilterValues={requestFilterValues}
+            />
           </div>
-        </div>
+          <div className={styles.experimentsBody}>
+            <ExperimentsTable
+              isFetching={isFetchingExperiments}
+              experiments={experiments}
+            />
+          </div>
+        </Container>
       </div>
     );
   }

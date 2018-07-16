@@ -4,10 +4,11 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import styles from './Upload.css';
+import styles from './Upload.scss';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
 import PopoverMenu from '../ui/PopoverMenu';
+import Header from '../header/Header';
 
 import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
 
@@ -107,6 +108,7 @@ class Upload extends React.Component<*> {
             )}
           </div>
         </div>
+        <Header />
       </div>
     );
   }

@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
 
 import { shouldAcceptDropEvent } from './util';
-import styles from './DragAndDrop.css';
+import styles from './DragAndDrop.scss';
 
 import { uploadFileDrop } from '../../modules/upload';
 

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import FormLabel from './FormLabel';
 
-import styles from './FormTextarea.css';
+import styles from './FormTextarea.scss';
 
 class FormTextarea extends React.Component<*> {
   render() {

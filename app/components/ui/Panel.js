@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Panel.css';
+import styles from './Panel.scss';
 
 class Panel extends React.Component<*> {
   render() {

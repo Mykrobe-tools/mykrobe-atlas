@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 
 import moment from 'moment';
 
-import styles from './MetadataForm.css';
+import styles from './MetadataForm.scss';
 
 import MetadataFormStep from './MetadataFormStep';
 import MetadataFormSteps from './MetadataFormSteps';

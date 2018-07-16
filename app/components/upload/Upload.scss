@@ -1,0 +1,161 @@
+@import '~styles/colors.global';
+
+.container {
+	composes: container from 'styles/layout.scss';
+	flex-direction: column;
+	background-color: $color-background;
+	position: relative;
+}
+
+.contentWrap {
+	composes: containerAbsolute from 'styles/layout.scss';
+	pointer-events: none;
+}
+
+.contentContainer {
+	composes: containerAbsolute from 'styles/layout.scss';
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	pointer-events: none;
+}
+
+.content {
+	position: relative;
+	background-color: white;
+	width: 480px;
+	height: 480px;
+	border-radius: 50%;
+	padding: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.logoWrap {
+	margin-bottom: 30px;
+}
+
+.title {
+	font-size: 24px; /* composes: fontSizeLarge from "styles/typography.scss"; */
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.buttonContainer {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	bottom: 60px;
+	pointer-events: auto;
+}
+
+.buttonOffscreen {
+	position: absolute;
+	left: -9999px;
+	top: -9999px;
+}
+
+.button {
+	composes: buttonOutlineLarge from 'styles/controls.scss';
+}
+
+.progressTextContainer {
+	composes: containerAbsolute from 'styles/layout.scss';
+	align-items: center;
+	justify-content: center;
+}
+
+.progressStatus {
+	composes: fontSecondary from 'styles/typography.scss';
+	position: absolute;
+	bottom: 140px;
+	left: 64px;
+	right: 64px;
+	text-align: center;
+}
+
+.progressTitle {
+	composes: fontSecondary from 'styles/typography.scss';
+	font-size: 96px;
+	color: $color-grey-light;
+}
+
+.dots {
+	composes: containerAbsolute from 'styles/layout.scss';
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.dot {
+	opacity: 0;
+	border-radius: 500px;
+	width: 48px;
+	height: 48px;
+	margin: 12px;
+	background-color: $color-grey-light;
+	animation-timing-function: ease-in;
+}
+
+.dotOne {
+	composes: dot;
+	animation: dotone 1.2s infinite;
+}
+
+.dotTwo {
+	composes: dot;
+	animation: dottwo 1.2s infinite;
+}
+
+.dotThree {
+	composes: dot;
+	animation: dotthree 1.2s infinite;
+}
+
+@keyframes dotone {
+	0% {
+		opacity: 0;
+	}
+	20% {
+		opacity: 0;
+	}
+	60% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes dottwo {
+	0% {
+		opacity: 0;
+	}
+	30% {
+		opacity: 0;
+	}
+	70% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes dotthree {
+	0% {
+		opacity: 0;
+	}
+	40% {
+		opacity: 0;
+	}
+	80% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+	}
+}

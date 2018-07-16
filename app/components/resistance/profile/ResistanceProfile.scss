@@ -1,0 +1,39 @@
+@import '~styles/colors.global';
+
+.container {
+	composes: container from 'styles/layout.scss';
+	flex-direction: row;
+}
+
+.column {
+	flex: 1;
+}
+
+.column + .column {
+	margin-left: 12px;
+}
+
+.columnTitle {
+	composes: subtitle from 'styles/typography.scss';
+	padding: 8px 0;
+}
+
+.columnTitleSusceptible {
+	composes: columnTitle;
+	color: $color-susceptible;
+}
+
+.columnTitleResistant {
+	composes: columnTitle;
+	color: $color-resistant;
+}
+
+.columnTitleInconclusive {
+	composes: columnTitle;
+	color: $color-inconclusive;
+}
+
+.empty {
+	display: flex;
+	flex: 1;
+}

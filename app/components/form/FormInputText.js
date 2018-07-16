@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import FormLabel from './FormLabel';
 
-import styles from './FormInputText.css';
+import styles from './FormInputText.scss';
 
 class FormInputText extends React.Component<*> {
   render() {

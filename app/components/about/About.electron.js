@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import styles from './About.css';
+import styles from './About.scss';
 import Logo from '../logo/Logo';
 
 import { launchWebsite } from '../../helpers/UIHelpers'; // eslint-disable-line import/named

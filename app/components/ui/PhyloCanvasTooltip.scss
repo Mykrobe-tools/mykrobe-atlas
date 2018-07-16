@@ -1,0 +1,57 @@
+@import '~styles/colors.global';
+
+.tooltip {
+	position: fixed;
+	z-index: 3;
+	pointer-events: none;
+}
+
+.tooltipWrapper {
+	transform: translate(-50%, -100%);
+	padding-bottom: 24px;
+}
+
+.tooltipContainer {
+	composes: fontSecondary from 'styles/typography.scss';
+	composes: fontSecondarySizeSmall from 'styles/typography.scss';
+	position: relative;
+	background-color: white;
+	border: 1px solid $color-rule;
+	padding: 0 8px 8px;
+	box-shadow: 4px 4px 8px 0 rgba(67, 65, 61, 0.2);
+}
+
+.tooltipContainer::after,
+.tooltipContainer::before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: ' ';
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.tooltipContainer::after {
+	border-color: rgba(255, 255, 255, 0);
+	border-top-color: #fff;
+	border-width: 12px;
+	margin-left: -12px;
+}
+
+.tooltipContainer::before {
+	border-color: rgba(206, 204, 198, 0);
+	border-top-color: $color-rule;
+	border-width: 13px;
+	margin-left: -13px;
+}
+
+.title {
+	composes: subtitle from 'styles/typography.scss';
+	padding-top: 8px;
+}
+
+.marker {
+	padding-top: 8px;
+}

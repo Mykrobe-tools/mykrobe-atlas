@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Summary.css';
+import styles from './Summary.scss';
 import Uploading from '../ui/Uploading';
 import ResistanceProfile from '../resistance/profile/ResistanceProfile';
 import Panel from '../ui/Panel';

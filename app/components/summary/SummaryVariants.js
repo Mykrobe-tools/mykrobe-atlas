@@ -1,7 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
-import styles from './SummaryVariants.css';
+import styles from './SummaryVariants.scss';
 
 class SummaryVariants extends React.Component<*> {
   render() {

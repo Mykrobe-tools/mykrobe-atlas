@@ -1,0 +1,16 @@
+.container {
+  composes: container from 'styles/layout.scss';
+  padding: 18px;
+  overflow-y: auto;
+  background-color: white;
+  flex-wrap: wrap;
+}
+
+.evidence {
+  padding: 8px 0;
+}
+
+.empty {
+  display: flex;
+  flex: 1;
+}

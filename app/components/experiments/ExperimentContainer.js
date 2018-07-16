@@ -14,7 +14,7 @@ import {
   requestExperimentMetadataTemplate,
 } from '../../modules/experiments';
 
-import styles from './ExperimentContainer.css';
+import styles from './ExperimentContainer.scss';
 
 class ExperimentContainer extends React.Component<*> {
   componentDidMount() {

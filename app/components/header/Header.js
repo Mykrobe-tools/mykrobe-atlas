@@ -5,77 +5,72 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Container } from 'reactstrap';
 
-import styles from './Header.css';
+import styles from './Header.scss';
 
 import {
   signOut,
   getIsAuthenticated,
 } from 'makeandship-js-common/src/modules/auth';
 
+// TODO: implement with buttons
+// import {
+//   PrimaryButton,
+//   LinkButton,
+// } from 'makeandship-js-common/src/components/ui/Buttons';
+
 import { getCurrentUser } from '../../modules/users';
 
 class Header extends React.Component<*> {
-  onMenuToggleClick = (e: Event) => {
-    const { toggleMenu } = this.props;
-    e.preventDefault();
-    toggleMenu();
-  };
-
   render() {
-    const { displayMenu, signOut, isAuthenticated, currentUser } = this.props;
+    const { signOut, isAuthenticated, currentUser, title } = this.props;
     return (
-      <div className={styles.container}>
-        <a
-          href="#"
-          className={styles.menuToggle}
-          onClick={this.onMenuToggleClick}
-        >
-          <span
-            className={displayMenu ? styles.menuIconClose : styles.menuIconOpen}
-          />
-        </a>
-        {isAuthenticated ? (
-          <div className={styles.account}>
-            {currentUser && (
-              <Link
-                to="/users/profile"
+      <Container fluid className={styles.container}>
+        <div className={styles.contentWrap}>
+          {title && <div className={styles.title}>{title}</div>}
+          {isAuthenticated ? (
+            <div className={styles.account}>
+              {currentUser && (
+                <Link
+                  to="/users/profile"
+                  className={styles.authLink}
+                  data-tid="button-my-profile"
+                >
+                  <i className="fa fa-user" /> My profile
+                </Link>
+              )}
+              <a
+                href="#"
                 className={styles.authLink}
-                data-tid="button-my-profile"
+                onClick={() => {
+                  signOut();
+                }}
+                data-tid="button-sign-out"
               >
-                <i className="fa fa-user" /> My profile
+                Sign out
+              </a>
+            </div>
+          ) : (
+            <div className={styles.account}>
+              <Link
+                to="/auth/login"
+                className={styles.authLink}
+                data-tid="button-log-in"
+              >
+                <i className="fa fa-user" /> Log in
               </Link>
-            )}
-            <a
-              href="#"
-              className={styles.authLink}
-              onClick={() => {
-                signOut();
-              }}
-              data-tid="button-sign-out"
-            >
-              Sign out
-            </a>
-          </div>
-        ) : (
-          <div className={styles.account}>
-            <Link
-              to="/auth/login"
-              className={styles.authLink}
-              data-tid="button-log-in"
-            >
-              <i className="fa fa-user" /> Log in
-            </Link>
-            <Link
-              to="/auth/signup"
-              className={styles.signUpLink}
-              data-tid="button-sign-up"
-            >
-              Sign up
-            </Link>
-          </div>
-        )}
-      </div>
+              <Link
+                to="/auth/signup"
+                className={styles.signUpLink}
+                data-tid="button-sign-up"
+              >
+                Sign up
+              </Link>
+            </div>
+          )}
+        </div>
+      </Container>
     );
   }
 }
@@ -100,8 +95,7 @@ Header.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   currentUser: PropTypes.object,
   signOut: PropTypes.func.isRequired,
-  displayMenu: PropTypes.bool.isRequired,
-  toggleMenu: PropTypes.func.isRequired,
+  title: PropTypes.string,
 };
 
 export default connect(

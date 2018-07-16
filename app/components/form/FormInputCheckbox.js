@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import FormLabel from './FormLabel';
 
-import styles from './FormInputCheckbox.css';
+import styles from './FormInputCheckbox.scss';
 
 class FormInputCheckbox extends React.Component<*> {
   render() {

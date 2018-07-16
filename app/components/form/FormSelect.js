@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import FormLabel from './FormLabel';
 
-import styles from './FormSelect.css';
+import styles from './FormSelect.scss';
 
 class FormSelect extends React.Component<*> {
   render() {

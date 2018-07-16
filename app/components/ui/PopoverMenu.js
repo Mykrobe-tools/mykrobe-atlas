@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './PopoverMenu.css';
+import styles from './PopoverMenu.scss';
 
 type State = {
   isActive: boolean,
