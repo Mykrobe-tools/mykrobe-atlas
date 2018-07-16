@@ -53,7 +53,7 @@ class Edit extends React.Component<*> {
     }
   }
 
-  onSubmit = formData => {
+  onSubmit = (formData: OrganisationType) => {
     const { createOrganisation, updateOrganisation, isNew } = this.props;
     if (isNew) {
       createOrganisation(formData);

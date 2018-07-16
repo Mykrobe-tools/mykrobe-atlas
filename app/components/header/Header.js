@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import DocumentTitle from 'react-document-title';
 
 import styles from './Header.scss';
 
@@ -25,10 +26,12 @@ import { getCurrentUser } from '../../modules/users';
 class Header extends React.Component<*> {
   render() {
     const { signOut, isAuthenticated, currentUser, title } = this.props;
+    const hasTitle = title && title.length > 0;
     return (
       <Container fluid className={styles.container}>
         <div className={styles.contentWrap}>
-          {title && <div className={styles.title}>{title}</div>}
+          {hasTitle && <DocumentTitle title={title} />}
+          {hasTitle && <div className={styles.title}>{title}</div>}
           {isAuthenticated ? (
             <div className={styles.account}>
               {currentUser && (

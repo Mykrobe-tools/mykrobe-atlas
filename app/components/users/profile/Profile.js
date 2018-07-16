@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { goBack } from 'react-router-redux';
 import { Container } from 'reactstrap';
-import DocumentTitle from 'react-document-title';
 
 import {
   requestCurrentUser,
@@ -74,32 +73,30 @@ class Profile extends React.Component<*> {
   render() {
     const { isFetching, error, currentUser } = this.props;
     return (
-      <DocumentTitle title="Profile">
-        <div className={styles.container}>
-          <Header title={'Profile'} />
-          <Container fluid>
-            <DecoratedForm
-              formKey="users/profile"
-              schema={profileSchema}
-              uiSchema={uiSchema}
-              onSubmit={this.onSubmit}
-              isFetching={isFetching}
-              error={error}
-              formData={currentUser}
-            >
-              <FormFooter>
-                <div>
-                  <SubmitButton marginRight>Save profile</SubmitButton>
-                  <CancelButton onClick={this.onCancelClick} />
-                </div>
-                <DestructiveButton onClick={this.onDeleteClick}>
-                  Delete account
-                </DestructiveButton>
-              </FormFooter>
-            </DecoratedForm>
-          </Container>
-        </div>
-      </DocumentTitle>
+      <div className={styles.container}>
+        <Header title={'Profile'} />
+        <Container fluid>
+          <DecoratedForm
+            formKey="users/profile"
+            schema={profileSchema}
+            uiSchema={uiSchema}
+            onSubmit={this.onSubmit}
+            isFetching={isFetching}
+            error={error}
+            formData={currentUser}
+          >
+            <FormFooter>
+              <div>
+                <SubmitButton marginRight>Save profile</SubmitButton>
+                <CancelButton onClick={this.onCancelClick} />
+              </div>
+              <DestructiveButton onClick={this.onDeleteClick}>
+                Delete account
+              </DestructiveButton>
+            </FormFooter>
+          </DecoratedForm>
+        </Container>
+      </div>
     );
   }
 }
