@@ -11,10 +11,9 @@ const module = createEntityModule('organisation', {
   getState: state => state.organisations.organisation,
   create: {
     operationId: 'organisationsCreate',
-    onSuccess: function*({ success }) {
-      const id = success.payload.id;
+    onSuccess: function*() {
       yield put(showNotification('Organisation created'));
-      yield put(push(`/organisations/${id}`));
+      yield put(push(`/organisations`));
     },
   },
   request: {

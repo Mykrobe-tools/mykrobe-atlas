@@ -1,15 +1,13 @@
 /* @flow */
 
 import { createCollectionModule } from 'makeandship-js-common/src/modules/generic';
-// import { getFiltersParameters } from './organisationsFilters';
+import { getOrganisationsFiltersSaga } from './organisationsFilters';
 
 const collectionName = 'organisations';
 
-// TODO: implement geenric filter parameters module - read <-> location search string in web client
-
 const module = createCollectionModule(collectionName, {
   operationId: 'organisationsList',
-  // parameters: getFiltersParameters,
+  parameters: getOrganisationsFiltersSaga,
   initialData: [],
 });
 
