@@ -11,7 +11,6 @@ type State = {
 };
 
 class AnimatedBackground extends React.Component<*, State> {
-  _resize: (e: Event) => void;
   _container: Element;
 
   constructor(props: Object) {
@@ -20,25 +19,24 @@ class AnimatedBackground extends React.Component<*, State> {
       width: 1024,
       height: 768,
     };
-    this._resize = () => this.resize();
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this._resize);
-    setTimeout(() => {
-      this.measureContainer();
-    }, 0);
+    window.addEventListener('resize', this.resize);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this._resize);
+    window.removeEventListener('resize', this.resize);
   }
 
-  resize() {
+  resize = () => {
     this.measureContainer();
-  }
+  };
 
   measureContainer() {
+    if (!this._container) {
+      return;
+    }
     const boundingClientRect = this._container.getBoundingClientRect();
     const { width, height } = boundingClientRect;
     this.setState({
@@ -49,6 +47,7 @@ class AnimatedBackground extends React.Component<*, State> {
 
   containerRef = ref => {
     this._container = ref;
+    this.measureContainer();
   };
 
   render() {
