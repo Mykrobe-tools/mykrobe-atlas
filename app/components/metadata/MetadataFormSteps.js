@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './MetadataFormSteps.css';
+import styles from './MetadataFormSteps.scss';
 
 type State = {
   step: number,

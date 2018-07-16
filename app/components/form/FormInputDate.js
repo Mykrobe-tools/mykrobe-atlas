@@ -7,7 +7,7 @@ import DatePicker from 'react-datepicker';
 
 import FormLabel from './FormLabel';
 
-import styles from './FormInputDate.css';
+import styles from './FormInputDate.scss';
 
 class FormInputDate extends React.Component<*> {
   render() {

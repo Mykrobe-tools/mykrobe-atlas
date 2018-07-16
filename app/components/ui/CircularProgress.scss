@@ -1,0 +1,19 @@
+@import '~styles/colors.global';
+
+.container {
+	composes: containerAbsolute from 'styles/layout.scss';
+	pointer-events: none;
+}
+
+.background {
+	fill: none;
+	stroke: white;
+}
+
+.foreground {
+	fill: none;
+	transition: stroke-dashoffset 2s linear;
+	stroke: $color-grey-light;
+	transform-origin: center center;
+	transform: rotate(-90deg);
+}

@@ -1,0 +1,5 @@
+.container {
+	composes: containerAbsolute from 'styles/layout.scss';
+	pointer-events: none;
+	width: 100%;
+}

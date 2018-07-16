@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Logo.css';
+import styles from './Logo.scss';
 import * as TargetConstants from '../../constants/TargetConstants';
 
 const logosByTargetName = {

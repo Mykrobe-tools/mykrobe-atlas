@@ -1,0 +1,60 @@
+@import '~styles/colors.global';
+
+.font {
+	font-family: 'Minion-Regular', serif;
+}
+
+.fontSizeExtraLarge {
+	font-size: 36px;
+}
+
+.fontSizeLarge {
+	font-size: 24px;
+}
+
+.fontSizeNormal {
+	font-size: 19px;
+}
+
+.fontSizeSmall {
+	font-size: 14px;
+}
+
+.fontSecondary {
+	font-family: 'Bryant2-Bold', sans-serif;
+	text-transform: uppercase;
+}
+
+.fontSecondarySizeNormal {
+	font-size: 16px;
+}
+
+.fontSecondarySizeSmall {
+	font-size: 14px;
+}
+
+.titleExtraLarge {
+	composes: font;
+	composes: fontSizeExtraLarge;
+	color: $color-tint-primary;
+}
+
+.subtitle {
+	composes: fontSecondary;
+	composes: fontSecondarySizeNormal;
+}
+
+.subtitleSmall {
+	composes: fontSecondary;
+	composes: fontSecondarySizeSmall;
+}
+
+.subtitleRuled {
+	composes: fontSecondary;
+	composes: fontSecondarySizeNormal;
+	display: flex;
+	width: 100%;
+	color: $color-tint-primary;
+	padding-bottom: 8px;
+	border-bottom: 1px solid $color-rule;
+}

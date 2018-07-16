@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import pluralize from 'pluralize';
 
-import styles from './ExperimentsHeader.css';
+import styles from './ExperimentsHeader.scss';
 
 class ExperimentsHeader extends React.Component<*> {
   render() {

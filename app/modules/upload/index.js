@@ -12,9 +12,8 @@ import { uploadOneDriveSaga } from './uploadOneDrive';
 export {
   uploadFile,
   uploadFileCancel,
-  uploadFileAssignDrop,
+  uploadFileDrop,
   uploadFileAssignBrowse,
-  uploadFileUnassignDrop,
   uploadFileSaga,
   getIsBusy,
   getProgress,

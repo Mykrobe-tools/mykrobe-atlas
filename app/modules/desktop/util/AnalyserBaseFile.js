@@ -4,6 +4,7 @@ import EventEmitter from 'events';
 
 // TODO: we can remove the transformer - it is created on demand by a redux selector
 import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransformer';
+import * as APIConstants from '../../../constants/APIConstants';
 
 class AnalyserBaseFile extends EventEmitter {
   extensionForFileName(fileName: string) {
@@ -22,11 +23,17 @@ class AnalyserBaseFile extends EventEmitter {
     const extension = this.extensionForFileName(filename);
     if (extension === '.json') {
       return this.analyseJsonFile(file);
-    } else if (['.bam', '.gz', '.fastq'].indexOf(extension) !== -1) {
+    } else if (
+      APIConstants.API_SAMPLE_EXTENSIONS_ARRAY_WITH_DOTS.indexOf(extension) !==
+      -1
+    ) {
       return this.analyseBinaryFile(file, id);
     } else {
+      const acceptable = APIConstants.API_SAMPLE_EXTENSIONS_ARRAY_WITH_DOTS.join(
+        ', '
+      );
       this.failWithError(
-        `Can only process files with extension: .json, .bam, .gz, .fastq - not ${extension}`
+        `Can only process files with extension: ${acceptable} - not ${extension}`
       );
       return this;
     }

@@ -172,8 +172,8 @@ function* analyseFileWatcher() {
 }
 
 export function* analyseFileWorker(action: any): Generator<*, *, *> {
-  const filePath = action.payload;
-  console.log('filePath', filePath);
+  const file = action.payload;
+  const filePath = typeof file === 'string' ? file : file.path;
   yield apply(app, 'addRecentDocument', [filePath]);
   yield apply(_analyserLocalFile, 'analyseFile', [filePath]);
   yield put(hideAllNotifications());

@@ -1,6 +1,9 @@
 /* @flow */
 
+import { put } from 'redux-saga/effects';
+
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
+import { showNotification } from 'makeandship-js-common/src/modules/notifications';
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experimentProvider/',
@@ -8,6 +11,9 @@ const module = createEntityModule('experiment', {
   initialData: {},
   update: {
     operationId: 'experimentProviderUpload',
+    onSuccess: function*() {
+      yield put(showNotification('Sample received'));
+    },
   },
 });
 

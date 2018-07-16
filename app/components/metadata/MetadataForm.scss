@@ -1,0 +1,19 @@
+@import '~styles/colors.global';
+
+.susceptibilityWrap {
+	composes: wrap from 'styles/form.scss';
+}
+
+.susceptibilityLabel {
+	composes: label from 'styles/form.scss';
+}
+
+.susceptibilityRows {
+	border-bottom: 1px solid $color-rule;
+	width: 60%;
+}
+
+.susceptibilityRow {
+	border-top: 1px solid $color-rule;
+	padding: 8px 0;
+}

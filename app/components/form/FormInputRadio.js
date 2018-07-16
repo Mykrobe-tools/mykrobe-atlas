@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import FormLabel from './FormLabel';
 
-import styles from './FormInputRadio.css';
+import styles from './FormInputRadio.scss';
 
 class FormInputRadio extends React.Component<*> {
   render() {

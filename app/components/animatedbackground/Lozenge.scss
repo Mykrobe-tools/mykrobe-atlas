@@ -1,0 +1,19 @@
+.lozengeContainer {
+	position: absolute;
+}
+
+.lozenge {
+	border-radius: 500px;
+	width: 185px;
+	height: 65px;
+}
+
+.lozengeBlue {
+	composes: lozenge;
+	background-color: rgba(0, 93, 138, 0.8);
+}
+
+.lozengeYellow {
+	composes: lozenge;
+	background-color: rgba(255, 137, 0, 0.7);
+}

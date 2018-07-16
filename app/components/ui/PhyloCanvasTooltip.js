@@ -1,7 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
-import styles from './PhyloCanvasTooltip.css';
+import styles from './PhyloCanvasTooltip.scss';
 import type { SampleType } from '../../types/SampleType';
 import moment from 'moment';
 

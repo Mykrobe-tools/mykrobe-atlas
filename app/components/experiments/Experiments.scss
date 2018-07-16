@@ -1,0 +1,28 @@
+@import '~styles/colors.global';
+@import '~styles/variables.global';
+
+.container {
+	composes: container from 'styles/layout.scss';
+	flex-direction: column;
+}
+
+.header {
+	height: $header-height;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.title {
+	composes: font from 'styles/typography.scss';
+	composes: fontSizeLarge from 'styles/typography.scss';
+}
+
+.content {
+	flex: 1;
+}
+
+.experimentsHeader {
+	composes: global(py-3);
+}

@@ -25,6 +25,12 @@ import {
   checkToken,
 } from 'makeandship-js-common/src/modules/auth/auth';
 
+import {
+  showNotification,
+  NotificationCategories,
+} from '../../../node_modules/makeandship-js-common/src/modules/notifications';
+
+import * as APIConstants from '../../constants/APIConstants';
 import { createExperimentId } from '../experiments/experiment';
 
 import ResumableUpload, {
@@ -39,11 +45,12 @@ import ComputeChecksums, {
   COMPUTE_CHECKSUMS_COMPLETE,
 } from './util/ComputeChecksums';
 
-const acceptedExtensions = ['json', 'bam', 'gz', 'fastq', 'jpg'];
-
 const _computeChecksumChannel = channel();
 const _uploadFileChannel = channel();
-const _uploadFile = new ResumableUpload(_uploadFileChannel, acceptedExtensions);
+const _uploadFile = new ResumableUpload(
+  _uploadFileChannel,
+  APIConstants.API_SAMPLE_EXTENSIONS_ARRAY
+);
 const _computeChecksums = new ComputeChecksums(_computeChecksumChannel);
 
 export const typePrefix = 'upload/uploadFile/';
@@ -51,9 +58,8 @@ export const typePrefix = 'upload/uploadFile/';
 export const UPLOAD_FILE = `${typePrefix}UPLOAD_FILE`;
 export const UPLOAD_FILE_CANCEL = `${typePrefix}UPLOAD_FILE_CANCEL`;
 
-export const UPLOAD_FILE_ASSIGN_DROP = `${typePrefix}UPLOAD_FILE_ASSIGN_DROP`;
+export const UPLOAD_FILE_DROP = `${typePrefix}UPLOAD_FILE_DROP`;
 export const UPLOAD_FILE_ASSIGN_BROWSE = `${typePrefix}UPLOAD_FILE_ASSIGN_BROWSE`;
-export const UPLOAD_FILE_UNASSIGN_DROP = `${typePrefix}UPLOAD_FILE_UNASSIGN_DROP`;
 
 export const COMPUTE_CHECKSUMS = `${typePrefix}COMPUTE_CHECKSUMS`;
 
@@ -111,22 +117,17 @@ export const uploadFile = (payload: any) => ({
   payload,
 });
 
+export const uploadFileDrop = (payload: any) => ({
+  type: UPLOAD_FILE_DROP,
+  payload,
+});
+
 export const uploadFileCancel = () => ({
   type: UPLOAD_FILE_CANCEL,
 });
 
-export const uploadFileAssignDrop = (payload: any) => ({
-  type: UPLOAD_FILE_ASSIGN_DROP,
-  payload,
-});
-
 export const uploadFileAssignBrowse = (payload: any) => ({
   type: UPLOAD_FILE_ASSIGN_BROWSE,
-  payload,
-});
-
-export const uploadFileUnassignDrop = (payload: any) => ({
-  type: UPLOAD_FILE_UNASSIGN_DROP,
   payload,
 });
 
@@ -154,7 +155,6 @@ export default function reducer(
   action: Object = {}
 ) {
   switch (action.type) {
-    case RESUMABLE_UPLOAD_FILE_ADDED:
     case UPLOAD_FILE_CANCEL:
       return {
         ...initialState,
@@ -196,12 +196,11 @@ export default function reducer(
       };
     case RESUMABLE_UPLOAD_DONE:
       return {
-        ...state,
-        isUploading: false,
+        ...initialState,
       };
     case RESUMABLE_UPLOAD_ERROR:
       return {
-        ...initialState,
+        ...state,
         error: action.payload,
       };
     default:
@@ -210,16 +209,11 @@ export default function reducer(
 }
 
 // set the values on resumablejs instance when components are available
+// we keep a ref to the dropzone so we can
 
-function* uploadFileAssignDropWatcher() {
-  yield takeEvery(UPLOAD_FILE_ASSIGN_DROP, function*(action: any) {
-    yield apply(_uploadFile, 'assignDrop', [action.payload]);
-  });
-}
-
-function* uploadFileUnassignDropWatcher() {
-  yield takeEvery(UPLOAD_FILE_UNASSIGN_DROP, function*(action: any) {
-    yield apply(_uploadFile, 'unAssignDrop', [action.payload]);
+function* uploadFileDropWatcher() {
+  yield takeEvery(UPLOAD_FILE_DROP, function*(action: any) {
+    yield apply(_uploadFile, 'onDrop', [action.payload]);
   });
 }
 
@@ -257,6 +251,13 @@ function* fileAddedWatcher() {
 }
 
 export function* fileAddedWorker(action: any): Generator<*, *, *> {
+  const isBusy = yield select(getIsBusy);
+  if (isBusy) {
+    alert(
+      'Please cancel or wait for current upload to finish before uploading another sample'
+    );
+    return;
+  }
   const experimentId = yield call(createExperimentId);
   if (!experimentId) {
     return;
@@ -276,9 +277,6 @@ function* computeChecksumsWatcher() {
 }
 
 export function* computeChecksumsWorker(action: any): Generator<*, *, *> {
-  // TODO: ComputeChecksums never works after being cancelled - investigate
-  // as a workaround, reinstantiate each upload
-  // _computeChecksums = new ComputeChecksums(_computeChecksumChannel);
   yield apply(_computeChecksums, 'computeChecksums', [action.payload]);
   yield take(COMPUTE_CHECKSUMS_COMPLETE);
   yield put({
@@ -315,15 +313,31 @@ export function* uploadFileWorker(): Generator<*, *, *> {
   yield apply(_uploadFile, 'startUpload');
 }
 
-// cancel the upload
+// upload events
 
-function* uploadFileCancelWatcher() {
-  yield takeEvery(UPLOAD_FILE_CANCEL, uploadFileCancelWorker);
+function* resumableUploadDoneWatcher() {
+  yield takeEvery(RESUMABLE_UPLOAD_DONE, function*() {
+    yield put(showNotification('Upload complete'));
+  });
 }
 
-export function* uploadFileCancelWorker(): Generator<*, *, *> {
-  yield apply(_uploadFile, 'cancel');
-  yield apply(_computeChecksums, 'cancel');
+function* resumableUploadErrorWatcher() {
+  yield takeEvery(RESUMABLE_UPLOAD_ERROR, function*(action: any) {
+    yield put(
+      showNotification({
+        category: NotificationCategories.ERROR,
+        content: action.payload,
+      })
+    );
+  });
+}
+
+function* uploadFileCancelWatcher() {
+  yield takeEvery(UPLOAD_FILE_CANCEL, function*() {
+    yield apply(_uploadFile, 'cancel');
+    yield apply(_computeChecksums, 'cancel');
+    yield put(showNotification('Upload cancelled'));
+  });
 }
 
 export function* uploadFileSaga(): Generator<*, *, *> {
@@ -334,9 +348,10 @@ export function* uploadFileSaga(): Generator<*, *, *> {
     fork(computeChecksumsChannelWatcher),
     fork(accessTokenWatcher),
     fork(uploadFileWatcher),
-    fork(uploadFileAssignDropWatcher),
-    fork(uploadFileUnassignDropWatcher),
     fork(uploadFileAssignBrowseWatcher),
     fork(uploadFileCancelWatcher),
+    fork(uploadFileDropWatcher),
+    fork(resumableUploadErrorWatcher),
+    fork(resumableUploadDoneWatcher),
   ]);
 }

@@ -5,17 +5,21 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
+import DocumentTitle from 'react-document-title';
 
 import Notifications from 'makeandship-js-common/src/components/notifications/Notifications';
 
-import styles from './App.css';
+import styles from './App.scss';
 import Analysing from '../components/analysing/Analysing';
-import Header from '../components/header/Header';
+import MenuButton from '../components/menu/MenuButton';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
+import DragAndDrop from '../components/dragAndDrop/DragAndDrop';
 
 import { getIsFetching as getAuthIsFetching } from 'makeandship-js-common/src/modules/auth';
 import { getCurrentUserIsFetching } from '../modules/users';
+
+const defaultTitle = require('../../package.json').productName;
 
 type State = {
   displayMenu: boolean,
@@ -44,22 +48,20 @@ class App extends React.Component<*, State> {
   render() {
     const { children } = this.props;
     const { displayMenu } = this.state;
-
     return (
-      <div className={styles.container}>
+      <DragAndDrop className={styles.container}>
+        <DocumentTitle title={defaultTitle} />
         <div className={styles.contentContainer}>{children}</div>
         <div className={styles.analysingContainer}>
           <Analysing />
         </div>
-        <div className={styles.headerContainer}>
-          <Header displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
-        </div>
         <div className={styles.menuContainer}>
-          <Menu displayMenu={displayMenu} />
           <MenuBg displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
+          <Menu displayMenu={displayMenu} />
         </div>
+        <MenuButton displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
         <Notifications />
-      </div>
+      </DragAndDrop>
     );
   }
 }

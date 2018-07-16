@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './MenuBg.css';
+import styles from './MenuBg.scss';
 
 class MenuBg extends React.Component<*> {
   render() {

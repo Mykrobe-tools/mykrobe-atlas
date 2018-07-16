@@ -6,8 +6,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 
 import store, { history } from './store';
-import './app.global.css';
-import './styles/main.css';
+import './styles/app.global.scss';
 
 // import used moment locales individually, otherwise excluded by webpack config
 import moment from 'moment';

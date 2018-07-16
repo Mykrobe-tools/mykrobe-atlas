@@ -12,12 +12,6 @@ const sassModuleRegex = /^((?!\.global).)*\.(scss|sass)$/;
 module.exports = merge(webpackConfig, {
   mode: 'production',
 
-  output: {
-    pathinfo: true,
-    publicPath: '/',
-    filename: '[name].js',
-  },
-
   module: {
     rules: [
       // Extract all .global.css to style.css as is

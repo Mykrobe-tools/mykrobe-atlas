@@ -1,20 +1,10 @@
 /* @flow */
 
-/* TODO Refactor to use redux-form */
-/* eslint-disable react/no-string-refs */
-
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import type { UserType } from '../../../types/UserTypes';
-
-import styles from '../../auth/Common.css';
-import Loading from '../../ui/Loading';
-
-import { signOut } from 'makeandship-js-common/src/modules/auth';
+import { goBack } from 'react-router-redux';
+import { Container } from 'reactstrap';
 
 import {
   requestCurrentUser,
@@ -23,233 +13,116 @@ import {
   getCurrentUser,
   getCurrentUserIsFetching,
   getCurrentUserError,
-  createCurrentUserAvatar,
-  updateCurrentUserAvatar,
-  deleteCurrentUserAvatar,
-  getCurrentUserAvatarIsFetching,
 } from '../../../modules/users';
 
 import {
-  getOrganisationsIsFetching,
-  getOrganisations,
-  requestOrganisations,
-} from '../../../modules/organisations';
+  DecoratedForm,
+  FormFooter,
+} from 'makeandship-js-common/src/components/ui/form';
+import {
+  SubmitButton,
+  CancelButton,
+  DestructiveButton,
+} from 'makeandship-js-common/src/components/ui/Buttons';
+
+import Header from '../../header/Header';
+
+// TODO: this is effectively a variation of EditUser - consolidate
+
+import { profileSchema } from '../../../schemas/users';
+import styles from './Profile.scss';
+
+const uiSchema = {
+  email: {
+    'ui:readonly': true,
+  },
+  firstname: {
+    'ui:placeholder': 'Sam',
+  },
+  lastname: {
+    'ui:placeholder': 'Smith',
+  },
+};
 
 class Profile extends React.Component<*> {
-  componentWillMount() {
-    const { requestCurrentUser, requestOrganisations } = this.props;
+  componentDidMount() {
+    const { requestCurrentUser } = this.props;
     requestCurrentUser();
-    requestOrganisations();
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const { updateCurrentUser } = this.props;
-    const userObject: UserType = {
-      email: this.refs.email.value,
-      firstname: this.refs.firstname.value,
-      lastname: this.refs.lastname.value,
-      phone: this.refs.phone.value,
-      // organisation: this.refs.organisation.value,
-    };
-    updateCurrentUser(userObject);
-  }
-
-  deleteAccount = () => {
+  onDeleteClick = e => {
     const { deleteCurrentUser } = this.props;
-    if (confirm('Delete account?')) {
-      deleteCurrentUser();
+    e && e.preventDefault();
+    if (!confirm(`Delete account? This cannot be undone.`)) {
+      return;
     }
+    deleteCurrentUser();
+  };
+
+  onCancelClick = e => {
+    e && e.preventDefault();
+    const { goBack } = this.props;
+    goBack();
+  };
+
+  onSubmit = formData => {
+    const { updateCurrentUser } = this.props;
+    updateCurrentUser(formData);
   };
 
   render() {
-    const { error, isFetching, signOut, currentUser } = this.props;
-    if (!currentUser) {
-      return null;
-    }
-    if (isFetching) {
-      return (
-        <div className={styles.container}>
-          <div className={styles.header}>
-            <div className={styles.title}>Profile</div>
-          </div>
-          <div className={styles.contentContainer}>
-            <div className={styles.formContainer}>
-              <Loading />
-            </div>
-          </div>
-        </div>
-      );
-    }
-    const { email, firstname, lastname, phone, organisation } = currentUser;
+    const { isFetching, error, currentUser } = this.props;
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.title}>Profile</div>
-        </div>
-        <div className={styles.contentContainer}>
-          <div className={styles.formContainer}>
-            <div className={styles.contentTitle}>Profile</div>
-            <form
-              onSubmit={e => {
-                this.handleSubmit(e);
-              }}
-            >
-              {error && (
-                <div className={styles.formErrors}>{error.message}</div>
-              )}
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="email">
-                  Email
-                </label>
-                <input
-                  className={styles.input}
-                  type="email"
-                  id="email"
-                  ref="email"
-                  placeholder="sam.smith@example.com"
-                  defaultValue={email}
-                />
+        <Header title={'Profile'} />
+        <Container fluid>
+          <DecoratedForm
+            formKey="users/profile"
+            schema={profileSchema}
+            uiSchema={uiSchema}
+            onSubmit={this.onSubmit}
+            isFetching={isFetching}
+            error={error}
+            formData={currentUser}
+          >
+            <FormFooter>
+              <div>
+                <SubmitButton marginRight>Save profile</SubmitButton>
+                <CancelButton onClick={this.onCancelClick} />
               </div>
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="firstname">
-                  First name
-                </label>
-                <input
-                  className={styles.input}
-                  type="text"
-                  id="firstname"
-                  ref="firstname"
-                  placeholder="Sam"
-                  defaultValue={firstname}
-                />
-              </div>
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="lastname">
-                  Last name
-                </label>
-                <input
-                  className={styles.input}
-                  type="text"
-                  id="lastname"
-                  ref="lastname"
-                  placeholder="Smith"
-                  defaultValue={lastname}
-                />
-              </div>
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="phone">
-                  Phone number
-                </label>
-                <input
-                  className={styles.input}
-                  type="text"
-                  id="phone"
-                  ref="phone"
-                  placeholder="1234567890"
-                  defaultValue={phone}
-                />
-              </div>
-              <div className={styles.formRow}>
-                <label className={styles.label} htmlFor="organisation">
-                  Organisation
-                </label>
-                {/*
-                <div className={styles.selectWrap}>
-                  <select disabled className={styles.select} ref="organisation" id="organisation" defaultValue={selectedOrganisation}>
-                    <option />
-                    {organisations.data.allOrganisations && organisations.data.allOrganisations.map((org) => {
-                      return (
-                        <option key={org.id} value={org.id}>
-                          {org.name}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-                */}
-                {organisation &&
-                  organisation.id && (
-                    <Link to={`/organisation/edit/${organisation.id}`}>
-                      <i className="fa fa-chevron-circle-right" />{' '}
-                      {organisation.name}
-                    </Link>
-                  )}
-              </div>
-              <div className={styles.formActions}>
-                <button className={styles.button} type="submit">
-                  <span>
-                    <i className="fa fa-chevron-circle-right" /> Update profile
-                  </span>
-                </button>
-                <div>
-                  <a
-                    className={styles.buttonBorderless}
-                    onClick={() => {
-                      signOut();
-                    }}
-                  >
-                    Sign out
-                  </a>
-                </div>
-                <div className={styles.destructiveAction}>
-                  <a onClick={this.deleteAccount}>
-                    <i className="fa fa-trash" /> Delete account
-                  </a>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
+              <DestructiveButton onClick={this.onDeleteClick}>
+                Delete account
+              </DestructiveButton>
+            </FormFooter>
+          </DecoratedForm>
+        </Container>
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    organisations: getOrganisations(state),
-    isFetching:
-      getCurrentUserIsFetching(state) ||
-      getCurrentUserAvatarIsFetching(state) ||
-      getOrganisationsIsFetching(state),
-    error: getCurrentUserError(state),
-    currentUser: getCurrentUser(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      signOut,
-      requestCurrentUser,
-      updateCurrentUser,
-      deleteCurrentUser,
-      requestOrganisations,
-      createCurrentUserAvatar,
-      updateCurrentUserAvatar,
-      deleteCurrentUserAvatar,
-    },
-    dispatch
-  );
-}
-
 Profile.propTypes = {
-  updateCurrentUserAvatar: PropTypes.func.isRequired,
-  createCurrentUserAvatar: PropTypes.func.isRequired,
-  deleteCurrentUserAvatar: PropTypes.func.isRequired,
-  error: PropTypes.any,
-  currentUser: PropTypes.any,
-  organisations: PropTypes.array.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  signOut: PropTypes.func.isRequired,
   requestCurrentUser: PropTypes.func.isRequired,
   updateCurrentUser: PropTypes.func.isRequired,
   deleteCurrentUser: PropTypes.func.isRequired,
-  requestOrganisations: PropTypes.func.isRequired,
+  goBack: PropTypes.func.isRequired,
+  error: PropTypes.any,
+  currentUser: PropTypes.any,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Profile);
+const withRedux = connect(
+  state => ({
+    isFetching: getCurrentUserIsFetching(state),
+    error: getCurrentUserError(state),
+    currentUser: getCurrentUser(state),
+  }),
+  {
+    updateCurrentUser,
+    requestCurrentUser,
+    deleteCurrentUser,
+    goBack,
+  }
+);
+
+export default withRedux(Profile);

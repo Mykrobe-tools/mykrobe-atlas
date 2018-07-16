@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './FormButton.css';
+import styles from './FormButton.scss';
 
 class FormButton extends React.Component<*> {
   onClick(event: Event) {

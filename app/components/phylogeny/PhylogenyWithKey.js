@@ -1,7 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
-import styles from './PhylogenyWithKey.css';
+import styles from './PhylogenyWithKey.scss';
 import Key from '../header/Key';
 import Phylogeny from './Phylogeny';
 
