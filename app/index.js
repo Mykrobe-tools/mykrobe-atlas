@@ -15,7 +15,7 @@ require('moment/locale/en-gb');
 // set the default locale, primarily for correct date formatting
 try {
   const locale = window.navigator.language;
-  moment.locale(locale.toLowerCase());
+  locale && moment.locale(locale.toLowerCase());
 } catch (e) {
   console.error(e);
 }

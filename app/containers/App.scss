@@ -2,6 +2,7 @@
 
 .container {
 	composes: container from 'styles/layout.scss';
+	position: relative;
 	flex: 1;
 }
 
