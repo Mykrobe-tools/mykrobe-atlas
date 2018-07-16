@@ -52,10 +52,10 @@ WORKDIR /app
 ADD . /app
 
 # move cached installs into the app
-RUN cd /app && yarn install
+RUN cd /app && yarn
 
 # run local api on 3001
 EXPOSE 3001
 
 # run up the server
-CMD NODE_ENV=$NODE_ENV yarn run web-api-server
+CMD NODE_ENV=$NODE_ENV yarn web-api-server
