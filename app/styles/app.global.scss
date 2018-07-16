@@ -17,80 +17,13 @@
 
 // override defaults before importing
 
-$grid-gutter-width: 40px;
-
-$font-family-base: 'Minion-Regular', serif;
-$font-size-base: 19/16 * 1rem;
-$body-color: $color-text;
-
-$headings-font-weight: normal;
-$headings-color: $color-tint-primary;
-
-$input-bg: $color-panel-light;
-$input-placeholder-color: $color-placeholder-text;
-
-$btn-border-radius: 500px;
-$btn-padding-x: 1.2rem;
-$btn-padding-y: 0.5rem;
-
-$link-hover-decoration: none;
-$link-hover-color: none;
-
-$transition-base: all 0.1s ease-in-out;
-$btn-transition: $transition-base;
+@import 'app.bootstrap.variables.global';
 
 @import '~makeandship-js-common/src/styles/default.global';
 
 // now override generated classes
 
-.container-fluid {
-	padding-left: 30px;
-	padding-right: 30px;
-}
-
-.btn {
-	font-family: 'Bryant2-Bold', sans-serif;
-	text-transform: uppercase;
-	font-size: 14/16 * 1rem;
-	i.fa {
-		font-size: 12/16 * 1rem;
-	}
-}
-
-a {
-	transition: $transition-base;
-	&:hover {
-		opacity: 0.7;
-	}
-}
-
-@each $color, $value in $theme-colors {
-	.btn-#{$color} {
-		color: white;
-		background-color: $value;
-		border-color: $value;
-		@include hover {
-			color: white;
-			background-color: $value;
-			border-color: $value;
-			opacity: 0.7;
-		}
-	}
-}
-
-@each $color, $value in $theme-colors {
-	.btn-outline-#{$color} {
-		color: $value;
-		background-color: transparent;
-		border-color: rgba($value, 0.4);
-		@include hover {
-			color: $value;
-			background-color: transparent;
-			border-color: rgba($value, 0.4);
-			opacity: 0.7;
-		}
-	}
-}
+@import 'app.bootstrap.styles.global';
 
 /* fill the window */
 

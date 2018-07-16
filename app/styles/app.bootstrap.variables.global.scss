@@ -1,0 +1,25 @@
+@import '~styles/colors.global';
+
+// override default bootstrap and common variables
+
+$grid-gutter-width: 40px;
+
+$font-family-base: 'Minion-Regular', serif;
+$font-size-base: 19/16 * 1rem;
+$body-color: $color-text;
+
+$headings-font-weight: normal;
+$headings-color: $color-tint-primary;
+
+$input-bg: $color-panel-light;
+$input-placeholder-color: $color-placeholder-text;
+
+$btn-border-radius: 500px;
+$btn-padding-x: 1.2rem;
+$btn-padding-y: 0.5rem;
+
+$link-hover-decoration: none;
+$link-hover-color: none;
+
+$transition-base: all 0.1s ease-in-out;
+$btn-transition: $transition-base;
