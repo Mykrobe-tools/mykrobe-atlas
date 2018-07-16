@@ -1,122 +1,124 @@
+@import '~styles/colors.global';
+
 .container {
-  composes: container from 'styles/layout.scss';
-  flex-direction: column;
+	composes: container from 'styles/layout.scss';
+	flex-direction: column;
 }
 
 .title {
-  composes: fontSizeLarge from 'styles/typography.scss';
+	composes: fontSizeLarge from 'styles/typography.scss';
 }
 
 .contentContainer {
-  composes: container from 'styles/layout.scss';
-  composes: global(py-3);
-  flex-direction: column;
+	composes: container from 'styles/layout.scss';
+	composes: global(py-3);
+	flex-direction: column;
 }
 
 .contentTitle {
-  composes: fontSizeExtraLarge from 'styles/typography.scss';
-  line-height: 1;
-  border-bottom: 1px solid var(--color-grey-light);
-  padding-bottom: 30px;
-  margin-bottom: 20px;
+	composes: fontSizeExtraLarge from 'styles/typography.scss';
+	line-height: 1;
+	border-bottom: 1px solid $color-grey-light;
+	padding-bottom: 30px;
+	margin-bottom: 20px;
 }
 
 .formContainer {
-  composes: container from 'styles/layout.scss';
-  flex-direction: column;
+	composes: container from 'styles/layout.scss';
+	flex-direction: column;
 }
 
 .formErrors {
-  padding-bottom: 20px;
+	padding-bottom: 20px;
 }
 
 .formRow {
-  composes: container from 'styles/layout.scss';
+	composes: container from 'styles/layout.scss';
 }
 
 .formRow + .formRow {
-  padding-top: 20px;
+	padding-top: 20px;
 }
 
 .label {
-  composes: label from 'styles/form.scss';
+	composes: label from 'styles/form.scss';
 }
 
 .input {
-  composes: input from 'styles/form.scss';
-  width: 50%;
+	composes: input from 'styles/form.scss';
+	width: 50%;
 }
 
 .selectWrap {
-  position: relative;
-  width: 50%;
+	position: relative;
+	width: 50%;
 }
 
 .selectWrap::after {
-  position: absolute;
-  right: 0;
-  font-family: FontAwesome;
-  content: '\f0d7';
-  font-size: 19px;
-  line-height: 24px;
-  color: var(--color-grey-mid);
-  padding: 5px 8px;
-  pointer-events: none;
+	position: absolute;
+	right: 0;
+	font-family: FontAwesome;
+	content: '\f0d7';
+	font-size: 19px;
+	line-height: 24px;
+	color: $color-grey-mid;
+	padding: 5px 8px;
+	pointer-events: none;
 }
 
 .select {
-  composes: input;
-  width: 100%;
-  padding-right: 24px;
+	composes: input;
+	width: 100%;
+	padding-right: 24px;
 }
 
 .button {
-  composes: buttonPrimary from 'styles/controls.scss';
+	composes: buttonPrimary from 'styles/controls.scss';
 }
 
 .formActions {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-  padding: 20px 0;
-  border-top: 1px solid var(--color-rule);
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
+	padding: 20px 0;
+	border-top: 1px solid $color-rule;
 }
 
 .formActions > * + * {
-  padding-left: 20px;
+	padding-left: 20px;
 }
 
 .formActions .destructiveAction {
-  margin-left: auto;
+	margin-left: auto;
 }
 
 .formActions .destructiveAction a {
-  color: var(--color-app-red);
-  cursor: pointer;
+	color: $color-app-red;
+	cursor: pointer;
 }
 
 .table {
-  width: 100%;
-  border-collapse: collapse;
+	width: 100%;
+	border-collapse: collapse;
 }
 
 .tableCell {
-  padding: 10px 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--color-rule);
+	padding: 10px 12px;
+	text-align: left;
+	border-bottom: 1px solid $color-rule;
 }
 
 .tableHeading {
-  composes: tableCell;
-  composes: subtitleSmall from 'styles/typography.scss';
-  padding: 13px 12px;
-  background: var(--color-grey-panel);
+	composes: tableCell;
+	composes: subtitleSmall from 'styles/typography.scss';
+	padding: 13px 12px;
+	background: $color-grey-panel;
 }
 
 .tableData {
-  composes: tableCell;
+	composes: tableCell;
 }
 
 .link {
-  color: var(--color-tint-primary);
+	color: $color-tint-primary;
 }

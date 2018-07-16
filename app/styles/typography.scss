@@ -1,3 +1,5 @@
+@import '~styles/colors.global';
+
 .font {
 	font-family: 'Minion-Regular', serif;
 }
@@ -34,7 +36,7 @@
 .titleExtraLarge {
 	composes: font;
 	composes: fontSizeExtraLarge;
-	color: var(--color-tint-primary);
+	color: $color-tint-primary;
 }
 
 .subtitle {
@@ -52,7 +54,7 @@
 	composes: fontSecondarySizeNormal;
 	display: flex;
 	width: 100%;
-	color: var(--color-tint-primary);
+	color: $color-tint-primary;
 	padding-bottom: 8px;
-	border-bottom: 1px solid var(--color-rule);
+	border-bottom: 1px solid $color-rule;
 }

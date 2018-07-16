@@ -1,41 +1,43 @@
+@import '~styles/colors.global';
+
 .container {
-  composes: container from 'styles/layout.scss';
-  flex: 1;
+	composes: container from 'styles/layout.scss';
+	flex: 1;
 }
 
 .containerDragActive {
-  composes: container;
-  border: 12px solid var(--color-grey-mid);
+	composes: container;
+	border: 12px solid $color-grey-mid;
 }
 
 .notificationsContainer {
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 .analysingContainer {
-  composes: containerAbsolute from 'styles/layout.scss';
-  bottom: auto;
-  pointer-events: none;
-  width: 100%;
+	composes: containerAbsolute from 'styles/layout.scss';
+	bottom: auto;
+	pointer-events: none;
+	width: 100%;
 }
 
 .headerContainer {
-  composes: containerAbsolute from 'styles/layout.scss';
-  bottom: auto;
-  pointer-events: none;
+	composes: containerAbsolute from 'styles/layout.scss';
+	bottom: auto;
+	pointer-events: none;
 }
 
 .menuContainer {
-  composes: containerAbsolute from 'styles/layout.scss';
-  display: block;
-  flex: initial;
-  pointer-events: none;
+	composes: containerAbsolute from 'styles/layout.scss';
+	display: block;
+	flex: initial;
+	pointer-events: none;
 }
 
 .contentContainer {
-  composes: container from 'styles/layout.scss';
+	composes: container from 'styles/layout.scss';
 }

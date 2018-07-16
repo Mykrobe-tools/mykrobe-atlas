@@ -1,69 +1,71 @@
+@import '~styles/colors.global';
+
 .button {
-  composes: fontSecondary from 'styles/typography.scss';
-  composes: fontSecondarySizeNormal from 'styles/typography.scss';
-  text-transform: uppercase;
-  height: 36px;
-  padding: 0 18px;
-  border-radius: 500px;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-  background-color: var(--color-grey-mid);
-  cursor: pointer;
-  border: none;
-  transition: all 0.1s;
-  line-height: 1;
-  outline: none;
+	composes: fontSecondary from 'styles/typography.scss';
+	composes: fontSecondarySizeNormal from 'styles/typography.scss';
+	text-transform: uppercase;
+	height: 36px;
+	padding: 0 18px;
+	border-radius: 500px;
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	color: white;
+	background-color: $color-grey-mid;
+	cursor: pointer;
+	border: none;
+	transition: all 0.1s;
+	line-height: 1;
+	outline: none;
 }
 
 .buttonPrimary {
-  composes: button;
-  background-color: var(--color-tint-primary);
+	composes: button;
+	background-color: $color-tint-primary;
 }
 
 .button:disabled {
-  opacity: 0.4;
-  pointer-events: none;
+	opacity: 0.4;
+	pointer-events: none;
 }
 
 .button:hover {
-  opacity: 0.7;
+	opacity: 0.7;
 }
 
 .buttonOutline {
-  composes: button;
-  border: 1px solid var(--color-rule);
-  color: var(--color-grey-mid);
-  background: none;
+	composes: button;
+	border: 1px solid $color-rule;
+	color: $color-grey-mid;
+	background: none;
 }
 
 .buttonBorderless {
-  composes: button;
-  border: none;
-  color: var(--color-tint-primary);
-  background: none;
+	composes: button;
+	border: none;
+	color: $color-tint-primary;
+	background: none;
 }
 
 .buttonOutlineLarge {
-  composes: buttonOutline;
-  height: 44px;
+	composes: buttonOutline;
+	height: 44px;
 }
 
 .overlayControl {
-  cursor: pointer;
-  color: white;
-  background-color: var(--color-grey-light);
-  display: flex;
-  min-width: 44px;
-  height: 44px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
+	cursor: pointer;
+	color: white;
+	background-color: $color-grey-light;
+	display: flex;
+	min-width: 44px;
+	height: 44px;
+	align-items: center;
+	justify-content: center;
+	border-radius: 4px;
 }
 
 .overlayControlText {
-  composes: fontSecondary from 'styles/typography.scss';
-  composes: fontSecondarySizeSmall from 'styles/typography.scss';
-  margin-left: 4px;
+	composes: fontSecondary from 'styles/typography.scss';
+	composes: fontSecondarySizeSmall from 'styles/typography.scss';
+	margin-left: 4px;
 }

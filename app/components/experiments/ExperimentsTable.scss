@@ -1,25 +1,27 @@
+@import '~styles/colors.global';
+
 .table {
-  width: 100%;
-  border-collapse: collapse;
+	width: 100%;
+	border-collapse: collapse;
 }
 
 .tableCell {
-  padding: 10px 12px;
-  text-align: left;
-  border-bottom: 1px solid var(--color-rule);
+	padding: 10px 12px;
+	text-align: left;
+	border-bottom: 1px solid $color-rule;
 }
 
 .tableHeading {
-  composes: tableCell;
-  composes: subtitleSmall from 'styles/typography.scss';
-  padding: 13px 12px;
-  background: var(--color-grey-panel);
+	composes: tableCell;
+	composes: subtitleSmall from 'styles/typography.scss';
+	padding: 13px 12px;
+	background: $color-grey-panel;
 }
 
 .tableData {
-  composes: tableCell;
+	composes: tableCell;
 }
 
 .experimentLink {
-  color: var(--color-tint-primary);
+	color: $color-tint-primary;
 }

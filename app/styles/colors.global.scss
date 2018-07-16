@@ -1,7 +1,7 @@
 // override defaults before importing
 
-$color-tint-primary: #0d7da0;
-$color-tint-secondary: #0d7da0;
+$color-tint-primary: #0d7da0 !default;
+$color-tint-secondary: #0d7da0 !default;
 
 $color-blue: #71c7e6;
 $color-blue-text: darken($color-blue, 5%);
@@ -37,5 +37,7 @@ $color-susceptible: $color-app-green;
 $color-resistant: $color-app-red;
 $color-inconclusive: $color-grey-mid;
 $color-transparent: rgba(255, 255, 255, 0);
+
+@import 'target/current';
 
 @import '~makeandship-js-common/src/styles/colors.global';

@@ -1,39 +1,43 @@
+@import '~styles/colors.global';
+
 .header {
-  composes: container from 'styles/layout.scss';
-  align-items: center;
-  justify-content: space-between;
+	composes: container from 'styles/layout.scss';
+	align-items: center;
+	justify-content: space-between;
 }
 
+@import '~styles/colors.global';
+
 .filters {
-  flex: 1 0 75%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+	flex: 1 0 75%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
 }
 
 .filter {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .subFilter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .subFilterLabel {
-  margin: 0 10px;
+	margin: 0 10px;
 }
 
 .clearFilters {
-  composes: fontSecondary from 'styles/typography.scss';
-  composes: fontSizeSmall from 'styles/typography.scss';
-  color: var(--color-grey-dark);
-  text-transform: uppercase;
-  display: block;
-  padding: 5px 10px;
-  white-space: nowrap;
+	composes: fontSecondary from 'styles/typography.scss';
+	composes: fontSizeSmall from 'styles/typography.scss';
+	color: $color-grey-dark;
+	text-transform: uppercase;
+	display: block;
+	padding: 5px 10px;
+	white-space: nowrap;
 }
 
 .count {

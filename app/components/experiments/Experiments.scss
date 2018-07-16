@@ -1,4 +1,5 @@
 @import '~styles/colors.global';
+@import '~styles/variables.global';
 
 .container {
 	composes: container from 'styles/layout.scss';
@@ -6,7 +7,7 @@
 }
 
 .header {
-	height: var(--header-height);
+	height: $header-height;
 	display: flex;
 	align-items: center;
 	justify-content: center;

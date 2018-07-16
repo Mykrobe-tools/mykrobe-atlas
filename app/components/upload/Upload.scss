@@ -80,7 +80,7 @@
 .progressTitle {
 	composes: fontSecondary from 'styles/typography.scss';
 	font-size: 96px;
-	color: var(--color-grey-light);
+	color: $color-grey-light;
 }
 
 .dots {
@@ -96,7 +96,7 @@
 	width: 48px;
 	height: 48px;
 	margin: 12px;
-	background-color: var(--color-grey-light);
+	background-color: $color-grey-light;
 	animation-timing-function: ease-in;
 }
 

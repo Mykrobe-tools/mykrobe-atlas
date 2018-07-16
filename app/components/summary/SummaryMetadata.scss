@@ -1,27 +1,29 @@
+@import '~styles/colors.global';
+
 .container {
-  composes: container from 'styles/layout.scss';
-  flex-direction: row;
+	composes: container from 'styles/layout.scss';
+	flex-direction: row;
 }
 
 .summaryContainer {
-  composes: container from 'styles/layout.scss';
-  padding: 8px 0;
+	composes: container from 'styles/layout.scss';
+	padding: 8px 0;
 }
 
 .summaryContainer + .summaryContainer {
-  margin-left: 24px;
+	margin-left: 24px;
 }
 
 .table {
-  border-collapse: collapse;
+	border-collapse: collapse;
 }
 
 .table td {
-  color: var(--color-grey-mid);
-  padding: 0;
+	color: $color-grey-mid;
+	padding: 0;
 }
 
 .table td + td {
-  color: var(--color-text);
-  padding-left: 12px;
+	color: $color-text;
+	padding-left: 12px;
 }

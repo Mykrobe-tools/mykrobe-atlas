@@ -17,13 +17,13 @@
 
 // override defaults before importing
 
-@import 'app.bootstrap.variables.global';
+@import 'bootstrap.variables.global';
 
 @import '~makeandship-js-common/src/styles/default.global';
 
 // now override generated classes
 
-@import 'app.bootstrap.styles.global';
+@import 'bootstrap.styles.global';
 
 /* fill the window */
 
@@ -49,7 +49,7 @@ body {
 	flex-direction: column;
 }
 
-@import 'constants.global.scss';
+@import 'variables.global.scss';
 
 /* third-party css bypass processing */
-@import 'vendor.scss';
+@import 'vendor.global.scss';

@@ -1,3 +1,5 @@
+@import '~styles/colors.global';
+
 .container {
 	composes: container from 'styles/layout.scss';
 	width: 260px;
@@ -16,7 +18,7 @@
 }
 
 .logoWrap {
-	border-top: 1px solid var(--color-rule);
+	border-top: 1px solid $color-rule;
 	margin: 84px 0 20px 30px;
 	padding-top: 20px;
 }
@@ -24,11 +26,11 @@
 .navigation {
 	margin: 0 0 0 30px;
 	padding: 0;
-	border-bottom: 1px solid var(--color-rule);
+	border-bottom: 1px solid $color-rule;
 }
 
 .navigationItem {
-	border-top: 1px solid var(--color-rule);
+	border-top: 1px solid $color-rule;
 	list-style: none;
 }
 
@@ -37,10 +39,10 @@
 	composes: fontSecondarySizeSmall from 'styles/typography.scss';
 	display: block;
 	padding: 13px 0;
-	color: var(--color-grey-dark);
+	color: $color-grey-dark;
 }
 
 .navigationLinkActive {
 	composes: navigationLink;
-	color: var(--color-tint-primary);
+	color: $color-tint-primary;
 }
