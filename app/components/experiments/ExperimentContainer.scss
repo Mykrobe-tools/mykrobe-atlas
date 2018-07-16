@@ -1,4 +1,4 @@
 .container {
-  composes: container from 'styles/layout.scss';
-  flex-direction: column;
+	composes: container from 'styles/layout.scss';
+	flex-direction: column;
 }

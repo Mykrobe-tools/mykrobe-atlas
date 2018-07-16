@@ -1,5 +1,5 @@
 .container {
-  composes: containerAbsolute from 'styles/layout.scss';
-  overflow: hidden;
-  pointer-events: none;
+	composes: containerAbsolute from 'styles/layout.scss';
+	overflow: hidden;
+	pointer-events: none;
 }

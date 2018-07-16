@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import DocumentTitle from 'react-document-title';
 
 import Notifications from 'makeandship-js-common/src/components/notifications/Notifications';
 
@@ -18,6 +18,8 @@ import DragAndDrop from '../components/dragAndDrop/DragAndDrop';
 
 import { getIsFetching as getAuthIsFetching } from 'makeandship-js-common/src/modules/auth';
 import { getCurrentUserIsFetching } from '../modules/users';
+
+const defaultTitle = require('../../package.json').productName;
 
 type State = {
   displayMenu: boolean,
@@ -48,6 +50,7 @@ class App extends React.Component<*, State> {
     const { displayMenu } = this.state;
     return (
       <DragAndDrop className={styles.container}>
+        <DocumentTitle title={defaultTitle} />
         <div className={styles.contentContainer}>{children}</div>
         <div className={styles.analysingContainer}>
           <Analysing />
