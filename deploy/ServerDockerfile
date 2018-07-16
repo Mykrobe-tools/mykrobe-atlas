@@ -12,13 +12,17 @@ RUN echo "deb mirror://mirrors.ubuntu.com/mirrors.txt trusty main restricted uni
 	echo "deb mirror://mirrors.ubuntu.com/mirrors.txt trusty-security main restricted universe multiverse" >> /etc/apt/sources.list
 
 # install required software before using nvm/node/npm/bower
-RUN apt-get update 
-RUN apt-get install -y curl 
-RUN apt-get install -y git 
-RUN apt-get install -y python 
-RUN apt-get install -y build-essential 
+RUN apt-get update
+RUN apt-get install -y curl
+RUN apt-get install -y git
+RUN apt-get install -y python
+RUN apt-get install -y build-essential
 RUN apt-get install -y imagemagick
 RUN apt-get install -y libssl-dev
+
+# add package manager for yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" >> /etc/apt/sources.list
 
 # download and install nvm
 RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash \
@@ -33,25 +37,25 @@ ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
+# install yarn
+RUN apt-get install apt-transport-https
+RUN npm install -g yarn
+
 # install global packages
 RUN npm install -g forever
 
 # server installation directory
 RUN mkdir /app
 
-# install dependencies as a cachable step
-ADD package.json /tmp/package.json
-RUN cd /tmp && npm install
-
 # push this app to the deployment directory
 WORKDIR /app
 ADD . /app
 
 # move cached installs into the app
-RUN cp -a /tmp/node_modules /app/
+RUN cd /app && yarn install
 
 # run local api on 3001
 EXPOSE 3001
 
 # run up the server
-CMD NODE_ENV=$NODE_ENV npm run web-api-server
+CMD NODE_ENV=$NODE_ENV yarn run web-api-server
