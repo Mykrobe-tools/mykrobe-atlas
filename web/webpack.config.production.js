@@ -14,6 +14,7 @@ const appHtmlTitle = pkg.productName;
 module.exports = merge(webpackConfig, {
   output: {
     path: path.resolve(__dirname, 'build/static'),
+    publicPath: '/',
   },
 
   plugins: [
