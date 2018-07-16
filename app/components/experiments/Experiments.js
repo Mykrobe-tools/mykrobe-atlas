@@ -60,23 +60,21 @@ class Experiments extends React.Component<*> {
               </PrimaryButton>
             </div>
           </PageHeader>
-          <div className={styles.experimentsBody}>
-            <ExperimentsTable
-              isFetching={isFetchingExperiments}
-              experiments={results}
-              onExperimentClick={onExperimentClick}
-              onChangeOrder={onChangeListOrder}
-              filters={experimentsFilters}
+          <ExperimentsTable
+            isFetching={isFetchingExperiments}
+            experiments={results}
+            onExperimentClick={onExperimentClick}
+            onChangeOrder={onChangeListOrder}
+            filters={experimentsFilters}
+          />
+          {pagination && (
+            <Pagination
+              first={1}
+              last={pagination.pages}
+              current={pagination.page}
+              onPageClick={setPage}
             />
-            {pagination && (
-              <Pagination
-                first={1}
-                last={pagination.pages}
-                current={pagination.page}
-                onPageClick={setPage}
-              />
-            )}
-          </div>
+          )}
         </Container>
       </div>
     );
