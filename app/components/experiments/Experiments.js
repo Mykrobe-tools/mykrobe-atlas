@@ -50,7 +50,9 @@ class Experiments extends React.Component<*> {
               <Button outline size="sm">
                 <i className="fa fa-arrow-circle-down" /> Export
               </Button>
-              <UploadButton />
+              <div className="pl-2">
+                <UploadButton right />
+              </div>
             </ButtonToolbar>
           </PageHeader>
           <ExperimentsTable
