@@ -69,17 +69,25 @@ class UploadButton extends React.Component<*> {
           Analyse Sample
         </DropdownToggle>
         <DropdownMenu right={right}>
-          <DropdownItem onClick={this.onComputerClick}>Computer</DropdownItem>
-          <DropdownItem divider />
-          <DropdownItem onClick={this.onDropboxClick}>Dropbox</DropdownItem>
-          <DropdownItem divider />
-          <DropdownItem onClick={this.onBoxClick}>Box</DropdownItem>
-          <DropdownItem divider />
-          <DropdownItem onClick={this.onGoogleDriveClick}>
-            Google Drive
+          <DropdownItem onClick={this.onComputerClick}>
+            <i className="fa fa-cloud-upload" /> Computer
           </DropdownItem>
           <DropdownItem divider />
-          <DropdownItem onClick={this.onOneDriveClick}>OneDrive</DropdownItem>
+          <DropdownItem onClick={this.onDropboxClick}>
+            <i className="fa fa-dropbox " /> Dropbox
+          </DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem onClick={this.onBoxClick}>
+            <i className="fa fa-caret-square-o-right" /> Box
+          </DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem onClick={this.onGoogleDriveClick}>
+            <i className="fa fa-google" /> Google Drive
+          </DropdownItem>
+          <DropdownItem divider />
+          <DropdownItem onClick={this.onOneDriveClick}>
+            <i className="fa fa-windows " /> OneDrive
+          </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
     );
