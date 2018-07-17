@@ -2,18 +2,19 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Button } from 'reactstrap';
+import { Container, Button, ButtonToolbar } from 'reactstrap';
 import pluralize from 'pluralize';
 
 import Pagination from 'makeandship-js-common/src/components/ui/pagination';
 import PageHeader, {
   styles as pageHeaderStyles,
 } from 'makeandship-js-common/src/components/ui/PageHeader';
-import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import styles from './Experiments.scss';
 import ExperimentsTable from '../experiments/ExperimentsTable';
 import Header from '../header/Header';
+
+import UploadButton from '../upload/UploadButton';
 
 class Experiments extends React.Component<*> {
   onNewExperiment = e => {
@@ -45,20 +46,12 @@ class Experiments extends React.Component<*> {
             <div>
               <div className={pageHeaderStyles.title}>{title}</div>
             </div>
-            <div>
+            <ButtonToolbar>
               <Button outline size="sm">
                 <i className="fa fa-arrow-circle-down" /> Export
               </Button>
-              <PrimaryButton
-                onClick={this.onNewExperiment}
-                outline
-                size="sm"
-                icon="plus-circle"
-                marginLeft
-              >
-                New experiment
-              </PrimaryButton>
-            </div>
+              <UploadButton />
+            </ButtonToolbar>
           </PageHeader>
           <ExperimentsTable
             isFetching={isFetchingExperiments}

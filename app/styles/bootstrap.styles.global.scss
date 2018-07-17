@@ -16,6 +16,13 @@
 	}
 }
 
+.btn-lg {
+	font-size: 16/16 * 1rem;
+	i.fa {
+		font-size: 14/16 * 1rem;
+	}
+}
+
 a {
 	transition: $transition-base;
 	&:hover {
