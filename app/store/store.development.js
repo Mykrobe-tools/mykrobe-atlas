@@ -26,7 +26,8 @@ import {
   setFormData,
   clearFormData,
 } from 'makeandship-js-common/src/modules/form';
-import { showNotification } from 'makeandship-js-common/src/modules/notifications';
+
+import { showNotification } from '../modules/notifications';
 import {
   RESUMABLE_UPLOAD_PROGRESS,
   COMPUTE_CHECKSUMS_PROGRESS,
