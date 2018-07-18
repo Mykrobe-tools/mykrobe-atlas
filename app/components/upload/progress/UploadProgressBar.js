@@ -4,17 +4,16 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import styles from './AnalysingProgressBar.scss';
+import styles from './UploadProgressBar.scss';
 
-class AnalysingProgressBar extends React.Component<*> {
+class UploadProgressBar extends React.Component<*> {
+  onCancelClick = (e: Event) => {
+    const { onCancel } = this.props;
+    e && e.preventDefault();
+    onCancel();
+  };
   render() {
-    const {
-      description,
-      progress,
-      filename,
-      experimentId,
-      onCancel,
-    } = this.props;
+    const { description, progress, filename, experimentId } = this.props;
     var text = `${description} ${filename} ${progress}%`;
     if (progress === 100) {
       text = 'Check species and scan for resistance';
@@ -36,7 +35,11 @@ class AnalysingProgressBar extends React.Component<*> {
           {progress < 100 && (
             <span>
               <span> &middot; </span>
-              <a onClick={onCancel} className={styles.cancel}>
+              <a
+                href="#"
+                onClick={this.onCancelClick}
+                className={styles.cancel}
+              >
                 Cancel
               </a>
             </span>
@@ -47,7 +50,7 @@ class AnalysingProgressBar extends React.Component<*> {
   }
 }
 
-AnalysingProgressBar.propTypes = {
+UploadProgressBar.propTypes = {
   filename: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   progress: PropTypes.number.isRequired,
@@ -55,4 +58,4 @@ AnalysingProgressBar.propTypes = {
   experimentId: PropTypes.string,
 };
 
-export default AnalysingProgressBar;
+export default UploadProgressBar;

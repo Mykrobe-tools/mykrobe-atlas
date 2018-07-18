@@ -9,7 +9,7 @@ import AnimatedBackground from '../animatedbackground/AnimatedBackground';
 import Logo from '../logo/Logo';
 import Header from '../header/Header';
 
-import UploadButton from './UploadButton';
+import UploadButton from './button/UploadButton';
 
 import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
 

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'reactstrap';
 
 import styles from './Upload.scss';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
@@ -33,14 +34,14 @@ class Upload extends React.Component<*> {
           Antimicrobial resistance information within minutes
         </div>
         <div className={styles.buttonContainer}>
-          <button
-            type="button"
-            className={styles.button}
+          <Button
+            outline
+            size="lg"
             onClick={this.onOpenClick}
             data-tid="button-analyse-sample"
           >
             Analyse Sample
-          </button>
+          </Button>
         </div>
       </div>
     );
@@ -66,18 +67,24 @@ class Upload extends React.Component<*> {
           <div className={styles.progressTitle}>{progress}%</div>
         )}
         <CircularProgress percentage={progress} />
-        <div className={styles.progressStatus} data-tid="status-text">
-          {statusText}
-        </div>
-        <div className={styles.buttonContainer}>
-          <button
-            type="button"
-            className={styles.button}
-            onClick={this.onCancelClick.bind(this)}
-            data-tid="button-analyse-cancel"
-          >
-            Cancel
-          </button>
+        <div className={styles.progressStatus}>
+          <div className={styles.progressStatusInner}>
+            <div className={styles.title} data-tid="status-text">
+              {statusText}
+            </div>
+            <div className={styles.buttonContainer}>
+              <Button
+                outline
+                size="lg"
+                color="mid"
+                className={styles.button}
+                onClick={this.onCancelClick.bind(this)}
+                data-tid="button-analyse-cancel"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     );

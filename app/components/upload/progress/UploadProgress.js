@@ -4,15 +4,13 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import styles from './Analysing.scss';
-import AnalysingProgressBar from './AnalysingProgressBar';
-import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
 
-import withFileUpload from '../../hoc/withFileUpload';
+import styles from './UploadProgress.scss';
+import UploadProgressBar from './UploadProgressBar';
+import withFileUpload from '../../../hoc/withFileUpload';
+import { uploadFileCancel } from '../../../modules/upload';
 
-import { uploadFileCancel } from '../../modules/upload';
-
-class Analysing extends React.Component<*> {
+class UploadProgress extends React.Component<*> {
   render() {
     const {
       isBusy,
@@ -21,16 +19,13 @@ class Analysing extends React.Component<*> {
       fileName,
       experimentId,
     } = this.props;
-    if (IS_ELECTRON) {
-      UIHelpers.setProgress(progress); // eslint-disable-line import/namespace
-    }
     const description = isComputingChecksums
       ? 'Computing checksums'
       : 'Uploading';
     return (
       <div className={styles.container}>
         {isBusy && (
-          <AnalysingProgressBar
+          <UploadProgressBar
             progress={progress}
             description={description}
             filename={fileName}
@@ -44,11 +39,16 @@ class Analysing extends React.Component<*> {
 
   onCancelClick = () => {
     const { uploadFileCancel } = this.props;
+    if (
+      !confirm(`Cancel upload? This will also delete any associated metadata.`)
+    ) {
+      return;
+    }
     uploadFileCancel();
   };
 }
 
-Analysing.propTypes = {
+UploadProgress.propTypes = {
   progress: PropTypes.number.isRequired,
   isBusy: PropTypes.bool.isRequired,
   checksumProgress: PropTypes.number.isRequired,
@@ -71,4 +71,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withFileUpload(Analysing));
+)(withFileUpload(UploadProgress));

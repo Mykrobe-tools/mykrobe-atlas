@@ -14,7 +14,7 @@ import styles from './Experiments.scss';
 import ExperimentsTable from '../experiments/ExperimentsTable';
 import Header from '../header/Header';
 
-import UploadButton from '../upload/UploadButton';
+import UploadButton from '../upload/button/UploadButton';
 
 class Experiments extends React.Component<*> {
   onNewExperiment = e => {

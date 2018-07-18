@@ -25,6 +25,18 @@ export {
   getFileName,
 } from './uploadFile';
 
+export {
+  RESUMABLE_UPLOAD_FILE_ADDED,
+  RESUMABLE_UPLOAD_PROGRESS,
+  RESUMABLE_UPLOAD_ERROR,
+  RESUMABLE_UPLOAD_DONE,
+} from './util/ResumableUpload';
+
+export {
+  COMPUTE_CHECKSUMS_PROGRESS,
+  COMPUTE_CHECKSUMS_COMPLETE,
+} from './util/ComputeChecksums';
+
 export { uploadDropbox, uploadDropboxSaga } from './uploadDropbox';
 export { uploadGoogleDrive, uploadGoogleDriveSaga } from './uploadGoogleDrive';
 export { uploadBox, uploadBoxSaga } from './uploadBox';

@@ -10,7 +10,7 @@ import DocumentTitle from 'react-document-title';
 import Notifications from 'makeandship-js-common/src/components/notifications/Notifications';
 
 import styles from './App.scss';
-import Analysing from '../components/analysing/Analysing';
+import UploadProgress from '../components/upload/progress/UploadProgress';
 import MenuButton from '../components/menu/MenuButton';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
@@ -52,8 +52,8 @@ class App extends React.Component<*, State> {
       <DragAndDrop className={styles.container}>
         <DocumentTitle title={defaultTitle} />
         <div className={styles.contentContainer}>{children}</div>
-        <div className={styles.analysingContainer}>
-          <Analysing />
+        <div className={styles.uploadProgressContainer}>
+          <UploadProgress />
         </div>
         <div className={styles.menuContainer}>
           <MenuBg displayMenu={displayMenu} toggleMenu={this.toggleMenu} />

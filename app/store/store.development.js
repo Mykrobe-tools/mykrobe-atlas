@@ -27,7 +27,10 @@ import {
   clearFormData,
 } from 'makeandship-js-common/src/modules/form';
 import { showNotification } from 'makeandship-js-common/src/modules/notifications';
-// import { ANALYSE_FILE_PROGRESS } from '../modules/analyser/analyser';
+import {
+  RESUMABLE_UPLOAD_PROGRESS,
+  COMPUTE_CHECKSUMS_PROGRESS,
+} from '../modules/upload';
 
 const devToolsPresent =
   window && typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function';
@@ -48,7 +51,10 @@ if (devToolsPresent) {
     clearFormData,
     showNotification,
   };
-  const actionsBlacklist = [];
+  const actionsBlacklist = [
+    RESUMABLE_UPLOAD_PROGRESS,
+    COMPUTE_CHECKSUMS_PROGRESS,
+  ];
   compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
     actionCreators,
     actionsBlacklist,
@@ -65,7 +71,10 @@ const sagaMiddleware = createSagaMiddleware();
 
 const middleware = [thunk, sagaMiddleware, router];
 
-const actionsBlacklist = [];
+const actionsBlacklist = [
+  RESUMABLE_UPLOAD_PROGRESS,
+  COMPUTE_CHECKSUMS_PROGRESS,
+];
 const logger = createLogger({
   level: 'info',
   collapsed: true,
