@@ -7,7 +7,8 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 
-import Notifications from 'makeandship-js-common/src/components/notifications/Notifications';
+import NotificationsContainer from '../components/notifications/NotificationsContainer';
+import NotificationsStyle from '../components/notifications/NotificationsStyle';
 
 import styles from './App.scss';
 import UploadProgress from '../components/upload/progress/UploadProgress';
@@ -60,7 +61,14 @@ class App extends React.Component<*, State> {
           <Menu displayMenu={displayMenu} />
         </div>
         <MenuButton displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
-        <Notifications />
+        <div className={styles.notificationsContainer}>
+          <NotificationsContainer
+            limit={5}
+            order="desc"
+            notificationsStyle={NotificationsStyle.SEPARATE}
+            hideDismissed={false}
+          />
+        </div>
       </DragAndDrop>
     );
   }

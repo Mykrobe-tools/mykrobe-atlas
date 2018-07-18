@@ -1,6 +1,7 @@
 @import '~styles/colors.global';
 
 .container {
+	// composes: container from 'styles/layout.scss';
 	padding: 0.75rem 0.5rem;
 	display: flex;
 	flex-direction: column;
