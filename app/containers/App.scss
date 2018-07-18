@@ -19,7 +19,7 @@
 	right: 0;
 }
 
-.analysingContainer {
+.uploadProgressContainer {
 	composes: containerAbsolute from 'styles/layout.scss';
 	bottom: auto;
 	pointer-events: none;

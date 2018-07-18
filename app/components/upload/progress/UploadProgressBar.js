@@ -4,9 +4,9 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import styles from './AnalysingProgressBar.scss';
+import styles from './UploadProgressBar.scss';
 
-class AnalysingProgressBar extends React.Component<*> {
+class UploadProgressBar extends React.Component<*> {
   render() {
     const {
       description,
@@ -47,7 +47,7 @@ class AnalysingProgressBar extends React.Component<*> {
   }
 }
 
-AnalysingProgressBar.propTypes = {
+UploadProgressBar.propTypes = {
   filename: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   progress: PropTypes.number.isRequired,
@@ -55,4 +55,4 @@ AnalysingProgressBar.propTypes = {
   experimentId: PropTypes.string,
 };
 
-export default AnalysingProgressBar;
+export default UploadProgressBar;

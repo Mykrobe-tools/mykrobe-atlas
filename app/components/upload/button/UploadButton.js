@@ -16,7 +16,7 @@ import {
   uploadGoogleDrive,
   uploadBox,
   uploadOneDrive,
-} from '../../modules/upload';
+} from '../../../modules/upload';
 
 class UploadButton extends React.Component<*> {
   _uploadButton: Element;
