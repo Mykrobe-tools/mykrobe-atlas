@@ -66,7 +66,7 @@ class App extends React.Component<*, State> {
             limit={5}
             order="desc"
             notificationsStyle={NotificationsStyle.SEPARATE}
-            hideDismissed={false}
+            hideDismissed
           />
         </div>
       </DragAndDrop>

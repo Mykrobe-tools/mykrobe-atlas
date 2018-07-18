@@ -12,10 +12,9 @@
 }
 
 .notificationsContainer {
-	display: flex;
 	position: absolute;
-	bottom: 0;
-	right: 0;
+	bottom: 0.5rem;
+	right: 0.5rem;
 	width: 33.3%;
 	pointer-events: none;
 }

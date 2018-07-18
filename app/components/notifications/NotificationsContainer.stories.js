@@ -39,24 +39,24 @@ store.dispatch(
 storiesOf('NotificationsContainer', module)
   .addDecorator(story => <ConnectedStorybook story={story()} />)
   .add('Default', () => (
-    <div style={{ backgroundColor: 'grey' }}>
+    <div style={{ width: '80%', backgroundColor: 'grey' }}>
       <NotificationsContainer />
     </div>
   ))
   .add('Separate', () => (
-    <div style={{ backgroundColor: 'grey' }}>
+    <div style={{ width: '80%', backgroundColor: 'grey' }}>
       <NotificationsContainer
         notificationsStyle={NotificationsStyle.SEPARATE}
       />
     </div>
   ))
   .add('Joined', () => (
-    <div style={{ backgroundColor: 'grey' }}>
+    <div style={{ width: '80%', backgroundColor: 'grey' }}>
       <NotificationsContainer notificationsStyle={NotificationsStyle.JOINED} />
     </div>
   ))
   .add('Joined desc limited', () => (
-    <div style={{ backgroundColor: 'grey' }}>
+    <div style={{ width: '80%', backgroundColor: 'grey' }}>
       <NotificationsContainer
         notificationsStyle={NotificationsStyle.JOINED}
         order={'desc'}

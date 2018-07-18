@@ -14,11 +14,11 @@
 .containerSeparate {
 	composes: container;
 	background-color: white;
-	border-radius: 3/16 * 1rem;
+	border-radius: 0.25rem;
 }
 
 .containerSeparate + .containerSeparate {
-	margin-top: 0.25rem;
+	margin-top: 0.5rem;
 }
 
 .containerJoined {

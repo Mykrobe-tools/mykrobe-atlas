@@ -156,7 +156,7 @@ function* showNotificationWatcher() {
 }
 
 export function* showNotificationWorker(action: any): Generator<*, *, *> {
-  if (action.payload.autoDismiss) {
+  if (action.payload.autoDismiss || action.payload.autoHide) {
     yield call(delay, 2000);
     yield put(dismissNotification(action.payload.id));
   }
