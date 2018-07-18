@@ -16,6 +16,7 @@ export const typePrefix = 'notifications/notifications/';
 export const SHOW = `${typePrefix}SHOW`;
 export const DISMISS = `${typePrefix}DISMISS`;
 export const SET_EXPANDED = `${typePrefix}SET_EXPANDED`;
+export const UPDATE = `${typePrefix}UPDATE`;
 export const DISMISS_ALL = `${typePrefix}DISMISS_ALL`;
 export const CLEAR_ALL = `${typePrefix}CLEAR_ALL`;
 
@@ -30,6 +31,7 @@ export type Notification = {
   dismissed?: boolean,
   actions?: Array<any>,
   added?: string,
+  progress?: number,
 };
 
 export type State = { [string]: Notification };
@@ -62,6 +64,7 @@ export const showNotification = (arg: Notification | string) => {
     dismissed = false,
     actions,
     added = moment(),
+    progress,
   } = notification;
   return {
     type: SHOW,
@@ -74,6 +77,7 @@ export const showNotification = (arg: Notification | string) => {
       dismissed,
       actions,
       added,
+      progress,
     },
   };
 };
@@ -86,6 +90,11 @@ export const dismissNotification = (id: string) => ({
 export const setNotificationExpanded = (id: string, expanded: boolean) => ({
   type: SET_EXPANDED,
   payload: { id, expanded },
+});
+
+export const updateNotification = (id: string, attributes: any) => ({
+  type: UPDATE,
+  payload: { id, ...attributes },
 });
 
 export const dismissAllNotifications = () => ({
@@ -101,12 +110,12 @@ export default function reducer(
   action: Object = {}
 ): State {
   switch (action.type) {
-    case SHOW: {
+    case SHOW:
+    case UPDATE:
       return {
         ...state,
         [action.payload.id]: action.payload,
       };
-    }
     case DISMISS:
       return {
         ...state,

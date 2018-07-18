@@ -7,16 +7,33 @@ import ConnectedStorybook from '../../util/ConnectedStorybook';
 import NotificationsContainer from './NotificationsContainer';
 
 import {
-  getNotifications,
   showNotification,
-  setNotificationExpanded,
-  dismissAllNotifications,
-  dismissNotification,
+  NotificationCategories,
 } from '../../modules/notifications';
 
 import store from '../../store';
 
-store.dispatch(showNotification('Hello!'));
+store.dispatch(
+  showNotification(
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices, leo vel hendrerit hendrerit, tellus nisi porttitor ipsum, a iaculis nibh orci et libero'
+  )
+);
+
+store.dispatch(
+  showNotification({
+    category: NotificationCategories.ERROR,
+    content:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices, leo vel hendrerit hendrerit, tellus nisi porttitor ipsum, a iaculis nibh orci et libero',
+  })
+);
+
+store.dispatch(
+  showNotification({
+    category: NotificationCategories.MESSAGE,
+    content:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices, leo vel hendrerit hendrerit, tellus nisi porttitor ipsum, a iaculis nibh orci et libero',
+  })
+);
 
 storiesOf('NotificationsContainer', module)
   .addDecorator(story => <ConnectedStorybook story={story()} />)

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import { NotificationCategories } from '../../modules/notifications';
 
 import styles from './Notification.scss';
 
@@ -19,18 +20,40 @@ class Notification extends React.Component<*> {
   };
 
   render() {
-    const { id, category, content, actions, expanded } = this.props;
+    const { id, category, content, actions, expanded, progress } = this.props;
+    const icon = {
+      [NotificationCategories.ERROR]: {
+        icon: 'times-circle',
+        style: styles.messageIcon,
+      },
+      [NotificationCategories.MESSAGE]: {
+        icon: 'info-circle',
+        style: styles.messageIcon,
+      },
+      [NotificationCategories.SUCCESS]: {
+        icon: 'check-circle',
+        style: styles.messageIcon,
+      },
+    }[category];
     return (
       <div className={styles.container} data-tid={'component-notification'}>
-        <div className={expanded ? styles.contentExpanded : styles.content}>
-          Expanded: {expanded ? 'true' : 'false'} {category} {content}
+        <div className={styles.contentAndButtons}>
+          <div className={icon.style}>
+            <i className={`fa fa-${icon.icon}`} />
+          </div>
+          <div className={expanded ? styles.contentExpanded : styles.content}>
+            {content}
+          </div>
+          <div className={styles.buttons}>
+            <a href="#" onClick={this.onToggleExpandClick}>
+              {expanded ? 'Collapse' : 'Expand'}
+            </a>
+            <a href="#" onClick={this.onCloseClick}>
+              Close
+            </a>
+          </div>
         </div>
-        <a href="#" onClick={this.onToggleExpandClick}>
-          {expanded ? 'Collapse' : 'Expand'}
-        </a>
-        <a href="#" onClick={this.onCloseClick}>
-          Close
-        </a>
+
         {actions &&
           actions.map((action, index) => (
             <a
@@ -55,6 +78,7 @@ Notification.propTypes = {
   content: PropTypes.string,
   actions: PropTypes.array,
   expanded: PropTypes.bool,
+  progress: PropTypes.number,
   setNotificationExpanded: PropTypes.func,
   dismissNotification: PropTypes.func,
 };

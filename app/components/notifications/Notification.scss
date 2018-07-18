@@ -1,6 +1,35 @@
 @import '~styles/colors.global';
 
 .container {
+	composes: global(py-2);
+	composes: global(px-2);
+	display: flex;
+	flex-direction: column;
+	line-height: 1.2;
+}
+
+.iconBase {
+	composes: global(pr-2);
+}
+
+.messageIcon {
+	composes: iconBase;
+	color: $info;
+}
+
+.errorIcon {
+	composes: iconBase;
+	color: $danger;
+}
+
+.successIcon {
+	composes: iconBase;
+	color: $success;
+}
+
+.contentAndButtons {
+	display: flex;
+	flex-direction: row;
 }
 
 .content {
@@ -10,4 +39,15 @@
 }
 
 .contentExpanded {
+}
+
+.buttons {
+	display: flex;
+	flex-direction: row;
+}
+
+.actions {
+	display: flex;
+	flex-direction: row;
+	margin-left: auto;
 }

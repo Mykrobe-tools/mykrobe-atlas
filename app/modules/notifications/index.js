@@ -10,6 +10,7 @@ export {
   dismissNotification,
   dismissAllNotifications,
   setNotificationExpanded,
+  updateNotification,
   notificationsSaga as rootNotificationsSaga,
 } from './notifications';
 
