@@ -7,15 +7,15 @@ import styles from './Notification.scss';
 
 class Notification extends React.Component<*> {
   onToggleExpandClick = (e: Event) => {
-    const { id, setExpanded, expanded } = this.props;
+    const { id, setNotificationExpanded, expanded } = this.props;
     e.preventDefault();
-    setExpanded(id, !expanded);
+    setNotificationExpanded(id, !expanded);
   };
 
   onCloseClick = (e: Event) => {
-    const { id, onClose } = this.props;
+    const { id, dismissNotification } = this.props;
     e.preventDefault();
-    onClose(id);
+    dismissNotification(id);
   };
 
   render() {
@@ -31,18 +31,19 @@ class Notification extends React.Component<*> {
         <a href="#" onClick={this.onCloseClick}>
           Close
         </a>
-        {actions.map((action, index) => (
-          <a
-            key={`${index}`}
-            href="#"
-            onClick={e => {
-              e.preventDefault();
-              action.onClick(id);
-            }}
-          >
-            {action.title}
-          </a>
-        ))}
+        {actions &&
+          actions.map((action, index) => (
+            <a
+              key={`${index}`}
+              href="#"
+              onClick={e => {
+                e.preventDefault();
+                action.onClick(id);
+              }}
+            >
+              {action.title}
+            </a>
+          ))}
       </div>
     );
   }
@@ -54,8 +55,8 @@ Notification.propTypes = {
   content: PropTypes.string,
   actions: PropTypes.array,
   expanded: PropTypes.bool,
-  setExpanded: PropTypes.func,
-  onClose: PropTypes.func,
+  setNotificationExpanded: PropTypes.func,
+  dismissNotification: PropTypes.func,
 };
 
 export default Notification;

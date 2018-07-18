@@ -8,23 +8,35 @@ import Notification from './Notification';
 
 class Notifications extends React.Component<*> {
   render() {
-    const { notifications } = this.props;
+    const {
+      notifications,
+      setNotificationExpanded,
+      dismissNotification,
+    } = this.props;
     return (
       <div className={styles.container} data-tid={'component-notifications'}>
-        {notifications.map((notification, index) => (
-          <Notification key={`${index}`} {...notification} />
-        ))}
+        {notifications &&
+          Object.keys(notifications).map(id => {
+            const notification = notifications[id];
+            return (
+              <Notification
+                key={id}
+                {...notification}
+                setNotificationExpanded={setNotificationExpanded}
+                dismissNotification={dismissNotification}
+              />
+            );
+          })}
       </div>
     );
   }
-
-  static defaultProps = {
-    notifications: [],
-  };
 }
 
 Notifications.propTypes = {
   notifications: PropTypes.array,
+  setNotificationExpanded: PropTypes.func,
+  dismissAllNotifications: PropTypes.func,
+  dismissNotification: PropTypes.func,
 };
 
 export default Notifications;

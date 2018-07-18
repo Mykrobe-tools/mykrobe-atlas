@@ -94,7 +94,7 @@ export const dismissAllNotifications = () => ({
 
 // Reducer
 
-const initialState: State = [];
+const initialState: State = {};
 
 export default function reducer(
   state: State = initialState,
@@ -110,9 +110,9 @@ export default function reducer(
     case DISMISS:
       return {
         ...state,
-        [action.payload.id]: {
-          ...state[action.payload.id],
-          expanded: action.payload.expanded,
+        [action.payload]: {
+          ...state[action.payload],
+          dismissed: true,
         },
       };
     case DISMISS_ALL: {
