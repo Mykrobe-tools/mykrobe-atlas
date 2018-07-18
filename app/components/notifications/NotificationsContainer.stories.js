@@ -5,6 +5,7 @@ import { storiesOf } from '@storybook/react';
 import ConnectedStorybook from '../../util/ConnectedStorybook';
 
 import NotificationsContainer from './NotificationsContainer';
+import NotificationsStyle from './NotificationsStyle';
 
 import {
   showNotification,
@@ -36,5 +37,21 @@ store.dispatch(
 
 storiesOf('NotificationsContainer', module)
   .addDecorator(story => <ConnectedStorybook story={story()} />)
-  .add('Default', () => <NotificationsContainer />)
+  .add('Default', () => (
+    <div style={{ backgroundColor: 'grey' }}>
+      <NotificationsContainer />
+    </div>
+  ))
+  .add('Separate', () => (
+    <div style={{ backgroundColor: 'grey' }}>
+      <NotificationsContainer
+        notificationsStyle={NotificationsStyle.SEPARATE}
+      />
+    </div>
+  ))
+  .add('Joined', () => (
+    <div style={{ backgroundColor: 'grey' }}>
+      <NotificationsContainer notificationsStyle={NotificationsStyle.JOINED} />
+    </div>
+  ))
   .add('Hide dismissed', () => <NotificationsContainer hideDismissed />);

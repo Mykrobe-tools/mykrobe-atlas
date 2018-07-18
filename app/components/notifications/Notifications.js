@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import styles from './Notifications.scss';
 import Notification from './Notification';
+import NotificationsStyle from './NotificationsStyle';
 
 class Notifications extends React.Component<*> {
   render() {
@@ -13,6 +14,7 @@ class Notifications extends React.Component<*> {
       notifications,
       setNotificationExpanded,
       dismissNotification,
+      notificationsStyle,
     } = this.props;
     const filteredNotifications = {};
     Object.keys(notifications).map(id => {
@@ -36,6 +38,7 @@ class Notifications extends React.Component<*> {
               {...notification}
               setNotificationExpanded={setNotificationExpanded}
               dismissNotification={dismissNotification}
+              notificationsStyle={notificationsStyle}
             />
           );
         })}
@@ -44,6 +47,7 @@ class Notifications extends React.Component<*> {
   }
   static defaultProps = {
     hideDismissed: false,
+    notificationsStyle: NotificationsStyle.DEFAULT,
   };
 }
 

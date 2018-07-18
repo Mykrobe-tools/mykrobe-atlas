@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 import { NotificationCategories } from '../../modules/notifications';
 
 import styles from './Notification.scss';
+import NotificationsStyle from './NotificationsStyle';
 
 type State = {
   expandable: boolean,
 };
 
 class Notification extends React.Component<*, State> {
-  _contentRef;
+  _contentRef: ?Element;
 
   state = {
     expandable: true,
@@ -29,7 +30,10 @@ class Notification extends React.Component<*, State> {
     dismissNotification(id);
   };
 
-  onContentRef = ref => {
+  onContentRef = (ref: Element | null) => {
+    if (!ref) {
+      return;
+    }
     this._contentRef = ref;
     this.checkExpandable();
   };
@@ -52,14 +56,21 @@ class Notification extends React.Component<*, State> {
     }
     let expandable = false;
     if (this._contentRef.scrollWidth > this._contentRef.clientWidth) {
-      console.log('Overflow');
       expandable = true;
     }
     this.setState({ expandable });
   };
 
   render() {
-    const { id, category, content, actions, expanded, progress } = this.props;
+    const {
+      id,
+      category,
+      content,
+      actions,
+      expanded,
+      progress,
+      notificationsStyle,
+    } = this.props;
     const { expandable } = this.state;
     const icon = {
       [NotificationCategories.ERROR]: {
@@ -75,8 +86,13 @@ class Notification extends React.Component<*, State> {
         style: styles.successIcon,
       },
     }[category];
+    const containerStyle = {
+      [NotificationsStyle.DEFAULT]: styles.container,
+      [NotificationsStyle.SEPARATE]: styles.containerSeparate,
+      [NotificationsStyle.JOINED]: styles.containerJoined,
+    }[notificationsStyle];
     return (
-      <div className={styles.container} data-tid={'component-notification'}>
+      <div className={containerStyle} data-tid={'component-notification'}>
         <div className={styles.contentAndButtons}>
           <div className={icon.style}>
             <i className={`fa fa-${icon.icon}`} />
@@ -133,6 +149,9 @@ class Notification extends React.Component<*, State> {
       </div>
     );
   }
+  static defaultProps = {
+    notificationsStyle: NotificationsStyle.DEFAULT,
+  };
 }
 
 Notification.propTypes = {
@@ -144,6 +163,7 @@ Notification.propTypes = {
   progress: PropTypes.number,
   setNotificationExpanded: PropTypes.func,
   dismissNotification: PropTypes.func,
+  notificationsStyle: PropTypes.string,
 };
 
 export default Notification;
