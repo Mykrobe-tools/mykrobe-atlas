@@ -20,4 +20,5 @@ store.dispatch(showNotification('Hello!'));
 
 storiesOf('NotificationsContainer', module)
   .addDecorator(story => <ConnectedStorybook story={story()} />)
-  .add('Default', () => <NotificationsContainer />);
+  .add('Default', () => <NotificationsContainer />)
+  .add('Hide dismissed', () => <NotificationsContainer hideDismissed />);
