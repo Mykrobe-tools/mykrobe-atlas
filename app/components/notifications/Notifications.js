@@ -2,52 +2,56 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import styles from './Notifications.scss';
 import Notification from './Notification';
 import NotificationsStyle from './NotificationsStyle';
 
 class Notifications extends React.Component<*> {
-  render() {
-    const {
-      hideDismissed,
-      notifications,
-      setNotificationExpanded,
-      dismissNotification,
-      notificationsStyle,
-    } = this.props;
-    const filteredNotifications = {};
+  filteredNotifications = () => {
+    const { hideDismissed, notifications, order, limit } = this.props;
+    const filteredNotifications = [];
     Object.keys(notifications).map(id => {
       const notification = notifications[id];
       if (hideDismissed && notification.dismissed) {
         // keep it
       } else {
-        filteredNotifications[id] = notification;
+        filteredNotifications.push(notification);
       }
     });
-    if (!Object.keys(filteredNotifications).length) {
+    const sorted = _.orderBy(filteredNotifications, 'added', order);
+    return limit && sorted.length > limit ? sorted.slice(0, limit) : sorted;
+  };
+
+  render() {
+    const {
+      setNotificationExpanded,
+      dismissNotification,
+      notificationsStyle,
+    } = this.props;
+    const filteredNotifications = this.filteredNotifications();
+    if (!filteredNotifications.length) {
       return null;
     }
     return (
       <div className={styles.container} data-tid={'component-notifications'}>
-        {Object.keys(filteredNotifications).map(id => {
-          const notification = notifications[id];
-          return (
-            <Notification
-              key={id}
-              {...notification}
-              setNotificationExpanded={setNotificationExpanded}
-              dismissNotification={dismissNotification}
-              notificationsStyle={notificationsStyle}
-            />
-          );
-        })}
+        {filteredNotifications.map(notification => (
+          <Notification
+            key={notification.id}
+            {...notification}
+            setNotificationExpanded={setNotificationExpanded}
+            dismissNotification={dismissNotification}
+            notificationsStyle={notificationsStyle}
+          />
+        ))}
       </div>
     );
   }
   static defaultProps = {
     hideDismissed: false,
     notificationsStyle: NotificationsStyle.DEFAULT,
+    order: 'asc',
   };
 }
 
@@ -57,6 +61,9 @@ Notifications.propTypes = {
   dismissAllNotifications: PropTypes.func,
   dismissNotification: PropTypes.func,
   hideDismissed: PropTypes.bool,
+  notificationsStyle: PropTypes.string,
+  order: PropTypes.string,
+  limit: PropTypes.number,
 };
 
 export default Notifications;

@@ -54,4 +54,13 @@ storiesOf('NotificationsContainer', module)
       <NotificationsContainer notificationsStyle={NotificationsStyle.JOINED} />
     </div>
   ))
+  .add('Joined desc limited', () => (
+    <div style={{ backgroundColor: 'grey' }}>
+      <NotificationsContainer
+        notificationsStyle={NotificationsStyle.JOINED}
+        order={'desc'}
+        limit={5}
+      />
+    </div>
+  ))
   .add('Hide dismissed', () => <NotificationsContainer hideDismissed />);
