@@ -32,6 +32,7 @@ store.dispatch(
     category: NotificationCategories.MESSAGE,
     content:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices',
+    progress: 75,
   })
 );
 

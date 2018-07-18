@@ -91,11 +91,16 @@ class Notification extends React.Component<*, State> {
       [NotificationsStyle.SEPARATE]: styles.containerSeparate,
       [NotificationsStyle.JOINED]: styles.containerJoined,
     }[notificationsStyle];
+    const hasProgress = !!progress;
     return (
       <div className={containerStyle} data-tid={'component-notification'}>
         <div className={styles.contentAndButtons}>
           <div className={icon.style}>
-            <i className={`fa fa-${icon.icon}`} />
+            {hasProgress ? (
+              <i className="fa fa-cog fa-spin fa-fw" />
+            ) : (
+              <i className={`fa fa-${icon.icon}`} />
+            )}
           </div>
           <div className={styles.content} onClick={this.onToggleExpandClick}>
             <div
@@ -146,6 +151,10 @@ class Notification extends React.Component<*, State> {
               {action.title}
             </a>
           ))}
+
+        {progress && (
+          <div className={styles.progress} style={{ width: `${progress}%` }} />
+        )}
       </div>
     );
   }

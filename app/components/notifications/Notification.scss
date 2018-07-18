@@ -5,6 +5,9 @@
 	display: flex;
 	flex-direction: column;
 	line-height: 1.2;
+	pointer-events: auto;
+	position: relative;
+	overflow: hidden;
 }
 
 .containerSeparate {
@@ -74,4 +77,12 @@
 	display: flex;
 	flex-direction: row;
 	margin-left: auto;
+}
+
+.progress {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 0.25rem;
+	background-color: $color-tint-primary;
 }
