@@ -39,6 +39,11 @@ class UploadProgress extends React.Component<*> {
 
   onCancelClick = () => {
     const { uploadFileCancel } = this.props;
+    if (
+      !confirm(`Cancel upload? This will also delete any associated metadata.`)
+    ) {
+      return;
+    }
     uploadFileCancel();
   };
 }

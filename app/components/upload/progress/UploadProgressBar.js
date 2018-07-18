@@ -7,14 +7,13 @@ import { Link } from 'react-router-dom';
 import styles from './UploadProgressBar.scss';
 
 class UploadProgressBar extends React.Component<*> {
+  onCancelClick = (e: Event) => {
+    const { onCancel } = this.props;
+    e && e.preventDefault();
+    onCancel();
+  };
   render() {
-    const {
-      description,
-      progress,
-      filename,
-      experimentId,
-      onCancel,
-    } = this.props;
+    const { description, progress, filename, experimentId } = this.props;
     var text = `${description} ${filename} ${progress}%`;
     if (progress === 100) {
       text = 'Check species and scan for resistance';
@@ -36,7 +35,11 @@ class UploadProgressBar extends React.Component<*> {
           {progress < 100 && (
             <span>
               <span> &middot; </span>
-              <a onClick={onCancel} className={styles.cancel}>
+              <a
+                href="#"
+                onClick={this.onCancelClick}
+                className={styles.cancel}
+              >
                 Cancel
               </a>
             </span>
