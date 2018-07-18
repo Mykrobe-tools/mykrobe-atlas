@@ -2,10 +2,23 @@
 
 // override generated bootstrap and common classes
 
+// bootstrap grid outer margins
+
 .container-fluid {
 	padding-left: 30px;
 	padding-right: 30px;
 }
+
+// links
+
+a {
+	transition: $transition-base;
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
+// buttons
 
 .btn {
 	font-family: 'Bryant2-Bold', sans-serif;
@@ -20,13 +33,6 @@
 	font-size: 16/16 * 1rem;
 	i.fa {
 		font-size: 14/16 * 1rem;
-	}
-}
-
-a {
-	transition: $transition-base;
-	&:hover {
-		opacity: 0.7;
 	}
 }
 
@@ -54,6 +60,26 @@ a {
 			background-color: transparent;
 			border-color: rgba($value, 0.4);
 			opacity: 0.7;
+		}
+	}
+}
+
+// dropdown
+
+.dropdown-item {
+	font-family: 'Bryant2-Bold', sans-serif;
+	text-transform: uppercase;
+	font-size: 14/16 * 1rem;
+	i.fa {
+		font-size: 12/16 * 1rem;
+	}
+}
+
+.btn-lg + .dropdown-menu {
+	.dropdown-item {
+		font-size: 16/16 * 1rem;
+		i.fa {
+			font-size: 14/16 * 1rem;
 		}
 	}
 }

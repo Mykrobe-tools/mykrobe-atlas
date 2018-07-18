@@ -8,7 +8,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  ButtonGroup,
 } from 'reactstrap';
 
 import {
