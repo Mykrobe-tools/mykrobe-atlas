@@ -30,3 +30,12 @@ $link-hover-color: none;
 
 $transition-base: all 0.1s ease-in-out;
 $btn-transition: $transition-base;
+
+$dropdown-link-color: $color-grey-dark;
+$dropdown-link-hover-color: rgba($color-grey-dark, 0.7);
+$dropdown-item-padding-x: 1rem;
+$dropdown-item-padding-y: 0.5rem;
+$dropdown-spacer: 0;
+$dropdown-padding-y: 0;
+
+$nav-divider-margin-y: 0;
