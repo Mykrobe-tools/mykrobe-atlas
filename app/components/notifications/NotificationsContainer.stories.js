@@ -22,8 +22,7 @@ store.dispatch(
 store.dispatch(
   showNotification({
     category: NotificationCategories.ERROR,
-    content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices, leo vel hendrerit hendrerit, tellus nisi porttitor ipsum, a iaculis nibh orci et libero',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
   })
 );
 
@@ -31,7 +30,7 @@ store.dispatch(
   showNotification({
     category: NotificationCategories.MESSAGE,
     content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices, leo vel hendrerit hendrerit, tellus nisi porttitor ipsum, a iaculis nibh orci et libero',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices',
   })
 );
 

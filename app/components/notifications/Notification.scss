@@ -10,6 +10,7 @@
 
 .iconBase {
 	composes: global(pr-2);
+	font-size: 16/16 * 1rem;
 }
 
 .messageIcon {
@@ -33,17 +34,25 @@
 }
 
 .content {
+	overflow: hidden;
+}
+
+.contentConstrained {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
-.contentExpanded {
-}
-
 .buttons {
 	display: flex;
 	flex-direction: row;
+	margin-left: auto;
+}
+
+.button {
+	composes: global(pl-2);
+	color: $color-grey-mid;
+	font-size: 16/16 * 1rem;
 }
 
 .actions {

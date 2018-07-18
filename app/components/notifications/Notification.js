@@ -6,7 +6,17 @@ import { NotificationCategories } from '../../modules/notifications';
 
 import styles from './Notification.scss';
 
-class Notification extends React.Component<*> {
+type State = {
+  expandable: boolean,
+};
+
+class Notification extends React.Component<*, State> {
+  _contentRef;
+
+  state = {
+    expandable: true,
+  };
+
   onToggleExpandClick = (e: Event) => {
     const { id, setNotificationExpanded, expanded } = this.props;
     e.preventDefault();
@@ -19,12 +29,42 @@ class Notification extends React.Component<*> {
     dismissNotification(id);
   };
 
+  onContentRef = ref => {
+    this._contentRef = ref;
+    this.checkExpandable();
+  };
+
+  componentDidMount() {
+    window.addEventListener('resize', this.resize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize);
+  }
+
+  resize = () => {
+    this.checkExpandable();
+  };
+
+  checkExpandable = () => {
+    if (!this._contentRef) {
+      return;
+    }
+    let expandable = false;
+    if (this._contentRef.scrollWidth > this._contentRef.clientWidth) {
+      console.log('Overflow');
+      expandable = true;
+    }
+    this.setState({ expandable });
+  };
+
   render() {
     const { id, category, content, actions, expanded, progress } = this.props;
+    const { expandable } = this.state;
     const icon = {
       [NotificationCategories.ERROR]: {
         icon: 'times-circle',
-        style: styles.messageIcon,
+        style: styles.errorIcon,
       },
       [NotificationCategories.MESSAGE]: {
         icon: 'info-circle',
@@ -32,7 +72,7 @@ class Notification extends React.Component<*> {
       },
       [NotificationCategories.SUCCESS]: {
         icon: 'check-circle',
-        style: styles.messageIcon,
+        style: styles.successIcon,
       },
     }[category];
     return (
@@ -41,15 +81,38 @@ class Notification extends React.Component<*> {
           <div className={icon.style}>
             <i className={`fa fa-${icon.icon}`} />
           </div>
-          <div className={expanded ? styles.contentExpanded : styles.content}>
-            {content}
+          <div className={styles.content} onClick={this.onToggleExpandClick}>
+            <div
+              style={{
+                visibility: expandable && expanded ? 'hidden' : 'visible',
+                height: expandable && expanded ? '0' : 'auto',
+              }}
+              ref={this.onContentRef}
+              className={styles.contentConstrained}
+            >
+              {content}
+            </div>
+            <div
+              style={{
+                visibility: expandable && expanded ? 'visible' : 'hidden',
+                height: expandable && expanded ? 'auto' : '0',
+              }}
+            >
+              {content}
+            </div>
           </div>
           <div className={styles.buttons}>
-            <a href="#" onClick={this.onToggleExpandClick}>
-              {expanded ? 'Collapse' : 'Expand'}
-            </a>
-            <a href="#" onClick={this.onCloseClick}>
-              Close
+            {expandable && (
+              <a
+                href="#"
+                className={styles.button}
+                onClick={this.onToggleExpandClick}
+              >
+                <i className={`fa fa-caret-${expanded ? 'up' : 'down'}`} />
+              </a>
+            )}
+            <a href="#" className={styles.button} onClick={this.onCloseClick}>
+              <i className={`fa fa-times`} />
             </a>
           </div>
         </div>
