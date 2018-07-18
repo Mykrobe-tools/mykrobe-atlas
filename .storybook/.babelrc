@@ -1,0 +1,7 @@
+{
+	"env": {
+		"development": {
+			"plugins": ["../babel-plugin-electron-module-resolver"]
+		}
+	}
+}
