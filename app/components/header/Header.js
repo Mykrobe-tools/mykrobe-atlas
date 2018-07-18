@@ -4,9 +4,16 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import { Link, NavLink as ReactRouterNavLink } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
+import {
+  Button,
+  Container,
+  UncontrolledDropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from 'reactstrap';
 
 import styles from './Header.scss';
 
@@ -15,44 +22,56 @@ import {
   getIsAuthenticated,
 } from 'makeandship-js-common/src/modules/auth';
 
-// TODO: implement with buttons
-// import {
-//   PrimaryButton,
-//   LinkButton,
-// } from 'makeandship-js-common/src/components/ui/Buttons';
-
 import { getCurrentUser } from '../../modules/users';
 
 class Header extends React.Component<*> {
   render() {
-    const { signOut, isAuthenticated, currentUser, title } = this.props;
+    const { signOut, currentUser, title } = this.props;
     const hasTitle = title && title.length > 0;
     return (
       <Container fluid className={styles.container}>
         <div className={styles.contentWrap}>
           {hasTitle && <DocumentTitle title={title} />}
           {hasTitle && <div className={styles.title}>{title}</div>}
-          {isAuthenticated ? (
+          {currentUser ? (
             <div className={styles.account}>
-              {currentUser && (
-                <Link
-                  to="/users/profile"
-                  className={styles.authLink}
-                  data-tid="button-my-profile"
+              <UncontrolledDropdown>
+                <DropdownToggle
+                  tag="a"
+                  className={styles.currentUserDropdownToggle}
+                  caret
                 >
-                  <i className="fa fa-user" /> My profile
-                </Link>
-              )}
-              <a
-                href="#"
-                className={styles.authLink}
-                onClick={() => {
-                  signOut();
-                }}
-                data-tid="button-sign-out"
-              >
-                Sign out
-              </a>
+                  <span>
+                    <i className="fa fa-user" /> {currentUser.lastname},{' '}
+                    {currentUser.firstname}
+                  </span>
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem disabled>
+                    <span>
+                      Signed in as<br />
+                      <strong>{currentUser.email}</strong>
+                    </span>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem
+                    tag={ReactRouterNavLink}
+                    to="/users/profile"
+                    data-tid="navbar-link-profile"
+                  >
+                    Your Profile
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>Help</DropdownItem>
+                  <DropdownItem>Settings</DropdownItem>
+                  <DropdownItem
+                    onClick={signOut}
+                    data-tid="navbar-link-sign-out"
+                  >
+                    Sign out
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </div>
           ) : (
             <div className={styles.account}>
@@ -63,13 +82,14 @@ class Header extends React.Component<*> {
               >
                 <i className="fa fa-user" /> Log in
               </Link>
-              <Link
+              <Button
+                tag={Link}
                 to="/auth/signup"
                 className={styles.signUpLink}
                 data-tid="button-sign-up"
               >
                 Sign up
-              </Link>
+              </Button>
             </div>
           )}
         </div>
