@@ -14,12 +14,13 @@ export const NotificationCategories = {
 };
 
 export const typePrefix = 'notifications/notifications/';
-export const SHOW = `${typePrefix}SHOW`;
-export const DISMISS = `${typePrefix}DISMISS`;
-export const SET_EXPANDED = `${typePrefix}SET_EXPANDED`;
-export const UPDATE = `${typePrefix}UPDATE`;
-export const DISMISS_ALL = `${typePrefix}DISMISS_ALL`;
 export const CLEAR_ALL = `${typePrefix}CLEAR_ALL`;
+export const DISMISS = `${typePrefix}DISMISS`;
+export const DISMISS_ALL = `${typePrefix}DISMISS_ALL`;
+export const HIDE = `${typePrefix}HIDE`;
+export const SET_EXPANDED = `${typePrefix}SET_EXPANDED`;
+export const SHOW = `${typePrefix}SHOW`;
+export const UPDATE = `${typePrefix}UPDATE`;
 
 // Selectors
 
@@ -28,8 +29,9 @@ export type Notification = {
   category?: string,
   content: string,
   expanded?: boolean,
-  autoDismiss?: boolean,
-  dismissed?: boolean,
+  autoHide?: boolean,
+  dismissed?: boolean, // user dismissed
+  hidden?: boolean, // auto hide
   actions?: Array<any>,
   added?: string,
   progress?: number,
@@ -54,11 +56,13 @@ export const getFilteredNotifications = (
       NotificationCategories.SUCCESS,
     ],
     dismissed = false,
+    hidden = false,
     order = 'asc',
     limit,
   }: {
     categories: Array<string>,
     dismissed: boolean,
+    hidden: boolean,
     order: string,
     limit?: number,
   }
@@ -70,6 +74,9 @@ export const getFilteredNotifications = (
     const notification = notifications[id];
     let keep = true;
     if (notification.dismissed && !dismissed) {
+      keep = false;
+    }
+    if (notification.hidden && !hidden) {
       keep = false;
     }
     if (!categories.includes(notification.category)) {
@@ -99,8 +106,9 @@ export const showNotification = (arg: Notification | string) => {
     category = NotificationCategories.SUCCESS,
     content,
     expanded = false,
-    autoDismiss = true,
+    autoHide = true,
     dismissed = false,
+    hidden = false,
     actions,
     added = moment(),
     progress,
@@ -112,8 +120,9 @@ export const showNotification = (arg: Notification | string) => {
       category,
       content,
       expanded,
-      autoDismiss,
+      autoHide,
       dismissed,
+      hidden,
       actions,
       added,
       progress,
@@ -155,11 +164,20 @@ export default function reducer(
         ...state,
         [action.payload.id]: action.payload,
       };
+    case HIDE:
+      return {
+        ...state,
+        [action.payload]: {
+          ...state[action.payload],
+          hidden: true,
+        },
+      };
     case DISMISS:
       return {
         ...state,
         [action.payload]: {
           ...state[action.payload],
+          hidden: true,
           dismissed: true,
         },
       };
@@ -195,7 +213,7 @@ function* showNotificationWatcher() {
 }
 
 export function* showNotificationWorker(action: any): Generator<*, *, *> {
-  if (action.payload.autoDismiss || action.payload.autoHide) {
+  if (action.payload.autoHide) {
     yield call(delay, 2000);
     yield put(dismissNotification(action.payload.id));
   }

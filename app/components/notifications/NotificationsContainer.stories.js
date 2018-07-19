@@ -69,9 +69,10 @@ storiesOf('NotificationsContainer', module)
       limit={5}
     />
   ))
-  .add('Hide dismissed', () => (
+  .add('Hide auto hidden and dismissed', () => (
     <NotificationsContainer
       notificationsStyle={NotificationsStyle.SEPARATE}
+      hidden={false}
       dismissed={false}
     />
   ));
