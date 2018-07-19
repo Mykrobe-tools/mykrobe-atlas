@@ -1,7 +1,6 @@
 @import '~styles/colors.global';
 
 .container {
-	// composes: container from 'styles/layout.scss';
 	padding: 0.75rem 0.5rem;
 	display: flex;
 	flex-direction: column;
@@ -13,8 +12,13 @@
 
 .containerSeparate {
 	composes: container;
-	background-color: white;
+	padding: 0.75rem;
+	background-color: rgba($color-panel-light, 0.8);
 	border-radius: 0.25rem;
+	box-shadow: 0 1px 0 0 $color-rule;
+	.iconBase {
+		padding-right: 0.75em;
+	}
 }
 
 .containerSeparate + .containerSeparate {
@@ -29,7 +33,9 @@
 
 .iconBase {
 	padding-right: 0.5rem;
-	font-size: 16/16 * 1rem;
+	.fa-fw {
+		width: auto;
+	}
 }
 
 .messageIcon {
@@ -69,9 +75,9 @@
 }
 
 .button {
-	padding-left: 0.5rem;
+	padding-left: 0.75rem;
 	color: $color-grey-mid;
-	font-size: 16/16 * 1rem;
+	font-size: 1rem;
 }
 
 .actions {

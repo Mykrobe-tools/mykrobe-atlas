@@ -38,30 +38,29 @@ store.dispatch(
 
 storiesOf('NotificationsContainer', module)
   .addDecorator(story => <ConnectedStorybook story={story()} />)
-  .add('Default', () => (
-    <div style={{ width: '80%', backgroundColor: 'grey' }}>
-      <NotificationsContainer />
+  .addDecorator(story => (
+    <div
+      style={{
+        width: '80%',
+        padding: '10px',
+        background: 'linear-gradient(white, #ccc)',
+      }}
+    >
+      {story()}
     </div>
   ))
+  .add('Default', () => <NotificationsContainer />)
   .add('Separate', () => (
-    <div style={{ width: '80%', backgroundColor: 'grey' }}>
-      <NotificationsContainer
-        notificationsStyle={NotificationsStyle.SEPARATE}
-      />
-    </div>
+    <NotificationsContainer notificationsStyle={NotificationsStyle.SEPARATE} />
   ))
   .add('Joined', () => (
-    <div style={{ width: '80%', backgroundColor: 'grey' }}>
-      <NotificationsContainer notificationsStyle={NotificationsStyle.JOINED} />
-    </div>
+    <NotificationsContainer notificationsStyle={NotificationsStyle.JOINED} />
   ))
   .add('Joined desc limited', () => (
-    <div style={{ width: '80%', backgroundColor: 'grey' }}>
-      <NotificationsContainer
-        notificationsStyle={NotificationsStyle.JOINED}
-        order={'desc'}
-        limit={5}
-      />
-    </div>
+    <NotificationsContainer
+      notificationsStyle={NotificationsStyle.JOINED}
+      order={'desc'}
+      limit={5}
+    />
   ))
   .add('Hide dismissed', () => <NotificationsContainer hideDismissed />);

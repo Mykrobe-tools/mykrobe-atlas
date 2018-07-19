@@ -13,6 +13,7 @@ type State = {
 
 class Notification extends React.Component<*, State> {
   _contentRef: ?Element;
+  _checkExpandableDeferred: ?TimeoutID;
 
   state = {
     expandable: true,
@@ -35,7 +36,7 @@ class Notification extends React.Component<*, State> {
       return;
     }
     this._contentRef = ref;
-    this.checkExpandable();
+    this.checkExpandableDeferred();
   };
 
   componentDidMount() {
@@ -48,6 +49,14 @@ class Notification extends React.Component<*, State> {
 
   resize = () => {
     this.checkExpandable();
+  };
+
+  checkExpandableDeferred = () => {
+    this._checkExpandableDeferred &&
+      clearTimeout(this._checkExpandableDeferred);
+    this._checkExpandableDeferred = setTimeout(() => {
+      this.checkExpandable();
+    }, 0);
   };
 
   checkExpandable = () => {
