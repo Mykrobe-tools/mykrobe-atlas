@@ -3,6 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { NotificationCategories } from '../../modules/notifications';
+import { Button } from 'reactstrap';
 
 import styles from './Notification.scss';
 import NotificationsStyle from './NotificationsStyle';
@@ -148,21 +149,26 @@ class Notification extends React.Component<*, State> {
             </div>
           </div>
 
-          {actions &&
-            actions.map((action, index) => (
-              <a
-                key={`${index}`}
-                href="#"
-                onClick={e => {
-                  e.preventDefault();
-                  action.onClick(id);
-                }}
-              >
-                {action.title}
-              </a>
-            ))}
+          {actions && (
+            <div className={styles.actions}>
+              {actions.map((action, index) => (
+                <Button
+                  outline
+                  size="sm"
+                  className="ml-2"
+                  key={`${index}`}
+                  onClick={e => {
+                    e.preventDefault();
+                    action.onClick(id);
+                  }}
+                >
+                  {action.title}
+                </Button>
+              ))}
+            </div>
+          )}
 
-          {progress && (
+          {hasProgress && (
             <div
               className={styles.progress}
               style={{ width: `${progress}%` }}

@@ -32,9 +32,23 @@ store.dispatch(
   showNotification({
     category: NotificationCategories.MESSAGE,
     content:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices, leo vel hendrerit hendrerit, tellus nisi porttitor ipsum, a iaculis nibh orci et libero',
     progress: 75,
     autoDismiss: false,
+    actions: [
+      {
+        title: 'View',
+        onClick: id => {
+          console.log('View', id);
+        },
+      },
+      {
+        title: 'Cancel',
+        onClick: id => {
+          console.log('Cancel', id);
+        },
+      },
+    ],
   })
 );
 

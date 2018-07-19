@@ -111,14 +111,30 @@ function* resumableUploadProgressWatcher() {
 
 function* resumableUploadDoneWatcher() {
   yield takeEvery(RESUMABLE_UPLOAD_DONE, function*() {
-    yield put(showNotification('Upload complete'));
+    const experimentId = yield select(getExperimentId);
+    const fileName = yield select(getFileName);
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.SUCCESS,
+        content: `Finished uploading ${fileName}`,
+        actions: [
+          {
+            title: 'View',
+            onClick: () => {
+              _interactionChannel.put(push(`/experiments/${experimentId}`));
+            },
+          },
+        ],
+      })
+    );
   });
 }
 
 function* resumableUploadErrorWatcher() {
   yield takeEvery(RESUMABLE_UPLOAD_ERROR, function*(action: any) {
+    const experimentId = yield select(getExperimentId);
     yield put(
-      showNotification({
+      updateNotification(experimentId, {
         category: NotificationCategories.ERROR,
         content: action.payload,
       })

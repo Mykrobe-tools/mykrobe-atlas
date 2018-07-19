@@ -7,6 +7,8 @@ import moment from 'moment';
 import uuid from 'uuid';
 import _ from 'lodash';
 
+import { SHOW as JS_COMMON_SHOW_NOTIFICATION } from 'makeandship-js-common/src/modules/notifications/notifications';
+
 export const NotificationCategories = {
   ERROR: 'ERROR',
   MESSAGE: 'MESSAGE',
@@ -14,14 +16,14 @@ export const NotificationCategories = {
 };
 
 export const typePrefix = 'notifications/notifications/';
-export const CLEAR_ALL = `${typePrefix}CLEAR_ALL`;
-export const DISMISS = `${typePrefix}DISMISS`;
-export const DISMISS_ALL = `${typePrefix}DISMISS_ALL`;
-export const HIDE = `${typePrefix}HIDE`;
-export const HIDE_ALL = `${typePrefix}HIDE_ALL`;
-export const SET_EXPANDED = `${typePrefix}SET_EXPANDED`;
-export const SHOW = `${typePrefix}SHOW`;
-export const UPDATE = `${typePrefix}UPDATE`;
+export const CLEAR_ALL_NOTIFICATIONS = `${typePrefix}CLEAR_ALL_NOTIFICATIONS`;
+export const DISMISS_NOTIFICATION = `${typePrefix}DISMISS_NOTIFICATION`;
+export const DISMISS_ALL_NOTIFICATIONS = `${typePrefix}DISMISS_ALL_NOTIFICATIONS`;
+export const HIDE_NOTIFICATION = `${typePrefix}HIDE_NOTIFICATION`;
+export const HIDE_ALL_NOTIFICATIONS = `${typePrefix}HIDE_ALL_NOTIFICATIONS`;
+export const SET_NOTIFICATION_EXPANDED = `${typePrefix}SET_NOTIFICATION_EXPANDED`;
+export const SHOW_NOTIFICATION = `${typePrefix}SHOW_NOTIFICATION`;
+export const UPDATE_NOTIFICATION = `${typePrefix}UPDATE_NOTIFICATION`;
 
 // Selectors
 
@@ -133,36 +135,36 @@ export const shapeNotification = (arg: Notification | string) => {
 
 export const showNotification = (arg: Notification | string) => {
   return {
-    type: SHOW,
+    type: SHOW_NOTIFICATION,
     payload: shapeNotification(arg),
   };
 };
 
 export const hideNotification = (id: string) => ({
-  type: HIDE,
+  type: HIDE_NOTIFICATION,
   payload: id,
 });
 
 export const hideAllNotifications = () => ({
-  type: HIDE_ALL,
+  type: HIDE_ALL_NOTIFICATIONS,
 });
 
 export const dismissNotification = (id: string) => ({
-  type: DISMISS,
+  type: DISMISS_NOTIFICATION,
   payload: id,
 });
 
 export const dismissAllNotifications = () => ({
-  type: DISMISS_ALL,
+  type: DISMISS_ALL_NOTIFICATIONS,
 });
 
 export const setNotificationExpanded = (id: string, expanded: boolean) => ({
-  type: SET_EXPANDED,
+  type: SET_NOTIFICATION_EXPANDED,
   payload: { id, expanded },
 });
 
 export const updateNotification = (id: string, attributes: any) => ({
-  type: UPDATE,
+  type: UPDATE_NOTIFICATION,
   payload: { id, ...attributes },
 });
 
@@ -175,12 +177,13 @@ export default function reducer(
   action: Object = {}
 ): State {
   switch (action.type) {
-    case SHOW:
+    case SHOW_NOTIFICATION:
+    case JS_COMMON_SHOW_NOTIFICATION:
       return {
         ...state,
         [action.payload.id]: action.payload,
       };
-    case UPDATE:
+    case UPDATE_NOTIFICATION:
       return {
         ...state,
         [action.payload.id]: {
@@ -188,7 +191,7 @@ export default function reducer(
           ...action.payload,
         },
       };
-    case HIDE:
+    case HIDE_NOTIFICATION:
       return {
         ...state,
         [action.payload]: {
@@ -196,7 +199,7 @@ export default function reducer(
           hidden: true,
         },
       };
-    case HIDE_ALL: {
+    case HIDE_ALL_NOTIFICATIONS: {
       const newState = {};
       Object.keys(state).map(id => {
         const notification = state[id];
@@ -205,7 +208,7 @@ export default function reducer(
       });
       return newState;
     }
-    case DISMISS:
+    case DISMISS_NOTIFICATION:
       return {
         ...state,
         [action.payload]: {
@@ -214,7 +217,7 @@ export default function reducer(
           dismissed: true,
         },
       };
-    case DISMISS_ALL: {
+    case DISMISS_ALL_NOTIFICATIONS: {
       const newState = {};
       Object.keys(state).map(id => {
         const notification = state[id];
@@ -225,7 +228,7 @@ export default function reducer(
       return newState;
     }
 
-    case SET_EXPANDED:
+    case SET_NOTIFICATION_EXPANDED:
       return {
         ...state,
         [action.payload.id]: {
@@ -233,7 +236,7 @@ export default function reducer(
           expanded: action.payload.expanded,
         },
       };
-    case CLEAR_ALL:
+    case CLEAR_ALL_NOTIFICATIONS:
       return initialState;
     default:
       return state;
@@ -243,7 +246,10 @@ export default function reducer(
 // Side effects
 
 function* showNotificationWatcher() {
-  yield takeEvery(SHOW, showNotificationWorker);
+  yield takeEvery(
+    [JS_COMMON_SHOW_NOTIFICATION, SHOW_NOTIFICATION, UPDATE_NOTIFICATION],
+    showNotificationWorker
+  );
 }
 
 export function* showNotificationWorker(action: any): Generator<*, *, *> {
