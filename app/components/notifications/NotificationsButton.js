@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Badge, Popover, PopoverHeader } from 'reactstrap';
+import { Popover, PopoverHeader } from 'reactstrap';
 
 import {
   getFilteredNotifications,
@@ -38,10 +38,11 @@ class NotificationsButton extends React.Component<*, State> {
 
   render() {
     const { notifications } = this.props;
+    const hasNotifications = notifications && notifications.length > 0;
     return (
-      <div>
+      <div className={styles.container}>
         <a
-          className={styles.container}
+          className={styles.link}
           href="#"
           id={'NotificationsButton'}
           onClick={this.onIconClick}
@@ -49,9 +50,9 @@ class NotificationsButton extends React.Component<*, State> {
           <span className={styles.icon}>
             <i className={'fa fa-bell'} />
           </span>
-          <Badge color="danger" pill>
-            {`${notifications.length}`}
-          </Badge>
+          {hasNotifications && (
+            <span className={styles.count}>{`${notifications.length}`}</span>
+          )}
         </a>
         <Popover
           placement={'bottom'}
