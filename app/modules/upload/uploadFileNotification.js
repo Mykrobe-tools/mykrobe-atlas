@@ -3,6 +3,7 @@
 import { channel } from 'redux-saga';
 import { all, fork, put, take, takeEvery, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
+import moment from 'moment';
 
 import {
   showNotification,
@@ -20,11 +21,12 @@ import { COMPUTE_CHECKSUMS_PROGRESS } from './util/ComputeChecksums';
 
 import {
   SET_FILE_NAME,
-  UPLOAD_FILE_CANCEL_SUCCESS,
+  UPLOAD_FILE_CANCEL,
   uploadFileCancel,
   getExperimentId,
   getFileName,
   getProgress,
+  getUploadCompletionTime,
 } from './uploadFile';
 
 // file added
@@ -99,10 +101,14 @@ function* resumableUploadProgressWatcher() {
     const experimentId = yield select(getExperimentId);
     const fileName = yield select(getFileName);
     const progress = yield select(getProgress);
+    const uploadCompletionTime = yield select(getUploadCompletionTime);
+    const to = uploadCompletionTime && moment().to(uploadCompletionTime);
+    let components = [`Uploading ${fileName}`];
+    to && components.push(`eta ${to}`);
     yield put(
       updateNotification(experimentId, {
         category: NotificationCategories.MESSAGE,
-        content: `Uploading ${fileName}`,
+        content: components.join(', '),
         progress,
       })
     );
@@ -143,8 +149,15 @@ function* resumableUploadErrorWatcher() {
 }
 
 function* uploadFileCancelWatcher() {
-  yield takeEvery(UPLOAD_FILE_CANCEL_SUCCESS, function*() {
-    yield put(showNotification('Upload cancelled'));
+  yield takeEvery(UPLOAD_FILE_CANCEL, function*() {
+    const experimentId = yield select(getExperimentId);
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.MESSAGE,
+        content: 'Upload cancelled',
+        progress: undefined,
+      })
+    );
   });
 }
 

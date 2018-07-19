@@ -48,6 +48,12 @@ class Notification extends React.Component<*, State> {
     window.removeEventListener('resize', this.resize);
   }
 
+  componentDidUpdate = (prevProps: any) => {
+    if (prevProps.content !== this.props.content) {
+      this.checkExpandableDeferred();
+    }
+  };
+
   resize = () => {
     this.checkExpandable();
   };

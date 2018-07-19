@@ -54,3 +54,7 @@ body {
 
 /* third-party css bypass processing */
 @import 'vendor.global.scss';
+
+.fa-fw {
+	width: auto;
+}

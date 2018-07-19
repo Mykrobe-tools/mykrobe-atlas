@@ -14,6 +14,7 @@ import {
 } from 'redux-saga/effects';
 import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
+import moment from 'moment';
 
 import {
   INITIALISE_SUCCESS,
@@ -79,6 +80,16 @@ export const getUploadProgress = createSelector(
   state => state.uploadProgress
 );
 
+export const getUploadCompletionTime = createSelector(getState, state => {
+  const { uploadBeganAt, uploadProgress } = state;
+  if (!uploadProgress) {
+    return undefined;
+  }
+  const secondsSoFar = moment().diff(moment(uploadBeganAt), 'milliseconds');
+  const projectedSecondsTotal = secondsSoFar / uploadProgress;
+  return moment(uploadBeganAt).add(projectedSecondsTotal, 'milliseconds');
+});
+
 export const getIsComputingChecksums = createSelector(
   getState,
   state => state.isComputingChecksums
@@ -99,7 +110,7 @@ export const getProgress = createSelector(
   getChecksumProgress,
   getUploadProgress,
   (checksumProgress, uploadProgress) =>
-    Math.round(checksumProgress * 0.2 + uploadProgress * 0.8)
+    Math.round(100 * checksumProgress * 0.2 + uploadProgress * 0.8)
 );
 
 export const getFileName = createSelector(getState, state => state.fileName);
@@ -181,12 +192,14 @@ export default function reducer(
     case COMPUTE_CHECKSUMS_COMPLETE:
       return {
         ...state,
+        checksumProgress: 1,
         isComputingChecksums: false,
       };
     case UPLOAD_FILE:
       return {
         ...state,
         isUploading: true,
+        uploadBeganAt: moment().format(),
       };
     case RESUMABLE_UPLOAD_PROGRESS:
       return {
