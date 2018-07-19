@@ -110,7 +110,7 @@ export const getProgress = createSelector(
   getChecksumProgress,
   getUploadProgress,
   (checksumProgress, uploadProgress) =>
-    Math.round(100 * checksumProgress * 0.2 + uploadProgress * 0.8)
+    Math.round(100 * (checksumProgress * 0.1 + uploadProgress * 0.9))
 );
 
 export const getFileName = createSelector(getState, state => state.fileName);
@@ -208,7 +208,8 @@ export default function reducer(
       };
     case RESUMABLE_UPLOAD_DONE:
       return {
-        ...initialState,
+        ...state,
+        uploadProgress: 1,
       };
     case RESUMABLE_UPLOAD_ERROR:
       return {

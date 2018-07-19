@@ -12,13 +12,14 @@ import {
 } from '../../modules/notifications';
 
 const withRedux = connect(
-  (state, { dismissed, hidden, order, categories, limit }) => ({
+  (state, { dismissed, hidden, order, categories, limit, autoHide }) => ({
     notifications: getFilteredNotifications(state, {
       dismissed,
       hidden,
       order,
       categories,
       limit,
+      autoHide,
     }),
   }),
   {
@@ -33,6 +34,7 @@ const NotificationsContainer = withRedux(Notifications);
 NotificationsContainer.defaultProps = {
   hidden: true,
   dismissed: true,
+  autoHide: true,
   order: 'asc',
 };
 

@@ -19,13 +19,6 @@
 	left: 60%;
 }
 
-.uploadProgressContainer {
-	composes: containerAbsolute from 'styles/layout.scss';
-	bottom: auto;
-	pointer-events: none;
-	width: 100%;
-}
-
 .headerContainer {
 	composes: containerAbsolute from 'styles/layout.scss';
 	bottom: auto;

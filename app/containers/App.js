@@ -11,7 +11,6 @@ import NotificationsContainer from '../components/notifications/NotificationsCon
 import NotificationsStyle from '../components/notifications/NotificationsStyle';
 
 import styles from './App.scss';
-import UploadProgress from '../components/upload/progress/UploadProgress';
 import MenuButton from '../components/menu/MenuButton';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
@@ -53,9 +52,6 @@ class App extends React.Component<*, State> {
       <DragAndDrop className={styles.container}>
         <DocumentTitle title={defaultTitle} />
         <div className={styles.contentContainer}>{children}</div>
-        <div className={styles.uploadProgressContainer}>
-          <UploadProgress />
-        </div>
         <div className={styles.menuContainer}>
           <MenuBg displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
           <Menu displayMenu={displayMenu} />

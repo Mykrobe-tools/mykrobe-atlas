@@ -87,7 +87,7 @@ function* computeChecksumsProgressWatcher() {
     yield put(
       updateNotification(experimentId, {
         category: NotificationCategories.MESSAGE,
-        content: `Preparing ${fileName}`,
+        content: `${progress}% Preparing ${fileName}`,
         progress,
       })
     );
@@ -103,7 +103,7 @@ function* resumableUploadProgressWatcher() {
     const progress = yield select(getProgress);
     const uploadCompletionTime = yield select(getUploadCompletionTime);
     const to = uploadCompletionTime && moment().to(uploadCompletionTime);
-    let components = [`Uploading ${fileName}`];
+    let components = [`${progress}% Uploading ${fileName}`];
     to && components.push(`eta ${to}`);
     yield put(
       updateNotification(experimentId, {
@@ -131,6 +131,7 @@ function* resumableUploadDoneWatcher() {
             },
           },
         ],
+        progress: undefined,
       })
     );
   });

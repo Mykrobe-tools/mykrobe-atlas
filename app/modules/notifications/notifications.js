@@ -61,12 +61,14 @@ export const getFilteredNotifications = (
     ],
     dismissed = true,
     hidden = true,
+    autoHide = true,
     order = 'asc',
     limit,
   }: {
     categories?: Array<string>,
     dismissed?: boolean,
     hidden?: boolean,
+    autoHide?: boolean,
     order?: string,
     limit?: number,
   }
@@ -81,6 +83,9 @@ export const getFilteredNotifications = (
       keep = false;
     }
     if (notification.hidden && !hidden) {
+      keep = false;
+    }
+    if (notification.autoHide && !autoHide) {
       keep = false;
     }
     if (!categories.includes(notification.category)) {

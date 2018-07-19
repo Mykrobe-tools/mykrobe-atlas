@@ -57,11 +57,11 @@ class NotificationsButton extends React.Component<*, State> {
       <div className={styles.container}>
         <a
           className={styles.link}
-          id={'NotificationsButton'}
+
           href="#"
           onClick={this.onIconClick}
         >
-          <span className={styles.icon}>
+          <span id={'NotificationsButton'} className={styles.icon}>
             <i className={'fa fa-bell'} />
           </span>
           {hasNotifications && (
@@ -96,8 +96,10 @@ class NotificationsButton extends React.Component<*, State> {
             categories={[
               NotificationCategories.ERROR,
               NotificationCategories.MESSAGE,
+              NotificationCategories.SUCCESS,
             ]}
             hidden={true}
+            autoHide={false}
             dismissed={false}
             order={'desc'}
             limit={5}
@@ -114,8 +116,10 @@ const withRedux = connect(
       categories: [
         NotificationCategories.ERROR,
         NotificationCategories.MESSAGE,
+        NotificationCategories.SUCCESS,
       ],
       hidden: true,
+      autoHide: false,
       dismissed: false,
     }),
   }),
