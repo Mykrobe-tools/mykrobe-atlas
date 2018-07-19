@@ -5,6 +5,7 @@ import { delay } from 'redux-saga';
 import { createSelector } from 'reselect';
 import moment from 'moment';
 import uuid from 'uuid';
+import _ from 'lodash';
 
 export const NotificationCategories = {
   ERROR: 'ERROR',
@@ -43,6 +44,44 @@ export const getNotifications = createSelector(
   getState,
   notifications => notifications
 );
+
+export const getFilteredNotifications = (
+  state: any,
+  {
+    categories = [
+      NotificationCategories.ERROR,
+      NotificationCategories.MESSAGE,
+      NotificationCategories.SUCCESS,
+    ],
+    dismissed = false,
+    order = 'asc',
+    limit,
+  }: {
+    categories: Array<string>,
+    dismissed: boolean,
+    order: string,
+    limit?: number,
+  }
+) => {
+  const notifications = getNotifications(state);
+
+  const filteredNotifications = [];
+  Object.keys(notifications).map(id => {
+    const notification = notifications[id];
+    let keep = true;
+    if (notification.dismissed && !dismissed) {
+      keep = false;
+    }
+    if (!categories.includes(notification.category)) {
+      keep = false;
+    }
+    if (keep) {
+      filteredNotifications.push(notification);
+    }
+  });
+  const sorted = _.orderBy(filteredNotifications, 'added', order);
+  return limit && sorted.length > limit ? sorted.slice(0, limit) : sorted;
+};
 
 // Action creators
 

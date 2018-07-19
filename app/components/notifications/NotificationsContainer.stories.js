@@ -72,6 +72,6 @@ storiesOf('NotificationsContainer', module)
   .add('Hide dismissed', () => (
     <NotificationsContainer
       notificationsStyle={NotificationsStyle.SEPARATE}
-      hideDismissed
+      dismissed={false}
     />
   ));

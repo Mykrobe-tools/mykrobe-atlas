@@ -6,6 +6,7 @@ import notifications from './notifications';
 export {
   NotificationCategories,
   getNotifications,
+  getFilteredNotifications,
   showNotification,
   dismissNotification,
   dismissAllNotifications,

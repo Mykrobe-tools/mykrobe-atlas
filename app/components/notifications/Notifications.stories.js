@@ -7,8 +7,8 @@ import Notifications from './Notifications';
 
 const variations = {
   default: {
-    notifications: {
-      '123': {
+    notifications: [
+      {
         id: '123',
         category: 'MESSAGE',
         content:
@@ -35,7 +35,7 @@ const variations = {
           console.log('setExpanded', id, expanded);
         },
       },
-    },
+    ],
   },
 };
 

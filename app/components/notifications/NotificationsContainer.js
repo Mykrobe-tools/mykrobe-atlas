@@ -5,15 +5,20 @@ import { connect } from 'react-redux';
 import Notifications from './Notifications';
 
 import {
-  getNotifications,
+  getFilteredNotifications,
   setNotificationExpanded,
   dismissAllNotifications,
   dismissNotification,
 } from '../../modules/notifications';
 
 const withRedux = connect(
-  state => ({
-    notifications: getNotifications(state),
+  (state, { dismissed, order, categories, limit }) => ({
+    notifications: getFilteredNotifications(state, {
+      dismissed,
+      order,
+      categories,
+      limit,
+    }),
   }),
   {
     setNotificationExpanded,
@@ -22,4 +27,11 @@ const withRedux = connect(
   }
 );
 
-export default withRedux(Notifications);
+const NotificationsContainer = withRedux(Notifications);
+
+NotificationsContainer.defaultProps = {
+  dismissed: true,
+  order: 'asc',
+};
+
+export default NotificationsContainer;

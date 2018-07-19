@@ -10,32 +10,17 @@ import Notification from './Notification';
 import NotificationsStyle from './NotificationsStyle';
 
 class Notifications extends React.Component<*> {
-  filteredNotifications = () => {
-    const { hideDismissed, notifications, order, limit } = this.props;
-    const filteredNotifications = [];
-    Object.keys(notifications).map(id => {
-      const notification = notifications[id];
-      if (hideDismissed && notification.dismissed) {
-        // keep it
-      } else {
-        filteredNotifications.push(notification);
-      }
-    });
-    const sorted = _.orderBy(filteredNotifications, 'added', order);
-    return limit && sorted.length > limit ? sorted.slice(0, limit) : sorted;
-  };
-
   render() {
     const {
+      notifications,
       setNotificationExpanded,
       dismissNotification,
       notificationsStyle,
     } = this.props;
-    const filteredNotifications = this.filteredNotifications();
     return (
       <div className={styles.container} data-tid={'component-notifications'}>
         <TransitionGroup>
-          {filteredNotifications.map(notification => (
+          {notifications.map(notification => (
             <CSSTransition
               key={notification.id}
               classNames={styles}
@@ -55,14 +40,12 @@ class Notifications extends React.Component<*> {
     );
   }
   static defaultProps = {
-    hideDismissed: false,
     notificationsStyle: NotificationsStyle.DEFAULT,
-    order: 'asc',
   };
 }
 
 Notifications.propTypes = {
-  notifications: PropTypes.object,
+  notifications: PropTypes.array,
   setNotificationExpanded: PropTypes.func,
   dismissAllNotifications: PropTypes.func,
   dismissNotification: PropTypes.func,
