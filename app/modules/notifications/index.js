@@ -12,6 +12,7 @@ export {
   hideAllNotifications,
   dismissNotification,
   dismissAllNotifications,
+  clearAllNotifications,
   setNotificationExpanded,
   updateNotification,
   notificationsSaga as rootNotificationsSaga,

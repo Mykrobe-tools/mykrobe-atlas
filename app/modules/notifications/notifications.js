@@ -163,6 +163,10 @@ export const dismissAllNotifications = () => ({
   type: DISMISS_ALL_NOTIFICATIONS,
 });
 
+export const clearAllNotifications = () => ({
+  type: CLEAR_ALL_NOTIFICATIONS,
+});
+
 export const setNotificationExpanded = (id: string, expanded: boolean) => ({
   type: SET_NOTIFICATION_EXPANDED,
   payload: { id, expanded },
