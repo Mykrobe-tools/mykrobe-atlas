@@ -19,6 +19,14 @@
 	left: 60%;
 }
 
+.notificationsContainerElectron {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	pointer-events: none;
+	left: 1rem;
+}
+
 .headerContainer {
 	composes: containerAbsolute from 'styles/layout.scss';
 	bottom: auto;
