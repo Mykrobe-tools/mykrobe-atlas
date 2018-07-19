@@ -28,7 +28,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules\/(?!(makeandship-js-common|makeandship-api-common|swagger-client))/,
+        exclude: /node_modules\/(?!(makeandship-js-common\/src|swagger-client\/src))/,
       },
       // IMAGES
       {

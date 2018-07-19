@@ -135,6 +135,11 @@ export const dismissNotification = (id: string) => ({
   payload: id,
 });
 
+export const hideNotification = (id: string) => ({
+  type: HIDE,
+  payload: id,
+});
+
 export const setNotificationExpanded = (id: string, expanded: boolean) => ({
   type: SET_EXPANDED,
   payload: { id, expanded },
@@ -216,7 +221,7 @@ function* showNotificationWatcher() {
 export function* showNotificationWorker(action: any): Generator<*, *, *> {
   if (action.payload.autoHide) {
     yield call(delay, 2000);
-    yield put(dismissNotification(action.payload.id));
+    yield put(hideNotification(action.payload.id));
   }
 }
 

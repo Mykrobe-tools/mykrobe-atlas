@@ -2,7 +2,15 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Popover, PopoverHeader } from 'reactstrap';
+import {
+  Popover,
+  PopoverHeader,
+  Nav,
+  NavItem,
+  NavLink,
+  Navbar,
+} from 'reactstrap';
+import { NavLink as ReactRouterNavLink } from 'react-router-dom';
 
 import {
   getFilteredNotifications,
@@ -36,6 +44,12 @@ class NotificationsButton extends React.Component<*, State> {
     this.toggle();
   };
 
+  onClearClick = e => {
+    const { dismissAllNotifications } = this.props;
+    e.preventDefault();
+    dismissAllNotifications();
+  };
+
   render() {
     const { notifications } = this.props;
     const hasNotifications = notifications && notifications.length > 0;
@@ -43,8 +57,8 @@ class NotificationsButton extends React.Component<*, State> {
       <div className={styles.container}>
         <a
           className={styles.link}
-          href="#"
           id={'NotificationsButton'}
+          href="#"
           onClick={this.onIconClick}
         >
           <span className={styles.icon}>
@@ -60,7 +74,23 @@ class NotificationsButton extends React.Component<*, State> {
           target={'NotificationsButton'}
           toggle={this.toggle}
         >
-          <PopoverHeader>Popover Title</PopoverHeader>
+          <Navbar color="light" expand="sm">
+            <span>{hasNotifications ? 'Recent' : 'No notifications'}</span>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink tag={ReactRouterNavLink} to="/notifications">
+                  <i className="fa fa-chevron-circle-right" /> History
+                </NavLink>
+              </NavItem>
+              {hasNotifications && (
+                <NavItem>
+                  <NavLink href="#" onClick={this.onClearClick}>
+                    <i className="fa fa-times-circle" /> Clear
+                  </NavLink>
+                </NavItem>
+              )}
+            </Nav>
+          </Navbar>
           <NotificationsContainer
             notificationsStyle={NotificationsStyle.JOINED}
             categories={[
