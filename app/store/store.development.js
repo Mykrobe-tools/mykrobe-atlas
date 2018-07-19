@@ -57,7 +57,7 @@ if (devToolsPresent) {
   };
   const actionsBlacklist = [
     RESUMABLE_UPLOAD_PROGRESS,
-    // COMPUTE_CHECKSUMS_PROGRESS,
+    COMPUTE_CHECKSUMS_PROGRESS,
     UPDATE_NOTIFICATION,
   ];
   compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
@@ -78,7 +78,7 @@ const middleware = [thunk, sagaMiddleware, router];
 
 const actionsBlacklist = [
   RESUMABLE_UPLOAD_PROGRESS,
-  // COMPUTE_CHECKSUMS_PROGRESS,
+  COMPUTE_CHECKSUMS_PROGRESS,
   UPDATE_NOTIFICATION,
 ];
 const logger = createLogger({

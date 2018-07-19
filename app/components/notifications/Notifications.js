@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import styles from './Notifications.scss';

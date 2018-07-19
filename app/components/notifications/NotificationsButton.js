@@ -2,14 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import {
-  Popover,
-  PopoverHeader,
-  Nav,
-  NavItem,
-  NavLink,
-  Navbar,
-} from 'reactstrap';
+import { Popover, Nav, NavItem, NavLink, Navbar } from 'reactstrap';
 import { NavLink as ReactRouterNavLink } from 'react-router-dom';
 
 import {
@@ -55,12 +48,7 @@ class NotificationsButton extends React.Component<*, State> {
     const hasNotifications = notifications && notifications.length > 0;
     return (
       <div className={styles.container}>
-        <a
-          className={styles.link}
-
-          href="#"
-          onClick={this.onIconClick}
-        >
+        <a className={styles.link} href="#" onClick={this.onIconClick}>
           <span id={'NotificationsButton'} className={styles.icon}>
             <i className={'fa fa-bell'} />
           </span>

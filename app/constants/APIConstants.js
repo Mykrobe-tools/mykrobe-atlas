@@ -15,7 +15,7 @@ export const AUTH_COOKIE_NAME = process.env.AUTH_COOKIE_NAME;
 
 export const API_SAMPLE_EXTENSIONS_ARRAY = IS_ELECTRON
   ? ['json', 'bam', 'gz', 'fastq']
-  : ['json', 'bam', 'gz', 'fastq'];
+  : ['bam', 'gz', 'fastq'];
 
 const withDots: Array<string> = API_SAMPLE_EXTENSIONS_ARRAY.map(
   (extension: string) => `.${extension}`
