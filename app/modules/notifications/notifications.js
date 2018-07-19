@@ -55,15 +55,15 @@ export const getFilteredNotifications = (
       NotificationCategories.MESSAGE,
       NotificationCategories.SUCCESS,
     ],
-    dismissed = false,
-    hidden = false,
+    dismissed = true,
+    hidden = true,
     order = 'asc',
     limit,
   }: {
-    categories: Array<string>,
-    dismissed: boolean,
-    hidden: boolean,
-    order: string,
+    categories?: Array<string>,
+    dismissed?: boolean,
+    hidden?: boolean,
+    order?: string,
     limit?: number,
   }
 ) => {
@@ -185,6 +185,7 @@ export default function reducer(
       const newState = {};
       Object.keys(state).map(id => {
         const notification = state[id];
+        notification.hidden = true;
         notification.dismissed = true;
         newState[id] = notification;
       });

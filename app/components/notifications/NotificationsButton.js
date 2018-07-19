@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import { Badge, Popover, PopoverHeader } from 'reactstrap';
 
 import {
-  getNotifications,
+  getFilteredNotifications,
   setNotificationExpanded,
   dismissAllNotifications,
   dismissNotification,
+  NotificationCategories,
 } from '../../modules/notifications';
 
 import styles from './NotificationsButton.scss';
@@ -61,6 +62,12 @@ class NotificationsButton extends React.Component<*, State> {
           <PopoverHeader>Popover Title</PopoverHeader>
           <NotificationsContainer
             notificationsStyle={NotificationsStyle.JOINED}
+            categories={[
+              NotificationCategories.ERROR,
+              NotificationCategories.MESSAGE,
+            ]}
+            hidden={true}
+            dismissed={false}
             order={'desc'}
             limit={5}
           />
@@ -72,7 +79,14 @@ class NotificationsButton extends React.Component<*, State> {
 
 const withRedux = connect(
   state => ({
-    notifications: getNotifications(state),
+    notifications: getFilteredNotifications(state, {
+      categories: [
+        NotificationCategories.ERROR,
+        NotificationCategories.MESSAGE,
+      ],
+      hidden: true,
+      dismissed: false,
+    }),
   }),
   {
     setNotificationExpanded,
