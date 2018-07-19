@@ -24,6 +24,7 @@ store.dispatch(
   showNotification({
     category: NotificationCategories.ERROR,
     content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+    autoDismiss: false,
   })
 );
 
@@ -33,6 +34,7 @@ store.dispatch(
     content:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices',
     progress: 75,
+    autoDismiss: false,
   })
 );
 
@@ -41,6 +43,10 @@ storiesOf('NotificationsContainer', module)
   .addDecorator(story => (
     <div
       style={{
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        bottom: 0,
         width: '80%',
         padding: '10px',
         background: 'linear-gradient(white, #ccc)',
@@ -63,4 +69,9 @@ storiesOf('NotificationsContainer', module)
       limit={5}
     />
   ))
-  .add('Hide dismissed', () => <NotificationsContainer hideDismissed />);
+  .add('Hide dismissed', () => (
+    <NotificationsContainer
+      notificationsStyle={NotificationsStyle.SEPARATE}
+      hideDismissed
+    />
+  ));

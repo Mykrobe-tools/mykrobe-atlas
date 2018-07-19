@@ -1,21 +1,28 @@
 @import '~styles/colors.global';
 
 .container {
-	padding: 0.75rem 0.5rem;
 	display: flex;
 	flex-direction: column;
 	line-height: 1.2;
 	pointer-events: auto;
-	position: relative;
 	overflow: hidden;
+}
+
+.containerInner {
+	padding: 0.75rem 0.5rem;
+	display: flex;
+	flex-direction: column;
+	position: relative;
 }
 
 .containerSeparate {
 	composes: container;
-	padding: 0.75rem;
 	background-color: rgba($color-panel-light, 0.8);
 	border-radius: 0.25rem;
 	box-shadow: 0 1px 0 0 $color-rule;
+	.containerInner {
+		padding: 0.75rem;
+	}
 	.iconBase {
 		padding-right: 0.75em;
 	}

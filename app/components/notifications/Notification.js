@@ -103,67 +103,72 @@ class Notification extends React.Component<*, State> {
     const hasProgress = !!progress;
     return (
       <div className={containerStyle} data-tid={'component-notification'}>
-        <div className={styles.contentAndButtons}>
-          <div className={icon.style}>
-            {hasProgress ? (
-              <i className="fa fa-cog fa-spin fa-fw" />
-            ) : (
-              <i className={`fa fa-${icon.icon}`} />
-            )}
-          </div>
-          <div className={styles.content} onClick={this.onToggleExpandClick}>
-            <div
-              style={{
-                visibility: expandable && expanded ? 'hidden' : 'visible',
-                height: expandable && expanded ? '0' : 'auto',
-              }}
-              ref={this.onContentRef}
-              className={styles.contentConstrained}
-            >
-              {content}
+        <div className={styles.containerInner}>
+          <div className={styles.contentAndButtons}>
+            <div className={icon.style}>
+              {hasProgress ? (
+                <i className="fa fa-cog fa-spin fa-fw" />
+              ) : (
+                <i className={`fa fa-${icon.icon}`} />
+              )}
             </div>
-            <div
-              style={{
-                visibility: expandable && expanded ? 'visible' : 'hidden',
-                height: expandable && expanded ? 'auto' : '0',
-              }}
-            >
-              {content}
-            </div>
-          </div>
-          <div className={styles.buttons}>
-            {expandable && (
-              <a
-                href="#"
-                className={styles.button}
-                onClick={this.onToggleExpandClick}
+            <div className={styles.content} onClick={this.onToggleExpandClick}>
+              <div
+                style={{
+                  visibility: expandable && expanded ? 'hidden' : 'visible',
+                  height: expandable && expanded ? '0' : 'auto',
+                }}
+                ref={this.onContentRef}
+                className={styles.contentConstrained}
               >
-                <i className={`fa fa-caret-${expanded ? 'up' : 'down'}`} />
+                {content}
+              </div>
+              <div
+                style={{
+                  visibility: expandable && expanded ? 'visible' : 'hidden',
+                  height: expandable && expanded ? 'auto' : '0',
+                }}
+              >
+                {content}
+              </div>
+            </div>
+            <div className={styles.buttons}>
+              {expandable && (
+                <a
+                  href="#"
+                  className={styles.button}
+                  onClick={this.onToggleExpandClick}
+                >
+                  <i className={`fa fa-caret-${expanded ? 'up' : 'down'}`} />
+                </a>
+              )}
+              <a href="#" className={styles.button} onClick={this.onCloseClick}>
+                <i className={`fa fa-times`} />
               </a>
-            )}
-            <a href="#" className={styles.button} onClick={this.onCloseClick}>
-              <i className={`fa fa-times`} />
-            </a>
+            </div>
           </div>
+
+          {actions &&
+            actions.map((action, index) => (
+              <a
+                key={`${index}`}
+                href="#"
+                onClick={e => {
+                  e.preventDefault();
+                  action.onClick(id);
+                }}
+              >
+                {action.title}
+              </a>
+            ))}
+
+          {progress && (
+            <div
+              className={styles.progress}
+              style={{ width: `${progress}%` }}
+            />
+          )}
         </div>
-
-        {actions &&
-          actions.map((action, index) => (
-            <a
-              key={`${index}`}
-              href="#"
-              onClick={e => {
-                e.preventDefault();
-                action.onClick(id);
-              }}
-            >
-              {action.title}
-            </a>
-          ))}
-
-        {progress && (
-          <div className={styles.progress} style={{ width: `${progress}%` }} />
-        )}
       </div>
     );
   }

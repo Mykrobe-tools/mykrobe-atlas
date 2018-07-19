@@ -3,6 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import styles from './Notifications.scss';
 import Notification from './Notification';
@@ -31,20 +32,25 @@ class Notifications extends React.Component<*> {
       notificationsStyle,
     } = this.props;
     const filteredNotifications = this.filteredNotifications();
-    if (!filteredNotifications.length) {
-      return null;
-    }
     return (
       <div className={styles.container} data-tid={'component-notifications'}>
-        {filteredNotifications.map(notification => (
-          <Notification
-            key={notification.id}
-            {...notification}
-            setNotificationExpanded={setNotificationExpanded}
-            dismissNotification={dismissNotification}
-            notificationsStyle={notificationsStyle}
-          />
-        ))}
+        <TransitionGroup>
+          {filteredNotifications.map(notification => (
+            <CSSTransition
+              key={notification.id}
+              classNames={styles}
+              timeout={300}
+            >
+              <Notification
+                key={notification.id}
+                {...notification}
+                setNotificationExpanded={setNotificationExpanded}
+                dismissNotification={dismissNotification}
+                notificationsStyle={notificationsStyle}
+              />
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
       </div>
     );
   }
