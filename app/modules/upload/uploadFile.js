@@ -14,6 +14,7 @@ import {
 } from 'redux-saga/effects';
 import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
+import moment from 'moment';
 
 import {
   INITIALISE_SUCCESS,
@@ -24,11 +25,6 @@ import {
   getAccessToken,
   checkToken,
 } from 'makeandship-js-common/src/modules/auth/auth';
-
-import {
-  showNotification,
-  NotificationCategories,
-} from '../../../node_modules/makeandship-js-common/src/modules/notifications';
 
 import * as APIConstants from '../../constants/APIConstants';
 import {
@@ -84,6 +80,16 @@ export const getUploadProgress = createSelector(
   state => state.uploadProgress
 );
 
+export const getUploadCompletionTime = createSelector(getState, state => {
+  const { uploadBeganAt, uploadProgress } = state;
+  if (!uploadProgress) {
+    return undefined;
+  }
+  const secondsSoFar = moment().diff(moment(uploadBeganAt), 'milliseconds');
+  const projectedSecondsTotal = secondsSoFar / uploadProgress;
+  return moment(uploadBeganAt).add(projectedSecondsTotal, 'milliseconds');
+});
+
 export const getIsComputingChecksums = createSelector(
   getState,
   state => state.isComputingChecksums
@@ -104,7 +110,7 @@ export const getProgress = createSelector(
   getChecksumProgress,
   getUploadProgress,
   (checksumProgress, uploadProgress) =>
-    Math.round(checksumProgress * 0.2 + uploadProgress * 0.8)
+    Math.round(100 * (checksumProgress * 0.1 + uploadProgress * 0.9))
 );
 
 export const getFileName = createSelector(getState, state => state.fileName);
@@ -186,12 +192,14 @@ export default function reducer(
     case COMPUTE_CHECKSUMS_COMPLETE:
       return {
         ...state,
+        checksumProgress: 1,
         isComputingChecksums: false,
       };
     case UPLOAD_FILE:
       return {
         ...state,
         isUploading: true,
+        uploadBeganAt: moment().format(),
       };
     case RESUMABLE_UPLOAD_PROGRESS:
       return {
@@ -200,7 +208,8 @@ export default function reducer(
       };
     case RESUMABLE_UPLOAD_DONE:
       return {
-        ...initialState,
+        ...state,
+        uploadProgress: 1,
       };
     case RESUMABLE_UPLOAD_ERROR:
       return {
@@ -319,30 +328,12 @@ export function* uploadFileWorker(): Generator<*, *, *> {
 
 // upload events
 
-function* resumableUploadDoneWatcher() {
-  yield takeEvery(RESUMABLE_UPLOAD_DONE, function*() {
-    yield put(showNotification('Upload complete'));
-  });
-}
-
-function* resumableUploadErrorWatcher() {
-  yield takeEvery(RESUMABLE_UPLOAD_ERROR, function*(action: any) {
-    yield put(
-      showNotification({
-        category: NotificationCategories.ERROR,
-        content: action.payload,
-      })
-    );
-  });
-}
-
 function* uploadFileCancelWatcher() {
   yield takeEvery(UPLOAD_FILE_CANCEL, function*() {
     const experimentId = yield select(getExperimentId);
     yield apply(_uploadFile, 'cancel');
     yield apply(_computeChecksums, 'cancel');
     yield put(deleteExperiment(experimentId));
-    yield put(showNotification('Upload cancelled'));
     yield put({ type: UPLOAD_FILE_CANCEL_SUCCESS });
   });
 }
@@ -358,7 +349,5 @@ export function* uploadFileSaga(): Generator<*, *, *> {
     fork(uploadFileAssignBrowseWatcher),
     fork(uploadFileCancelWatcher),
     fork(uploadFileDropWatcher),
-    fork(resumableUploadErrorWatcher),
-    fork(resumableUploadDoneWatcher),
   ]);
 }

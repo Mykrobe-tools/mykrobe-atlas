@@ -70,7 +70,7 @@ class ResumableUpload {
       if (numChunks > offset + 1) {
         this.actionChannel.put({
           type: COMPUTE_CHECKSUMS_PROGRESS,
-          payload: (offset / numChunks) * 100,
+          payload: offset / numChunks,
         });
         this.computeChecksums(resumableFile, offset + 1, fileReader);
       } else {

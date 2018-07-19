@@ -74,7 +74,7 @@ class ResumableUpload {
       });
     });
     this.resumable.on('fileProgress', () => {
-      const uploadProgress = Math.floor(this.resumable.progress() * 100);
+      const uploadProgress = this.resumable.progress();
       this.actionChannel.put({
         type: RESUMABLE_UPLOAD_PROGRESS,
         payload: uploadProgress,

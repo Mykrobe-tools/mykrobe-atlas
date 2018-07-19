@@ -4,6 +4,7 @@ import { all, fork } from 'redux-saga/effects';
 import { combineReducers } from 'redux';
 
 import uploadFileReducer, { uploadFileSaga } from './uploadFile';
+import { uploadFileNotificationSaga } from './uploadFileNotification';
 import { uploadDropboxSaga } from './uploadDropbox';
 import { uploadGoogleDriveSaga } from './uploadGoogleDrive';
 import { uploadBoxSaga } from './uploadBox';
@@ -51,6 +52,7 @@ export default uploadReducer;
 export function* rootUploadSaga(): Generator<*, *, *> {
   yield all([
     fork(uploadFileSaga),
+    fork(uploadFileNotificationSaga),
     fork(uploadDropboxSaga),
     fork(uploadGoogleDriveSaga),
     fork(uploadBoxSaga),

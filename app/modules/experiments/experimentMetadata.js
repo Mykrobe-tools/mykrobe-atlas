@@ -3,8 +3,8 @@
 import { select, put } from 'redux-saga/effects';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
-import { showNotification } from 'makeandship-js-common/src/modules/notifications';
 
+import { showNotification } from '../notifications';
 import { getExperiment, requestExperiment } from './experiment';
 
 // Note this is only for updating the metadata portion of experiment

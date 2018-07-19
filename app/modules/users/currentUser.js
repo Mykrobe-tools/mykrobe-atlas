@@ -4,7 +4,6 @@ import { all, fork, put, takeEvery, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
 
-import { showNotification } from 'makeandship-js-common/src/modules/notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import {
   getIsAuthenticated,
@@ -14,6 +13,8 @@ import {
   SESSION_EXPIRED_SUCCESS,
   INITIALISE_SUCCESS,
 } from 'makeandship-js-common/src/modules/auth/auth';
+
+import { showNotification } from '../notifications';
 
 const module = createEntityModule('currentUser', {
   typePrefix: 'users/currentUser/',

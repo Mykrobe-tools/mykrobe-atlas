@@ -10,10 +10,7 @@ import {
   CREATE,
 } from 'makeandship-js-common/src/modules/generic/actions';
 
-import {
-  showNotification,
-  NotificationCategories,
-} from 'makeandship-js-common/src/modules/notifications';
+import { showNotification, NotificationCategories } from '../notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
 import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
