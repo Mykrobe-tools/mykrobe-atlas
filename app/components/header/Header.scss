@@ -17,6 +17,7 @@
 
 .account {
 	composes: fontSizeSmall from 'styles/typography.scss';
+	line-height: 1;
 	display: flex;
 	align-items: center;
 	color: $color-grey-dark;
@@ -38,6 +39,7 @@
 .title {
 	composes: fontSizeLarge from 'styles/typography.scss';
 	composes: containerAbsolute from 'styles/layout.scss';
+	line-height: 1;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;

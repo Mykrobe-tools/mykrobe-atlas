@@ -34,8 +34,11 @@
 
 .containerJoined {
 	composes: container;
-	composes: global(border-bottom);
 	background-color: white;
+}
+
+.containerJoined + .containerJoined {
+	border-top: 1px solid $color-rule;
 }
 
 .iconBase {

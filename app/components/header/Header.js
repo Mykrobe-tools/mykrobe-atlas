@@ -15,6 +15,7 @@ import {
   DropdownToggle,
 } from 'reactstrap';
 
+import NotificationsButton from '../notifications/NotificationsButton';
 import styles from './Header.scss';
 
 import {
@@ -35,6 +36,7 @@ class Header extends React.Component<*> {
           {hasTitle && <div className={styles.title}>{title}</div>}
           {currentUser ? (
             <div className={styles.account}>
+              <NotificationsButton />
               <UncontrolledDropdown>
                 <DropdownToggle
                   tag="a"
