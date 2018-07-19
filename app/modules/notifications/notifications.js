@@ -18,6 +18,7 @@ export const CLEAR_ALL = `${typePrefix}CLEAR_ALL`;
 export const DISMISS = `${typePrefix}DISMISS`;
 export const DISMISS_ALL = `${typePrefix}DISMISS_ALL`;
 export const HIDE = `${typePrefix}HIDE`;
+export const HIDE_ALL = `${typePrefix}HIDE_ALL`;
 export const SET_EXPANDED = `${typePrefix}SET_EXPANDED`;
 export const SHOW = `${typePrefix}SHOW`;
 export const UPDATE = `${typePrefix}UPDATE`;
@@ -34,6 +35,7 @@ export type Notification = {
   hidden?: boolean, // auto hide
   actions?: Array<any>,
   added?: string,
+  updated?: string,
   progress?: number,
 };
 
@@ -86,13 +88,13 @@ export const getFilteredNotifications = (
       filteredNotifications.push(notification);
     }
   });
-  const sorted = _.orderBy(filteredNotifications, 'added', order);
+  const sorted = _.orderBy(filteredNotifications, 'updated', order);
   return limit && sorted.length > limit ? sorted.slice(0, limit) : sorted;
 };
 
 // Action creators
 
-export const showNotification = (arg: Notification | string) => {
+export const shapeNotification = (arg: Notification | string) => {
   let notification: Notification;
   if (typeof arg === 'string') {
     notification = {
@@ -111,33 +113,47 @@ export const showNotification = (arg: Notification | string) => {
     hidden = false,
     actions,
     added = moment(),
+    updated = moment(),
     progress,
   } = notification;
   return {
-    type: SHOW,
-    payload: {
-      id,
-      category,
-      content,
-      expanded,
-      autoHide,
-      dismissed,
-      hidden,
-      actions,
-      added,
-      progress,
-    },
+    id,
+    category,
+    content,
+    expanded,
+    autoHide,
+    dismissed,
+    hidden,
+    actions,
+    added,
+    updated,
+    progress,
   };
 };
+
+export const showNotification = (arg: Notification | string) => {
+  return {
+    type: SHOW,
+    payload: shapeNotification(arg),
+  };
+};
+
+export const hideNotification = (id: string) => ({
+  type: HIDE,
+  payload: id,
+});
+
+export const hideAllNotifications = () => ({
+  type: HIDE_ALL,
+});
 
 export const dismissNotification = (id: string) => ({
   type: DISMISS,
   payload: id,
 });
 
-export const hideNotification = (id: string) => ({
-  type: HIDE,
-  payload: id,
+export const dismissAllNotifications = () => ({
+  type: DISMISS_ALL,
 });
 
 export const setNotificationExpanded = (id: string, expanded: boolean) => ({
@@ -150,10 +166,6 @@ export const updateNotification = (id: string, attributes: any) => ({
   payload: { id, ...attributes },
 });
 
-export const dismissAllNotifications = () => ({
-  type: DISMISS_ALL,
-});
-
 // Reducer
 
 const initialState: State = {};
@@ -164,10 +176,17 @@ export default function reducer(
 ): State {
   switch (action.type) {
     case SHOW:
-    case UPDATE:
       return {
         ...state,
         [action.payload.id]: action.payload,
+      };
+    case UPDATE:
+      return {
+        ...state,
+        [action.payload.id]: {
+          ...state[action.payload.id],
+          ...action.payload,
+        },
       };
     case HIDE:
       return {
@@ -177,6 +196,15 @@ export default function reducer(
           hidden: true,
         },
       };
+    case HIDE_ALL: {
+      const newState = {};
+      Object.keys(state).map(id => {
+        const notification = state[id];
+        notification.hidden = true;
+        newState[id] = notification;
+      });
+      return newState;
+    }
     case DISMISS:
       return {
         ...state,

@@ -29,7 +29,7 @@ import {
   showNotification,
   hideAllNotifications,
   NotificationCategories,
-} from 'makeandship-js-common/src/modules/notifications';
+} from '../notifications';
 
 // TODO: refactor - does this need to be an event emitter?
 const _analyserLocalFileChannel = channel();

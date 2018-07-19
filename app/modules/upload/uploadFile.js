@@ -25,11 +25,6 @@ import {
   checkToken,
 } from 'makeandship-js-common/src/modules/auth/auth';
 
-import {
-  showNotification,
-  NotificationCategories,
-} from '../../../node_modules/makeandship-js-common/src/modules/notifications';
-
 import * as APIConstants from '../../constants/APIConstants';
 import {
   createExperimentId,
@@ -319,30 +314,12 @@ export function* uploadFileWorker(): Generator<*, *, *> {
 
 // upload events
 
-function* resumableUploadDoneWatcher() {
-  yield takeEvery(RESUMABLE_UPLOAD_DONE, function*() {
-    yield put(showNotification('Upload complete'));
-  });
-}
-
-function* resumableUploadErrorWatcher() {
-  yield takeEvery(RESUMABLE_UPLOAD_ERROR, function*(action: any) {
-    yield put(
-      showNotification({
-        category: NotificationCategories.ERROR,
-        content: action.payload,
-      })
-    );
-  });
-}
-
 function* uploadFileCancelWatcher() {
   yield takeEvery(UPLOAD_FILE_CANCEL, function*() {
     const experimentId = yield select(getExperimentId);
     yield apply(_uploadFile, 'cancel');
     yield apply(_computeChecksums, 'cancel');
     yield put(deleteExperiment(experimentId));
-    yield put(showNotification('Upload cancelled'));
     yield put({ type: UPLOAD_FILE_CANCEL_SUCCESS });
   });
 }
@@ -358,7 +335,5 @@ export function* uploadFileSaga(): Generator<*, *, *> {
     fork(uploadFileAssignBrowseWatcher),
     fork(uploadFileCancelWatcher),
     fork(uploadFileDropWatcher),
-    fork(resumableUploadErrorWatcher),
-    fork(resumableUploadDoneWatcher),
   ]);
 }

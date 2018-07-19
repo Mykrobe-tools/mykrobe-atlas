@@ -8,6 +8,8 @@ export {
   getNotifications,
   getFilteredNotifications,
   showNotification,
+  hideNotification,
+  hideAllNotifications,
   dismissNotification,
   dismissAllNotifications,
   setNotificationExpanded,

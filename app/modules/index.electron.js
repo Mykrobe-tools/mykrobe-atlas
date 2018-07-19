@@ -4,10 +4,9 @@ import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
 import { all, fork } from 'redux-saga/effects';
 
-import notifications, {
-  rootNotificationsSaga,
-} from 'makeandship-js-common/src/modules/notifications';
 import form from 'makeandship-js-common/src/modules/form';
+
+import notifications, { rootNotificationsSaga } from './notifications';
 
 import desktop, { rootDesktopSaga } from './desktop';
 
