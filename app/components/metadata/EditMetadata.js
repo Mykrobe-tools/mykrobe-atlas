@@ -103,9 +103,30 @@ const uiSchema = {
       wgsPlatform: InlineRadio,
       otherGenotypeInformation: InlineRadio,
       genexpert: InlineRadio,
+      hain: InlineRadio,
+      hainRif: InlineRadio,
+      hainInh: InlineRadio,
+      hainFl: InlineRadio,
+      hainAm: InlineRadio,
+      hainEth: InlineRadio,
+    },
+    phenotyping: {
+      phenotypeInformationFirstLineDrugs: InlineRadio,
+      phenotypeInformationOtherDrugs: InlineRadio,
     },
   },
 };
+
+Object.entries(experimentSchema.definitions.Phenotyping.properties).forEach(
+  ([key, value]) => {
+    if (value['$ref'] === '#/definitions/Susceptibility') {
+      uiSchema.metadata.phenotyping[key] = {
+        susceptibility: InlineRadio,
+        method: InlineRadio,
+      };
+    }
+  }
+);
 
 class EditMetadata extends React.Component<*> {
   componentWillMount() {
