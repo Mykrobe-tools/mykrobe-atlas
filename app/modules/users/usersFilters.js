@@ -6,7 +6,7 @@ import {
 } from 'makeandship-js-common/src/modules/generic';
 
 const module = createFiltersModule('usersFilters', {
-  typePrefix: 'users/usersFilters',
+  typePrefix: 'users/usersFilters/',
   getState: state => state.users.usersFilters,
 });
 

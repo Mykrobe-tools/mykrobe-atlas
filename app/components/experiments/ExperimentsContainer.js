@@ -8,24 +8,21 @@ import Experiments from './Experiments';
 
 import {
   requestExperiments,
-  requestExperimentsMetadataChoices,
+  requestExperimentsChoices,
   newExperiment,
   getExperiments,
-  getExperimentsMetadataChoices,
+  getExperimentsChoices,
   getIsFetchingExperiments,
-  getIsFetchingExperimentsMetadataChoices,
+  getIsFetchingExperimentsChoices,
   getExperimentsFilters,
   setExperimentsFilters,
 } from '../../modules/experiments';
 
 class ExperimentsContainer extends React.Component<*> {
   componentDidMount() {
-    const {
-      requestExperiments,
-      requestExperimentsMetadataChoices,
-    } = this.props;
+    const { requestExperiments, requestExperimentsChoices } = this.props;
     requestExperiments();
-    requestExperimentsMetadataChoices();
+    requestExperimentsChoices();
   }
 
   onExperimentClick = experiment => {
@@ -66,16 +63,14 @@ class ExperimentsContainer extends React.Component<*> {
 const withRedux = connect(
   state => ({
     experiments: getExperiments(state),
-    experimentsMetadataChoices: getExperimentsMetadataChoices(state),
+    experimentsChoices: getExperimentsChoices(state),
     isFetchingExperiments: getIsFetchingExperiments(state),
-    isFetchingExperimentsMetadataChoices: getIsFetchingExperimentsMetadataChoices(
-      state
-    ),
+    isFetchingExperimentsChoices: getIsFetchingExperimentsChoices(state),
     experimentsFilters: getExperimentsFilters(state),
   }),
   {
     requestExperiments,
-    requestExperimentsMetadataChoices,
+    requestExperimentsChoices,
     setExperimentsFilters,
     push,
     newExperiment,
