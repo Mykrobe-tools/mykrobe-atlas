@@ -29,6 +29,7 @@ export {
   setExperimentsFilters,
   resetExperimentsFilters,
   getExperimentsFilters,
+  getExperimentsDataFilters,
   getExperimentsHasDataFilters,
   getExperimentsFiltersSaga,
   experimentsFiltersActionType,

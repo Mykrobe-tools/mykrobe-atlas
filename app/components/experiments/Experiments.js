@@ -11,7 +11,8 @@ import PageHeader, {
 } from 'makeandship-js-common/src/components/ui/PageHeader';
 
 import styles from './Experiments.scss';
-import ExperimentsTable from '../experiments/ExperimentsTable';
+import ExperimentsTable from './ExperimentsTable';
+import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
 import Header from '../header/Header';
 
 import UploadButton from '../upload/button/UploadButton';
@@ -55,6 +56,7 @@ class Experiments extends React.Component<*> {
               </div>
             </ButtonToolbar>
           </PageHeader>
+          <ExperimentsChoicesFilters />
           <ExperimentsTable
             isFetching={isFetchingExperiments}
             experiments={results}

@@ -14,7 +14,7 @@ const {
   reducer,
   actionType,
   actions: { setFilters, resetFilters },
-  selectors: { getFilters, getHasDataFilters },
+  selectors: { getFilters, getDataFilters, getHasDataFilters },
   sagas: { getFiltersSaga },
 } = module;
 
@@ -22,6 +22,7 @@ export {
   setFilters as setExperimentsFilters,
   resetFilters as resetExperimentsFilters,
   getFilters as getExperimentsFilters,
+  getDataFilters as getExperimentsDataFilters,
   getHasDataFilters as getExperimentsHasDataFilters,
   getFiltersSaga as getExperimentsFiltersSaga,
   actionType as experimentsFiltersActionType,
