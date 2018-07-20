@@ -24,12 +24,54 @@ import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
 import Header from '../header/Header';
 
 import UploadButton from '../upload/button/UploadButton';
+import SearchInput from '../ui/SearchInput';
 
-class Experiments extends React.Component<*> {
+type State = {
+  q: ?string,
+};
+
+class Experiments extends React.Component<*, State> {
   onNewExperiment = e => {
     e && e.preventDefault();
     const { newExperiment } = this.props;
     newExperiment();
+  };
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      q: props.experimentsFilters.q,
+    };
+  }
+
+  componentDidUpdate = (prevProps: any) => {
+    if (prevProps.experimentsFilters.q !== this.props.experimentsFilters.q) {
+      this.setState({
+        q: this.props.experimentsFilters.q,
+      });
+    }
+  };
+
+  onChange = (e: any) => {
+    const q = e.target.value;
+    this.setState({
+      q,
+    });
+  };
+
+  onSubmit = (e: any) => {
+    e.preventDefault();
+    const { setExperimentsFilters, experimentsFilters } = this.props;
+    let { q } = this.state;
+    // clear the parameter when empty string
+    if (typeof q === 'string' && q.length === 0) {
+      q = undefined;
+    }
+    setExperimentsFilters({
+      ...experimentsFilters,
+      q,
+      page: undefined,
+    });
   };
 
   render() {
@@ -46,8 +88,7 @@ class Experiments extends React.Component<*> {
     const title = total
       ? `${total.toLocaleString()} ${pluralize('Experiment', total)}`
       : 'Experiments';
-    const placeholder =
-      'Search against any metadata field or sequence e.g. GAT';
+    const { q } = this.state;
     return (
       <div className={styles.container}>
         <Header title={'Experiments'} />
@@ -56,30 +97,12 @@ class Experiments extends React.Component<*> {
             <div className={pageHeaderStyles.title}>{title}</div>
             <div className={styles.searchContainer}>
               <Col md={6}>
-                <InputGroup>
-                  <label className="sr-only" htmlFor="q">
-                    {placeholder}
-                  </label>
-                  <Input
-                    type="text"
-                    name="q"
-                    tabIndex="0"
-                    autoComplete="off"
-                    autoCorrect="off"
-                    autoCapitalize="off"
-                    spellCheck="false"
-                    role="textbox"
-                    placeholder={placeholder}
-                    aria-label={placeholder}
-                    value={''}
-                    onChange={() => {}}
-                  />
-                  <InputGroupAddon addonType="append">
-                    <Button type="submit" color="mid">
-                      <i className="fa fa-search" />
-                    </Button>
-                  </InputGroupAddon>
-                </InputGroup>
+                <SearchInput
+                  value={q}
+                  placeholder="Search against any metadata field or sequence e.g. GAT"
+                  onChange={this.onChange}
+                  onSubmit={this.onSubmit}
+                />
               </Col>
             </div>
           </div>
@@ -120,6 +143,7 @@ class Experiments extends React.Component<*> {
 Experiments.propTypes = {
   experiments: PropTypes.object.isRequired,
   experimentsFilters: PropTypes.any,
+  setExperimentsFilters: PropTypes.func,
   requestExperiments: PropTypes.func,
   requestFilterValues: PropTypes.func,
   isFetchingExperiments: PropTypes.bool,
