@@ -8,6 +8,8 @@ import MetadataContainer from '../metadata/MetadataContainer';
 import Resistance from '../resistance/resistance/Resistance';
 import SummaryContainer from '../summary/SummaryContainer';
 
+import EditMetadata from '../metadata/EditMetadata';
+
 const ExperimentRoutes = () => (
   <Switch>
     <Route
@@ -22,7 +24,7 @@ const ExperimentRoutes = () => (
     />
     <Route
       path={`/experiments/:experimentId/metadata`}
-      component={MetadataContainer}
+      component={EditMetadata}
     />
     <Route
       path={`/experiments/:experimentId/resistance`}
