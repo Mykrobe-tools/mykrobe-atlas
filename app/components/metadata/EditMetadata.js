@@ -24,6 +24,8 @@ import {
 
 import {
   Select,
+  DatePicker,
+  DateTimePicker,
   DecoratedForm,
   FormFooter,
 } from 'makeandship-js-common/src/components/ui/form';
@@ -35,7 +37,71 @@ import {
 
 import experimentSchema from 'mykrobe-atlas-api/src/schemas/experiment';
 
-const uiSchema = {};
+const uiSchema = {
+  metadata: {
+    patient: {
+      genderAtBirth: {
+        'ui:widget': 'radio',
+      },
+      countryOfBirth: {
+        'ui:widget': Select,
+      },
+      injectingDrugUse: {
+        'ui:widget': 'radio',
+        'ui:options': {
+          inline: true,
+        },
+      },
+      homeless: {
+        'ui:widget': 'radio',
+        'ui:options': {
+          inline: true,
+        },
+      },
+      imprisoned: {
+        'ui:widget': 'radio',
+        'ui:options': {
+          inline: true,
+        },
+      },
+      smoker: {
+        'ui:widget': 'radio',
+        'ui:options': {
+          inline: true,
+        },
+      },
+      diabetic: {
+        'ui:widget': Select,
+      },
+      hivStatus: {
+        'ui:widget': Select,
+      },
+    },
+    sample: {
+      collectionDate: {
+        'ui:widget': DatePicker,
+      },
+      prospectiveIsolate: {
+        'ui:widget': 'radio',
+        'ui:options': {
+          inline: true,
+        },
+      },
+      countryIsolate: {
+        'ui:widget': Select,
+      },
+      dateArrived: {
+        'ui:widget': DatePicker,
+      },
+      anatomicalOrigin: {
+        'ui:widget': Select,
+      },
+      smear: {
+        'ui:widget': Select,
+      },
+    },
+  },
+};
 
 class EditMetadata extends React.Component<*> {
   componentWillMount() {
@@ -69,7 +135,6 @@ class EditMetadata extends React.Component<*> {
     const { experiment, isFetching, error } = this.props;
     return (
       <div className={styles.container}>
-        <Header title={'Organisation'} />
         <Container fluid>
           <DecoratedForm
             formKey="experiments/experiment"
