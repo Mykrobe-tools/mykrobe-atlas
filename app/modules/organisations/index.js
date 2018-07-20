@@ -5,6 +5,9 @@ import { combineReducers } from 'redux';
 
 import organisations, { organisationsSaga } from './organisations';
 import organisation, { organisationSaga } from './organisation';
+import organisationsFilters, {
+  syncOrganisationsFiltersSaga,
+} from './organisationsFilters';
 
 export {
   getIsFetching as getOrganisationsIsFetching,
@@ -26,13 +29,27 @@ export {
   organisationSaga,
 } from './organisation';
 
+export {
+  setOrganisationsFilters,
+  resetOrganisationsFilters,
+  getOrganisationsFilters,
+  getOrganisationsHasDataFilters,
+  getOrganisationsFiltersSaga,
+  organisationsFiltersActionType,
+} from './organisationsFilters';
+
 const reducer = combineReducers({
   organisations,
+  organisationsFilters,
   organisation,
 });
 
 export default reducer;
 
 export function* rootOrganisationsSaga(): Generator<*, *, *> {
-  yield all([fork(organisationsSaga), fork(organisationSaga)]);
+  yield all([
+    fork(organisationsSaga),
+    fork(organisationSaga),
+    fork(syncOrganisationsFiltersSaga),
+  ]);
 }

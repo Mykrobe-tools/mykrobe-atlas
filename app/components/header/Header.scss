@@ -17,9 +17,10 @@
 
 .account {
 	composes: fontSizeSmall from 'styles/typography.scss';
+	line-height: 1;
 	display: flex;
 	align-items: center;
-	color: $color-grey-mid;
+	color: $color-grey-dark;
 	margin-left: auto;
 }
 
@@ -32,16 +33,22 @@
 }
 
 .signUpLink {
-	composes: buttonPrimary from 'styles/controls.scss';
-	composes: fontSecondarySizeSmall from 'styles/typography.scss';
-	margin-left: 20px;
+	composes: global(ml-3);
 }
 
 .title {
 	composes: fontSizeLarge from 'styles/typography.scss';
 	composes: containerAbsolute from 'styles/layout.scss';
+	line-height: 1;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
 	pointer-events: none;
+}
+
+.currentUserDropdownToggle {
+	background-color: transparent;
+	border: none;
+	padding: 0;
+	cursor: pointer;
 }

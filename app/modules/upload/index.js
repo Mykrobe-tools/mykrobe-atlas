@@ -4,6 +4,7 @@ import { all, fork } from 'redux-saga/effects';
 import { combineReducers } from 'redux';
 
 import uploadFileReducer, { uploadFileSaga } from './uploadFile';
+import { uploadFileNotificationSaga } from './uploadFileNotification';
 import { uploadDropboxSaga } from './uploadDropbox';
 import { uploadGoogleDriveSaga } from './uploadGoogleDrive';
 import { uploadBoxSaga } from './uploadBox';
@@ -25,6 +26,18 @@ export {
   getFileName,
 } from './uploadFile';
 
+export {
+  RESUMABLE_UPLOAD_FILE_ADDED,
+  RESUMABLE_UPLOAD_PROGRESS,
+  RESUMABLE_UPLOAD_ERROR,
+  RESUMABLE_UPLOAD_DONE,
+} from './util/ResumableUpload';
+
+export {
+  COMPUTE_CHECKSUMS_PROGRESS,
+  COMPUTE_CHECKSUMS_COMPLETE,
+} from './util/ComputeChecksums';
+
 export { uploadDropbox, uploadDropboxSaga } from './uploadDropbox';
 export { uploadGoogleDrive, uploadGoogleDriveSaga } from './uploadGoogleDrive';
 export { uploadBox, uploadBoxSaga } from './uploadBox';
@@ -39,6 +52,7 @@ export default uploadReducer;
 export function* rootUploadSaga(): Generator<*, *, *> {
   yield all([
     fork(uploadFileSaga),
+    fork(uploadFileNotificationSaga),
     fork(uploadDropboxSaga),
     fork(uploadGoogleDriveSaga),
     fork(uploadBoxSaga),

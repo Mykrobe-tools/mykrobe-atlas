@@ -2,9 +2,10 @@
 
 import { put } from 'redux-saga/effects';
 
-import { showNotification } from 'makeandship-js-common/src/modules/notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
+
 import { requestCurrentUser } from './currentUser';
+import { showNotification } from '../notifications';
 
 const module = createEntityModule('currentUserAvatar', {
   typePrefix: 'users/currentUserAvatar/',

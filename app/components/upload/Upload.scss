@@ -38,43 +38,29 @@
 }
 
 .title {
-	font-size: 24px; /* composes: fontSizeLarge from "styles/typography.scss"; */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 24px;
+	line-height: 32px;
 	text-align: center;
 	margin-bottom: 30px;
 }
 
 .buttonContainer {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	bottom: 60px;
 	pointer-events: auto;
 }
 
-.buttonOffscreen {
-	position: absolute;
-	left: -9999px;
-	top: -9999px;
-}
-
-.button {
-	composes: buttonOutlineLarge from 'styles/controls.scss';
-}
-
-.progressTextContainer {
-	composes: containerAbsolute from 'styles/layout.scss';
-	align-items: center;
-	justify-content: center;
-}
-
 .progressStatus {
-	composes: fontSecondary from 'styles/typography.scss';
 	position: absolute;
-	bottom: 140px;
+	top: 50%;
 	left: 64px;
 	right: 64px;
 	text-align: center;
+}
+
+.progressStatusInner {
+	padding-top: 24px + 30px;
 }
 
 .progressTitle {

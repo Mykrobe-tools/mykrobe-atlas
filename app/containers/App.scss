@@ -2,6 +2,7 @@
 
 .container {
 	composes: container from 'styles/layout.scss';
+	position: relative;
 	flex: 1;
 }
 
@@ -11,18 +12,19 @@
 }
 
 .notificationsContainer {
-	display: flex;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	pointer-events: none;
+	left: 60%;
 }
 
-.analysingContainer {
-	composes: containerAbsolute from 'styles/layout.scss';
-	bottom: auto;
+.notificationsContainerElectron {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
 	pointer-events: none;
-	width: 100%;
+	left: 1rem;
 }
 
 .headerContainer {

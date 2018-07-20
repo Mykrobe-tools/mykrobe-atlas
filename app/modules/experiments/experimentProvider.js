@@ -3,7 +3,8 @@
 import { put } from 'redux-saga/effects';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
-import { showNotification } from 'makeandship-js-common/src/modules/notifications';
+
+import { showNotification } from '../notifications';
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experimentProvider/',

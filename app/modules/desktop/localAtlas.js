@@ -29,7 +29,7 @@ import {
   showNotification,
   hideAllNotifications,
   NotificationCategories,
-} from 'makeandship-js-common/src/modules/notifications';
+} from '../notifications';
 
 // TODO: refactor - does this need to be an event emitter?
 const _analyserLocalFileChannel = channel();
@@ -38,9 +38,10 @@ const _analyserLocalFile = new AnalyserLocalFile();
 _analyserLocalFile
   .on('progress', progress => {
     _analyserLocalFileChannel.put(analyseFileProgress(progress));
+    UIHelpers.setProgress(progress);
   })
-  .on('done', ({ json, transformed }) => {
-    _analyserLocalFileChannel.put(analyseFileSuccess(json, transformed));
+  .on('done', ({ json }) => {
+    _analyserLocalFileChannel.put(analyseFileSuccess(json));
   })
   .on('error', error => {
     _analyserLocalFileChannel.put(analyseFileError(error.description));

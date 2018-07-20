@@ -1,85 +1,80 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+
 import Experiments from './Experiments';
 
 import {
   requestExperiments,
-  requestExperimentsMetadataChoices,
+  requestExperimentsChoices,
+  newExperiment,
   getExperiments,
-  getExperimentsMetadataChoices,
+  getExperimentsChoices,
   getIsFetchingExperiments,
-  getIsFetchingExperimentsMetadataChoices,
+  getIsFetchingExperimentsChoices,
+  getExperimentsFilters,
+  setExperimentsFilters,
 } from '../../modules/experiments';
 
 class ExperimentsContainer extends React.Component<*> {
   componentDidMount() {
-    const {
-      requestExperiments,
-      requestExperimentsMetadataChoices,
-    } = this.props;
+    const { requestExperiments, requestExperimentsChoices } = this.props;
     requestExperiments();
-    requestExperimentsMetadataChoices();
+    requestExperimentsChoices();
   }
 
+  onExperimentClick = experiment => {
+    const { push } = this.props;
+    const { id } = experiment;
+    push(`/experiments/${id}`);
+  };
+
+  onChangeListOrder = ({ sort, order }) => {
+    const { setExperimentsFilters, experimentsFilters } = this.props;
+    setExperimentsFilters({
+      ...experimentsFilters,
+      order,
+      sort,
+      page: undefined,
+    });
+  };
+
+  setPage = page => {
+    const { setExperimentsFilters, experimentsFilters } = this.props;
+    setExperimentsFilters({
+      ...experimentsFilters,
+      page,
+    });
+  };
+
   render() {
-    const {
-      requestExperiments,
-      experiments,
-      isFetchingExperiments,
-      isFetchingExperimentsMetadataChoices,
-      experimentsMetadataChoices,
-      requestExperimentsMetadataChoices,
-    } = this.props;
     return (
       <Experiments
-        experiments={experiments}
-        experimentsMetadataChoices={experimentsMetadataChoices}
-        isFetchingExperiments={isFetchingExperiments}
-        isFetchingExperimentsMetadataChoices={
-          isFetchingExperimentsMetadataChoices
-        }
-        requestExperiments={requestExperiments}
-        requestExperimentsMetadataChoices={requestExperimentsMetadataChoices}
+        onChangeListOrder={this.onChangeListOrder}
+        onExperimentClick={this.onExperimentClick}
+        {...this.props}
       />
     );
   }
 }
 
-ExperimentsContainer.propTypes = {
-  experiments: PropTypes.object.isRequired,
-  experimentsMetadataChoices: PropTypes.object,
-  requestExperiments: PropTypes.func.isRequired,
-  isFetchingExperiments: PropTypes.bool.isRequired,
-  isFetchingExperimentsMetadataChoices: PropTypes.bool.isRequired,
-  requestExperimentsMetadataChoices: PropTypes.func.isRequired,
-};
-
-function mapStateToProps(state) {
-  return {
+const withRedux = connect(
+  state => ({
     experiments: getExperiments(state),
-    experimentsMetadataChoices: getExperimentsMetadataChoices(state),
+    experimentsChoices: getExperimentsChoices(state),
     isFetchingExperiments: getIsFetchingExperiments(state),
-    isFetchingExperimentsMetadataChoices: getIsFetchingExperimentsMetadataChoices(
-      state
-    ),
-  };
-}
+    isFetchingExperimentsChoices: getIsFetchingExperimentsChoices(state),
+    experimentsFilters: getExperimentsFilters(state),
+  }),
+  {
+    requestExperiments,
+    requestExperimentsChoices,
+    setExperimentsFilters,
+    push,
+    newExperiment,
+  }
+);
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      requestExperiments,
-      requestExperimentsMetadataChoices,
-    },
-    dispatch
-  );
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ExperimentsContainer);
+export default withRedux(ExperimentsContainer);

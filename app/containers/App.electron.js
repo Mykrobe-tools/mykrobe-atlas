@@ -21,7 +21,8 @@ import {
 
 import styles from './App.scss';
 
-import Notifications from 'makeandship-js-common/src/components/notifications/Notifications';
+import NotificationsContainer from '../components/notifications/NotificationsContainer';
+import NotificationsStyle from '../components/notifications/NotificationsStyle';
 
 type State = {
   isDragActive: boolean,
@@ -146,7 +147,15 @@ class App extends React.Component<*, State> {
         accept={APIConstants.API_SAMPLE_EXTENSIONS_STRING_WITH_DOTS}
       >
         <div className={styles.contentContainer}>{children}</div>
-        <Notifications />
+        <div className={styles.notificationsContainerElectron}>
+          <NotificationsContainer
+            limit={5}
+            order="desc"
+            notificationsStyle={NotificationsStyle.SEPARATE}
+            dismissed={false}
+            hidden={false}
+          />
+        </div>
       </Dropzone>
     );
   }

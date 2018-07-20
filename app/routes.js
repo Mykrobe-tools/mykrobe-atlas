@@ -9,6 +9,7 @@ import App from './containers/App';
 import OrganisationsRoutes from './components/organisations/OrganisationsRoutes';
 import AuthRoutes from './components/auth/AuthRoutes';
 import UsersRoutes from './components/users/UsersRoutes';
+import NotificationsPage from './components/notifications/NotificationsPage';
 
 import {
   withUserIsNotAuthenticatedRedirect,
@@ -25,6 +26,9 @@ const AuthenticatedOrganisationsRoutes = withUserIsNotAuthenticatedRedirect(
 const AuthenticatedUsersRoutes = withUserIsNotAuthenticatedRedirect(
   UsersRoutes
 );
+const AuthenticatedNotificationsPage = withUserIsNotAuthenticatedRedirect(
+  NotificationsPage
+);
 
 export default (
   <App>
@@ -37,6 +41,7 @@ export default (
         path="/organisations"
         component={AuthenticatedOrganisationsRoutes}
       />
+      <Route path="/notifications" component={AuthenticatedNotificationsPage} />
     </Switch>
   </App>
 );

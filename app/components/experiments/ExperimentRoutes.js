@@ -12,6 +12,11 @@ const ExperimentRoutes = () => (
   <Switch>
     <Route
       exact
+      path={`/experiments/new`}
+      component={() => <Redirect to={`/`} />}
+    />
+    <Route
+      exact
       path={`/experiments/:experimentId`}
       component={({ match }) => <Redirect to={`${match.url}/metadata`} />}
     />

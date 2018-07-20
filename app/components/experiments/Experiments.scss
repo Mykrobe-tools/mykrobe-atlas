@@ -1,28 +1,47 @@
 @import '~styles/colors.global';
-@import '~styles/variables.global';
 
 .container {
 	composes: container from 'styles/layout.scss';
 	flex-direction: column;
 }
 
-.header {
-	height: $header-height;
+.headerContainer {
+	composes: global(border-top);
+	composes: global(border-bottom);
+	composes: global(py-3);
+	background-color: $color-panel-light;
+}
+
+.headerContainerInner {
+	position: relative;
+}
+
+.searchContainer {
+	composes: containerAbsolute from 'styles/layout.scss';
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	flex-wrap: wrap;
+	input[name='q'] {
+		background-color: $color-white;
+		padding-left: 1.5rem;
+		/* TODO: find a clean way to override input border radius */
+		border-top-left-radius: 500px !important;
+		border-bottom-left-radius: 500px !important;
+	}
+	button[type='submit'] {
+		i {
+			font-size: 1rem;
+		}
+	}
 }
 
-.title {
-	composes: font from 'styles/typography.scss';
-	composes: fontSizeLarge from 'styles/typography.scss';
-}
-
-.content {
-	flex: 1;
-}
-
-.experimentsHeader {
+.actionsContainer {
 	composes: global(py-3);
+	display: flex;
+	flex-direction: row;
+}
+
+.filtersActionsContainer {
+	display: flex;
+	flex-direction: row;
 }
