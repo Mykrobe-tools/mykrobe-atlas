@@ -22,7 +22,6 @@ import styles from './Experiments.scss';
 import ExperimentsTable from './ExperimentsTable';
 import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
 import Header from '../header/Header';
-import HeaderSearch from '../ui/HeaderSearch';
 
 import UploadButton from '../upload/button/UploadButton';
 
@@ -47,7 +46,8 @@ class Experiments extends React.Component<*> {
     const title = total
       ? `${total.toLocaleString()} ${pluralize('Experiment', total)}`
       : 'Experiments';
-
+    const placeholder =
+      'Search against any metadata field or sequence e.g. GAT';
     return (
       <div className={styles.container}>
         <Header title={'Experiments'} />
@@ -56,7 +56,30 @@ class Experiments extends React.Component<*> {
             <div className={pageHeaderStyles.title}>{title}</div>
             <div className={styles.searchContainer}>
               <Col md={6}>
-                <HeaderSearch />
+                <InputGroup>
+                  <label className="sr-only" htmlFor="q">
+                    {placeholder}
+                  </label>
+                  <Input
+                    type="text"
+                    name="q"
+                    tabIndex="0"
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    spellCheck="false"
+                    role="textbox"
+                    placeholder={placeholder}
+                    aria-label={placeholder}
+                    value={''}
+                    onChange={() => {}}
+                  />
+                  <InputGroupAddon addonType="append">
+                    <Button type="submit" color="mid">
+                      <i className="fa fa-search" />
+                    </Button>
+                  </InputGroupAddon>
+                </InputGroup>
               </Col>
             </div>
           </div>

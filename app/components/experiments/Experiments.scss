@@ -21,6 +21,18 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	input[name='q'] {
+		background-color: $color-white;
+		padding-left: 1.5rem;
+		/* TODO: find a clean way to override input border radius */
+		border-top-left-radius: 500px !important;
+		border-bottom-left-radius: 500px !important;
+	}
+	button[type='submit'] {
+		i {
+			font-size: 1rem;
+		}
+	}
 }
 
 .actionsContainer {
