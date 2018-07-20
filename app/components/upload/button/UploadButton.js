@@ -60,11 +60,11 @@ class UploadButton extends React.Component<*> {
   };
 
   render() {
-    const { size, right } = this.props;
+    const { size, right, outline } = this.props;
     return (
       <UncontrolledDropdown>
         <span style={{ display: 'none' }} ref={this.setUploadButtonRef} />
-        <DropdownToggle outline size={size}>
+        <DropdownToggle outline={outline} size={size}>
           Analyse Sample <i className="fa fa-caret-down" />
         </DropdownToggle>
         <DropdownMenu right={right}>
@@ -93,8 +93,9 @@ class UploadButton extends React.Component<*> {
   }
 
   static defaultProps = {
-    size: 'sm',
+    size: 'md',
     right: false,
+    outline: true,
   };
 }
 
@@ -106,6 +107,7 @@ UploadButton.propTypes = {
   uploadOneDrive: PropTypes.func.isRequired,
   size: PropTypes.string.isRequired,
   right: PropTypes.bool.isRequired,
+  outline: PropTypes.bool.isRequired,
 };
 
 const withRedux = connect(

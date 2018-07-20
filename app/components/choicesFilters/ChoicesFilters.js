@@ -97,14 +97,7 @@ class ChoicesFilters extends React.Component<*, State> {
         label: `${value.key} (${value.count})`,
       };
     });
-    // const schemaProperty = findSchemaPropertyForKeyPath(
-    //   incidentSchema,
-    //   incidentsChoiceKey
-    // );
     let displayTitle = choiceKey;
-    // if (schemaProperty) {
-    //   displayTitle = schemaProperty.title;
-    // }
     const value = placeholder ? '' : filters[choiceKey];
     const displayValue = placeholder
       ? displayTitle
@@ -154,13 +147,21 @@ class ChoicesFilters extends React.Component<*, State> {
   render() {
     const { choices, filters, hasFilters } = this.props;
     const { placeholderChoiceKeys } = this.state;
-    console.log('choices', choices);
-    console.log('filters', filters);
-    console.log('hasFilters', hasFilters);
-    if (!choices) {
-      return null;
+    let hasChoices = false;
+    let addFilterChoicesKeys = [];
+    if (choices) {
+      addFilterChoicesKeys = this.addFilterChoicesKeys();
+      hasChoices = addFilterChoicesKeys.length > 0;
     }
-    const addFilterChoicesKeys = this.addFilterChoicesKeys();
+    if (!hasChoices) {
+      return (
+        <div className={styles.componentWrap}>
+          <Button outline disabled>
+            Add filters <i className="fa fa-caret-down" />
+          </Button>
+        </div>
+      );
+    }
     const filtersKeys = Object.keys(filters);
     return (
       <div className={styles.componentWrap}>
@@ -168,42 +169,29 @@ class ChoicesFilters extends React.Component<*, State> {
         {placeholderChoiceKeys.map(placeholderChoiceKey =>
           this.renderChoice(placeholderChoiceKey, true)
         )}
-        {addFilterChoicesKeys.length > 0 ? (
-          <div className={styles.element}>
-            <UncontrolledDropdown>
-              <DropdownToggle outline data-tid="add-filters-dropdown-toggle">
-                Add filters <i className="fa fa-caret-down" />
-              </DropdownToggle>
-              <DropdownMenu>
-                {addFilterChoicesKeys.map(key => {
-                  let displayTitle = key;
-                  // const schemaProperty = findSchemaPropertyForKeyPath(
-                  //   incidentSchema,
-                  //   key
-                  // );
-                  // if (schemaProperty) {
-                  //   displayTitle = `${schemaProperty.title} (${key})`;
-                  // }
-                  return (
-                    <DropdownItem
-                      onClick={e => {
-                        e.preventDefault();
-                        this.onAddPlaceholderChoiceKey(key);
-                      }}
-                      key={key}
-                    >
-                      {displayTitle}
-                    </DropdownItem>
-                  );
-                })}
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </div>
-        ) : (
-          <Button outline disabled>
-            Add filters <i className="fa fa-caret-down" />
-          </Button>
-        )}
+        <div className={styles.element}>
+          <UncontrolledDropdown>
+            <DropdownToggle outline data-tid="add-filters-dropdown-toggle">
+              Add filters <i className="fa fa-caret-down" />
+            </DropdownToggle>
+            <DropdownMenu>
+              {addFilterChoicesKeys.map(key => {
+                let displayTitle = key;
+                return (
+                  <DropdownItem
+                    onClick={e => {
+                      e.preventDefault();
+                      this.onAddPlaceholderChoiceKey(key);
+                    }}
+                    key={key}
+                  >
+                    {displayTitle}
+                  </DropdownItem>
+                );
+              })}
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </div>
         {hasFilters && (
           <div className={styles.element}>
             <a href="" onClick={this.onClearFilters} className={styles.clear}>

@@ -2,7 +2,15 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Button, ButtonToolbar } from 'reactstrap';
+import {
+  Container,
+  Button,
+  ButtonToolbar,
+  Col,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+} from 'reactstrap';
 import pluralize from 'pluralize';
 
 import Pagination from 'makeandship-js-common/src/components/ui/pagination';
@@ -42,21 +50,35 @@ class Experiments extends React.Component<*> {
     return (
       <div className={styles.container}>
         <Header title={'Experiments'} />
-        <Container fluid>
-          <PageHeader border={false}>
-            <div>
-              <div className={pageHeaderStyles.title}>{title}</div>
+        <Container className={styles.headerContainer} fluid>
+          <div className={styles.headerContainerInner}>
+            <div className={pageHeaderStyles.title}>{title}</div>
+            <div className={styles.searchContainer}>
+              <Col md={6}>
+                <InputGroup>
+                  <Input type="text" placeholder="Search" value={''} />
+                  <InputGroupAddon addonType="append">
+                    <Button type="submit" color="mid">
+                      <i className="fa fa-search" />
+                    </Button>
+                  </InputGroupAddon>
+                </InputGroup>
+              </Col>
             </div>
-            <ButtonToolbar>
-              <Button outline size="sm">
-                <i className="fa fa-arrow-circle-down" /> Export
+          </div>
+        </Container>
+        <Container fluid>
+          <ButtonToolbar className={styles.actionsContainer}>
+            <ExperimentsChoicesFilters />
+            <div className="ml-3 border-left">
+              <Button color="link">
+                Actions <i className="fa fa-caret-down" />
               </Button>
-              <div className="pl-2">
-                <UploadButton right />
-              </div>
-            </ButtonToolbar>
-          </PageHeader>
-          <ExperimentsChoicesFilters />
+            </div>
+            <div className="ml-auto">
+              <UploadButton right outline={false} />
+            </div>
+          </ButtonToolbar>
           <ExperimentsTable
             isFetching={isFetchingExperiments}
             experiments={results}
