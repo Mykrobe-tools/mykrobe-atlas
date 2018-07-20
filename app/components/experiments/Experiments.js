@@ -2,21 +2,11 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Container,
-  Button,
-  ButtonToolbar,
-  Col,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-} from 'reactstrap';
+import { Container, Button, Col } from 'reactstrap';
 import pluralize from 'pluralize';
 
 import Pagination from 'makeandship-js-common/src/components/ui/pagination';
-import PageHeader, {
-  styles as pageHeaderStyles,
-} from 'makeandship-js-common/src/components/ui/PageHeader';
+import { styles as pageHeaderStyles } from 'makeandship-js-common/src/components/ui/PageHeader';
 
 import styles from './Experiments.scss';
 import ExperimentsTable from './ExperimentsTable';
@@ -31,7 +21,7 @@ type State = {
 };
 
 class Experiments extends React.Component<*, State> {
-  onNewExperiment = e => {
+  onNewExperiment = (e: any) => {
     e && e.preventDefault();
     const { newExperiment } = this.props;
     newExperiment();
@@ -110,15 +100,15 @@ class Experiments extends React.Component<*, State> {
         <Container fluid>
           <div className={styles.actionsContainer}>
             <div className={styles.filtersActionsContainer}>
-              <ExperimentsChoicesFilters />
+              <ExperimentsChoicesFilters size="sm" />
               <div className="ml-3 border-left">
-                <Button color="link">
+                <Button color="link" size="sm">
                   Actions <i className="fa fa-caret-down" />
                 </Button>
               </div>
             </div>
             <div className="ml-auto">
-              <UploadButton right outline={false} />
+              <UploadButton right size="sm" outline={false} />
             </div>
           </div>
           <ExperimentsTable

@@ -43,8 +43,8 @@ class Header extends React.Component<*> {
                   className={styles.currentUserDropdownToggle}
                 >
                   <span>
-                    {currentUser.lastname},{' '}
-                    {currentUser.firstname} <i className="fa fa-caret-down" />
+                    {currentUser.lastname}, {currentUser.firstname}{' '}
+                    <i className="fa fa-caret-down" />
                   </span>
                 </DropdownToggle>
                 <DropdownMenu right>

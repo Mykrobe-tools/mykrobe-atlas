@@ -145,7 +145,7 @@ class ChoicesFilters extends React.Component<*, State> {
   };
 
   render() {
-    const { choices, filters, hasFilters } = this.props;
+    const { choices, filters, hasFilters, size } = this.props;
     const { placeholderChoiceKeys } = this.state;
     let hasChoices = false;
     let addFilterChoicesKeys = [];
@@ -156,10 +156,11 @@ class ChoicesFilters extends React.Component<*, State> {
     if (!hasChoices) {
       return (
         <div className={styles.componentWrap}>
-        <div className={styles.element}>
-          <Button outline disabled>
-            Add filters <i className="fa fa-caret-down" />
-          </Button></div>
+          <div className={styles.element}>
+            <Button outline disabled size={size}>
+              Add filters <i className="fa fa-caret-down" />
+            </Button>
+          </div>
         </div>
       );
     }
@@ -172,7 +173,11 @@ class ChoicesFilters extends React.Component<*, State> {
         )}
         <div className={styles.element}>
           <UncontrolledDropdown>
-            <DropdownToggle outline data-tid="add-filters-dropdown-toggle">
+            <DropdownToggle
+              outline
+              size={size}
+              data-tid="add-filters-dropdown-toggle"
+            >
               Add filters <i className="fa fa-caret-down" />
             </DropdownToggle>
             <DropdownMenu>
@@ -235,6 +240,10 @@ class ChoicesFilters extends React.Component<*, State> {
       </Col>
     );
   };
+
+  static defaultProps = {
+    size: 'lg',
+  };
 }
 
 ChoicesFilters.propTypes = {
@@ -244,6 +253,7 @@ ChoicesFilters.propTypes = {
   filters: PropTypes.object.isRequired,
   choices: PropTypes.object,
   hasFilters: PropTypes.bool,
+  size: PropTypes.string,
 };
 
 export default ChoicesFilters;
