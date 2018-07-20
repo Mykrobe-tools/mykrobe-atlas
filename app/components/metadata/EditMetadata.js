@@ -37,39 +37,37 @@ import {
 
 import experimentSchema from 'mykrobe-atlas-api/src/schemas/experiment';
 
+const InlineRadio = {
+  'ui:widget': 'radio',
+  'ui:options': {
+    inline: true,
+  },
+  'ui:layout': {
+    md: 9,
+  },
+};
+
 const uiSchema = {
   metadata: {
     patient: {
-      genderAtBirth: {
-        'ui:widget': 'radio',
+      genderAtBirth: InlineRadio,
+      age: {
+        'ui:layout': {
+          md: 3,
+        },
+      },
+      bmi: {
+        'ui:layout': {
+          md: 3,
+        },
       },
       countryOfBirth: {
         'ui:widget': Select,
       },
-      injectingDrugUse: {
-        'ui:widget': 'radio',
-        'ui:options': {
-          inline: true,
-        },
-      },
-      homeless: {
-        'ui:widget': 'radio',
-        'ui:options': {
-          inline: true,
-        },
-      },
-      imprisoned: {
-        'ui:widget': 'radio',
-        'ui:options': {
-          inline: true,
-        },
-      },
-      smoker: {
-        'ui:widget': 'radio',
-        'ui:options': {
-          inline: true,
-        },
-      },
+      injectingDrugUse: InlineRadio,
+      homeless: InlineRadio,
+      imprisoned: InlineRadio,
+      smoker: InlineRadio,
       diabetic: {
         'ui:widget': Select,
       },
@@ -80,18 +78,19 @@ const uiSchema = {
     sample: {
       collectionDate: {
         'ui:widget': DatePicker,
-      },
-      prospectiveIsolate: {
-        'ui:widget': 'radio',
-        'ui:options': {
-          inline: true,
+        'ui:layout': {
+          md: 3,
         },
       },
+      prospectiveIsolate: InlineRadio,
       countryIsolate: {
         'ui:widget': Select,
       },
       dateArrived: {
         'ui:widget': DatePicker,
+        'ui:layout': {
+          md: 3,
+        },
       },
       anatomicalOrigin: {
         'ui:widget': Select,
@@ -99,6 +98,11 @@ const uiSchema = {
       smear: {
         'ui:widget': Select,
       },
+    },
+    genotyping: {
+      wgsPlatform: InlineRadio,
+      otherGenotypeInformation: InlineRadio,
+      genexpert: InlineRadio,
     },
   },
 };
