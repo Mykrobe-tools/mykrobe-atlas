@@ -17,6 +17,7 @@ import experimentsFilters, {
 import experimentsChoices, {
   experimentsChoicesSaga,
 } from './experimentsChoices';
+import { experimentsFiltersChoicesSaga } from './experimentsFiltersChoices';
 
 export {
   getExperiments,
@@ -101,6 +102,7 @@ export function* rootExperimentsSaga(): Generator<*, *, *> {
     fork(experimentMetadataSaga),
     fork(experimentMetadataTemplateSaga),
     fork(experimentProviderSaga),
+    fork(experimentsFiltersChoicesSaga),
     fork(syncExperimentsFiltersSaga),
   ]);
 }
