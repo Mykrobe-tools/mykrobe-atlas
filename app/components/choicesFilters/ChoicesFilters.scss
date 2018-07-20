@@ -1,31 +1,29 @@
 @import '~styles/colors.global';
 
 .componentWrap {
-  background-color: $color-panel;
-  display: flex;
-  flex-wrap: wrap;
-  composes: global(mb-2);
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .widthSizer {
-  visibility: hidden;
-  padding: 0 1.3rem;
-  height: 0;
+	visibility: hidden;
+	padding: 0 1.3rem;
+	height: 0;
 }
 
 .remove {
-  composes: global(text-mid);
-  composes: global(ml-1);
+	composes: global(text-mid);
+	composes: global(ml-1);
 }
 
 .clear {
-  composes: global(text-mid);
+	composes: global(text-mid);
 }
 
 .element {
-  composes: global(mb-2);
-  composes: global(mr-2);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+	composes: global(mb-2);
+	composes: global(mr-2);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }

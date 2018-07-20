@@ -64,8 +64,8 @@ class UploadButton extends React.Component<*> {
     return (
       <UncontrolledDropdown>
         <span style={{ display: 'none' }} ref={this.setUploadButtonRef} />
-        <DropdownToggle outline caret size={size}>
-          Analyse Sample
+        <DropdownToggle outline size={size}>
+          Analyse Sample <i className="fa fa-caret-down" />
         </DropdownToggle>
         <DropdownMenu right={right}>
           <DropdownItem onClick={this.onComputerClick}>

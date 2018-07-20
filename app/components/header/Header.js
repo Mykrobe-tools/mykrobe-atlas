@@ -41,11 +41,10 @@ class Header extends React.Component<*> {
                 <DropdownToggle
                   tag="a"
                   className={styles.currentUserDropdownToggle}
-                  caret
                 >
                   <span>
                     <i className="fa fa-user" /> {currentUser.lastname},{' '}
-                    {currentUser.firstname}
+                    {currentUser.firstname} <i className="fa fa-caret-down" />
                   </span>
                 </DropdownToggle>
                 <DropdownMenu right>

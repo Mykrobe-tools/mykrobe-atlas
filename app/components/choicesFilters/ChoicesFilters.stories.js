@@ -15,6 +15,12 @@ const clearFilters = () => {
 };
 
 const variations = {
+  empty: {
+    setFilters,
+    clearFilters,
+    filters: {},
+    choices: {},
+  },
   default: {
     setFilters,
     clearFilters,
@@ -159,4 +165,5 @@ storiesOf('ChoicesFilters', module)
   .add('Filters 1', () => <ChoicesFilters {...variations.filters1} />)
   .add('Preserve Filters', () => (
     <ChoicesFiltersPreservingFilters choices={variations.default.choices} />
-  ));
+  ))
+  .add('Empty', () => <ChoicesFilters {...variations.empty} />);

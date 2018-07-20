@@ -9,6 +9,7 @@ import {
   DropdownMenu,
   DropdownToggle,
   DropdownItem,
+  Button,
 } from 'reactstrap';
 
 import { Select } from 'makeandship-js-common/src/components/ui/form';
@@ -167,15 +168,11 @@ class ChoicesFilters extends React.Component<*, State> {
         {placeholderChoiceKeys.map(placeholderChoiceKey =>
           this.renderChoice(placeholderChoiceKey, true)
         )}
-        {addFilterChoicesKeys.length > 0 && (
+        {addFilterChoicesKeys.length > 0 ? (
           <div className={styles.element}>
             <UncontrolledDropdown>
-              <DropdownToggle
-                color="mid"
-                caret
-                data-tid="add-filters-dropdown-toggle"
-              >
-                Add filters
+              <DropdownToggle outline data-tid="add-filters-dropdown-toggle">
+                Add filters <i className="fa fa-caret-down" />
               </DropdownToggle>
               <DropdownMenu>
                 {addFilterChoicesKeys.map(key => {
@@ -202,6 +199,10 @@ class ChoicesFilters extends React.Component<*, State> {
               </DropdownMenu>
             </UncontrolledDropdown>
           </div>
+        ) : (
+          <Button outline disabled>
+            Add filters <i className="fa fa-caret-down" />
+          </Button>
         )}
         {hasFilters && (
           <div className={styles.element}>
