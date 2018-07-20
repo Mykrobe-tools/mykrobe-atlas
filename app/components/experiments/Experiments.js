@@ -22,6 +22,7 @@ import styles from './Experiments.scss';
 import ExperimentsTable from './ExperimentsTable';
 import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
 import Header from '../header/Header';
+import HeaderSearch from '../ui/HeaderSearch';
 
 import UploadButton from '../upload/button/UploadButton';
 
@@ -55,14 +56,7 @@ class Experiments extends React.Component<*> {
             <div className={pageHeaderStyles.title}>{title}</div>
             <div className={styles.searchContainer}>
               <Col md={6}>
-                <InputGroup>
-                  <Input type="text" placeholder="Search" value={''} />
-                  <InputGroupAddon addonType="append">
-                    <Button type="submit" color="mid">
-                      <i className="fa fa-search" />
-                    </Button>
-                  </InputGroupAddon>
-                </InputGroup>
+                <HeaderSearch />
               </Col>
             </div>
           </div>
