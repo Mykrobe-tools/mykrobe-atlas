@@ -3,6 +3,8 @@
 .componentWrap {
 	display: flex;
 	flex-wrap: wrap;
+	margin-right: -0.5rem;
+	margin-bottom: -0.5rem;
 }
 
 .widthSizer {
@@ -21,8 +23,8 @@
 }
 
 .element {
-	composes: global(mb-2);
-	composes: global(mr-2);
+	margin-right: 0.5rem;
+	margin-bottom: 0.5rem;
 	display: flex;
 	flex-direction: row;
 	align-items: center;

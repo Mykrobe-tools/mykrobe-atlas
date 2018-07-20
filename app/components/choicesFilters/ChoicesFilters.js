@@ -127,7 +127,7 @@ class ChoicesFilters extends React.Component<*, State> {
         </div>
 
         <a
-          href=""
+          href="#"
           className={styles.remove}
           onClick={e => {
             e.preventDefault();
@@ -156,9 +156,10 @@ class ChoicesFilters extends React.Component<*, State> {
     if (!hasChoices) {
       return (
         <div className={styles.componentWrap}>
+        <div className={styles.element}>
           <Button outline disabled>
             Add filters <i className="fa fa-caret-down" />
-          </Button>
+          </Button></div>
         </div>
       );
     }

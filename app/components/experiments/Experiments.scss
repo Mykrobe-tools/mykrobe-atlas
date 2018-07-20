@@ -37,4 +37,11 @@
 
 .actionsContainer {
 	composes: global(py-3);
+	display: flex;
+	flex-direction: row;
+}
+
+.filtersActionsContainer {
+	display: flex;
+	flex-direction: row;
 }

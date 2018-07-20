@@ -108,17 +108,19 @@ class Experiments extends React.Component<*, State> {
           </div>
         </Container>
         <Container fluid>
-          <ButtonToolbar className={styles.actionsContainer}>
-            <ExperimentsChoicesFilters />
-            <div className="ml-3 border-left">
-              <Button color="link">
-                Actions <i className="fa fa-caret-down" />
-              </Button>
+          <div className={styles.actionsContainer}>
+            <div className={styles.filtersActionsContainer}>
+              <ExperimentsChoicesFilters />
+              <div className="ml-3 border-left">
+                <Button color="link">
+                  Actions <i className="fa fa-caret-down" />
+                </Button>
+              </div>
             </div>
             <div className="ml-auto">
               <UploadButton right outline={false} />
             </div>
-          </ButtonToolbar>
+          </div>
           <ExperimentsTable
             isFetching={isFetchingExperiments}
             experiments={results}
