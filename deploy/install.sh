@@ -9,11 +9,11 @@ docker rm -f atlas-client || true
 docker images -q --filter "dangling=true" | xargs --no-run-if-empty docker rmi
 
 # provide environment variables to docker-compose and run it up
-subber deploy/docker-compose.yml 
+subber deploy/docker-compose.yml
 docker-compose -f deploy/docker-compose.yml up -d
 
 # generate bundle.js - find reason for lost environment variable
-docker exec atlas-client bash -c 'npm run web-build'
+docker exec atlas-client bash -c 'yarn web-build'
 
 # clean containers down
 deploy/dkcleanup.sh
