@@ -17,6 +17,7 @@
 
 .percent {
 	composes: fontSecondary from 'styles/typography.scss';
+	background-color: $color-white;
 	border: 10px solid $gray-200;
 	border-radius: 50%;
 	display: inline-block;
