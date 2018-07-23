@@ -36,97 +36,7 @@ import {
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import experimentSchema from 'mykrobe-atlas-api/src/schemas/experiment';
-
-const InlineRadio = {
-  'ui:widget': 'radio',
-  'ui:options': {
-    inline: true,
-  },
-  'ui:layout': {
-    md: 9,
-  },
-};
-
-const uiSchema = {
-  metadata: {
-    patient: {
-      genderAtBirth: InlineRadio,
-      age: {
-        'ui:layout': {
-          md: 3,
-        },
-      },
-      bmi: {
-        'ui:layout': {
-          md: 3,
-        },
-      },
-      countryOfBirth: {
-        'ui:widget': Select,
-      },
-      injectingDrugUse: InlineRadio,
-      homeless: InlineRadio,
-      imprisoned: InlineRadio,
-      smoker: InlineRadio,
-      diabetic: {
-        'ui:widget': Select,
-      },
-      hivStatus: {
-        'ui:widget': Select,
-      },
-    },
-    sample: {
-      collectionDate: {
-        'ui:widget': DatePicker,
-        'ui:layout': {
-          md: 3,
-        },
-      },
-      prospectiveIsolate: InlineRadio,
-      countryIsolate: {
-        'ui:widget': Select,
-      },
-      dateArrived: {
-        'ui:widget': DatePicker,
-        'ui:layout': {
-          md: 3,
-        },
-      },
-      anatomicalOrigin: {
-        'ui:widget': Select,
-      },
-      smear: {
-        'ui:widget': Select,
-      },
-    },
-    genotyping: {
-      wgsPlatform: InlineRadio,
-      otherGenotypeInformation: InlineRadio,
-      genexpert: InlineRadio,
-      hain: InlineRadio,
-      hainRif: InlineRadio,
-      hainInh: InlineRadio,
-      hainFl: InlineRadio,
-      hainAm: InlineRadio,
-      hainEth: InlineRadio,
-    },
-    phenotyping: {
-      phenotypeInformationFirstLineDrugs: InlineRadio,
-      phenotypeInformationOtherDrugs: InlineRadio,
-    },
-  },
-};
-
-Object.entries(experimentSchema.definitions.Phenotyping.properties).forEach(
-  ([key, value]) => {
-    if (value['$ref'] === '#/definitions/Susceptibility') {
-      uiSchema.metadata.phenotyping[key] = {
-        susceptibility: InlineRadio,
-        method: InlineRadio,
-      };
-    }
-  }
-);
+import experimentUiSchema from './experimentUiSchema';
 
 class EditMetadata extends React.Component<*> {
   componentWillMount() {
@@ -164,7 +74,7 @@ class EditMetadata extends React.Component<*> {
           <DecoratedForm
             formKey="experiments/experiment"
             schema={experimentSchema}
-            uiSchema={uiSchema}
+            uiSchema={experimentUiSchema}
             onSubmit={this.onSubmit}
             isFetching={isFetching}
             error={error}
