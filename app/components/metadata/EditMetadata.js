@@ -35,9 +35,10 @@ import experimentUiSchema from './experimentUiSchema';
 class EditMetadata extends React.Component<*> {
   onSubmit = (formData: any) => {
     const { updateExperiment, experiment } = this.props;
+    // only send metadata, retain the id
     updateExperiment({
-      ...experiment,
-      metadata: formData,
+      id: experiment.id,
+      metadata: formData.metadata,
     });
   };
 
@@ -125,7 +126,7 @@ class EditMetadata extends React.Component<*> {
             onSubmit={this.onSubmit}
             isFetching={isFetching}
             error={error}
-            formData={experiment}
+            formData={{ metadata: experiment.metadata }}
           >
             <FormFooter>
               {!readonly && (

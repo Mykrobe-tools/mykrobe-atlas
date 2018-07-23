@@ -90,8 +90,9 @@ export const getExperiment = createSelector(getEntity, experiment => {
   if (IS_ELECTRON) {
     return experiment;
   }
-  const experimentWithExtraData = addExtraData(experiment);
-  return experimentWithExtraData;
+  // const experimentWithExtraData = addExtraData(experiment);
+  // return experimentWithExtraData;
+  return experiment;
 });
 
 export const getExperimentTransformed = createSelector(
