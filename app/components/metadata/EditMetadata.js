@@ -67,7 +67,6 @@ class EditMetadata extends React.Component<*> {
       return experimentSchema;
     }
     const properties = {};
-    console.log('experimentSchema', experimentSchema);
     Object.entries(experimentSchema.definitions.Metadata.properties).forEach(
       ([key, value]) => {
         if (subsections.includes(key)) {

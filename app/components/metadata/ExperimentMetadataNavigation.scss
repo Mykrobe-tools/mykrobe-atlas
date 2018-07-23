@@ -13,13 +13,16 @@
 }
 
 .navigationItem {
-	composes: button from 'styles/controls.scss';
-	background-color: transparent;
-	color: $color-tint-primary;
+	composes: fontSecondary from 'styles/typography.scss';
+	composes: fontSecondarySizeNormal from 'styles/typography.scss';
+	padding: 1rem 1rem 0.75rem 1rem;
+	text-transform: uppercase;
+	color: $color-text;
+	border-bottom: 0.25rem solid transparent;
 }
 
 .navigationItemActive {
 	composes: navigationItem;
-	color: white;
-	background-color: $color-tint-primary;
+	color: $color-tint-primary;
+	border-bottom-color: $color-tint-primary;
 }
