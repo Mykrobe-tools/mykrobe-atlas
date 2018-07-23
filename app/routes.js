@@ -16,7 +16,7 @@ import {
   // withUserIsAuthenticatedRedirect,
 } from 'makeandship-js-common/src/modules/auth/util';
 
-// const AuthenticatedHome = withUserIsAuthenticatedRedirect(HomePage, '/');
+// const AuthenticatedHome = withUserIsAuthenticatedRedirect(HomePage, '/experiments');
 const AuthenticatedExperimentsRoutes = withUserIsNotAuthenticatedRedirect(
   ExperimentsRoutes
 );
