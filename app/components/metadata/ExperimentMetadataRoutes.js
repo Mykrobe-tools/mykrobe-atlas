@@ -5,6 +5,22 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 
 import EditMetadata from './EditMetadata';
 
+const EditPatientMetadata = props => (
+  <EditMetadata {...props} title="Patient" subsections={['patient']} />
+);
+
+const EditSampleMetadata = props => (
+  <EditMetadata {...props} title="Sample" subsections={['sample']} />
+);
+
+const EditGenotypingMetadata = props => (
+  <EditMetadata {...props} title="Genotyping" subsections={['genotyping']} />
+);
+
+const EditPhenotypingMetadata = props => (
+  <EditMetadata {...props} title="Phenotyping" subsections={['phenotyping']} />
+);
+
 const ExperimentMetadataRoutes = () => (
   <Switch>
     <Route
@@ -14,35 +30,19 @@ const ExperimentMetadataRoutes = () => (
     />
     <Route
       path={`/experiments/:experimentId/metadata/patient`}
-      render={props => (
-        <EditMetadata {...props} title="Patient" subsections={['patient']} />
-      )}
+      component={EditPatientMetadata}
     />
     <Route
       path={`/experiments/:experimentId/metadata/sample`}
-      render={props => (
-        <EditMetadata {...props} title="Sample" subsections={['sample']} />
-      )}
+      component={EditSampleMetadata}
     />
     <Route
       path={`/experiments/:experimentId/metadata/genotyping`}
-      render={props => (
-        <EditMetadata
-          {...props}
-          title="Genotyping"
-          subsections={['genotyping']}
-        />
-      )}
+      component={EditGenotypingMetadata}
     />
     <Route
       path={`/experiments/:experimentId/metadata/phenotyping`}
-      render={props => (
-        <EditMetadata
-          {...props}
-          title="Phenotyping"
-          subsections={['phenotyping']}
-        />
-      )}
+      component={EditPhenotypingMetadata}
     />
   </Switch>
 );

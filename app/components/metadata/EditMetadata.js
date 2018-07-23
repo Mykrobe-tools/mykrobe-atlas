@@ -94,6 +94,15 @@ class EditMetadata extends React.Component<*> {
     return derivedSchema;
   };
 
+  formKey = () => {
+    const { subsections } = this.props;
+    if (!subsections) {
+      return 'experiments/experiment/metadata';
+    }
+    const additional = subsections.join('-');
+    return `experiments/experiment/metadata/${additional}`;
+  };
+
   render() {
     const { experiment, isFetching, error, title } = this.props;
     const schema = this.deriveSchema();
@@ -102,7 +111,7 @@ class EditMetadata extends React.Component<*> {
         <Container fluid>
           <DecoratedForm
             title={title}
-            formKey="experiments/experiment/metadata"
+            formKey={this.formKey()}
             schema={schema}
             uiSchema={experimentUiSchema}
             onSubmit={this.onSubmit}
