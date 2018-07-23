@@ -14,6 +14,7 @@ import styles from './EditMetadata.scss';
 
 import {
   getExperiment,
+  getExperimentOwnerIsCurrentUser,
   getIsFetchingExperiment,
   getExperimentError,
   updateExperiment,
@@ -97,8 +98,22 @@ class EditMetadata extends React.Component<*> {
   };
 
   render() {
-    const { experiment, isFetching, error, title } = this.props;
+    const {
+      experiment,
+      isFetching,
+      error,
+      title,
+      experimentOwnerIsCurrentUser,
+    } = this.props;
     const schema = this.deriveSchema();
+    let uiSchema = experimentUiSchema;
+    const readonly = !experimentOwnerIsCurrentUser;
+    if (readonly) {
+      uiSchema = {
+        'ui:readonly': true,
+        ...experimentUiSchema,
+      };
+    }
     return (
       <div className={styles.container}>
         <Container fluid>
@@ -106,17 +121,19 @@ class EditMetadata extends React.Component<*> {
             title={title}
             formKey={this.formKey()}
             schema={schema}
-            uiSchema={experimentUiSchema}
+            uiSchema={uiSchema}
             onSubmit={this.onSubmit}
             isFetching={isFetching}
             error={error}
             formData={experiment}
           >
             <FormFooter>
-              <div>
-                <SubmitButton marginRight>Save metadata</SubmitButton>
-                <CancelButton onClick={this.onCancelClick} />
-              </div>
+              {!readonly && (
+                <div>
+                  <SubmitButton marginRight>Save metadata</SubmitButton>
+                  <CancelButton onClick={this.onCancelClick} />
+                </div>
+              )}
             </FormFooter>
           </DecoratedForm>
         </Container>
@@ -125,14 +142,12 @@ class EditMetadata extends React.Component<*> {
   }
 }
 
-const getExperimentId = props => props.match.params.experimentId;
-
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
-    experimentId: getExperimentId(ownProps),
     experiment: getExperiment(state),
     isFetching: getIsFetchingExperiment(state),
     error: getExperimentError(state),
+    experimentOwnerIsCurrentUser: getExperimentOwnerIsCurrentUser(state),
   };
 }
 
@@ -150,11 +165,11 @@ function mapDispatchToProps(dispatch) {
 EditMetadata.propTypes = {
   experiment: PropTypes.object,
   isFetching: PropTypes.bool.isRequired,
+  experimentOwnerIsCurrentUser: PropTypes.bool,
   error: PropTypes.object,
   updateExperiment: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   goBack: PropTypes.func.isRequired,
-  experimentId: PropTypes.string,
   title: PropTypes.string,
   subsections: PropTypes.arrayOf(PropTypes.string),
 };

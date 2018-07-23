@@ -40,6 +40,7 @@ export {
   getExperiment,
   getExperimentTransformed,
   getExperimentMetadata,
+  getExperimentOwnerIsCurrentUser,
   getIsFetching as getIsFetchingExperiment,
   createExperiment,
   requestExperiment,
