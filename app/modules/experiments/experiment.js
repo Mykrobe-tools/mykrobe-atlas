@@ -17,6 +17,8 @@ import { getCurrentUser } from '../../modules/users';
 import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
 import addExtraData from './util/addExtraData';
 
+const ADD_EXTRA_DATA = false;
+
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experiment/',
   getState: state => state.experiments.experiment,
@@ -90,8 +92,10 @@ export const getExperiment = createSelector(getEntity, experiment => {
   if (IS_ELECTRON) {
     return experiment;
   }
-  // const experimentWithExtraData = addExtraData(experiment);
-  // return experimentWithExtraData;
+  if (ADD_EXTRA_DATA) {
+    const experimentWithExtraData = addExtraData(experiment);
+    return experimentWithExtraData;
+  }
   return experiment;
 });
 
