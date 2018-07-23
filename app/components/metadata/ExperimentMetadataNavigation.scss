@@ -72,3 +72,22 @@
 	color: $color-tint-primary;
 	border-bottom-color: $color-tint-primary;
 }
+
+.uploadingMessage {
+	margin: 0 auto;
+	max-width: 50%;
+	text-align: center;
+}
+
+.uploadingMessageTitle {
+	composes: font from 'styles/typography.scss';
+	composes: fontSizeExtraLarge from 'styles/typography.scss';
+	color: $color-tint-primary;
+	line-height: 1;
+	padding-top: 2rem;
+}
+
+.uploadingMessageText {
+	composes: font from 'styles/typography.scss';
+	composes: fontSizeLarge from 'styles/typography.scss';
+}

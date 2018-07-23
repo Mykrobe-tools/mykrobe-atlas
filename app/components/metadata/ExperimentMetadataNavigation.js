@@ -5,15 +5,23 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
+import withFileUpload from '../../hoc/withFileUpload';
 import styles from './ExperimentMetadataNavigation.scss';
 
 class ExperimentMetadataNavigation extends React.Component<*> {
   render() {
-    const { match } = this.props;
+    const { match, isBusyWithCurrentRoute } = this.props;
     const percent = 33;
     return (
       <div className={styles.container}>
         <Container fluid>
+          {isBusyWithCurrentRoute && (
+            <div className={styles.uploadingMessage}>
+              <div className={styles.uploadingMessageTitle}>
+                Your sample is uploading
+              </div>
+            </div>
+          )}
           <div className={styles.progress}>
             <div className={styles.percent}>
               <div className={styles.percentContent}>
@@ -70,6 +78,7 @@ class ExperimentMetadataNavigation extends React.Component<*> {
 
 ExperimentMetadataNavigation.propTypes = {
   match: PropTypes.object.isRequired,
+  isBusyWithCurrentRoute: PropTypes.bool.isRequired,
 };
 
-export default ExperimentMetadataNavigation;
+export default withFileUpload(ExperimentMetadataNavigation);

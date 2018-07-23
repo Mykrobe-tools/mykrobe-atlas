@@ -13,11 +13,9 @@ import { Container } from 'reactstrap';
 import styles from './EditMetadata.scss';
 
 import {
-  requestExperiment,
   getExperiment,
   getIsFetchingExperiment,
   getExperimentError,
-  getExperimentMetadataTemplate,
   updateExperiment,
 } from '../../modules/experiments';
 
@@ -34,11 +32,6 @@ import experimentSchema from 'mykrobe-atlas-api/src/schemas/experiment';
 import experimentUiSchema from './experimentUiSchema';
 
 class EditMetadata extends React.Component<*> {
-  componentWillMount() {
-    const { requestExperiment, experimentId } = this.props;
-    requestExperiment(experimentId);
-  }
-
   onSubmit = (formData: any) => {
     const { updateExperiment, experiment } = this.props;
     updateExperiment({
@@ -146,7 +139,6 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      requestExperiment,
       updateExperiment,
       push,
       goBack,
@@ -159,7 +151,6 @@ EditMetadata.propTypes = {
   experiment: PropTypes.object,
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.object,
-  requestExperiment: PropTypes.func.isRequired,
   updateExperiment: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   goBack: PropTypes.func.isRequired,
