@@ -11,7 +11,6 @@ import { goBack, push } from 'react-router-redux';
 import { Container } from 'reactstrap';
 
 import styles from './EditMetadata.scss';
-import Header from '../header/Header';
 
 import {
   requestExperiment,
@@ -23,16 +22,12 @@ import {
 } from '../../modules/experiments';
 
 import {
-  Select,
-  DatePicker,
-  DateTimePicker,
   DecoratedForm,
   FormFooter,
 } from 'makeandship-js-common/src/components/ui/form';
 import {
   SubmitButton,
   CancelButton,
-  DestructiveButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import experimentSchema from 'mykrobe-atlas-api/src/schemas/experiment';
@@ -66,14 +61,50 @@ class EditMetadata extends React.Component<*> {
   //   }
   // };
 
+  deriveSchema = () => {
+    const { subsections } = this.props;
+    if (!subsections) {
+      return experimentSchema;
+    }
+    const properties = {};
+    console.log('experimentSchema', experimentSchema);
+    Object.entries(experimentSchema.definitions.Metadata.properties).forEach(
+      ([key, value]) => {
+        if (subsections.includes(key)) {
+          properties[key] = value;
+        }
+      }
+    );
+
+    const derivedSchema = {
+      ...experimentSchema,
+      definitions: {
+        ...experimentSchema.definitions,
+        Metadata: {
+          // filtering what's shown in metadata
+          ...experimentSchema.definitions.Metadata,
+          title: '',
+          properties,
+        },
+      },
+      properties: {
+        // only include metadata
+        metadata: experimentSchema.properties.metadata,
+      },
+    };
+    return derivedSchema;
+  };
+
   render() {
-    const { experiment, isFetching, error } = this.props;
+    const { experiment, isFetching, error, title } = this.props;
+    const schema = this.deriveSchema();
     return (
       <div className={styles.container}>
         <Container fluid>
           <DecoratedForm
-            formKey="experiments/experiment"
-            schema={experimentSchema}
+            title={title}
+            formKey="experiments/experiment/metadata"
+            schema={schema}
             uiSchema={experimentUiSchema}
             onSubmit={this.onSubmit}
             isFetching={isFetching}
@@ -125,6 +156,8 @@ EditMetadata.propTypes = {
   push: PropTypes.func.isRequired,
   goBack: PropTypes.func.isRequired,
   experimentId: PropTypes.string,
+  title: PropTypes.string,
+  subsections: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default connect(
