@@ -21,6 +21,14 @@ const EditPhenotypingMetadata = props => (
   <EditMetadata {...props} title="Phenotyping" subsections={['phenotyping']} />
 );
 
+const EditTreatmentMetadata = props => (
+  <EditMetadata {...props} title="Treatment" subsections={['treatment']} />
+);
+
+const EditOutcomeMetadata = props => (
+  <EditMetadata {...props} title="Outcome" subsections={['outcome']} />
+);
+
 const ExperimentMetadataRoutes = () => (
   <Switch>
     <Route
@@ -43,6 +51,14 @@ const ExperimentMetadataRoutes = () => (
     <Route
       path={`/experiments/:experimentId/metadata/phenotyping`}
       component={EditPhenotypingMetadata}
+    />
+    <Route
+      path={`/experiments/:experimentId/metadata/treatment`}
+      component={EditTreatmentMetadata}
+    />
+    <Route
+      path={`/experiments/:experimentId/metadata/outcome`}
+      component={EditOutcomeMetadata}
     />
   </Switch>
 );

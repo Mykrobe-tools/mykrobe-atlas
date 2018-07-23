@@ -69,6 +69,20 @@ class ExperimentMetadataNavigation extends React.Component<*> {
             >
               Phenotyping
             </NavLink>
+            <NavLink
+              to={`${match.url}/treatment`}
+              className={styles.navigationItem}
+              activeClassName={styles.navigationItemActive}
+            >
+              Treatment
+            </NavLink>
+            <NavLink
+              to={`${match.url}/outcome`}
+              className={styles.navigationItem}
+              activeClassName={styles.navigationItemActive}
+            >
+              Outcome
+            </NavLink>
           </div>
         </Container>
       </div>
