@@ -10,7 +10,7 @@ import {
 
 import experimentSchema from 'mykrobe-atlas-api/src/schemas/experiment';
 
-const inlineRadioSchema = {
+const inlineRadioUiSchema = {
   'ui:widget': 'radio',
   'ui:options': {
     inline: true,
@@ -34,10 +34,14 @@ const dateTimePickerUiSchema = {
   },
 };
 
+const selectUiSchema = {
+  'ui:widget': Select,
+};
+
 const uiSchema = {
   metadata: {
     patient: {
-      genderAtBirth: inlineRadioSchema,
+      genderAtBirth: inlineRadioUiSchema,
       age: {
         'ui:layout': {
           md: 3,
@@ -48,50 +52,52 @@ const uiSchema = {
           md: 3,
         },
       },
-      countryOfBirth: {
-        'ui:widget': Select,
-      },
-      injectingDrugUse: inlineRadioSchema,
-      homeless: inlineRadioSchema,
-      imprisoned: inlineRadioSchema,
-      smoker: inlineRadioSchema,
-      diabetic: {
-        'ui:widget': Select,
-      },
-      hivStatus: {
-        'ui:widget': Select,
-      },
+      countryOfBirth: selectUiSchema,
+      injectingDrugUse: inlineRadioUiSchema,
+      homeless: inlineRadioUiSchema,
+      imprisoned: inlineRadioUiSchema,
+      smoker: inlineRadioUiSchema,
+      diabetic: selectUiSchema,
+      hivStatus: selectUiSchema,
     },
     sample: {
       collectionDate: datePickerUiSchema,
-      prospectiveIsolate: inlineRadioSchema,
-      countryIsolate: {
-        'ui:widget': Select,
-      },
+      prospectiveIsolate: inlineRadioUiSchema,
+      countryIsolate: selectUiSchema,
       dateArrived: datePickerUiSchema,
-      anatomicalOrigin: {
-        'ui:widget': Select,
-      },
-      smear: {
-        'ui:widget': Select,
-      },
+      anatomicalOrigin: selectUiSchema,
+      smear: selectUiSchema,
     },
     genotyping: {
-      wgsPlatform: inlineRadioSchema,
-      otherGenotypeInformation: inlineRadioSchema,
-      genexpert: inlineRadioSchema,
-      hain: inlineRadioSchema,
-      hainRif: inlineRadioSchema,
-      hainInh: inlineRadioSchema,
-      hainFl: inlineRadioSchema,
-      hainAm: inlineRadioSchema,
-      hainEth: inlineRadioSchema,
+      wgsPlatform: inlineRadioUiSchema,
+      otherGenotypeInformation: inlineRadioUiSchema,
+      genexpert: inlineRadioUiSchema,
+      hain: inlineRadioUiSchema,
+      hainRif: inlineRadioUiSchema,
+      hainInh: inlineRadioUiSchema,
+      hainFl: inlineRadioUiSchema,
+      hainAm: inlineRadioUiSchema,
+      hainEth: inlineRadioUiSchema,
     },
     phenotyping: {
-      phenotypeInformationFirstLineDrugs: inlineRadioSchema,
-      phenotypeInformationOtherDrugs: inlineRadioSchema,
+      phenotypeInformationFirstLineDrugs: inlineRadioUiSchema,
+      phenotypeInformationOtherDrugs: inlineRadioUiSchema,
     },
-    treatment: {},
+    treatment: {
+      previousTbInformation: inlineRadioUiSchema,
+      recentMdrTb: inlineRadioUiSchema,
+      tbProphylaxis: inlineRadioUiSchema,
+      currentTbInformation: inlineRadioUiSchema,
+      startProgrammaticTreatment: inlineRadioUiSchema,
+      startProgrammaticContinuationTreatment: inlineRadioUiSchema,
+      nonStandardTreatment: inlineRadioUiSchema,
+    },
+    outcome: {
+      sputumSmearConversion: selectUiSchema,
+      sputumCultureConversion: selectUiSchema,
+      whoOutcomeCategory: selectUiSchema,
+      dateOfDeath: datePickerUiSchema,
+    },
   },
 };
 
@@ -101,8 +107,8 @@ Object.entries(experimentSchema.definitions.Phenotyping.properties).forEach(
   ([key, value]) => {
     if (value.$ref && value.$ref === '#/definitions/Susceptibility') {
       uiSchema.metadata.phenotyping[key] = {
-        susceptibility: inlineRadioSchema,
-        method: inlineRadioSchema,
+        susceptibility: inlineRadioUiSchema,
+        method: inlineRadioUiSchema,
       };
     }
   }
