@@ -9,6 +9,7 @@ import Phylogeny from '../../phylogeny/Phylogeny';
 import Uploading from '../../ui/Uploading';
 import PhyloCanvasTooltip from '../../ui/PhyloCanvasTooltip';
 import MapStyle from './MapStyle';
+import Empty from '../../ui/Empty';
 
 class Analysis extends React.Component<*> {
   _google: Object;
@@ -181,7 +182,11 @@ class Analysis extends React.Component<*> {
   };
 
   render() {
-    const { isBusyWithCurrentRoute } = this.props;
+    const { isBusyWithCurrentRoute, experimentTransformed } = this.props;
+    const newick = experimentTransformed.tree;
+    if (!newick) {
+      return <Empty title={'No Tree'} subtitle={'The analysis has no tree'} />;
+    }
     let content;
     if (isBusyWithCurrentRoute) {
       content = <Uploading sectionName="Analysis" />;
@@ -207,6 +212,7 @@ class Analysis extends React.Component<*> {
 Analysis.propTypes = {
   setNodeHighlighted: PropTypes.func.isRequired,
   experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
   highlighted: PropTypes.array.isRequired,
   isBusyWithCurrentRoute: PropTypes.bool,
 };
