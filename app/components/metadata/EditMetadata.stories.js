@@ -7,23 +7,23 @@ import { storiesOf } from '@storybook/react';
 import ConnectedStorybook from '../../util/ConnectedStorybook';
 
 import EditMetadata from './EditMetadata';
-import { setExperiment } from '../../modules/experiments';
+import { requestExperiment } from '../../modules/experiments';
 
 import store from '../../store';
 
 // TODO: generic flag to override form 'readonly' status
 
-store.dispatch(
-  setExperiment({
-    owner: {
-      id: '5b3f862643adf6000fecaf19',
-    },
-  })
-);
+store.dispatch(requestExperiment('5b55e8c0c23a300010bac216'));
 
 storiesOf('EditMetadata', module)
   .addDecorator(story => (
-    <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
+    <MemoryRouter
+      initialEntries={[
+        '/experiments/5b55e8c0c23a300010bac216/metadata/patient',
+      ]}
+    >
+      {story()}
+    </MemoryRouter>
   ))
   .addDecorator(story => <ConnectedStorybook story={story()} />)
   .add('Default', () => <EditMetadata />);
