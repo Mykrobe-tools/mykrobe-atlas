@@ -26,6 +26,7 @@ import {
   getExperimentId,
   getFileName,
   getProgress,
+  getIsUploading,
   getUploadCompletionTime,
 } from './uploadFile';
 
@@ -98,6 +99,10 @@ function* computeChecksumsProgressWatcher() {
 
 function* resumableUploadProgressWatcher() {
   yield takeEvery(RESUMABLE_UPLOAD_PROGRESS, function*() {
+    const isUploading = yield select(getIsUploading);
+    if (!isUploading) {
+      return;
+    }
     const experimentId = yield select(getExperimentId);
     const fileName = yield select(getFileName);
     const progress = yield select(getProgress);
@@ -157,6 +162,8 @@ function* uploadFileCancelWatcher() {
         category: NotificationCategories.MESSAGE,
         content: 'Upload cancelled',
         progress: undefined,
+        actions: undefined,
+        autoHide: true,
       })
     );
   });
