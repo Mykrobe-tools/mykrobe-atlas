@@ -61,6 +61,7 @@ const {
     requestEntity,
     updateEntity,
     deleteEntity,
+    setEntity,
   },
   selectors: { getEntity, getError, getIsFetching },
   sagas: { entitySaga },
@@ -110,6 +111,7 @@ export const getExperimentTransformed = createSelector(
 
 export {
   newEntity as newExperiment,
+  setEntity as setExperiment,
   createEntity as createExperiment,
   requestEntity as requestExperiment,
   updateEntity as updateExperiment,
