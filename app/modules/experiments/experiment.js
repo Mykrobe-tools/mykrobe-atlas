@@ -17,7 +17,7 @@ import { getCurrentUser } from '../../modules/users';
 import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
 import addExtraData from './util/addExtraData';
 
-const ADD_EXTRA_DATA = false;
+const ADD_EXTRA_DATA = true;
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experiment/',
