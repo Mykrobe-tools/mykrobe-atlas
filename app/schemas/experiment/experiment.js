@@ -1,6 +1,6 @@
 /* @flow */
 
-import experiment from 'mykrobe-atlas-api/src/schemas/experiment';
+import experiment from 'mykrobe-atlas-jsonschema/schemas/experiment';
 
 const experimentSchema = {
   ...experiment,
