@@ -28,7 +28,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules\/(?!(makeandship-js-common\/src|mykrobe-atlas-api\/src|swagger-client\/src))/,
+        exclude: /node_modules\/(?!(makeandship-js-common\/src|mykrobe-atlas-jsonschema|swagger-client\/src))/,
       },
       // IMAGES
       {
