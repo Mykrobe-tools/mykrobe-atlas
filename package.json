@@ -212,6 +212,7 @@
     "load-script": "^1.0.0",
     "lodash": "^4.15.0",
     "makeandship-js-common": "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common.git",
+    "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema",
     "moment": "^2.14.1",
     "parse-filepath": "^1.0.2",
     "phylocanvas": "^2.6.1",
@@ -244,7 +245,7 @@
   "targetName": "atlas-tb",
   "jest": {
     "transformIgnorePatterns": [
-      "/node_modules/(?!(makeandship-js-common|makeandship-api-common|swagger-client)).+\\.js$"
+      "/node_modules/(?!(makeandship-js-common|mykrobe-atlas-jsonschema|makeandship-api-common|swagger-client)).+\\.js$"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/__mocks__/fileMock.js",

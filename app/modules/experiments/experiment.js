@@ -12,9 +12,12 @@ import {
 
 import { showNotification, NotificationCategories } from '../notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
+import { getCurrentUser } from '../../modules/users';
 
 import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
 import addExtraData from './util/addExtraData';
+
+const ADD_EXTRA_DATA = false;
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experiment/',
@@ -58,6 +61,7 @@ const {
     requestEntity,
     updateEntity,
     deleteEntity,
+    setEntity,
   },
   selectors: { getEntity, getError, getIsFetching },
   sagas: { entitySaga },
@@ -70,14 +74,30 @@ export const getExperimentMetadata = createSelector(
   experiment => experiment.metadata
 );
 
+export const getExperimentOwnerIsCurrentUser = createSelector(
+  getEntity,
+  getCurrentUser,
+  (experiment, currentUser) => {
+    return (
+      currentUser &&
+      experiment &&
+      experiment.owner &&
+      currentUser.id === experiment.owner.id
+    );
+  }
+);
+
 // TODO: remove once we are receiving sufficiently detailed data from API
 
 export const getExperiment = createSelector(getEntity, experiment => {
   if (IS_ELECTRON) {
     return experiment;
   }
-  const experimentWithExtraData = addExtraData(experiment);
-  return experimentWithExtraData;
+  if (ADD_EXTRA_DATA) {
+    const experimentWithExtraData = addExtraData(experiment);
+    return experimentWithExtraData;
+  }
+  return experiment;
 });
 
 export const getExperimentTransformed = createSelector(
@@ -91,6 +111,7 @@ export const getExperimentTransformed = createSelector(
 
 export {
   newEntity as newExperiment,
+  setEntity as setExperiment,
   createEntity as createExperiment,
   requestEntity as requestExperiment,
   updateEntity as updateExperiment,

@@ -7,7 +7,6 @@ import experiments, { experimentsSaga } from './experiments';
 import experiment, { experimentSaga } from './experiment';
 import { experimentFileSaga } from './experimentFile';
 import { experimentProviderSaga } from './experimentProvider';
-import { experimentMetadataSaga } from './experimentMetadata';
 import experimentMetadataTemplate, {
   experimentMetadataTemplateSaga,
 } from './experimentMetadataTemplate';
@@ -21,6 +20,7 @@ import { experimentsFiltersChoicesSaga } from './experimentsFiltersChoices';
 
 export {
   getExperiments,
+  getError as getExperimentError,
   getIsFetching as getIsFetchingExperiments,
   requestExperiments,
   experimentsSaga,
@@ -40,6 +40,7 @@ export {
   getExperiment,
   getExperimentTransformed,
   getExperimentMetadata,
+  getExperimentOwnerIsCurrentUser,
   getIsFetching as getIsFetchingExperiment,
   createExperiment,
   requestExperiment,
@@ -48,6 +49,7 @@ export {
   experimentSaga,
   createExperimentId,
   newExperiment,
+  setExperiment,
 } from './experiment';
 
 export {
@@ -61,12 +63,6 @@ export {
   getIsFetching as getIsFetchingExperimentProvider,
   experimentProviderSaga,
 } from './experimentProvider';
-
-export {
-  updateExperimentMetadata,
-  getIsFetching as getIsFetchingExperimentMetadata,
-  experimentMetadataSaga,
-} from './experimentMetadata';
 
 export {
   requestExperimentMetadataTemplate,
@@ -99,7 +95,6 @@ export function* rootExperimentsSaga(): Generator<*, *, *> {
     fork(experimentsChoicesSaga),
     fork(experimentSaga),
     fork(experimentFileSaga),
-    fork(experimentMetadataSaga),
     fork(experimentMetadataTemplateSaga),
     fork(experimentProviderSaga),
     fork(experimentsFiltersChoicesSaga),

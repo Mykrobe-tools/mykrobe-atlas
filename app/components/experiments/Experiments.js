@@ -64,6 +64,14 @@ class Experiments extends React.Component<*, State> {
     });
   };
 
+  onPageClick = (page: number) => {
+    const { setExperimentsFilters, experimentsFilters } = this.props;
+    setExperimentsFilters({
+      ...experimentsFilters,
+      page,
+    });
+  };
+
   render() {
     const {
       experiments,
@@ -71,7 +79,6 @@ class Experiments extends React.Component<*, State> {
       isFetchingExperiments,
       onExperimentClick,
       onChangeListOrder,
-      setPage,
     } = this.props;
     const { pagination, results, summary } = experiments;
     const total = summary && summary.hits;
@@ -123,7 +130,7 @@ class Experiments extends React.Component<*, State> {
               first={1}
               last={pagination.pages}
               current={pagination.page}
-              onPageClick={setPage}
+              onPageClick={this.onPageClick}
             />
           )}
         </Container>
