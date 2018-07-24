@@ -8,9 +8,9 @@ import HomePage from './containers/HomePage';
 import App from './containers/App';
 import About from './components/about/About'; // eslint-disable-line
 
-import AnalysisContainer from './components/analysis/AnalysisContainer';
-import Resistance from './components/resistance/resistance/Resistance';
-import SummaryContainer from './components/summary/SummaryContainer';
+import AnalysisContainer from './components/experiment/analysis/AnalysisContainer';
+import Resistance from './components/experiment/resistance/resistance/Resistance';
+import SummaryContainer from './components/experiment/summary/SummaryContainer';
 
 export default (
   <App>

@@ -84,12 +84,21 @@ class AnalyserJsonTransformer {
     sourceModel: Object,
     relatedModels: ?Array<Object>
   ): Object {
-    if (!sourceModel) {
+    // return empty object if there is no data to parse
+    if (
+      !sourceModel ||
+      typeof sourceModel !== 'object' ||
+      Object.keys(sourceModel).length === 0
+    ) {
       return {};
     }
     // check basic requirements
     if (!sourceModel.phylogenetics) {
-      throw new Error('Unsupported sample json format');
+      if (IS_ELECTRON) {
+        // in Electron we allow user opening json file, so show an error
+        throw new Error('Unsupported sample json format');
+      }
+      return {};
     }
 
     let transformed: AnalyserJsonTransformerResult = {};
