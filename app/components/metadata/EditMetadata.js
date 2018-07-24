@@ -29,7 +29,7 @@ import {
   CancelButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import experimentSchema from 'mykrobe-atlas-api/src/schemas/experiment';
+import { experimentSchema } from '../../schemas/experiment';
 import experimentUiSchema from './experimentUiSchema';
 
 class EditMetadata extends React.Component<*> {

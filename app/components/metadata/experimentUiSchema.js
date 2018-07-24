@@ -8,7 +8,7 @@ import {
   DateTimePicker,
 } from 'makeandship-js-common/src/components/ui/form';
 
-import experimentSchema from 'mykrobe-atlas-api/src/schemas/experiment';
+import { experimentSchema } from '../../schemas/experiment';
 
 const inlineRadioUiSchema = {
   'ui:widget': 'radio',

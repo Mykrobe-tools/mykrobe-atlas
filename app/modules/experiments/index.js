@@ -49,6 +49,7 @@ export {
   experimentSaga,
   createExperimentId,
   newExperiment,
+  setExperiment,
 } from './experiment';
 
 export {
