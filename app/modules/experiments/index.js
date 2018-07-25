@@ -32,6 +32,8 @@ export {
   getExperimentsFilters,
   getExperimentsDataFilters,
   getExperimentsHasDataFilters,
+  getExperimentsChoicesFilters,
+  getExperimentsHasChoicesFilters,
   getExperimentsFiltersSaga,
   experimentsFiltersActionType,
 } from './experimentsFilters';

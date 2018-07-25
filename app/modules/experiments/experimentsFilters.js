@@ -14,8 +14,14 @@ const {
   reducer,
   actionType,
   actions: { setFilters, resetFilters },
-  selectors: { getFilters, getDataFilters, getHasDataFilters },
-  sagas: { getFiltersSaga },
+  selectors: {
+    getFilters,
+    getDataFilters,
+    getHasDataFilters,
+    getChoicesFilters,
+    getHasChoicesFilters,
+  },
+  sagas: { getFiltersSaga, getDataFiltersSaga, getChoicesFiltersSaga },
 } = module;
 
 export {
@@ -24,7 +30,11 @@ export {
   getFilters as getExperimentsFilters,
   getDataFilters as getExperimentsDataFilters,
   getHasDataFilters as getExperimentsHasDataFilters,
+  getChoicesFilters as getExperimentsChoicesFilters,
+  getHasChoicesFilters as getExperimentsHasChoicesFilters,
   getFiltersSaga as getExperimentsFiltersSaga,
+  getDataFiltersSaga as getExperimentsDataFiltersSaga,
+  getChoicesFiltersSaga as getExperimentsChoicesFiltersSaga,
   actionType as experimentsFiltersActionType,
 };
 
