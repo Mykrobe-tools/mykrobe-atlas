@@ -29,3 +29,8 @@
 	flex-direction: row;
 	align-items: center;
 }
+
+.dropdownMenu {
+	max-height: 20rem;
+	overflow-y: scroll;
+}

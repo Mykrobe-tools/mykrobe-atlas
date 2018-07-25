@@ -14,6 +14,35 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
+/*
+{
+  '2': {
+    owner: {
+      firstname: 'Simon',
+      lastname: 'Heys',
+      email: 'simon@makeandship.com',
+      keycloakId: '84c9adb7-cb5c-48d9-b091-7f90ddce967f',
+      phone: '',
+      id: '5b3f862643adf6000fecaf19'
+    },
+    created: '2018-07-23T15:09:39.011Z',
+    modified: '2018-07-24T08:29:33.126Z',
+    id: '5b55efb3c23a300010bac218',
+    metadata: {
+      genotyping: {
+        wgsPlatform: 'HiSeq',
+        otherGenotypeInformation: 'No',
+        hainAm: 'AM sensitive'
+      },
+      patient: {
+        genderAtBirth: 'Female'
+      }
+    },
+    relevance: 1
+  }
+}
+*/
+
 const headings = [
   {
     title: 'Sample',
