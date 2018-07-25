@@ -23,7 +23,10 @@
 			"plugins": ["./babel-plugin-electron-module-resolver"]
 		},
 		"development": {
-			"plugins": ["./babel-plugin-electron-module-resolver"]
+			"plugins": [
+				"babel-plugin-redux-saga",
+				"./babel-plugin-electron-module-resolver"
+			]
 		}
 	}
 }
