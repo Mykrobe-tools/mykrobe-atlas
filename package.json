@@ -122,6 +122,7 @@
     "babel-loader": "^7.1.4",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-inline-dotenv": "^1.1.2",
+    "babel-plugin-redux-saga": "^1.0.0-beta.1",
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
     "babel-plugin-transform-runtime": "^6.12.0",
     "babel-polyfill": "^6.26.0",
@@ -211,7 +212,7 @@
     "jwt-decode": "^2.2.0",
     "load-script": "^1.0.0",
     "lodash": "^4.15.0",
-    "makeandship-js-common": "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common.git",
+    "makeandship-js-common": "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common",
     "moment": "^2.14.1",
     "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema",
     "parse-filepath": "^1.0.2",
@@ -230,7 +231,7 @@
     "reactstrap": "^6.0.1",
     "redux": "^4.0.0",
     "redux-auth-wrapper": "^2.0.2",
-    "redux-saga": "^0.16.0",
+    "redux-saga": "^1.0.0-beta.1",
     "redux-thunk": "^2.1.0",
     "reselect": "^3.0.1",
     "resumablejs": "23/resumable.js",
@@ -245,7 +246,7 @@
   "targetName": "atlas-tb",
   "jest": {
     "transformIgnorePatterns": [
-      "/node_modules/(?!(makeandship-js-common|mykrobe-atlas-jsonschema|makeandship-api-common|swagger-client)).+\\.js$"
+      "/node_modules/(?!(makeandship-js-common|mykrobe-atlas-jsonschema|swagger-client)).+\\.js$"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/__mocks__/fileMock.js",
