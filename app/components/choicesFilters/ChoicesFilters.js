@@ -148,14 +148,7 @@ class ChoicesFilters extends React.Component<*, State> {
 
   render() {
     const { choices, filters, hasFilters, size } = this.props;
-    const { placeholderChoiceKeys } = this.state;
-    let hasChoices = false;
-    let addFilterChoicesKeys = [];
-    if (choices) {
-      addFilterChoicesKeys = this.addFilterChoicesKeys();
-      hasChoices = addFilterChoicesKeys.length > 0;
-    }
-    if (!hasChoices) {
+    if (!choices) {
       return (
         <div className={styles.componentWrap}>
           <div className={styles.element}>
@@ -166,40 +159,46 @@ class ChoicesFilters extends React.Component<*, State> {
         </div>
       );
     }
+
+    const { placeholderChoiceKeys } = this.state;
+    const addFilterChoicesKeys = this.addFilterChoicesKeys();
     const filtersKeys = Object.keys(filters);
+    const hasAddFilterChoices = addFilterChoicesKeys.length > 0;
     return (
       <div className={styles.componentWrap}>
         {filtersKeys.map(filtersKey => this.renderChoice(filtersKey, false))}
         {placeholderChoiceKeys.map(placeholderChoiceKey =>
           this.renderChoice(placeholderChoiceKey, true)
         )}
-        <div className={styles.element}>
-          <UncontrolledDropdown>
-            <DropdownToggle
-              outline
-              size={size}
-              data-tid="add-filters-dropdown-toggle"
-            >
-              Add filters <i className="fa fa-caret-down" />
-            </DropdownToggle>
-            <DropdownMenu className={styles.dropdownMenu}>
-              {addFilterChoicesKeys.map(key => {
-                let displayTitle = key;
-                return (
-                  <DropdownItem
-                    onClick={e => {
-                      e.preventDefault();
-                      this.onAddPlaceholderChoiceKey(key);
-                    }}
-                    key={key}
-                  >
-                    {displayTitle}
-                  </DropdownItem>
-                );
-              })}
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </div>
+        {hasAddFilterChoices && (
+          <div className={styles.element}>
+            <UncontrolledDropdown>
+              <DropdownToggle
+                outline
+                size={size}
+                data-tid="add-filters-dropdown-toggle"
+              >
+                Add filters <i className="fa fa-caret-down" />
+              </DropdownToggle>
+              <DropdownMenu className={styles.dropdownMenu}>
+                {addFilterChoicesKeys.map(key => {
+                  let displayTitle = key;
+                  return (
+                    <DropdownItem
+                      onClick={e => {
+                        e.preventDefault();
+                        this.onAddPlaceholderChoiceKey(key);
+                      }}
+                      key={key}
+                    >
+                      {displayTitle}
+                    </DropdownItem>
+                  );
+                })}
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </div>
+        )}
         {hasFilters && (
           <div className={styles.element}>
             <a href="" onClick={this.onClearFilters} className={styles.clear}>
