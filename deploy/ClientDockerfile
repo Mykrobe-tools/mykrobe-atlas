@@ -50,6 +50,8 @@ ADD bitbucket-readonly /root/.ssh/
 RUN chmod 600 /root/.ssh/bitbucket-readonly && \
     ssh-keyscan bitbucket.org > /root/.ssh/known_hosts
 
+RUN echo "cat atlas-jsonschema-readonly" > /root/.ssh/id_rsa
+
 # install yarn
 RUN apt-get install apt-transport-https
 RUN npm install -g yarn
