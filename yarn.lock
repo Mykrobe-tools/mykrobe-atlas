@@ -7953,7 +7953,7 @@ make-dir@^1.0.0, make-dir@^1.1.0:
 
 "makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common":
   version "0.0.1"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#dce44f2098c2180ea6d093c922431c45986e2388"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#ece98e6543c404e1174f5552ea41045688319a84"
   dependencies:
     ajv "^6.5.1"
     babel-jest "^23.0.1"

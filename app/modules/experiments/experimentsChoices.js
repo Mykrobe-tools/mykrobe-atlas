@@ -1,14 +1,14 @@
 /* @flow */
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
-import { getExperimentsFiltersSaga } from './experimentsFilters';
+import { getExperimentsDataFiltersSaga } from './experimentsFilters';
 
 const module = createEntityModule('experimentsChoices', {
   typePrefix: 'experiments/experimentsChoices/',
   getState: state => state.experiments.experimentsChoices,
   request: {
     operationId: 'experimentsChoices',
-    parameters: getExperimentsFiltersSaga,
+    parameters: getExperimentsDataFiltersSaga,
   },
 });
 
