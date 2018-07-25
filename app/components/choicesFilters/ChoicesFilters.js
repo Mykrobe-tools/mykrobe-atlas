@@ -20,6 +20,8 @@ type State = {
   placeholderChoiceKeys: Array<string>,
 };
 
+const MIN_CHOICES_TO_SHOW = 2;
+
 /*
 
 TODO: don't allow user to add more than one placeholder? since the choices might change once one value is selected
@@ -84,7 +86,7 @@ class ChoicesFilters extends React.Component<*, State> {
       return (
         !placeholderChoiceKeys.includes(choiceKey) &&
         !filtersKeys.includes(choiceKey) &&
-        incidentsChoice.length > 0
+        incidentsChoice.length >= MIN_CHOICES_TO_SHOW
       );
     });
   };
@@ -180,7 +182,7 @@ class ChoicesFilters extends React.Component<*, State> {
             >
               Add filters <i className="fa fa-caret-down" />
             </DropdownToggle>
-            <DropdownMenu>
+            <DropdownMenu className={styles.dropdownMenu}>
               {addFilterChoicesKeys.map(key => {
                 let displayTitle = key;
                 return (
