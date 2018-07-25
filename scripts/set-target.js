@@ -68,11 +68,11 @@ function setTarget(targetName) {
     .then(() => {
       const filePath = path.resolve(
         __dirname,
-        `../app/styles/target/${targetName}.css`
+        `../app/styles/target/${targetName}.scss`
       );
       const copyPath = path.resolve(
         __dirname,
-        '../app/styles/target/current.css'
+        '../app/styles/target/current.scss'
       );
       return copyFile(filePath, copyPath);
     })
