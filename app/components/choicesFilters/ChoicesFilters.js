@@ -22,7 +22,9 @@ type State = {
 
 type Choice = {
   title: string,
-  choices: Array<*>,
+  min?: string,
+  max?: string,
+  choices?: Array<*>,
 };
 
 const MIN_CHOICES_TO_SHOW = 2;
@@ -91,6 +93,7 @@ class ChoicesFilters extends React.Component<*, State> {
       return (
         !placeholderChoiceKeys.includes(choiceKey) &&
         !choicesFiltersKeys.includes(choiceKey) &&
+        choice.choices &&
         choice.choices.length >= MIN_CHOICES_TO_SHOW
       );
     });
@@ -99,12 +102,14 @@ class ChoicesFilters extends React.Component<*, State> {
   renderChoice = (choiceKey: string, placeholder: boolean) => {
     const { choices, choicesFilters } = this.props;
     const choice: Choice = choices[choiceKey];
-    const options = choice.choices.map(value => {
-      return {
-        value: value.key,
-        label: `${value.key} (${value.count})`,
-      };
-    });
+    const options =
+      choice.choices &&
+      choice.choices.map(value => {
+        return {
+          value: value.key,
+          label: `${value.key} (${value.count})`,
+        };
+      });
     const displayTitle = choice.title;
     const value = placeholder ? '' : choicesFilters[choiceKey];
     const displayValue = placeholder
@@ -179,7 +184,7 @@ class ChoicesFilters extends React.Component<*, State> {
         {placeholderChoiceKeys.map(placeholderChoiceKey =>
           this.renderChoice(placeholderChoiceKey, true)
         )}
-        {hasAddFilterChoices && (
+        {hasAddFilterChoices ? (
           <div className={styles.element}>
             <UncontrolledDropdown>
               <DropdownToggle
@@ -208,11 +213,17 @@ class ChoicesFilters extends React.Component<*, State> {
               </DropdownMenu>
             </UncontrolledDropdown>
           </div>
+        ) : (
+          <div className={styles.element}>
+            <Button outline disabled size={size}>
+              Add filters <i className="fa fa-caret-down" />
+            </Button>
+          </div>
         )}
         {hasFilters && (
           <div className={styles.element}>
-            <a href="" onClick={this.onClearFilters} className={styles.clear}>
-              Clear all <i className="fa fa-times" />
+            <a href="#" onClick={this.onClearFilters} className={styles.clear}>
+              Clear all <i className="fa fa-times-circle" />
             </a>
           </div>
         )}
