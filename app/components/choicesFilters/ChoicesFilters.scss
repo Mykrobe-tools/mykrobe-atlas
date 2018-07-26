@@ -19,7 +19,9 @@
 }
 
 .clear {
+	composes: global(btn);
 	composes: global(text-mid);
+	composes: global(px-0);
 }
 
 .element {

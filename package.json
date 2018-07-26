@@ -37,7 +37,7 @@
     "web-api-server": "babel-node web/api-dev-server.js",
     "web-build-server": "babel-node web/build/simple-server.js",
     "web-build-simple-server": "concurrently \"yarn web-build-server\" \"yarn web-open\"",
-    "web-build": "cross-env NODE_ENV=production webpack -p --progress --config ./web/webpack.config.production.js",
+    "web-build": "cross-env NODE_ENV=production webpack --config ./web/webpack.config.production.js",
     "web-dev-server": "cross-env NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0 --port 3000 --inline --history-api-fallback --progress --config ./web/webpack.config.development.js",
     "web-dev": "yarn web-dev-server",
     "web-open": "open http://localhost:3000"
