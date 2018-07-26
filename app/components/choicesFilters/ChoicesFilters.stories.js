@@ -14,60 +14,121 @@ const clearFilters = () => {
   console.log('resetFilters called');
 };
 
+const choices = {
+  'involved.title': {
+    title: 'Title',
+    choices: [],
+  },
+  'involved.injury.injured': {
+    title: 'Injured',
+    choices: [],
+  },
+  'pressureUlcer.location': {
+    title: 'Location',
+    choices: [
+      {
+        key: 'ward 1',
+        count: 1,
+      },
+      {
+        key: 'ward 2',
+        count: 1,
+      },
+    ],
+  },
+  'involved.type': {
+    title: 'Involved Type',
+    choices: [],
+  },
+  'type.subType': {
+    title: 'Sub-type',
+    choices: [
+      {
+        key: '[Sub-type 1]',
+        count: 1,
+      },
+      {
+        key: '[Sub-type 2]',
+        count: 1,
+      },
+    ],
+  },
+  'slipsTripsFallsAndCollisions.previousFalls': {
+    title: 'Previous falls',
+    choices: [
+      {
+        key: 'Y',
+        count: 1,
+      },
+      {
+        key: 'N',
+        count: 1,
+      },
+    ],
+  },
+  'involved.role': {
+    title: 'Role',
+    choices: [],
+  },
+  'type.type': {
+    title: 'Type',
+    choices: [
+      {
+        key: 'Incident affecting Patient',
+        count: 1,
+      },
+      {
+        key: 'Incident affecting Other',
+        count: 1,
+      },
+    ],
+  },
+  'type.category': {
+    title: 'Category',
+    choices: [
+      {
+        key: 'Admission',
+        count: 1,
+      },
+      {
+        key: 'Other',
+        count: 1,
+      },
+    ],
+  },
+  'involved.gender': {
+    title: 'Gender',
+    choices: [],
+  },
+  status: {
+    title: 'Status',
+    choices: [
+      {
+        key: 'Draft',
+        count: 1,
+      },
+      {
+        key: 'Other',
+        count: 1,
+      },
+    ],
+  },
+};
+
 const variations = {
   empty: {
     setFilters,
     clearFilters,
     filters: {},
+    choicesFilters: {},
     choices: {},
   },
   default: {
     setFilters,
     clearFilters,
     filters: {},
-    choices: {
-      'involved.title': [],
-      'involved.injury.injured': [],
-      'pressureUlcer.location': [
-        {
-          key: 'ward',
-          count: 1,
-        },
-      ],
-      'involved.type': [],
-      'type.subType': [
-        {
-          key: '[Sub-type]',
-          count: 1,
-        },
-      ],
-      'slipsTripsFallsAndCollisions.previousFalls': [
-        {
-          key: 'Y',
-          count: 1,
-        },
-      ],
-      'involved.role': [],
-      'type.type': [
-        {
-          key: 'Incident affecting Patient',
-          count: 1,
-        },
-      ],
-      'type.category': [
-        {
-          key: 'Admission',
-          count: 1,
-        },
-      ],
-      'involved.gender': [],
-      status: [
-        {
-          key: 'Draft',
-          count: 1,
-        },
-      ],
-    },
+    choicesFilters: {},
+    choices,
   },
   filters1: {
     setFilters,
@@ -75,49 +136,10 @@ const variations = {
     filters: {
       'pressureUlcer.location': 'ward',
     },
-    choices: {
-      'involved.title': [],
-      'involved.injury.injured': [],
-      'pressureUlcer.location': [
-        {
-          key: 'ward',
-          count: 1,
-        },
-      ],
-      'involved.type': [],
-      'type.subType': [
-        {
-          key: '[Sub-type]',
-          count: 1,
-        },
-      ],
-      'slipsTripsFallsAndCollisions.previousFalls': [
-        {
-          key: 'Y',
-          count: 1,
-        },
-      ],
-      'involved.role': [],
-      'type.type': [
-        {
-          key: 'Incident affecting Patient',
-          count: 1,
-        },
-      ],
-      'type.category': [
-        {
-          key: 'Admission',
-          count: 1,
-        },
-      ],
-      'involved.gender': [],
-      status: [
-        {
-          key: 'Draft',
-          count: 1,
-        },
-      ],
+    choicesFilters: {
+      'pressureUlcer.location': 'ward',
     },
+    choices,
   },
 };
 
@@ -149,6 +171,7 @@ class ChoicesFiltersPreservingFilters extends React.Component<*, State> {
     return (
       <ChoicesFilters
         filters={filters}
+        choicesFilters={filters}
         clearFilters={this.clearFilters}
         setFilters={this.setFilters}
         {...rest}
