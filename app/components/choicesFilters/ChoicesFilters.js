@@ -20,6 +20,13 @@ type State = {
   placeholderChoiceKeys: Array<string>,
 };
 
+type Choice = {
+  title: string,
+  min?: string,
+  max?: string,
+  choices?: Array<*>,
+};
+
 const MIN_CHOICES_TO_SHOW = 2;
 
 /*
@@ -82,24 +89,28 @@ class ChoicesFilters extends React.Component<*, State> {
     const choicesFiltersKeys = Object.keys(choicesFilters);
     const choicesKeys: Array<string> = Object.keys(choices);
     return choicesKeys.filter(choiceKey => {
-      const choice = choices[choiceKey];
+      const choice: Choice = choices[choiceKey];
       return (
         !placeholderChoiceKeys.includes(choiceKey) &&
         !choicesFiltersKeys.includes(choiceKey) &&
-        choice.length >= MIN_CHOICES_TO_SHOW
+        choice.choices &&
+        choice.choices.length >= MIN_CHOICES_TO_SHOW
       );
     });
   };
 
   renderChoice = (choiceKey: string, placeholder: boolean) => {
     const { choices, choicesFilters } = this.props;
-    const options = choices[choiceKey].map(value => {
-      return {
-        value: value.key,
-        label: `${value.key} (${value.count})`,
-      };
-    });
-    let displayTitle = choiceKey;
+    const choice: Choice = choices[choiceKey];
+    const options =
+      choice.choices &&
+      choice.choices.map(value => {
+        return {
+          value: value.key,
+          label: `${value.key} (${value.count})`,
+        };
+      });
+    const displayTitle = choice.title;
     const value = placeholder ? '' : choicesFilters[choiceKey];
     const displayValue = placeholder
       ? displayTitle
@@ -119,7 +130,7 @@ class ChoicesFilters extends React.Component<*, State> {
               );
             }}
             onChange={this.onChangeFilterValue}
-            placeholder={choiceKey}
+            placeholder={displayTitle}
             options={options}
             clearable={false}
             initiallyOpen={placeholder}
@@ -148,7 +159,8 @@ class ChoicesFilters extends React.Component<*, State> {
 
   render() {
     const { choices, choicesFilters, hasFilters, size } = this.props;
-    if (!choices) {
+    const hasChoices = choices && Object.keys(choices).length > 0;
+    if (!hasChoices) {
       return (
         <div className={styles.componentWrap}>
           <div className={styles.element}>
@@ -172,7 +184,7 @@ class ChoicesFilters extends React.Component<*, State> {
         {placeholderChoiceKeys.map(placeholderChoiceKey =>
           this.renderChoice(placeholderChoiceKey, true)
         )}
-        {hasAddFilterChoices && (
+        {hasAddFilterChoices ? (
           <div className={styles.element}>
             <UncontrolledDropdown>
               <DropdownToggle
@@ -183,15 +195,16 @@ class ChoicesFilters extends React.Component<*, State> {
                 Add filters <i className="fa fa-caret-down" />
               </DropdownToggle>
               <DropdownMenu className={styles.dropdownMenu}>
-                {addFilterChoicesKeys.map(key => {
-                  let displayTitle = key;
+                {addFilterChoicesKeys.map(choiceKey => {
+                  const choice: Choice = choices[choiceKey];
+                  const displayTitle = choice.title;
                   return (
                     <DropdownItem
                       onClick={e => {
                         e.preventDefault();
-                        this.onAddPlaceholderChoiceKey(key);
+                        this.onAddPlaceholderChoiceKey(choiceKey);
                       }}
-                      key={key}
+                      key={choiceKey}
                     >
                       {displayTitle}
                     </DropdownItem>
@@ -200,11 +213,17 @@ class ChoicesFilters extends React.Component<*, State> {
               </DropdownMenu>
             </UncontrolledDropdown>
           </div>
+        ) : (
+          <div className={styles.element}>
+            <Button outline disabled size={size}>
+              Add filters <i className="fa fa-caret-down" />
+            </Button>
+          </div>
         )}
         {hasFilters && (
           <div className={styles.element}>
-            <a href="" onClick={this.onClearFilters} className={styles.clear}>
-              Clear all <i className="fa fa-times" />
+            <a href="#" onClick={this.onClearFilters} className={styles.clear}>
+              Clear all <i className="fa fa-times-circle" />
             </a>
           </div>
         )}
