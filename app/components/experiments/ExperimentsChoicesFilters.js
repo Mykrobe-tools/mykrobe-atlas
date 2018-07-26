@@ -6,6 +6,7 @@ import {
   getExperimentsChoices,
   getExperimentsHasChoicesFilters,
   getExperimentsChoicesFilters,
+  getExperimentsFilters,
   setExperimentsFilters as setFilters,
   resetExperimentsFilters as clearFilters,
   getIsFetchingExperimentsChoices,
@@ -17,8 +18,9 @@ const withRedux = connect(
   state => ({
     isFetching: getIsFetchingExperimentsChoices(state),
     choices: getExperimentsChoices(state),
+    filters: getExperimentsFilters(state),
     hasFilters: getExperimentsHasChoicesFilters(state),
-    filters: getExperimentsChoicesFilters(state),
+    choicesFilters: getExperimentsChoicesFilters(state),
   }),
   {
     setFilters,
