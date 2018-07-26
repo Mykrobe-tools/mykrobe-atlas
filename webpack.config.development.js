@@ -15,7 +15,7 @@ const sassModuleRegex = /^((?!\.global).)*\.(scss|sass)$/;
 module.exports = merge(webpackConfig, {
   mode: 'development',
 
-  devtool: 'eval-source-map',
+  devtool: 'cheap-eval-source-map',
 
   output: {
     pathinfo: true,
