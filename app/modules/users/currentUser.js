@@ -1,6 +1,7 @@
 /* @flow */
 
 import { all, fork, put, takeEvery, select } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
 
@@ -103,7 +104,7 @@ function* authSignOutWorker() {
 
 // TODO: create sagas etc. to update current user profile and avatar together
 
-function* currentUserSaga(): Generator<*, *, *> {
+function* currentUserSaga(): Saga {
   yield all([
     fork(entitySaga),
     fork(authInitialiseWatcher),

@@ -1,6 +1,7 @@
 /* @flow */
 
 import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import loadScript from 'load-script';
 
@@ -88,7 +89,7 @@ function* uploadGoogleDriveWatcher() {
   yield takeLatest(UPLOAD_GOOGLE_DRIVE, uploadGoogleDriveWorker);
 }
 
-export function* uploadGoogleDriveWorker(): Generator<*, *, *> {
+export function* uploadGoogleDriveWorker(): Saga {
   const token = window.gapi.auth.getToken();
   let oauthToken = token && token.access_token;
   if (!oauthToken) {
@@ -124,7 +125,7 @@ export function* uploadGoogleDriveWorker(): Generator<*, *, *> {
   yield put(push(`/experiments/${experimentId}`));
 }
 
-export function* uploadGoogleDriveSaga(): Generator<*, *, *> {
+export function* uploadGoogleDriveSaga(): Saga {
   if (!isGoogleDriveReady()) {
     yield call(loadGoogleDrive);
   }

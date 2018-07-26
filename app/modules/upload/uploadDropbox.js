@@ -1,6 +1,7 @@
 /* @flow */
 
 import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import loadScript from 'load-script';
 
@@ -71,7 +72,7 @@ function* uploadDropboxWatcher() {
   yield takeLatest(UPLOAD_DROPBOX, uploadDropboxWorker);
 }
 
-export function* uploadDropboxWorker(): Generator<*, *, *> {
+export function* uploadDropboxWorker(): Saga {
   const files = yield call(dropboxChoose);
   if (!files) {
     return;
@@ -94,7 +95,7 @@ export function* uploadDropboxWorker(): Generator<*, *, *> {
   yield put(push(`/experiments/${experimentId}`));
 }
 
-export function* uploadDropboxSaga(): Generator<*, *, *> {
+export function* uploadDropboxSaga(): Saga {
   // cannot load and initiaite on-demand as it uses a pop-up window which requires suer interaction
   if (!isDropboxReady()) {
     yield call(loadDropbox);

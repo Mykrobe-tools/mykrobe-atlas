@@ -1,6 +1,7 @@
 /* @flow */
 
 import { all, fork } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { combineReducers } from 'redux';
 
 import organisations, { organisationsSaga } from './organisations';
@@ -46,7 +47,7 @@ const reducer = combineReducers({
 
 export default reducer;
 
-export function* rootOrganisationsSaga(): Generator<*, *, *> {
+export function* rootOrganisationsSaga(): Saga {
   yield all([
     fork(organisationsSaga),
     fork(organisationSaga),

@@ -2,6 +2,7 @@
 
 import { channel } from 'redux-saga';
 import { all, fork, put, take, takeEvery, select } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import moment from 'moment';
 
@@ -34,7 +35,7 @@ import {
 
 const _interactionChannel = channel();
 
-export function* interactionChannelWatcher(): Generator<*, *, *> {
+export function* interactionChannelWatcher(): Saga {
   while (true) {
     const action = yield take(_interactionChannel);
     yield put(action);
@@ -169,7 +170,7 @@ function* uploadFileCancelWatcher() {
   });
 }
 
-export function* uploadFileNotificationSaga(): Generator<*, *, *> {
+export function* uploadFileNotificationSaga(): Saga {
   yield all([
     fork(fileAddedWatcher),
     fork(computeChecksumsProgressWatcher),
