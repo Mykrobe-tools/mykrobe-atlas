@@ -43,38 +43,69 @@ import {
 }
 */
 
-const headings = [
-  {
-    title: 'Sample',
-    sort: 'id',
-  },
-  {
-    title: 'Owner',
-    sort: 'owner.lastname',
-  },
-  {
-    title: 'Organisation',
-  },
-  {
-    title: 'Site',
-  },
-  {
-    title: 'Collected',
-  },
-  {
-    title: 'Location',
-  },
-  {
-    title: '',
-  },
-];
-
 class ExperimentsTable extends React.Component<*> {
+  onHeadingCheckChanged = (e: any) => {
+    const { setSelected } = this.props;
+    setSelected(e.target.checked ? '*' : undefined);
+  };
+  headings = () => {
+    const { selected } = this.props;
+    const allSelected = (selected && selected === '*') || false;
+    return [
+      {
+        title: (
+          <label>
+            <input
+              type="checkbox"
+              checked={allSelected}
+              onChange={this.onHeadingCheckChanged}
+            />
+            <span />
+          </label>
+        ),
+      },
+      {
+        title: 'Sample',
+        sort: 'id',
+      },
+      {
+        title: 'Owner',
+        sort: 'owner.lastname',
+      },
+      {
+        title: 'Organisation',
+      },
+      {
+        title: 'Site',
+      },
+      {
+        title: 'Collected',
+      },
+      {
+        title: 'Location',
+      },
+      {
+        title: '',
+      },
+    ];
+  };
   renderRow = (experiment: any) => {
+    const { selected } = this.props;
+    const allSelected = (selected && selected === '*') || false;
     const { onExperimentClick } = this.props;
     let { id, owner } = experiment;
     return (
       <tr key={id}>
+        <td>
+          <label>
+            <input
+              type="checkbox"
+              checked={allSelected}
+              disabled={allSelected}
+            />
+            <span />
+          </label>
+        </td>
         <td
           onClick={() => onExperimentClick(experiment)}
           className={styles.clickableCell}
@@ -115,7 +146,7 @@ class ExperimentsTable extends React.Component<*> {
     const { experiments, filters, onChangeOrder } = this.props;
     return (
       <Table
-        headings={headings}
+        headings={this.headings()}
         data={experiments}
         sort={filters.sort || 'id'}
         order={filters.order || Table.Order.Descending}
@@ -132,6 +163,8 @@ ExperimentsTable.propTypes = {
   filters: PropTypes.object,
   onChangeOrder: PropTypes.func,
   onExperimentClick: PropTypes.func,
+  selected: PropTypes.oneOf(PropTypes.string, PropTypes.array),
+  setSelected: PropTypes.func,
 };
 
 export default ExperimentsTable;

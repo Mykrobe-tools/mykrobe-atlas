@@ -20,6 +20,7 @@ import Empty from '../ui/Empty';
 
 type State = {
   q: ?string,
+  selected?: string | Array<string>,
 };
 
 // If the user enters and submits a free text query, clear any existing filters
@@ -90,6 +91,12 @@ class Experiments extends React.Component<*, State> {
     });
   };
 
+  setSelected = (selected?: string | Array<string>) => {
+    this.setState({
+      selected,
+    });
+  };
+
   render() {
     const {
       experiments,
@@ -104,7 +111,7 @@ class Experiments extends React.Component<*, State> {
     const title = hasTotal
       ? `${total.toLocaleString()} ${pluralize('Result', total)}`
       : 'Experiments';
-    const { q } = this.state;
+    const { q, selected } = this.state;
     return (
       <div className={styles.container}>
         <Header title={'Experiments'} />
@@ -129,11 +136,13 @@ class Experiments extends React.Component<*, State> {
               <div className={styles.actionsContainer}>
                 <div className={styles.filtersActionsContainer}>
                   <ExperimentsChoicesFilters size="sm" />
-                  <div className="ml-3 border-left">
-                    <Button color="link" size="sm">
-                      Actions <i className="fa fa-caret-down" />
-                    </Button>
-                  </div>
+                  {selected && (
+                    <div className="ml-3 border-left">
+                      <Button color="link" size="sm">
+                        Actions <i className="fa fa-caret-down" />
+                      </Button>
+                    </div>
+                  )}
                 </div>
                 <div className="ml-auto">
                   <UploadButton right size="sm" outline={false} />
@@ -145,6 +154,8 @@ class Experiments extends React.Component<*, State> {
                 onExperimentClick={onExperimentClick}
                 onChangeOrder={onChangeListOrder}
                 filters={experimentsFilters}
+                selected={selected}
+                setSelected={this.setSelected}
               />
               {pagination && (
                 <Pagination
