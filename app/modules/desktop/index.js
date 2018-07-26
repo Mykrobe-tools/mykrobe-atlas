@@ -1,6 +1,7 @@
 /* @flow */
 
 import { all, fork } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { combineReducers } from 'redux';
 
 import localAtlas, { localAtlasSaga } from './localAtlas';
@@ -21,6 +22,6 @@ const desktopReducer = combineReducers({
 
 export default desktopReducer;
 
-export function* rootDesktopSaga(): Generator<*, *, *> {
+export function* rootDesktopSaga(): Saga {
   yield all([fork(localAtlasSaga)]);
 }

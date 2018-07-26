@@ -1,6 +1,7 @@
 /* @flow */
 
 import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import loadScript from 'load-script';
 
@@ -58,7 +59,7 @@ function* uploadBoxWatcher() {
   yield takeLatest(UPLOAD_BOX, uploadBoxWorker);
 }
 
-export function* uploadBoxWorker(): Generator<*, *, *> {
+export function* uploadBoxWorker(): Saga {
   const files = yield call(boxChoose);
   if (!files) {
     return;
@@ -81,7 +82,7 @@ export function* uploadBoxWorker(): Generator<*, *, *> {
   yield put(push(`/experiments/${experimentId}`));
 }
 
-export function* uploadBoxSaga(): Generator<*, *, *> {
+export function* uploadBoxSaga(): Saga {
   if (!isBoxReady()) {
     yield call(loadBox);
   }

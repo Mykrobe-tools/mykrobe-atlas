@@ -1,6 +1,7 @@
 /* @flow */
 
 import { all, fork } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { combineReducers } from 'redux';
 
 import uploadFileReducer, { uploadFileSaga } from './uploadFile';
@@ -49,7 +50,7 @@ const uploadReducer = combineReducers({
 
 export default uploadReducer;
 
-export function* rootUploadSaga(): Generator<*, *, *> {
+export function* rootUploadSaga(): Saga {
   yield all([
     fork(uploadFileSaga),
     fork(uploadFileNotificationSaga),

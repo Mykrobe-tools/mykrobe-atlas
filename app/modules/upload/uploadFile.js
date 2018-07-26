@@ -12,6 +12,7 @@ import {
   call,
   apply,
 } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import moment from 'moment';
@@ -242,7 +243,7 @@ function* accessTokenWatcher() {
   yield takeEvery([INITIALISE_SUCCESS, SET_TOKEN], accessTokenWorker);
 }
 
-export function* accessTokenWorker(): Generator<*, *, *> {
+export function* accessTokenWorker(): Saga {
   const accessToken = yield select(getAccessToken);
   yield apply(_uploadFile, 'setAccessToken', [accessToken]);
 }
@@ -250,7 +251,7 @@ export function* accessTokenWorker(): Generator<*, *, *> {
 // take emitted events, put actions into channel
 // then send those into the main channel
 
-export function* fileAddedEventEmitterWatcher(): Generator<*, *, *> {
+export function* fileAddedEventEmitterWatcher(): Saga {
   while (true) {
     const action = yield take(_uploadFileChannel);
     yield put(action);
@@ -263,7 +264,7 @@ function* fileAddedWatcher() {
   yield takeEvery(RESUMABLE_UPLOAD_FILE_ADDED, fileAddedWorker);
 }
 
-export function* fileAddedWorker(action: any): Generator<*, *, *> {
+export function* fileAddedWorker(action: any): Saga {
   const isBusy = yield select(getIsBusy);
   if (isBusy) {
     alert(
@@ -289,7 +290,7 @@ function* computeChecksumsWatcher() {
   yield takeEvery(COMPUTE_CHECKSUMS, computeChecksumsWorker);
 }
 
-export function* computeChecksumsWorker(action: any): Generator<*, *, *> {
+export function* computeChecksumsWorker(action: any): Saga {
   yield apply(_computeChecksums, 'computeChecksums', [action.payload]);
   yield take(COMPUTE_CHECKSUMS_COMPLETE);
   yield put({
@@ -312,7 +313,7 @@ function* uploadFileWatcher() {
   yield takeEvery(UPLOAD_FILE, uploadFileWorker);
 }
 
-export function* uploadFileWorker(): Generator<*, *, *> {
+export function* uploadFileWorker(): Saga {
   // this will request a fresh token if necessary
   yield put(checkToken());
   const { failure } = yield race({
@@ -338,7 +339,7 @@ function* uploadFileCancelWatcher() {
   });
 }
 
-export function* uploadFileSaga(): Generator<*, *, *> {
+export function* uploadFileSaga(): Saga {
   yield all([
     fork(fileAddedEventEmitterWatcher),
     fork(fileAddedWatcher),

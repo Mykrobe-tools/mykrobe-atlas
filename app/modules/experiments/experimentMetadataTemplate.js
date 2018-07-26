@@ -1,6 +1,7 @@
 /* @flow */
 
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 
 import { createSelector } from 'reselect';
 
@@ -76,6 +77,6 @@ function* requestMetadataTemplateWatcher() {
   });
 }
 
-export function* experimentMetadataTemplateSaga(): Generator<*, *, *> {
+export function* experimentMetadataTemplateSaga(): Saga {
   yield all([fork(requestMetadataTemplateWatcher)]);
 }

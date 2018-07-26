@@ -1,6 +1,7 @@
 /* @flow */
 
 import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import loadScript from 'load-script';
 
@@ -56,7 +57,7 @@ function* uploadOneDriveWatcher() {
   yield takeLatest(UPLOAD_ONE_DRIVE, uploadOneDriveWorker);
 }
 
-export function* uploadOneDriveWorker(): Generator<*, *, *> {
+export function* uploadOneDriveWorker(): Saga {
   const files = yield call(oneDriveChoose);
   if (!files) {
     return;
@@ -79,7 +80,7 @@ export function* uploadOneDriveWorker(): Generator<*, *, *> {
   yield put(push(`/experiments/${experimentId}`));
 }
 
-export function* uploadOneDriveSaga(): Generator<*, *, *> {
+export function* uploadOneDriveSaga(): Saga {
   if (!isOneDriveReady()) {
     yield call(loadOneDrive);
   }
