@@ -10,6 +10,7 @@ import {
   apply,
   call,
 } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import parsePath from 'parse-filepath';
@@ -172,7 +173,7 @@ function* analyseFileWatcher() {
   yield takeEvery(ANALYSE_FILE, analyseFileWorker);
 }
 
-export function* analyseFileWorker(action: any): Generator<*, *, *> {
+export function* analyseFileWorker(action: any): Saga {
   const file = action.payload;
   const filePath = typeof file === 'string' ? file : file.path;
   yield apply(app, 'addRecentDocument', [filePath]);
@@ -187,7 +188,7 @@ function* analyseFileCancelWatcher() {
   yield takeEvery(ANALYSE_FILE_CANCEL, analyseFileCancelWorker);
 }
 
-export function* analyseFileCancelWorker(): Generator<*, *, *> {
+export function* analyseFileCancelWorker(): Saga {
   yield apply(_analyserLocalFile, 'cancel');
   yield put(push('/'));
   yield call(setSaveEnabled, false);
@@ -199,7 +200,7 @@ function* analyseFileSuccessWatcher() {
   yield takeEvery(ANALYSE_FILE_SUCCESS, analyseFileSuccessWorker);
 }
 
-export function* analyseFileSuccessWorker(): Generator<*, *, *> {
+export function* analyseFileSuccessWorker(): Saga {
   const json = yield select(getJson);
   const filePath = yield select(getFilePath);
   const parsed = parsePath(filePath);
@@ -220,7 +221,7 @@ function* analyseFileErrorWatcher() {
   yield takeEvery(ANALYSE_FILE_ERROR, analyseFileErrorWorker);
 }
 
-export function* analyseFileErrorWorker(action: any): Generator<*, *, *> {
+export function* analyseFileErrorWorker(action: any): Saga {
   yield put(
     showNotification({
       category: NotificationCategories.ERROR,
@@ -238,7 +239,7 @@ function* analyseFileNewWatcher() {
   yield takeEvery(ANALYSE_FILE_NEW, analyseFileNewWorker);
 }
 
-export function* analyseFileNewWorker(): Generator<*, *, *> {
+export function* analyseFileNewWorker(): Saga {
   const isAnalysing = yield select(getIsAnalysing);
   if (isAnalysing) {
     yield put(analyseFileCancel());
@@ -253,7 +254,7 @@ function* analyseFileSaveWatcher() {
   yield takeEvery(ANALYSE_FILE_SAVE, analyseFileSaveWorker);
 }
 
-export function* analyseFileSaveWorker(): Generator<*, *, *> {
+export function* analyseFileSaveWorker(): Saga {
   const json = yield select(getJson);
   const filePath = UIHelpers.saveFileDialog('mykrobe.json'); // eslint-disable-line import/namespace
   if (filePath) {
@@ -275,7 +276,7 @@ export const setSaveEnabled = (enabled: boolean) => {
   }
 };
 
-export function* localAtlasSaga(): Generator<*, *, *> {
+export function* localAtlasSaga(): Saga {
   yield all([
     fork(analyserLocalFileChannelWatcher),
     fork(analyseFileWatcher),

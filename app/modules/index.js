@@ -2,8 +2,10 @@
 
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import { all, fork } from 'redux-saga/effects';
+import { all, call } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 
+import { restartSagaOnError } from 'makeandship-js-common/src/modules/util';
 import {
   authReducer as auth,
   rootAuthSaga,
@@ -41,8 +43,6 @@ const sagas = [
   rootUploadSaga,
 ];
 
-// allow uncaught errors to crash, so we get a better stack trace
-
-export function* rootSaga(): Generator<*, *, *> {
-  yield all(sagas.map(saga => fork(saga)));
+export function* rootSaga(): Saga {
+  yield all(sagas.map(restartSagaOnError).map(saga => call(saga)));
 }

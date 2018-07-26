@@ -1,6 +1,7 @@
 /* @flow */
 
 import { put, take, race, select } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
 
@@ -126,7 +127,7 @@ export default reducer;
 
 // Side effects
 
-export function* createExperimentId(): Generator<*, *, *> {
+export function* createExperimentId(): Saga {
   // create an id for the experiment
   yield put(createEntity());
   const { success } = yield race({

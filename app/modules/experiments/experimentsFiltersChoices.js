@@ -1,6 +1,7 @@
 /* @flow */
 
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
+import type { Saga } from 'redux-saga';
 
 import { SET, RESET } from 'makeandship-js-common/src/modules/generic/actions';
 
@@ -20,6 +21,6 @@ function* experimentsFiltersChoicesWater() {
   );
 }
 
-export function* experimentsFiltersChoicesSaga(): Generator<*, *, *> {
+export function* experimentsFiltersChoicesSaga(): Saga {
   yield all([fork(experimentsFiltersChoicesWater)]);
 }
