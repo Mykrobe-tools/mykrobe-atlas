@@ -6,6 +6,7 @@ import { Container, Button, Col } from 'reactstrap';
 import pluralize from 'pluralize';
 
 import Pagination from 'makeandship-js-common/src/components/ui/pagination';
+import Loading from 'makeandship-js-common/src/components/ui/loading';
 import { styles as pageHeaderStyles } from 'makeandship-js-common/src/components/ui/PageHeader';
 
 import styles from './Experiments.scss';
@@ -15,10 +16,15 @@ import Header from '../header/Header';
 
 import UploadButton from '../upload/button/UploadButton';
 import SearchInput from '../ui/SearchInput';
+import Empty from '../ui/Empty';
 
 type State = {
   q: ?string,
 };
+
+// If the user enters and submits a free text query, clear any existing filters
+// to start a new search
+const CHANGING_QUERY_CLEARS_OTHER_FILTERS = true;
 
 class Experiments extends React.Component<*, State> {
   onNewExperiment = (e: any) => {
@@ -42,6 +48,12 @@ class Experiments extends React.Component<*, State> {
     }
   };
 
+  onReset = (e: any) => {
+    e.preventDefault();
+    const { resetExperimentsFilters } = this.props;
+    resetExperimentsFilters();
+  };
+
   onChange = (e: any) => {
     const q = e.target.value;
     this.setState({
@@ -57,11 +69,17 @@ class Experiments extends React.Component<*, State> {
     if (typeof q === 'string' && q.length === 0) {
       q = undefined;
     }
-    setExperimentsFilters({
-      ...experimentsFilters,
-      q,
-      page: undefined,
-    });
+    if (q && CHANGING_QUERY_CLEARS_OTHER_FILTERS) {
+      setExperimentsFilters({
+        q,
+      });
+    } else {
+      setExperimentsFilters({
+        ...experimentsFilters,
+        q,
+        page: undefined,
+      });
+    }
   };
 
   onPageClick = (page: number) => {
@@ -80,10 +98,11 @@ class Experiments extends React.Component<*, State> {
       onExperimentClick,
       onChangeListOrder,
     } = this.props;
-    const { pagination, results, summary } = experiments;
-    const total = summary && summary.hits;
-    const title = total
-      ? `${total.toLocaleString()} ${pluralize('Experiment', total)}`
+    const { pagination, results, total } = experiments;
+    const hasTotal = total !== undefined;
+    const hasResults = hasTotal && total > 0;
+    const title = hasTotal
+      ? `${total.toLocaleString()} ${pluralize('Result', total)}`
       : 'Experiments';
     const { q } = this.state;
     return (
@@ -96,7 +115,7 @@ class Experiments extends React.Component<*, State> {
               <Col md={6}>
                 <SearchInput
                   value={q}
-                  placeholder="Search against any metadata field or sequence e.g. GAT"
+                  placeholder="Metadata or sequence e.g. GAT"
                   onChange={this.onChange}
                   onSubmit={this.onSubmit}
                 />
@@ -104,36 +123,55 @@ class Experiments extends React.Component<*, State> {
             </div>
           </div>
         </Container>
-        <Container fluid>
-          <div className={styles.actionsContainer}>
-            <div className={styles.filtersActionsContainer}>
-              <ExperimentsChoicesFilters size="sm" />
-              <div className="ml-3 border-left">
-                <Button color="link" size="sm">
-                  Actions <i className="fa fa-caret-down" />
-                </Button>
+        {hasResults ? (
+          <div className={styles.resultsContainer}>
+            <Container fluid>
+              <div className={styles.actionsContainer}>
+                <div className={styles.filtersActionsContainer}>
+                  <ExperimentsChoicesFilters size="sm" />
+                  <div className="ml-3 border-left">
+                    <Button color="link" size="sm">
+                      Actions <i className="fa fa-caret-down" />
+                    </Button>
+                  </div>
+                </div>
+                <div className="ml-auto">
+                  <UploadButton right size="sm" outline={false} />
+                </div>
               </div>
-            </div>
-            <div className="ml-auto">
-              <UploadButton right size="sm" outline={false} />
-            </div>
+              <ExperimentsTable
+                isFetching={isFetchingExperiments}
+                experiments={results}
+                onExperimentClick={onExperimentClick}
+                onChangeOrder={onChangeListOrder}
+                filters={experimentsFilters}
+              />
+              {pagination && (
+                <Pagination
+                  first={1}
+                  last={pagination.pages}
+                  current={pagination.page}
+                  onPageClick={this.onPageClick}
+                />
+              )}
+            </Container>
+            {isFetchingExperiments && <Loading overlay />}
           </div>
-          <ExperimentsTable
-            isFetching={isFetchingExperiments}
-            experiments={results}
-            onExperimentClick={onExperimentClick}
-            onChangeOrder={onChangeListOrder}
-            filters={experimentsFilters}
-          />
-          {pagination && (
-            <Pagination
-              first={1}
-              last={pagination.pages}
-              current={pagination.page}
-              onPageClick={this.onPageClick}
-            />
-          )}
-        </Container>
+        ) : (
+          <div className={styles.resultsContainer}>
+            <Empty
+              title={'No results'}
+              subtitle={
+                'No experiments containing all your search terms were found'
+              }
+            >
+              <Button outline color="mid" onClick={this.onReset}>
+                Clear search
+              </Button>
+            </Empty>
+            {isFetchingExperiments && <Loading overlay />}
+          </div>
+        )}
       </div>
     );
   }
@@ -143,6 +181,7 @@ Experiments.propTypes = {
   experiments: PropTypes.object.isRequired,
   experimentsFilters: PropTypes.any,
   setExperimentsFilters: PropTypes.func,
+  resetExperimentsFilters: PropTypes.func,
   requestExperiments: PropTypes.func,
   requestFilterValues: PropTypes.func,
   isFetchingExperiments: PropTypes.bool,

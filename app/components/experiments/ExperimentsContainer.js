@@ -16,6 +16,7 @@ import {
   getIsFetchingExperimentsChoices,
   getExperimentsFilters,
   setExperimentsFilters,
+  resetExperimentsFilters,
 } from '../../modules/experiments';
 
 class ExperimentsContainer extends React.Component<*> {
@@ -72,6 +73,7 @@ const withRedux = connect(
     requestExperiments,
     requestExperimentsChoices,
     setExperimentsFilters,
+    resetExperimentsFilters,
     push,
     newExperiment,
   }
