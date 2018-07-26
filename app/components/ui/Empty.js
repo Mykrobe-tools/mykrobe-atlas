@@ -6,7 +6,7 @@ import styles from './Empty.scss';
 
 class Empty extends React.Component<*> {
   render() {
-    const { title, subtitle } = this.props;
+    const { title, subtitle, children } = this.props;
     return (
       <div className={styles.container} data-tid={'component-empty'}>
         <div className={styles.iconContainer}>
@@ -16,6 +16,7 @@ class Empty extends React.Component<*> {
           <div className={styles.title}>{title}</div>
           <div className={styles.subtitle}>{subtitle}</div>
         </div>
+        {children}
       </div>
     );
   }
@@ -29,6 +30,7 @@ class Empty extends React.Component<*> {
 Empty.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default Empty;

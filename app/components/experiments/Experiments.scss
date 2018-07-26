@@ -45,3 +45,9 @@
 	display: flex;
 	flex-direction: row;
 }
+
+.resultsContainer {
+	composes: container from 'styles/layout.scss';
+	flex-direction: column;
+	position: relative;
+}
