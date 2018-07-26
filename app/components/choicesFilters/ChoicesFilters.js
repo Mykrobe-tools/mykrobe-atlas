@@ -77,22 +77,22 @@ class ChoicesFilters extends React.Component<*, State> {
   // - have no values
 
   addFilterChoicesKeys = (): Array<string> => {
-    const { choices, filters } = this.props;
+    const { choices, choicesFilters } = this.props;
     const { placeholderChoiceKeys } = this.state;
-    const filtersKeys = Object.keys(filters);
-    const incidentsChoicesKeys: Array<string> = Object.keys(choices);
-    return incidentsChoicesKeys.filter(choiceKey => {
-      const incidentsChoice = choices[choiceKey];
+    const choicesFiltersKeys = Object.keys(choicesFilters);
+    const choicesKeys: Array<string> = Object.keys(choices);
+    return choicesKeys.filter(choiceKey => {
+      const choice = choices[choiceKey];
       return (
         !placeholderChoiceKeys.includes(choiceKey) &&
-        !filtersKeys.includes(choiceKey) &&
-        incidentsChoice.length >= MIN_CHOICES_TO_SHOW
+        !choicesFiltersKeys.includes(choiceKey) &&
+        choice.length >= MIN_CHOICES_TO_SHOW
       );
     });
   };
 
   renderChoice = (choiceKey: string, placeholder: boolean) => {
-    const { choices, filters } = this.props;
+    const { choices, choicesFilters } = this.props;
     const options = choices[choiceKey].map(value => {
       return {
         value: value.key,
@@ -100,10 +100,10 @@ class ChoicesFilters extends React.Component<*, State> {
       };
     });
     let displayTitle = choiceKey;
-    const value = placeholder ? '' : filters[choiceKey];
+    const value = placeholder ? '' : choicesFilters[choiceKey];
     const displayValue = placeholder
       ? displayTitle
-      : `${displayTitle} · ${filters[choiceKey]}`;
+      : `${displayTitle} · ${choicesFilters[choiceKey]}`;
     return (
       <div key={choiceKey} className={styles.element}>
         <div className={styles.select}>
@@ -147,7 +147,7 @@ class ChoicesFilters extends React.Component<*, State> {
   };
 
   render() {
-    const { choices, filters, hasFilters, size } = this.props;
+    const { choices, choicesFilters, hasFilters, size } = this.props;
     if (!choices) {
       return (
         <div className={styles.componentWrap}>
@@ -162,11 +162,13 @@ class ChoicesFilters extends React.Component<*, State> {
 
     const { placeholderChoiceKeys } = this.state;
     const addFilterChoicesKeys = this.addFilterChoicesKeys();
-    const filtersKeys = Object.keys(filters);
+    const choicesFiltersKeys = Object.keys(choicesFilters);
     const hasAddFilterChoices = addFilterChoicesKeys.length > 0;
     return (
       <div className={styles.componentWrap}>
-        {filtersKeys.map(filtersKey => this.renderChoice(filtersKey, false))}
+        {choicesFiltersKeys.map(choicesFilterKey =>
+          this.renderChoice(choicesFilterKey, false)
+        )}
         {placeholderChoiceKeys.map(placeholderChoiceKey =>
           this.renderChoice(placeholderChoiceKey, true)
         )}
@@ -224,13 +226,13 @@ class ChoicesFilters extends React.Component<*, State> {
     options: any,
     last: boolean = false
   ) => {
-    const { filters } = this.props;
+    const { choicesFilters } = this.props;
     return (
       <Col className={`px-0 mb-1 mb-md-0${last ? '' : ' mr-md-2'}`}>
         {label && <Label htmlFor={name}>{label}</Label>}
         <Select
           name={name}
-          value={filters[name]}
+          value={choicesFilters[name]}
           onChange={this.onChangeFilterValue}
           placeholder={placeholder}
           options={options}
@@ -251,6 +253,7 @@ ChoicesFilters.propTypes = {
   isFetching: PropTypes.bool,
   setFilters: PropTypes.func.isRequired,
   clearFilters: PropTypes.func.isRequired,
+  choicesFilters: PropTypes.object.isRequired,
   filters: PropTypes.object.isRequired,
   choices: PropTypes.object,
   hasFilters: PropTypes.bool,

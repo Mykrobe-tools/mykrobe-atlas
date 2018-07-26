@@ -20,6 +20,10 @@ type State = {
   q: ?string,
 };
 
+// If the user enters and submits a free text query, clear any existing filters
+// to start a new search
+const CHANGING_QUERY_CLEARS_OTHER_FILTERS = true;
+
 class Experiments extends React.Component<*, State> {
   onNewExperiment = (e: any) => {
     e && e.preventDefault();
@@ -57,11 +61,17 @@ class Experiments extends React.Component<*, State> {
     if (typeof q === 'string' && q.length === 0) {
       q = undefined;
     }
-    setExperimentsFilters({
-      ...experimentsFilters,
-      q,
-      page: undefined,
-    });
+    if (q && CHANGING_QUERY_CLEARS_OTHER_FILTERS) {
+      setExperimentsFilters({
+        q,
+      });
+    } else {
+      setExperimentsFilters({
+        ...experimentsFilters,
+        q,
+        page: undefined,
+      });
+    }
   };
 
   onPageClick = (page: number) => {
@@ -80,10 +90,10 @@ class Experiments extends React.Component<*, State> {
       onExperimentClick,
       onChangeListOrder,
     } = this.props;
-    const { pagination, results, summary } = experiments;
-    const total = summary && summary.hits;
-    const title = total
-      ? `${total.toLocaleString()} ${pluralize('Experiment', total)}`
+    const { pagination, results, total } = experiments;
+    const hasTotal = total !== undefined;
+    const title = hasTotal
+      ? `${total.toLocaleString()} ${pluralize('Result', total)}`
       : 'Experiments';
     const { q } = this.state;
     return (
@@ -96,7 +106,7 @@ class Experiments extends React.Component<*, State> {
               <Col md={6}>
                 <SearchInput
                   value={q}
-                  placeholder="Search against any metadata field or sequence e.g. GAT"
+                  placeholder="Metadata or sequence e.g. GAT"
                   onChange={this.onChange}
                   onSubmit={this.onSubmit}
                 />
