@@ -122,7 +122,7 @@ class Experiments extends React.Component<*, State> {
               <Col md={6}>
                 <SearchInput
                   value={q}
-                  placeholder="Metadata or sequence e.g. GAT"
+                  placeholder="Metadata or sequence e.g. CAGATC"
                   onChange={this.onChange}
                   onSubmit={this.onSubmit}
                 />
