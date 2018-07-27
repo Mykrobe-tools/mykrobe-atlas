@@ -2,7 +2,15 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Button, Col } from 'reactstrap';
+import {
+  Container,
+  Button,
+  Col,
+  UncontrolledDropdown,
+  DropdownMenu,
+  DropdownToggle,
+  DropdownItem,
+} from 'reactstrap';
 import pluralize from 'pluralize';
 
 import Pagination from 'makeandship-js-common/src/components/ui/pagination';
@@ -138,9 +146,28 @@ class Experiments extends React.Component<*, State> {
                   <ExperimentsChoicesFilters size="sm" />
                   {selected && (
                     <div className="ml-3 border-left">
-                      <Button color="link" size="sm">
-                        Actions <i className="fa fa-caret-down" />
-                      </Button>
+                      <UncontrolledDropdown>
+                        <DropdownToggle
+                          color="link"
+                          size={'sm'}
+                          data-tid="actions-dropdown-toggle"
+                        >
+                          Actions <i className="fa fa-caret-down" />
+                        </DropdownToggle>
+                        <DropdownMenu className={styles.dropdownMenu}>
+                          <DropdownItem disabled>
+                            {selected === '*'
+                              ? `${total.toLocaleString()} selected`
+                              : `${selected.length} selected`}
+                          </DropdownItem>
+                          {selected === '*' ||
+                            (selected.length > 1 && (
+                              <DropdownItem>Compare</DropdownItem>
+                            ))}
+                          <DropdownItem>Share</DropdownItem>
+                          <DropdownItem>Delete</DropdownItem>
+                        </DropdownMenu>
+                      </UncontrolledDropdown>
                     </div>
                   )}
                 </div>
