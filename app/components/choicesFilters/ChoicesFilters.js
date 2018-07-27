@@ -151,7 +151,7 @@ class ChoicesFilters extends React.Component<*, State> {
             }
           }}
         >
-          <i className="fa fa-times" />
+          <i className="fa fa-times-circle" />
         </a>
       </div>
     );
@@ -258,6 +258,7 @@ class ChoicesFilters extends React.Component<*, State> {
           searchable
           clearable
           wideMenu
+          className={styles.select}
         />
       </Col>
     );
