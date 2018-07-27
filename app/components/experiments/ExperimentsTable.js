@@ -48,6 +48,17 @@ class ExperimentsTable extends React.Component<*> {
     const { setSelected } = this.props;
     setSelected(e.target.checked ? '*' : undefined);
   };
+  onRowCheckChanged = (id: string, e: any) => {
+    const { selected, setSelected } = this.props;
+    if (e.target.checked) {
+      const newSelected =
+        typeof selected === 'object' ? selected.concat(id) : [id];
+      setSelected(newSelected);
+    } else {
+      const newSelected = selected.filter(experimentId => experimentId !== id);
+      setSelected(newSelected.length > 0 ? newSelected : undefined);
+    }
+  };
   headings = () => {
     const { selected } = this.props;
     const allSelected = (selected && selected === '*') || false;
@@ -94,14 +105,19 @@ class ExperimentsTable extends React.Component<*> {
     const allSelected = (selected && selected === '*') || false;
     const { onExperimentClick } = this.props;
     let { id, owner } = experiment;
+    const isSelected =
+      allSelected ||
+      (selected && selected.includes && selected.includes(id)) ||
+      false;
     return (
       <tr key={id}>
         <td>
           <label>
             <input
               type="checkbox"
-              checked={allSelected}
+              checked={isSelected}
               disabled={allSelected}
+              onChange={e => this.onRowCheckChanged(id, e)}
             />
             <span />
           </label>
