@@ -43,38 +43,85 @@ import {
 }
 */
 
-const headings = [
-  {
-    title: 'Sample',
-    sort: 'id',
-  },
-  {
-    title: 'Owner',
-    sort: 'owner.lastname',
-  },
-  {
-    title: 'Organisation',
-  },
-  {
-    title: 'Site',
-  },
-  {
-    title: 'Collected',
-  },
-  {
-    title: 'Location',
-  },
-  {
-    title: '',
-  },
-];
-
 class ExperimentsTable extends React.Component<*> {
+  onHeadingCheckChanged = (e: any) => {
+    const { setSelected } = this.props;
+    setSelected(e.target.checked ? '*' : undefined);
+  };
+  onRowCheckChanged = (id: string, e: any) => {
+    const { selected, setSelected } = this.props;
+    if (e.target.checked) {
+      const newSelected =
+        typeof selected === 'object' ? selected.concat(id) : [id];
+      setSelected(newSelected);
+    } else {
+      const newSelected = selected.filter(experimentId => experimentId !== id);
+      setSelected(newSelected.length > 0 ? newSelected : undefined);
+    }
+  };
+  headings = () => {
+    const { selected } = this.props;
+    const allSelected = (selected && selected === '*') || false;
+    return [
+      {
+        title: (
+          <label>
+            <input
+              type="checkbox"
+              checked={allSelected}
+              onChange={this.onHeadingCheckChanged}
+            />
+            <span />
+          </label>
+        ),
+      },
+      {
+        title: 'Sample',
+        sort: 'id',
+      },
+      {
+        title: 'Owner',
+        sort: 'owner.lastname',
+      },
+      {
+        title: 'Organisation',
+      },
+      {
+        title: 'Site',
+      },
+      {
+        title: 'Collected',
+      },
+      {
+        title: 'Location',
+      },
+      {
+        title: '',
+      },
+    ];
+  };
   renderRow = (experiment: any) => {
+    const { selected } = this.props;
+    const allSelected = (selected && selected === '*') || false;
     const { onExperimentClick } = this.props;
     let { id, owner } = experiment;
+    const isSelected =
+      allSelected ||
+      (selected && selected.includes && selected.includes(id)) ||
+      false;
     return (
       <tr key={id}>
+        <td>
+          <label>
+            <input
+              type="checkbox"
+              checked={isSelected}
+              disabled={allSelected}
+              onChange={e => this.onRowCheckChanged(id, e)}
+            />
+            <span />
+          </label>
+        </td>
         <td
           onClick={() => onExperimentClick(experiment)}
           className={styles.clickableCell}
@@ -115,7 +162,7 @@ class ExperimentsTable extends React.Component<*> {
     const { experiments, filters, onChangeOrder } = this.props;
     return (
       <Table
-        headings={headings}
+        headings={this.headings()}
         data={experiments}
         sort={filters.sort || 'id'}
         order={filters.order || Table.Order.Descending}
@@ -132,6 +179,8 @@ ExperimentsTable.propTypes = {
   filters: PropTypes.object,
   onChangeOrder: PropTypes.func,
   onExperimentClick: PropTypes.func,
+  selected: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  setSelected: PropTypes.func,
 };
 
 export default ExperimentsTable;
