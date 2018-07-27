@@ -7,8 +7,8 @@
   "main": "main.js",
   "scripts": {
     "build-predictor-binaries": "babel-node ./desktop/build-predictor-binaries.js",
-    "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js --progress --profile --colors",
-    "desktop-build-renderer": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.production.js --progress --profile --colors",
+    "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js",
+    "desktop-build-renderer": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.production.js",
     "desktop-build": "yarn desktop-build-main && yarn desktop-build-renderer",
     "desktop-dev": "cross-env PLATFORM=electron UPGRADE_EXTENSIONS=1 concurrently \"yarn desktop-hot-server\" \"yarn desktop-start-hot\"",
     "desktop-dist:all": "cross-env PLATFORM=electron babel-node ./desktop/dist.js --all --x64",
@@ -173,6 +173,7 @@
     "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "inquirer": "^4.0.0",
+    "jest": "^22.4.3",
     "json-loader": "^0.5.4",
     "mini-css-extract-plugin": "^0.4.0",
     "minimist": "^1.2.0",
@@ -245,6 +246,8 @@
   },
   "targetName": "atlas-tb",
   "jest": {
+    "verbose": true,
+    "testURL": "http://localhost/",
     "transformIgnorePatterns": [
       "/node_modules/(?!(makeandship-js-common|mykrobe-atlas-jsonschema|swagger-client)).+\\.js$"
     ],
