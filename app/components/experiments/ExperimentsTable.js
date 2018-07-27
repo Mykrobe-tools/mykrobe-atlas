@@ -179,7 +179,7 @@ ExperimentsTable.propTypes = {
   filters: PropTypes.object,
   onChangeOrder: PropTypes.func,
   onExperimentClick: PropTypes.func,
-  selected: PropTypes.oneOf(PropTypes.string, PropTypes.array),
+  selected: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   setSelected: PropTypes.func,
 };
 
