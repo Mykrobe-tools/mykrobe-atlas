@@ -120,6 +120,7 @@ class Experiments extends React.Component<*, State> {
       ? `${total.toLocaleString()} ${pluralize('Result', total)}`
       : 'Experiments';
     const { q, selected } = this.state;
+    const showCompare = selected && (selected === '*' || selected.length > 1);
     return (
       <div className={styles.container}>
         <Header title={'Experiments'} />
@@ -154,16 +155,13 @@ class Experiments extends React.Component<*, State> {
                         >
                           Actions <i className="fa fa-caret-down" />
                         </DropdownToggle>
-                        <DropdownMenu className={styles.dropdownMenu}>
+                        <DropdownMenu>
                           <DropdownItem disabled>
                             {selected === '*'
                               ? `${total.toLocaleString()} selected`
                               : `${selected.length} selected`}
                           </DropdownItem>
-                          {selected === '*' ||
-                            (selected.length > 1 && (
-                              <DropdownItem>Compare</DropdownItem>
-                            ))}
+                          {showCompare && <DropdownItem>Compare</DropdownItem>}
                           <DropdownItem>Share</DropdownItem>
                           <DropdownItem>Delete</DropdownItem>
                         </DropdownMenu>
