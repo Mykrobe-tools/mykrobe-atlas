@@ -19,7 +19,10 @@ import {
 } from 'makeandship-js-common/src/modules/networkStatus/deviceNetworkStatus';
 
 import { rootReducer, rootSaga } from '../modules';
-import { beaconNetworkStatusActionType } from '../modules/networkStatus';
+import {
+  beaconNetworkStatusActionType,
+  beaconNetworkStatusActions,
+} from '../modules/networkStatus';
 
 import {
   signIn,
@@ -67,6 +70,8 @@ if (devToolsPresent) {
     showNotification,
     deviceNetworkOffline,
     deviceNetworkOnline,
+    beaconNetworkOffline: beaconNetworkStatusActions.beaconNetworkOffline,
+    beaconNetworkOnline: beaconNetworkStatusActions.beaconNetworkOnline,
   };
   const actionsBlacklist = [
     RESUMABLE_UPLOAD_PROGRESS,

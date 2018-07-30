@@ -32,7 +32,7 @@ export const rootReducer = combineReducers({
   phylogeny,
   routing,
   upload,
-  networkStatus
+  networkStatus,
 });
 
 const sagas = [
@@ -43,7 +43,7 @@ const sagas = [
   rootUsersSaga,
   rootNotificationsSaga,
   rootUploadSaga,
-  networkStatusSaga
+  networkStatusSaga,
 ];
 
 export function* rootSaga(): Saga {

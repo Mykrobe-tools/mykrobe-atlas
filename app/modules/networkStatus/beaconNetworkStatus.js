@@ -11,6 +11,12 @@ const beaconNetworkStatusModule = createBeaconNetworkStatusModule('beacon', {
 const {
   reducer: beaconNetworkStatus,
   actions: beaconNetworkStatusActions,
+  selectors: {
+    getOnline,
+    getInitialised,
+    getIsCheckingBeacon,
+    getCountDownSeconds,
+  },
   actionType: beaconNetworkStatusActionType,
   sagas: { beaconNetworkStatusSaga },
 } = beaconNetworkStatusModule;
@@ -21,4 +27,8 @@ export {
   beaconNetworkStatusActions,
   beaconNetworkStatusActionType,
   beaconNetworkStatusSaga,
+  getOnline as getBeaconNetworkStatusOnline,
+  getInitialised as getBeaconNetworkStatusInitialised,
+  getIsCheckingBeacon,
+  getCountDownSeconds,
 };

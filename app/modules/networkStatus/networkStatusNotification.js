@@ -1,11 +1,12 @@
 /* @flow */
 
-import { all, fork, put, take, select } from 'redux-saga/effects';
+import { channel } from 'redux-saga';
+import { all, fork, put, take, race, select } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 
 import {
   showNotification,
-  hideNotification,
+  updateNotification,
   NotificationCategories,
 } from '../notifications';
 
@@ -17,9 +18,32 @@ import {
   DEVICE_NETWORK_ONLINE,
 } from 'makeandship-js-common/src/modules/networkStatus/deviceNetworkStatus';
 
-let _notificationId;
+import {
+  CHECK,
+  NETWORK_STATUS_INITIALISED,
+  NETWORK_OFFLINE,
+  NETWORK_ONLINE,
+  COUNT_DOWN_SECONDS,
+} from 'makeandship-js-common/src/modules/networkStatus/beaconNetworkStatusModule';
 
-function* deviceNetworkWatcher() {
+import {
+  getBeaconNetworkStatusOnline,
+  getBeaconNetworkStatusInitialised,
+  getCountDownSeconds,
+  beaconNetworkStatusActionType,
+  beaconNetworkStatusActions,
+} from './beaconNetworkStatus';
+
+const _interactionChannel = channel();
+
+export function* interactionChannelWatcher(): Saga {
+  while (true) {
+    const action = yield take(_interactionChannel);
+    yield put(action);
+  }
+}
+
+function* deviceNetworkStatusWatcher() {
   // wait for device network status initialisation
   const initialised = yield select(getInitialised);
   if (!initialised) {
@@ -33,16 +57,95 @@ function* deviceNetworkWatcher() {
     }
     const action = showNotification({
       category: NotificationCategories.ERROR,
-      content: `No internet connection`,
+      content: `Internet connection offline`,
+      expanded: true,
       autoHide: false,
     });
-    _notificationId = action.payload.id;
+    const notificationId = action.payload.id;
     yield put(action);
     yield take(DEVICE_NETWORK_ONLINE);
-    yield put(hideNotification(_notificationId));
+    yield put(
+      updateNotification(notificationId, {
+        category: NotificationCategories.SUCCESS,
+        content: `Internet connection online`,
+        autoHide: true,
+      })
+    );
+  }
+}
+
+function* beaconNetworkStatusWatcher() {
+  // wait for device network status initialisation
+  const initialised = yield select(getBeaconNetworkStatusInitialised);
+  if (!initialised) {
+    yield take(beaconNetworkStatusActionType('', NETWORK_STATUS_INITIALISED));
+  }
+  while (true) {
+    // check initial status - if not online then show notification immediately
+    const online = yield select(getBeaconNetworkStatusOnline);
+    if (online) {
+      yield take(beaconNetworkStatusActionType('', NETWORK_OFFLINE));
+    }
+    const action = showNotification({
+      category: NotificationCategories.ERROR,
+      content: `Atlas unreachable`,
+      autoHide: false,
+      expanded: true,
+    });
+    const notificationId = action.payload.id;
+    yield put(action);
+    let offline = true;
+    while (offline) {
+      const { countdown, online } = yield race({
+        countdown: take(
+          beaconNetworkStatusActionType(CHECK, COUNT_DOWN_SECONDS)
+        ),
+        check: take(beaconNetworkStatusActionType(CHECK)),
+        online: take(beaconNetworkStatusActionType('', NETWORK_ONLINE)),
+      });
+      if (online) {
+        offline = false;
+      } else if (countdown) {
+        const countDownSeconds = yield select(getCountDownSeconds);
+        yield put(
+          updateNotification(notificationId, {
+            content: `Atlas unreachable - reconnect in ${countDownSeconds} seconds...`,
+            actions: [
+              {
+                title: 'Reconnect now',
+                onClick: () => {
+                  _interactionChannel.put(
+                    beaconNetworkStatusActions.checkBeaconNow()
+                  );
+                },
+              },
+            ],
+          })
+        );
+      } else {
+        yield put(
+          updateNotification(notificationId, {
+            content: `Atlas unreachable - reconnecting...`,
+            actions: undefined,
+          })
+        );
+      }
+    }
+    yield put(
+      updateNotification(notificationId, {
+        category: NotificationCategories.SUCCESS,
+        content: `Atlas online`,
+        actions: undefined,
+        autoHide: true,
+      })
+    );
   }
 }
 
 export function* networkStatusNotificationSaga(): Saga {
-  yield all([fork(deviceNetworkWatcher)]);
+  yield all([
+    fork(deviceNetworkStatusWatcher),
+    fork(beaconNetworkStatusWatcher),
+    fork(interactionChannelWatcher),
+  ]);
 }
