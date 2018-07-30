@@ -12,6 +12,7 @@ import {
 } from 'makeandship-js-common/src/modules/auth';
 import api, { rootApiSaga } from 'makeandship-js-common/src/modules/api';
 import form from 'makeandship-js-common/src/modules/form';
+import networkStatus, { networkStatusSaga } from './networkStatus';
 
 import experiments, { rootExperimentsSaga } from './experiments';
 import organisations, { rootOrganisationsSaga } from './organisations';
@@ -31,6 +32,7 @@ export const rootReducer = combineReducers({
   phylogeny,
   routing,
   upload,
+  networkStatus
 });
 
 const sagas = [
@@ -41,6 +43,7 @@ const sagas = [
   rootUsersSaga,
   rootNotificationsSaga,
   rootUploadSaga,
+  networkStatusSaga
 ];
 
 export function* rootSaga(): Saga {
