@@ -1,6 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
+import moment from 'moment';
 
 import {
   Select,
@@ -10,8 +11,18 @@ import {
 
 import { experimentSchema } from '../../../schemas/experiment';
 
+const radioWidget = (props: any) => {
+  if (props.readonly) {
+    const { TextWidget } = props.registry.widgets;
+    return <TextWidget {...props} />;
+  } else {
+    const { RadioWidget } = props.registry.widgets;
+    return <RadioWidget {...props} />;
+  }
+};
+
 const inlineRadioUiSchema = {
-  'ui:widget': 'radio',
+  'ui:widget': radioWidget,
   'ui:options': {
     inline: true,
   },
@@ -20,22 +31,57 @@ const inlineRadioUiSchema = {
   },
 };
 
+const datePickerWidget = (props: any) => {
+  if (props.readonly) {
+    const { TextWidget } = props.registry.widgets;
+    const { value, ...rest } = props;
+    const formattedValue = value
+      ? moment(value).format(DatePicker.defaultProps.dateFormat)
+      : '';
+    return <TextWidget value={formattedValue} {...rest} />;
+  } else {
+    return <DatePicker {...props} />;
+  }
+};
+
 const datePickerUiSchema = {
-  'ui:widget': DatePicker,
+  'ui:widget': datePickerWidget,
   'ui:layout': {
     md: 3,
   },
 };
 
+const dateTimePickerWidget = (props: any) => {
+  if (props.readonly) {
+    const { TextWidget } = props.registry.widgets;
+    const { value, ...rest } = props;
+    const formattedValue = value
+      ? moment(value).format(DateTimePicker.defaultProps.dateFormat)
+      : '';
+    return <TextWidget value={formattedValue} {...rest} />;
+  } else {
+    return <DateTimePicker inline={false} {...props} />;
+  }
+};
+
 const dateTimePickerUiSchema = {
-  'ui:widget': props => <DateTimePicker inline={false} {...props} />,
+  'ui:widget': dateTimePickerWidget,
   'ui:layout': {
     md: 6, // TODO: setting this to 3 breaks popup layout
   },
 };
 
+const selectWidget = (props: any) => {
+  if (props.readonly) {
+    const { TextWidget } = props.registry.widgets;
+    return <TextWidget {...props} />;
+  } else {
+    return <Select {...props} />;
+  }
+};
+
 const selectUiSchema = {
-  'ui:widget': Select,
+  'ui:widget': selectWidget,
 };
 
 const uiSchema = {
