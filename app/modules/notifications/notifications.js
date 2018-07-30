@@ -1,6 +1,6 @@
 /* @flow */
 
-import { all, fork, put, takeEvery } from 'redux-saga/effects';
+import { all, fork, put, call, takeEvery } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';

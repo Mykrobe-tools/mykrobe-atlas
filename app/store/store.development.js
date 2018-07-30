@@ -13,6 +13,10 @@ import {
   CHECK,
   COUNT_DOWN_SECONDS,
 } from 'makeandship-js-common/src/modules/networkStatus/beaconNetworkStatusModule';
+import {
+  deviceNetworkOffline,
+  deviceNetworkOnline,
+} from 'makeandship-js-common/src/modules/networkStatus/deviceNetworkStatus';
 
 import { rootReducer, rootSaga } from '../modules';
 import { beaconNetworkStatusActionType } from '../modules/networkStatus';
@@ -61,6 +65,8 @@ if (devToolsPresent) {
     setFormData,
     clearFormData,
     showNotification,
+    deviceNetworkOffline,
+    deviceNetworkOnline,
   };
   const actionsBlacklist = [
     RESUMABLE_UPLOAD_PROGRESS,
