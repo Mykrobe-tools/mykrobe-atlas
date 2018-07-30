@@ -10,8 +10,18 @@ import {
 
 import { experimentSchema } from '../../../schemas/experiment';
 
+const inlineRadioWidget = (props: any) => {
+  if (props.readonly) {
+    const { TextWidget } = props.registry.widgets;
+    return <TextWidget {...props} />;
+  } else {
+    const { RadioWidget } = props.registry.widgets;
+    return <RadioWidget {...props} />;
+  }
+};
+
 const inlineRadioUiSchema = {
-  'ui:widget': 'radio',
+  'ui:widget': inlineRadioWidget,
   'ui:options': {
     inline: true,
   },
