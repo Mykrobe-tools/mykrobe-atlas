@@ -10,7 +10,7 @@ import {
 
 import { experimentSchema } from '../../../schemas/experiment';
 
-const inlineRadioWidget = (props: any) => {
+const radioWidget = (props: any) => {
   if (props.readonly) {
     const { TextWidget } = props.registry.widgets;
     return <TextWidget {...props} />;
@@ -21,7 +21,7 @@ const inlineRadioWidget = (props: any) => {
 };
 
 const inlineRadioUiSchema = {
-  'ui:widget': inlineRadioWidget,
+  'ui:widget': radioWidget,
   'ui:options': {
     inline: true,
   },
@@ -44,8 +44,17 @@ const dateTimePickerUiSchema = {
   },
 };
 
+const selectWidget = (props: any) => {
+  if (props.readonly) {
+    const { TextWidget } = props.registry.widgets;
+    return <TextWidget {...props} />;
+  } else {
+    return <Select {...props} />;
+  }
+};
+
 const selectUiSchema = {
-  'ui:widget': Select,
+  'ui:widget': selectWidget,
 };
 
 const uiSchema = {
