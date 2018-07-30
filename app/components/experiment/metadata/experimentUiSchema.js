@@ -51,8 +51,21 @@ const datePickerUiSchema = {
   },
 };
 
+const dateTimePickerWidget = (props: any) => {
+  if (props.readonly) {
+    const { TextWidget } = props.registry.widgets;
+    const { value, ...rest } = props;
+    const formattedValue = value
+      ? moment(value).format(DateTimePicker.defaultProps.dateFormat)
+      : '';
+    return <TextWidget value={formattedValue} {...rest} />;
+  } else {
+    return <DateTimePicker inline={false} {...props} />;
+  }
+};
+
 const dateTimePickerUiSchema = {
-  'ui:widget': props => <DateTimePicker inline={false} {...props} />,
+  'ui:widget': dateTimePickerWidget,
   'ui:layout': {
     md: 6, // TODO: setting this to 3 breaks popup layout
   },
