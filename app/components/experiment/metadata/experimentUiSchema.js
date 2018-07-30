@@ -1,6 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
+import moment from 'moment';
 
 import {
   Select,
@@ -30,8 +31,21 @@ const inlineRadioUiSchema = {
   },
 };
 
+const datePickerWidget = (props: any) => {
+  if (props.readonly) {
+    const { TextWidget } = props.registry.widgets;
+    const { value, ...rest } = props;
+    const formattedValue = value
+      ? moment(value).format(DatePicker.defaultProps.dateFormat)
+      : '';
+    return <TextWidget value={formattedValue} {...rest} />;
+  } else {
+    return <DatePicker {...props} />;
+  }
+};
+
 const datePickerUiSchema = {
-  'ui:widget': DatePicker,
+  'ui:widget': datePickerWidget,
   'ui:layout': {
     md: 3,
   },
