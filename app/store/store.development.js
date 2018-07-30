@@ -8,7 +8,21 @@ import createSagaMiddleware from 'redux-saga';
 import createHistory from 'history/createBrowserHistory';
 import { createLogger } from 'redux-logger';
 
+import { SUCCESS } from 'makeandship-js-common/src/modules/generic/actions';
+import {
+  CHECK,
+  COUNT_DOWN_SECONDS,
+} from 'makeandship-js-common/src/modules/networkStatus/beaconNetworkStatusModule';
+import {
+  deviceNetworkOffline,
+  deviceNetworkOnline,
+} from 'makeandship-js-common/src/modules/networkStatus/deviceNetworkStatus';
+
 import { rootReducer, rootSaga } from '../modules';
+import {
+  beaconNetworkStatusActionType,
+  beaconNetworkStatusActions,
+} from '../modules/networkStatus';
 
 import {
   signIn,
@@ -54,11 +68,18 @@ if (devToolsPresent) {
     setFormData,
     clearFormData,
     showNotification,
+    deviceNetworkOffline,
+    deviceNetworkOnline,
+    beaconNetworkOffline: beaconNetworkStatusActions.beaconNetworkOffline,
+    beaconNetworkOnline: beaconNetworkStatusActions.beaconNetworkOnline,
   };
   const actionsBlacklist = [
     RESUMABLE_UPLOAD_PROGRESS,
     COMPUTE_CHECKSUMS_PROGRESS,
     UPDATE_NOTIFICATION,
+    beaconNetworkStatusActionType(CHECK),
+    beaconNetworkStatusActionType(CHECK, SUCCESS),
+    beaconNetworkStatusActionType(CHECK, COUNT_DOWN_SECONDS),
   ];
   compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
     actionCreators,
@@ -80,6 +101,9 @@ const actionsBlacklist = [
   RESUMABLE_UPLOAD_PROGRESS,
   COMPUTE_CHECKSUMS_PROGRESS,
   UPDATE_NOTIFICATION,
+  beaconNetworkStatusActionType(CHECK),
+  beaconNetworkStatusActionType(CHECK, SUCCESS),
+  beaconNetworkStatusActionType(CHECK, COUNT_DOWN_SECONDS),
 ];
 const logger = createLogger({
   level: 'info',

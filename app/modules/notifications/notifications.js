@@ -1,6 +1,7 @@
 /* @flow */
 
-import { all, fork, put, takeEvery, delay } from 'redux-saga/effects';
+import { all, fork, put, call, takeEvery } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
 import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import moment from 'moment';
@@ -263,7 +264,7 @@ function* showNotificationWatcher() {
 
 export function* showNotificationWorker(action: any): Saga {
   if (action.payload.autoHide) {
-    yield delay(2000);
+    yield call(delay, 2000);
     yield put(hideNotification(action.payload.id));
   }
 }

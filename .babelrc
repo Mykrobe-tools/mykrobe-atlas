@@ -24,7 +24,6 @@
 		},
 		"development": {
 			"plugins": [
-				"babel-plugin-redux-saga",
 				"./babel-plugin-electron-module-resolver"
 			]
 		}
