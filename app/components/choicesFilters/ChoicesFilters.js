@@ -90,12 +90,22 @@ class ChoicesFilters extends React.Component<*, State> {
     const choicesKeys: Array<string> = Object.keys(choices);
     return choicesKeys.filter(choiceKey => {
       const choice: Choice = choices[choiceKey];
-      return (
-        !placeholderChoiceKeys.includes(choiceKey) &&
-        !choicesFiltersKeys.includes(choiceKey) &&
-        choice.choices &&
-        choice.choices.length >= MIN_CHOICES_TO_SHOW
-      );
+      if (
+        placeholderChoiceKeys.includes(choiceKey) ||
+        choicesFiltersKeys.includes(choiceKey)
+      ) {
+        return false;
+      }
+      if (choice.choices) {
+        if (choice.choices.length < MIN_CHOICES_TO_SHOW) {
+          return false;
+        }
+        return true;
+      }
+      if (!choice.min || !choice.max) {
+        return false;
+      }
+      return true;
     });
   };
 
