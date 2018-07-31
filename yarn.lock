@@ -8017,9 +8017,9 @@ make-dir@^1.0.0, make-dir@^1.1.0:
     nodemailer-mock "^1.3.13"
     path "^0.12.7"
 
-"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.3":
-  version "0.0.2"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#13ebde72684d0168dfbd5fb4b99ad885a35710e6"
+"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.5":
+  version "0.0.5"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#cf1855a7b59257cd810baba0b901fe7e6aa6a8ea"
   dependencies:
     ajv "^6.5.1"
     babel-jest "^23.0.1"
@@ -8043,6 +8043,7 @@ make-dir@^1.0.0, make-dir@^1.1.0:
     nhs-number-validator "^1.1.1"
     pluralize "^7.0.0"
     prop-types "^15.6.0"
+    qs "^6.5.2"
     react "^16.2.0"
     react-bootstrap-typeahead "^3.0.0-alpha.2"
     react-datepicker "^1.4.1"
