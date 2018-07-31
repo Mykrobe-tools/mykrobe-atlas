@@ -18,6 +18,7 @@ import { isNumeric } from '../../util';
 import styles from './ChoicesFilters.scss';
 import type { Choice } from './types';
 import ChoiceFilterSelect from './ChoiceFilterSelect';
+import ChoiceFilterDateRange from './ChoiceFilterDateRange';
 
 type State = {
   placeholderChoiceKeys: Array<string>,
@@ -123,7 +124,7 @@ class ChoicesFilters extends React.Component<*, State> {
       if (isNumeric(choice.min) && isNumeric(choice.max)) {
         component = this.renderNumericRange(choiceKey, placeholder);
       } else {
-        component = this.renderDateRange(choiceKey, placeholder);
+        component = <ChoiceFilterDateRange {...props} />;
       }
     }
     if (!component) {
@@ -155,10 +156,6 @@ class ChoicesFilters extends React.Component<*, State> {
 
   renderNumericRange = (choiceKey: string, placeholder: boolean) => {
     return 'TODO: numeric range';
-  };
-
-  renderDateRange = (choiceKey: string, placeholder: boolean) => {
-    return 'TODO: date range';
   };
 
   render() {

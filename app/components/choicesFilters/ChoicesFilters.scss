@@ -7,6 +7,11 @@
 	margin-bottom: -0.5rem;
 }
 
+.dropdownMenu {
+	max-height: 20rem;
+	overflow-y: scroll;
+}
+
 .remove {
 	composes: global(text-mid);
 	composes: global(px-2);
