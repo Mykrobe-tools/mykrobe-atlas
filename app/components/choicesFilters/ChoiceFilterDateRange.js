@@ -76,6 +76,16 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
         {displayTitle}
         {' · '}
         <DatePicker
+          customInput={
+            <div>
+              <div className={styles.customInput}>
+                <a href="#">
+                  {moment(min).format(DatePicker.defaultProps.dateFormat)}{' '}
+                  <i className={'fa fa-caret-down'} />
+                </a>
+              </div>
+            </div>
+          }
           value={min}
           selectsStart
           startDate={moment(min)}
@@ -84,7 +94,7 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
           maxDate={moment(choice.max)}
           onChange={this.onMinChange}
         />
-        {' · '}
+        {' – '}
         <DatePicker
           value={max}
           selectsEnd
