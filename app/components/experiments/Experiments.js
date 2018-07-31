@@ -21,6 +21,7 @@ import styles from './Experiments.scss';
 import ExperimentsTable from './ExperimentsTable';
 import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
 import Header from '../header/Header';
+import { notImplemented } from '../../util';
 
 import UploadButton from '../upload/button/UploadButton';
 import SearchInput from '../ui/SearchInput';
@@ -161,9 +162,18 @@ class Experiments extends React.Component<*, State> {
                               ? `${total.toLocaleString()} selected`
                               : `${selected.length} selected`}
                           </DropdownItem>
-                          {showCompare && <DropdownItem>Compare</DropdownItem>}
-                          <DropdownItem>Share</DropdownItem>
-                          <DropdownItem>Delete</DropdownItem>
+                          <DropdownItem divider />
+                          {showCompare && (
+                            <DropdownItem onClick={notImplemented}>
+                              Compare
+                            </DropdownItem>
+                          )}
+                          <DropdownItem onClick={notImplemented}>
+                            Share
+                          </DropdownItem>
+                          <DropdownItem onClick={notImplemented}>
+                            Delete
+                          </DropdownItem>
                         </DropdownMenu>
                       </UncontrolledDropdown>
                     </div>
