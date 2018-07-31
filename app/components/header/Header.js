@@ -16,6 +16,7 @@ import {
 } from 'reactstrap';
 
 import NotificationsButton from '../notifications/NotificationsButton';
+import { notImplemented } from '../../util';
 import styles from './Header.scss';
 
 import {
@@ -63,8 +64,8 @@ class Header extends React.Component<*> {
                     Your Profile
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem>Help</DropdownItem>
-                  <DropdownItem>Settings</DropdownItem>
+                  <DropdownItem onClick={notImplemented}>Help</DropdownItem>
+                  <DropdownItem onClick={notImplemented}>Settings</DropdownItem>
                   <DropdownItem
                     onClick={signOut}
                     data-tid="navbar-link-sign-out"
