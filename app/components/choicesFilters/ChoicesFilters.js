@@ -14,6 +14,7 @@ import {
 
 import { Select } from 'makeandship-js-common/src/components/ui/form';
 
+import { isNumeric } from '../../util';
 import styles from './ChoicesFilters.scss';
 
 type State = {
@@ -110,6 +111,55 @@ class ChoicesFilters extends React.Component<*, State> {
   };
 
   renderChoice = (choiceKey: string, placeholder: boolean) => {
+    const { choices } = this.props;
+    const choice: Choice = choices[choiceKey];
+    let component;
+    if (choice.choices) {
+      component = this.renderChoiceSelect(choiceKey, placeholder);
+    }
+    if (choice.min && choice.max) {
+      if (isNumeric(choice.min) && isNumeric(choice.max)) {
+        component = this.renderNumericRange(choiceKey, placeholder);
+      } else {
+        component = this.renderDateRange(choiceKey, placeholder);
+      }
+    }
+    if (!component) {
+      return null;
+    }
+    return (
+      <div key={choiceKey} className={styles.element}>
+        {component}
+
+        <a
+          href="#"
+          className={styles.remove}
+          onClick={e => {
+            e.preventDefault();
+            if (placeholder) {
+              this.removePlaceholderChoiceKey(choiceKey);
+            } else {
+              this.removeChoiceKey(choiceKey);
+            }
+          }}
+        >
+          <i className="fa fa-times-circle" />
+        </a>
+      </div>
+    );
+  };
+
+  // TODO: refactor into individual components
+
+  renderNumericRange = (choiceKey: string, placeholder: boolean) => {
+    return 'TODO: numeric range';
+  };
+
+  renderDateRange = (choiceKey: string, placeholder: boolean) => {
+    return 'TODO: date range';
+  };
+
+  renderChoiceSelect = (choiceKey: string, placeholder: boolean) => {
     const { choices, choicesFilters } = this.props;
     const choice: Choice = choices[choiceKey];
     const options =
@@ -126,43 +176,26 @@ class ChoicesFilters extends React.Component<*, State> {
       ? displayTitle
       : `${displayTitle} · ${choicesFilters[choiceKey]}`;
     return (
-      <div key={choiceKey} className={styles.element}>
-        <div className={styles.select}>
-          <div className={styles.widthSizer}>{displayValue}</div>
-          <Select
-            name={choiceKey}
-            value={value}
-            valueComponent={({ value }) => {
-              return (
-                <div className="Select-value" title={value.label}>
-                  <span className="Select-value-label">{displayValue}</span>
-                </div>
-              );
-            }}
-            onChange={this.onChangeFilterValue}
-            placeholder={displayTitle}
-            options={options}
-            clearable={false}
-            initiallyOpen={placeholder}
-            searchable
-            wideMenu
-          />
-        </div>
-
-        <a
-          href="#"
-          className={styles.remove}
-          onClick={e => {
-            e.preventDefault();
-            if (placeholder) {
-              this.removePlaceholderChoiceKey(choiceKey);
-            } else {
-              this.removeChoiceKey(choiceKey);
-            }
+      <div className={styles.select}>
+        <div className={styles.widthSizer}>{displayValue}</div>
+        <Select
+          name={choiceKey}
+          value={value}
+          valueComponent={({ value }) => {
+            return (
+              <div className="Select-value" title={value.label}>
+                <span className="Select-value-label">{displayValue}</span>
+              </div>
+            );
           }}
-        >
-          <i className="fa fa-times-circle" />
-        </a>
+          onChange={this.onChangeFilterValue}
+          placeholder={displayTitle}
+          options={options}
+          clearable={false}
+          initiallyOpen={placeholder}
+          searchable
+          wideMenu
+        />
       </div>
     );
   };
