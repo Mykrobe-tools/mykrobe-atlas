@@ -16,16 +16,11 @@ import { Select } from 'makeandship-js-common/src/components/ui/form';
 
 import { isNumeric } from '../../util';
 import styles from './ChoicesFilters.scss';
+import type { Choice } from './types';
+import ChoiceFilterSelect from './ChoiceFilterSelect';
 
 type State = {
   placeholderChoiceKeys: Array<string>,
-};
-
-type Choice = {
-  title: string,
-  min?: string,
-  max?: string,
-  choices?: Array<*>,
 };
 
 const MIN_CHOICES_TO_SHOW = 2;
@@ -111,11 +106,18 @@ class ChoicesFilters extends React.Component<*, State> {
   };
 
   renderChoice = (choiceKey: string, placeholder: boolean) => {
-    const { choices } = this.props;
+    const { choices, choicesFilters } = this.props;
     const choice: Choice = choices[choiceKey];
     let component;
+    const props = {
+      choices,
+      choicesFilters,
+      choiceKey,
+      placeholder,
+      onChange: this.onChangeFilterValue,
+    };
     if (choice.choices) {
-      component = this.renderChoiceSelect(choiceKey, placeholder);
+      component = <ChoiceFilterSelect {...props} />;
     }
     if (choice.min && choice.max) {
       if (isNumeric(choice.min) && isNumeric(choice.max)) {
@@ -157,47 +159,6 @@ class ChoicesFilters extends React.Component<*, State> {
 
   renderDateRange = (choiceKey: string, placeholder: boolean) => {
     return 'TODO: date range';
-  };
-
-  renderChoiceSelect = (choiceKey: string, placeholder: boolean) => {
-    const { choices, choicesFilters } = this.props;
-    const choice: Choice = choices[choiceKey];
-    const options =
-      choice.choices &&
-      choice.choices.map(value => {
-        return {
-          value: value.key,
-          label: `${value.key} (${value.count})`,
-        };
-      });
-    const displayTitle = choice.title;
-    const value = placeholder ? '' : choicesFilters[choiceKey];
-    const displayValue = placeholder
-      ? displayTitle
-      : `${displayTitle} · ${choicesFilters[choiceKey]}`;
-    return (
-      <div className={styles.select}>
-        <div className={styles.widthSizer}>{displayValue}</div>
-        <Select
-          name={choiceKey}
-          value={value}
-          valueComponent={({ value }) => {
-            return (
-              <div className="Select-value" title={value.label}>
-                <span className="Select-value-label">{displayValue}</span>
-              </div>
-            );
-          }}
-          onChange={this.onChangeFilterValue}
-          placeholder={displayTitle}
-          options={options}
-          clearable={false}
-          initiallyOpen={placeholder}
-          searchable
-          wideMenu
-        />
-      </div>
-    );
   };
 
   render() {
