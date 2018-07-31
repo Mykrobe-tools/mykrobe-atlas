@@ -78,20 +78,10 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
   );
 
   render() {
-    const {
-      choices,
-      choicesFilters,
-      choiceKey,
-      placeholder,
-      onChange,
-    } = this.props;
+    const { choices, choiceKey } = this.props;
     const { max, min } = this.state;
     const choice: Choice = choices[choiceKey];
     const displayTitle = choice.title;
-    const value = placeholder ? '' : choicesFilters[choiceKey];
-    const displayValue = placeholder
-      ? displayTitle
-      : `${displayTitle} · ${choicesFilters[choiceKey]}`;
     return (
       <div className={styles.componentWrap}>
         {displayTitle}
@@ -105,6 +95,9 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
           minDate={moment(choice.min)}
           maxDate={moment(choice.max)}
           onChange={this.onMinChange}
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
         />
         {' – '}
         <DatePicker
@@ -116,6 +109,9 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
           minDate={moment(min)}
           maxDate={moment(choice.max)}
           onChange={this.onMaxChange}
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
         />
       </div>
     );

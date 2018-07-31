@@ -154,6 +154,7 @@ class ChoicesFilters extends React.Component<*, State> {
 
   // TODO: refactor into individual components
 
+  // eslint-disable-next-line
   renderNumericRange = (choiceKey: string, placeholder: boolean) => {
     return 'TODO: numeric range';
   };
