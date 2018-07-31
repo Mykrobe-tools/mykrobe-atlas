@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import { DatePicker } from 'makeandship-js-common/src/components/ui/form';
 
@@ -17,15 +18,10 @@ type State = {
 class ChoiceFilterDateRange extends React.Component<*, State> {
   state = {};
 
-  // static getDerivedStateFromProps = (props: any, state:): State => {
-  //   const { choices, choiceKey } = props;
-  //   const choice: Choice = choices[choiceKey];
-  //   const { max, min } = choice;
-  //   return {
-  //     max,
-  //     min,
-  //   };
-  // };
+  constructor(props: any) {
+    super(props);
+    this.state = this.minMaxFromProps(props);
+  }
 
   minMaxFromProps = (props: any) => {
     const { choices, choiceKey } = props;
@@ -37,11 +33,6 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
     };
   };
 
-  constructor(props: any) {
-    super(props);
-    this.state = this.minMaxFromProps(props);
-  }
-
   componentDidUpdate = (prevProps: any) => {
     const minMax = this.minMaxFromProps(this.props);
     const prevMinMax = this.minMaxFromProps(prevProps);
@@ -51,8 +42,11 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
   };
 
   onMinChange = (min: string) => {
+    // allow user to select any start date, make sure that the current max doesn't overlap
+    const max = moment.max(moment(min), moment(this.state.max)).format();
     this.setState({
       min,
+      max,
     });
   };
 
@@ -81,8 +75,19 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
     return (
       <div className={styles.componentWrap}>
         {displayTitle} ·
-        <DatePicker value={min} onChange={this.onMinChange} /> ·
-        <DatePicker value={max} onChange={this.onMaxChange} />
+        <DatePicker
+          value={min}
+          minDate={moment(choice.min)}
+          maxDate={moment(choice.max)}
+          onChange={this.onMinChange}
+        />{' '}
+        ·
+        <DatePicker
+          value={max}
+          minDate={moment(min)}
+          maxDate={moment(choice.max)}
+          onChange={this.onMaxChange}
+        />
       </div>
     );
   }
