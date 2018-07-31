@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { Select } from 'makeandship-js-common/src/components/ui/form';
 
-import styles from './ChoicesFilters.scss';
+import styles from './ChoiceFilterSelect.scss';
 
 import type { Choice } from './types';
 
