@@ -14,17 +14,14 @@ import {
 
 import { Select } from 'makeandship-js-common/src/components/ui/form';
 
+import { isNumeric } from '../../util';
 import styles from './ChoicesFilters.scss';
+import type { Choice } from './types';
+import ChoiceFilterSelect from './ChoiceFilterSelect';
+import ChoiceFilterDateRange from './ChoiceFilterDateRange';
 
 type State = {
   placeholderChoiceKeys: Array<string>,
-};
-
-type Choice = {
-  title: string,
-  min?: string,
-  max?: string,
-  choices?: Array<*>,
 };
 
 const MIN_CHOICES_TO_SHOW = 2;
@@ -90,54 +87,52 @@ class ChoicesFilters extends React.Component<*, State> {
     const choicesKeys: Array<string> = Object.keys(choices);
     return choicesKeys.filter(choiceKey => {
       const choice: Choice = choices[choiceKey];
-      return (
-        !placeholderChoiceKeys.includes(choiceKey) &&
-        !choicesFiltersKeys.includes(choiceKey) &&
-        choice.choices &&
-        choice.choices.length >= MIN_CHOICES_TO_SHOW
-      );
+      if (
+        placeholderChoiceKeys.includes(choiceKey) ||
+        choicesFiltersKeys.includes(choiceKey)
+      ) {
+        return false;
+      }
+      if (choice.choices) {
+        if (choice.choices.length < MIN_CHOICES_TO_SHOW) {
+          return false;
+        }
+        return true;
+      }
+      if (!choice.min || !choice.max) {
+        return false;
+      }
+      return true;
     });
   };
 
   renderChoice = (choiceKey: string, placeholder: boolean) => {
     const { choices, choicesFilters } = this.props;
     const choice: Choice = choices[choiceKey];
-    const options =
-      choice.choices &&
-      choice.choices.map(value => {
-        return {
-          value: value.key,
-          label: `${value.key} (${value.count})`,
-        };
-      });
-    const displayTitle = choice.title;
-    const value = placeholder ? '' : choicesFilters[choiceKey];
-    const displayValue = placeholder
-      ? displayTitle
-      : `${displayTitle} · ${choicesFilters[choiceKey]}`;
+    let component;
+    const props = {
+      choices,
+      choicesFilters,
+      choiceKey,
+      placeholder,
+      onChange: this.onChangeFilterValue,
+    };
+    if (choice.choices) {
+      component = <ChoiceFilterSelect {...props} />;
+    }
+    if (choice.min && choice.max) {
+      if (isNumeric(choice.min) && isNumeric(choice.max)) {
+        component = this.renderNumericRange(choiceKey, placeholder);
+      } else {
+        component = <ChoiceFilterDateRange {...props} />;
+      }
+    }
+    if (!component) {
+      return null;
+    }
     return (
       <div key={choiceKey} className={styles.element}>
-        <div className={styles.select}>
-          <div className={styles.widthSizer}>{displayValue}</div>
-          <Select
-            name={choiceKey}
-            value={value}
-            valueComponent={({ value }) => {
-              return (
-                <div className="Select-value" title={value.label}>
-                  <span className="Select-value-label">{displayValue}</span>
-                </div>
-              );
-            }}
-            onChange={this.onChangeFilterValue}
-            placeholder={displayTitle}
-            options={options}
-            clearable={false}
-            initiallyOpen={placeholder}
-            searchable
-            wideMenu
-          />
-        </div>
+        {component}
 
         <a
           href="#"
@@ -155,6 +150,13 @@ class ChoicesFilters extends React.Component<*, State> {
         </a>
       </div>
     );
+  };
+
+  // TODO: refactor into individual components
+
+  // eslint-disable-next-line
+  renderNumericRange = (choiceKey: string, placeholder: boolean) => {
+    return 'TODO: numeric range';
   };
 
   render() {
