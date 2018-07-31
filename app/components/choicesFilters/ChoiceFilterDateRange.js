@@ -42,19 +42,40 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
   };
 
   onMinChange = (min: string) => {
+    const { choiceKey, onChange } = this.props;
     // allow user to select any start date, make sure that the current max doesn't overlap
     const max = moment.max(moment(min), moment(this.state.max)).format();
     this.setState({
       min,
       max,
     });
-  };
-
-  onMaxChange = (max: string) => {
-    this.setState({
+    onChange(choiceKey, {
+      min,
       max,
     });
   };
+
+  onMaxChange = (max: string) => {
+    const { choiceKey, onChange } = this.props;
+    this.setState({
+      max,
+    });
+    onChange(choiceKey, {
+      min: this.state.min,
+      max,
+    });
+  };
+
+  customInput = (value?: string) => (
+    <div>
+      <div className={styles.customInput}>
+        <a href="#" onClick={e => e.preventDefault()}>
+          {moment(value).format(DatePicker.defaultProps.dateFormat)}{' '}
+          <i className={'fa fa-caret-down'} />
+        </a>
+      </div>
+    </div>
+  );
 
   render() {
     const {
@@ -76,16 +97,7 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
         {displayTitle}
         {' · '}
         <DatePicker
-          customInput={
-            <div>
-              <div className={styles.customInput}>
-                <a href="#">
-                  {moment(min).format(DatePicker.defaultProps.dateFormat)}{' '}
-                  <i className={'fa fa-caret-down'} />
-                </a>
-              </div>
-            </div>
-          }
+          customInput={this.customInput(min)}
           value={min}
           selectsStart
           startDate={moment(min)}
@@ -96,6 +108,7 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
         />
         {' – '}
         <DatePicker
+          customInput={this.customInput(max)}
           value={max}
           selectsEnd
           startDate={moment(min)}
