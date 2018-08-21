@@ -72,7 +72,9 @@ class Signup extends React.Component<*> {
           >
             <FormFooter>
               <div>
-                <SubmitButton marginRight>Sign up</SubmitButton>
+                <SubmitButton data-tid="button-submit" marginRight>
+                  Sign up
+                </SubmitButton>
                 <LinkButton to="/auth/login">Log in</LinkButton>
               </div>
             </FormFooter>

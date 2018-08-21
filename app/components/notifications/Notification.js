@@ -135,6 +135,7 @@ class Notification extends React.Component<*, State> {
                   visibility: expandable && expanded ? 'visible' : 'hidden',
                   height: expandable && expanded ? 'auto' : '0',
                 }}
+                data-tid={'component-notification-content'}
               >
                 {content}
               </div>

@@ -9,14 +9,14 @@ class SummaryVariants extends React.Component<*> {
       <div className={styles.container}>
         <div className={styles.group}>
           <div className={styles.title}>Isoniazid</div>
-          <div>Resistance mutation found: S315W in gene katG</div>
+          <div>[Placeholder] Resistance mutation found: S315W in gene katG</div>
           <div>Resistant allele seen 22 times</div>
           <div>Susceptible allele seen 0 times</div>
           <div>High Confidence call – 97% PPV</div>
         </div>
         <div className={styles.group}>
           <div className={styles.title}>Whole genome analysis</div>
-          <div>Depth of coverage 80&times;</div>
+          <div>[Placeholder] Depth of coverage 80&times;</div>
           <div>No evidence of multiple strains (only 2 heterozygous sites)</div>
           <div>
             <a href="#">
@@ -26,7 +26,7 @@ class SummaryVariants extends React.Component<*> {
         </div>
         <div className={styles.group}>
           <div className={styles.title}>Contamination check</div>
-          <div>Minor contamination (3%) from M. abscessus</div>
+          <div>[Placeholder] Minor contamination (3%) from M. abscessus</div>
         </div>
       </div>
     );

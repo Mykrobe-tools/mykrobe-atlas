@@ -13,15 +13,15 @@ class SummaryMetadata extends React.Component<*> {
             <tbody>
               <tr>
                 <td>Sample ID</td>
-                <td>45869836589536483489</td>
+                <td>[Placeholder] 45869836589536483489</td>
               </tr>
               <tr>
                 <td>Location</td>
-                <td>United Kingdom</td>
+                <td>[Placeholder] United Kingdom</td>
               </tr>
               <tr>
                 <td>Date collected</td>
-                <td>11.06.16</td>
+                <td>[Placeholder] 11.06.16</td>
               </tr>
             </tbody>
           </table>
@@ -32,16 +32,17 @@ class SummaryMetadata extends React.Component<*> {
               <tr>
                 <td>Species</td>
                 <td>
-                  <em>M. tuberculosis / M. abscessus</em>
+                  <em>[Placeholder] M. tuberculosis / M. abscessus</em>
                 </td>
               </tr>
               <tr>
                 <td>TB Lineage</td>
-                <td>European / American</td>
+                <td>[Placeholder] European / American</td>
               </tr>
               <tr>
                 <td>Closest relative</td>
                 <td>
+                  [Placeholder]{' '}
                   <a href="#">
                     <i className="fa fa-chevron-circle-right" /> :sampleid:
                   </a>{' '}

@@ -7,6 +7,7 @@ import ResistanceProfile from '../profile/ResistanceProfile';
 import Panel from '../../../ui/Panel';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
 import Phylogeny from '../../../phylogeny/Phylogeny';
+import Empty from '../../../ui/Empty';
 
 class ResistanceAll extends React.Component<*> {
   render() {
@@ -19,6 +20,8 @@ class ResistanceAll extends React.Component<*> {
         </div>
       );
     }
+    const newick = experimentTransformed.tree;
+    const { hasTree } = !!newick;
     return (
       <div className={styles.container} data-tid="component-resistance-all">
         <Panel title="Resistance Profile" columns={IS_ELECTRON ? undefined : 3}>
@@ -29,7 +32,11 @@ class ResistanceAll extends React.Component<*> {
         </Panel>
         {!IS_ELECTRON && (
           <Panel title="Phylogeny" columns={5}>
-            <Phylogeny controlsInset={0} />
+            {hasTree ? (
+              <Phylogeny controlsInset={0} />
+            ) : (
+              <Empty title={'No Tree'} subtitle={'The analysis has no tree'} />
+            )}
           </Panel>
         )}
       </div>
