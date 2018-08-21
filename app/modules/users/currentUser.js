@@ -1,9 +1,11 @@
 /* @flow */
 
-import { all, call, fork, put, takeEvery, select } from 'redux-saga/effects';
+import { all, fork, put, takeEvery, select } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
+
+// import 'event-source-polyfill';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import { getAccessToken } from 'makeandship-js-common/src/modules/auth';
@@ -121,7 +123,9 @@ function* startWatchingCurrentUserEvents() {
   const options = buildOptionsWithToken({}, accessToken);
 
   // TODO contruct this with swagger operation id
-  _eventSource = new EventSource(`${API_URL}/user/events`);
+  _eventSource = new EventSourcePolyfill(`${API_URL}/user/events`, {
+    headers: options.headers,
+  });
   _eventSource.onmessage = e => {
     console.log('EventSource message', e);
   };
