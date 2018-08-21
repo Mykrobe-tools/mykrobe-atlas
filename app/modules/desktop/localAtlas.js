@@ -227,6 +227,7 @@ export function* analyseFileErrorWorker(action: any): Saga {
       category: NotificationCategories.ERROR,
       content: action.payload,
       autoHide: false,
+      expanded: true,
     })
   );
   yield put(push('/'));
