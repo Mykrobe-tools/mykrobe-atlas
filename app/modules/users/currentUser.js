@@ -1,11 +1,14 @@
 /* @flow */
 
-import { all, fork, put, takeEvery, select } from 'redux-saga/effects';
+import { all, call, fork, put, takeEvery, select } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
+import { getAccessToken } from 'makeandship-js-common/src/modules/auth';
+import { buildOptionsWithToken } from 'makeandship-js-common/src/modules/api/jsonApi';
+import { API_URL } from 'makeandship-js-common/src/modules/api/constants';
 import {
   getIsAuthenticated,
   signOut,
@@ -84,11 +87,17 @@ function* authInitialiseWorker() {
   const isAuthenticated = yield select(getIsAuthenticated);
   if (isAuthenticated) {
     yield put(requestEntity());
+    yield fork(startWatchingCurrentUserEvents);
   }
 }
 
 function* authSignInWatcher() {
-  yield takeEvery(SIGNIN_SUCCESS, requestEntityWorker);
+  yield takeEvery(SIGNIN_SUCCESS, authSignInWorker);
+}
+
+function* authSignInWorker() {
+  yield fork(requestEntityWorker);
+  yield fork(startWatchingCurrentUserEvents);
 }
 
 function* authSignOutWatcher() {
@@ -100,6 +109,30 @@ function* authSignOutWatcher() {
 
 function* authSignOutWorker() {
   yield put(resetEntity());
+  yield fork(stopWatchingCurrentUserEvents);
+}
+
+// events
+
+let _eventSource;
+
+function* startWatchingCurrentUserEvents() {
+  const accessToken = yield select(getAccessToken);
+  const options = buildOptionsWithToken({}, accessToken);
+
+  // TODO contruct this with swagger operation id
+  _eventSource = new EventSource(`${API_URL}/user/events`);
+  _eventSource.onmessage = e => {
+    console.log('EventSource message', e);
+  };
+  _eventSource.onerror = e => {
+    console.log('EventSource failed.');
+  };
+}
+
+function* stopWatchingCurrentUserEvents() {
+  _eventSource && _eventSource.close();
+  _eventSource = null;
 }
 
 // TODO: create sagas etc. to update current user profile and avatar together
