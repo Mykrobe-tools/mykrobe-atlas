@@ -199,11 +199,11 @@ INCLUDE_SLOW_TESTS &&
             );
             // should display an error notification rejecting this file
             await client.waitForVisible(
-              '[data-tid="component-notifications"] [data-tid="notification"]',
+              '[data-tid="component-notification-content"]',
               10 * 60 * 1000
             );
             const notifications = await textForSelector(
-              '[data-tid="component-notifications"] [data-tid="notification"]'
+              '[data-tid="component-notification-content"]'
             );
             await saveScreenshot(`${source}__rejection__.png`);
             expect(

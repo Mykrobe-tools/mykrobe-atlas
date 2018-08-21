@@ -52,6 +52,13 @@ class AnalyserJsonTransformer {
   }
 
   transformModel(sourceModel: Object): Object {
+    if (sourceModel.results) {
+      // web - just do the first one for now
+      const sampleModel = sourceModel.results[0];
+      console.log('sampleModel', JSON.stringify(sampleModel, null, 2));
+      const transformedSampleModel = this.transformSampleModel(sampleModel);
+      return transformedSampleModel;
+    }
     if (sourceModel.snpDistance) {
       // just do the first one for now
       const sampleIds = Object.keys(sourceModel.snpDistance.newick);
@@ -137,8 +144,7 @@ class AnalyserJsonTransformer {
     transformed.positive = [];
     transformed.negative = [];
     transformed.inducible = [];
-
-    transformed.evidence = this._sortObject(transformed.evidence);
+    transformed.evidence = {};
 
     /*
 
@@ -159,14 +165,19 @@ class AnalyserJsonTransformer {
     let key;
     let value;
     let isInducible;
-    let virulenceModel;
 
     const susceptibilityModel = sourceModel['susceptibility'];
 
-    const genotypeModel = sourceModel.genotype_model || 'median_depth';
+    const genotypeModel =
+      sourceModel['genotype_model'] ||
+      sourceModel['genotypeModel'] ||
+      'median_depth';
 
     for (key in susceptibilityModel) {
-      const predict = susceptibilityModel[key]['predict'].toUpperCase();
+      let predict =
+        susceptibilityModel[key]['predict'] ||
+        susceptibilityModel[key]['prediction'];
+      predict = predict.toUpperCase();
       value = predict.substr(0, 1);
       isInducible = predict.indexOf('INDUCIBLE') !== -1;
       if (value === 'S') {
@@ -179,8 +190,11 @@ class AnalyserJsonTransformer {
       if (isInducible) {
         transformed.inducible.push(key);
       }
-      if ('called_by' in susceptibilityModel[key]) {
-        const calledBy = susceptibilityModel[key]['called_by'];
+
+      const calledBy =
+        susceptibilityModel[key]['called_by'] ||
+        susceptibilityModel[key]['calledBy'];
+      if (calledBy) {
         for (let calledByKey in calledBy) {
           // group by title
           o = [];
@@ -216,8 +230,12 @@ class AnalyserJsonTransformer {
       }
     }
 
-    if ('virulence_toxins' in sourceModel) {
-      virulenceModel = sourceModel['virulence_toxins'];
+    transformed.evidence = this._sortObject(transformed.evidence);
+
+    const virulenceModel =
+      sourceModel['virulence_toxins'] || sourceModel['virulenceToxins'];
+
+    if (virulenceModel) {
       for (key in virulenceModel) {
         value = virulenceModel[key].toUpperCase();
         if (value === 'POSITIVE') {
