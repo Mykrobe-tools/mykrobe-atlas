@@ -47,7 +47,9 @@ class Forgot extends React.Component<*> {
           >
             <FormFooter>
               <div>
-                <SubmitButton marginRight>Get new password</SubmitButton>
+                <SubmitButton data-tid="button-submit" marginRight>
+                  Get new password
+                </SubmitButton>
                 <LinkButton to="/auth/login" marginRight>
                   Log in
                 </LinkButton>

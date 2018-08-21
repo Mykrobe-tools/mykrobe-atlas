@@ -42,6 +42,7 @@ class Header extends React.Component<*> {
                 <DropdownToggle
                   tag="a"
                   className={styles.currentUserDropdownToggle}
+                  data-tid="current-user-dropdown-toggle"
                 >
                   <span>
                     {currentUser.lastname}, {currentUser.firstname}{' '}
