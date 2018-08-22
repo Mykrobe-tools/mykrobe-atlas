@@ -49,6 +49,9 @@ class ChoicesFilters extends React.Component<*, State> {
     const { clearFilters } = this.props;
     e && e.preventDefault();
     clearFilters();
+    this.setState({
+      placeholderChoiceKeys: [],
+    });
   };
 
   removePlaceholderChoiceKey = (key: string, callback?: Function) => {
