@@ -188,7 +188,9 @@ class ChoicesFilters extends React.Component<*, State> {
                 placeholder={'Add filters'}
                 options={addFilterChoicesKeys.map(choiceKey => {
                   const choice: Choice = choices[choiceKey];
-                  const displayTitle = choice.titles.join(' › ');
+                  const displayTitle = choice.titles
+                    ? choice.titles.join(' › ')
+                    : choice.title || 'Untitled';
                   return {
                     value: choiceKey,
                     label: displayTitle,
