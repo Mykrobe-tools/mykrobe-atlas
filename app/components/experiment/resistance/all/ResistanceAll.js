@@ -12,11 +12,11 @@ import Empty from '../../../ui/Empty';
 class ResistanceAll extends React.Component<*> {
   render() {
     const { experiment, experimentTransformed } = this.props;
-    const { hasResistance } = experimentTransformed;
+    const { hasResistance, error } = experimentTransformed;
     if (!hasResistance) {
       return (
         <div className={styles.empty} data-tid="component-resistance-all">
-          <ResistanceEmpty data-tid="component-resistance-all" />
+          <ResistanceEmpty subtitle={error} />
         </div>
       );
     }
