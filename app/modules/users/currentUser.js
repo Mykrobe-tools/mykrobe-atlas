@@ -125,6 +125,7 @@ function* startWatchingCurrentUserEvents() {
   // TODO contruct this with swagger operation id
   _eventSource = new EventSourcePolyfill(`${API_URL}/user/events`, {
     headers: options.headers,
+    heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
   });
   _eventSource.onmessage = e => {
     console.log('EventSource message', e);
