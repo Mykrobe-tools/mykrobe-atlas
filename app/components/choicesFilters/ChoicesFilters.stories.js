@@ -18,7 +18,6 @@ const choices = require('./__fixtures__/choices');
 
 const variations = {
   empty: {
-    size: 'sm',
     setFilters,
     clearFilters,
     filters: {},
@@ -26,7 +25,6 @@ const variations = {
     choices: {},
   },
   default: {
-    size: 'sm',
     setFilters,
     clearFilters,
     filters: {},
@@ -34,7 +32,6 @@ const variations = {
     choices,
   },
   filters1: {
-    size: 'sm',
     setFilters,
     clearFilters,
     filters: {
@@ -43,6 +40,7 @@ const variations = {
     choicesFilters: {
       'metadata.phenotyping.gatifloxacin.method': 'Microtitre plate',
     },
+    hasFilters: true,
     choices,
   },
 };
@@ -72,12 +70,14 @@ class ChoicesFiltersPreservingFilters extends React.Component<*, State> {
   render() {
     const { filters: discardedFilters, ...rest } = this.props; // eslint-disable-line
     const { filters } = this.state;
+    const hasFilters = Object.keys(filters).length > 0;
     return (
       <ChoicesFilters
         filters={filters}
         choicesFilters={filters}
         clearFilters={this.clearFilters}
         setFilters={this.setFilters}
+        hasFilters={hasFilters}
         {...rest}
       />
     );
@@ -91,9 +91,6 @@ storiesOf('ChoicesFilters', module)
   .add('Default', () => <ChoicesFilters {...variations.default} />)
   .add('Filters 1', () => <ChoicesFilters {...variations.filters1} />)
   .add('Preserve Filters', () => (
-    <ChoicesFiltersPreservingFilters
-      size="sm"
-      choices={variations.default.choices}
-    />
+    <ChoicesFiltersPreservingFilters choices={variations.default.choices} />
   ))
   .add('Empty', () => <ChoicesFilters {...variations.empty} />);
