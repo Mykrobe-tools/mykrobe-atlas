@@ -11,6 +11,7 @@ import styles from './ChoicesFilters.scss';
 import type { Choice } from './types';
 import ChoiceFilterSelect from './ChoiceFilterSelect';
 import ChoiceFilterDateRange from './ChoiceFilterDateRange';
+import { shortesTitleForChoiceWithKeyInChoices } from './util';
 
 type State = {
   placeholderChoiceKeys: Array<string>,
