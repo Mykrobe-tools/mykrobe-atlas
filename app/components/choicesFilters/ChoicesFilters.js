@@ -199,7 +199,7 @@ class ChoicesFilters extends React.Component<*, State> {
               <DropdownMenu className={styles.dropdownMenu}>
                 {addFilterChoicesKeys.map(choiceKey => {
                   const choice: Choice = choices[choiceKey];
-                  const displayTitle = choice.title;
+                  const displayTitle = choice.titles.join(' › ');
                   return (
                     <DropdownItem
                       onClick={e => {
