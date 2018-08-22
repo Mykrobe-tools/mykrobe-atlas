@@ -120,9 +120,11 @@ class AnalyserJsonTransformer {
     const { hasSpecies, hasResistance } = transformed;
 
     if (!hasSpecies && !hasResistance) {
-      throw new Error(
-        `This sample does not appear to contain any Mycobacterial data (or it is amplicon data, which is not supported), and therefore the predictor does not give susceptibility predictions`
-      );
+      const error = `This sample does not appear to contain any Mycobacterial data (or it is amplicon data, which is not supported), and therefore the predictor does not give susceptibility predictions`;
+      if (IS_ELECTRON) {
+        throw new Error(error);
+      }
+      return { error };
     }
 
     // style species for display

@@ -7,19 +7,15 @@ import Panel from '../../../ui/Panel';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
 
 class ResistanceSpecies extends React.Component<*> {
-  renderEmpty() {
-    return (
-      <div className={styles.empty} data-tid="component-resistance-evidence">
-        <ResistanceEmpty />
-      </div>
-    );
-  }
-
   render() {
     const { experimentTransformed } = this.props;
-    const { speciesPretty } = experimentTransformed;
+    const { speciesPretty, error } = experimentTransformed;
     if (!speciesPretty) {
-      return this.renderEmpty();
+      return (
+        <div className={styles.empty} data-tid="component-resistance-species">
+          <ResistanceEmpty subtitle={error} />
+        </div>
+      );
     }
     return (
       <div className={styles.container} data-tid="component-resistance-species">
