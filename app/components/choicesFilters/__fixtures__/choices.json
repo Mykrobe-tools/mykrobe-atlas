@@ -1,0 +1,3342 @@
+{
+  "metadata.phenotyping.gatifloxacin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "MODS",
+        "count": 8
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 6
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "Other",
+        "count": 2
+      },
+      {
+        "key": "LJ",
+        "count": 1
+      },
+      {
+        "key": "Not known",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.treatment.continuation.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "min": "2017-10-01T16:59:11.642Z",
+    "max": "2018-08-08T13:34:01.814Z"
+  },
+  "metadata.phenotyping.phenotypeInformationFirstLineDrugs": {
+    "title": "Phenotype Information First Line Drugs",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Phenotype Information First Line Drugs"
+    ],
+    "choices": [
+      {
+        "key": "Yes",
+        "count": 11
+      },
+      {
+        "key": "No",
+        "count": 10
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseAmikacin.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-19T14:58:26.719Z",
+    "min": "2018-09-29T15:44:03.745Z"
+  },
+  "metadata.treatment.outsideStandardPhaseEthambutol.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "min": "2018-08-31T13:57:58.568Z",
+    "max": "2019-08-21T08:42:01.109Z"
+  },
+  "results.phylogenetics.type": {
+    "title": "Name",
+    "titles": [
+      "Results",
+      "Phylogenetics",
+      "Name"
+    ],
+    "choices": []
+  },
+  "metadata.treatment.outsideStandardPhaseThioacetazone.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-11T22:33:06.830Z",
+    "min": "2017-09-19T19:15:17.293Z"
+  },
+  "metadata.treatment.outsideStandardPhaseTerizidone.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-18T02:08:38.996Z",
+    "min": "2018-09-19T22:21:37.329Z"
+  },
+  "metadata.patient.diabetic": {
+    "title": "Diabetic",
+    "titles": [
+      "Metadata",
+      "Patient",
+      "Diabetic"
+    ],
+    "choices": [
+      {
+        "key": "Diet alone",
+        "count": 8
+      },
+      {
+        "key": "Tablets",
+        "count": 8
+      },
+      {
+        "key": "Not known",
+        "count": 4
+      },
+      {
+        "key": "Insulin+tablets",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.treatment.previousTbInformation": {
+    "title": "Previous TB Information",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Previous TB Information"
+    ],
+    "choices": [
+      {
+        "key": "No",
+        "count": 13
+      },
+      {
+        "key": "Yes",
+        "count": 8
+      }
+    ]
+  },
+  "metadata.phenotyping.streptomycin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 7
+      },
+      {
+        "key": "Inconclusive",
+        "count": 6
+      },
+      {
+        "key": "Resistant",
+        "count": 6
+      },
+      {
+        "key": "Sensitive",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseIsoniazid.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-10T05:34:13.046Z",
+    "min": "2017-09-03T04:46:58.269Z"
+  },
+  "metadata.phenotyping.ethionamideProthionamide.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 8
+      },
+      {
+        "key": "Sensitive",
+        "count": 5
+      },
+      {
+        "key": "Inconclusive",
+        "count": 4
+      },
+      {
+        "key": "Resistant",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseGatifloxacin.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-16T03:02:28.220Z",
+    "min": "2018-08-26T11:30:08.647Z"
+  },
+  "metadata.outcome.dateOfDeath": {
+    "title": "Date Of Death",
+    "titles": [
+      "Metadata",
+      "Outcome",
+      "Date Of Death"
+    ],
+    "max": "2018-07-21T13:59:10.597Z",
+    "min": "2015-07-11T09:14:11.008Z"
+  },
+  "metadata.treatment.tbProphylaxisDate": {
+    "title": "TB Prophylaxis Date",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "TB Prophylaxis Date"
+    ],
+    "max": "2018-07-25T00:57:29.482Z",
+    "min": "2017-09-26T19:56:49.339Z"
+  },
+  "metadata.phenotyping.bedaquiline.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Microtitre plate",
+        "count": 7
+      },
+      {
+        "key": "LJ",
+        "count": 5
+      },
+      {
+        "key": "MGIT",
+        "count": 4
+      },
+      {
+        "key": "MODS",
+        "count": 2
+      },
+      {
+        "key": "Not known",
+        "count": 2
+      },
+      {
+        "key": "Other",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.phenotyping.gentamicin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Not known",
+        "count": 9
+      },
+      {
+        "key": "MODS",
+        "count": 6
+      },
+      {
+        "key": "LJ",
+        "count": 2
+      },
+      {
+        "key": "Other",
+        "count": 2
+      },
+      {
+        "key": "MGIT",
+        "count": 1
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseStreptomycin.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-06T20:40:09.831Z",
+    "min": "2018-09-07T06:52:00.235Z"
+  },
+  "metadata.treatment.outsideStandardPhaseOfloxacin.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-07-23T07:03:37.665Z",
+    "min": "2017-08-26T14:39:31.701Z"
+  },
+  "metadata.treatment.outsideStandardPhaseStreptomycin.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-18T11:29:17.966Z",
+    "min": "2017-08-31T11:45:43.228Z"
+  },
+  "metadata.treatment.outsideStandardPhaseMoxifloxacin.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-13T02:04:10.586Z",
+    "min": "2017-09-04T23:00:42.653Z"
+  },
+  "metadata.treatment.outsideStandardPhaseCapreomycin.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-15T09:32:31.765Z",
+    "min": "2018-08-28T02:41:36.005Z"
+  },
+  "results.kmer": {
+    "title": "KMER",
+    "titles": [
+      "Results",
+      "KMER"
+    ],
+    "max": 94674,
+    "min": 21
+  },
+  "metadata.genotyping.hainFl": {
+    "title": "HAIN FL",
+    "titles": [
+      "Metadata",
+      "Genotyping",
+      "HAIN FL"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 7
+      },
+      {
+        "key": "FL inconclusive",
+        "count": 5
+      },
+      {
+        "key": "FL resistant",
+        "count": 5
+      },
+      {
+        "key": "FL sensitive",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseMeropenem.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "min": "2017-08-22T11:07:27.410Z",
+    "max": "2018-06-05T18:08:20.697Z"
+  },
+  "metadata.treatment.nonStandardTreatment": {
+    "title": "Non Standard Treatment",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Non Standard Treatment"
+    ],
+    "choices": [
+      {
+        "key": "No",
+        "count": 10
+      },
+      {
+        "key": "Yes",
+        "count": 7
+      },
+      {
+        "key": "Not known",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.treatment.startProgrammaticTreatment": {
+    "title": "Start Programmatic Treatment",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Start Programmatic Treatment"
+    ],
+    "choices": [
+      {
+        "key": "Yes",
+        "count": 11
+      },
+      {
+        "key": "No",
+        "count": 10
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseTerizidone.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-07-30T03:27:58.442Z",
+    "min": "2017-09-10T16:16:51.532Z"
+  },
+  "metadata.phenotyping.kanamycin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Other",
+        "count": 6
+      },
+      {
+        "key": "MODS",
+        "count": 5
+      },
+      {
+        "key": "Not known",
+        "count": 4
+      },
+      {
+        "key": "LJ",
+        "count": 3
+      },
+      {
+        "key": "MGIT",
+        "count": 2
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseClofazimine.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-03T14:33:45.722Z",
+    "min": "2018-08-30T02:35:33.137Z"
+  },
+  "metadata.treatment.outsideStandardPhaseRifampicinRifabutin.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-12T05:36:25.039Z",
+    "min": "2018-09-03T07:48:34.837Z"
+  },
+  "metadata.treatment.outsideStandardPhaseEthionamideProthionamide.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-17T00:37:47.295Z",
+    "min": "2018-08-21T14:36:43.281Z"
+  },
+  "metadata.phenotyping.pretothionamide.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Sensitive",
+        "count": 9
+      },
+      {
+        "key": "Inconclusive",
+        "count": 6
+      },
+      {
+        "key": "Not tested",
+        "count": 5
+      },
+      {
+        "key": "Resistant",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.genotyping.otherGenotypeInformation": {
+    "title": "Other Genotype Information",
+    "titles": [
+      "Metadata",
+      "Genotyping",
+      "Other Genotype Information"
+    ],
+    "choices": [
+      {
+        "key": "Yes",
+        "count": 13
+      },
+      {
+        "key": "No",
+        "count": 8
+      }
+    ]
+  },
+  "metadata.phenotyping.pretothionamide.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "MGIT",
+        "count": 5
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 5
+      },
+      {
+        "key": "Not known",
+        "count": 5
+      },
+      {
+        "key": "Other",
+        "count": 3
+      },
+      {
+        "key": "MODS",
+        "count": 2
+      },
+      {
+        "key": "LJ",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.phenotyping.isoniazid.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 9
+      },
+      {
+        "key": "Resistant",
+        "count": 5
+      },
+      {
+        "key": "Sensitive",
+        "count": 4
+      },
+      {
+        "key": "Inconclusive",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.phenotyping.pyrazinamide.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "MGIT",
+        "count": 7
+      },
+      {
+        "key": "MODS",
+        "count": 4
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 4
+      },
+      {
+        "key": "Other",
+        "count": 3
+      },
+      {
+        "key": "LJ",
+        "count": 2
+      },
+      {
+        "key": "Not known",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.phenotyping.clofazimine.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "LJ",
+        "count": 5
+      },
+      {
+        "key": "Other",
+        "count": 5
+      },
+      {
+        "key": "MODS",
+        "count": 4
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 2
+      },
+      {
+        "key": "Not known",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.patient.age": {
+    "title": "Age",
+    "titles": [
+      "Metadata",
+      "Patient",
+      "Age"
+    ],
+    "min": 15,
+    "max": 76
+  },
+  "metadata.treatment.intensiveStopDate": {
+    "title": "Intensive Stop Date",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Intensive Stop Date"
+    ],
+    "min": "2018-08-25T00:49:35.165Z",
+    "max": "2019-08-09T06:21:13.775Z"
+  },
+  "metadata.treatment.outsideStandardPhasePyrazinamide.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-20T08:56:50.635Z",
+    "min": "2017-08-29T11:48:48.788Z"
+  },
+  "metadata.treatment.outsideStandardPhaseHighDoseIsoniazid.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-15T08:04:36.613Z",
+    "min": "2017-09-17T05:04:12.135Z"
+  },
+  "metadata.treatment.outsideStandardPhaseGentamicin.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-18T18:00:07.645Z",
+    "min": "2018-09-03T01:48:46.439Z"
+  },
+  "metadata.phenotyping.rerizidone.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Inconclusive",
+        "count": 6
+      },
+      {
+        "key": "Resistant",
+        "count": 6
+      },
+      {
+        "key": "Not tested",
+        "count": 5
+      },
+      {
+        "key": "Sensitive",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.outcome.whoOutcomeCategory": {
+    "title": "WHO Outcome Category",
+    "titles": [
+      "Metadata",
+      "Outcome",
+      "WHO Outcome Category"
+    ],
+    "choices": [
+      {
+        "key": "Not known",
+        "count": 5
+      },
+      {
+        "key": "Treatment success",
+        "count": 5
+      },
+      {
+        "key": "Cured",
+        "count": 4
+      },
+      {
+        "key": "Treatment failed",
+        "count": 3
+      },
+      {
+        "key": "Died",
+        "count": 1
+      },
+      {
+        "key": "Lost to follow-up or defaulted",
+        "count": 1
+      },
+      {
+        "key": "Not evaluated",
+        "count": 1
+      },
+      {
+        "key": "Treatment completed",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.phenotyping.thioacetazone.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Microtitre plate",
+        "count": 8
+      },
+      {
+        "key": "MODS",
+        "count": 4
+      },
+      {
+        "key": "Not known",
+        "count": 4
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "LJ",
+        "count": 1
+      },
+      {
+        "key": "Other",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseLinezolid.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "min": "2017-09-19T10:20:41.921Z",
+    "max": "2018-08-20T08:38:28.006Z"
+  },
+  "metadata.patient.imprisoned": {
+    "title": "Imprisoned",
+    "titles": [
+      "Metadata",
+      "Patient",
+      "Imprisoned"
+    ],
+    "choices": [
+      {
+        "key": "No",
+        "count": 13
+      },
+      {
+        "key": "Yes",
+        "count": 8
+      }
+    ]
+  },
+  "metadata.phenotyping.phenotypeInformationOtherDrugs": {
+    "title": "Phenotype Information Other Drugs",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Phenotype Information Other Drugs"
+    ],
+    "choices": [
+      {
+        "key": "Yes",
+        "count": 11
+      },
+      {
+        "key": "No",
+        "count": 10
+      }
+    ]
+  },
+  "metadata.phenotyping.kanamycin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Inconclusive",
+        "count": 8
+      },
+      {
+        "key": "Not tested",
+        "count": 5
+      },
+      {
+        "key": "Sensitive",
+        "count": 5
+      },
+      {
+        "key": "Resistant",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.patient.hivStatus": {
+    "title": "HIV Status",
+    "titles": [
+      "Metadata",
+      "Patient",
+      "HIV Status"
+    ],
+    "choices": [
+      {
+        "key": "Tested, positive",
+        "count": 11
+      },
+      {
+        "key": "Not known",
+        "count": 4
+      },
+      {
+        "key": "Tested, negative",
+        "count": 4
+      },
+      {
+        "key": "Not tested",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseAmoxicilinClavulanate.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "min": "2018-08-23T18:06:56.040Z",
+    "max": "2019-08-19T08:17:17.574Z"
+  },
+  "metadata.treatment.outsideStandardPhaseHighDoseIsoniazid.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-07-20T07:24:11.371Z",
+    "min": "2018-09-12T23:29:47.133Z"
+  },
+  "metadata.treatment.outsideStandardPhasePas.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-18T13:15:37.148Z",
+    "min": "2018-09-11T09:13:47.438Z"
+  },
+  "metadata.phenotyping.ofloxacin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Microtitre plate",
+        "count": 6
+      },
+      {
+        "key": "LJ",
+        "count": 4
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "MODS",
+        "count": 3
+      },
+      {
+        "key": "Other",
+        "count": 3
+      },
+      {
+        "key": "Not known",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseAmoxicilinClavulanate.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-13T05:59:36.312Z",
+    "min": "2017-09-07T04:17:02.797Z"
+  },
+  "metadata.treatment.outsideStandardPhaseThioacetazone.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-10T22:23:42.422Z",
+    "min": "2018-08-28T01:33:13.961Z"
+  },
+  "metadata.outcome.sputumCultureConversion": {
+    "title": "Sputum Culture Conversion",
+    "titles": [
+      "Metadata",
+      "Outcome",
+      "Sputum Culture Conversion"
+    ],
+    "choices": [
+      {
+        "key": "Not known or not done",
+        "count": 10
+      },
+      {
+        "key": "Sputum smear positive at 2-3 months",
+        "count": 6
+      },
+      {
+        "key": "Sputum smear negative at 2-3 months",
+        "count": 5
+      }
+    ]
+  },
+  "metadata.genotyping.genexpert": {
+    "title": "Genexpert",
+    "titles": [
+      "Metadata",
+      "Genotyping",
+      "Genexpert"
+    ],
+    "choices": [
+      {
+        "key": "RIF inconclusive",
+        "count": 6
+      },
+      {
+        "key": "RIF sensitive",
+        "count": 6
+      },
+      {
+        "key": "RIF resistant",
+        "count": 5
+      },
+      {
+        "key": "Not tested",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseMoxifloxacin.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "min": "2018-09-08T16:17:26.200Z",
+    "max": "2019-08-04T12:52:58.317Z"
+  },
+  "metadata.treatment.outsideStandardPhaseRifampicinRifabutin.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-05T10:54:33.941Z",
+    "min": "2017-08-29T15:08:17.496Z"
+  },
+  "metadata.treatment.outsideStandardPhaseEthionamideProthionamide.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "min": "2017-09-01T04:00:09.736Z",
+    "max": "2018-08-06T13:21:33.173Z"
+  },
+  "metadata.phenotyping.meropenem.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "MGIT",
+        "count": 5
+      },
+      {
+        "key": "LJ",
+        "count": 4
+      },
+      {
+        "key": "MODS",
+        "count": 4
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 4
+      },
+      {
+        "key": "Not known",
+        "count": 4
+      }
+    ]
+  },
+  "results.susceptibility.name": {
+    "title": "Name",
+    "titles": [
+      "Results",
+      "Susceptibility",
+      "Name"
+    ],
+    "choices": []
+  },
+  "metadata.treatment.outsideStandardPhaseLevofloxacin.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "min": "2018-09-15T15:40:14.287Z",
+    "max": "2019-08-18T13:39:19.776Z"
+  },
+  "metadata.genotyping.wgsPlatform": {
+    "title": "WGS Platform",
+    "titles": [
+      "Metadata",
+      "Genotyping",
+      "WGS Platform"
+    ],
+    "choices": [
+      {
+        "key": "MiSeq",
+        "count": 6
+      },
+      {
+        "key": "Other",
+        "count": 6
+      },
+      {
+        "key": "NextSeq",
+        "count": 5
+      },
+      {
+        "key": "HiSeq",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.phenotyping.delamanid.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Other",
+        "count": 6
+      },
+      {
+        "key": "MGIT",
+        "count": 4
+      },
+      {
+        "key": "MODS",
+        "count": 4
+      },
+      {
+        "key": "Not known",
+        "count": 4
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseImipenemImipenemcilastatin.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-06T21:14:05.465Z",
+    "min": "2018-09-25T07:04:10.523Z"
+  },
+  "metadata.genotyping.hainRif": {
+    "title": "HAIN RIF",
+    "titles": [
+      "Metadata",
+      "Genotyping",
+      "HAIN RIF"
+    ],
+    "choices": [
+      {
+        "key": "RIF inconclusive",
+        "count": 6
+      },
+      {
+        "key": "Not tested",
+        "count": 5
+      },
+      {
+        "key": "RIF resistant",
+        "count": 5
+      },
+      {
+        "key": "RIF sensitive",
+        "count": 5
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseEthambutol.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-07-27T11:04:53.380Z",
+    "min": "2017-10-04T18:35:43.176Z"
+  },
+  "metadata.phenotyping.capreomycin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 7
+      },
+      {
+        "key": "Inconclusive",
+        "count": 5
+      },
+      {
+        "key": "Sensitive",
+        "count": 5
+      },
+      {
+        "key": "Resistant",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseGentamicin.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-16T16:04:28.530Z",
+    "min": "2017-08-27T13:11:24.423Z"
+  },
+  "metadata.treatment.outsideStandardPhaseImipenemImipenemcilastatin.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-02T21:00:59.328Z",
+    "min": "2017-08-22T04:42:30.598Z"
+  },
+  "metadata.genotyping.hainAm": {
+    "title": "HAIN AM",
+    "titles": [
+      "Metadata",
+      "Genotyping",
+      "HAIN AM"
+    ],
+    "choices": [
+      {
+        "key": "AM inconclusive",
+        "count": 10
+      },
+      {
+        "key": "AM resistant",
+        "count": 4
+      },
+      {
+        "key": "Not tested",
+        "count": 4
+      },
+      {
+        "key": "AM sensitive",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.sample.collectionDate": {
+    "title": "Collection Date",
+    "titles": [
+      "Metadata",
+      "Sample",
+      "Collection Date"
+    ],
+    "min": "2017-09-01T00:00:00.000Z",
+    "max": "2018-08-17T00:00:00.000Z"
+  },
+  "results.phylogenetics.medianDepth": {
+    "title": "Median depth",
+    "titles": [
+      "Results",
+      "Phylogenetics",
+      "Median depth"
+    ],
+    "max": null,
+    "min": null
+  },
+  "metadata.patient.bmi": {
+    "title": "BMI",
+    "titles": [
+      "Metadata",
+      "Patient",
+      "BMI"
+    ],
+    "min": 16.28,
+    "max": 31.78
+  },
+  "metadata.treatment.outsideStandardPhasePyrazinamide.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-15T04:05:44.001Z",
+    "min": "2018-08-23T12:18:10.632Z"
+  },
+  "metadata.treatment.intensiveStartDate": {
+    "title": "Intensive Start Date",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Intensive Start Date"
+    ],
+    "max": "2018-08-16T03:38:59.996Z",
+    "min": "2017-08-31T15:30:21.600Z"
+  },
+  "metadata.treatment.outsideStandardPhaseClarythromycin.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "min": "2018-09-02T14:07:17.518Z",
+    "max": "2019-08-15T03:59:14.454Z"
+  },
+  "metadata.phenotyping.pas.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Not known",
+        "count": 5
+      },
+      {
+        "key": "MODS",
+        "count": 4
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 4
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "Other",
+        "count": 3
+      },
+      {
+        "key": "LJ",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseClofazimine.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "min": "2017-08-24T06:34:09.962Z",
+    "max": "2018-08-18T01:43:02.823Z"
+  },
+  "metadata.phenotyping.imipenemImipenemcilastatin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "MGIT",
+        "count": 7
+      },
+      {
+        "key": "LJ",
+        "count": 6
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 3
+      },
+      {
+        "key": "Other",
+        "count": 3
+      },
+      {
+        "key": "Not known",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseLinezolid.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-13T03:02:34.206Z",
+    "min": "2018-08-26T11:32:14.040Z"
+  },
+  "metadata.treatment.currentTbInformation": {
+    "title": "Current TB Information",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Current TB Information"
+    ],
+    "choices": [
+      {
+        "key": "No",
+        "count": 11
+      },
+      {
+        "key": "Yes",
+        "count": 10
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseMeropenem.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "min": "2018-09-13T08:25:39.183Z",
+    "max": "2019-08-17T03:40:46.660Z"
+  },
+  "metadata.treatment.outsideStandardPhaseCapreomycin.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "min": "2017-08-24T01:52:47.059Z",
+    "max": "2018-08-16T00:32:44.586Z"
+  },
+  "metadata.treatment.startProgrammaticContinuationTreatment": {
+    "title": "Start Programmatic Continuation Treatment",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Start Programmatic Continuation Treatment"
+    ],
+    "choices": [
+      {
+        "key": "Yes",
+        "count": 9
+      },
+      {
+        "key": "No",
+        "count": 8
+      },
+      {
+        "key": "Not known",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.treatment.priorTreatmentDate": {
+    "title": "Prior Treatment Date",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Prior Treatment Date"
+    ],
+    "max": "2018-08-16T08:02:00.471Z",
+    "min": "2017-08-23T14:40:25.008Z"
+  },
+  "metadata.phenotyping.thioacetazone.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Sensitive",
+        "count": 7
+      },
+      {
+        "key": "Inconclusive",
+        "count": 5
+      },
+      {
+        "key": "Not tested",
+        "count": 5
+      },
+      {
+        "key": "Resistant",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.patient.genderAtBirth": {
+    "title": "Gender At Birth",
+    "titles": [
+      "Metadata",
+      "Patient",
+      "Gender At Birth"
+    ],
+    "choices": [
+      {
+        "key": "Male",
+        "count": 10
+      },
+      {
+        "key": "Not known / unavailable",
+        "count": 6
+      },
+      {
+        "key": "Female",
+        "count": 4
+      },
+      {
+        "key": "Other or Intersex",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseOfloxacin.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-19T14:04:26.687Z",
+    "min": "2018-08-27T02:47:40.064Z"
+  },
+  "metadata.sample.anatomicalOrigin": {
+    "title": "Anatomical Origin",
+    "titles": [
+      "Metadata",
+      "Sample",
+      "Anatomical Origin"
+    ],
+    "choices": [
+      {
+        "key": "Bone",
+        "count": 5
+      },
+      {
+        "key": "Gastric",
+        "count": 4
+      },
+      {
+        "key": "Lymph node",
+        "count": 3
+      },
+      {
+        "key": "Respiratory",
+        "count": 3
+      },
+      {
+        "key": "Not known",
+        "count": 2
+      },
+      {
+        "key": "Other known site",
+        "count": 2
+      },
+      {
+        "key": "CSF",
+        "count": 1
+      },
+      {
+        "key": "Non-respiratory, site not known",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseLevofloxacin.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-16T18:09:39.437Z",
+    "min": "2017-08-26T16:27:31.009Z"
+  },
+  "metadata.phenotyping.ciprofloxacin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Microtitre plate",
+        "count": 5
+      },
+      {
+        "key": "Other",
+        "count": 5
+      },
+      {
+        "key": "MGIT",
+        "count": 4
+      },
+      {
+        "key": "Not known",
+        "count": 3
+      },
+      {
+        "key": "LJ",
+        "count": 2
+      },
+      {
+        "key": "MODS",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.phenotyping.prothionamide.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "MODS",
+        "count": 5
+      },
+      {
+        "key": "LJ",
+        "count": 4
+      },
+      {
+        "key": "Other",
+        "count": 4
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 3
+      },
+      {
+        "key": "Not known",
+        "count": 2
+      }
+    ]
+  },
+  "results.phylogenetics.percentCoverage": {
+    "title": "Percent coverage",
+    "titles": [
+      "Results",
+      "Phylogenetics",
+      "Percent coverage"
+    ],
+    "max": null,
+    "min": null
+  },
+  "metadata.phenotyping.streptomycin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "LJ",
+        "count": 6
+      },
+      {
+        "key": "MODS",
+        "count": 4
+      },
+      {
+        "key": "Not known",
+        "count": 4
+      },
+      {
+        "key": "Other",
+        "count": 4
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 2
+      },
+      {
+        "key": "MGIT",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.outcome.sputumSmearConversion": {
+    "title": "Sputum Smear Conversion",
+    "titles": [
+      "Metadata",
+      "Outcome",
+      "Sputum Smear Conversion"
+    ],
+    "choices": [
+      {
+        "key": "Not known or not done",
+        "count": 10
+      },
+      {
+        "key": "Sputum smear negative at 2-3 months",
+        "count": 7
+      },
+      {
+        "key": "Sputum smear positive at 2-3 months",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.patient.homeless": {
+    "title": "Homeless",
+    "titles": [
+      "Metadata",
+      "Patient",
+      "Homeless"
+    ],
+    "choices": [
+      {
+        "key": "Yes",
+        "count": 14
+      },
+      {
+        "key": "No",
+        "count": 7
+      }
+    ]
+  },
+  "metadata.phenotyping.prothionamide.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 7
+      },
+      {
+        "key": "Sensitive",
+        "count": 7
+      },
+      {
+        "key": "Resistant",
+        "count": 4
+      },
+      {
+        "key": "Inconclusive",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.phenotyping.capreomycin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "LJ",
+        "count": 4
+      },
+      {
+        "key": "MGIT",
+        "count": 4
+      },
+      {
+        "key": "MODS",
+        "count": 4
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 4
+      },
+      {
+        "key": "Other",
+        "count": 3
+      },
+      {
+        "key": "Not known",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.phenotyping.highDoseIsoniazid.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 9
+      },
+      {
+        "key": "Inconclusive",
+        "count": 4
+      },
+      {
+        "key": "Resistant",
+        "count": 4
+      },
+      {
+        "key": "Sensitive",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseClarythromycin.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "min": "2017-09-06T13:33:03.103Z",
+    "max": "2018-08-08T20:16:30.414Z"
+  },
+  "metadata.treatment.recentMdrTb": {
+    "title": "Recent MDR TB",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Recent MDR TB"
+    ],
+    "choices": [
+      {
+        "key": "No",
+        "count": 12
+      },
+      {
+        "key": "Not known",
+        "count": 5
+      },
+      {
+        "key": "Yes",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhasePas.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "min": "2017-09-08T15:50:19.773Z",
+    "max": "2018-08-16T21:46:09.619Z"
+  },
+  "metadata.phenotyping.pyrazinamide.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Inconclusive",
+        "count": 7
+      },
+      {
+        "key": "Resistant",
+        "count": 6
+      },
+      {
+        "key": "Sensitive",
+        "count": 6
+      },
+      {
+        "key": "Not tested",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseIsoniazid.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-17T10:01:38.356Z",
+    "min": "2018-09-14T15:09:29.442Z"
+  },
+  "metadata.phenotyping.rifampicin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Resistant",
+        "count": 9
+      },
+      {
+        "key": "Inconclusive",
+        "count": 4
+      },
+      {
+        "key": "Not tested",
+        "count": 4
+      },
+      {
+        "key": "Sensitive",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.phenotyping.clarythromycin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Other",
+        "count": 7
+      },
+      {
+        "key": "Not known",
+        "count": 5
+      },
+      {
+        "key": "LJ",
+        "count": 3
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 2
+      },
+      {
+        "key": "MODS",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.phenotyping.clarythromycin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Resistant",
+        "count": 7
+      },
+      {
+        "key": "Not tested",
+        "count": 6
+      },
+      {
+        "key": "Sensitive",
+        "count": 5
+      },
+      {
+        "key": "Inconclusive",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.phenotyping.ofloxacin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 6
+      },
+      {
+        "key": "Sensitive",
+        "count": 6
+      },
+      {
+        "key": "Resistant",
+        "count": 5
+      },
+      {
+        "key": "Inconclusive",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.sample.smear": {
+    "title": "Smear",
+    "titles": [
+      "Metadata",
+      "Sample",
+      "Smear"
+    ],
+    "choices": [
+      {
+        "key": "+++",
+        "count": 6
+      },
+      {
+        "key": "++",
+        "count": 4
+      },
+      {
+        "key": "Negative",
+        "count": 4
+      },
+      {
+        "key": "Not known",
+        "count": 4
+      },
+      {
+        "key": "+",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.treatment.outsideStandardPhaseGatifloxacin.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "min": "2017-09-08T23:18:59.600Z",
+    "max": "2018-07-08T20:38:03.046Z"
+  },
+  "metadata.treatment.outsideStandardPhaseAmikacin.start": {
+    "title": "Date started",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date started"
+    ],
+    "max": "2018-08-10T15:48:00.595Z",
+    "min": "2017-08-24T21:03:44.518Z"
+  },
+  "metadata.phenotyping.levofloxacin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Not known",
+        "count": 6
+      },
+      {
+        "key": "Other",
+        "count": 5
+      },
+      {
+        "key": "MGIT",
+        "count": 4
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 4
+      },
+      {
+        "key": "LJ",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.phenotyping.pretomanid.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Not known",
+        "count": 6
+      },
+      {
+        "key": "LJ",
+        "count": 5
+      },
+      {
+        "key": "MODS",
+        "count": 4
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 2
+      },
+      {
+        "key": "Other",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.sample.dateArrived": {
+    "title": "Date Arrived",
+    "titles": [
+      "Metadata",
+      "Sample",
+      "Date Arrived"
+    ],
+    "max": "2018-08-19T00:00:00.000Z",
+    "min": "2017-08-28T00:00:00.000Z"
+  },
+  "metadata.treatment.continuation.stop": {
+    "title": "Date stopped",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "Drug Phase",
+      "Date stopped"
+    ],
+    "max": "2019-08-07T03:55:19.737Z",
+    "min": "2018-10-17T13:11:51.859Z"
+  },
+  "metadata.phenotyping.pretomanid.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Sensitive",
+        "count": 7
+      },
+      {
+        "key": "Not tested",
+        "count": 6
+      },
+      {
+        "key": "Resistant",
+        "count": 6
+      },
+      {
+        "key": "Inconclusive",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.genotyping.hainEth": {
+    "title": "HAIN ETH",
+    "titles": [
+      "Metadata",
+      "Genotyping",
+      "HAIN ETH"
+    ],
+    "choices": [
+      {
+        "key": "ETH inconclusive",
+        "count": 8
+      },
+      {
+        "key": "Not tested",
+        "count": 7
+      },
+      {
+        "key": "ETH resistant",
+        "count": 4
+      },
+      {
+        "key": "ETH sensitive",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.phenotyping.ethambutol.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Inconclusive",
+        "count": 7
+      },
+      {
+        "key": "Resistant",
+        "count": 5
+      },
+      {
+        "key": "Sensitive",
+        "count": 5
+      },
+      {
+        "key": "Not tested",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.phenotyping.highDoseIsoniazid.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "MGIT",
+        "count": 9
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 4
+      },
+      {
+        "key": "Other",
+        "count": 4
+      },
+      {
+        "key": "Not known",
+        "count": 2
+      },
+      {
+        "key": "LJ",
+        "count": 1
+      },
+      {
+        "key": "MODS",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.phenotyping.amikacin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "LJ",
+        "count": 7
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "MODS",
+        "count": 3
+      },
+      {
+        "key": "Not known",
+        "count": 3
+      },
+      {
+        "key": "Other",
+        "count": 3
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.phenotyping.rerizidone.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Microtitre plate",
+        "count": 6
+      },
+      {
+        "key": "Not known",
+        "count": 5
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "Other",
+        "count": 3
+      },
+      {
+        "key": "LJ",
+        "count": 2
+      },
+      {
+        "key": "MODS",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.phenotyping.delamanid.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Resistant",
+        "count": 9
+      },
+      {
+        "key": "Inconclusive",
+        "count": 4
+      },
+      {
+        "key": "Not tested",
+        "count": 4
+      },
+      {
+        "key": "Sensitive",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.phenotyping.meropenem.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Sensitive",
+        "count": 7
+      },
+      {
+        "key": "Inconclusive",
+        "count": 5
+      },
+      {
+        "key": "Not tested",
+        "count": 5
+      },
+      {
+        "key": "Resistant",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.phenotyping.ethambutol.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "MODS",
+        "count": 8
+      },
+      {
+        "key": "MGIT",
+        "count": 5
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 4
+      },
+      {
+        "key": "Not known",
+        "count": 2
+      },
+      {
+        "key": "LJ",
+        "count": 1
+      },
+      {
+        "key": "Other",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.phenotyping.pas.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Inconclusive",
+        "count": 8
+      },
+      {
+        "key": "Sensitive",
+        "count": 6
+      },
+      {
+        "key": "Not tested",
+        "count": 5
+      },
+      {
+        "key": "Resistant",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.patient.injectingDrugUse": {
+    "title": "Injecting Drug Use",
+    "titles": [
+      "Metadata",
+      "Patient",
+      "Injecting Drug Use"
+    ],
+    "choices": [
+      {
+        "key": "Yes",
+        "count": 13
+      },
+      {
+        "key": "No",
+        "count": 8
+      }
+    ]
+  },
+  "metadata.patient.countryOfBirth": {
+    "title": "Country Of Birth",
+    "titles": [
+      "Metadata",
+      "Patient",
+      "Country Of Birth"
+    ],
+    "choices": [
+      {
+        "key": "Argentina",
+        "count": 1
+      },
+      {
+        "key": "Azerbaijan",
+        "count": 1
+      },
+      {
+        "key": "Bonaire, Sint Eustatius and Saba",
+        "count": 1
+      },
+      {
+        "key": "Bosnia and Herzegovina",
+        "count": 1
+      },
+      {
+        "key": "Chile",
+        "count": 1
+      },
+      {
+        "key": "Ecuador",
+        "count": 1
+      },
+      {
+        "key": "Equatorial Guinea",
+        "count": 1
+      },
+      {
+        "key": "Estonia",
+        "count": 1
+      },
+      {
+        "key": "Isle of Man",
+        "count": 1
+      },
+      {
+        "key": "Kyrgyzstan",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.phenotyping.amikacin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Inconclusive",
+        "count": 8
+      },
+      {
+        "key": "Sensitive",
+        "count": 6
+      },
+      {
+        "key": "Not tested",
+        "count": 4
+      },
+      {
+        "key": "Resistant",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.phenotyping.linezolid.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "MGIT",
+        "count": 6
+      },
+      {
+        "key": "LJ",
+        "count": 4
+      },
+      {
+        "key": "MODS",
+        "count": 4
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 3
+      },
+      {
+        "key": "Not known",
+        "count": 3
+      },
+      {
+        "key": "Other",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.phenotyping.amoxicilinClavulanate.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 7
+      },
+      {
+        "key": "Resistant",
+        "count": 5
+      },
+      {
+        "key": "Sensitive",
+        "count": 5
+      },
+      {
+        "key": "Inconclusive",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.phenotyping.isoniazid.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "LJ",
+        "count": 9
+      },
+      {
+        "key": "Other",
+        "count": 5
+      },
+      {
+        "key": "MODS",
+        "count": 3
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 2
+      },
+      {
+        "key": "MGIT",
+        "count": 1
+      },
+      {
+        "key": "Not known",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.genotyping.hainInh": {
+    "title": "HAIN INH",
+    "titles": [
+      "Metadata",
+      "Genotyping",
+      "HAIN INH"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 7
+      },
+      {
+        "key": "INH sensitive",
+        "count": 6
+      },
+      {
+        "key": "INH inconclusive",
+        "count": 4
+      },
+      {
+        "key": "INH resistant",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.patient.smoker": {
+    "title": "Smoker",
+    "titles": [
+      "Metadata",
+      "Patient",
+      "Smoker"
+    ],
+    "choices": [
+      {
+        "key": "No",
+        "count": 12
+      },
+      {
+        "key": "Yes",
+        "count": 9
+      }
+    ]
+  },
+  "metadata.phenotyping.levofloxacin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 10
+      },
+      {
+        "key": "Sensitive",
+        "count": 5
+      },
+      {
+        "key": "Inconclusive",
+        "count": 3
+      },
+      {
+        "key": "Resistant",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.phenotyping.bedaquiline.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Sensitive",
+        "count": 11
+      },
+      {
+        "key": "Not tested",
+        "count": 5
+      },
+      {
+        "key": "Resistant",
+        "count": 5
+      }
+    ]
+  },
+  "metadata.phenotyping.rifabutin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "LJ",
+        "count": 5
+      },
+      {
+        "key": "MODS",
+        "count": 5
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 4
+      },
+      {
+        "key": "Not known",
+        "count": 3
+      },
+      {
+        "key": "MGIT",
+        "count": 2
+      },
+      {
+        "key": "Other",
+        "count": 2
+      }
+    ]
+  },
+  "results.susceptibility.prediction": {
+    "title": "Prediction",
+    "titles": [
+      "Results",
+      "Susceptibility",
+      "Prediction"
+    ],
+    "choices": []
+  },
+  "metadata.genotyping.hain": {
+    "title": "HAIN",
+    "titles": [
+      "Metadata",
+      "Genotyping",
+      "HAIN"
+    ],
+    "choices": [
+      {
+        "key": "Both",
+        "count": 6
+      },
+      {
+        "key": "Fluoroquinolone/aminoglycoside/ethambutol test",
+        "count": 5
+      },
+      {
+        "key": "INH/RIF test",
+        "count": 5
+      },
+      {
+        "key": "Not tested",
+        "count": 5
+      }
+    ]
+  },
+  "metadata.sample.countryIsolate": {
+    "title": "Country Isolate",
+    "titles": [
+      "Metadata",
+      "Sample",
+      "Country Isolate"
+    ],
+    "choices": [
+      {
+        "key": "Syrian Arab Republic",
+        "count": 2
+      },
+      {
+        "key": "Antarctica",
+        "count": 1
+      },
+      {
+        "key": "Burkina Faso",
+        "count": 1
+      },
+      {
+        "key": "Cocos (Keeling) Islands",
+        "count": 1
+      },
+      {
+        "key": "Czech Republic",
+        "count": 1
+      },
+      {
+        "key": "Ecuador",
+        "count": 1
+      },
+      {
+        "key": "Georgia",
+        "count": 1
+      },
+      {
+        "key": "Guadeloupe",
+        "count": 1
+      },
+      {
+        "key": "Guam",
+        "count": 1
+      },
+      {
+        "key": "Hong Kong",
+        "count": 1
+      }
+    ]
+  },
+  "metadata.phenotyping.rifampicin.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "Microtitre plate",
+        "count": 5
+      },
+      {
+        "key": "Other",
+        "count": 5
+      },
+      {
+        "key": "Not known",
+        "count": 4
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "LJ",
+        "count": 2
+      },
+      {
+        "key": "MODS",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.phenotyping.ethionamideProthionamide.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "MGIT",
+        "count": 6
+      },
+      {
+        "key": "MODS",
+        "count": 5
+      },
+      {
+        "key": "Other",
+        "count": 5
+      },
+      {
+        "key": "Not known",
+        "count": 3
+      },
+      {
+        "key": "LJ",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.phenotyping.gatifloxacin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Sensitive",
+        "count": 9
+      },
+      {
+        "key": "Inconclusive",
+        "count": 4
+      },
+      {
+        "key": "Not tested",
+        "count": 4
+      },
+      {
+        "key": "Resistant",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.sample.prospectiveIsolate": {
+    "title": "Prospective Isolate",
+    "titles": [
+      "Metadata",
+      "Sample",
+      "Prospective Isolate"
+    ],
+    "choices": [
+      {
+        "key": "No",
+        "count": 12
+      },
+      {
+        "key": "Yes",
+        "count": 9
+      }
+    ]
+  },
+  "metadata.phenotyping.amoxicilinClavulanate.method": {
+    "title": "Method",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Method"
+    ],
+    "choices": [
+      {
+        "key": "LJ",
+        "count": 5
+      },
+      {
+        "key": "Not known",
+        "count": 5
+      },
+      {
+        "key": "MODS",
+        "count": 4
+      },
+      {
+        "key": "MGIT",
+        "count": 3
+      },
+      {
+        "key": "Microtitre plate",
+        "count": 2
+      },
+      {
+        "key": "Other",
+        "count": 2
+      }
+    ]
+  },
+  "metadata.phenotyping.gentamicin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 6
+      },
+      {
+        "key": "Resistant",
+        "count": 6
+      },
+      {
+        "key": "Inconclusive",
+        "count": 5
+      },
+      {
+        "key": "Sensitive",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.phenotyping.rifabutin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Inconclusive",
+        "count": 7
+      },
+      {
+        "key": "Not tested",
+        "count": 7
+      },
+      {
+        "key": "Resistant",
+        "count": 4
+      },
+      {
+        "key": "Sensitive",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.phenotyping.clofazimine.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Not tested",
+        "count": 7
+      },
+      {
+        "key": "Resistant",
+        "count": 5
+      },
+      {
+        "key": "Sensitive",
+        "count": 5
+      },
+      {
+        "key": "Inconclusive",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.phenotyping.ciprofloxacin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Resistant",
+        "count": 7
+      },
+      {
+        "key": "Sensitive",
+        "count": 6
+      },
+      {
+        "key": "Not tested",
+        "count": 5
+      },
+      {
+        "key": "Inconclusive",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.phenotyping.imipenemImipenemcilastatin.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Inconclusive",
+        "count": 6
+      },
+      {
+        "key": "Not tested",
+        "count": 6
+      },
+      {
+        "key": "Resistant",
+        "count": 5
+      },
+      {
+        "key": "Sensitive",
+        "count": 4
+      }
+    ]
+  },
+  "metadata.phenotyping.linezolid.susceptibility": {
+    "title": "Susceptible",
+    "titles": [
+      "Metadata",
+      "Phenotyping",
+      "Susceptibility",
+      "Susceptible"
+    ],
+    "choices": [
+      {
+        "key": "Resistant",
+        "count": 7
+      },
+      {
+        "key": "Sensitive",
+        "count": 7
+      },
+      {
+        "key": "Not tested",
+        "count": 4
+      },
+      {
+        "key": "Inconclusive",
+        "count": 3
+      }
+    ]
+  },
+  "metadata.treatment.tbProphylaxis": {
+    "title": "TB Prophylaxis",
+    "titles": [
+      "Metadata",
+      "Treatment",
+      "TB Prophylaxis"
+    ],
+    "choices": [
+      {
+        "key": "Yes",
+        "count": 11
+      },
+      {
+        "key": "No",
+        "count": 5
+      },
+      {
+        "key": "Not known",
+        "count": 5
+      }
+    ]
+  }
+}
