@@ -14,106 +14,7 @@ const clearFilters = () => {
   console.log('resetFilters called');
 };
 
-const choices = {
-  'involved.title': {
-    title: 'Title',
-    choices: [],
-  },
-  'involved.injury.injured': {
-    title: 'Injured',
-    choices: [],
-  },
-  'pressureUlcer.location': {
-    title: 'Location',
-    choices: [
-      {
-        key: 'ward 1',
-        count: 1,
-      },
-      {
-        key: 'ward 2',
-        count: 1,
-      },
-    ],
-  },
-  'involved.type': {
-    title: 'Involved Type',
-    choices: [],
-  },
-  'type.subType': {
-    title: 'Sub-type',
-    choices: [
-      {
-        key: '[Sub-type 1]',
-        count: 1,
-      },
-      {
-        key: '[Sub-type 2]',
-        count: 1,
-      },
-    ],
-  },
-  'slipsTripsFallsAndCollisions.previousFalls': {
-    title: 'Previous falls',
-    choices: [
-      {
-        key: 'Y',
-        count: 1,
-      },
-      {
-        key: 'N',
-        count: 1,
-      },
-    ],
-  },
-  'involved.role': {
-    title: 'Role',
-    choices: [],
-  },
-  'type.type': {
-    title: 'Type',
-    choices: [
-      {
-        key: 'Incident affecting Patient',
-        count: 1,
-      },
-      {
-        key: 'Incident affecting Other',
-        count: 1,
-      },
-    ],
-  },
-  'type.category': {
-    title: 'Category',
-    choices: [
-      {
-        key: 'Admission',
-        count: 1,
-      },
-      {
-        key: 'Other',
-        count: 1,
-      },
-    ],
-  },
-  'involved.gender': {
-    title: 'Gender',
-    choices: [],
-  },
-  status: {
-    title: 'Status',
-    choices: [
-      {
-        key: 'Draft',
-        count: 1,
-      },
-      {
-        key: 'Other',
-        count: 1,
-      },
-    ],
-  },
-};
+const choices = require('./__fixtures__/choices');
 
 const variations = {
   empty: {
@@ -134,11 +35,12 @@ const variations = {
     setFilters,
     clearFilters,
     filters: {
-      'pressureUlcer.location': 'ward',
+      'metadata.phenotyping.gatifloxacin.method': 'Microtitre plate',
     },
     choicesFilters: {
-      'pressureUlcer.location': 'ward',
+      'metadata.phenotyping.gatifloxacin.method': 'Microtitre plate',
     },
+    hasFilters: true,
     choices,
   },
 };
@@ -168,12 +70,14 @@ class ChoicesFiltersPreservingFilters extends React.Component<*, State> {
   render() {
     const { filters: discardedFilters, ...rest } = this.props; // eslint-disable-line
     const { filters } = this.state;
+    const hasFilters = Object.keys(filters).length > 0;
     return (
       <ChoicesFilters
         filters={filters}
         choicesFilters={filters}
         clearFilters={this.clearFilters}
         setFilters={this.setFilters}
+        hasFilters={hasFilters}
         {...rest}
       />
     );
