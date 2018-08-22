@@ -14,109 +14,11 @@ const clearFilters = () => {
   console.log('resetFilters called');
 };
 
-const choices = {
-  'involved.title': {
-    title: 'Title',
-    choices: [],
-  },
-  'involved.injury.injured': {
-    title: 'Injured',
-    choices: [],
-  },
-  'pressureUlcer.location': {
-    title: 'Location',
-    choices: [
-      {
-        key: 'ward 1',
-        count: 1,
-      },
-      {
-        key: 'ward 2',
-        count: 1,
-      },
-    ],
-  },
-  'involved.type': {
-    title: 'Involved Type',
-    choices: [],
-  },
-  'type.subType': {
-    title: 'Sub-type',
-    choices: [
-      {
-        key: '[Sub-type 1]',
-        count: 1,
-      },
-      {
-        key: '[Sub-type 2]',
-        count: 1,
-      },
-    ],
-  },
-  'slipsTripsFallsAndCollisions.previousFalls': {
-    title: 'Previous falls',
-    choices: [
-      {
-        key: 'Y',
-        count: 1,
-      },
-      {
-        key: 'N',
-        count: 1,
-      },
-    ],
-  },
-  'involved.role': {
-    title: 'Role',
-    choices: [],
-  },
-  'type.type': {
-    title: 'Type',
-    choices: [
-      {
-        key: 'Incident affecting Patient',
-        count: 1,
-      },
-      {
-        key: 'Incident affecting Other',
-        count: 1,
-      },
-    ],
-  },
-  'type.category': {
-    title: 'Category',
-    choices: [
-      {
-        key: 'Admission',
-        count: 1,
-      },
-      {
-        key: 'Other',
-        count: 1,
-      },
-    ],
-  },
-  'involved.gender': {
-    title: 'Gender',
-    choices: [],
-  },
-  status: {
-    title: 'Status',
-    choices: [
-      {
-        key: 'Draft',
-        count: 1,
-      },
-      {
-        key: 'Other',
-        count: 1,
-      },
-    ],
-  },
-};
+const choices = require('./__fixtures__/choices');
 
 const variations = {
   empty: {
+    size: 'sm',
     setFilters,
     clearFilters,
     filters: {},
@@ -124,6 +26,7 @@ const variations = {
     choices: {},
   },
   default: {
+    size: 'sm',
     setFilters,
     clearFilters,
     filters: {},
@@ -131,13 +34,14 @@ const variations = {
     choices,
   },
   filters1: {
+    size: 'sm',
     setFilters,
     clearFilters,
     filters: {
-      'pressureUlcer.location': 'ward',
+      'metadata.phenotyping.gatifloxacin.method': 'Microtitre plate',
     },
     choicesFilters: {
-      'pressureUlcer.location': 'ward',
+      'metadata.phenotyping.gatifloxacin.method': 'Microtitre plate',
     },
     choices,
   },
@@ -187,6 +91,9 @@ storiesOf('ChoicesFilters', module)
   .add('Default', () => <ChoicesFilters {...variations.default} />)
   .add('Filters 1', () => <ChoicesFilters {...variations.filters1} />)
   .add('Preserve Filters', () => (
-    <ChoicesFiltersPreservingFilters choices={variations.default.choices} />
+    <ChoicesFiltersPreservingFilters
+      size="sm"
+      choices={variations.default.choices}
+    />
   ))
   .add('Empty', () => <ChoicesFilters {...variations.empty} />);
