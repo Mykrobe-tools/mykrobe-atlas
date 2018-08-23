@@ -11,7 +11,7 @@ import styles from './ChoicesFilters.scss';
 import type { Choice } from './types';
 import ChoiceFilterSelect from './ChoiceFilterSelect';
 import ChoiceFilterDateRange from './ChoiceFilterDateRange';
-import { shortesTitleForChoiceWithKeyInChoices } from './util';
+import { titleForChoice } from './util';
 
 type State = {
   placeholderChoiceKeys: Array<string>,
@@ -189,9 +189,7 @@ class ChoicesFilters extends React.Component<*, State> {
                 placeholder={'Add filters'}
                 options={addFilterChoicesKeys.map(choiceKey => {
                   const choice: Choice = choices[choiceKey];
-                  const displayTitle = choice.titles
-                    ? choice.titles.join(' › ')
-                    : choice.title || 'Untitled';
+                  const displayTitle = titleForChoice(choice);
                   return {
                     value: choiceKey,
                     label: displayTitle,

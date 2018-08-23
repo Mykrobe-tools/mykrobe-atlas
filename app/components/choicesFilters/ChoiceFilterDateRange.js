@@ -6,6 +6,8 @@ import moment from 'moment';
 
 import { DatePicker } from 'makeandship-js-common/src/components/ui/form';
 
+import { shortestTitleForChoiceWithKeyInChoices } from './util';
+
 import styles from './ChoiceFilterDateRange.scss';
 
 import type { Choice } from './types';
@@ -81,7 +83,10 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
     const { choices, choiceKey } = this.props;
     const { max, min } = this.state;
     const choice: Choice = choices[choiceKey];
-    const displayTitle = choice.title;
+    const displayTitle = shortestTitleForChoiceWithKeyInChoices(
+      choiceKey,
+      choices
+    );
     return (
       <div className={styles.componentWrap}>
         {displayTitle}

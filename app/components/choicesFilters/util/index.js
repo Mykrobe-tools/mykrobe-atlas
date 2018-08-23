@@ -34,7 +34,7 @@ export const choiceTitleTree = _.memoize(
   choices => JSON.stringify(choices)
 );
 
-export const shortesTitleForChoiceWithKeyInChoices = (
+export const shortestTitleForChoiceWithKeyInChoices = (
   choiceKey: string,
   choices: { [string]: Choice },
   delimeter: string = ' › '
