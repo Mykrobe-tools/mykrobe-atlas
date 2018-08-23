@@ -5,6 +5,7 @@ import type { Saga } from 'redux-saga';
 import { combineReducers } from 'redux';
 
 import currentUser, { currentUserSaga } from './currentUser';
+import { currentUserEventsSaga } from './currentUserEvents';
 import currentUserAvatar, { currentUserAvatarSaga } from './currentUserAvatar';
 import users, { usersSaga } from './users';
 import user, { userSaga } from './user';
@@ -62,6 +63,7 @@ export default usersReducer;
 export function* rootUsersSaga(): Saga {
   yield all([
     fork(currentUserAvatarSaga),
+    fork(currentUserEventsSaga),
     fork(currentUserSaga),
     fork(usersSaga),
     fork(syncUsersFiltersSaga),

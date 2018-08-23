@@ -88,7 +88,11 @@ function* authInitialiseWorker() {
 }
 
 function* authSignInWatcher() {
-  yield takeEvery(SIGNIN_SUCCESS, requestEntityWorker);
+  yield takeEvery(SIGNIN_SUCCESS, authSignInWorker);
+}
+
+function* authSignInWorker() {
+  yield fork(requestEntityWorker);
 }
 
 function* authSignOutWatcher() {

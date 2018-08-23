@@ -210,11 +210,14 @@ export default function reducer(
     case RESUMABLE_UPLOAD_DONE:
       return {
         ...state,
-        uploadProgress: 1,
+        isUploading: false,
+        uploadProgress: 0,
+        checksumProgress: 0,
       };
     case RESUMABLE_UPLOAD_ERROR:
       return {
         ...state,
+        isUploading: false,
         error: action.payload,
       };
     default:

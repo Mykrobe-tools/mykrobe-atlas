@@ -1,6 +1,14 @@
 /* @flow */
 
-import { put, take, race, select } from 'redux-saga/effects';
+import {
+  put,
+  take,
+  race,
+  select,
+  all,
+  takeEvery,
+  fork,
+} from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
@@ -14,6 +22,7 @@ import {
 import { showNotification, NotificationCategories } from '../notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import { getCurrentUser } from '../../modules/users';
+import { ANALYSIS_COMPLETE } from '../../modules/users/currentUserEvents';
 
 import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
 import addExtraData from './util/addExtraData';
@@ -120,7 +129,6 @@ export {
   getError,
   getIsFetching,
   actionType as experimentActionType,
-  entitySaga as experimentSaga,
 };
 
 export default reducer;
@@ -145,4 +153,20 @@ export function* createExperimentId(): Saga {
   }
   const experiment = yield select(getExperiment);
   return yield experiment.id;
+}
+
+// reload experiment if it's the one we are currently viewing
+
+function* analysisCompleteWatcher() {
+  yield takeEvery(ANALYSIS_COMPLETE, function*(action) {
+    const experimentId = action.payload.id;
+    const experiment = yield select(getExperiment);
+    if (experiment.id === experimentId) {
+      yield put(requestEntity(experimentId));
+    }
+  });
+}
+
+export function* experimentSaga(): Saga {
+  yield all([fork(entitySaga), fork(analysisCompleteWatcher)]);
 }
