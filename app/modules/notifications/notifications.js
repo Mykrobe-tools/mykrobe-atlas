@@ -193,7 +193,14 @@ export default function reducer(
         ...state,
         [action.payload.id]: action.payload,
       };
-    case UPDATE_NOTIFICATION:
+    case UPDATE_NOTIFICATION: {
+      if (!state[action.payload.id]) {
+        // doesn't exist, so create a new notification
+        return {
+          ...state,
+          [action.payload.id]: action.payload,
+        };
+      }
       return {
         ...state,
         [action.payload.id]: {
@@ -201,6 +208,7 @@ export default function reducer(
           ...action.payload,
         },
       };
+    }
     case HIDE_NOTIFICATION:
       return {
         ...state,

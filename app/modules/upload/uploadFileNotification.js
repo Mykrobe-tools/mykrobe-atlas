@@ -21,6 +21,11 @@ import {
 import { COMPUTE_CHECKSUMS_PROGRESS } from './util/ComputeChecksums';
 
 import {
+  ANALYSIS_STARTED,
+  ANALYSIS_COMPLETE,
+} from '../users/currentUserEvents';
+
+import {
   SET_FILE_NAME,
   UPLOAD_FILE_CANCEL,
   uploadFileCancel,
@@ -170,6 +175,22 @@ function* uploadFileCancelWatcher() {
   });
 }
 
+// analysis events - not just for current upload
+
+function* analysisStartedWatcher() {
+  yield takeEvery(ANALYSIS_STARTED, function*(action: any) {
+    const experimentId = action.payload.id;
+    const fileName = action.payload.file;
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.MESSAGE,
+        content: `Analysis started ${fileName}`,
+        progress: 0,
+      })
+    );
+  });
+}
+
 export function* uploadFileNotificationSaga(): Saga {
   yield all([
     fork(fileAddedWatcher),
@@ -178,6 +199,7 @@ export function* uploadFileNotificationSaga(): Saga {
     fork(resumableUploadDoneWatcher),
     fork(resumableUploadErrorWatcher),
     fork(uploadFileCancelWatcher),
+    fork(analysisStartedWatcher),
     fork(interactionChannelWatcher),
   ]);
 }

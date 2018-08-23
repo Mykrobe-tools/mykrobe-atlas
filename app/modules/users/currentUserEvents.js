@@ -22,6 +22,11 @@ export const ERROR = `${typePrefix}ERROR`;
 export const STARTED = `${typePrefix}STARTED`;
 export const STOPPED = `${typePrefix}STOPPED`;
 
+export const UPLOAD_PROGRESS = `${typePrefix}UPLOAD_PROGRESS`;
+export const UPLOAD_COMPLETE = `${typePrefix}UPLOAD_COMPLETE`;
+export const ANALYSIS_STARTED = `${typePrefix}ANALYSIS_STARTED`;
+export const ANALYSIS_COMPLETE = `${typePrefix}ANALYSIS_COMPLETE`;
+
 const _eventSourceChannel = channel();
 let _eventSource;
 
@@ -91,11 +96,15 @@ function* startWorker() {
   */
   _eventSource.onmessage = e => {
     console.log('EventSource message', e);
-    _eventSourceChannel.put(event(e.data));
+    try {
+      const json = JSON.parse(e.data);
+      _eventSourceChannel.put(event(json));
+    } catch (error) {
+      console.log(`Couldn't parse event data`, e.data);
+    }
   };
   _eventSource.onerror = e => {
-    console.log('EventSource failed.');
-    debugger;
+    console.log('EventSource failed.', e);
     _eventSourceChannel.put(error(e));
   };
   yield put(started());
@@ -117,6 +126,31 @@ function* eventWatcher() {
 
 function* eventWorker(action: any) {
   console.log('eventWorker', action);
+  const {
+    payload,
+    payload: { event },
+  } = action;
+  if (event === 'Upload progress') {
+    yield put({
+      type: UPLOAD_PROGRESS,
+      payload,
+    });
+  } else if (event === 'Upload complete') {
+    yield put({
+      type: UPLOAD_COMPLETE,
+      payload,
+    });
+  } else if (event === 'Analysis started') {
+    yield put({
+      type: ANALYSIS_STARTED,
+      payload,
+    });
+  } else if (event === 'Analysis complete') {
+    yield put({
+      type: ANALYSIS_COMPLETE,
+      payload,
+    });
+  }
 }
 
 export function* currentUserEventsSaga(): Saga {
