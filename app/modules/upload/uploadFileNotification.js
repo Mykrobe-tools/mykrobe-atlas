@@ -138,7 +138,9 @@ function* resumableUploadDoneWatcher() {
           {
             title: 'View',
             onClick: () => {
-              _interactionChannel.put(push(`/experiments/${experimentId}`));
+              _interactionChannel.put(
+                push(`/experiments/${experimentId}/resistance`)
+              );
             },
           },
         ],
@@ -191,6 +193,20 @@ function* analysisStartedWatcher() {
   });
 }
 
+function* analysisCompleteWatcher() {
+  yield takeEvery(ANALYSIS_COMPLETE, function*(action: any) {
+    const experimentId = action.payload.id;
+    const fileName = action.payload.file;
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.SUCCESS,
+        content: `Analysis complete ${fileName}`,
+        progress: undefined,
+      })
+    );
+  });
+}
+
 export function* uploadFileNotificationSaga(): Saga {
   yield all([
     fork(fileAddedWatcher),
@@ -200,6 +216,7 @@ export function* uploadFileNotificationSaga(): Saga {
     fork(resumableUploadErrorWatcher),
     fork(uploadFileCancelWatcher),
     fork(analysisStartedWatcher),
+    fork(analysisCompleteWatcher),
     fork(interactionChannelWatcher),
   ]);
 }
