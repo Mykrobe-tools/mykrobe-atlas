@@ -21,6 +21,11 @@ import {
 import { COMPUTE_CHECKSUMS_PROGRESS } from './util/ComputeChecksums';
 
 import {
+  ANALYSIS_STARTED,
+  ANALYSIS_COMPLETE,
+} from '../users/currentUserEvents';
+
+import {
   SET_FILE_NAME,
   UPLOAD_FILE_CANCEL,
   uploadFileCancel,
@@ -55,7 +60,7 @@ function* fileAddedWatcher() {
         autoHide: false,
         actions: [
           {
-            title: 'View',
+            title: 'Metadata',
             onClick: () => {
               _interactionChannel.put(push(`/experiments/${experimentId}`));
             },
@@ -131,7 +136,7 @@ function* resumableUploadDoneWatcher() {
         content: `Finished uploading ${fileName}`,
         actions: [
           {
-            title: 'View',
+            title: 'Metadata',
             onClick: () => {
               _interactionChannel.put(push(`/experiments/${experimentId}`));
             },
@@ -170,6 +175,46 @@ function* uploadFileCancelWatcher() {
   });
 }
 
+// analysis events - not just for current upload
+
+function* analysisStartedWatcher() {
+  yield takeEvery(ANALYSIS_STARTED, function*(action: any) {
+    const experimentId = action.payload.id;
+    const fileName = action.payload.file;
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.MESSAGE,
+        content: `Analysis started ${fileName}`,
+        progress: 0,
+      })
+    );
+  });
+}
+
+function* analysisCompleteWatcher() {
+  yield takeEvery(ANALYSIS_COMPLETE, function*(action: any) {
+    const experimentId = action.payload.id;
+    const fileName = action.payload.file;
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.SUCCESS,
+        content: `Analysis complete ${fileName}`,
+        actions: [
+          {
+            title: 'Resistance',
+            onClick: () => {
+              _interactionChannel.put(
+                push(`/experiments/${experimentId}/resistance`)
+              );
+            },
+          },
+        ],
+        progress: undefined,
+      })
+    );
+  });
+}
+
 export function* uploadFileNotificationSaga(): Saga {
   yield all([
     fork(fileAddedWatcher),
@@ -178,6 +223,8 @@ export function* uploadFileNotificationSaga(): Saga {
     fork(resumableUploadDoneWatcher),
     fork(resumableUploadErrorWatcher),
     fork(uploadFileCancelWatcher),
+    fork(analysisStartedWatcher),
+    fork(analysisCompleteWatcher),
     fork(interactionChannelWatcher),
   ]);
 }

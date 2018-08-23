@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { NotificationCategories } from '../../modules/notifications';
 import { Button } from 'reactstrap';
 
+import { isNumeric } from '../../util';
+
 import styles from './Notification.scss';
 import NotificationsStyle from './NotificationsStyle';
 
@@ -107,7 +109,7 @@ class Notification extends React.Component<*, State> {
       [NotificationsStyle.SEPARATE]: styles.containerSeparate,
       [NotificationsStyle.JOINED]: styles.containerJoined,
     }[notificationsStyle];
-    const hasProgress = !!progress;
+    const hasProgress = isNumeric(progress);
     return (
       <div className={containerStyle} data-tid={'component-notification'}>
         <div className={styles.containerInner}>
