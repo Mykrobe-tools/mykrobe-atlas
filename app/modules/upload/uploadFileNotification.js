@@ -60,7 +60,7 @@ function* fileAddedWatcher() {
         autoHide: false,
         actions: [
           {
-            title: 'View',
+            title: 'Metadata',
             onClick: () => {
               _interactionChannel.put(push(`/experiments/${experimentId}`));
             },
@@ -136,11 +136,9 @@ function* resumableUploadDoneWatcher() {
         content: `Finished uploading ${fileName}`,
         actions: [
           {
-            title: 'View',
+            title: 'Metadata',
             onClick: () => {
-              _interactionChannel.put(
-                push(`/experiments/${experimentId}/resistance`)
-              );
+              _interactionChannel.put(push(`/experiments/${experimentId}`));
             },
           },
         ],
@@ -201,6 +199,16 @@ function* analysisCompleteWatcher() {
       updateNotification(experimentId, {
         category: NotificationCategories.SUCCESS,
         content: `Analysis complete ${fileName}`,
+        actions: [
+          {
+            title: 'Resistance',
+            onClick: () => {
+              _interactionChannel.put(
+                push(`/experiments/${experimentId}/resistance`)
+              );
+            },
+          },
+        ],
         progress: undefined,
       })
     );
