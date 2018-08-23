@@ -2,22 +2,22 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
-import { DatePicker } from 'makeandship-js-common/src/components/ui/form';
+import { Select } from 'makeandship-js-common/src/components/ui/form';
 
 import { shortestTitleForChoiceWithKeyInChoices } from './util';
 
 import styles from './ChoiceFilterRange.scss';
+import selectStyles from './ChoiceFilterSelect.scss';
 
 import type { Choice } from './types';
 
 type State = {
-  min?: string,
-  max?: string,
+  min?: number,
+  max?: number,
 };
 
-class ChoiceFilterDateRange extends React.Component<*, State> {
+class ChoiceFilterNumericRange extends React.Component<*, State> {
   state = {};
 
   constructor(props: any) {
@@ -25,7 +25,7 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
     this.state = this.minMaxFromProps(props);
   }
 
-  minMaxFromProps = (props: any) => {
+  minMaxFromProps = (props: any): State => {
     const { choices, choiceKey } = props;
     const choice: Choice = choices[choiceKey];
     const { max, min } = choice;
@@ -43,10 +43,10 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
     }
   };
 
-  onMinChange = (min: string) => {
+  onMinChange = (min: number) => {
     const { choiceKey, onChange } = this.props;
-    // allow user to select any start date, make sure that the current max doesn't overlap
-    const max = moment.max(moment(min), moment(this.state.max)).format();
+    // allow user to select any min, make sure that the current max doesn't overlap
+    const max = Math.max(min, this.state.max);
     this.setState({
       min,
       max,
@@ -57,7 +57,7 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
     });
   };
 
-  onMaxChange = (max: string) => {
+  onMaxChange = (max: number) => {
     const { choiceKey, onChange } = this.props;
     this.setState({
       max,
@@ -68,62 +68,68 @@ class ChoiceFilterDateRange extends React.Component<*, State> {
     });
   };
 
-  customInput = (value?: string) => (
+  customInput = (value?: number) => (
     <div>
       <div className={styles.customInput}>
         <a href="#" onClick={e => e.preventDefault()}>
-          {moment(value).format(DatePicker.defaultProps.dateFormat)}{' '}
-          <i className={'fa fa-caret-down'} />
+          {value} <i className={'fa fa-caret-down'} />
         </a>
       </div>
     </div>
   );
 
   render() {
-    const { choices, choiceKey } = this.props;
+    const { choices, choiceKey, placeholder } = this.props;
     const { max, min } = this.state;
     const choice: Choice = choices[choiceKey];
     const displayTitle = shortestTitleForChoiceWithKeyInChoices(
       choiceKey,
       choices
     );
+    let minOptions = [];
+    for (let i: number = choice.min; i <= choice.max; i++) {
+      minOptions.push({
+        value: i,
+        label: `${i}`,
+      });
+    }
+    let maxOptions = [];
+    for (let i: number = min; i <= choice.max; i++) {
+      maxOptions.push({
+        value: i,
+        label: `${i}`,
+      });
+    }
     return (
       <div className={styles.componentWrap}>
         {displayTitle}
         {' · '}
-        <DatePicker
-          customInput={this.customInput(min)}
-          value={min}
-          selectsStart
-          startDate={moment(min)}
-          endDate={moment(max)}
-          minDate={moment(choice.min)}
-          maxDate={moment(choice.max)}
-          onChange={this.onMinChange}
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-        />
+        <div className={selectStyles.select}>
+          <Select
+            value={min}
+            options={minOptions}
+            onChange={this.onMinChange}
+            initiallyOpen={placeholder}
+            searchable
+            wideMenu
+          />
+        </div>
         {' – '}
-        <DatePicker
-          customInput={this.customInput(max)}
-          value={max}
-          selectsEnd
-          startDate={moment(min)}
-          endDate={moment(max)}
-          minDate={moment(min)}
-          maxDate={moment(choice.max)}
-          onChange={this.onMaxChange}
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-        />
+        <div className={selectStyles.select}>
+          <Select
+            value={max}
+            options={maxOptions}
+            onChange={this.onMaxChange}
+            searchable
+            wideMenu
+          />
+        </div>
       </div>
     );
   }
 }
 
-ChoiceFilterDateRange.propTypes = {
+ChoiceFilterNumericRange.propTypes = {
   choicesFilters: PropTypes.object.isRequired,
   choices: PropTypes.object.isRequired,
   choiceKey: PropTypes.string.isRequired,
@@ -131,4 +137,4 @@ ChoiceFilterDateRange.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default ChoiceFilterDateRange;
+export default ChoiceFilterNumericRange;
