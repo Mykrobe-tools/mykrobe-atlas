@@ -2,7 +2,8 @@
 
 export type Choice = {
   title: string,
-  min?: string,
-  max?: string,
+  titles: Array<string>,
+  min?: string | number,
+  max?: string | number,
   choices?: Array<*>,
 };

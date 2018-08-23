@@ -45,11 +45,11 @@ class ResistanceDrugs extends React.Component<*> {
 
   render() {
     const { experimentTransformed } = this.props;
-    const { hasResistance } = experimentTransformed;
+    const { hasResistance, error } = experimentTransformed;
     if (!hasResistance) {
       return (
         <div className={styles.empty} data-tid="component-resistance-drugs">
-          <ResistanceEmpty />
+          <ResistanceEmpty subtitle={error} />
         </div>
       );
     }

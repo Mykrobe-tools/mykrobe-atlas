@@ -2,15 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Col,
-  Label,
-  UncontrolledDropdown,
-  DropdownMenu,
-  DropdownToggle,
-  DropdownItem,
-  Button,
-} from 'reactstrap';
+import { Col, Label, Button } from 'reactstrap';
 
 import { Select } from 'makeandship-js-common/src/components/ui/form';
 
@@ -19,6 +11,8 @@ import styles from './ChoicesFilters.scss';
 import type { Choice } from './types';
 import ChoiceFilterSelect from './ChoiceFilterSelect';
 import ChoiceFilterDateRange from './ChoiceFilterDateRange';
+import ChoiceFilterNumericRange from './ChoiceFilterNumericRange';
+import { titleForChoice } from './util';
 
 type State = {
   placeholderChoiceKeys: Array<string>,
@@ -57,6 +51,9 @@ class ChoicesFilters extends React.Component<*, State> {
     const { clearFilters } = this.props;
     e && e.preventDefault();
     clearFilters();
+    this.setState({
+      placeholderChoiceKeys: [],
+    });
   };
 
   removePlaceholderChoiceKey = (key: string, callback?: Function) => {
@@ -122,7 +119,7 @@ class ChoicesFilters extends React.Component<*, State> {
     }
     if (choice.min && choice.max) {
       if (isNumeric(choice.min) && isNumeric(choice.max)) {
-        component = this.renderNumericRange(choiceKey, placeholder);
+        component = <ChoiceFilterNumericRange {...props} />;
       } else {
         component = <ChoiceFilterDateRange {...props} />;
       }
@@ -152,21 +149,14 @@ class ChoicesFilters extends React.Component<*, State> {
     );
   };
 
-  // TODO: refactor into individual components
-
-  // eslint-disable-next-line
-  renderNumericRange = (choiceKey: string, placeholder: boolean) => {
-    return 'TODO: numeric range';
-  };
-
   render() {
-    const { choices, choicesFilters, hasFilters, size } = this.props;
+    const { choices, choicesFilters, hasFilters } = this.props;
     const hasChoices = choices && Object.keys(choices).length > 0;
     if (!hasChoices) {
       return (
         <div className={styles.componentWrap}>
           <div className={styles.element}>
-            <Button outline disabled size={size}>
+            <Button outline disabled size={'sm'}>
               Add filters <i className="fa fa-caret-down" />
             </Button>
           </div>
@@ -188,36 +178,30 @@ class ChoicesFilters extends React.Component<*, State> {
         )}
         {hasAddFilterChoices ? (
           <div className={styles.element}>
-            <UncontrolledDropdown>
-              <DropdownToggle
-                outline
-                size={size}
-                data-tid="add-filters-dropdown-toggle"
-              >
-                Add filters <i className="fa fa-caret-down" />
-              </DropdownToggle>
-              <DropdownMenu className={styles.dropdownMenu}>
-                {addFilterChoicesKeys.map(choiceKey => {
+            <div className={styles.select}>
+              <Select
+                placeholder={'Add filters'}
+                options={addFilterChoicesKeys.map(choiceKey => {
                   const choice: Choice = choices[choiceKey];
-                  const displayTitle = choice.title;
-                  return (
-                    <DropdownItem
-                      onClick={e => {
-                        e.preventDefault();
-                        this.onAddPlaceholderChoiceKey(choiceKey);
-                      }}
-                      key={choiceKey}
-                    >
-                      {displayTitle}
-                    </DropdownItem>
-                  );
+                  const displayTitle = titleForChoice(choice);
+                  return {
+                    value: choiceKey,
+                    label: displayTitle,
+                  };
                 })}
-              </DropdownMenu>
-            </UncontrolledDropdown>
+                onChange={choiceKey => {
+                  this.onAddPlaceholderChoiceKey(choiceKey);
+                }}
+                searchable
+                wideMenu
+                autosize={false}
+                autoBlur={true}
+              />
+            </div>
           </div>
         ) : (
           <div className={styles.element}>
-            <Button outline disabled size={size}>
+            <Button outline disabled size={'sm'}>
               Add filters <i className="fa fa-caret-down" />
             </Button>
           </div>
@@ -265,10 +249,6 @@ class ChoicesFilters extends React.Component<*, State> {
       </Col>
     );
   };
-
-  static defaultProps = {
-    size: 'lg',
-  };
 }
 
 ChoicesFilters.propTypes = {
@@ -279,7 +259,6 @@ ChoicesFilters.propTypes = {
   filters: PropTypes.object.isRequired,
   choices: PropTypes.object,
   hasFilters: PropTypes.bool,
-  size: PropTypes.string,
 };
 
 export default ChoicesFilters;

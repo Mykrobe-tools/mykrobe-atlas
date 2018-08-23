@@ -120,9 +120,11 @@ class AnalyserJsonTransformer {
     const { hasSpecies, hasResistance } = transformed;
 
     if (!hasSpecies && !hasResistance) {
-      throw new Error(
-        `This sample does not appear to contain any Mycobacterial data (or it is amplicon data, which is not supported), and therefore the predictor does not give susceptibility predictions`
-      );
+      const error = `This sample does not appear to contain any Mycobacterial data (or it is amplicon data, which is not supported), and therefore the predictor does not give susceptibility predictions`;
+      if (IS_ELECTRON) {
+        throw new Error(error);
+      }
+      return { error };
     }
 
     // style species for display
@@ -331,16 +333,18 @@ class AnalyserJsonTransformer {
   transformFlags(
     sourceModel: Object
   ): { hasSpecies: boolean, hasResistance: boolean } {
-    const phyloGroup = Object.keys(sourceModel.phylogenetics.phylo_group);
     let hasSpecies = false;
     let hasResistance = false;
 
-    if (phyloGroup.indexOf('Non_tuberculosis_mycobacterium_complex') !== -1) {
-      hasSpecies = true;
-    }
-    if (phyloGroup.indexOf('Mycobacterium_tuberculosis_complex') !== -1) {
-      hasSpecies = true;
-      hasResistance = true;
+    if (sourceModel.phylogenetics && sourceModel.phylogenetics.phylo_group) {
+      const phyloGroup = Object.keys(sourceModel.phylogenetics.phylo_group);
+      if (phyloGroup.indexOf('Non_tuberculosis_mycobacterium_complex') !== -1) {
+        hasSpecies = true;
+      }
+      if (phyloGroup.indexOf('Mycobacterium_tuberculosis_complex') !== -1) {
+        hasSpecies = true;
+        hasResistance = true;
+      }
     }
 
     return { hasSpecies, hasResistance };
