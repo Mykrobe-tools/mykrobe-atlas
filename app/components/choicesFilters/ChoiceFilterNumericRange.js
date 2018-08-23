@@ -7,8 +7,7 @@ import { Select } from 'makeandship-js-common/src/components/ui/form';
 
 import { shortestTitleForChoiceWithKeyInChoices } from './util';
 
-import styles from './ChoiceFilterRange.scss';
-import selectStyles from './ChoiceFilterSelect.scss';
+import styles from './ChoiceFilterNumericRange.scss';
 
 import type { Choice } from './types';
 
@@ -104,22 +103,28 @@ class ChoiceFilterNumericRange extends React.Component<*, State> {
       <div className={styles.componentWrap}>
         {displayTitle}
         {' · '}
-        <div className={selectStyles.select}>
+        <div className={styles.select}>
+          <div className={styles.widthSizer}>{min}</div>
+
           <Select
             value={min}
             options={minOptions}
             onChange={this.onMinChange}
+            autosize
             initiallyOpen={placeholder}
             searchable
             wideMenu
           />
         </div>
         {' – '}
-        <div className={selectStyles.select}>
+        <div className={styles.select}>
+          <div className={styles.widthSizer}>{max}</div>
+
           <Select
             value={max}
             options={maxOptions}
             onChange={this.onMaxChange}
+            autosize
             searchable
             wideMenu
           />
