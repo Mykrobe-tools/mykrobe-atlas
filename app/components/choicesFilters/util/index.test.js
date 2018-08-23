@@ -1,19 +1,19 @@
 /* @flow */
 
-import { shortesTitleForChoiceWithKeyInChoices } from './index';
+import { shortestTitleForChoiceWithKeyInChoices } from './index';
 const choices = require('../__fixtures__/choices');
 
 describe('choicesFilters util', () => {
   it(`should generate short titles`, () => {
-    const title = shortesTitleForChoiceWithKeyInChoices(
+    const title = shortestTitleForChoiceWithKeyInChoices(
       'metadata.treatment.continuation.start',
       choices
     );
-    const title2 = shortesTitleForChoiceWithKeyInChoices(
+    const title2 = shortestTitleForChoiceWithKeyInChoices(
       'metadata.phenotyping.linezolid.susceptibility',
       choices
     );
-    const title3 = shortesTitleForChoiceWithKeyInChoices(
+    const title3 = shortestTitleForChoiceWithKeyInChoices(
       'metadata.sample.prospectiveIsolate',
       choices
     );

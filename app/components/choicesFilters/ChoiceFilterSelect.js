@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 import { Select } from 'makeandship-js-common/src/components/ui/form';
 
+import { shortestTitleForChoiceWithKeyInChoices } from './util';
+
 import styles from './ChoiceFilterSelect.scss';
 
 import type { Choice } from './types';
@@ -27,7 +29,10 @@ class ChoiceFilterSelect extends React.Component<*> {
           label: `${value.key} (${value.count})`,
         };
       });
-    const displayTitle = choice.title;
+    const displayTitle = shortestTitleForChoiceWithKeyInChoices(
+      choiceKey,
+      choices
+    );
     const value = placeholder ? '' : choicesFilters[choiceKey];
     const displayValue = placeholder
       ? displayTitle
