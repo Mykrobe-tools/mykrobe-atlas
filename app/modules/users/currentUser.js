@@ -5,12 +5,7 @@ import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
 
-// import 'event-source-polyfill';
-
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
-import { getAccessToken } from 'makeandship-js-common/src/modules/auth';
-import { buildOptionsWithToken } from 'makeandship-js-common/src/modules/api/jsonApi';
-import { API_URL } from 'makeandship-js-common/src/modules/api/constants';
 import {
   getIsAuthenticated,
   signOut,
@@ -89,7 +84,6 @@ function* authInitialiseWorker() {
   const isAuthenticated = yield select(getIsAuthenticated);
   if (isAuthenticated) {
     yield put(requestEntity());
-    yield fork(startWatchingCurrentUserEvents);
   }
 }
 
@@ -99,7 +93,6 @@ function* authSignInWatcher() {
 
 function* authSignInWorker() {
   yield fork(requestEntityWorker);
-  yield fork(startWatchingCurrentUserEvents);
 }
 
 function* authSignOutWatcher() {
@@ -111,33 +104,6 @@ function* authSignOutWatcher() {
 
 function* authSignOutWorker() {
   yield put(resetEntity());
-  yield fork(stopWatchingCurrentUserEvents);
-}
-
-// events
-
-let _eventSource;
-
-function* startWatchingCurrentUserEvents() {
-  const accessToken = yield select(getAccessToken);
-  const options = buildOptionsWithToken({}, accessToken);
-
-  // TODO contruct this with swagger operation id
-  _eventSource = new EventSourcePolyfill(`${API_URL}/user/events`, {
-    headers: options.headers,
-    heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
-  });
-  _eventSource.onmessage = e => {
-    console.log('EventSource message', e);
-  };
-  _eventSource.onerror = e => {
-    console.log('EventSource failed.');
-  };
-}
-
-function* stopWatchingCurrentUserEvents() {
-  _eventSource && _eventSource.close();
-  _eventSource = null;
 }
 
 // TODO: create sagas etc. to update current user profile and avatar together
