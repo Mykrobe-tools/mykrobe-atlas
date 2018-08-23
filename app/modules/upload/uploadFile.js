@@ -211,7 +211,8 @@ export default function reducer(
       return {
         ...state,
         isUploading: false,
-        uploadProgress: 1,
+        uploadProgress: 0,
+        checksumProgress: 0,
       };
     case RESUMABLE_UPLOAD_ERROR:
       return {
