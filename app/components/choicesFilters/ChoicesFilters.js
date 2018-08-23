@@ -11,6 +11,8 @@ import styles from './ChoicesFilters.scss';
 import type { Choice } from './types';
 import ChoiceFilterSelect from './ChoiceFilterSelect';
 import ChoiceFilterDateRange from './ChoiceFilterDateRange';
+import ChoiceFilterNumericRange from './ChoiceFilterNumericRange';
+import { titleForChoice } from './util';
 
 type State = {
   placeholderChoiceKeys: Array<string>,
@@ -117,7 +119,7 @@ class ChoicesFilters extends React.Component<*, State> {
     }
     if (choice.min && choice.max) {
       if (isNumeric(choice.min) && isNumeric(choice.max)) {
-        component = this.renderNumericRange(choiceKey, placeholder);
+        component = <ChoiceFilterNumericRange {...props} />;
       } else {
         component = <ChoiceFilterDateRange {...props} />;
       }
@@ -145,13 +147,6 @@ class ChoicesFilters extends React.Component<*, State> {
         </a>
       </div>
     );
-  };
-
-  // TODO: refactor into individual components
-
-  // eslint-disable-next-line
-  renderNumericRange = (choiceKey: string, placeholder: boolean) => {
-    return 'TODO: numeric range';
   };
 
   render() {
@@ -188,9 +183,7 @@ class ChoicesFilters extends React.Component<*, State> {
                 placeholder={'Add filters'}
                 options={addFilterChoicesKeys.map(choiceKey => {
                   const choice: Choice = choices[choiceKey];
-                  const displayTitle = choice.titles
-                    ? choice.titles.join(' › ')
-                    : choice.title || 'Untitled';
+                  const displayTitle = titleForChoice(choice);
                   return {
                     value: choiceKey,
                     label: displayTitle,
