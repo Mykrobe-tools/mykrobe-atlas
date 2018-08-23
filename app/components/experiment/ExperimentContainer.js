@@ -17,11 +17,26 @@ import {
 import styles from './ExperimentContainer.scss';
 
 class ExperimentContainer extends React.Component<*> {
-  componentDidMount() {
+  // TODO: move these into a saga side effect that watches LOCATION_CHANGE
+
+  requestExperiment = () => {
     const { requestExperiment, requestExperimentMetadataTemplate } = this.props;
     const { experimentId } = this.props.match.params;
     requestExperiment(experimentId);
     requestExperimentMetadataTemplate();
+  };
+
+  componentDidMount() {
+    this.requestExperiment();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.match.params.experimentId !==
+      prevProps.match.params.experimentId
+    ) {
+      this.requestExperiment();
+    }
   }
 
   render() {

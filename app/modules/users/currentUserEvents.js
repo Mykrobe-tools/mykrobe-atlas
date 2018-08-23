@@ -95,7 +95,6 @@ function* startWorker() {
 
   */
   _eventSource.onmessage = e => {
-    console.log('EventSource message', e);
     try {
       const json = JSON.parse(e.data);
       _eventSourceChannel.put(event(json));
@@ -125,7 +124,6 @@ function* eventWatcher() {
 }
 
 function* eventWorker(action: any) {
-  console.log('eventWorker', action);
   const {
     payload,
     payload: { event },
