@@ -38,7 +38,7 @@ const module = createEntityModule('organisation', {
 
 const {
   reducer,
-  actionType,
+  actionTypes,
   actions: {
     newEntity,
     createEntity,
@@ -51,7 +51,7 @@ const {
 } = module;
 
 export {
-  actionType as organisationActionType,
+  actionTypes as organisationActionTypes,
   newEntity as newOrganisation,
   createEntity as createOrganisation,
   requestEntity as requestOrganisation,

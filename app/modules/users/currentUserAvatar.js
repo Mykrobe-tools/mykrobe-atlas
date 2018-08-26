@@ -37,7 +37,7 @@ const module = createEntityModule('currentUserAvatar', {
 
 const {
   reducer,
-  actionType,
+  actionTypes,
   actions: { createEntity, requestEntity, updateEntity, deleteEntity },
   selectors: { getEntity, getError, getIsFetching },
   sagas: { entitySaga },
@@ -52,7 +52,7 @@ export {
   getError,
   getIsFetching,
   entitySaga as currentUserAvatarSaga,
-  actionType as currentUserActionType,
+  actionTypes as currentUserActionTypes,
 };
 
 export default reducer;

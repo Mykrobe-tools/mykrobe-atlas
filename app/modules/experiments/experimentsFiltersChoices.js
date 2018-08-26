@@ -3,9 +3,7 @@
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 
-import { SET, RESET } from 'makeandship-js-common/src/modules/generic/actions';
-
-import { experimentsFiltersActionType } from './experimentsFilters';
+import { experimentsFiltersActionTypes } from './experimentsFilters';
 import { requestExperimentsChoices } from './experimentsChoices';
 import { requestExperiments } from './experiments';
 
@@ -13,7 +11,7 @@ import { requestExperiments } from './experiments';
 
 function* experimentsFiltersChoicesWater() {
   yield takeEvery(
-    [experimentsFiltersActionType(SET), experimentsFiltersActionType(RESET)],
+    [experimentsFiltersActionTypes.SET, experimentsFiltersActionTypes.RESET],
     function*() {
       yield put(requestExperiments());
       yield put(requestExperimentsChoices());

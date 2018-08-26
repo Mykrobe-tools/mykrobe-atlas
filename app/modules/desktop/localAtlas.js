@@ -19,9 +19,7 @@ const remote = require('electron').remote;
 const app = require('electron').remote.app;
 const fs = require('fs');
 
-import { SET } from 'makeandship-js-common/src/modules/generic/actions';
-
-import { experimentActionType } from '../../modules/experiments/experiment';
+import { experimentActionTypes } from '../../modules/experiments/experiment';
 
 import AnalyserLocalFile from './util/AnalyserLocalFile';
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
@@ -209,7 +207,7 @@ export function* analyseFileSuccessWorker(): Saga {
   const sampleIds = Object.keys(json);
   const sampleId = sampleIds[0];
   const sampleModel = json[sampleId];
-  yield put({ type: experimentActionType(SET), payload: sampleModel });
+  yield put({ type: experimentActionTypes.SET, payload: sampleModel });
   yield put(push('/results'));
   yield put(showNotification(`Sample ${parsed.basename} analysis complete`));
   yield call(setSaveEnabled, true);

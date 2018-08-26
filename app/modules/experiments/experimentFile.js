@@ -13,7 +13,7 @@ const module = createEntityModule('experiment', {
 
 const {
   reducer,
-  actionType,
+  actionTypes,
   actions: { updateEntity },
   selectors: { getEntity, getError, getIsFetching },
   sagas: { entitySaga },
@@ -25,7 +25,7 @@ export {
   getError,
   getIsFetching,
   entitySaga as experimentFileSaga,
-  actionType as experimentFileActionType,
+  actionTypes as experimentFileActionTypes,
 };
 
 export default reducer;

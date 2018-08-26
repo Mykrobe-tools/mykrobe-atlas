@@ -38,7 +38,7 @@ const module = createEntityModule('user', {
 
 const {
   reducer,
-  actionType,
+  actionTypes,
   actions: {
     newEntity,
     createEntity,
@@ -60,7 +60,7 @@ export {
   getError,
   getIsFetching,
   entitySaga as userSaga,
-  actionType as userActionType,
+  actionTypes as userActionTypes,
 };
 
 export default reducer;

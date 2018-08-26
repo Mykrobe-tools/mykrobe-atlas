@@ -10,7 +10,7 @@ const module = createCollectionModule('users', {
 
 const {
   reducer,
-  actionType,
+  actionTypes,
   actions: { requestCollection },
   selectors: { getCollection, getError, getIsFetching },
   sagas: { collectionSaga },
@@ -22,7 +22,7 @@ export {
   getError,
   getIsFetching,
   collectionSaga as usersSaga,
-  actionType as usersActionType,
+  actionTypes as usersActionTypes,
 };
 
 export default reducer;

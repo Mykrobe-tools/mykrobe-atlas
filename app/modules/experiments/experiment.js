@@ -13,12 +13,6 @@ import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
 
-import {
-  SUCCESS,
-  FAILURE,
-  CREATE,
-} from 'makeandship-js-common/src/modules/generic/actions';
-
 import { showNotification, NotificationCategories } from '../notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import { getCurrentUser } from '../../modules/users';
@@ -64,7 +58,7 @@ const module = createEntityModule('experiment', {
 
 const {
   reducer,
-  actionType,
+  actionTypes,
   actions: {
     newEntity,
     createEntity,
@@ -128,7 +122,7 @@ export {
   deleteEntity as deleteExperiment,
   getError,
   getIsFetching,
-  actionType as experimentActionType,
+  actionTypes as experimentActionTypes,
 };
 
 export default reducer;
@@ -139,8 +133,8 @@ export function* createExperimentId(): Saga {
   // create an id for the experiment
   yield put(createEntity());
   const { success } = yield race({
-    success: take(actionType(CREATE, SUCCESS)),
-    failure: take(actionType(CREATE, FAILURE)),
+    success: take(actionTypes.CREATE_SUCCESS),
+    failure: take(actionTypes.CREATE_FAILURE),
   });
   if (!success) {
     yield put(
