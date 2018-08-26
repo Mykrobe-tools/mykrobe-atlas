@@ -14,14 +14,14 @@ const module = createCollectionModule('experiments', {
 
 const {
   reducer,
-  actionType,
+  actionTypes,
   actions: { requestCollection },
   selectors: { getCollection, getError, getIsFetching },
   sagas: { collectionSaga },
 } = module;
 
 export {
-  actionType as experimentsActionType,
+  actionTypes as experimentsActionTypes,
   requestCollection as requestExperiments,
   getCollection as getExperiments,
   getError,
