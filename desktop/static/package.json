@@ -4,6 +4,5 @@
   "productName": "Mykrobe Atlas TB",
   "version": "0.2.0",
   "main": "./main.js",
-  "description": "Mykrobe Atlas UI",
-  "executableVersion": "v0.5.6-0-gbd7923a-dirty"
+  "description": "Mykrobe Atlas UI"
 }
