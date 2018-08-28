@@ -17,7 +17,7 @@ const {
     getIsCheckingBeacon,
     getCountDownSeconds,
   },
-  actionType: beaconNetworkStatusActionType,
+  actionTypes: beaconNetworkStatusActionTypes,
   sagas: { beaconNetworkStatusSaga },
 } = beaconNetworkStatusModule;
 
@@ -25,7 +25,7 @@ export default beaconNetworkStatus;
 
 export {
   beaconNetworkStatusActions,
-  beaconNetworkStatusActionType,
+  beaconNetworkStatusActionTypes,
   beaconNetworkStatusSaga,
   getOnline as getBeaconNetworkStatusOnline,
   getInitialised as getBeaconNetworkStatusInitialised,

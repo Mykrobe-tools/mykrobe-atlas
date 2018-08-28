@@ -50,7 +50,7 @@ const module = createEntityModule('currentUser', {
 
 const {
   reducer,
-  actionType,
+  actionTypes,
   actions: {
     newEntity,
     createEntity,
@@ -131,7 +131,7 @@ export {
   requestEntityWorker as requestCurrentUserWorker,
   updateEntityWorker as updateCurrentUserWorker,
   deleteEntityWorker as deleteCurrentUserWorker,
-  actionType as currentUserActionType,
+  actionTypes as currentUserActionTypes,
 };
 
 export default reducer;

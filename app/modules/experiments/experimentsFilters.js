@@ -12,7 +12,7 @@ const module = createFiltersModule('experimentsFilters', {
 
 const {
   reducer,
-  actionType,
+  actionTypes,
   actions: { setFilters, resetFilters },
   selectors: {
     getFilters,
@@ -35,14 +35,14 @@ export {
   getFiltersSaga as getExperimentsFiltersSaga,
   getDataFiltersSaga as getExperimentsDataFiltersSaga,
   getChoicesFiltersSaga as getExperimentsChoicesFiltersSaga,
-  actionType as experimentsFiltersActionType,
+  actionTypes as experimentsFiltersActionTypes,
 };
 
 export default reducer;
 
 const syncModule = createSyncFiltersWithReactRouterRedux({
   locationPathname: '/experiments',
-  actionType,
+  actionTypes,
   getFilters,
   setFilters,
 });

@@ -25,9 +25,20 @@ class ChoiceFilterNumericRange extends React.Component<*, State> {
   }
 
   minMaxFromProps = (props: any): State => {
-    const { choices, choiceKey } = props;
+    const { choices, choicesFilters, choiceKey } = props;
     const choice: Choice = choices[choiceKey];
-    const { max, min } = choice;
+    const choiceFilter: Choice = choicesFilters[choiceKey];
+    // defaults from choice data
+    let { max, min } = choice;
+    // override if they are set in the filters
+    if (choiceFilter) {
+      if (choiceFilter.min) {
+        min = choiceFilter.min;
+      }
+      if (choiceFilter.max) {
+        max = choiceFilter.max;
+      }
+    }
     return {
       min,
       max,

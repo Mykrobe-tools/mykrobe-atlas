@@ -12,7 +12,7 @@ const module = createFiltersModule('usersFilters', {
 
 const {
   reducer,
-  actionType,
+  actionTypes,
   actions: { setFilters, resetFilters },
   selectors: { getFilters, getHasDataFilters },
   sagas: { getFiltersSaga },
@@ -24,14 +24,14 @@ export {
   getFilters as getUsersFilters,
   getHasDataFilters as getUsersHasDataFilters,
   getFiltersSaga as getUsersFiltersSaga,
-  actionType as usersFiltersActionType,
+  actionTypes as usersFiltersActionTypes,
 };
 
 export default reducer;
 
 const syncModule = createSyncFiltersWithReactRouterRedux({
   locationPathname: '/users',
-  actionType,
+  actionTypes,
   getFilters,
   setFilters,
 });
