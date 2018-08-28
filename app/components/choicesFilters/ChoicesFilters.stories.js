@@ -36,9 +36,25 @@ const variations = {
     clearFilters,
     filters: {
       'metadata.phenotyping.gatifloxacin.method': 'Microtitre plate',
+      'metadata.patient.age': {
+        min: 21,
+        max: 72,
+      },
+      'metadata.treatment.continuation.start': {
+        min: '2017-10-17T17:59:11+01:00',
+        max: '2018-07-29T14:34:01+01:00',
+      },
     },
     choicesFilters: {
       'metadata.phenotyping.gatifloxacin.method': 'Microtitre plate',
+      'metadata.patient.age': {
+        min: 21,
+        max: 72,
+      },
+      'metadata.treatment.continuation.start': {
+        min: '2017-10-17T17:59:11+01:00',
+        max: '2018-07-29T14:34:01+01:00',
+      },
     },
     hasFilters: true,
     choices,

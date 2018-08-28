@@ -36,7 +36,7 @@ export {
   getOrganisationsFilters,
   getOrganisationsHasDataFilters,
   getOrganisationsFiltersSaga,
-  organisationsFiltersActionType,
+  organisationsFiltersActionTypes,
 } from './organisationsFilters';
 
 const reducer = combineReducers({
