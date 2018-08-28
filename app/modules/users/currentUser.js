@@ -92,7 +92,7 @@ function* authSignInWatcher() {
 }
 
 function* authSignInWorker() {
-  yield fork(requestEntityWorker);
+  yield put(requestEntity());
 }
 
 function* authSignOutWatcher() {

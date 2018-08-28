@@ -83,10 +83,14 @@ function* startWorker() {
   const options = buildOptionsWithToken({}, accessToken);
 
   // TODO contruct this with swagger operation id
-  _eventSource = new EventSourcePolyfill(`${API_URL}/user/events`, {
-    headers: options.headers,
-    heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
-  });
+  try {
+    _eventSource = new EventSourcePolyfill(`${API_URL}/user/events`, {
+      headers: options.headers,
+      heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
+    });
+  } catch (error) {
+    console.log(`Couldn't start event source`, error);
+  }
   /* Example messages
   "{"id":"5b7eb595ed9f300010167cfa","complete":"99.03…,"file":"MDR.fastq.gz","event":"Upload progress"}"
   "{"id":"5b7eb595ed9f300010167cfa","complete":"100.0…,"file":"MDR.fastq.gz","event":"Upload complete"}"
@@ -94,6 +98,9 @@ function* startWorker() {
   "{"id":"5b7eb595ed9f300010167cfa","taskId":"ab5e8f3…depth","externalId":"5b7eb595ed9f300010167cfa"}]}"
 
   */
+  if (!_eventSource) {
+    return;
+  }
   _eventSource.onmessage = e => {
     try {
       const json = JSON.parse(e.data);

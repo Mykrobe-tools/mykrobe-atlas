@@ -7,6 +7,7 @@
   "main": "main.js",
   "scripts": {
     "build-predictor-binaries": "babel-node ./desktop/build-predictor-binaries.js",
+    "check:es": "yarn web-build && yarn es-check es5 ./web/build/**/*.js || (echo '\nOne or more build files contains non-es5 code. This is usually caused by a module in the node_modules folder distributing non-transpiled source code. Check recently added or updated modules.' && false)",
     "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js",
     "desktop-build-renderer": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.production.js",
     "desktop-build": "yarn desktop-build-main && yarn desktop-build-renderer",
@@ -26,7 +27,7 @@
     "lint:prettier": "prettier -l './**/*.{js,json,css,scss}' || (echo '\nThese files are not formatted correctly. Did you forget to run \"yarn prettier\"?' && false)",
     "lint": "yarn lint:eslint && yarn lint:prettier",
     "postinstall": "electron-builder install-app-deps",
-    "precommit": "yarn lint && yarn test:fast",
+    "precommit": "yarn lint && yarn test:fast && yarn check:es",
     "prettier": "prettier --write './**/*.{js,json,css,scss}'",
     "set-target": "babel-node scripts/set-target.js",
     "storybook": "start-storybook --host 0.0.0.0 --port 6006",
@@ -202,6 +203,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.1.0",
+    "es-check": "^2.1.0",
     "event-source-polyfill": "^0.0.12",
     "fbjs-scripts": "^0.8.3",
     "fs-extra": "^6.0.1",
@@ -248,7 +250,7 @@
     "verbose": true,
     "testURL": "http://localhost/",
     "transformIgnorePatterns": [
-      "/node_modules/(?!(makeandship-js-common|mykrobe-atlas-jsonschema|swagger-client)).+\\.js$"
+      "/node_modules/(?!(makeandship-js-common|makeandship-api-common|mykrobe-atlas-jsonschema|swagger-client)).+\\.js$"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/__mocks__/fileMock.js",
