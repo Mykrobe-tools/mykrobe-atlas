@@ -13,6 +13,7 @@ module.exports = {
       'babel-polyfill',
       'url-search-params-polyfill',
       'event-source-polyfill',
+      'events-polyfill',
       path.join(dirApp, 'index'),
     ],
   },

@@ -4894,6 +4894,10 @@ eventemitter3@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.0.tgz#090b4d6cdbd645ed10bf750d4b5407942d7ba163"
 
+events-polyfill@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/events-polyfill/-/events-polyfill-2.0.7.tgz#8bb9477b42c1e205538c0ace92592066551e9e2e"
+
 events@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
@@ -7347,6 +7351,10 @@ js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.4.8"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.8.tgz#57a9b130888f956834aa40c5b165ba59c758f033"
 
+js-cookie@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
+
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
@@ -8103,9 +8111,9 @@ make-dir@^1.0.0, make-dir@^1.1.0:
     nodemailer-mock "^1.3.13"
     path "^0.12.7"
 
-"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.6":
+"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.7":
   version "0.0.6"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#af9bd16600bf309a4c585ff277b016ce752c8cb3"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#f392b450d74c85fcc1e53d51d978e9953242e60e"
   dependencies:
     ajv "^6.5.1"
     babel-jest "^23.0.1"
@@ -8124,6 +8132,7 @@ make-dir@^1.0.0, make-dir@^1.1.0:
     filesize "^3.6.1"
     font-awesome "^4.7.0"
     history "^4.7.2"
+    js-cookie "^2.2.0"
     makeandship-api-common "git+ssh://git@bitbucket.org:makeandship/makeandship-api-common.git"
     moment "^2.22.0"
     nhs-number-validator "^1.1.1"
@@ -8147,7 +8156,6 @@ make-dir@^1.0.0, make-dir@^1.1.0:
     redux-thunk "^2.2.0"
     reselect "^3.0.1"
     swagger-client "git://github.com/makeandship/swagger-js.git#feature/react-native"
-    universal-cookie "^2.1.2"
     url-search-params-polyfill "^4.0.0"
     zxcvbn "^4.4.2"
 
@@ -12347,7 +12355,7 @@ unique-string@^1.0.0:
   dependencies:
     crypto-random-string "^1.0.0"
 
-universal-cookie@^2.1.2, universal-cookie@^2.1.5:
+universal-cookie@^2.1.5:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/universal-cookie/-/universal-cookie-2.2.0.tgz#328dc3883cf0ebd5b4904902033ad4dfdb907ed2"
   dependencies:
