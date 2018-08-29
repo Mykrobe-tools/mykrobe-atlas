@@ -1,19 +1,25 @@
 /* @flow */
 
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import styles from './SummaryVariants.scss';
 
 class SummaryVariants extends React.Component<*> {
   render() {
+    const { experimentTransformed } = this.props;
     return (
       <div className={styles.container}>
-        <div className={styles.group}>
-          <div className={styles.title}>Isoniazid</div>
-          <div>[Placeholder] Resistance mutation found: S315W in gene katG</div>
-          <div>Resistant allele seen 22 times</div>
-          <div>Susceptible allele seen 0 times</div>
-          <div>High Confidence call – 97% PPV</div>
-        </div>
+        {Object.keys(experimentTransformed.evidence).map(drug => {
+          const evidence = experimentTransformed.evidence[drug][0];
+          return (
+            <div key={drug} className={styles.group}>
+              <div className={styles.title}>{drug}</div>
+              {evidence.map((entry, index) => (
+                <div key={`${index}`}>{entry}</div>
+              ))}
+            </div>
+          );
+        })}
         <div className={styles.group}>
           <div className={styles.title}>Whole genome analysis</div>
           <div>[Placeholder] Depth of coverage 80&times;</div>
@@ -32,5 +38,11 @@ class SummaryVariants extends React.Component<*> {
     );
   }
 }
+
+SummaryVariants.propTypes = {
+  experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
+  isBusyWithCurrentRoute: PropTypes.bool,
+};
 
 export default SummaryVariants;

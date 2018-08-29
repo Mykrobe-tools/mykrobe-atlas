@@ -50,12 +50,12 @@ class SummaryMetadata extends React.Component<*> {
               <tr>
                 <td>Species</td>
                 <td>
-                  <em>[Placeholder] M. tuberculosis / M. abscessus</em>
+                  <em>{experimentTransformed.speciesString || '–'}</em>
                 </td>
               </tr>
               <tr>
                 <td>TB Lineage</td>
-                <td>[Placeholder] European / American</td>
+                <td>{experimentTransformed.lineageString || '–'}</td>
               </tr>
               <tr>
                 <td>Closest relative</td>
@@ -70,7 +70,6 @@ class SummaryMetadata extends React.Component<*> {
             </tbody>
           </table>
         </div>
-        <pre>{JSON.stringify(experimentTransformed, null, 2)}</pre>
       </div>
     );
   }

@@ -22,6 +22,7 @@ Object {
   "lineage": Array [
     "European_American",
   ],
+  "lineageString": "European American",
   "negative": Array [],
   "positive": Array [],
   "resistant": Array [
@@ -30,7 +31,8 @@ Object {
   "species": Array [
     "Mycobacterium_tuberculosis",
   ],
-  "speciesPretty": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesString": "Mycobacterium tuberculosis",
   "susceptible": Array [
     "Rifampicin",
     "Capreomycin",
@@ -73,6 +75,7 @@ Object {
   "lineage": Array [
     "European_American",
   ],
+  "lineageString": "European American",
   "negative": Array [],
   "positive": Array [],
   "resistant": Array [
@@ -82,7 +85,8 @@ Object {
   "species": Array [
     "Mycobacterium_tuberculosis",
   ],
-  "speciesPretty": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesString": "Mycobacterium tuberculosis",
   "susceptible": Array [
     "Capreomycin",
     "Amikacin",
@@ -102,10 +106,12 @@ Object {
   "lineage": Array [
     "Unknown",
   ],
+  "lineageString": "Unknown",
   "species": Array [
     "Mycobacterium_kansasii",
   ],
-  "speciesPretty": "Mycobacterium kansasii (lineage: Unknown)",
+  "speciesAndLineageString": "Mycobacterium kansasii (lineage: Unknown)",
+  "speciesString": "Mycobacterium kansasii",
 }
 `;
 
@@ -131,6 +137,7 @@ Object {
   "lineage": Array [
     "European_American",
   ],
+  "lineageString": "European American",
   "negative": Array [],
   "positive": Array [],
   "resistant": Array [
@@ -139,7 +146,8 @@ Object {
   "species": Array [
     "Mycobacterium_tuberculosis",
   ],
-  "speciesPretty": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesString": "Mycobacterium tuberculosis",
   "susceptible": Array [
     "Capreomycin",
     "Isoniazid",
@@ -224,6 +232,7 @@ Object {
   "lineage": Array [
     "Beijing_East_Asia",
   ],
+  "lineageString": "Beijing East Asia",
   "negative": Array [],
   "positive": Array [],
   "resistant": Array [
@@ -239,7 +248,8 @@ Object {
   "species": Array [
     "Mycobacterium_tuberculosis",
   ],
-  "speciesPretty": "Mycobacterium tuberculosis (lineage: Beijing East Asia)",
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: Beijing East Asia)",
+  "speciesString": "Mycobacterium tuberculosis",
   "susceptible": Array [
     "Pyrazinamide",
   ],
