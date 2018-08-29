@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import is from 'is_js';
 
 import { Select } from 'makeandship-js-common/src/components/ui/form';
 
@@ -110,6 +111,7 @@ class ChoiceFilterNumericRange extends React.Component<*, State> {
         label: `${i}`,
       });
     }
+    const initiallyOpen = placeholder && !is.ie(); // initiallyOpen throws on IE
     return (
       <div className={styles.componentWrap}>
         {displayTitle}
@@ -122,7 +124,7 @@ class ChoiceFilterNumericRange extends React.Component<*, State> {
             options={minOptions}
             onChange={this.onMinChange}
             autosize
-            initiallyOpen={placeholder}
+            initiallyOpen={initiallyOpen}
             searchable
             wideMenu
           />

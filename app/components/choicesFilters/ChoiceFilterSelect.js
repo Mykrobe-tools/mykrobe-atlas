@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import is from 'is_js';
 
 import { Select } from 'makeandship-js-common/src/components/ui/form';
 
@@ -37,6 +38,7 @@ class ChoiceFilterSelect extends React.Component<*> {
     const displayValue = placeholder
       ? displayTitle
       : `${displayTitle} · ${choicesFilters[choiceKey]}`;
+    const initiallyOpen = placeholder && !is.ie(); // initiallyOpen throws on IE
     return (
       <div className={styles.select}>
         <div className={styles.widthSizer}>{displayValue}</div>
@@ -54,7 +56,7 @@ class ChoiceFilterSelect extends React.Component<*> {
           placeholder={displayTitle}
           options={options}
           clearable={false}
-          initiallyOpen={placeholder}
+          initiallyOpen={initiallyOpen}
           searchable
           wideMenu
         />
