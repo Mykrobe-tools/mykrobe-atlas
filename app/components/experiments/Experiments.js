@@ -111,7 +111,6 @@ class Experiments extends React.Component<*, State> {
       experiments,
       experimentsFilters,
       isFetchingExperiments,
-      onExperimentClick,
       onChangeListOrder,
     } = this.props;
     const { pagination, results, total } = experiments;
@@ -186,7 +185,6 @@ class Experiments extends React.Component<*, State> {
               <ExperimentsTable
                 isFetching={isFetchingExperiments}
                 experiments={results}
-                onExperimentClick={onExperimentClick}
                 onChangeOrder={onChangeListOrder}
                 filters={experimentsFilters}
                 selected={selected}
@@ -232,7 +230,6 @@ Experiments.propTypes = {
   requestFilterValues: PropTypes.func,
   isFetchingExperiments: PropTypes.bool,
   isFetchingFilters: PropTypes.bool,
-  onExperimentClick: PropTypes.func,
   onChangeListOrder: PropTypes.func,
   setPage: PropTypes.func,
   newExperiment: PropTypes.func,
