@@ -20,7 +20,9 @@ const ExperimentRoutes = () => (
     <Route
       exact
       path={`/experiments/:experimentId`}
-      component={({ match }) => <Redirect to={urljoin(match.url,'metadata')} />}
+      component={({ match }) => (
+        <Redirect to={urljoin(match.url, 'metadata')} />
+      )}
     />
     <Route
       path={`/experiments/:experimentId/metadata`}

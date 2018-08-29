@@ -32,6 +32,7 @@ class Menu extends React.Component<*> {
               to="/experiments"
               className={styles.navigationLink}
               activeClassName={styles.navigationLinkActive}
+              exact
             >
               Sample Library
             </NavLink>
@@ -41,6 +42,7 @@ class Menu extends React.Component<*> {
               to="/organisations"
               className={styles.navigationLink}
               activeClassName={styles.navigationLinkActive}
+              exact
             >
               Organisations
             </NavLink>

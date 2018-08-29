@@ -104,6 +104,9 @@ class ExperimentsTable extends React.Component<*> {
     const { selected } = this.props;
     const allSelected = (selected && selected === '*') || false;
     let { id, owner } = experiment;
+    const title = experiment.file
+      ? `${experiment.file} (${experiment.id})`
+      : experiment.id;
     const isSelected =
       allSelected ||
       (selected && selected.includes && selected.includes(id)) ||
@@ -122,7 +125,7 @@ class ExperimentsTable extends React.Component<*> {
           </label>
         </td>
         <td>
-          <Link to={`/experiments/${id}`}>{id}</Link>
+          <Link to={`/experiments/${id}`}>{title}</Link>
         </td>
         <td>
           {owner.lastname}, {owner.firstname}
