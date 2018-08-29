@@ -4,6 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Route, Redirect, Switch, NavLink } from 'react-router-dom';
+import urljoin from 'url-join';
 
 import ResistanceAllContainer from '../all/ResistanceAllContainer';
 import ResistanceDrugsContainer from '../drugs/ResistanceDrugsContainer';
@@ -96,7 +97,7 @@ class Resistance extends React.Component<*> {
             <Route
               exact
               path={match.url}
-              component={() => <Redirect to={`${match.url}/all`} />}
+              component={() => <Redirect to={urljoin(match.url, 'all')} />}
             />
             <Route
               path={`${match.url}/all`}

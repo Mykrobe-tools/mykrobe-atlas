@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import urljoin from 'url-join';
 
 import AnalysisContainer from './analysis/AnalysisContainer';
 import Resistance from './resistance/resistance/Resistance';
@@ -19,7 +20,7 @@ const ExperimentRoutes = () => (
     <Route
       exact
       path={`/experiments/:experimentId`}
-      component={({ match }) => <Redirect to={`${match.url}/metadata`} />}
+      component={({ match }) => <Redirect to={urljoin(match.url,'metadata')} />}
     />
     <Route
       path={`/experiments/:experimentId/metadata`}
