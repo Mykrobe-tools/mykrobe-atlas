@@ -1,27 +1,45 @@
 /* @flow */
 
 import * as React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import moment from 'moment';
 
 import styles from './SummaryMetadata.scss';
 
 class SummaryMetadata extends React.Component<*> {
   render() {
+    const {
+      experimentTransformed,
+      experiment: { metadata },
+    } = this.props;
+    const labId = _.get(metadata, 'sample.labId') || '–';
+    let collectionDate = _.get(metadata, 'sample.collectionDate');
+    collectionDate = collectionDate
+      ? moment(collectionDate).format('LLL')
+      : '–';
+    const countryIsolate = _.get(metadata, 'sample.countryIsolate') || '–';
+    const cityIsolate = _.get(metadata, 'sample.cityIsolate') || '–';
     return (
       <div className={styles.container}>
         <div className={styles.summaryContainer}>
           <table className={styles.table}>
             <tbody>
               <tr>
-                <td>Sample ID</td>
-                <td>[Placeholder] 45869836589536483489</td>
+                <td>Lab Id</td>
+                <td>{labId}</td>
               </tr>
               <tr>
-                <td>Location</td>
-                <td>[Placeholder] United Kingdom</td>
+                <td>Country Isolate</td>
+                <td>{countryIsolate}</td>
               </tr>
               <tr>
-                <td>Date collected</td>
-                <td>[Placeholder] 11.06.16</td>
+                <td>City Isolate</td>
+                <td>{cityIsolate}</td>
+              </tr>
+              <tr>
+                <td>Collection Date</td>
+                <td>{collectionDate}</td>
               </tr>
             </tbody>
           </table>
@@ -32,12 +50,12 @@ class SummaryMetadata extends React.Component<*> {
               <tr>
                 <td>Species</td>
                 <td>
-                  <em>[Placeholder] M. tuberculosis / M. abscessus</em>
+                  <em>{experimentTransformed.speciesString || '–'}</em>
                 </td>
               </tr>
               <tr>
                 <td>TB Lineage</td>
-                <td>[Placeholder] European / American</td>
+                <td>{experimentTransformed.lineageString || '–'}</td>
               </tr>
               <tr>
                 <td>Closest relative</td>
@@ -56,5 +74,10 @@ class SummaryMetadata extends React.Component<*> {
     );
   }
 }
+
+SummaryMetadata.propTypes = {
+  experiment: PropTypes.object.isRequired,
+  experimentTransformed: PropTypes.object.isRequired,
+};
 
 export default SummaryMetadata;

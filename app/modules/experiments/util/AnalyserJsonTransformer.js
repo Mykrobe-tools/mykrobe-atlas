@@ -5,7 +5,7 @@ import * as TargetConstants from '../../../constants/TargetConstants';
 export type AnalyserJsonTransformerResult = {
   lineage: Array<string>,
   species: Array<string>,
-  speciesPretty: string,
+  speciesAndLineageString: string,
   hasSpecies: boolean,
   hasResistance: boolean,
   susceptible: Array<string>,
@@ -352,7 +352,13 @@ class AnalyserJsonTransformer {
 
   transformSpecies(
     sourceModel: Object
-  ): { lineage: Array<string>, species: Array<string>, speciesPretty: string } {
+  ): {
+    lineage: Array<string>,
+    species: Array<string>,
+    speciesAndLineageString: string,
+    speciesString: string,
+    lineageString: string,
+  } {
     const species = Object.keys(sourceModel.phylogenetics.species);
 
     let lineage = [];
@@ -360,21 +366,30 @@ class AnalyserJsonTransformer {
       lineage = Object.keys(sourceModel.phylogenetics.lineage);
     }
 
-    let speciesPretty = '';
+    let speciesAndLineageString = '';
 
-    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
-      const s = species ? species.join(' / ').replace(/_/g, ' ') : 'undefined';
-      const l = lineage.length
-        ? ' (lineage: ' + lineage.join(', ').replace(/_/g, ' ') + ')'
-        : '';
-      speciesPretty = `${s}${l}`;
-    } else {
-      speciesPretty = species
+    const speciesString =
+      species && species.length
         ? species.join(' / ').replace(/_/g, ' ')
         : 'undefined';
+
+    const lineageString =
+      lineage && lineage.length ? lineage.join(' / ').replace(/_/g, ' ') : '';
+
+    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
+      const lineageSuffix = lineageString ? ` (lineage: ${lineageString})` : '';
+      speciesAndLineageString = `${speciesString}${lineageSuffix}`;
+    } else {
+      speciesAndLineageString = speciesString;
     }
 
-    return { lineage, species, speciesPretty };
+    return {
+      lineage,
+      species,
+      speciesAndLineageString,
+      speciesString,
+      lineageString,
+    };
   }
 
   _sortObject(o: Object) {

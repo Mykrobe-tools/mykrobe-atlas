@@ -76,7 +76,7 @@ describe('AnalyserLocalFile', () => {
               );
             }
             expectCaseInsensitiveEqual(
-              transformed.speciesPretty,
+              transformed.speciesAndLineageString,
               exemplarSamplesExpectEntry.expect.species
             );
             if (transformed.hasResistance) {

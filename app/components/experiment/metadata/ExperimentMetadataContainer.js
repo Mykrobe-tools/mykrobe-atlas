@@ -12,6 +12,7 @@ import { requestCurrentUser } from '../../../modules/users';
 import {
   requestExperiment,
   requestExperimentMetadataTemplate,
+  getExperimentOwnerIsCurrentUser,
 } from '../../../modules/experiments';
 
 import styles from './ExperimentMetadataContainer.scss';
@@ -26,18 +27,23 @@ class ExperimentMetadataContainer extends React.Component<*> {
   }
 
   render() {
-    const { match } = this.props;
+    const { match, experimentOwnerIsCurrentUser } = this.props;
     return (
       <div className={styles.container}>
-        <ExperimentMetadataNavigation match={match} />
+        <ExperimentMetadataNavigation
+          match={match}
+          experimentOwnerIsCurrentUser={experimentOwnerIsCurrentUser}
+        />
         <ExperimentMetadataRoutes match={match} />
       </div>
     );
   }
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    experimentOwnerIsCurrentUser: getExperimentOwnerIsCurrentUser(state),
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -55,6 +61,7 @@ ExperimentMetadataContainer.propTypes = {
   match: PropTypes.object.isRequired,
   requestExperiment: PropTypes.func.isRequired,
   requestExperimentMetadataTemplate: PropTypes.func.isRequired,
+  experimentOwnerIsCurrentUser: PropTypes.bool,
 };
 
 export default connect(

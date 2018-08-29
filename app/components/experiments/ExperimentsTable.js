@@ -103,8 +103,10 @@ class ExperimentsTable extends React.Component<*> {
   renderRow = (experiment: any) => {
     const { selected } = this.props;
     const allSelected = (selected && selected === '*') || false;
-    const { onExperimentClick } = this.props;
     let { id, owner } = experiment;
+    const title = experiment.file
+      ? `${experiment.file} (${experiment.id})`
+      : experiment.id;
     const isSelected =
       allSelected ||
       (selected && selected.includes && selected.includes(id)) ||
@@ -122,11 +124,8 @@ class ExperimentsTable extends React.Component<*> {
             <span />
           </label>
         </td>
-        <td
-          onClick={() => onExperimentClick(experiment)}
-          className={styles.clickableCell}
-        >
-          {id}
+        <td>
+          <Link to={`/experiments/${id}`}>{title}</Link>
         </td>
         <td>
           {owner.lastname}, {owner.firstname}
@@ -178,7 +177,6 @@ ExperimentsTable.propTypes = {
   isFetching: PropTypes.bool,
   filters: PropTypes.object,
   onChangeOrder: PropTypes.func,
-  onExperimentClick: PropTypes.func,
   selected: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   setSelected: PropTypes.func,
 };

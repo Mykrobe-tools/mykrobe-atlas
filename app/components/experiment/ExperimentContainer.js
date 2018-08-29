@@ -12,6 +12,7 @@ import { requestCurrentUser } from '../../modules/users';
 import {
   requestExperiment,
   requestExperimentMetadataTemplate,
+  getExperiment,
 } from '../../modules/experiments';
 
 import styles from './ExperimentContainer.scss';
@@ -40,18 +41,20 @@ class ExperimentContainer extends React.Component<*> {
   }
 
   render() {
-    const { match } = this.props;
+    const { match, experiment } = this.props;
     return (
       <div className={styles.container}>
-        <ExperimentNavigation match={match} />
+        <ExperimentNavigation match={match} experiment={experiment} />
         <ExperimentRoutes match={match} />
       </div>
     );
   }
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  return {
+    experiment: getExperiment(state),
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -69,6 +72,7 @@ ExperimentContainer.propTypes = {
   match: PropTypes.object.isRequired,
   requestExperiment: PropTypes.func.isRequired,
   requestExperimentMetadataTemplate: PropTypes.func.isRequired,
+  experiment: PropTypes.object,
 };
 
 export default connect(

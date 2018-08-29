@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import urljoin from 'url-join';
 
 import EditMetadata from './EditMetadata';
 
@@ -34,7 +35,7 @@ const ExperimentMetadataRoutes = () => (
     <Route
       exact
       path={`/experiments/:experimentId/metadata`}
-      component={({ match }) => <Redirect to={`${match.url}/patient`} />}
+      component={({ match }) => <Redirect to={urljoin(match.url, 'patient')} />}
     />
     <Route
       path={`/experiments/:experimentId/metadata/patient`}

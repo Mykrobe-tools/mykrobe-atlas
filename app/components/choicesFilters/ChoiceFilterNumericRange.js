@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import is from 'is_js';
 
 import { Select } from 'makeandship-js-common/src/components/ui/form';
 
@@ -12,8 +13,8 @@ import styles from './ChoiceFilterNumericRange.scss';
 import type { Choice } from './types';
 
 type State = {
-  min?: number,
-  max?: number,
+  min?: string,
+  max?: string,
 };
 
 class ChoiceFilterNumericRange extends React.Component<*, State> {
@@ -53,21 +54,21 @@ class ChoiceFilterNumericRange extends React.Component<*, State> {
     }
   };
 
-  onMinChange = (min: number) => {
+  onMinChange = (min: string) => {
     const { choiceKey, onChange } = this.props;
     // allow user to select any min, make sure that the current max doesn't overlap
-    const max = Math.max(min, this.state.max);
+    const max = Math.max(parseInt(min), parseInt(this.state.max));
     this.setState({
       min,
-      max,
+      max: `${max}`,
     });
     onChange(choiceKey, {
       min,
-      max,
+      max: `${max}`,
     });
   };
 
-  onMaxChange = (max: number) => {
+  onMaxChange = (max: string) => {
     const { choiceKey, onChange } = this.props;
     this.setState({
       max,
@@ -78,7 +79,7 @@ class ChoiceFilterNumericRange extends React.Component<*, State> {
     });
   };
 
-  customInput = (value?: number) => (
+  customInput = (value?: string) => (
     <div>
       <div className={styles.customInput}>
         <a href="#" onClick={e => e.preventDefault()}>
@@ -97,19 +98,20 @@ class ChoiceFilterNumericRange extends React.Component<*, State> {
       choices
     );
     let minOptions = [];
-    for (let i: number = choice.min; i <= choice.max; i++) {
+    for (let i: number = parseInt(choice.min); i <= parseInt(choice.max); i++) {
       minOptions.push({
-        value: i,
+        value: `${i}`,
         label: `${i}`,
       });
     }
     let maxOptions = [];
-    for (let i: number = min; i <= choice.max; i++) {
+    for (let i: number = parseInt(min); i <= parseInt(choice.max); i++) {
       maxOptions.push({
-        value: i,
+        value: `${i}`,
         label: `${i}`,
       });
     }
+    const initiallyOpen = placeholder && !is.ie(); // initiallyOpen throws on IE
     return (
       <div className={styles.componentWrap}>
         {displayTitle}
@@ -122,7 +124,7 @@ class ChoiceFilterNumericRange extends React.Component<*, State> {
             options={minOptions}
             onChange={this.onMinChange}
             autosize
-            initiallyOpen={placeholder}
+            initiallyOpen={initiallyOpen}
             searchable
             wideMenu
           />

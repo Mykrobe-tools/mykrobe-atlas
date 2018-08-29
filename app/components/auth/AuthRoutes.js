@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
+import urljoin from 'url-join';
 
 import Login from './Login';
 import Signup from './Signup';
@@ -23,7 +24,7 @@ const AuthRoutes = ({ match }: { match: Match }) => (
     <Route path={`${match.url}/forgot`} component={Forgot} />
     <Route path={`${match.url}/forgotsuccess`} component={ForgotSuccess} />
     <Route path={`${match.url}/error`} component={AuthError} />
-    <Redirect from={`${match.url}`} exact to={`${match.url}/login`} />
+    <Redirect from={`${match.url}`} exact to={urljoin(match.url, 'login')} />
   </Switch>
 );
 
