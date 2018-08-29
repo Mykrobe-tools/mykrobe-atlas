@@ -10,10 +10,13 @@ import styles from './ExperimentNavigation.scss';
 
 class ExperimentNavigation extends React.Component<*> {
   render() {
-    const { match } = this.props;
+    const { match, experiment } = this.props;
+    const title = experiment
+      ? experiment.file || experiment.id || 'New sample'
+      : 'Unknown sample';
     return (
       <div className={styles.container}>
-        <Header title={'(Name of sample)'} />
+        <Header title={title} />
         <Container fluid>
           <div className={styles.navigation}>
             <NavLink
@@ -53,6 +56,7 @@ class ExperimentNavigation extends React.Component<*> {
 
 ExperimentNavigation.propTypes = {
   match: PropTypes.object.isRequired,
+  experiment: PropTypes.object,
 };
 
 export default ExperimentNavigation;
