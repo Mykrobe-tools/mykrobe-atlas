@@ -3,6 +3,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { Button } from 'reactstrap';
 
 import styles from './Upload.scss';
 import AnimatedBackground from '../animatedbackground/AnimatedBackground';
@@ -32,6 +34,11 @@ class Upload extends React.Component<*> {
               <div className={styles.buttonContainer}>
                 <UploadButton size="lg" />
               </div>
+            )}
+            {isAuthenticated && (
+              <Link className={styles.libraryLink} to="/experiments">
+                <i className="fa fa-chevron-circle-right" /> Sample Library
+              </Link>
             )}
           </div>
         </div>
