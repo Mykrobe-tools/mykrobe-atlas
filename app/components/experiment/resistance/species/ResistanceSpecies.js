@@ -9,8 +9,8 @@ import ResistanceEmpty from '../empty/ResistanceEmpty';
 class ResistanceSpecies extends React.Component<*> {
   render() {
     const { experimentTransformed } = this.props;
-    const { speciesPretty, error } = experimentTransformed;
-    if (!speciesPretty) {
+    const { speciesAndLineageString, error } = experimentTransformed;
+    if (!speciesAndLineageString) {
       return (
         <div className={styles.empty} data-tid="component-resistance-species">
           <ResistanceEmpty subtitle={error} />
@@ -22,7 +22,7 @@ class ResistanceSpecies extends React.Component<*> {
         <Panel title="Species" columns={8}>
           <div
             className={styles.species}
-            dangerouslySetInnerHTML={{ __html: speciesPretty }}
+            dangerouslySetInnerHTML={{ __html: speciesAndLineageString }}
             data-tid="species"
           />
         </Panel>

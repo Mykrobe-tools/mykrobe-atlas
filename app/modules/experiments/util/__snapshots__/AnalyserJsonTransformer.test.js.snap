@@ -1,0 +1,257 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnalyserJsonTransformer should handle "requestExperiments" action 1`] = `
+Object {
+  "drugsResistance": Object {
+    "mdr": false,
+    "xdr": false,
+  },
+  "evidence": Object {
+    "Isoniazid": Array [
+      Array [
+        "Resistance mutation found: S315T in gene katG",
+        "Resistant allele coverage: 82",
+        "Susceptible allele coverage: 1",
+      ],
+    ],
+  },
+  "hasResistance": true,
+  "hasSpecies": true,
+  "inconclusive": Array [],
+  "inducible": Array [],
+  "lineage": Array [
+    "European_American",
+  ],
+  "lineageString": "European American",
+  "negative": Array [],
+  "positive": Array [],
+  "resistant": Array [
+    "Isoniazid",
+  ],
+  "species": Array [
+    "Mycobacterium_tuberculosis",
+  ],
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesString": "Mycobacterium tuberculosis",
+  "susceptible": Array [
+    "Rifampicin",
+    "Capreomycin",
+    "Amikacin",
+    "Pyrazinamide",
+    "Ethambutol",
+    "Kanamycin",
+    "Streptomycin",
+    "Quinolones",
+  ],
+}
+`;
+
+exports[`AnalyserJsonTransformer should handle "requestExperiments" action 2`] = `
+Object {
+  "drugsResistance": Object {
+    "mdr": true,
+    "xdr": false,
+  },
+  "evidence": Object {
+    "Isoniazid": Array [
+      Array [
+        "Resistance mutation found: S315T in gene katG",
+        "Resistant allele coverage: 43",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Rifampicin": Array [
+      Array [
+        "Resistance mutation found: S450L in gene rpoB",
+        "Resistant allele coverage: 51",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+  },
+  "hasResistance": true,
+  "hasSpecies": true,
+  "inconclusive": Array [],
+  "inducible": Array [],
+  "lineage": Array [
+    "European_American",
+  ],
+  "lineageString": "European American",
+  "negative": Array [],
+  "positive": Array [],
+  "resistant": Array [
+    "Rifampicin",
+    "Isoniazid",
+  ],
+  "species": Array [
+    "Mycobacterium_tuberculosis",
+  ],
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesString": "Mycobacterium tuberculosis",
+  "susceptible": Array [
+    "Capreomycin",
+    "Amikacin",
+    "Pyrazinamide",
+    "Ethambutol",
+    "Kanamycin",
+    "Streptomycin",
+    "Quinolones",
+  ],
+}
+`;
+
+exports[`AnalyserJsonTransformer should handle "requestExperiments" action 3`] = `
+Object {
+  "hasResistance": false,
+  "hasSpecies": true,
+  "lineage": Array [
+    "Unknown",
+  ],
+  "lineageString": "Unknown",
+  "species": Array [
+    "Mycobacterium_kansasii",
+  ],
+  "speciesAndLineageString": "Mycobacterium kansasii (lineage: Unknown)",
+  "speciesString": "Mycobacterium kansasii",
+}
+`;
+
+exports[`AnalyserJsonTransformer should handle "requestExperiments" action 4`] = `
+Object {
+  "drugsResistance": Object {
+    "mdr": false,
+    "xdr": false,
+  },
+  "evidence": Object {
+    "Rifampicin": Array [
+      Array [
+        "Resistance mutation found: S450L in gene rpoB",
+        "Resistant allele coverage: 100",
+        "Susceptible allele coverage: 40",
+      ],
+    ],
+  },
+  "hasResistance": true,
+  "hasSpecies": true,
+  "inconclusive": Array [],
+  "inducible": Array [],
+  "lineage": Array [
+    "European_American",
+  ],
+  "lineageString": "European American",
+  "negative": Array [],
+  "positive": Array [],
+  "resistant": Array [
+    "Rifampicin",
+  ],
+  "species": Array [
+    "Mycobacterium_tuberculosis",
+  ],
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesString": "Mycobacterium tuberculosis",
+  "susceptible": Array [
+    "Capreomycin",
+    "Isoniazid",
+    "Amikacin",
+    "Pyrazinamide",
+    "Ethambutol",
+    "Kanamycin",
+    "Streptomycin",
+    "Quinolones",
+  ],
+}
+`;
+
+exports[`AnalyserJsonTransformer should handle "requestExperiments" action 5`] = `
+Object {
+  "drugsResistance": Object {
+    "mdr": true,
+    "xdr": true,
+  },
+  "evidence": Object {
+    "Amikacin": Array [
+      Array [
+        "Resistance mutation found: A1401G in gene rrs",
+        "Resistant allele coverage: 52",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Capreomycin": Array [
+      Array [
+        "Resistance mutation found: A1401G in gene rrs",
+        "Resistant allele coverage: 52",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Ethambutol": Array [
+      Array [
+        "Resistance mutation found: M306V in gene embB",
+        "Resistant allele coverage: 45",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Isoniazid": Array [
+      Array [
+        "Resistance mutation found: S315T in gene katG",
+        "Resistant allele coverage: 30",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Kanamycin": Array [
+      Array [
+        "Resistance mutation found: A1401G in gene rrs",
+        "Resistant allele coverage: 52",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Quinolones": Array [
+      Array [
+        "Resistance mutation found: D94G in gene gyrA",
+        "Resistant allele coverage: 19",
+        "Susceptible allele coverage: 10",
+      ],
+    ],
+    "Rifampicin": Array [
+      Array [
+        "Resistance mutation found: S450L in gene rpoB",
+        "Resistant allele coverage: 44",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Streptomycin": Array [
+      Array [
+        "Resistance mutation found: K43R in gene rpsL",
+        "Resistant allele coverage: 56",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+  },
+  "hasResistance": true,
+  "hasSpecies": true,
+  "inconclusive": Array [],
+  "inducible": Array [],
+  "lineage": Array [
+    "Beijing_East_Asia",
+  ],
+  "lineageString": "Beijing East Asia",
+  "negative": Array [],
+  "positive": Array [],
+  "resistant": Array [
+    "Rifampicin",
+    "Capreomycin",
+    "Isoniazid",
+    "Amikacin",
+    "Ethambutol",
+    "Kanamycin",
+    "Streptomycin",
+    "Quinolones",
+  ],
+  "species": Array [
+    "Mycobacterium_tuberculosis",
+  ],
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: Beijing East Asia)",
+  "speciesString": "Mycobacterium tuberculosis",
+  "susceptible": Array [
+    "Pyrazinamide",
+  ],
+}
+`;
