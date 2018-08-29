@@ -8111,9 +8111,9 @@ make-dir@^1.0.0, make-dir@^1.1.0:
     nodemailer-mock "^1.3.13"
     path "^0.12.7"
 
-"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.7":
+"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.8":
   version "0.0.6"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#f392b450d74c85fcc1e53d51d978e9953242e60e"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#bd98bba3ced9a1f7f0854c7a471966296c22fbe6"
   dependencies:
     ajv "^6.5.1"
     babel-jest "^23.0.1"
