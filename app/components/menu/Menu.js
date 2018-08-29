@@ -33,7 +33,7 @@ class Menu extends React.Component<*> {
               className={styles.navigationLink}
               activeClassName={styles.navigationLinkActive}
             >
-              Library
+              Sample Library
             </NavLink>
           </li>
           <li className={styles.navigationItem}>

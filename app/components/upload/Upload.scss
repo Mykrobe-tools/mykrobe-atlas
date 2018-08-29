@@ -51,6 +51,18 @@
 	pointer-events: auto;
 }
 
+.libraryLink {
+	composes: global(mt-3);
+	pointer-events: auto;
+	font-family: 'Bryant2-Bold', sans-serif;
+	text-transform: uppercase;
+	font-size: 14/16 * 1rem;
+	color: $color-grey-dark;
+	i {
+		font-size: 12/16 * 1rem;
+	}
+}
+
 .progressStatus {
 	position: absolute;
 	top: 50%;

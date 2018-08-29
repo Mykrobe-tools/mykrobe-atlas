@@ -123,7 +123,7 @@ class Experiments extends React.Component<*, State> {
     const showCompare = selected && (selected === '*' || selected.length > 1);
     return (
       <div className={styles.container}>
-        <Header title={'Experiments'} />
+        <Header title={'Sample Library'} />
         <Container className={styles.headerContainer} fluid>
           <div className={styles.headerContainerInner}>
             <div className={pageHeaderStyles.title}>{title}</div>
