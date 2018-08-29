@@ -3,9 +3,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { Container } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import PageHeader, {
   styles as pageHeaderStyles,
@@ -51,12 +51,6 @@ class Profile extends React.Component<*> {
     newOrganisation();
   };
 
-  onOrganisationClick = organisation => {
-    const { push } = this.props;
-    const { id } = organisation;
-    push(`/organisations/${id}`);
-  };
-
   onChangeListOrder = ({ sort, order }) => {
     const { setOrganisationsFilters, organisationsFilters } = this.props;
     setOrganisationsFilters({
@@ -70,8 +64,10 @@ class Profile extends React.Component<*> {
   renderRow = (organisation: any) => {
     const { id, name, template } = organisation;
     return (
-      <tr key={id} onClick={() => this.onOrganisationClick(organisation)}>
-        <td>{name}</td>
+      <tr key={id}>
+        <td>
+          <Link to={`/organisations/${id}`}>{name}</Link>
+        </td>
         <td>{template}</td>
         <td />
       </tr>
@@ -128,7 +124,6 @@ function mapDispatchToProps(dispatch) {
       requestOrganisations,
       newOrganisation,
       setOrganisationsFilters,
-      push,
     },
     dispatch
   );
@@ -141,7 +136,6 @@ Profile.propTypes = {
   isFetching: PropTypes.bool,
   organisationsFilters: PropTypes.any,
   setOrganisationsFilters: PropTypes.func,
-  push: PropTypes.func,
 };
 
 export default connect(

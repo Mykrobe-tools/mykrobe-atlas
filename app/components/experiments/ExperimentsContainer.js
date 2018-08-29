@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 
 import Experiments from './Experiments';
 
@@ -26,12 +25,6 @@ class ExperimentsContainer extends React.Component<*> {
     requestExperimentsChoices();
   }
 
-  onExperimentClick = experiment => {
-    const { push } = this.props;
-    const { id } = experiment;
-    push(`/experiments/${id}`);
-  };
-
   onChangeListOrder = ({ sort, order }) => {
     const { setExperimentsFilters, experimentsFilters } = this.props;
     setExperimentsFilters({
@@ -52,11 +45,7 @@ class ExperimentsContainer extends React.Component<*> {
 
   render() {
     return (
-      <Experiments
-        onChangeListOrder={this.onChangeListOrder}
-        onExperimentClick={this.onExperimentClick}
-        {...this.props}
-      />
+      <Experiments onChangeListOrder={this.onChangeListOrder} {...this.props} />
     );
   }
 }
@@ -74,7 +63,6 @@ const withRedux = connect(
     requestExperimentsChoices,
     setExperimentsFilters,
     resetExperimentsFilters,
-    push,
     newExperiment,
   }
 );
