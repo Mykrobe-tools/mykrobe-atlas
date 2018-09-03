@@ -1,6 +1,7 @@
 /* @flow */
 
 import * as TargetConstants from '../../../constants/TargetConstants';
+import _ from 'lodash';
 
 export type AnalyserJsonTransformerResult = {
   lineage: Array<string>,
@@ -53,8 +54,15 @@ class AnalyserJsonTransformer {
 
   transformModel(sourceModel: Object): Object {
     if (sourceModel.results) {
-      // web - just do the first one for now
-      const sampleModel = sourceModel.results[0];
+      // web
+      let sampleModel;
+      if (_.isArray(sourceModel.results)) {
+        // if it's an array, just do the first one for now
+        sampleModel = sourceModel.results[0];
+      } else {
+        // use the explicitly defined predictor result
+        sampleModel = sourceModel.results['predictor'];
+      }
       console.log('sampleModel', JSON.stringify(sampleModel, null, 2));
       const transformedSampleModel = this.transformSampleModel(sampleModel);
       return transformedSampleModel;
