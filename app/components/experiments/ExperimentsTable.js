@@ -80,6 +80,14 @@ class ExperimentsTable extends React.Component<*> {
         sort: 'id',
       },
       {
+        title: 'MDR',
+        sort: 'results.predictor.mdr',
+      },
+      {
+        title: 'XDR',
+        sort: 'results.predictor.xdr',
+      },
+      {
         title: 'Owner',
         sort: 'owner.lastname',
       },
@@ -103,7 +111,7 @@ class ExperimentsTable extends React.Component<*> {
   renderRow = (experiment: any) => {
     const { selected } = this.props;
     const allSelected = (selected && selected === '*') || false;
-    let { id, owner } = experiment;
+    let { id, owner, results } = experiment;
     const title = experiment.file
       ? `${experiment.file} (${experiment.id})`
       : experiment.id;
@@ -111,6 +119,11 @@ class ExperimentsTable extends React.Component<*> {
       allSelected ||
       (selected && selected.includes && selected.includes(id)) ||
       false;
+    let mdr, xdr;
+    if (results && results.predictor) {
+      mdr = results.predictor.mdr;
+      xdr = results.predictor.xdr;
+    }
     return (
       <tr key={id}>
         <td>
@@ -126,6 +139,20 @@ class ExperimentsTable extends React.Component<*> {
         </td>
         <td>
           <Link to={`/experiments/${id}`}>{title}</Link>
+        </td>
+        <td>
+          {mdr ? (
+            <Link to={`/experiments/${id}/resistance/drugs`}>MDR</Link>
+          ) : (
+            '–'
+          )}
+        </td>
+        <td>
+          {xdr ? (
+            <Link to={`/experiments/${id}/resistance/drugs`}>XDR</Link>
+          ) : (
+            '–'
+          )}
         </td>
         <td>
           {owner.lastname}, {owner.firstname}
