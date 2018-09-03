@@ -12,9 +12,11 @@ import {
 } from 'reactstrap';
 import moment from 'moment';
 
+import { Table } from 'makeandship-js-common/src/components/ui/table';
+
 import styles from './ExperimentsTable.scss';
 
-import { Table } from 'makeandship-js-common/src/components/ui/table';
+import susceptibilityTransformer from '../../modules/experiments/util/transformers/susceptibility';
 
 /*
 {
@@ -126,28 +128,25 @@ class ExperimentsTable extends React.Component<*> {
     if (results && results.predictor) {
       mdr = results.predictor.mdr;
       xdr = results.predictor.xdr;
+      const transformed = susceptibilityTransformer(
+        results.predictor.susceptibility
+      );
       const elements = [];
-      const keys = Object.keys(results.predictor.susceptibility).sort();
+      const keys = Object.keys(transformed.susceptibility);
       keys.forEach(key => {
-        const predict =
-          results.predictor.susceptibility[key]['predict'] ||
-          results.predictor.susceptibility[key]['prediction'];
+        const entry = transformed.susceptibility[key];
         const initial = key.substr(0, 1).toUpperCase();
-        const value = predict.substr(0, 1).toUpperCase();
         const elementId = `${key}${id}`;
         const elementKey = `${key}`;
-        if (value === 'R') {
+        if (entry.resistant) {
           elements.push(
             <span key={elementKey}>
               <span id={elementId} className={styles.resistant}>
                 {initial}{' '}
               </span>
-              <UncontrolledTooltip
-                delay={0}
-                placement={'top'}
-                target={elementId}
-              >
-                {key} resistant
+              <UncontrolledTooltip delay={0} target={elementId}>
+                {key} resistant{'\n'}
+                Mutation {entry.mutation}
               </UncontrolledTooltip>
             </span>
           );
@@ -157,11 +156,7 @@ class ExperimentsTable extends React.Component<*> {
               <span id={elementId} className={styles.susceptible}>
                 {initial}{' '}
               </span>
-              <UncontrolledTooltip
-                delay={0}
-                placement={'top'}
-                target={elementId}
-              >
+              <UncontrolledTooltip delay={0} target={elementId}>
                 {key} susceptible
               </UncontrolledTooltip>
             </span>

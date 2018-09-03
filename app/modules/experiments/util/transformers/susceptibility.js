@@ -32,9 +32,22 @@ const susceptibilityTransformer = (
     inconclusive: [],
     inducible: [],
     evidence: {},
+    susceptibility: {},
   };
 
   for (key in susceptibilityModel) {
+    let susceptibility: {
+      susceptible: boolean,
+      resistant: boolean,
+      inconclusive: boolean,
+      inducible: boolean,
+      mutation?: string,
+    } = {
+      susceptible: false,
+      resistant: false,
+      inconclusive: false,
+      inducible: false,
+    };
     let predict =
       susceptibilityModel[key]['predict'] ||
       susceptibilityModel[key]['prediction'];
@@ -43,13 +56,17 @@ const susceptibilityTransformer = (
     isInducible = predict.indexOf('INDUCIBLE') !== -1;
     if (value === 'S') {
       transformed.susceptible.push(key);
+      susceptibility.susceptible = true;
     } else if (value === 'R') {
       transformed.resistant.push(key);
+      susceptibility.resistant = true;
     } else if (value === 'N') {
       transformed.inconclusive.push(key);
+      susceptibility.inconclusive = true;
     }
     if (isInducible) {
       transformed.inducible.push(key);
+      susceptibility.inducible = true;
     }
 
     const calledBy =
@@ -74,6 +91,8 @@ const susceptibilityTransformer = (
         const alternate = info['coverage']['alternate'];
         const reference = info['coverage']['reference'];
 
+        susceptibility.mutation = `${genes[0]} (${genes[1]})`;
+
         if (genotypeModel === 'median_depth') {
           o.push([
             'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
@@ -89,7 +108,9 @@ const susceptibilityTransformer = (
         }
       }
     }
+    transformed.susceptibility[key] = susceptibility;
   }
+  transformed.susceptibility = sortObject(transformed.susceptibility);
   transformed.evidence = sortObject(transformed.evidence);
   return transformed;
 };
