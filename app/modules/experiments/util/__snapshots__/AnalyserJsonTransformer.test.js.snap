@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AnalyserJsonTransformer should handle "requestExperiments" action 1`] = `
+exports[`AnalyserJsonTransformer should transform as expected 1`] = `
 Object {
   "drugsResistance": Object {
     "mdr": false,
@@ -33,6 +33,63 @@ Object {
   ],
   "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
   "speciesString": "Mycobacterium tuberculosis",
+  "susceptibility": Object {
+    "Amikacin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Capreomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Ethambutol": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Isoniazid": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "katG (S315T)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Kanamycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Pyrazinamide": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Quinolones": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Rifampicin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Streptomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+  },
   "susceptible": Array [
     "Rifampicin",
     "Capreomycin",
@@ -46,7 +103,7 @@ Object {
 }
 `;
 
-exports[`AnalyserJsonTransformer should handle "requestExperiments" action 2`] = `
+exports[`AnalyserJsonTransformer should transform as expected 2`] = `
 Object {
   "drugsResistance": Object {
     "mdr": true,
@@ -87,6 +144,64 @@ Object {
   ],
   "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
   "speciesString": "Mycobacterium tuberculosis",
+  "susceptibility": Object {
+    "Amikacin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Capreomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Ethambutol": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Isoniazid": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "katG (S315T)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Kanamycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Pyrazinamide": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Quinolones": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Rifampicin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rpoB (S450L)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Streptomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+  },
   "susceptible": Array [
     "Capreomycin",
     "Amikacin",
@@ -99,7 +214,7 @@ Object {
 }
 `;
 
-exports[`AnalyserJsonTransformer should handle "requestExperiments" action 3`] = `
+exports[`AnalyserJsonTransformer should transform as expected 3`] = `
 Object {
   "hasResistance": false,
   "hasSpecies": true,
@@ -115,7 +230,7 @@ Object {
 }
 `;
 
-exports[`AnalyserJsonTransformer should handle "requestExperiments" action 4`] = `
+exports[`AnalyserJsonTransformer should transform as expected 4`] = `
 Object {
   "drugsResistance": Object {
     "mdr": false,
@@ -148,6 +263,63 @@ Object {
   ],
   "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
   "speciesString": "Mycobacterium tuberculosis",
+  "susceptibility": Object {
+    "Amikacin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Capreomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Ethambutol": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Isoniazid": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Kanamycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Pyrazinamide": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Quinolones": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Rifampicin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rpoB (S450L)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Streptomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+  },
   "susceptible": Array [
     "Capreomycin",
     "Isoniazid",
@@ -161,7 +333,7 @@ Object {
 }
 `;
 
-exports[`AnalyserJsonTransformer should handle "requestExperiments" action 5`] = `
+exports[`AnalyserJsonTransformer should transform as expected 5`] = `
 Object {
   "drugsResistance": Object {
     "mdr": true,
@@ -250,6 +422,489 @@ Object {
   ],
   "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: Beijing East Asia)",
   "speciesString": "Mycobacterium tuberculosis",
+  "susceptibility": Object {
+    "Amikacin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rrs (A1401G)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Capreomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rrs (A1401G)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Ethambutol": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "embB (M306V)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Isoniazid": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "katG (S315T)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Kanamycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rrs (A1401G)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Pyrazinamide": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Quinolones": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "gyrA (D94G)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Rifampicin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rpoB (S450L)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Streptomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rpsL (K43R)",
+      "resistant": true,
+      "susceptible": false,
+    },
+  },
+  "susceptible": Array [
+    "Pyrazinamide",
+  ],
+}
+`;
+
+exports[`AnalyserJsonTransformer susceptibilityTransformer should transform as expected 1`] = `
+Object {
+  "evidence": Object {
+    "Isoniazid": Array [
+      Array [
+        "Resistance mutation found: S315T in gene katG",
+        "Resistant allele coverage: 82",
+        "Susceptible allele coverage: 1",
+      ],
+    ],
+  },
+  "inconclusive": Array [],
+  "inducible": Array [],
+  "resistant": Array [
+    "Isoniazid",
+  ],
+  "susceptibility": Object {
+    "Amikacin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Capreomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Ethambutol": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Isoniazid": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "katG (S315T)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Kanamycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Pyrazinamide": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Quinolones": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Rifampicin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Streptomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+  },
+  "susceptible": Array [
+    "Rifampicin",
+    "Capreomycin",
+    "Amikacin",
+    "Pyrazinamide",
+    "Ethambutol",
+    "Kanamycin",
+    "Streptomycin",
+    "Quinolones",
+  ],
+}
+`;
+
+exports[`AnalyserJsonTransformer susceptibilityTransformer should transform as expected 2`] = `
+Object {
+  "evidence": Object {
+    "Isoniazid": Array [
+      Array [
+        "Resistance mutation found: S315T in gene katG",
+        "Resistant allele coverage: 43",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Rifampicin": Array [
+      Array [
+        "Resistance mutation found: S450L in gene rpoB",
+        "Resistant allele coverage: 51",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+  },
+  "inconclusive": Array [],
+  "inducible": Array [],
+  "resistant": Array [
+    "Rifampicin",
+    "Isoniazid",
+  ],
+  "susceptibility": Object {
+    "Amikacin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Capreomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Ethambutol": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Isoniazid": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "katG (S315T)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Kanamycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Pyrazinamide": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Quinolones": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Rifampicin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rpoB (S450L)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Streptomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+  },
+  "susceptible": Array [
+    "Capreomycin",
+    "Amikacin",
+    "Pyrazinamide",
+    "Ethambutol",
+    "Kanamycin",
+    "Streptomycin",
+    "Quinolones",
+  ],
+}
+`;
+
+exports[`AnalyserJsonTransformer susceptibilityTransformer should transform as expected 3`] = `
+Object {
+  "evidence": Object {},
+  "inconclusive": Array [],
+  "inducible": Array [],
+  "resistant": Array [],
+  "susceptibility": Object {},
+  "susceptible": Array [],
+}
+`;
+
+exports[`AnalyserJsonTransformer susceptibilityTransformer should transform as expected 4`] = `
+Object {
+  "evidence": Object {
+    "Rifampicin": Array [
+      Array [
+        "Resistance mutation found: S450L in gene rpoB",
+        "Resistant allele coverage: 100",
+        "Susceptible allele coverage: 40",
+      ],
+    ],
+  },
+  "inconclusive": Array [],
+  "inducible": Array [],
+  "resistant": Array [
+    "Rifampicin",
+  ],
+  "susceptibility": Object {
+    "Amikacin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Capreomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Ethambutol": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Isoniazid": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Kanamycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Pyrazinamide": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Quinolones": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Rifampicin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rpoB (S450L)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Streptomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+  },
+  "susceptible": Array [
+    "Capreomycin",
+    "Isoniazid",
+    "Amikacin",
+    "Pyrazinamide",
+    "Ethambutol",
+    "Kanamycin",
+    "Streptomycin",
+    "Quinolones",
+  ],
+}
+`;
+
+exports[`AnalyserJsonTransformer susceptibilityTransformer should transform as expected 5`] = `
+Object {
+  "evidence": Object {
+    "Amikacin": Array [
+      Array [
+        "Resistance mutation found: A1401G in gene rrs",
+        "Resistant allele coverage: 52",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Capreomycin": Array [
+      Array [
+        "Resistance mutation found: A1401G in gene rrs",
+        "Resistant allele coverage: 52",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Ethambutol": Array [
+      Array [
+        "Resistance mutation found: M306V in gene embB",
+        "Resistant allele coverage: 45",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Isoniazid": Array [
+      Array [
+        "Resistance mutation found: S315T in gene katG",
+        "Resistant allele coverage: 30",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Kanamycin": Array [
+      Array [
+        "Resistance mutation found: A1401G in gene rrs",
+        "Resistant allele coverage: 52",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Quinolones": Array [
+      Array [
+        "Resistance mutation found: D94G in gene gyrA",
+        "Resistant allele coverage: 19",
+        "Susceptible allele coverage: 10",
+      ],
+    ],
+    "Rifampicin": Array [
+      Array [
+        "Resistance mutation found: S450L in gene rpoB",
+        "Resistant allele coverage: 44",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+    "Streptomycin": Array [
+      Array [
+        "Resistance mutation found: K43R in gene rpsL",
+        "Resistant allele coverage: 56",
+        "Susceptible allele coverage: 0",
+      ],
+    ],
+  },
+  "inconclusive": Array [],
+  "inducible": Array [],
+  "resistant": Array [
+    "Rifampicin",
+    "Capreomycin",
+    "Isoniazid",
+    "Amikacin",
+    "Ethambutol",
+    "Kanamycin",
+    "Streptomycin",
+    "Quinolones",
+  ],
+  "susceptibility": Object {
+    "Amikacin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rrs (A1401G)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Capreomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rrs (A1401G)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Ethambutol": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "embB (M306V)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Isoniazid": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "katG (S315T)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Kanamycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rrs (A1401G)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Pyrazinamide": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "resistant": false,
+      "susceptible": true,
+    },
+    "Quinolones": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "gyrA (D94G)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Rifampicin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rpoB (S450L)",
+      "resistant": true,
+      "susceptible": false,
+    },
+    "Streptomycin": Object {
+      "inconclusive": false,
+      "inducible": false,
+      "mutation": "rpsL (K43R)",
+      "resistant": true,
+      "susceptible": false,
+    },
+  },
   "susceptible": Array [
     "Pyrazinamide",
   ],
