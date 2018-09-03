@@ -1,10 +1,9 @@
 /* @flow */
 
-import * as TargetConstants from '../../../constants/TargetConstants';
 import _ from 'lodash';
 
 import susceptibilityTransformer from './transformers/susceptibility';
-import sortObject from './sortObject';
+import speciesTransformer from './transformers/species';
 
 export type AnalyserJsonTransformerResult = {
   lineage: Array<string>,
@@ -124,8 +123,8 @@ class AnalyserJsonTransformer {
     // can we display anything?
 
     transformed = {
-      ...this.transformFlags(sourceModel),
       ...transformed,
+      ...this.transformFlags(sourceModel),
     };
 
     const { hasSpecies, hasResistance } = transformed;
@@ -141,8 +140,8 @@ class AnalyserJsonTransformer {
     // style species for display
 
     transformed = {
-      ...this.transformSpecies(sourceModel),
       ...transformed,
+      ...speciesTransformer(sourceModel),
     };
 
     // return now if there is no resistance to show
@@ -285,48 +284,6 @@ class AnalyserJsonTransformer {
     }
 
     return { hasSpecies, hasResistance };
-  }
-
-  transformSpecies(
-    sourceModel: Object
-  ): {
-    lineage: Array<string>,
-    species: Array<string>,
-    speciesAndLineageString: string,
-    speciesString: string,
-    lineageString: string,
-  } {
-    const species = Object.keys(sourceModel.phylogenetics.species);
-
-    let lineage = [];
-    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
-      lineage = Object.keys(sourceModel.phylogenetics.lineage);
-    }
-
-    let speciesAndLineageString = '';
-
-    const speciesString =
-      species && species.length
-        ? species.join(' / ').replace(/_/g, ' ')
-        : 'undefined';
-
-    const lineageString =
-      lineage && lineage.length ? lineage.join(' / ').replace(/_/g, ' ') : '';
-
-    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
-      const lineageSuffix = lineageString ? ` (lineage: ${lineageString})` : '';
-      speciesAndLineageString = `${speciesString}${lineageSuffix}`;
-    } else {
-      speciesAndLineageString = speciesString;
-    }
-
-    return {
-      lineage,
-      species,
-      speciesAndLineageString,
-      speciesString,
-      lineageString,
-    };
   }
 }
 
