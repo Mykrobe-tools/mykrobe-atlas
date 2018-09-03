@@ -7,10 +7,17 @@ import styles from './SummaryVariants.scss';
 class SummaryVariants extends React.Component<*> {
   render() {
     const { experimentTransformed } = this.props;
+    if (!experimentTransformed.evidence) {
+      return null;
+    }
     return (
       <div className={styles.container}>
         {Object.keys(experimentTransformed.evidence).map(drug => {
-          const evidence = experimentTransformed.evidence[drug][0];
+          const evidenceDrug = experimentTransformed.evidence[drug];
+          if (!evidenceDrug) {
+            return null;
+          }
+          const evidence = evidenceDrug[0];
           return (
             <div key={drug} className={styles.group}>
               <div className={styles.title}>{drug}</div>
