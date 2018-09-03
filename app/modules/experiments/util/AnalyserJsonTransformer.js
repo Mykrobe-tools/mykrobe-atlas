@@ -22,6 +22,7 @@ export type AnalyserJsonTransformerResult = {
   },
   samples?: any,
   tree?: any,
+  error?: any,
 };
 
 class AnalyserJsonTransformer {
@@ -98,14 +99,15 @@ class AnalyserJsonTransformer {
   transformSampleModel(
     sourceModel: Object,
     relatedModels: ?Array<Object>
-  ): Object {
+  ): AnalyserJsonTransformerResult {
+    let transformed: AnalyserJsonTransformerResult = {};
     // return empty object if there is no data to parse
     if (
       !sourceModel ||
       typeof sourceModel !== 'object' ||
       Object.keys(sourceModel).length === 0
     ) {
-      return {};
+      return transformed;
     }
     // check basic requirements
     if (!sourceModel.phylogenetics) {
@@ -113,10 +115,8 @@ class AnalyserJsonTransformer {
         // in Electron we allow user opening json file, so show an error
         throw new Error('Unsupported sample json format');
       }
-      return {};
+      return transformed;
     }
-
-    let transformed: AnalyserJsonTransformerResult = {};
 
     // can we display anything?
 

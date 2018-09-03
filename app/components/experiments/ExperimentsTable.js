@@ -3,16 +3,18 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import styles from './ExperimentsTable.scss';
-
-import { Table } from 'makeandship-js-common/src/components/ui/table';
-
 import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
+  UncontrolledTooltip,
 } from 'reactstrap';
+import moment from 'moment';
+
+import styles from './ExperimentsTable.scss';
+
+import { Table } from 'makeandship-js-common/src/components/ui/table';
 
 /*
 {
@@ -80,6 +82,10 @@ class ExperimentsTable extends React.Component<*> {
         sort: 'id',
       },
       {
+        title: 'Resistance profile',
+        sort: 'results.predictor.susceptibility',
+      },
+      {
         title: 'MDR',
         sort: 'results.predictor.mdr',
       },
@@ -92,16 +98,12 @@ class ExperimentsTable extends React.Component<*> {
         sort: 'owner.lastname',
       },
       {
-        title: 'Organisation',
+        title: 'Created',
+        sort: 'created',
       },
       {
-        title: 'Site',
-      },
-      {
-        title: 'Collected',
-      },
-      {
-        title: 'Location',
+        title: 'Modified',
+        sort: 'modified',
       },
       {
         title: '',
@@ -111,7 +113,7 @@ class ExperimentsTable extends React.Component<*> {
   renderRow = (experiment: any) => {
     const { selected } = this.props;
     const allSelected = (selected && selected === '*') || false;
-    let { id, owner, results } = experiment;
+    let { id, created, modified, owner, results } = experiment;
     const title = experiment.file
       ? `${experiment.file} (${experiment.id})`
       : experiment.id;
@@ -120,9 +122,57 @@ class ExperimentsTable extends React.Component<*> {
       (selected && selected.includes && selected.includes(id)) ||
       false;
     let mdr, xdr;
+    let susceptibilityProfile = '–';
     if (results && results.predictor) {
       mdr = results.predictor.mdr;
       xdr = results.predictor.xdr;
+      const elements = [];
+      const keys = Object.keys(results.predictor.susceptibility).sort();
+      keys.forEach(key => {
+        const predict =
+          results.predictor.susceptibility[key]['predict'] ||
+          results.predictor.susceptibility[key]['prediction'];
+        const initial = key.substr(0, 1).toUpperCase();
+        const value = predict.substr(0, 1).toUpperCase();
+        const elementId = `${key}${id}`;
+        const elementKey = `${key}`;
+        if (value === 'R') {
+          elements.push(
+            <span key={elementKey}>
+              <span id={elementId} className={styles.resistant}>
+                {initial}{' '}
+              </span>
+              <UncontrolledTooltip
+                delay={0}
+                placement={'top'}
+                target={elementId}
+              >
+                {key} resistant
+              </UncontrolledTooltip>
+            </span>
+          );
+        } else {
+          elements.push(
+            <span key={elementKey}>
+              <span id={elementId} className={styles.susceptible}>
+                {initial}{' '}
+              </span>
+              <UncontrolledTooltip
+                delay={0}
+                placement={'top'}
+                target={elementId}
+              >
+                {key} susceptible
+              </UncontrolledTooltip>
+            </span>
+          );
+        }
+      });
+      susceptibilityProfile = (
+        <Link to={`/experiments/${id}/resistance/evidence`}>
+          <span className={styles.resistanceProfile}>{elements}</span>
+        </Link>
+      );
     }
     return (
       <tr key={id}>
@@ -140,6 +190,7 @@ class ExperimentsTable extends React.Component<*> {
         <td>
           <Link to={`/experiments/${id}`}>{title}</Link>
         </td>
+        <td>{susceptibilityProfile}</td>
         <td>
           {mdr ? (
             <Link to={`/experiments/${id}/resistance/drugs`}>MDR</Link>
@@ -157,10 +208,8 @@ class ExperimentsTable extends React.Component<*> {
         <td>
           {owner.lastname}, {owner.firstname}
         </td>
-        <td>TODO</td>
-        <td>TODO</td>
-        <td>TODO</td>
-        <td>TODO</td>
+        <td>{moment(created).format('L')}</td>
+        <td>{moment(modified).format('L')}</td>
         <td>
           <UncontrolledDropdown>
             <DropdownToggle
@@ -190,8 +239,8 @@ class ExperimentsTable extends React.Component<*> {
       <Table
         headings={this.headings()}
         data={experiments}
-        sort={filters.sort || 'id'}
-        order={filters.order || Table.Order.Descending}
+        sort={filters.sort || 'modified'}
+        order={filters.order || Table.Order.Ascending}
         renderRow={this.renderRow}
         onChangeOrder={onChangeOrder}
       />
