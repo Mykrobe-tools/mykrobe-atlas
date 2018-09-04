@@ -8,7 +8,7 @@ import { createSelector } from 'reselect';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import {
   getIsAuthenticated,
-  signOut,
+  signOut as authSignOut,
   SIGNIN_SUCCESS,
   SIGNOUT_SUCCESS,
   SESSION_EXPIRED_SUCCESS,
@@ -17,8 +17,35 @@ import {
 
 import { showNotification } from '../notifications';
 
+const typePrefix = 'users/currentUser/';
+
+export const SIGN_OUT = `${typePrefix}SIGN_OUT`;
+export const SIGN_OUT_CANCEL = `${typePrefix}SIGN_OUT_CANCEL`;
+
+// Actions
+
+export const signOut = () => ({
+  type: SIGN_OUT,
+});
+
+export const signOutCancel = () => ({
+  type: SIGN_OUT_CANCEL,
+});
+
+// Side effects
+
+export function* signOutWatcher(): Saga {
+  yield takeEvery(SIGN_OUT, function*() {
+    if (!confirm(`Sign out - are you sure?`)) {
+      yield put(signOutCancel());
+      return;
+    }
+    yield put(authSignOut());
+  });
+}
+
 const module = createEntityModule('currentUser', {
-  typePrefix: 'users/currentUser/',
+  typePrefix,
   getState: state => state.users.currentUser,
   create: {
     operationId: 'usersCreate',
@@ -29,7 +56,7 @@ const module = createEntityModule('currentUser', {
   request: {
     operationId: 'currentUserGet',
     onFailure: function*() {
-      yield put(signOut());
+      yield put(authSignOut());
       yield put(showNotification('Please sign in again'));
     },
   },
@@ -42,7 +69,7 @@ const module = createEntityModule('currentUser', {
   delete: {
     operationId: 'currentUserDelete',
     onSuccess: function*() {
-      yield put(signOut());
+      yield put(authSignOut());
       yield put(showNotification('Account deleted'));
     },
   },
@@ -114,6 +141,7 @@ function* currentUserSaga(): Saga {
     fork(authInitialiseWatcher),
     fork(authSignInWatcher),
     fork(authSignOutWatcher),
+    fork(signOutWatcher),
   ]);
 }
 

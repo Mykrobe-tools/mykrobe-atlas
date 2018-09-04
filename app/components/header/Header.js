@@ -19,12 +19,9 @@ import NotificationsButton from '../notifications/NotificationsButton';
 import { notImplemented } from '../../util';
 import styles from './Header.scss';
 
-import {
-  signOut,
-  getIsAuthenticated,
-} from 'makeandship-js-common/src/modules/auth';
+import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
 
-import { getCurrentUser } from '../../modules/users';
+import { getCurrentUser, signOut } from '../../modules/users';
 
 class Header extends React.Component<*> {
   render() {

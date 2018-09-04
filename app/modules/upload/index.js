@@ -10,6 +10,7 @@ import { uploadDropboxSaga } from './uploadDropbox';
 import { uploadGoogleDriveSaga } from './uploadGoogleDrive';
 import { uploadBoxSaga } from './uploadBox';
 import { uploadOneDriveSaga } from './uploadOneDrive';
+import { uploadFileCancelWarningSaga } from './uploadFileCancelWarning';
 
 export {
   uploadFile,
@@ -58,5 +59,6 @@ export function* rootUploadSaga(): Saga {
     fork(uploadGoogleDriveSaga),
     fork(uploadBoxSaga),
     fork(uploadOneDriveSaga),
+    fork(uploadFileCancelWarningSaga),
   ]);
 }

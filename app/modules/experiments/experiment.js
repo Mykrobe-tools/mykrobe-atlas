@@ -15,7 +15,7 @@ import { createSelector } from 'reselect';
 
 import { showNotification, NotificationCategories } from '../notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
-import { getCurrentUser } from '../../modules/users';
+import { getCurrentUser } from '../../modules/users/currentUser';
 import { ANALYSIS_COMPLETE } from '../../modules/users/currentUserEvents';
 
 import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
