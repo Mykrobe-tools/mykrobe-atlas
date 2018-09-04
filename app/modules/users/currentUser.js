@@ -17,8 +17,6 @@ import {
 
 import { showNotification } from '../notifications';
 
-import { getIsBusy } from '../upload/uploadFile';
-
 const typePrefix = 'users/currentUser/';
 
 export const SIGN_OUT = `${typePrefix}SIGN_OUT`;
@@ -38,12 +36,9 @@ export const signOutCancel = () => ({
 
 export function* signOutWatcher(): Saga {
   yield takeEvery(SIGN_OUT, function*() {
-    const isBusy = yield select(getIsBusy);
-    if (isBusy) {
-      if (!confirm(`Sign out? This will cancel the current upload.`)) {
-        yield put(signOutCancel());
-        return;
-      }
+    if (!confirm(`Sign out - are you sure?`)) {
+      yield put(signOutCancel());
+      return;
     }
     yield put(authSignOut());
   });
