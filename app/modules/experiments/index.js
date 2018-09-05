@@ -44,6 +44,8 @@ export {
   getExperimentTransformed,
   getExperimentMetadata,
   getExperimentOwnerIsCurrentUser,
+  getExperimentNearestNeigbours,
+  getExperimentHasNearestNeigbours,
   getIsFetching as getIsFetchingExperiment,
   createExperiment,
   requestExperiment,

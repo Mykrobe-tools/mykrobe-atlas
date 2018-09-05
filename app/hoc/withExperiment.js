@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import {
   getExperiment,
   getExperimentTransformed,
+  getExperimentNearestNeigbours,
 } from '../modules/experiments';
 
 function withExperiment(WrappedComponent: React.ElementProps<*>) {
@@ -23,11 +24,13 @@ function withExperiment(WrappedComponent: React.ElementProps<*>) {
   const withRedux = connect(state => ({
     experiment: getExperiment(state),
     experimentTransformed: getExperimentTransformed(state),
+    experimentNearestNeigbours: getExperimentNearestNeigbours(state),
   }));
 
   WithExperiment.propTypes = {
     experiment: PropTypes.object,
     experimentTransformed: PropTypes.object,
+    experimentNearestNeigbours: PropTypes.array,
   };
 
   return withRedux(WithExperiment);

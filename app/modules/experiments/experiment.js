@@ -12,6 +12,7 @@ import {
 import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
+import _ from 'lodash';
 
 import { showNotification, NotificationCategories } from '../notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
@@ -111,6 +112,19 @@ export const getExperimentTransformed = createSelector(
     const transformed = transformer.transformModel(experiment);
     return transformed;
   }
+);
+
+export const getExperimentNearestNeigbours = createSelector(
+  getExperiment,
+  experiment => {
+    return _.get(experiment, 'results.nearestNeighbours.experiments');
+  }
+);
+
+export const getExperimentHasNearestNeigbours = createSelector(
+  getExperimentNearestNeigbours,
+  experimentNearestNeigbours =>
+    experimentNearestNeigbours && experimentNearestNeigbours.length > 0
 );
 
 export {
