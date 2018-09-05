@@ -4,6 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 import styles from './SummaryMetadata.scss';
 
@@ -12,6 +13,7 @@ class SummaryMetadata extends React.Component<*> {
     const {
       experimentTransformed,
       experiment: { metadata },
+      experimentNearestNeigbours,
     } = this.props;
     const labId = _.get(metadata, 'sample.labId') || '–';
     let collectionDate = _.get(metadata, 'sample.collectionDate');
@@ -58,13 +60,17 @@ class SummaryMetadata extends React.Component<*> {
                 <td>{experimentTransformed.lineageString || '–'}</td>
               </tr>
               <tr>
-                <td>Closest relative</td>
+                <td>Closest relatives</td>
                 <td>
-                  [Placeholder]{' '}
-                  <a href="#">
-                    <i className="fa fa-chevron-circle-right" /> :sampleid:
-                  </a>{' '}
-                  - X SNPs apart
+                  {experimentNearestNeigbours &&
+                    experimentNearestNeigbours.map(({ id, distance }) => (
+                      <div key={id}>
+                        <Link to={`/experiments/${id}/resistance`}>
+                          <i className="fa fa-chevron-circle-right" /> {id} –{' '}
+                          {distance} SNPs apart
+                        </Link>
+                      </div>
+                    ))}
                 </td>
               </tr>
             </tbody>
@@ -78,6 +84,7 @@ class SummaryMetadata extends React.Component<*> {
 SummaryMetadata.propTypes = {
   experiment: PropTypes.object.isRequired,
   experimentTransformed: PropTypes.object.isRequired,
+  experimentNearestNeigbours: PropTypes.array,
 };
 
 export default SummaryMetadata;

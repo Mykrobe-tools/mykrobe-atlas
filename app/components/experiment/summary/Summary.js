@@ -14,6 +14,7 @@ class Summary extends React.Component<*> {
     const {
       experiment,
       experimentTransformed,
+      experimentNearestNeigbours,
       isBusyWithCurrentRoute,
     } = this.props;
     let content;
@@ -26,6 +27,7 @@ class Summary extends React.Component<*> {
             <SummaryMetadata
               experiment={experiment}
               experimentTransformed={experimentTransformed}
+              experimentNearestNeigbours={experimentNearestNeigbours}
             />
           </Panel>
           <Panel title="Resistance Profile" columns={4}>
@@ -50,6 +52,7 @@ class Summary extends React.Component<*> {
 Summary.propTypes = {
   experiment: PropTypes.object.isRequired,
   experimentTransformed: PropTypes.object.isRequired,
+  experimentNearestNeigbours: PropTypes.array,
   isBusyWithCurrentRoute: PropTypes.bool,
 };
 
