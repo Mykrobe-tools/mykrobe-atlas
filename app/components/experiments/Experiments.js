@@ -21,6 +21,7 @@ import styles from './Experiments.scss';
 import ExperimentsTable from './ExperimentsTable';
 import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
 import { notImplemented } from '../../util';
 
 import UploadButton from '../upload/button/UploadButton';
@@ -216,6 +217,7 @@ class Experiments extends React.Component<*, State> {
             {isFetchingExperiments && <Loading overlay />}
           </div>
         )}
+        <Footer />
       </div>
     );
   }
