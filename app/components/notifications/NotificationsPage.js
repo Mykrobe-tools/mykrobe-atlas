@@ -13,6 +13,7 @@ import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 import { clearAllNotifications } from '../../modules/notifications';
 
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
 
 import styles from './NotificationsPage.scss';
 import NotificationsContainer from './NotificationsContainer';
@@ -28,27 +29,30 @@ class NotificationsPage extends React.Component<*> {
     return (
       <div className={styles.container}>
         <Header title={'Notifications'} />
-        <Container fluid>
-          <PageHeader>
-            <div>
-              <div className={pageHeaderStyles.title}>Notifications</div>
-            </div>
-            <div>
-              <PrimaryButton
-                onClick={this.onClearClick}
-                outline
-                size="sm"
-                icon="times-circle"
-                marginLeft
-              >
-                Clear all
-              </PrimaryButton>
-            </div>
-          </PageHeader>
-          <NotificationsContainer
-            notificationsStyle={NotificationsStyle.JOINED}
-          />
-        </Container>
+        <div className={styles.container}>
+          <Container fluid>
+            <PageHeader>
+              <div>
+                <div className={pageHeaderStyles.title}>Notifications</div>
+              </div>
+              <div>
+                <PrimaryButton
+                  onClick={this.onClearClick}
+                  outline
+                  size="sm"
+                  icon="times-circle"
+                  marginLeft
+                >
+                  Clear all
+                </PrimaryButton>
+              </div>
+            </PageHeader>
+            <NotificationsContainer
+              notificationsStyle={NotificationsStyle.JOINED}
+            />
+          </Container>
+        </div>
+        <Footer />
       </div>
     );
   }

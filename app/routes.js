@@ -10,6 +10,7 @@ import OrganisationsRoutes from './components/organisations/OrganisationsRoutes'
 import AuthRoutes from './components/auth/AuthRoutes';
 import UsersRoutes from './components/users/UsersRoutes';
 import NotificationsPage from './components/notifications/NotificationsPage';
+import NotFoundPage from './components/notFound/NotFoundPage';
 
 import {
   withUserIsNotAuthenticatedRedirect,
@@ -42,6 +43,7 @@ export default (
         component={AuthenticatedOrganisationsRoutes}
       />
       <Route path="/notifications" component={AuthenticatedNotificationsPage} />
+      <Route component={NotFoundPage} />
     </Switch>
   </App>
 );

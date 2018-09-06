@@ -2,12 +2,15 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Summary.scss';
+
 import Uploading from '../../ui/Uploading';
 import ResistanceProfile from '../resistance/profile/ResistanceProfile';
 import Panel from '../../ui/Panel';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';
+import Footer from '../../footer/Footer';
+
+import styles from './Summary.scss';
 
 class Summary extends React.Component<*> {
   render() {
@@ -45,7 +48,12 @@ class Summary extends React.Component<*> {
         </div>
       );
     }
-    return <div className={styles.container}>{content}</div>;
+    return (
+      <div className={styles.container}>
+        {content}
+        <Footer />
+      </div>
+    );
   }
 }
 

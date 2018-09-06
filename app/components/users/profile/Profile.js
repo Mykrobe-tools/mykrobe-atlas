@@ -26,6 +26,7 @@ import {
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import Header from '../../header/Header';
+import Footer from '../../footer/Footer';
 
 // TODO: this is effectively a variation of EditUser - consolidate
 
@@ -75,27 +76,30 @@ class Profile extends React.Component<*> {
     return (
       <div className={styles.container}>
         <Header title={'Profile'} />
-        <Container fluid>
-          <DecoratedForm
-            formKey="users/profile"
-            schema={profileSchema}
-            uiSchema={uiSchema}
-            onSubmit={this.onSubmit}
-            isFetching={isFetching}
-            error={error}
-            formData={currentUser}
-          >
-            <FormFooter>
-              <div>
-                <SubmitButton marginRight>Save profile</SubmitButton>
-                <CancelButton onClick={this.onCancelClick} />
-              </div>
-              <DestructiveButton onClick={this.onDeleteClick}>
-                Delete account
-              </DestructiveButton>
-            </FormFooter>
-          </DecoratedForm>
-        </Container>
+        <div className={styles.container}>
+          <Container fluid>
+            <DecoratedForm
+              formKey="users/profile"
+              schema={profileSchema}
+              uiSchema={uiSchema}
+              onSubmit={this.onSubmit}
+              isFetching={isFetching}
+              error={error}
+              formData={currentUser}
+            >
+              <FormFooter>
+                <div>
+                  <SubmitButton marginRight>Save profile</SubmitButton>
+                  <CancelButton onClick={this.onCancelClick} />
+                </div>
+                <DestructiveButton onClick={this.onDeleteClick}>
+                  Delete account
+                </DestructiveButton>
+              </FormFooter>
+            </DecoratedForm>
+          </Container>
+        </div>
+        <Footer />
       </div>
     );
   }

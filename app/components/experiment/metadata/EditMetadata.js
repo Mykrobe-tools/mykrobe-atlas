@@ -10,6 +10,8 @@ import { bindActionCreators } from 'redux';
 import { goBack, push } from 'react-router-redux';
 import { Container } from 'reactstrap';
 
+import Footer from '../../footer/Footer';
+
 import styles from './EditMetadata.scss';
 
 import {
@@ -138,6 +140,7 @@ class EditMetadata extends React.Component<*> {
             </FormFooter>
           </DecoratedForm>
         </Container>
+        <Footer />
       </div>
     );
   }
