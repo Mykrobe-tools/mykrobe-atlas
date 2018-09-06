@@ -163,10 +163,12 @@ class ExperimentsTable extends React.Component<*> {
           );
         }
       });
-      susceptibilityProfile = (
+      susceptibilityProfile = elements.length ? (
         <Link to={`/experiments/${id}/resistance/evidence`}>
           <span className={styles.resistanceProfile}>{elements}</span>
         </Link>
+      ) : (
+        '–'
       );
     }
     return (
