@@ -24,6 +24,8 @@ export const STOPPED = `${typePrefix}STOPPED`;
 
 export const UPLOAD_PROGRESS = `${typePrefix}UPLOAD_PROGRESS`;
 export const UPLOAD_COMPLETE = `${typePrefix}UPLOAD_COMPLETE`;
+export const UPLOAD_THIRD_PARTY_PROGRESS = `${typePrefix}UPLOAD_THIRD_PARTY_PROGRESS`;
+export const UPLOAD_THIRD_PARTY_DONE = `${typePrefix}UPLOAD_THIRD_PARTY_DONE`;
 export const ANALYSIS_STARTED = `${typePrefix}ANALYSIS_STARTED`;
 export const ANALYSIS_COMPLETE = `${typePrefix}ANALYSIS_COMPLETE`;
 
@@ -82,7 +84,7 @@ function* startWorker() {
   const accessToken = yield select(getAccessToken);
   const options = buildOptionsWithToken({}, accessToken);
 
-  // TODO contruct this with swagger operation id
+  // TODO construct this with Swagger operation id
   try {
     _eventSource = new EventSourcePolyfill(`${API_URL}/user/events`, {
       headers: options.headers,
@@ -130,6 +132,29 @@ function* eventWatcher() {
   yield takeEvery(EVENT, eventWorker);
 }
 
+/*
+complete
+:
+"3.39"
+event
+:
+"Upload via 3rd party progress"
+file
+:
+"MDR.fastq.gz"
+id
+:
+"5b9250558281dd0010bef39c"
+provider
+:
+"dropbox"
+size
+:
+7388483
+totalSize
+:
+217685411
+*/
 function* eventWorker(action: any) {
   const {
     payload,
@@ -140,9 +165,19 @@ function* eventWorker(action: any) {
       type: UPLOAD_PROGRESS,
       payload,
     });
+  } else if (event === 'Upload via 3rd party progress') {
+    yield put({
+      type: UPLOAD_THIRD_PARTY_PROGRESS,
+      payload,
+    });
   } else if (event === 'Upload complete') {
     yield put({
       type: UPLOAD_COMPLETE,
+      payload,
+    });
+  } else if (event === 'Upload via 3rd party complete') {
+    yield put({
+      type: UPLOAD_THIRD_PARTY_DONE,
       payload,
     });
   } else if (event === 'Analysis started') {
@@ -155,6 +190,8 @@ function* eventWorker(action: any) {
       type: ANALYSIS_COMPLETE,
       payload,
     });
+  } else {
+    console.warn('Unhandled event payload:', payload);
   }
 }
 

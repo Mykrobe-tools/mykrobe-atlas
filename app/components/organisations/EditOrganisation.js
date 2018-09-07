@@ -10,9 +10,11 @@ import { bindActionCreators } from 'redux';
 import { goBack, push } from 'react-router-redux';
 import { Container } from 'reactstrap';
 
-import styles from './Common.scss';
 import type { OrganisationType } from '../../types/OrganisationTypes';
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
+
+import styles from './Common.scss';
 
 import {
   getOrganisation,
@@ -81,31 +83,34 @@ class Edit extends React.Component<*> {
     return (
       <div className={styles.container}>
         <Header title={'Organisation'} />
-        <Container fluid>
-          <DecoratedForm
-            formKey="organisations/organisation"
-            schema={organisationSchema}
-            uiSchema={uiSchema}
-            onSubmit={this.onSubmit}
-            isFetching={isFetching}
-            error={error}
-            formData={organisation}
-          >
-            <FormFooter>
-              <div>
-                <SubmitButton marginRight>
-                  {isNew ? 'Create organisation' : 'Save organisation'}
-                </SubmitButton>
-                <CancelButton onClick={this.onCancelClick} />
-              </div>
-              {!isNew && (
-                <DestructiveButton onClick={this.onDeleteClick}>
-                  Delete organisation
-                </DestructiveButton>
-              )}
-            </FormFooter>
-          </DecoratedForm>
-        </Container>
+        <div className={styles.container}>
+          <Container fluid>
+            <DecoratedForm
+              formKey="organisations/organisation"
+              schema={organisationSchema}
+              uiSchema={uiSchema}
+              onSubmit={this.onSubmit}
+              isFetching={isFetching}
+              error={error}
+              formData={organisation}
+            >
+              <FormFooter>
+                <div>
+                  <SubmitButton marginRight>
+                    {isNew ? 'Create organisation' : 'Save organisation'}
+                  </SubmitButton>
+                  <CancelButton onClick={this.onCancelClick} />
+                </div>
+                {!isNew && (
+                  <DestructiveButton onClick={this.onDeleteClick}>
+                    Delete organisation
+                  </DestructiveButton>
+                )}
+              </FormFooter>
+            </DecoratedForm>
+          </Container>
+        </div>
+        <Footer />
       </div>
     );
   }

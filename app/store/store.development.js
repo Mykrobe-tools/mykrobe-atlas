@@ -40,10 +40,16 @@ import {
   showNotification,
   UPDATE_NOTIFICATION,
 } from '../modules/notifications/notifications';
+
 import {
   RESUMABLE_UPLOAD_PROGRESS,
   COMPUTE_CHECKSUMS_PROGRESS,
 } from '../modules/upload';
+
+import {
+  EVENT,
+  UPLOAD_THIRD_PARTY_PROGRESS,
+} from '../modules/users/currentUserEvents';
 
 const devToolsPresent =
   window && typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function';
@@ -72,6 +78,8 @@ if (devToolsPresent) {
     RESUMABLE_UPLOAD_PROGRESS,
     COMPUTE_CHECKSUMS_PROGRESS,
     UPDATE_NOTIFICATION,
+    EVENT,
+    UPLOAD_THIRD_PARTY_PROGRESS,
     beaconNetworkStatusActionTypes.CHECK,
     beaconNetworkStatusActionTypes.CHECK_SUCCESS,
     beaconNetworkStatusActionTypes.CHECK_COUNT_DOWN_SECONDS,
@@ -96,6 +104,8 @@ const actionsBlacklist = [
   RESUMABLE_UPLOAD_PROGRESS,
   COMPUTE_CHECKSUMS_PROGRESS,
   UPDATE_NOTIFICATION,
+  EVENT,
+  UPLOAD_THIRD_PARTY_PROGRESS,
   beaconNetworkStatusActionTypes.CHECK,
   beaconNetworkStatusActionTypes.CHECK_SUCCESS,
   beaconNetworkStatusActionTypes.CHECK_COUNT_DOWN_SECONDS,

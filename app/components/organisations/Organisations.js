@@ -22,8 +22,10 @@ import {
   setOrganisationsFilters,
 } from '../../modules/organisations';
 
-import styles from './Common.scss';
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
+
+import styles from './Common.scss';
 
 const headings = [
   {
@@ -79,32 +81,35 @@ class Profile extends React.Component<*> {
     return (
       <div className={styles.container}>
         <Header title={'Organisations'} />
-        <Container fluid>
-          <PageHeader border={false}>
-            <div>
-              <div className={pageHeaderStyles.title}>Organisations</div>
-            </div>
-            <div>
-              <PrimaryButton
-                onClick={this.onNewOrganisation}
-                outline
-                size="sm"
-                icon="plus-circle"
-                marginLeft
-              >
-                New Organisation
-              </PrimaryButton>
-            </div>
-          </PageHeader>
-          <Table
-            headings={headings}
-            data={organisations}
-            sort={organisationsFilters.sort || 'id'}
-            order={organisationsFilters.order || Table.Order.Descending}
-            renderRow={this.renderRow}
-            onChangeOrder={this.onChangeListOrder}
-          />
-        </Container>
+        <div className={styles.container}>
+          <Container fluid>
+            <PageHeader border={false}>
+              <div>
+                <div className={pageHeaderStyles.title}>Organisations</div>
+              </div>
+              <div>
+                <PrimaryButton
+                  onClick={this.onNewOrganisation}
+                  outline
+                  size="sm"
+                  icon="plus-circle"
+                  marginLeft
+                >
+                  New Organisation
+                </PrimaryButton>
+              </div>
+            </PageHeader>
+            <Table
+              headings={headings}
+              data={organisations}
+              sort={organisationsFilters.sort || 'id'}
+              order={organisationsFilters.order || Table.Order.Descending}
+              renderRow={this.renderRow}
+              onChangeOrder={this.onChangeListOrder}
+            />
+          </Container>
+        </div>
+        <Footer />
       </div>
     );
   }
