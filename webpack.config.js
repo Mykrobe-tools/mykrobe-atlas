@@ -13,6 +13,7 @@ module.exports = {
       'whatwg-fetch',
       'babel-polyfill',
       'url-search-params-polyfill',
+      'event-source-polyfill',
       path.join(dirApp, 'index'),
     ],
   },
