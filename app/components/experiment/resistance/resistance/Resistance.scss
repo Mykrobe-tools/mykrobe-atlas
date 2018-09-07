@@ -11,15 +11,6 @@
 	flex-direction: column;
 }
 
-.header {
-	background-color: $color-buff-dark;
-	padding: 12px;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-content: center;
-}
-
 .headerTitle {
 	composes: fontSizeLarge from 'styles/typography.scss';
 	color: $color-tint-primary;
@@ -27,26 +18,25 @@
 }
 
 .navigation {
-	margin: 0 auto;
+	composes: global(border-top);
+	composes: global(border-bottom);
 	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: $color-panel-light;
 }
 
 .navigationItem {
 	composes: fontSecondary from 'styles/typography.scss';
-	composes: fontSecondarySizeSmall from 'styles/typography.scss';
+	composes: fontSecondarySizeNormal from 'styles/typography.scss';
+	padding: 1rem 1rem 0.75rem 1rem;
 	text-transform: uppercase;
-	height: 24px;
-	padding: 0 12px;
-	border-radius: 12px;
-	display: flex;
-	align-items: center;
-	text-decoration: none;
-	color: $color-tint-primary;
-	line-height: 1;
+	color: $color-text;
+	border-bottom: 0.25rem solid transparent;
 }
 
 .navigationItemActive {
 	composes: navigationItem;
-	color: white;
-	background-color: $color-tint-primary;
+	color: $color-tint-primary;
+	border-bottom-color: $color-tint-primary;
 }

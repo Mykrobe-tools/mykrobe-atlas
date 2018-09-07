@@ -119,27 +119,29 @@ class EditMetadata extends React.Component<*> {
     }
     return (
       <div className={styles.container}>
-        <Container fluid>
-          <DecoratedForm
-            title={title}
-            formKey={this.formKey()}
-            schema={schema}
-            uiSchema={uiSchema}
-            onSubmit={this.onSubmit}
-            isFetching={isFetching}
-            error={error}
-            formData={{ metadata: experiment.metadata }}
-          >
-            <FormFooter>
-              {!readonly && (
-                <div>
-                  <SubmitButton marginRight>Save metadata</SubmitButton>
-                  <CancelButton onClick={this.onCancelClick} />
-                </div>
-              )}
-            </FormFooter>
-          </DecoratedForm>
-        </Container>
+        <div className={styles.container}>
+          <Container fluid>
+            <DecoratedForm
+              title={title}
+              formKey={this.formKey()}
+              schema={schema}
+              uiSchema={uiSchema}
+              onSubmit={this.onSubmit}
+              isFetching={isFetching}
+              error={error}
+              formData={{ metadata: experiment.metadata }}
+            >
+              <FormFooter>
+                {!readonly && (
+                  <div>
+                    <SubmitButton marginRight>Save metadata</SubmitButton>
+                    <CancelButton onClick={this.onCancelClick} />
+                  </div>
+                )}
+              </FormFooter>
+            </DecoratedForm>
+          </Container>
+        </div>
         <Footer />
       </div>
     );
