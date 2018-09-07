@@ -19,6 +19,7 @@ module.exports = (storybookBaseConfig, configType) => {
     'whatwg-fetch',
     'babel-polyfill',
     'url-search-params-polyfill',
+    'event-source-polyfill',
     ...storybookBaseConfig.entry.preview,
   ];
 

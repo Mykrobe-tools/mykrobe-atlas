@@ -5,7 +5,7 @@ import type { Saga } from 'redux-saga';
 import { combineReducers } from 'redux';
 
 import uploadFileReducer, { uploadFileSaga } from './uploadFile';
-import { uploadFileNotificationSaga } from './uploadFileNotification';
+import { uploadNotificationSaga } from './uploadNotification';
 import { uploadDropboxSaga } from './uploadDropbox';
 import { uploadGoogleDriveSaga } from './uploadGoogleDrive';
 import { uploadBoxSaga } from './uploadBox';
@@ -54,7 +54,7 @@ export default uploadReducer;
 export function* rootUploadSaga(): Saga {
   yield all([
     fork(uploadFileSaga),
-    fork(uploadFileNotificationSaga),
+    fork(uploadNotificationSaga),
     fork(uploadDropboxSaga),
     fork(uploadGoogleDriveSaga),
     fork(uploadBoxSaga),

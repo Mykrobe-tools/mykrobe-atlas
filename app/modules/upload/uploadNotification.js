@@ -23,6 +23,8 @@ import { COMPUTE_CHECKSUMS_PROGRESS } from './util/ComputeChecksums';
 import {
   ANALYSIS_STARTED,
   ANALYSIS_COMPLETE,
+  UPLOAD_THIRD_PARTY_PROGRESS,
+  UPLOAD_THIRD_PARTY_DONE,
 } from '../users/currentUserEvents';
 
 import {
@@ -175,6 +177,47 @@ function* uploadFileCancelWatcher() {
   });
 }
 
+// third party uploads
+
+function* thirdPartyUploadProgressWatcher() {
+  yield takeEvery(UPLOAD_THIRD_PARTY_PROGRESS, function*(action) {
+    const {
+      payload: { id: experimentId, file: fileName, provider, size, totalSize },
+    } = action;
+    const progress = Math.round((100 * size) / totalSize);
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.MESSAGE,
+        content: `${progress}% Retreiving ${fileName} from ${provider}`,
+        progress,
+      })
+    );
+  });
+}
+
+function* thirdPartyUploadDoneWatcher() {
+  yield takeEvery(UPLOAD_THIRD_PARTY_DONE, function*(action) {
+    const {
+      payload: { id: experimentId, file: fileName, provider },
+    } = action;
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.SUCCESS,
+        content: `Finished retreiving ${fileName} from ${provider}`,
+        actions: [
+          {
+            title: 'Metadata',
+            onClick: () => {
+              _interactionChannel.put(push(`/experiments/${experimentId}`));
+            },
+          },
+        ],
+        progress: undefined,
+      })
+    );
+  });
+}
+
 // analysis events - not just for current upload
 
 function* analysisStartedWatcher() {
@@ -215,7 +258,7 @@ function* analysisCompleteWatcher() {
   });
 }
 
-export function* uploadFileNotificationSaga(): Saga {
+export function* uploadNotificationSaga(): Saga {
   yield all([
     fork(fileAddedWatcher),
     fork(computeChecksumsProgressWatcher),
@@ -226,5 +269,7 @@ export function* uploadFileNotificationSaga(): Saga {
     fork(analysisStartedWatcher),
     fork(analysisCompleteWatcher),
     fork(interactionChannelWatcher),
+    fork(thirdPartyUploadProgressWatcher),
+    fork(thirdPartyUploadDoneWatcher),
   ]);
 }
