@@ -31,7 +31,10 @@ import {
   CancelButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import { experimentSchema } from '../../../schemas/experiment';
+import {
+  experimentSchema,
+  filteredSchemaWithSubsections,
+} from '../../../schemas/experiment';
 import experimentUiSchema from './experimentUiSchema';
 
 class EditMetadata extends React.Component<*> {
@@ -50,47 +53,6 @@ class EditMetadata extends React.Component<*> {
     goBack();
   };
 
-  // onDeleteClick = e => {
-  //   e && e.preventDefault();
-  //   const { organisation, deleteOrganisation } = this.props;
-  //   if (confirm('Delete organisation?')) {
-  //     deleteOrganisation(organisation);
-  //   }
-  // };
-
-  deriveSchema = () => {
-    const { subsections } = this.props;
-    if (!subsections) {
-      return experimentSchema;
-    }
-    const properties = {};
-    Object.entries(experimentSchema.definitions.Metadata.properties).forEach(
-      ([key, value]) => {
-        if (subsections.includes(key)) {
-          properties[key] = value;
-        }
-      }
-    );
-
-    const derivedSchema = {
-      ...experimentSchema,
-      definitions: {
-        ...experimentSchema.definitions,
-        Metadata: {
-          // filtering what's shown in metadata
-          ...experimentSchema.definitions.Metadata,
-          title: '',
-          properties,
-        },
-      },
-      properties: {
-        // only include metadata
-        metadata: experimentSchema.properties.metadata,
-      },
-    };
-    return derivedSchema;
-  };
-
   formKey = () => {
     const { subsections } = this.props;
     if (!subsections) {
@@ -107,8 +69,9 @@ class EditMetadata extends React.Component<*> {
       error,
       title,
       experimentOwnerIsCurrentUser,
+      subsections,
     } = this.props;
-    const schema = this.deriveSchema();
+    const schema = filteredSchemaWithSubsections(subsections);
     let uiSchema = experimentUiSchema;
     const readonly = !experimentOwnerIsCurrentUser;
     if (readonly) {
