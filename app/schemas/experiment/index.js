@@ -5,7 +5,7 @@ import _ from 'lodash';
 import experimentSchema from './experiment';
 
 export { default as experimentSchema } from './experiment';
-export { keysForSchema } from './util';
+export { keysForSchema, completenessForSchemaAndData } from './util';
 
 // filter the schema to only include the passed subsections
 // this is used to split the schema into several individual steps in the UI

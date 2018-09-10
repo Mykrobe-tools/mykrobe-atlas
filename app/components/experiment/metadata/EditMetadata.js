@@ -33,6 +33,12 @@ import {
 import { filteredSchemaWithSubsections } from '../../../schemas/experiment';
 import experimentUiSchema from './experimentUiSchema';
 
+// TODO: remove once tested
+
+const USE_UNIQUE_FORM_ID = false;
+
+export const EXPERIMENT_METADATA_FORM_ID = 'experiments/experiment/metadata';
+
 class EditMetadata extends React.Component<*> {
   onSubmit = (formData: any) => {
     const { updateExperiment, experiment } = this.props;
@@ -51,11 +57,11 @@ class EditMetadata extends React.Component<*> {
 
   formKey = () => {
     const { subsections } = this.props;
-    if (!subsections) {
-      return 'experiments/experiment/metadata';
+    if (!USE_UNIQUE_FORM_ID || !subsections) {
+      return EXPERIMENT_METADATA_FORM_ID;
     }
     const additional = subsections.join('-');
-    return `experiments/experiment/metadata/${additional}`;
+    return `${EXPERIMENT_METADATA_FORM_ID}/${additional}`;
   };
 
   render() {
