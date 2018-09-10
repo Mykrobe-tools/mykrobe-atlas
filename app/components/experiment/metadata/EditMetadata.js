@@ -30,11 +30,7 @@ import {
   CancelButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import {
-  experimentSchema,
-  filteredSchemaWithSubsections,
-  keysForSchema,
-} from '../../../schemas/experiment';
+import { filteredSchemaWithSubsections } from '../../../schemas/experiment';
 import experimentUiSchema from './experimentUiSchema';
 
 class EditMetadata extends React.Component<*> {
@@ -72,8 +68,6 @@ class EditMetadata extends React.Component<*> {
       subsections,
     } = this.props;
     const schema = filteredSchemaWithSubsections(subsections);
-    const keys = keysForSchema(experimentSchema);
-    console.log('keys', keys);
     let uiSchema = experimentUiSchema;
     const readonly = !experimentOwnerIsCurrentUser;
     if (readonly) {
