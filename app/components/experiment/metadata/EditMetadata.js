@@ -1,6 +1,5 @@
 /* @flow */
 
-/* TODO Refactor to use redux-form */
 /* eslint-disable react/no-string-refs */
 
 import * as React from 'react';
@@ -34,6 +33,7 @@ import {
 import {
   experimentSchema,
   filteredSchemaWithSubsections,
+  keysForSchema,
 } from '../../../schemas/experiment';
 import experimentUiSchema from './experimentUiSchema';
 
@@ -72,6 +72,8 @@ class EditMetadata extends React.Component<*> {
       subsections,
     } = this.props;
     const schema = filteredSchemaWithSubsections(subsections);
+    const keys = keysForSchema(experimentSchema);
+    console.log('keys', keys);
     let uiSchema = experimentUiSchema;
     const readonly = !experimentOwnerIsCurrentUser;
     if (readonly) {
