@@ -15,7 +15,7 @@ export const keysForSchema = (
     Object.entries(subSchema.properties).forEach(([key, value]) => {
       const keyPath = currentKeyPath.concat(key);
       keys.push(keyPath.join('.'));
-      if (typeof value === 'object') {
+      if (typeof value === 'object' && value !== null) {
         keys = keys.concat(keysForSchema(schema, value, keyPath));
       }
     });
