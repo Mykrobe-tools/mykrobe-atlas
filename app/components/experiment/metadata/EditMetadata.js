@@ -19,6 +19,7 @@ import {
   getIsFetchingExperiment,
   getExperimentError,
   updateExperiment,
+  EXPERIMENT_METADATA_FORM_ID,
 } from '../../../modules/experiments';
 
 import {
@@ -36,8 +37,6 @@ import experimentUiSchema from './experimentUiSchema';
 // TODO: remove once tested
 
 const USE_UNIQUE_FORM_ID = false;
-
-export const EXPERIMENT_METADATA_FORM_ID = 'experiments/experiment/metadata';
 
 class EditMetadata extends React.Component<*> {
   onSubmit = (formData: any) => {

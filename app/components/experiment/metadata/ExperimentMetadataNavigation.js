@@ -14,8 +14,10 @@ class ExperimentMetadataNavigation extends React.Component<*> {
       match,
       isBusyWithCurrentRoute,
       experimentOwnerIsCurrentUser,
+      completion,
     } = this.props;
-    const percent = 33;
+    const { complete, total } = completion;
+    const percent = Math.round((100 * complete) / total);
     return (
       <div className={styles.container}>
         <Container fluid>
@@ -38,7 +40,7 @@ class ExperimentMetadataNavigation extends React.Component<*> {
               </div>
               <div className={styles.title}>
                 <div className={styles.titleHead}>
-                  Complete metadata benefits everyone
+                  {complete}/{total} Complete metadata benefits everyone
                 </div>
                 <div className={styles.titleSubhead}>
                   Help Atlas provide more accurate results
@@ -100,6 +102,7 @@ ExperimentMetadataNavigation.propTypes = {
   match: PropTypes.object.isRequired,
   isBusyWithCurrentRoute: PropTypes.bool.isRequired,
   experimentOwnerIsCurrentUser: PropTypes.bool,
+  completion: PropTypes.object.isRequired,
 };
 
 export default withFileUpload(ExperimentMetadataNavigation);
