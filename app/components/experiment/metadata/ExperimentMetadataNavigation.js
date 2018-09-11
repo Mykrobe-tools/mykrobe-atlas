@@ -17,7 +17,7 @@ class ExperimentMetadataNavigation extends React.Component<*> {
       completion,
     } = this.props;
     const { complete, total } = completion;
-    const percent = Math.round((100 * complete) / total);
+    const percent = ((100 * complete) / total).toFixed(1);
     return (
       <div className={styles.container}>
         <Container fluid>
@@ -40,7 +40,7 @@ class ExperimentMetadataNavigation extends React.Component<*> {
               </div>
               <div className={styles.title}>
                 <div className={styles.titleHead}>
-                  {complete}/{total} Complete metadata benefits everyone
+                  Complete metadata benefits everyone
                 </div>
                 <div className={styles.titleSubhead}>
                   Help Atlas provide more accurate results
