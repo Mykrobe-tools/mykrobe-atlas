@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 import { getFormData } from 'makeandship-js-common/src/modules/form';
 
 import {
-  experimentSchema,
+  experimentMetadataSchema,
   completenessForSchemaAndData,
 } from '../../schemas/experiment';
 
@@ -19,5 +19,5 @@ export const getExperimentMetadataFormData = state => {
 
 export const getExperimentMetadataFormCompletion = createSelector(
   getExperimentMetadataFormData,
-  formData => completenessForSchemaAndData(experimentSchema, formData)
+  formData => completenessForSchemaAndData(experimentMetadataSchema, formData)
 );

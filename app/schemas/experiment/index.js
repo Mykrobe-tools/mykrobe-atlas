@@ -44,3 +44,9 @@ export const filteredSchemaWithSubsections = _.memoize(
   },
   (subsections: Array<string>) => subsections.join('-')
 );
+
+const metadataKeys = Object.keys(
+  experimentSchema.definitions.Metadata.properties
+);
+const experimentMetadataSchema = filteredSchemaWithSubsections(metadataKeys);
+export { experimentMetadataSchema };

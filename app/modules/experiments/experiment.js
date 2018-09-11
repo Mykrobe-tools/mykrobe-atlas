@@ -23,7 +23,7 @@ import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
 import addExtraData from './util/addExtraData';
 
 import {
-  experimentSchema,
+  experimentMetadataSchema,
   completenessForSchemaAndData,
 } from '../../schemas/experiment';
 
@@ -134,7 +134,8 @@ export const getExperimentHasNearestNeigbours = createSelector(
 
 export const getExperimentMetadataCompletion = createSelector(
   getExperiment,
-  experiment => completenessForSchemaAndData(experimentSchema, experiment)
+  experiment =>
+    completenessForSchemaAndData(experimentMetadataSchema, experiment)
 );
 
 export {
