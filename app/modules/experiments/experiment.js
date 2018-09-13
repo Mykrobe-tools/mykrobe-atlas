@@ -22,6 +22,11 @@ import { ANALYSIS_COMPLETE } from '../../modules/users/currentUserEvents';
 import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
 import addExtraData from './util/addExtraData';
 
+import {
+  experimentMetadataSchema,
+  completenessForSchemaAndData,
+} from '../../schemas/experiment';
+
 const ADD_EXTRA_DATA = false;
 
 const module = createEntityModule('experiment', {
@@ -125,6 +130,12 @@ export const getExperimentHasNearestNeigbours = createSelector(
   getExperimentNearestNeigbours,
   experimentNearestNeigbours =>
     experimentNearestNeigbours && experimentNearestNeigbours.length > 0
+);
+
+export const getExperimentMetadataCompletion = createSelector(
+  getExperiment,
+  experiment =>
+    completenessForSchemaAndData(experimentMetadataSchema, experiment)
 );
 
 export {

@@ -1,6 +1,5 @@
 /* @flow */
 
-/* TODO Refactor to use redux-form */
 /* eslint-disable react/no-string-refs */
 
 import * as React from 'react';

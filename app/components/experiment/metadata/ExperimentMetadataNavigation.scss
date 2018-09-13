@@ -18,27 +18,28 @@
 .percent {
 	composes: fontSecondary from 'styles/typography.scss';
 	background-color: $color-white;
-	border: 10px solid $gray-200;
 	border-radius: 50%;
 	display: inline-block;
 	margin-right: 1.5rem;
 	position: relative;
-	padding: 3rem;
+	width: 100 / 16 * 1rem;
+	height: 100 / 16 * 1rem;
+	line-height: 1;
+}
+
+.circularProgressContainer {
+	composes: containerAbsolute from 'styles/layout.scss';
 }
 
 .percentContent {
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
+	composes: containerAbsolute from 'styles/layout.scss';
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
 .percentValue {
-	composes: fontSizeExtraLarge from 'styles/typography.scss';
+	font-size: 2rem;
 }
 
 .percentSign {
