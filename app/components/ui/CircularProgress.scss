@@ -1,19 +1,21 @@
 @import '~styles/colors.global';
 
 .container {
-	composes: containerAbsolute from 'styles/layout.scss';
-	pointer-events: none;
+	display: flex;
+	flex: 1;
 }
 
-.background {
-	fill: none;
-	stroke: white;
+.svgContainer {
+	width: 100%;
+	height: 100%;
 }
 
-.foreground {
-	fill: none;
-	transition: stroke-dashoffset 2s linear;
+.fill {
 	stroke: $color-grey-light;
-	transform-origin: center center;
-	transform: rotate(-90deg);
+	transition: stroke-dashoffset 2s linear;
+}
+
+.well {
+	stroke: white;
+	fill: none;
 }

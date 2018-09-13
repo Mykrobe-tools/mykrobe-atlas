@@ -5,51 +5,47 @@ import styles from './CircularProgress.scss';
 
 class CircularProgress extends React.Component<*> {
   render() {
+    const { strokeWidth } = this.props;
     const percentage = parseInt(this.props.percentage);
-    const radius = this.props.radius - this.props.strokeWidth / 2;
-    const width = this.props.radius * 2;
-    const height = this.props.radius * 2;
-    const viewBox = `0 0 ${width} ${height}`;
-    const dashArray = radius * Math.PI * 2;
-    const dashOffset = dashArray - (dashArray * percentage) / 100;
+    const radius = 50 - strokeWidth / 2;
+    const pathDescription = `
+      M 50,50 m 0,-${radius}
+      a ${radius},${radius} 0 1 1 0,${2 * radius}
+      a ${radius},${radius} 0 1 1 0,-${2 * radius}
+    `;
+
+    const diameter = Math.PI * 2 * radius;
+    const progressStyle = {
+      strokeDasharray: `${diameter}px ${diameter}px`,
+      strokeDashoffset: `${(diameter * (100 - percentage)) / 100}px`,
+    };
     return (
-      <svg
-        className={styles.container}
-        width={this.props.radius * 2}
-        height={this.props.radius * 2}
-        viewBox={viewBox}
-      >
-        <circle
-          className={styles.background}
-          cx={this.props.radius}
-          cy={this.props.radius}
-          r={radius}
-          strokeWidth={`${this.props.strokeWidth}px`}
-        />
-        <circle
-          className={styles.foreground}
-          cx={this.props.radius}
-          cy={this.props.radius}
-          r={radius}
-          strokeWidth={`${this.props.strokeWidth}px`}
-          style={{
-            strokeDasharray: dashArray,
-            strokeDashoffset: dashOffset,
-          }}
-        />
-      </svg>
+      <div className={styles.container}>
+        <svg className={styles.svgContainer} viewBox="0 0 100 100">
+          <path
+            className={styles.well}
+            d={pathDescription}
+            strokeWidth={strokeWidth}
+          />
+          <path
+            className={styles.fill}
+            d={pathDescription}
+            strokeWidth={strokeWidth}
+            fillOpacity={0}
+            style={progressStyle}
+          />
+        </svg>
+        {this.props.children}
+      </div>
     );
   }
+  static defaultProps = {
+    percentage: 50,
+    strokeWidth: 14,
+  };
 }
 
-CircularProgress.defaultProps = {
-  radius: 240,
-  percentage: 50,
-  strokeWidth: 36,
-};
-
 CircularProgress.propTypes = {
-  radius: PropTypes.number,
   percentage: PropTypes.number,
   strokeWidth: PropTypes.number,
 };

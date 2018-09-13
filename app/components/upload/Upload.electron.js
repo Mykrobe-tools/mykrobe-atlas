@@ -66,7 +66,12 @@ class Upload extends React.Component<*> {
         ) : (
           <div className={styles.progressTitle}>{progress}%</div>
         )}
-        <CircularProgress percentage={progress} />
+        <div className={styles.circularProgressContainer}>
+          <CircularProgress
+            percentage={progress}
+            strokeWidth={100 * (36 / 480)}
+          />
+        </div>
         <div className={styles.progressStatus}>
           <div className={styles.progressStatusInner}>
             <div className={styles.title} data-tid="status-text">

@@ -47,6 +47,11 @@
 	margin-bottom: 30px;
 }
 
+.circularProgressContainer {
+	composes: containerAbsolute from 'styles/layout.scss';
+	pointer-events: none;
+}
+
 .buttonContainer {
 	pointer-events: auto;
 }
