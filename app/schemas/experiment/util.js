@@ -49,6 +49,5 @@ export const completenessForSchemaAndData = (schema: any, data: any) => {
       complete++;
     }
   });
-  console.log('completenessForSchemaAndData', data, keys);
   return { complete, total };
 };

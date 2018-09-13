@@ -86,6 +86,10 @@
 	color: $color-grey-light;
 }
 
+.progressTitlePercentSign {
+	font-size: 48px;
+}
+
 .dots {
 	composes: containerAbsolute from 'styles/layout.scss';
 	flex-direction: row;

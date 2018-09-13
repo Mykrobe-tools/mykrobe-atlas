@@ -5,7 +5,7 @@ import styles from './CircularProgress.scss';
 
 class CircularProgress extends React.Component<*> {
   render() {
-    const { strokeWidth } = this.props;
+    const { strokeWidth, wellWhite } = this.props;
     const percentage = parseInt(this.props.percentage);
     const radius = 50 - strokeWidth / 2;
     const pathDescription = `
@@ -23,12 +23,12 @@ class CircularProgress extends React.Component<*> {
       <div className={styles.container}>
         <svg className={styles.svgContainer} viewBox="0 0 100 100">
           <path
-            className={styles.well}
+            className={wellWhite ? styles.wellWhite : styles.well}
             d={pathDescription}
             strokeWidth={strokeWidth}
           />
           <path
-            className={styles.fill}
+            className={wellWhite ? styles.fillWellWhite : styles.fill}
             d={pathDescription}
             strokeWidth={strokeWidth}
             fillOpacity={0}
@@ -41,12 +41,14 @@ class CircularProgress extends React.Component<*> {
   static defaultProps = {
     percentage: 50,
     strokeWidth: 10,
+    wellWhite: false,
   };
 }
 
 CircularProgress.propTypes = {
   percentage: PropTypes.number,
   strokeWidth: PropTypes.number,
+  wellWhite: PropTypes.bool,
 };
 
 export default CircularProgress;

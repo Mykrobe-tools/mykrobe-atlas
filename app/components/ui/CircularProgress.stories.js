@@ -16,5 +16,4 @@ storiesOf('CircularProgress', module)
   .add('70%', () => <CircularProgress percentage={70} />)
   .add('80%', () => <CircularProgress percentage={80} />)
   .add('90%', () => <CircularProgress percentage={90} />)
-  .add('100%', () => <CircularProgress percentage={100} />)
-
+  .add('100%', () => <CircularProgress percentage={100} />);

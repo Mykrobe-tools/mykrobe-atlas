@@ -10,12 +10,22 @@
 	height: 100%;
 }
 
-.fill {
-	stroke: $color-grey-light;
-	transition: stroke-dashoffset 2s linear;
+.wellWhite {
+	stroke: white;
+	fill: none;
 }
 
 .well {
-	stroke: white;
+	stroke: $gray-200;
 	fill: none;
+}
+
+.fill {
+	stroke: $color-grey-mid;
+	transition: stroke-dashoffset 2s linear;
+}
+
+.fillWellWhite {
+	composes: fill;
+	stroke: $color-grey-light;
 }
