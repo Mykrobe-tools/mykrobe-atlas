@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
-import withFileUpload from '../../../hoc/withFileUpload';
 import styles from './ExperimentMetadataNavigation.scss';
 
 class ExperimentMetadataNavigation extends React.Component<*> {
@@ -105,4 +104,4 @@ ExperimentMetadataNavigation.propTypes = {
   completion: PropTypes.object.isRequired,
 };
 
-export default withFileUpload(ExperimentMetadataNavigation);
+export default ExperimentMetadataNavigation;

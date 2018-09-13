@@ -35,7 +35,6 @@ class CircularProgress extends React.Component<*> {
             style={progressStyle}
           />
         </svg>
-        {this.props.children}
       </div>
     );
   }

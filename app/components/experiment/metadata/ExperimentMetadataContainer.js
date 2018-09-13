@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import ExperimentMetadataNavigation from './ExperimentMetadataNavigation';
+import ExperimentMetadataNavigationContainer from './ExperimentMetadataNavigationContainer';
 import ExperimentMetadataRoutes from './ExperimentMetadataRoutes';
 
 import { requestCurrentUser } from '../../../modules/users';
@@ -41,7 +41,7 @@ class ExperimentMetadataContainer extends React.Component<*> {
       : experimentMetadataCompletion;
     return (
       <div className={styles.container}>
-        <ExperimentMetadataNavigation
+        <ExperimentMetadataNavigationContainer
           match={match}
           experimentOwnerIsCurrentUser={experimentOwnerIsCurrentUser}
           completion={completion}
