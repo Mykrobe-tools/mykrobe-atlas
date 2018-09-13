@@ -9,7 +9,7 @@ import ExperimentMetadataNavigation from './ExperimentMetadataNavigation';
 const variations = {
   default: {
     completion: {
-      complete: 3,
+      complete: 7,
       total: 10,
     },
     match: {

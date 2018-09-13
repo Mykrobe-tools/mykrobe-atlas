@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
+import CircularProgress from '../../ui/CircularProgress';
+
 import styles from './ExperimentMetadataNavigation.scss';
 
 class ExperimentMetadataNavigation extends React.Component<*> {
@@ -16,7 +18,7 @@ class ExperimentMetadataNavigation extends React.Component<*> {
       completion,
     } = this.props;
     const { complete, total } = completion;
-    const percent = ((100 * complete) / total).toFixed(1);
+    const percent = Math.round((100 * complete) / total);
     return (
       <div className={styles.container}>
         <Container fluid>
@@ -30,6 +32,9 @@ class ExperimentMetadataNavigation extends React.Component<*> {
           {experimentOwnerIsCurrentUser && (
             <div className={styles.progress}>
               <div className={styles.percent}>
+                <div className={styles.circularProgressContainer}>
+                  <CircularProgress percentage={percent} />
+                </div>
                 <div className={styles.percentContent}>
                   <span>
                     <span className={styles.percentValue}>{percent}</span>

@@ -40,7 +40,7 @@ class CircularProgress extends React.Component<*> {
   }
   static defaultProps = {
     percentage: 50,
-    strokeWidth: 14,
+    strokeWidth: 10,
   };
 }
 
