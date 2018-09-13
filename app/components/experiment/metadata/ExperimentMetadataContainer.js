@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import ExperimentMetadataNavigation from './ExperimentMetadataNavigation';
+import ExperimentMetadataNavigationContainer from './ExperimentMetadataNavigationContainer';
 import ExperimentMetadataRoutes from './ExperimentMetadataRoutes';
 
 import { requestCurrentUser } from '../../../modules/users';
@@ -13,6 +13,8 @@ import {
   requestExperiment,
   requestExperimentMetadataTemplate,
   getExperimentOwnerIsCurrentUser,
+  getExperimentMetadataFormCompletion,
+  getExperimentMetadataCompletion,
 } from '../../../modules/experiments';
 
 import styles from './ExperimentMetadataContainer.scss';
@@ -27,12 +29,22 @@ class ExperimentMetadataContainer extends React.Component<*> {
   }
 
   render() {
-    const { match, experimentOwnerIsCurrentUser } = this.props;
+    const {
+      match,
+      experimentOwnerIsCurrentUser,
+      experimentMetadataFormCompletion,
+      experimentMetadataCompletion,
+    } = this.props;
+    // there is no form data and completion if it is unmodified, so fall back to pristine data
+    const completion = experimentMetadataFormCompletion.complete
+      ? experimentMetadataFormCompletion
+      : experimentMetadataCompletion;
     return (
       <div className={styles.container}>
-        <ExperimentMetadataNavigation
+        <ExperimentMetadataNavigationContainer
           match={match}
           experimentOwnerIsCurrentUser={experimentOwnerIsCurrentUser}
+          completion={completion}
         />
         <ExperimentMetadataRoutes match={match} />
       </div>
@@ -43,6 +55,10 @@ class ExperimentMetadataContainer extends React.Component<*> {
 function mapStateToProps(state) {
   return {
     experimentOwnerIsCurrentUser: getExperimentOwnerIsCurrentUser(state),
+    experimentMetadataFormCompletion: getExperimentMetadataFormCompletion(
+      state
+    ),
+    experimentMetadataCompletion: getExperimentMetadataCompletion(state),
   };
 }
 
@@ -62,6 +78,8 @@ ExperimentMetadataContainer.propTypes = {
   requestExperiment: PropTypes.func.isRequired,
   requestExperimentMetadataTemplate: PropTypes.func.isRequired,
   experimentOwnerIsCurrentUser: PropTypes.bool,
+  experimentMetadataFormCompletion: PropTypes.object.isRequired,
+  experimentMetadataCompletion: PropTypes.object.isRequired,
 };
 
 export default connect(

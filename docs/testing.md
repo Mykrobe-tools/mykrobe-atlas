@@ -46,6 +46,14 @@ Potentially slow tests can check if they should execute by checking the for env 
 
 Look at the existing tests in the app for examples.
 
+## Debugging tests with Chrome DevTools
+
+To attach Chrome DevTools, open chrome://inspect/#devices then click 'Open dedicated DevTools for node'
+
+```
+$ yarn test:debug
+```
+
 ### Action creators
 
 Test whether an action creator is called, and whether the correct action has been returned.

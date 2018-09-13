@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
-import withFileUpload from '../../../hoc/withFileUpload';
+import CircularProgress from '../../ui/CircularProgress';
+
 import styles from './ExperimentMetadataNavigation.scss';
 
 class ExperimentMetadataNavigation extends React.Component<*> {
@@ -14,8 +15,10 @@ class ExperimentMetadataNavigation extends React.Component<*> {
       match,
       isBusyWithCurrentRoute,
       experimentOwnerIsCurrentUser,
+      completion,
     } = this.props;
-    const percent = 33;
+    const { complete, total } = completion;
+    const percent = Math.round((100 * complete) / total);
     return (
       <div className={styles.container}>
         <Container fluid>
@@ -29,6 +32,9 @@ class ExperimentMetadataNavigation extends React.Component<*> {
           {experimentOwnerIsCurrentUser && (
             <div className={styles.progress}>
               <div className={styles.percent}>
+                <div className={styles.circularProgressContainer}>
+                  <CircularProgress percentage={percent} />
+                </div>
                 <div className={styles.percentContent}>
                   <span>
                     <span className={styles.percentValue}>{percent}</span>
@@ -100,6 +106,7 @@ ExperimentMetadataNavigation.propTypes = {
   match: PropTypes.object.isRequired,
   isBusyWithCurrentRoute: PropTypes.bool.isRequired,
   experimentOwnerIsCurrentUser: PropTypes.bool,
+  completion: PropTypes.object.isRequired,
 };
 
-export default withFileUpload(ExperimentMetadataNavigation);
+export default ExperimentMetadataNavigation;

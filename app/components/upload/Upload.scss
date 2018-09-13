@@ -47,6 +47,11 @@
 	margin-bottom: 30px;
 }
 
+.circularProgressContainer {
+	composes: containerAbsolute from 'styles/layout.scss';
+	pointer-events: none;
+}
+
 .buttonContainer {
 	pointer-events: auto;
 }
@@ -79,6 +84,10 @@
 	composes: fontSecondary from 'styles/typography.scss';
 	font-size: 96px;
 	color: $color-grey-light;
+}
+
+.progressTitlePercentSign {
+	font-size: 48px;
 }
 
 .dots {

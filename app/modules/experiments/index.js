@@ -46,6 +46,7 @@ export {
   getExperimentOwnerIsCurrentUser,
   getExperimentNearestNeigbours,
   getExperimentHasNearestNeigbours,
+  getExperimentMetadataCompletion,
   getIsFetching as getIsFetchingExperiment,
   createExperiment,
   requestExperiment,
@@ -56,6 +57,11 @@ export {
   newExperiment,
   setExperiment,
 } from './experiment';
+
+export {
+  getExperimentMetadataFormCompletion,
+  EXPERIMENT_METADATA_FORM_ID,
+} from './experimentMetadataForm';
 
 export {
   updateExperimentFile,

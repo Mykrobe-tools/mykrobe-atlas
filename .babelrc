@@ -20,12 +20,13 @@
 	"env": {
 		"production": {
 			"presets": ["react-optimize"],
-			"plugins": ["./babel-plugin-electron-module-resolver"]
+			"plugins": [
+				"./babel-plugin-electron-module-resolver",
+				"transform-react-remove-prop-types"
+			]
 		},
 		"development": {
-			"plugins": [
-				"./babel-plugin-electron-module-resolver"
-			]
+			"plugins": ["./babel-plugin-electron-module-resolver"]
 		}
 	}
 }
