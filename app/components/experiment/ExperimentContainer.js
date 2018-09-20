@@ -13,18 +13,29 @@ import {
   requestExperiment,
   requestExperimentMetadataTemplate,
   getExperiment,
+  getExperimentsTree,
+  getIsFetchingExperimentsTree,
+  requestExperimentsTree,
 } from '../../modules/experiments';
 
 import styles from './ExperimentContainer.scss';
 
 class ExperimentContainer extends React.Component<*> {
   // TODO: move these into a saga side effect that watches LOCATION_CHANGE
+  // and fetches tree if not loaded, on first experiment request
 
   requestExperiment = () => {
-    const { requestExperiment, requestExperimentMetadataTemplate } = this.props;
+    const {
+      requestExperiment,
+      requestExperimentMetadataTemplate,
+      experimentsTree,
+    } = this.props;
     const { experimentId } = this.props.match.params;
     requestExperiment(experimentId);
     requestExperimentMetadataTemplate();
+    if (!experimentsTree) {
+      requestExperimentsTree();
+    }
   };
 
   componentDidMount() {
@@ -54,6 +65,7 @@ class ExperimentContainer extends React.Component<*> {
 function mapStateToProps(state) {
   return {
     experiment: getExperiment(state),
+    experimentsTree: getExperimentsTree(state),
   };
 }
 
@@ -63,6 +75,7 @@ function mapDispatchToProps(dispatch) {
       requestExperiment,
       requestExperimentMetadataTemplate,
       requestCurrentUser,
+      requestExperimentsTree,
     },
     dispatch
   );
@@ -73,6 +86,7 @@ ExperimentContainer.propTypes = {
   requestExperiment: PropTypes.func.isRequired,
   requestExperimentMetadataTemplate: PropTypes.func.isRequired,
   experiment: PropTypes.object,
+  experimentsTree: PropTypes.object,
 };
 
 export default connect(

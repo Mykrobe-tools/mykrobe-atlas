@@ -17,6 +17,7 @@ import experimentsFilters, {
 import experimentsChoices, {
   experimentsChoicesSaga,
 } from './experimentsChoices';
+import experimentsTree, { experimentsTreeSaga } from './experimentsTree';
 import { experimentsFiltersChoicesSaga } from './experimentsFiltersChoices';
 
 export {
@@ -90,10 +91,19 @@ export {
   experimentsChoicesSaga,
 } from './experimentsChoices';
 
+export {
+  requestExperimentsTree,
+  getExperimentsTree,
+  getError as getExperimentsTreeError,
+  getIsFetching as getIsFetchingExperimentsTree,
+  experimentsTreeSaga,
+} from './experimentsTree';
+
 const reducer = combineReducers({
   experiments,
   experimentsFilters,
   experimentsChoices,
+  experimentsTree,
   experiment,
   experimentMetadataTemplate,
 });
@@ -110,5 +120,6 @@ export function* rootExperimentsSaga(): Saga {
     fork(experimentProviderSaga),
     fork(experimentsFiltersChoicesSaga),
     fork(syncExperimentsFiltersSaga),
+    fork(experimentsTreeSaga),
   ]);
 }
