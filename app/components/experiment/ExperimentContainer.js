@@ -28,11 +28,13 @@ class ExperimentContainer extends React.Component<*> {
     const {
       requestExperiment,
       requestExperimentMetadataTemplate,
+      requestExperimentsTree,
       experimentsTree,
     } = this.props;
     const { experimentId } = this.props.match.params;
     requestExperiment(experimentId);
     requestExperimentMetadataTemplate();
+    console.log('experimentsTree', experimentsTree);
     if (!experimentsTree) {
       requestExperimentsTree();
     }
@@ -85,6 +87,7 @@ ExperimentContainer.propTypes = {
   match: PropTypes.object.isRequired,
   requestExperiment: PropTypes.func.isRequired,
   requestExperimentMetadataTemplate: PropTypes.func.isRequired,
+  requestExperimentsTree: PropTypes.func.isRequired,
   experiment: PropTypes.object,
   experimentsTree: PropTypes.object,
 };

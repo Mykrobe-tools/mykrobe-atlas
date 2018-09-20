@@ -66,7 +66,7 @@ class AnalyserJsonTransformer {
         // use the explicitly defined predictor result
         sampleModel = sourceModel.results['predictor'];
       }
-      console.log('sampleModel', JSON.stringify(sampleModel, null, 2));
+      // console.log('sampleModel', JSON.stringify(sampleModel, null, 2));
       const transformedSampleModel = this.transformSampleModel(sampleModel);
       return transformedSampleModel;
     }
