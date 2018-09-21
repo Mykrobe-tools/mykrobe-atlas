@@ -13,7 +13,6 @@ import {
   requestExperiment,
   requestExperimentMetadataTemplate,
   getExperiment,
-  getExperimentsTree,
 } from '../../modules/experiments';
 
 import styles from './ExperimentContainer.scss';
@@ -55,7 +54,6 @@ class ExperimentContainer extends React.Component<*> {
 function mapStateToProps(state) {
   return {
     experiment: getExperiment(state),
-    experimentsTree: getExperimentsTree(state),
   };
 }
 
@@ -74,9 +72,7 @@ ExperimentContainer.propTypes = {
   match: PropTypes.object.isRequired,
   requestExperiment: PropTypes.func.isRequired,
   requestExperimentMetadataTemplate: PropTypes.func.isRequired,
-  requestExperimentsTree: PropTypes.func.isRequired,
   experiment: PropTypes.object,
-  experimentsTree: PropTypes.object,
 };
 
 export default connect(
