@@ -26,8 +26,13 @@ export const UPLOAD_PROGRESS = `${typePrefix}UPLOAD_PROGRESS`;
 export const UPLOAD_COMPLETE = `${typePrefix}UPLOAD_COMPLETE`;
 export const UPLOAD_THIRD_PARTY_PROGRESS = `${typePrefix}UPLOAD_THIRD_PARTY_PROGRESS`;
 export const UPLOAD_THIRD_PARTY_DONE = `${typePrefix}UPLOAD_THIRD_PARTY_DONE`;
+
 export const ANALYSIS_STARTED = `${typePrefix}ANALYSIS_STARTED`;
 export const ANALYSIS_COMPLETE = `${typePrefix}ANALYSIS_COMPLETE`;
+
+export const PROTEIN_VARIANT_SEARCH_STARTED = `${typePrefix}PROTEIN_VARIANT_SEARCH_STARTED`;
+
+export const SEQUENCE_SEARCH_STARTED = `${typePrefix}SEQUENCE_SEARCH_STARTED`;
 
 const _eventSourceChannel = channel();
 let _eventSource;
@@ -188,6 +193,16 @@ function* eventWorker(action: any) {
   } else if (event === 'Analysis complete') {
     yield put({
       type: ANALYSIS_COMPLETE,
+      payload,
+    });
+  } else if (event === 'Protein variant search started') {
+    yield put({
+      type: PROTEIN_VARIANT_SEARCH_STARTED,
+      payload,
+    });
+  } else if (event === 'Sequence search started') {
+    yield put({
+      type: SEQUENCE_SEARCH_STARTED,
       payload,
     });
   } else {

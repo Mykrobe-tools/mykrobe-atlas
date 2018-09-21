@@ -32,9 +32,9 @@ type State = {
 };
 
 class Phylogeny extends React.Component<*, State> {
-  _phyloCanvas: PhyloCanvasComponent;
-  _phyloCanvasTooltip: PhyloCanvasTooltip;
-  _container: Element;
+  _phyloCanvas: ?PhyloCanvasComponent;
+  _phyloCanvasTooltip: ?PhyloCanvasTooltip;
+  _container: ?Element;
 
   constructor(props) {
     super(props);
@@ -115,7 +115,7 @@ class Phylogeny extends React.Component<*, State> {
         }
       }
     } else {
-      this._phyloCanvasTooltip.setVisible(false);
+      this._phyloCanvasTooltip && this._phyloCanvasTooltip.setVisible(false);
     }
   }
 
@@ -132,12 +132,16 @@ class Phylogeny extends React.Component<*, State> {
   };
 
   render() {
-    const { experimentTransformed, controlsInset } = this.props;
+    const {
+      experimentTransformed,
+      controlsInset,
+      experimentsTree,
+    } = this.props;
     const { treeType } = this.state;
-    const newick = experimentTransformed.tree;
-    if (!newick) {
+    if (!experimentsTree) {
       return null;
     }
+    const newick = experimentsTree.tree;
     const insetStyle = { margin: `${controlsInset}px` };
     return (
       <div className={styles.container}>
@@ -276,6 +280,7 @@ Phylogeny.propTypes = {
   controlsInset: PropTypes.number,
   setNodeHighlighted: PropTypes.func.isRequired,
   unsetNodeHighlightedAll: PropTypes.func.isRequired,
+  experimentsTree: PropTypes.object,
 };
 
 export default connect(

@@ -8,6 +8,7 @@ import {
   getExperiment,
   getExperimentTransformed,
   getExperimentNearestNeigbours,
+  getExperimentsTree,
 } from '../modules/experiments';
 
 function withExperiment(WrappedComponent: React.ElementProps<*>) {
@@ -25,12 +26,14 @@ function withExperiment(WrappedComponent: React.ElementProps<*>) {
     experiment: getExperiment(state),
     experimentTransformed: getExperimentTransformed(state),
     experimentNearestNeigbours: getExperimentNearestNeigbours(state),
+    experimentsTree: getExperimentsTree(state),
   }));
 
   WithExperiment.propTypes = {
     experiment: PropTypes.object,
     experimentTransformed: PropTypes.object,
     experimentNearestNeigbours: PropTypes.array,
+    experimentsTree: PropTypes.object,
   };
 
   return withRedux(WithExperiment);
