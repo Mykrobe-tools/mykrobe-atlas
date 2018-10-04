@@ -1,8 +1,8 @@
 @import '~styles/colors.global';
 
-.clickableCell {
-	cursor: pointer;
-	color: $color-tint-primary;
+.checkboxContainer {
+	composes: global(form-group);
+	margin: 0;
 }
 
 .dropdownToggle {

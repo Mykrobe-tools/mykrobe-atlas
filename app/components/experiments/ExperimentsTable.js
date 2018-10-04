@@ -69,14 +69,16 @@ class ExperimentsTable extends React.Component<*> {
     return [
       {
         title: (
-          <label>
-            <input
-              type="checkbox"
-              checked={allSelected}
-              onChange={this.onHeadingCheckChanged}
-            />
-            <span />
-          </label>
+          <div className={styles.checkboxContainer}>
+            <label>
+              <input
+                type="checkbox"
+                checked={allSelected}
+                onChange={this.onHeadingCheckChanged}
+              />
+              <span />
+            </label>
+          </div>
         ),
       },
       {
@@ -174,15 +176,17 @@ class ExperimentsTable extends React.Component<*> {
     return (
       <tr key={id}>
         <td>
-          <label>
-            <input
-              type="checkbox"
-              checked={isSelected}
-              disabled={allSelected}
-              onChange={e => this.onRowCheckChanged(id, e)}
-            />
-            <span />
-          </label>
+          <div className={styles.checkboxContainer}>
+            <label>
+              <input
+                type="checkbox"
+                checked={isSelected}
+                disabled={allSelected}
+                onChange={e => this.onRowCheckChanged(id, e)}
+              />
+              <span />
+            </label>
+          </div>
         </td>
         <td>
           <Link to={`/experiments/${id}`}>{title}</Link>

@@ -33,9 +33,20 @@ const uiSchema = {
   },
 };
 
+const USE_KEYCLOAK = !!process.env.AUTH_KEYCLOAK_URL;
+
 class Login extends React.Component<*> {
+  componentDidMount = () => {
+    if (USE_KEYCLOAK) {
+      const { signIn } = this.props;
+      signIn();
+    }
+  };
   render() {
-    const { isFetching, onSubmit, error } = this.props;
+    if (USE_KEYCLOAK) {
+      return null;
+    }
+    const { isFetching, signIn, error } = this.props;
     return (
       <div className={styles.container}>
         <Header title={'Account'} />
@@ -44,7 +55,7 @@ class Login extends React.Component<*> {
             formKey="auth/login"
             schema={loginSchema}
             uiSchema={uiSchema}
-            onSubmit={onSubmit}
+            onSubmit={signIn}
             isFetching={isFetching}
             error={error}
           >
@@ -68,7 +79,7 @@ class Login extends React.Component<*> {
 
 Login.propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  signIn: PropTypes.func.isRequired,
   error: PropTypes.any,
 };
 
@@ -77,11 +88,7 @@ const withRedux = connect(
     isFetching: getIsFetching(state),
     error: getError(state),
   }),
-  dispatch => ({
-    onSubmit(formData) {
-      dispatch(signIn(formData));
-    },
-  })
+  { signIn }
 );
 
 export default withRedux(Login);

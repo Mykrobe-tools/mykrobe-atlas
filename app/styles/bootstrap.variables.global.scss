@@ -40,3 +40,10 @@ $dropdown-spacer: 0;
 $dropdown-padding-y: 0;
 
 $nav-divider-margin-y: 0;
+
+$spacer: 1rem;
+$spacers: (
+	4h: (
+		$spacer * 2,
+	),
+);
