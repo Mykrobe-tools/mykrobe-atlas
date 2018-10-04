@@ -20,6 +20,7 @@ import phylogeny from './phylogeny';
 import users, { rootUsersSaga } from './users';
 import upload, { rootUploadSaga } from './upload';
 import notifications, { rootNotificationsSaga } from './notifications';
+import { rootNavigationSaga } from './navigation';
 
 export const rootReducer = combineReducers({
   api,
@@ -43,6 +44,7 @@ const sagas = [
   rootUsersSaga,
   rootNotificationsSaga,
   rootUploadSaga,
+  rootNavigationSaga,
   networkStatusSaga,
 ];
 
