@@ -4,9 +4,11 @@
 
 // bootstrap grid outer margins
 
-.container-fluid {
-	padding-left: 30px;
-	padding-right: 30px;
+.container-fluid,
+.navbar {
+	@extend .px-2;
+	@extend .px-sm-3;
+	@extend .px-lg-4h;
 }
 
 // links

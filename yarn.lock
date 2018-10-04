@@ -9652,9 +9652,9 @@ make-fetch-happen@^3.0.0:
     nodemailer-mock "^1.3.13"
     path "^0.12.7"
 
-"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.18":
-  version "0.0.18"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#364d5b9772e6063b21f0a3ddd48f0b874086f436"
+"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.19":
+  version "0.0.19"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#6d936a45c453ab5336ce57c89e016cea240ca5c9"
   dependencies:
     ajv "^6.5.1"
     babel-jest "^23.0.1"
