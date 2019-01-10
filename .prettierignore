@@ -1,6 +1,7 @@
 package.json
 __mocks__
-__fixtures__
+__fixtures__/exemplar-samples
+__fixtures__/api
 flow-typed
 .vscode
 web/build

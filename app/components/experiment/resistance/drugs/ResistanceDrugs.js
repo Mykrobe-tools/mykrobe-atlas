@@ -30,7 +30,9 @@ const firstLineDrugs = [
 ];
 
 const secondLineDrugs = [
-  'Quinolones',
+  'Ofloxacin',
+  'Moxifloxacin',
+  'Ciprofloxacin',
   'Streptomycin',
   'Amikacin',
   'Capreomycin',
