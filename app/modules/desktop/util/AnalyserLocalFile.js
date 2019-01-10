@@ -92,7 +92,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
     const args = [
       'predict',
-      // '--force',
+      '--force',
       fileName,
       'tb',
       '-1',
