@@ -66,7 +66,7 @@ executeCommand(command);
 // build predictor
 
 folder = path.join(BASE_PATH, 'dist');
-command = `cd "${folder}" && pyinstaller --noconfirm --workpath=./pyinstaller_build/binary_cache --distpath=./pyinstaller_build mykrobe_predictor_pyinstaller.spec`;
+command = `cd "${folder}" && pyinstaller --noconfirm --workpath=./pyinstaller_build/binary_cache --distpath=./pyinstaller_build mykrobe_atlas_pyinstaller.spec`;
 executeCommand(command);
 
 // copy files
@@ -76,7 +76,7 @@ const arch = os.arch();
 
 const sourceFolder = path.join(
   BASE_PATH,
-  'dist/pyinstaller_build/mykrobe_predictor'
+  'dist/pyinstaller_build/mykrobe_atlas'
 );
 const destFolder = path.join(
   __dirname,
