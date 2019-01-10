@@ -1,7 +1,6 @@
 [
   {
     "source": ["INH_monoresistant.fastq.gz.json"],
-    "include": false,
     "expect": {
       "all": {
         "susceptible": [
