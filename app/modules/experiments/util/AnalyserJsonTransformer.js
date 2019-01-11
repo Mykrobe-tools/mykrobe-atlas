@@ -189,19 +189,32 @@ class AnalyserJsonTransformer {
       xdr: false,
     };
 
-    if (
-      transformed.resistant.indexOf('Isoniazid') !== -1 &&
-      transformed.resistant.indexOf('Rifampicin') !== -1
-    ) {
+    /*
+    https://www.who.int/tb/areas-of-work/drug-resistant-tb/xdr-tb-faq/en/
+    XDR-TB involves resistance to the two most powerful anti-TB drugs, isoniazid and rifampicin, also known as multidrug-resistance (MDR-TB), in addition to resistance to any of the fluoroquinolones (such as levofloxacin or moxifloxacin) and to at least one of the three injectable second-line drugs (amikacin, capreomycin or kanamycin).
+    */
+
+    // Check for multidrug-resistance (MDR)
+
+    const mdr =
+      transformed.resistant.includes('Isoniazid') &&
+      transformed.resistant.includes('Rifampicin');
+
+    if (mdr) {
       drugsResistance.mdr = true;
-      /*
-        If MDR AND R to both fluoroquinolones and one of the other these 3 (Amikacin, Kanamycin, Capreomycin), then call it XDR (Extensively Drug Resistant)
-        */
-      if (transformed.resistant.indexOf('Quinolones')) {
+
+      // Check for extensively drug-resistant (XDR)
+
+      const fluoroquinolonesResistant =
+        transformed.resistant.includes('Ofloxacin') ||
+        transformed.resistant.includes('Moxifloxacin') ||
+        transformed.resistant.includes('Ciprofloxacin');
+
+      if (fluoroquinolonesResistant) {
         if (
-          transformed.resistant.indexOf('Amikacin') !== -1 ||
-          transformed.resistant.indexOf('Kanamycin') !== -1 ||
-          transformed.resistant.indexOf('Capreomycin') !== -1
+          transformed.resistant.includes('Amikacin') ||
+          transformed.resistant.includes('Kanamycin') ||
+          transformed.resistant.includes('Capreomycin')
         ) {
           drugsResistance.xdr = true;
         }
@@ -274,10 +287,10 @@ class AnalyserJsonTransformer {
 
     if (sourceModel.phylogenetics && sourceModel.phylogenetics.phylo_group) {
       const phyloGroup = Object.keys(sourceModel.phylogenetics.phylo_group);
-      if (phyloGroup.indexOf('Non_tuberculosis_mycobacterium_complex') !== -1) {
+      if (phyloGroup.includes('Non_tuberculosis_mycobacterium_complex')) {
         hasSpecies = true;
       }
-      if (phyloGroup.indexOf('Mycobacterium_tuberculosis_complex') !== -1) {
+      if (phyloGroup.includes('Mycobacterium_tuberculosis_complex')) {
         hasSpecies = true;
         hasResistance = true;
       }

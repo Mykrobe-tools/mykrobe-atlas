@@ -6,6 +6,22 @@ import styles from './ResistanceDrugs.scss';
 import Panel from '../../../ui/Panel';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
 
+/*
+Isoniazid
+Rifampicin
+Ethambutol
+Pyrazinamide
+
+Streptomycin
+Amikacin
+Capreomycin
+Kanamycin
+
+Ofloxacin
+Moxifloxacin
+Ciprofloxacin
+*/
+
 const firstLineDrugs = [
   'Isoniazid',
   'Rifampicin',
@@ -14,7 +30,9 @@ const firstLineDrugs = [
 ];
 
 const secondLineDrugs = [
-  'Quinolones',
+  'Ofloxacin',
+  'Moxifloxacin',
+  'Ciprofloxacin',
   'Streptomycin',
   'Amikacin',
   'Capreomycin',
