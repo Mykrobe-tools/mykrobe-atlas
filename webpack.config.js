@@ -6,6 +6,7 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 const dirNode = 'node_modules';
 const dirApp = path.join(__dirname, 'app');
+const dirMakeAndShipJsCommon = path.join(dirNode, 'makeandship-js-common/src');
 
 module.exports = {
   entry: {
@@ -18,7 +19,7 @@ module.exports = {
     ],
   },
   resolve: {
-    modules: [dirApp, dirNode],
+    modules: [dirApp, dirNode, dirMakeAndShipJsCommon],
   },
   plugins: [
     // Don't bundle moment locales - instead, add a require to each specific locale e.g. require('moment/locale/en');

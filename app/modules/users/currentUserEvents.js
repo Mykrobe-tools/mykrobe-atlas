@@ -5,7 +5,7 @@ import { all, fork, takeEvery, select, put, take } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 
 import { getAccessToken } from 'makeandship-js-common/src/modules/auth';
-import { buildOptionsWithToken } from 'makeandship-js-common/src/modules/api/jsonApi';
+import { buildOptionsWithToken } from 'makeandship-js-common/src/modules/api/util';
 import { API_URL } from 'makeandship-js-common/src/modules/api/constants';
 import {
   getIsAuthenticated,
