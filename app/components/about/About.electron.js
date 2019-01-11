@@ -10,7 +10,7 @@ import { launchWebsite } from '../../helpers/UIHelpers'; // eslint-disable-line 
 const pkg = require('../../../desktop/static/package.json');
 
 class About extends React.Component<*> {
-  back = e => {
+  back = (e: any) => {
     e.preventDefault();
     window.history.go(-1);
   };

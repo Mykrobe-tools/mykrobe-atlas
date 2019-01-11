@@ -3,9 +3,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { Container } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import PageHeader, {
   styles as pageHeaderStyles,
@@ -22,8 +22,10 @@ import {
   setOrganisationsFilters,
 } from '../../modules/organisations';
 
-import styles from './Common.scss';
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
+
+import styles from './Common.scss';
 
 const headings = [
   {
@@ -51,12 +53,6 @@ class Profile extends React.Component<*> {
     newOrganisation();
   };
 
-  onOrganisationClick = organisation => {
-    const { push } = this.props;
-    const { id } = organisation;
-    push(`/organisations/${id}`);
-  };
-
   onChangeListOrder = ({ sort, order }) => {
     const { setOrganisationsFilters, organisationsFilters } = this.props;
     setOrganisationsFilters({
@@ -70,8 +66,10 @@ class Profile extends React.Component<*> {
   renderRow = (organisation: any) => {
     const { id, name, template } = organisation;
     return (
-      <tr key={id} onClick={() => this.onOrganisationClick(organisation)}>
-        <td>{name}</td>
+      <tr key={id}>
+        <td>
+          <Link to={`/organisations/${id}`}>{name}</Link>
+        </td>
         <td>{template}</td>
         <td />
       </tr>
@@ -83,32 +81,35 @@ class Profile extends React.Component<*> {
     return (
       <div className={styles.container}>
         <Header title={'Organisations'} />
-        <Container fluid>
-          <PageHeader border={false}>
-            <div>
-              <div className={pageHeaderStyles.title}>Organisations</div>
-            </div>
-            <div>
-              <PrimaryButton
-                onClick={this.onNewOrganisation}
-                outline
-                size="sm"
-                icon="plus-circle"
-                marginLeft
-              >
-                New Organisation
-              </PrimaryButton>
-            </div>
-          </PageHeader>
-          <Table
-            headings={headings}
-            data={organisations}
-            sort={organisationsFilters.sort || 'id'}
-            order={organisationsFilters.order || Table.Order.Descending}
-            renderRow={this.renderRow}
-            onChangeOrder={this.onChangeListOrder}
-          />
-        </Container>
+        <div className={styles.container}>
+          <Container fluid>
+            <PageHeader border={false}>
+              <div>
+                <div className={pageHeaderStyles.title}>Organisations</div>
+              </div>
+              <div>
+                <PrimaryButton
+                  onClick={this.onNewOrganisation}
+                  outline
+                  size="sm"
+                  icon="plus-circle"
+                  marginLeft
+                >
+                  New Organisation
+                </PrimaryButton>
+              </div>
+            </PageHeader>
+            <Table
+              headings={headings}
+              data={organisations}
+              sort={organisationsFilters.sort || 'id'}
+              order={organisationsFilters.order || Table.Order.Descending}
+              renderRow={this.renderRow}
+              onChangeOrder={this.onChangeListOrder}
+            />
+          </Container>
+        </div>
+        <Footer />
       </div>
     );
   }
@@ -128,7 +129,6 @@ function mapDispatchToProps(dispatch) {
       requestOrganisations,
       newOrganisation,
       setOrganisationsFilters,
-      push,
     },
     dispatch
   );
@@ -141,7 +141,6 @@ Profile.propTypes = {
   isFetching: PropTypes.bool,
   organisationsFilters: PropTypes.any,
   setOrganisationsFilters: PropTypes.func,
-  push: PropTypes.func,
 };
 
 export default connect(

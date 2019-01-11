@@ -31,6 +31,7 @@
     }
   },
   "globals": {
-    "IS_ELECTRON": true
+    "IS_ELECTRON": true,
+    "EventSourcePolyfill": true
   }
 }

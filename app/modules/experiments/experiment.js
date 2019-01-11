@@ -1,22 +1,31 @@
 /* @flow */
 
-import { put, take, race, select } from 'redux-saga/effects';
+import {
+  put,
+  take,
+  race,
+  select,
+  all,
+  takeEvery,
+  fork,
+} from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { push } from 'react-router-redux';
 import { createSelector } from 'reselect';
-
-import {
-  SUCCESS,
-  FAILURE,
-  CREATE,
-} from 'makeandship-js-common/src/modules/generic/actions';
+import _ from 'lodash';
 
 import { showNotification, NotificationCategories } from '../notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
-import { getCurrentUser } from '../../modules/users';
+import { getCurrentUser } from '../../modules/users/currentUser';
+import { ANALYSIS_COMPLETE } from '../../modules/users/currentUserEvents';
 
 import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
 import addExtraData from './util/addExtraData';
+
+import {
+  experimentMetadataSchema,
+  completenessForSchemaAndData,
+} from '../../schemas/experiment';
 
 const ADD_EXTRA_DATA = false;
 
@@ -55,7 +64,7 @@ const module = createEntityModule('experiment', {
 
 const {
   reducer,
-  actionType,
+  actionTypes,
   actions: {
     newEntity,
     createEntity,
@@ -110,6 +119,25 @@ export const getExperimentTransformed = createSelector(
   }
 );
 
+export const getExperimentNearestNeigbours = createSelector(
+  getExperiment,
+  experiment => {
+    return _.get(experiment, 'results.nearestNeighbours.experiments');
+  }
+);
+
+export const getExperimentHasNearestNeigbours = createSelector(
+  getExperimentNearestNeigbours,
+  experimentNearestNeigbours =>
+    experimentNearestNeigbours && experimentNearestNeigbours.length > 0
+);
+
+export const getExperimentMetadataCompletion = createSelector(
+  getExperiment,
+  experiment =>
+    completenessForSchemaAndData(experimentMetadataSchema, experiment)
+);
+
 export {
   newEntity as newExperiment,
   setEntity as setExperiment,
@@ -119,8 +147,7 @@ export {
   deleteEntity as deleteExperiment,
   getError,
   getIsFetching,
-  actionType as experimentActionType,
-  entitySaga as experimentSaga,
+  actionTypes as experimentActionTypes,
 };
 
 export default reducer;
@@ -131,8 +158,8 @@ export function* createExperimentId(): Saga {
   // create an id for the experiment
   yield put(createEntity());
   const { success } = yield race({
-    success: take(actionType(CREATE, SUCCESS)),
-    failure: take(actionType(CREATE, FAILURE)),
+    success: take(actionTypes.CREATE_SUCCESS),
+    failure: take(actionTypes.CREATE_FAILURE),
   });
   if (!success) {
     yield put(
@@ -145,4 +172,20 @@ export function* createExperimentId(): Saga {
   }
   const experiment = yield select(getExperiment);
   return yield experiment.id;
+}
+
+// reload experiment if it's the one we are currently viewing
+
+function* analysisCompleteWatcher() {
+  yield takeEvery(ANALYSIS_COMPLETE, function*(action) {
+    const experimentId = action.payload.id;
+    const experiment = yield select(getExperiment);
+    if (experiment.id === experimentId) {
+      yield put(requestEntity(experimentId));
+    }
+  });
+}
+
+export function* experimentSaga(): Saga {
+  yield all([fork(entitySaga), fork(analysisCompleteWatcher)]);
 }

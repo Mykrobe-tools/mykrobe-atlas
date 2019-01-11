@@ -2,8 +2,11 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import is from 'is_js';
 
 import { Select } from 'makeandship-js-common/src/components/ui/form';
+
+import { shortestTitleForChoiceWithKeyInChoices } from './util';
 
 import styles from './ChoiceFilterSelect.scss';
 
@@ -27,11 +30,15 @@ class ChoiceFilterSelect extends React.Component<*> {
           label: `${value.key} (${value.count})`,
         };
       });
-    const displayTitle = choice.title;
+    const displayTitle = shortestTitleForChoiceWithKeyInChoices(
+      choiceKey,
+      choices
+    );
     const value = placeholder ? '' : choicesFilters[choiceKey];
     const displayValue = placeholder
       ? displayTitle
       : `${displayTitle} · ${choicesFilters[choiceKey]}`;
+    const initiallyOpen = placeholder && !is.ie(); // initiallyOpen throws on IE
     return (
       <div className={styles.select}>
         <div className={styles.widthSizer}>{displayValue}</div>
@@ -49,7 +56,7 @@ class ChoiceFilterSelect extends React.Component<*> {
           placeholder={displayTitle}
           options={options}
           clearable={false}
-          initiallyOpen={placeholder}
+          initiallyOpen={initiallyOpen}
           searchable
           wideMenu
         />

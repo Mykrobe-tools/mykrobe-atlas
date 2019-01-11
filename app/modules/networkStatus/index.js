@@ -12,7 +12,7 @@ import deviceNetworkStatus, {
 
 import beaconNetworkStatus, {
   beaconNetworkStatusActions,
-  beaconNetworkStatusActionType,
+  beaconNetworkStatusActionTypes,
   beaconNetworkStatusSaga,
 } from './beaconNetworkStatus';
 
@@ -29,7 +29,7 @@ export {
   deviceNetworkOffline,
   deviceNetworkOnline,
   beaconNetworkStatusActions,
-  beaconNetworkStatusActionType,
+  beaconNetworkStatusActionTypes,
 };
 
 // Saga

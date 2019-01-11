@@ -11,7 +11,7 @@ type State = {
 };
 
 class AnimatedBackground extends React.Component<*, State> {
-  _container: Element;
+  _container: Element | null;
 
   constructor(props: Object) {
     super(props);
@@ -45,7 +45,7 @@ class AnimatedBackground extends React.Component<*, State> {
     });
   }
 
-  containerRef = ref => {
+  containerRef = (ref: Element | null) => {
     this._container = ref;
     this.measureContainer();
   };

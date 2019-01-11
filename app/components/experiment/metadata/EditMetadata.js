@@ -1,6 +1,5 @@
 /* @flow */
 
-/* TODO Refactor to use redux-form */
 /* eslint-disable react/no-string-refs */
 
 import * as React from 'react';
@@ -10,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { goBack, push } from 'react-router-redux';
 import { Container } from 'reactstrap';
 
+import Footer from '../../footer/Footer';
+
 import styles from './EditMetadata.scss';
 
 import {
@@ -18,6 +19,7 @@ import {
   getIsFetchingExperiment,
   getExperimentError,
   updateExperiment,
+  EXPERIMENT_METADATA_FORM_ID,
 } from '../../../modules/experiments';
 
 import {
@@ -29,8 +31,12 @@ import {
   CancelButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import { experimentSchema } from '../../../schemas/experiment';
+import { filteredSchemaWithSubsections } from '../../../schemas/experiment';
 import experimentUiSchema from './experimentUiSchema';
+
+// TODO: remove once tested
+
+const USE_UNIQUE_FORM_ID = false;
 
 class EditMetadata extends React.Component<*> {
   onSubmit = (formData: any) => {
@@ -48,54 +54,13 @@ class EditMetadata extends React.Component<*> {
     goBack();
   };
 
-  // onDeleteClick = e => {
-  //   e && e.preventDefault();
-  //   const { organisation, deleteOrganisation } = this.props;
-  //   if (confirm('Delete organisation?')) {
-  //     deleteOrganisation(organisation);
-  //   }
-  // };
-
-  deriveSchema = () => {
-    const { subsections } = this.props;
-    if (!subsections) {
-      return experimentSchema;
-    }
-    const properties = {};
-    Object.entries(experimentSchema.definitions.Metadata.properties).forEach(
-      ([key, value]) => {
-        if (subsections.includes(key)) {
-          properties[key] = value;
-        }
-      }
-    );
-
-    const derivedSchema = {
-      ...experimentSchema,
-      definitions: {
-        ...experimentSchema.definitions,
-        Metadata: {
-          // filtering what's shown in metadata
-          ...experimentSchema.definitions.Metadata,
-          title: '',
-          properties,
-        },
-      },
-      properties: {
-        // only include metadata
-        metadata: experimentSchema.properties.metadata,
-      },
-    };
-    return derivedSchema;
-  };
-
   formKey = () => {
     const { subsections } = this.props;
-    if (!subsections) {
-      return 'experiments/experiment/metadata';
+    if (!USE_UNIQUE_FORM_ID || !subsections) {
+      return EXPERIMENT_METADATA_FORM_ID;
     }
     const additional = subsections.join('-');
-    return `experiments/experiment/metadata/${additional}`;
+    return `${EXPERIMENT_METADATA_FORM_ID}/${additional}`;
   };
 
   render() {
@@ -105,8 +70,9 @@ class EditMetadata extends React.Component<*> {
       error,
       title,
       experimentOwnerIsCurrentUser,
+      subsections,
     } = this.props;
-    const schema = this.deriveSchema();
+    const schema = filteredSchemaWithSubsections(subsections);
     let uiSchema = experimentUiSchema;
     const readonly = !experimentOwnerIsCurrentUser;
     if (readonly) {
@@ -117,27 +83,30 @@ class EditMetadata extends React.Component<*> {
     }
     return (
       <div className={styles.container}>
-        <Container fluid>
-          <DecoratedForm
-            title={title}
-            formKey={this.formKey()}
-            schema={schema}
-            uiSchema={uiSchema}
-            onSubmit={this.onSubmit}
-            isFetching={isFetching}
-            error={error}
-            formData={{ metadata: experiment.metadata }}
-          >
-            <FormFooter>
-              {!readonly && (
-                <div>
-                  <SubmitButton marginRight>Save metadata</SubmitButton>
-                  <CancelButton onClick={this.onCancelClick} />
-                </div>
-              )}
-            </FormFooter>
-          </DecoratedForm>
-        </Container>
+        <div className={styles.container}>
+          <Container fluid>
+            <DecoratedForm
+              title={title}
+              formKey={this.formKey()}
+              schema={schema}
+              uiSchema={uiSchema}
+              onSubmit={this.onSubmit}
+              isFetching={isFetching}
+              error={error}
+              formData={{ metadata: experiment.metadata }}
+            >
+              <FormFooter>
+                {!readonly && (
+                  <div>
+                    <SubmitButton marginRight>Save metadata</SubmitButton>
+                    <CancelButton onClick={this.onCancelClick} />
+                  </div>
+                )}
+              </FormFooter>
+            </DecoratedForm>
+          </Container>
+        </div>
+        <Footer />
       </div>
     );
   }

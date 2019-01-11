@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import os from 'os';
 import { spawn } from 'child_process';
+import readline from 'readline';
 
 import * as TargetConstants from '../../../constants/TargetConstants';
 import AnalyserBaseFile from './AnalyserBaseFile';
@@ -91,18 +92,21 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
     const args = [
       'predict',
-      '--force',
+      // '--force',
       fileName,
       'tb',
       '-1',
       filePath,
       '--skeleton_dir',
       skeletonDir,
+      '--format',
+      'json',
+      '--quiet',
     ];
 
+    console.log('Guess at command line:', pathToBin, args.join(' '));
     console.log('Spawning executable at path:', pathToBin);
     console.log('With arguments:', args);
-    console.log('Guess at command line:', pathToBin, args.join(' '));
     this.child = spawn(pathToBin, args);
 
     if (!this.child) {
@@ -115,61 +119,79 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       this.failWithError(err);
     });
 
-    this.child.stdout.on('data', data => {
-      if (this.didReceiveError) {
-        return;
-      }
-      const dataString = data.toString('utf8');
-      if (!this.isBufferingJson) {
-        console.log(dataString);
-      } else {
-        console.log('Received json, muted');
-      }
-      if (dataString.indexOf('Progress:') >= 0) {
-        console.log('progress');
-        // we get a string like "[15 Oct 2017 16:19:47-Kac] Progress: 130,000/454,797"
-        // extract groups of digits
-        const trimmed = dataString.substr(dataString.indexOf('Progress:'));
-        const digitGroups = trimmed.replace(/,/g, '').match(/\d+/g);
-        if (digitGroups.length > 1) {
-          const progress = parseInt(digitGroups[0]);
-          const total = parseInt(digitGroups[1]);
-          console.log('progress:' + progress);
-          console.log('total:' + total);
-          this.emit('progress', {
-            progress,
-            total,
-          });
+    readline
+      .createInterface({
+        input: this.child.stdout,
+      })
+      .on('line', line => {
+        if (this.didReceiveError) {
+          return;
         }
-      }
-
-      if (this.isBufferingJson) {
-        this.jsonBuffer += dataString;
-      } else if (dataString.indexOf('{') !== -1) {
-        // start collecting as soon as we see { in the buffer
-        this.isBufferingJson = true;
-        this.jsonBuffer = dataString;
-      }
-
-      // sometimes receive json after process has exited
-      if (this.isBufferingJson && this.processExited) {
-        if (this.jsonBuffer.length) {
-          console.log('done');
-          this.doneWithJsonString(this.jsonBuffer);
+        if (!this.isBufferingJson) {
+          console.log(line);
+        } else {
+          console.log('Received json, muted');
         }
-      }
-    });
+        if (line.indexOf('Progress:') >= 0) {
+          console.log('progress');
+          // we get a string like "[15 Oct 2017 16:19:47-Kac] Progress: 130,000/454,797"
+          // extract groups of digits
+          const trimmed = line.substr(line.indexOf('Progress:'));
+          const digitGroups = trimmed.replace(/,/g, '').match(/\d+/g);
+          if (digitGroups.length > 1) {
+            const progress = parseInt(digitGroups[0]);
+            const total = parseInt(digitGroups[1]);
+            console.log('progress:' + progress);
+            console.log('total:' + total);
+            this.emit('progress', {
+              progress,
+              total,
+            });
+          }
+        }
 
-    this.child.stderr.on('data', data => {
-      const dataString = data.toString('utf8');
-      if (dataString.startsWith('DEBUG') || dataString.startsWith('INFO')) {
-        console.log('IGNORING ERROR: ' + dataString);
-        return;
-      }
-      this.didReceiveError = true;
-      console.log('ERROR: ' + dataString);
-      this.failWithError(dataString);
-    });
+        if (this.isBufferingJson) {
+          this.jsonBuffer += line;
+        } else if (line.indexOf('{') !== -1) {
+          // start collecting as soon as we see { in the buffer
+          this.isBufferingJson = true;
+          this.jsonBuffer = line;
+        }
+
+        // sometimes receive json after process has exited
+        if (this.isBufferingJson && this.processExited) {
+          if (this.jsonBuffer.length) {
+            console.log('done');
+            this.doneWithJsonString(this.jsonBuffer);
+          }
+        }
+      });
+
+    /*
+    ingore errors like
+    INFO:mykrobe.cmds.amr:Running AMR prediction with panels …
+    [08 Jan 2019 12:20:42-wac] Saving graph to: …
+    WARNING:mykrobe.cortex.mccortex:Not running mccortex…
+    */
+
+    readline
+      .createInterface({
+        input: this.child.stderr,
+      })
+      .on('line', line => {
+        if (
+          line.startsWith('INFO') ||
+          line.startsWith('DEBUG') ||
+          line.startsWith('WARNING') ||
+          line.startsWith('[')
+        ) {
+          console.log('IGNORING ERROR: ' + line);
+          return;
+        }
+        this.didReceiveError = true;
+        console.log('ERROR: ' + line);
+        this.failWithError(line);
+      });
 
     this.child.on('exit', code => {
       console.log('Processing exited with code: ' + code);
@@ -233,7 +255,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
       pathToBin = path.join(
         dirToBin,
-        platform === 'win32' ? 'mykrobe_predictor.exe' : 'mykrobe_predictor'
+        platform === 'win32' ? 'mykrobe_atlas.exe' : 'mykrobe_atlas'
       );
     } else {
       // unsupported configuration

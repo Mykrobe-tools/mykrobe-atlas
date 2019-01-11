@@ -21,6 +21,13 @@ import {
 import { COMPUTE_CHECKSUMS_PROGRESS } from './util/ComputeChecksums';
 
 import {
+  ANALYSIS_STARTED,
+  ANALYSIS_COMPLETE,
+  UPLOAD_THIRD_PARTY_PROGRESS,
+  UPLOAD_THIRD_PARTY_DONE,
+} from '../users/currentUserEvents';
+
+import {
   SET_FILE_NAME,
   UPLOAD_FILE_CANCEL,
   uploadFileCancel,
@@ -55,7 +62,7 @@ function* fileAddedWatcher() {
         autoHide: false,
         actions: [
           {
-            title: 'View',
+            title: 'Metadata',
             onClick: () => {
               _interactionChannel.put(push(`/experiments/${experimentId}`));
             },
@@ -131,7 +138,7 @@ function* resumableUploadDoneWatcher() {
         content: `Finished uploading ${fileName}`,
         actions: [
           {
-            title: 'View',
+            title: 'Metadata',
             onClick: () => {
               _interactionChannel.put(push(`/experiments/${experimentId}`));
             },
@@ -170,7 +177,88 @@ function* uploadFileCancelWatcher() {
   });
 }
 
-export function* uploadFileNotificationSaga(): Saga {
+// third party uploads
+
+function* thirdPartyUploadProgressWatcher() {
+  yield takeEvery(UPLOAD_THIRD_PARTY_PROGRESS, function*(action) {
+    const {
+      payload: { id: experimentId, file: fileName, provider, size, totalSize },
+    } = action;
+    const progress = Math.round((100 * size) / totalSize);
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.MESSAGE,
+        content: `${progress}% Retreiving ${fileName} from ${provider}`,
+        progress,
+      })
+    );
+  });
+}
+
+function* thirdPartyUploadDoneWatcher() {
+  yield takeEvery(UPLOAD_THIRD_PARTY_DONE, function*(action) {
+    const {
+      payload: { id: experimentId, file: fileName, provider },
+    } = action;
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.SUCCESS,
+        content: `Finished retreiving ${fileName} from ${provider}`,
+        actions: [
+          {
+            title: 'Metadata',
+            onClick: () => {
+              _interactionChannel.put(push(`/experiments/${experimentId}`));
+            },
+          },
+        ],
+        progress: undefined,
+      })
+    );
+  });
+}
+
+// analysis events - not just for current upload
+
+function* analysisStartedWatcher() {
+  yield takeEvery(ANALYSIS_STARTED, function*(action: any) {
+    const experimentId = action.payload.id;
+    const fileName = action.payload.file;
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.MESSAGE,
+        content: `Analysis started ${fileName}`,
+        progress: 0,
+      })
+    );
+  });
+}
+
+function* analysisCompleteWatcher() {
+  yield takeEvery(ANALYSIS_COMPLETE, function*(action: any) {
+    const experimentId = action.payload.id;
+    const fileName = action.payload.file;
+    yield put(
+      updateNotification(experimentId, {
+        category: NotificationCategories.SUCCESS,
+        content: `Analysis complete ${fileName}`,
+        actions: [
+          {
+            title: 'Resistance',
+            onClick: () => {
+              _interactionChannel.put(
+                push(`/experiments/${experimentId}/resistance`)
+              );
+            },
+          },
+        ],
+        progress: undefined,
+      })
+    );
+  });
+}
+
+export function* uploadNotificationSaga(): Saga {
   yield all([
     fork(fileAddedWatcher),
     fork(computeChecksumsProgressWatcher),
@@ -178,6 +266,10 @@ export function* uploadFileNotificationSaga(): Saga {
     fork(resumableUploadDoneWatcher),
     fork(resumableUploadErrorWatcher),
     fork(uploadFileCancelWatcher),
+    fork(analysisStartedWatcher),
+    fork(analysisCompleteWatcher),
     fork(interactionChannelWatcher),
+    fork(thirdPartyUploadProgressWatcher),
+    fork(thirdPartyUploadDoneWatcher),
   ]);
 }

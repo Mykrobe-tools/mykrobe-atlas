@@ -17,6 +17,7 @@ import experimentsFilters, {
 import experimentsChoices, {
   experimentsChoicesSaga,
 } from './experimentsChoices';
+import experimentsTree, { experimentsTreeSaga } from './experimentsTree';
 import { experimentsFiltersChoicesSaga } from './experimentsFiltersChoices';
 
 export {
@@ -36,7 +37,7 @@ export {
   getExperimentsChoicesFilters,
   getExperimentsHasChoicesFilters,
   getExperimentsFiltersSaga,
-  experimentsFiltersActionType,
+  experimentsFiltersActionTypes,
 } from './experimentsFilters';
 
 export {
@@ -44,6 +45,9 @@ export {
   getExperimentTransformed,
   getExperimentMetadata,
   getExperimentOwnerIsCurrentUser,
+  getExperimentNearestNeigbours,
+  getExperimentHasNearestNeigbours,
+  getExperimentMetadataCompletion,
   getIsFetching as getIsFetchingExperiment,
   createExperiment,
   requestExperiment,
@@ -54,6 +58,11 @@ export {
   newExperiment,
   setExperiment,
 } from './experiment';
+
+export {
+  getExperimentMetadataFormCompletion,
+  EXPERIMENT_METADATA_FORM_ID,
+} from './experimentMetadataForm';
 
 export {
   updateExperimentFile,
@@ -82,10 +91,19 @@ export {
   experimentsChoicesSaga,
 } from './experimentsChoices';
 
+export {
+  requestExperimentsTree,
+  getExperimentsTree,
+  getError as getExperimentsTreeError,
+  getIsFetching as getIsFetchingExperimentsTree,
+  experimentsTreeSaga,
+} from './experimentsTree';
+
 const reducer = combineReducers({
   experiments,
   experimentsFilters,
   experimentsChoices,
+  experimentsTree,
   experiment,
   experimentMetadataTemplate,
 });
@@ -102,5 +120,6 @@ export function* rootExperimentsSaga(): Saga {
     fork(experimentProviderSaga),
     fork(experimentsFiltersChoicesSaga),
     fork(syncExperimentsFiltersSaga),
+    fork(experimentsTreeSaga),
   ]);
 }

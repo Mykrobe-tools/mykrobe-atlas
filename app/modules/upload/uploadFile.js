@@ -23,6 +23,7 @@ import {
   CHECK_TOKEN_SUCCESS,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_FAIL,
+  SIGNOUT_SUCCESS,
   getAccessToken,
   checkToken,
 } from 'makeandship-js-common/src/modules/auth/auth';
@@ -210,11 +211,14 @@ export default function reducer(
     case RESUMABLE_UPLOAD_DONE:
       return {
         ...state,
-        uploadProgress: 1,
+        isUploading: false,
+        uploadProgress: 0,
+        checksumProgress: 0,
       };
     case RESUMABLE_UPLOAD_ERROR:
       return {
         ...state,
+        isUploading: false,
         error: action.payload,
       };
     default:
@@ -330,11 +334,13 @@ export function* uploadFileWorker(): Saga {
 // upload events
 
 function* uploadFileCancelWatcher() {
-  yield takeEvery(UPLOAD_FILE_CANCEL, function*() {
+  yield takeEvery([UPLOAD_FILE_CANCEL, SIGNOUT_SUCCESS], function*() {
     const experimentId = yield select(getExperimentId);
     yield apply(_uploadFile, 'cancel');
     yield apply(_computeChecksums, 'cancel');
-    yield put(deleteExperiment(experimentId));
+    if (experimentId) {
+      yield put(deleteExperiment(experimentId));
+    }
     yield put({ type: UPLOAD_FILE_CANCEL_SUCCESS });
   });
 }

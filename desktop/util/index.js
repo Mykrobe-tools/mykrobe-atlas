@@ -64,7 +64,7 @@ export const ensurePredictorBinaries = () => {
     `../resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
   );
   const executableName =
-    plat === 'win32' ? 'mykrobe_predictor.exe' : 'mykrobe_predictor';
+    plat === 'win32' ? 'mykrobe_atlas.exe' : 'mykrobe_atlas';
   const executablePath = path.join(binFolder, executableName);
   console.log(`Checking for existence of '${executablePath}'`);
   const exists = fs.existsSync(executablePath);

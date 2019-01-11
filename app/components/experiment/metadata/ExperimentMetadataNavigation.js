@@ -5,13 +5,20 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
-import withFileUpload from '../../../hoc/withFileUpload';
+import CircularProgress from '../../ui/CircularProgress';
+
 import styles from './ExperimentMetadataNavigation.scss';
 
 class ExperimentMetadataNavigation extends React.Component<*> {
   render() {
-    const { match, isBusyWithCurrentRoute } = this.props;
-    const percent = 33;
+    const {
+      match,
+      isBusyWithCurrentRoute,
+      experimentOwnerIsCurrentUser,
+      completion,
+    } = this.props;
+    const { complete, total } = completion;
+    const percent = Math.round((100 * complete) / total);
     return (
       <div className={styles.container}>
         <Container fluid>
@@ -22,24 +29,29 @@ class ExperimentMetadataNavigation extends React.Component<*> {
               </div>
             </div>
           )}
-          <div className={styles.progress}>
-            <div className={styles.percent}>
-              <div className={styles.percentContent}>
-                <span>
-                  <span className={styles.percentValue}>{percent}</span>
-                  <span className={styles.percentSign}>%</span>
-                </span>
+          {experimentOwnerIsCurrentUser && (
+            <div className={styles.progress}>
+              <div className={styles.percent}>
+                <div className={styles.circularProgressContainer}>
+                  <CircularProgress percentage={percent} />
+                </div>
+                <div className={styles.percentContent}>
+                  <span>
+                    <span className={styles.percentValue}>{percent}</span>
+                    <span className={styles.percentSign}>%</span>
+                  </span>
+                </div>
+              </div>
+              <div className={styles.title}>
+                <div className={styles.titleHead}>
+                  Complete metadata benefits everyone
+                </div>
+                <div className={styles.titleSubhead}>
+                  Help Atlas provide more accurate results
+                </div>
               </div>
             </div>
-            <div className={styles.title}>
-              <div className={styles.titleHead}>
-                Complete metadata benefits everyone
-              </div>
-              <div className={styles.titleSubhead}>
-                Help Atlas provide more accurate results
-              </div>
-            </div>
-          </div>
+          )}
           <div className={styles.navigation}>
             <NavLink
               to={`${match.url}/patient`}
@@ -93,6 +105,8 @@ class ExperimentMetadataNavigation extends React.Component<*> {
 ExperimentMetadataNavigation.propTypes = {
   match: PropTypes.object.isRequired,
   isBusyWithCurrentRoute: PropTypes.bool.isRequired,
+  experimentOwnerIsCurrentUser: PropTypes.bool,
+  completion: PropTypes.object.isRequired,
 };
 
-export default withFileUpload(ExperimentMetadataNavigation);
+export default ExperimentMetadataNavigation;

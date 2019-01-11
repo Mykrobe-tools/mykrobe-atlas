@@ -4,6 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Route, Redirect, Switch, NavLink } from 'react-router-dom';
+import urljoin from 'url-join';
 
 import ResistanceAllContainer from '../all/ResistanceAllContainer';
 import ResistanceDrugsContainer from '../drugs/ResistanceDrugsContainer';
@@ -27,76 +28,74 @@ class Resistance extends React.Component<*> {
     } else {
       content = (
         <div className={styles.content}>
-          <div className={styles.header}>
-            {TargetConstants.SPECIES_TB === TargetConstants.SPECIES ? (
-              <div className={styles.navigation}>
-                <NavLink
-                  to={`${match.url}/all`}
-                  className={styles.navigationItem}
-                  activeClassName={styles.navigationItemActive}
-                >
-                  All
-                </NavLink>
-                <NavLink
-                  to={`${match.url}/drugs`}
-                  className={styles.navigationItem}
-                  activeClassName={styles.navigationItemActive}
-                >
-                  Drugs
-                </NavLink>
-                <NavLink
-                  to={`${match.url}/evidence`}
-                  className={styles.navigationItem}
-                  activeClassName={styles.navigationItemActive}
-                >
-                  Evidence
-                </NavLink>
-                <NavLink
-                  to={`${match.url}/species`}
-                  className={styles.navigationItem}
-                  activeClassName={styles.navigationItemActive}
-                >
-                  Species
-                </NavLink>
-              </div>
-            ) : (
-              <div className={styles.navigation}>
-                <NavLink
-                  to={`${match.url}/all`}
-                  className={styles.navigationItem}
-                  activeClassName={styles.navigationItemActive}
-                >
-                  All
-                </NavLink>
-                <NavLink
-                  to={`${match.url}/class`}
-                  className={styles.navigationItem}
-                  activeClassName={styles.navigationItemActive}
-                >
-                  Class
-                </NavLink>
-                <NavLink
-                  to={`${match.url}/evidence`}
-                  className={styles.navigationItem}
-                  activeClassName={styles.navigationItemActive}
-                >
-                  Evidence
-                </NavLink>
-                <NavLink
-                  to={`${match.url}/species`}
-                  className={styles.navigationItem}
-                  activeClassName={styles.navigationItemActive}
-                >
-                  Species
-                </NavLink>
-              </div>
-            )}
-          </div>
+          {TargetConstants.SPECIES_TB === TargetConstants.SPECIES ? (
+            <div className={styles.navigation}>
+              <NavLink
+                to={`${match.url}/all`}
+                className={styles.navigationItem}
+                activeClassName={styles.navigationItemActive}
+              >
+                All
+              </NavLink>
+              <NavLink
+                to={`${match.url}/drugs`}
+                className={styles.navigationItem}
+                activeClassName={styles.navigationItemActive}
+              >
+                Drugs
+              </NavLink>
+              <NavLink
+                to={`${match.url}/evidence`}
+                className={styles.navigationItem}
+                activeClassName={styles.navigationItemActive}
+              >
+                Evidence
+              </NavLink>
+              <NavLink
+                to={`${match.url}/species`}
+                className={styles.navigationItem}
+                activeClassName={styles.navigationItemActive}
+              >
+                Species
+              </NavLink>
+            </div>
+          ) : (
+            <div className={styles.navigation}>
+              <NavLink
+                to={`${match.url}/all`}
+                className={styles.navigationItem}
+                activeClassName={styles.navigationItemActive}
+              >
+                All
+              </NavLink>
+              <NavLink
+                to={`${match.url}/class`}
+                className={styles.navigationItem}
+                activeClassName={styles.navigationItemActive}
+              >
+                Class
+              </NavLink>
+              <NavLink
+                to={`${match.url}/evidence`}
+                className={styles.navigationItem}
+                activeClassName={styles.navigationItemActive}
+              >
+                Evidence
+              </NavLink>
+              <NavLink
+                to={`${match.url}/species`}
+                className={styles.navigationItem}
+                activeClassName={styles.navigationItemActive}
+              >
+                Species
+              </NavLink>
+            </div>
+          )}
           <Switch>
             <Route
               exact
               path={match.url}
-              component={() => <Redirect to={`${match.url}/all`} />}
+              component={() => <Redirect to={urljoin(match.url, 'all')} />}
             />
             <Route
               path={`${match.url}/all`}

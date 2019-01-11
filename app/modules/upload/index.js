@@ -5,11 +5,12 @@ import type { Saga } from 'redux-saga';
 import { combineReducers } from 'redux';
 
 import uploadFileReducer, { uploadFileSaga } from './uploadFile';
-import { uploadFileNotificationSaga } from './uploadFileNotification';
+import { uploadNotificationSaga } from './uploadNotification';
 import { uploadDropboxSaga } from './uploadDropbox';
 import { uploadGoogleDriveSaga } from './uploadGoogleDrive';
 import { uploadBoxSaga } from './uploadBox';
 import { uploadOneDriveSaga } from './uploadOneDrive';
+import { uploadFileCancelWarningSaga } from './uploadFileCancelWarning';
 
 export {
   uploadFile,
@@ -53,10 +54,11 @@ export default uploadReducer;
 export function* rootUploadSaga(): Saga {
   yield all([
     fork(uploadFileSaga),
-    fork(uploadFileNotificationSaga),
+    fork(uploadNotificationSaga),
     fork(uploadDropboxSaga),
     fork(uploadGoogleDriveSaga),
     fork(uploadBoxSaga),
     fork(uploadOneDriveSaga),
+    fork(uploadFileCancelWarningSaga),
   ]);
 }

@@ -19,18 +19,10 @@ import {
 } from 'makeandship-js-common/src/modules/networkStatus/deviceNetworkStatus';
 
 import {
-  CHECK,
-  NETWORK_STATUS_INITIALISED,
-  NETWORK_OFFLINE,
-  NETWORK_ONLINE,
-  COUNT_DOWN_SECONDS,
-} from 'makeandship-js-common/src/modules/networkStatus/beaconNetworkStatusModule';
-
-import {
   getBeaconNetworkStatusOnline,
   getBeaconNetworkStatusInitialised,
   getCountDownSeconds,
-  beaconNetworkStatusActionType,
+  beaconNetworkStatusActionTypes,
   beaconNetworkStatusActions,
 } from './beaconNetworkStatus';
 
@@ -78,13 +70,13 @@ function* beaconNetworkStatusWatcher() {
   // wait for device network status initialisation
   const initialised = yield select(getBeaconNetworkStatusInitialised);
   if (!initialised) {
-    yield take(beaconNetworkStatusActionType('', NETWORK_STATUS_INITIALISED));
+    yield take(beaconNetworkStatusActionTypes.NETWORK_STATUS_INITIALISED);
   }
   while (true) {
     // check initial status - if not online then show notification immediately
     const online = yield select(getBeaconNetworkStatusOnline);
     if (online) {
-      yield take(beaconNetworkStatusActionType('', NETWORK_OFFLINE));
+      yield take(beaconNetworkStatusActionTypes.NETWORK_OFFLINE);
     }
     const action = showNotification({
       category: NotificationCategories.ERROR,
@@ -98,10 +90,10 @@ function* beaconNetworkStatusWatcher() {
     while (offline) {
       const { countdown, online } = yield race({
         countdown: take(
-          beaconNetworkStatusActionType(CHECK, COUNT_DOWN_SECONDS)
+          beaconNetworkStatusActionTypes.CHECK_COUNT_DOWN_SECONDS
         ),
-        check: take(beaconNetworkStatusActionType(CHECK)),
-        online: take(beaconNetworkStatusActionType('', NETWORK_ONLINE)),
+        check: take(beaconNetworkStatusActionTypes.CHECK),
+        online: take(beaconNetworkStatusActionTypes.NETWORK_ONLINE),
       });
       if (online) {
         offline = false;

@@ -19,9 +19,7 @@ const remote = require('electron').remote;
 const app = require('electron').remote.app;
 const fs = require('fs');
 
-import { SET } from 'makeandship-js-common/src/modules/generic/actions';
-
-import { experimentActionType } from '../../modules/experiments/experiment';
+import { experimentActionTypes } from '../../modules/experiments/experiment';
 
 import AnalyserLocalFile from './util/AnalyserLocalFile';
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
@@ -136,7 +134,10 @@ export default function reducer(
       return {
         ...state,
         isAnalysing: true,
-        filePath: action.payload,
+        filePath:
+          typeof action.payload === 'string'
+            ? action.payload
+            : action.payload.path,
         error: undefined,
       };
     case ANALYSE_FILE_CANCEL:
@@ -173,9 +174,8 @@ function* analyseFileWatcher() {
   yield takeEvery(ANALYSE_FILE, analyseFileWorker);
 }
 
-export function* analyseFileWorker(action: any): Saga {
-  const file = action.payload;
-  const filePath = typeof file === 'string' ? file : file.path;
+export function* analyseFileWorker(): Saga {
+  const filePath = yield select(getFilePath);
   yield apply(app, 'addRecentDocument', [filePath]);
   yield apply(_analyserLocalFile, 'analyseFile', [filePath]);
   yield put(hideAllNotifications());
@@ -209,7 +209,7 @@ export function* analyseFileSuccessWorker(): Saga {
   const sampleIds = Object.keys(json);
   const sampleId = sampleIds[0];
   const sampleModel = json[sampleId];
-  yield put({ type: experimentActionType(SET), payload: sampleModel });
+  yield put({ type: experimentActionTypes.SET, payload: sampleModel });
   yield put(push('/results'));
   yield put(showNotification(`Sample ${parsed.basename} analysis complete`));
   yield call(setSaveEnabled, true);

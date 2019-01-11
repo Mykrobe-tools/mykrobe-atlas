@@ -21,6 +21,7 @@ import styles from './Experiments.scss';
 import ExperimentsTable from './ExperimentsTable';
 import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
 import { notImplemented } from '../../util';
 
 import UploadButton from '../upload/button/UploadButton';
@@ -111,7 +112,6 @@ class Experiments extends React.Component<*, State> {
       experiments,
       experimentsFilters,
       isFetchingExperiments,
-      onExperimentClick,
       onChangeListOrder,
     } = this.props;
     const { pagination, results, total } = experiments;
@@ -124,7 +124,7 @@ class Experiments extends React.Component<*, State> {
     const showCompare = selected && (selected === '*' || selected.length > 1);
     return (
       <div className={styles.container}>
-        <Header title={'Experiments'} />
+        <Header title={'Sample Library'} />
         <Container className={styles.headerContainer} fluid>
           <div className={styles.headerContainerInner}>
             <div className={pageHeaderStyles.title}>{title}</div>
@@ -186,7 +186,6 @@ class Experiments extends React.Component<*, State> {
               <ExperimentsTable
                 isFetching={isFetchingExperiments}
                 experiments={results}
-                onExperimentClick={onExperimentClick}
                 onChangeOrder={onChangeListOrder}
                 filters={experimentsFilters}
                 selected={selected}
@@ -218,6 +217,7 @@ class Experiments extends React.Component<*, State> {
             {isFetchingExperiments && <Loading overlay />}
           </div>
         )}
+        <Footer />
       </div>
     );
   }
@@ -232,7 +232,6 @@ Experiments.propTypes = {
   requestFilterValues: PropTypes.func,
   isFetchingExperiments: PropTypes.bool,
   isFetchingFilters: PropTypes.bool,
-  onExperimentClick: PropTypes.func,
   onChangeListOrder: PropTypes.func,
   setPage: PropTypes.func,
   newExperiment: PropTypes.func,

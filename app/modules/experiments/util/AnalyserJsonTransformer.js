@@ -1,11 +1,14 @@
 /* @flow */
 
-import * as TargetConstants from '../../../constants/TargetConstants';
+import _ from 'lodash';
+
+import susceptibilityTransformer from './transformers/susceptibility';
+import speciesTransformer from './transformers/species';
 
 export type AnalyserJsonTransformerResult = {
   lineage: Array<string>,
   species: Array<string>,
-  speciesPretty: string,
+  speciesAndLineageString: string,
   hasSpecies: boolean,
   hasResistance: boolean,
   susceptible: Array<string>,
@@ -21,6 +24,7 @@ export type AnalyserJsonTransformerResult = {
   },
   samples?: any,
   tree?: any,
+  error?: any,
 };
 
 class AnalyserJsonTransformer {
@@ -53,9 +57,16 @@ class AnalyserJsonTransformer {
 
   transformModel(sourceModel: Object): Object {
     if (sourceModel.results) {
-      // web - just do the first one for now
-      const sampleModel = sourceModel.results[0];
-      console.log('sampleModel', JSON.stringify(sampleModel, null, 2));
+      // web
+      let sampleModel;
+      if (_.isArray(sourceModel.results)) {
+        // if it's an array, just do the first one for now
+        sampleModel = sourceModel.results[0];
+      } else {
+        // use the explicitly defined predictor result
+        sampleModel = sourceModel.results['predictor'];
+      }
+      // console.log('sampleModel', JSON.stringify(sampleModel, null, 2));
       const transformedSampleModel = this.transformSampleModel(sampleModel);
       return transformedSampleModel;
     }
@@ -90,14 +101,15 @@ class AnalyserJsonTransformer {
   transformSampleModel(
     sourceModel: Object,
     relatedModels: ?Array<Object>
-  ): Object {
+  ): AnalyserJsonTransformerResult {
+    let transformed: AnalyserJsonTransformerResult = {};
     // return empty object if there is no data to parse
     if (
       !sourceModel ||
       typeof sourceModel !== 'object' ||
       Object.keys(sourceModel).length === 0
     ) {
-      return {};
+      return transformed;
     }
     // check basic requirements
     if (!sourceModel.phylogenetics) {
@@ -105,16 +117,14 @@ class AnalyserJsonTransformer {
         // in Electron we allow user opening json file, so show an error
         throw new Error('Unsupported sample json format');
       }
-      return {};
+      return transformed;
     }
-
-    let transformed: AnalyserJsonTransformerResult = {};
 
     // can we display anything?
 
     transformed = {
-      ...this.transformFlags(sourceModel),
       ...transformed,
+      ...this.transformFlags(sourceModel),
     };
 
     const { hasSpecies, hasResistance } = transformed;
@@ -130,8 +140,8 @@ class AnalyserJsonTransformer {
     // style species for display
 
     transformed = {
-      ...this.transformSpecies(sourceModel),
       ...transformed,
+      ...speciesTransformer(sourceModel),
     };
 
     // return now if there is no resistance to show
@@ -140,99 +150,25 @@ class AnalyserJsonTransformer {
       return transformed;
     }
 
-    transformed.susceptible = [];
-    transformed.resistant = [];
-    transformed.inconclusive = [];
-    transformed.positive = [];
-    transformed.negative = [];
-    transformed.inducible = [];
-    transformed.evidence = {};
-
-    /*
-
-    the "Resistant" allele N times is in [alternate][median_depth]
-    the "Susceptible" allele N times is in [reference][median_depth]
-
-    by default. This changes to:
-
-    [alternate][kmer_count]
-    and
-    [reference][kmer_count]
-
-    for another data type (which we now support but didn't previously).
-
-    */
-
-    let o;
     let key;
     let value;
-    let isInducible;
 
     const susceptibilityModel = sourceModel['susceptibility'];
 
     const genotypeModel =
-      sourceModel['genotype_model'] ||
-      sourceModel['genotypeModel'] ||
-      'median_depth';
+      sourceModel['genotype_model'] || sourceModel['genotypeModel'];
 
-    for (key in susceptibilityModel) {
-      let predict =
-        susceptibilityModel[key]['predict'] ||
-        susceptibilityModel[key]['prediction'];
-      predict = predict.toUpperCase();
-      value = predict.substr(0, 1);
-      isInducible = predict.indexOf('INDUCIBLE') !== -1;
-      if (value === 'S') {
-        transformed.susceptible.push(key);
-      } else if (value === 'R') {
-        transformed.resistant.push(key);
-      } else if (value === 'N') {
-        transformed.inconclusive.push(key);
-      }
-      if (isInducible) {
-        transformed.inducible.push(key);
-      }
+    const susceptibility = susceptibilityTransformer(
+      susceptibilityModel,
+      genotypeModel
+    );
+    transformed = {
+      ...transformed,
+      ...susceptibility,
+    };
 
-      const calledBy =
-        susceptibilityModel[key]['called_by'] ||
-        susceptibilityModel[key]['calledBy'];
-      if (calledBy) {
-        for (let calledByKey in calledBy) {
-          // group by title
-          o = [];
-          if (transformed.evidence[key]) {
-            o = transformed.evidence[key];
-          } else {
-            // initialise
-            transformed.evidence[key] = o;
-          }
-          const genes = calledByKey.split('_');
-          // if in format I491F-I491F, split and take just I491F
-          if (genes[1].indexOf('-') > 0) {
-            genes[1] = genes[1].split('-')[0];
-          }
-          const info = calledBy[calledByKey]['info'];
-          const alternate = info['coverage']['alternate'];
-          const reference = info['coverage']['reference'];
-
-          if (genotypeModel === 'median_depth') {
-            o.push([
-              'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
-              'Resistant allele coverage: ' + alternate[genotypeModel],
-              'Susceptible allele coverage: ' + reference[genotypeModel],
-            ]);
-          } else {
-            o.push([
-              'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
-              alternate[genotypeModel] + ' kmers from the resistant allele',
-              reference[genotypeModel] + ' kmers from the susceptible allele',
-            ]);
-          }
-        }
-      }
-    }
-
-    transformed.evidence = this._sortObject(transformed.evidence);
+    transformed.positive = [];
+    transformed.negative = [];
 
     const virulenceModel =
       sourceModel['virulence_toxins'] || sourceModel['virulenceToxins'];
@@ -253,19 +189,32 @@ class AnalyserJsonTransformer {
       xdr: false,
     };
 
-    if (
-      transformed.resistant.indexOf('Isoniazid') !== -1 &&
-      transformed.resistant.indexOf('Rifampicin') !== -1
-    ) {
+    /*
+    https://www.who.int/tb/areas-of-work/drug-resistant-tb/xdr-tb-faq/en/
+    XDR-TB involves resistance to the two most powerful anti-TB drugs, isoniazid and rifampicin, also known as multidrug-resistance (MDR-TB), in addition to resistance to any of the fluoroquinolones (such as levofloxacin or moxifloxacin) and to at least one of the three injectable second-line drugs (amikacin, capreomycin or kanamycin).
+    */
+
+    // Check for multidrug-resistance (MDR)
+
+    const mdr =
+      transformed.resistant.includes('Isoniazid') &&
+      transformed.resistant.includes('Rifampicin');
+
+    if (mdr) {
       drugsResistance.mdr = true;
-      /*
-        If MDR AND R to both fluoroquinolones and one of the other these 3 (Amikacin, Kanamycin, Capreomycin), then call it XDR (Extensively Drug Resistant)
-        */
-      if (transformed.resistant.indexOf('Quinolones')) {
+
+      // Check for extensively drug-resistant (XDR)
+
+      const fluoroquinolonesResistant =
+        transformed.resistant.includes('Ofloxacin') ||
+        transformed.resistant.includes('Moxifloxacin') ||
+        transformed.resistant.includes('Ciprofloxacin');
+
+      if (fluoroquinolonesResistant) {
         if (
-          transformed.resistant.indexOf('Amikacin') !== -1 ||
-          transformed.resistant.indexOf('Kanamycin') !== -1 ||
-          transformed.resistant.indexOf('Capreomycin') !== -1
+          transformed.resistant.includes('Amikacin') ||
+          transformed.resistant.includes('Kanamycin') ||
+          transformed.resistant.includes('Capreomycin')
         ) {
           drugsResistance.xdr = true;
         }
@@ -338,62 +287,16 @@ class AnalyserJsonTransformer {
 
     if (sourceModel.phylogenetics && sourceModel.phylogenetics.phylo_group) {
       const phyloGroup = Object.keys(sourceModel.phylogenetics.phylo_group);
-      if (phyloGroup.indexOf('Non_tuberculosis_mycobacterium_complex') !== -1) {
+      if (phyloGroup.includes('Non_tuberculosis_mycobacterium_complex')) {
         hasSpecies = true;
       }
-      if (phyloGroup.indexOf('Mycobacterium_tuberculosis_complex') !== -1) {
+      if (phyloGroup.includes('Mycobacterium_tuberculosis_complex')) {
         hasSpecies = true;
         hasResistance = true;
       }
     }
 
     return { hasSpecies, hasResistance };
-  }
-
-  transformSpecies(
-    sourceModel: Object
-  ): { lineage: Array<string>, species: Array<string>, speciesPretty: string } {
-    const species = Object.keys(sourceModel.phylogenetics.species);
-
-    let lineage = [];
-    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
-      lineage = Object.keys(sourceModel.phylogenetics.lineage);
-    }
-
-    let speciesPretty = '';
-
-    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
-      const s = species ? species.join(' / ').replace(/_/g, ' ') : 'undefined';
-      const l = lineage.length
-        ? ' (lineage: ' + lineage.join(', ').replace(/_/g, ' ') + ')'
-        : '';
-      speciesPretty = `${s}${l}`;
-    } else {
-      speciesPretty = species
-        ? species.join(' / ').replace(/_/g, ' ')
-        : 'undefined';
-    }
-
-    return { lineage, species, speciesPretty };
-  }
-
-  _sortObject(o: Object) {
-    let sorted = {};
-    let key;
-    let a = [];
-
-    for (key in o) {
-      if (o.hasOwnProperty(key)) {
-        a.push(key);
-      }
-    }
-
-    a.sort();
-
-    for (key = 0; key < a.length; key++) {
-      sorted[a[key]] = o[a[key]];
-    }
-    return sorted;
   }
 }
 
