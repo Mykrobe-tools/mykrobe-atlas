@@ -53,7 +53,8 @@
     },
     "mac": {
       "category": "public.app-category.tools",
-      "icon": "./desktop/resources/icon/atlas-tb/icon.icns"
+      "icon": "./desktop/resources/icon/atlas-tb/icon.icns",
+      "target": "dmg"
     },
     "dmg": {
       "contents": [
@@ -71,10 +72,7 @@
       ]
     },
     "win": {
-      "target": [
-        "nsis",
-        "portable"
-      ],
+      "target": "nsis",
       "icon": "./desktop/resources/icon/atlas-tb/icon.ico"
     },
     "nsis": {
