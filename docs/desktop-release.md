@@ -16,6 +16,11 @@ This process will need to be followed on each platform - Mac, Windows. The deskt
 
 	```
 	$ yarn version
+	```
+
+	Enter new version number when prompted, e.g. `0.6.0`. This can take an order of minutes to process as it invokes `precommit` git hooks. To commit the changes,
+
+	```
 	$ git push origin HEAD
 	```
 
@@ -36,11 +41,6 @@ This process will need to be followed on each platform - Mac, Windows. The deskt
 
 	```
 	$ yarn desktop-package
-	```
-
-	Enter new version number when prompted, e.g. `0.6.0`. This can take an order of minutes to process as it invokes `precommit` git hooks. To commit the changes,
-
-	```
 	$ yarn desktop-dist --publish
 	```
 
