@@ -18,10 +18,10 @@ This process will need to be followed on each platform - Mac, Windows. The deskt
 	$ yarn version --no-commit-hooks
 	```
 
-	Enter new version number when prompted, e.g. `0.6.0`. To push the source changes and tag,
+	Enter new version number when prompted, e.g. `0.6.0`. To push the source changes (do not push the tag yet; it will be created when the draft release is published),
 
 	```
-	$ git push --follow-tags origin HEAD
+	$ git push origin HEAD
 	```
 
 2. Build the latest Predictor binaries (see [Build Predictor Binaries](desktop-predictor-binaries.md) for setup instructions)

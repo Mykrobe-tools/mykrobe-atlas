@@ -2,7 +2,7 @@
   "targetName": "atlas-tb",
   "name": "mykrobe",
   "productName": "Mykrobe Atlas TB",
-  "version": "0.6.0",
+  "version": "0.2.0",
   "main": "./main.js",
   "description": "Mykrobe Atlas UI"
 }
