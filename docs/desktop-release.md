@@ -12,32 +12,34 @@ Set up deployment to GitHub releases
 
 This process will need to be followed on each platform - Mac, Windows. The desktop app checks for updates automatically on launch and downloads them silently. The user is notified once a new version is ready to install.
 
-1. Update the version and commit - this sets both the version in the app and the git tag following the format `v0.0.0` where the draft release will be published
-
-	```
-	$ yarn version
-	```
-
-	Enter new version number when prompted, e.g. `0.6.0`. This can take an order of minutes to process as it invokes `precommit` git hooks. To commit the changes,
-
-	```
-	$ git push origin HEAD
-	```
-
-2. Build the latest Predictor binaries (see [Build Predictor Binaries](desktop-predictor-binaries.md) for setup instructions)
+1. Build the latest Predictor binaries (see [Build Predictor Binaries](desktop-predictor-binaries.md) for setup instructions)
 
 
 	```
 	$ yarn build-predictor-binaries
 	```
 
-3. Run a complete test
+2. Run a complete test
 
 	```
 	$ yarn test
 	```
 
-4. If the tests pass, publish a draft release to the repo specified by `build.publish` in `package.json`
+3. If the tests fail, stop.
+
+4. Update the version and commit - this sets both the version in the app and the git tag following the format `v0.0.0` where the draft release will be published. Commit hooks are explicitly skipped as at time of writing they may fail when invoked by this command depending on node versions.
+
+	```
+	$ yarn version --no-commit-hooks
+	```
+
+	Enter new version number when prompted, e.g. `0.6.0`. To commit the changes,
+
+	```
+	$ git push origin HEAD
+	```
+
+5. Publish a draft release to the repo specified by `build.publish` in `package.json`
 
 	```
 	$ yarn desktop-package
