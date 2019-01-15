@@ -1,12 +1,12 @@
 {
   "name": "mykrobe-atlas",
   "productName": "Mykrobe Atlas TB",
-  "version": "0.2.0",
+  "version": "0.6.0",
   "description": "Mykrobe Atlas UI",
   "private": true,
   "main": "main.js",
   "scripts": {
-    "build-predictor-binaries": "babel-node ./desktop/build-predictor-binaries.js",
+    "build-mykrobe-binaries": "babel-node ./desktop/build-mykrobe-binaries.js",
     "check:es": "yarn web-build && yarn es-check es5 ./web/build/**/*.js || (echo '\nOne or more build files contains non-es5 code. This is usually caused by a module in the node_modules folder distributing non-transpiled source code. Check recently added or updated modules.' && false)",
     "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js",
     "desktop-build-renderer": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.production.js",
@@ -48,13 +48,16 @@
     "appId": "com.mykrobe.atlas-tb",
     "publish": {
       "provider": "github",
-      "owner": "simonheys",
-      "repo": "probable-computing-machine"
+      "owner": "Mykrobe-tools",
+      "repo": "mykrobe"
     },
     "mac": {
       "category": "public.app-category.tools",
       "icon": "./desktop/resources/icon/atlas-tb/icon.icns",
-      "target": "dmg"
+      "target": [
+        "dmg",
+        "zip"
+      ]
     },
     "dmg": {
       "contents": [

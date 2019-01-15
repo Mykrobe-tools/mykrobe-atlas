@@ -1,6 +1,6 @@
 # Mykrobe Desktop
 
-## Build Predictor binaries
+## Build Mykrobe binaries
 
 This will checkout or update the latest source from [https://github.com/iqbal-lab/Mykrobe-predictor](https://github.com/iqbal-lab/Mykrobe-predictor), build an executable and copy it into the correct folder for use in the GUI
 
@@ -23,7 +23,7 @@ This will checkout or update the latest source from [https://github.com/iqbal-la
 3. Build from within the root of the project
 
 	```
-	$ yarn build-predictor-binaries
+	$ yarn build-mykrobe-binaries
 	```
 
 ### Windows 64-bit
@@ -56,7 +56,7 @@ This will checkout or update the latest source from [https://github.com/iqbal-la
 4. Build from within the root of the project
 
 	```
-	$ yarn build-predictor-binaries
+	$ yarn build-mykrobe-binaries
 	```
 
 ### Windows and Mac

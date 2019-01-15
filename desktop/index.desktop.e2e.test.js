@@ -15,7 +15,7 @@ const exemplarSamplesExpect = require('../test/__fixtures__/exemplar-samples.exp
 
 import {
   executeCommand,
-  ensurePredictorBinaries,
+  ensureMykrobeBinaries,
   ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
   ELECTRON_EXECUTABLE_PATH,
@@ -33,7 +33,7 @@ describe('Desktop e2e', () => {
 
 // prerequisites
 
-ensurePredictorBinaries();
+ensureMykrobeBinaries();
 ensureExemplarSamples();
 
 // this step is very slow - compiles desktop app and creates distribution images

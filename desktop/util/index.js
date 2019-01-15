@@ -58,7 +58,7 @@ export const ensureExemplarSamples = () => {
   }
 };
 
-export const ensurePredictorBinaries = () => {
+export const ensureMykrobeBinaries = () => {
   const binFolder = path.join(
     __dirname,
     `../resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
@@ -71,7 +71,7 @@ export const ensurePredictorBinaries = () => {
 
   // check for existence of binary and bail with error
   if (!exists) {
-    throw `No executable found at '${executablePath}' - Please run 'yarn build-predictor-binaries' before running this test`;
+    throw `No executable found at '${executablePath}' - Please run 'yarn build-mykrobe-binaries' before running this test`;
   }
 };
 
@@ -84,7 +84,7 @@ export const updateStaticPackageJson = () => {
 
   const versionPath = path.join(
     __dirname,
-    '../predictor-binaries/Mykrobe-predictor/VERSION'
+    '../mykrobe-binaries/Mykrobe-predictor/VERSION'
   );
   const exists = fs.existsSync(versionPath);
   if (exists) {

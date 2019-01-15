@@ -90,9 +90,11 @@ class AnalyserLocalFile extends AnalyserBaseFile {
 
     const pathToBin = this.pathToBin();
 
+    // FIXME: if we don't use --force, occasionally get error - some files cached??
+
     const args = [
       'predict',
-      // '--force',
+      '--force',
       fileName,
       'tb',
       '-1',

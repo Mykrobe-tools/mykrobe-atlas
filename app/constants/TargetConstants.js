@@ -9,7 +9,7 @@ export const TARGET_NAME = require('../../package.json').targetName;
 
 let species;
 
-if (TARGET_NAME === 'atlas-tb') {
+if (TARGET_NAME === 'atlas-tb' || TARGET_NAME === 'desktop') {
   species = SPECIES_TB;
 } else if (TARGET_NAME === 'atlas-s-aureus') {
   species = SPECIES_S_AUREUS;

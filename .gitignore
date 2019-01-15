@@ -34,7 +34,7 @@ node_modules.win
 # Desktop build
 desktop/dist/*
 desktop/release/*
-desktop/predictor-binaries/*
+desktop/mykrobe-binaries/*
 main.js
 main.js.map
 desktop/static/*

@@ -24,14 +24,14 @@ const executeCommand = command => {
   execSync(command, { stdio: [0, 1, 2] });
 };
 
-const BASE_PATH = path.join(__dirname, 'predictor-binaries/Mykrobe-predictor');
+const BASE_PATH = path.join(__dirname, 'mykrobe-binaries/Mykrobe-predictor');
 // checkout repo or pull if it already exists
 
 folder = BASE_PATH;
 if (!fs.existsSync(path.join(folder, '.git'))) {
   if (IS_CYGWIN) {
     // git will be relative to the current folder on cygwin
-    command = `git clone --recursive -b add-model-to-output git@github.com:iqbal-lab/Mykrobe-predictor.git "desktop/predictor-binaries/Mykrobe-predictor"`;
+    command = `git clone --recursive -b add-model-to-output git@github.com:iqbal-lab/Mykrobe-predictor.git "desktop/mykrobe-binaries/Mykrobe-predictor"`;
   } else {
     // can clone into the absolute folder
     command = `git clone --recursive -b add-model-to-output git@github.com:iqbal-lab/Mykrobe-predictor.git "${BASE_PATH}"`;

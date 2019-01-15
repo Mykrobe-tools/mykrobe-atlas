@@ -8,7 +8,7 @@
 	$ yarn set-target
 	```
 
-2.	[Build Predictor Binaries](desktop-predictor-binaries.md) – The desktop app requires a local executable version of Atlas
+2.	[Build Mykrobe binaries](desktop-mykrobe-binaries.md) – The desktop app requires a local executable version of Atlas
 
 ## Run development version
 
