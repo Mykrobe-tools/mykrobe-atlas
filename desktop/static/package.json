@@ -1,8 +1,8 @@
 {
-  "targetName": "desktop",
+  "targetName": "atlas-tb",
   "name": "mykrobe",
-  "productName": "Mykrobe",
-  "version": "0.2.0",
+  "productName": "Mykrobe Atlas TB",
+  "version": "0.6.0",
   "main": "./main.js",
   "description": "Mykrobe Atlas UI"
 }
