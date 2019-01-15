@@ -1,12 +1,12 @@
 {
   "name": "mykrobe-atlas",
-  "productName": "Mykrobe Atlas TB",
+  "productName": "Mykrobe",
   "version": "0.2.0",
   "description": "Mykrobe Atlas UI",
   "private": true,
   "main": "main.js",
   "scripts": {
-    "build-predictor-binaries": "babel-node ./desktop/build-predictor-binaries.js",
+    "build-mykrobe-binaries": "babel-node ./desktop/build-mykrobe-binaries.js",
     "check:es": "yarn web-build && yarn es-check es5 ./web/build/**/*.js || (echo '\nOne or more build files contains non-es5 code. This is usually caused by a module in the node_modules folder distributing non-transpiled source code. Check recently added or updated modules.' && false)",
     "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js",
     "desktop-build-renderer": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.production.js",
@@ -45,7 +45,7 @@
     "web-open": "open http://localhost:3000"
   },
   "build": {
-    "appId": "com.mykrobe.atlas-tb",
+    "appId": "com.mykrobe.desktop",
     "publish": {
       "provider": "github",
       "owner": "simonheys",
@@ -53,7 +53,7 @@
     },
     "mac": {
       "category": "public.app-category.tools",
-      "icon": "./desktop/resources/icon/atlas-tb/icon.icns",
+      "icon": "./desktop/resources/icon/desktop/icon.icns",
       "target": "dmg"
     },
     "dmg": {
@@ -76,7 +76,7 @@
         "nsis",
         "portable"
       ],
-      "icon": "./desktop/resources/icon/atlas-tb/icon.ico"
+      "icon": "./desktop/resources/icon/desktop/icon.ico"
     },
     "nsis": {
       "perMachine": true
@@ -251,7 +251,7 @@
   "devEngines": {
     "node": "6.x"
   },
-  "targetName": "atlas-tb",
+  "targetName": "desktop",
   "jest": {
     "verbose": true,
     "testURL": "http://localhost/",

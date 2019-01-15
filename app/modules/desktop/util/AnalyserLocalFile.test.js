@@ -3,7 +3,7 @@
 import path from 'path';
 
 import {
-  ensurePredictorBinaries,
+  ensureMykrobeBinaries,
   ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
   EXEMPLAR_SAMPLES_FOLDER_PATH,
@@ -24,7 +24,7 @@ describe('AnalyserLocalFile', () => {
   });
 });
 
-ensurePredictorBinaries();
+ensureMykrobeBinaries();
 ensureExemplarSamples();
 
 // TODO: this affects where the analyser looks for the mykrobe executable - should use a more explicit flag

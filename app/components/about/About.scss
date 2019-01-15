@@ -1,3 +1,5 @@
+@import '~styles/colors.global';
+
 .container {
 	composes: container from 'styles/layout.scss';
 	flex-direction: column;
@@ -8,6 +10,7 @@
 	position: relative;
 	padding: 20px 30px;
 	align-items: center;
+	background-color: $color-background;
 }
 
 .actions {

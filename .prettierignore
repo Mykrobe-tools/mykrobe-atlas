@@ -7,7 +7,7 @@ web/build
 web/demo
 app/static
 desktop/dist
-desktop/predictor-binaries
+desktop/mykrobe-binaries
 desktop/release
 desktop/resources
 desktop/static

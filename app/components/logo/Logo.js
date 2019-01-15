@@ -10,6 +10,7 @@ const logosByTargetName = {
   'atlas-desktop-s-aureus': require('../../static/atlas-s-aureus-logo.svg'),
   'atlas-desktop-tb': require('../../static/atlas-tb-logo.svg'),
   'atlas-tb': require('../../static/atlas-tb-logo.svg'),
+  desktop: require('../../static/desktop-logo.svg'),
 };
 
 class Logo extends React.Component<*> {
