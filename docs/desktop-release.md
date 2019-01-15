@@ -43,6 +43,8 @@ This process will need to be followed on each platform - Mac, Windows. The deskt
 	$ yarn desktop-dist --publish
 	```
 
+	> If you see an error similar to `skipped publishing file=<file> reason=existing type not compatible with publishing type tag=<tag> version=<tag> existingType=release publishingType=draft`, check that the GitHub release you are publishing too is in 'draft' mode and not 'published'
+
 5. Repeat steps 2–4 for each platform
 
 6. Publish the release using GitHub - make sure that 'This is a pre-release' is unchecked or this release will be overlooked by the auto-updater.
