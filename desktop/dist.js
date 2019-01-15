@@ -21,7 +21,7 @@ const build = (plat, arch) => {
 
   // include the bin folder
 
-  const sourceDir = path.resolve(
+  const sourceDir = path.join(
     __dirname,
     `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
   );
