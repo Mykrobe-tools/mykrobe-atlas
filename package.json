@@ -1,7 +1,7 @@
 {
   "name": "mykrobe-atlas",
   "productName": "Mykrobe",
-  "version": "0.2.0",
+  "version": "0.6.0",
   "description": "Mykrobe Atlas UI",
   "private": true,
   "main": "main.js",
@@ -48,8 +48,8 @@
     "appId": "com.mykrobe.desktop",
     "publish": {
       "provider": "github",
-      "owner": "simonheys",
-      "repo": "probable-computing-machine"
+      "owner": "Mykrobe-tools",
+      "repo": "mykrobe"
     },
     "mac": {
       "category": "public.app-category.tools",
