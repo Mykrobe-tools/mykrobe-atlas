@@ -1,9 +1,9 @@
 /* @flow */
 
-import { execSync } from 'child_process';
+import { exec, execSync } from 'child_process';
+
 const packager = require('electron-packager');
 const del = require('del');
-const exec = require('child_process').exec;
 const argv = require('minimist')(process.argv.slice(2));
 const pkg = require('../package.json');
 const path = require('path');
@@ -14,17 +14,17 @@ import archPlatArgs from './util/archPlatArgs';
 
 const { platforms, archs } = archPlatArgs();
 
-const icon = path.resolve(__dirname, `resources/icon/${pkg.targetName}/icon`);
+const icon = path.join(__dirname, `resources/icon/${pkg.targetName}/icon`);
 
 // copy the version number from the main package.json
 updateStaticPackageJson();
 
 const DEFAULT_OPTS = {
-  dir: path.resolve(__dirname, './static'),
+  dir: path.join(__dirname, 'static'),
   name: pkg.productName,
   icon: icon,
   version: '',
-  'extend-info': path.resolve(__dirname, 'resources/plist/extend-info.plist'),
+  'extend-info': path.join(__dirname, 'resources/plist/extend-info.plist'),
 };
 
 // this is the version of Electron to use
@@ -56,7 +56,7 @@ function startPack() {
       execSync('yarn desktop-build-main', { stdio: [0, 1, 2] });
       console.log('Building renderer...');
       execSync('yarn desktop-build-renderer', { stdio: [0, 1, 2] });
-      await del(path.resolve(__dirname, 'release'));
+      await del(path.join(__dirname, 'release'));
       console.log('Packaging releases...');
       for (let i = 0; i < platforms.length; i++) {
         const plat = platforms[i];
@@ -98,7 +98,7 @@ async function pack(plat, arch) {
     arch,
     prune: true,
     'app-version': pkg.version || DEFAULT_OPTS.version,
-    out: path.resolve(__dirname, `release/${plat}-${arch}`),
+    out: path.join(__dirname, `release/${plat}-${arch}`),
   });
   console.log('opts:', JSON.stringify(opts, null, 2));
 

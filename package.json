@@ -48,12 +48,13 @@
     "appId": "com.mykrobe.atlas-tb",
     "publish": {
       "provider": "github",
-      "owner": "mykrobe-tools",
-      "repo": "mykrobe-atlas"
+      "owner": "simonheys",
+      "repo": "probable-computing-machine"
     },
     "mac": {
       "category": "public.app-category.tools",
-      "icon": "./desktop/resources/icon/atlas-tb/icon.icns"
+      "icon": "./desktop/resources/icon/atlas-tb/icon.icns",
+      "target": "dmg"
     },
     "dmg": {
       "contents": [

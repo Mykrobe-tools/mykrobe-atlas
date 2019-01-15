@@ -12,15 +12,19 @@ Set up deployment to GitHub releases
 
 This process will need to be followed on each platform - Mac, Windows. The desktop app checks for updates automatically on launch and downloads them silently. The user is notified once a new version is ready to install.
 
-1. Update the version and commit - this sets both the version in the app and the git tag following the format `v0.0.0` where the draft release will be published
+1. Update the version and commit - this sets both the version in the app and the git tag following the format `v0.0.0` where the draft release will be published. Commit hooks are explicitly skipped as at time of writing they may fail when invoked by this command depending on node versions.
 
 	```
-	$ yarn version
+	$ yarn version --no-commit-hooks
+	```
+
+	Enter new version number when prompted, e.g. `0.6.0`. To push the source changes (do not push the tag yet; it will be created when the draft release is published),
+
+	```
 	$ git push origin HEAD
 	```
 
 2. Build the latest Predictor binaries (see [Build Predictor Binaries](desktop-predictor-binaries.md) for setup instructions)
-
 
 	```
 	$ yarn build-predictor-binaries
@@ -38,6 +42,8 @@ This process will need to be followed on each platform - Mac, Windows. The deskt
 	$ yarn desktop-package
 	$ yarn desktop-dist --publish
 	```
+
+	> If you see an error similar to `skipped publishing file=<file> reason=existing type not compatible with publishing type tag=<tag> version=<tag> existingType=release publishingType=draft`, check that the GitHub release you are publishing too is in 'draft' mode and not 'published'
 
 5. Repeat steps 2–4 for each platform
 
