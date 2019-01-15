@@ -1,7 +1,7 @@
 {
   "name": "mykrobe-atlas",
   "productName": "Mykrobe Atlas TB",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Mykrobe Atlas UI",
   "private": true,
   "main": "main.js",
@@ -48,8 +48,8 @@
     "appId": "com.mykrobe.atlas-tb",
     "publish": {
       "provider": "github",
-      "owner": "mykrobe-tools",
-      "repo": "mykrobe-atlas"
+      "owner": "simonheys",
+      "repo": "probable-computing-machine"
     },
     "mac": {
       "category": "public.app-category.tools",
@@ -72,7 +72,10 @@
       ]
     },
     "win": {
-      "target": "nsis",
+      "target": [
+        "nsis",
+        "portable"
+      ],
       "icon": "./desktop/resources/icon/atlas-tb/icon.ico"
     },
     "nsis": {
