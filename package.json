@@ -1,7 +1,7 @@
 {
   "name": "mykrobe-atlas",
   "productName": "Mykrobe Atlas TB",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Mykrobe Atlas UI",
   "private": true,
   "main": "main.js",
