@@ -18,7 +18,6 @@ import parsePath from 'parse-filepath';
 const remote = require('electron').remote;
 const app = require('electron').remote.app;
 const fs = require('fs');
-const path = require('path');
 
 import { experimentActionTypes } from '../../modules/experiments/experiment';
 
@@ -30,6 +29,8 @@ import {
   hideAllNotifications,
   NotificationCategories,
 } from '../notifications';
+
+import detectFileSeq from './util/detectFileSeq';
 
 // TODO: refactor - does this need to be an event emitter?
 const _analyserLocalFileChannel = channel();
@@ -64,6 +65,7 @@ export const ANALYSE_FILE_PROGRESS = `${typePrefix}ANALYSE_FILE_PROGRESS`;
 export const ANALYSE_FILE_CANCEL = `${typePrefix}ANALYSE_FILE_CANCEL`;
 export const ANALYSE_FILE_NEW = `${typePrefix}ANALYSE_FILE_NEW`;
 export const ANALYSE_FILE_SAVE = `${typePrefix}ANALYSE_FILE_SAVE`;
+export const ANALYSE_FILE_SET_FILE_PATHS = `${typePrefix}ANALYSE_FILE_SET_FILE_PATHS`;
 
 // Selectors
 
@@ -116,6 +118,11 @@ export const analyseFileError = (payload: Error) => ({
   payload,
 });
 
+export const analyseFileSetFilePaths = (payload: string) => ({
+  type: ANALYSE_FILE_SET_FILE_PATHS,
+  payload,
+});
+
 // Reducer
 
 const initialState = {
@@ -144,6 +151,11 @@ export default function reducer(
         isAnalysing: true,
         filePaths: normalizeFilePaths(action.payload),
         error: undefined,
+      };
+    case ANALYSE_FILE_SET_FILE_PATHS:
+      return {
+        ...state,
+        filePaths: normalizeFilePaths(action.payload),
       };
     case ANALYSE_FILE_CANCEL:
     case ANALYSE_FILE_NEW:
@@ -181,23 +193,31 @@ function* analyseFileWatcher() {
 
 // detect a squence e.g. MDR_1 should find MDR_2 automatically
 
-export function* detectFileSeq(): Saga {
+export function* analyseFileDetectFileSeq(): Saga {
   const filePaths = yield select(getFilePaths);
   if (filePaths.length !== 1) {
     return;
   }
   const filePath = filePaths[0];
-  const dir = fs.readdirSync(path.dirname(filePath));
-  console.log('dir', dir);
-  debugger;
+  const result = yield call(detectFileSeq, filePath);
+  if (!result) {
+    return;
+  }
+  filePaths.push(result);
+  yield put(analyseFileSetFilePaths(filePaths));
+  yield put(
+    showNotification(
+      `Detected ${parsePath(result).basename} for inclusion in analysis`
+    )
+  );
 }
 
 export function* analyseFileWorker(): Saga {
-  yield call(detectFileSeq);
+  yield put(hideAllNotifications());
+  yield call(analyseFileDetectFileSeq);
   const filePaths = yield select(getFilePaths);
   yield apply(app, 'addRecentDocument', [filePaths[0]]);
   yield apply(_analyserLocalFile, 'analyseFile', [filePaths]);
-  yield put(hideAllNotifications());
   yield put(push('/'));
 }
 
