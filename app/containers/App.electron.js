@@ -38,10 +38,10 @@ class App extends React.Component<*, State> {
     const { analyseFile, analyseFileNew, analyseFileSave, push } = props;
     const ipcRenderer = require('electron').ipcRenderer;
 
-    ipcRenderer.on('open-file', (e, filePath) => {
+    ipcRenderer.on('open-file', (e, filePaths) => {
       console.log('App open-file');
-      if (filePath) {
-        analyseFile(filePath);
+      if (filePaths) {
+        analyseFile(filePaths);
       }
     });
 
@@ -54,9 +54,9 @@ class App extends React.Component<*, State> {
     });
 
     ipcRenderer.on('menu-file-open', () => {
-      const filePath = UIHelpers.openFileDialog(); // eslint-disable-line import/namespace
-      if (filePath) {
-        analyseFile(filePath);
+      const filePaths = UIHelpers.openFileDialog(); // eslint-disable-line import/namespace
+      if (filePaths) {
+        analyseFile(filePaths);
       }
     });
 
@@ -112,6 +112,7 @@ class App extends React.Component<*, State> {
   };
 
   onDropAccepted = files => {
+    const { analyseFile } = this.props;
     console.log('onDropAccepted', files);
     this.setState({
       isDragActive: false,
@@ -119,7 +120,6 @@ class App extends React.Component<*, State> {
     if (!files.length) {
       return;
     }
-    const { analyseFile } = this.props;
     analyseFile(files);
   };
 
@@ -142,7 +142,7 @@ class App extends React.Component<*, State> {
         onDragLeave={this.onDragLeave}
         onDragEnter={this.onDragEnter}
         disableClick
-        multiple={false}
+        multiple
         accept={APIConstants.API_SAMPLE_EXTENSIONS_STRING_WITH_DOTS}
       >
         <div className={styles.contentContainer}>{children}</div>
