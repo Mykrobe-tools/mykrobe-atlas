@@ -18,6 +18,7 @@ import parsePath from 'parse-filepath';
 const remote = require('electron').remote;
 const app = require('electron').remote.app;
 const fs = require('fs');
+const path = require('path');
 
 import { experimentActionTypes } from '../../modules/experiments/experiment';
 
@@ -178,7 +179,21 @@ function* analyseFileWatcher() {
   yield takeEvery(ANALYSE_FILE, analyseFileWorker);
 }
 
+// detect a squence e.g. MDR_1 should find MDR_2 automatically
+
+export function* detectFileSeq(): Saga {
+  const filePaths = yield select(getFilePaths);
+  if (filePaths.length !== 1) {
+    return;
+  }
+  const filePath = filePaths[0];
+  const dir = fs.readdirSync(path.dirname(filePath));
+  console.log('dir', dir);
+  debugger;
+}
+
 export function* analyseFileWorker(): Saga {
+  yield call(detectFileSeq);
   const filePaths = yield select(getFilePaths);
   yield apply(app, 'addRecentDocument', [filePaths[0]]);
   yield apply(_analyserLocalFile, 'analyseFile', [filePaths]);

@@ -27,7 +27,7 @@ class AnalyserBaseFile extends EventEmitter {
           ', '
         );
         this.failWithError(
-          `Can only process files with extension: ${acceptable} - not ${extension}`
+          `Mykrobe can only process files with extension: ${acceptable} - not ${extension}`
         );
         return this;
       }
