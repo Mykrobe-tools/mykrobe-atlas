@@ -120,8 +120,7 @@ class App extends React.Component<*, State> {
       return;
     }
     const { analyseFile } = this.props;
-    const filePath = files[0];
-    analyseFile(filePath);
+    analyseFile(files);
   };
 
   onDropRejected = files => {

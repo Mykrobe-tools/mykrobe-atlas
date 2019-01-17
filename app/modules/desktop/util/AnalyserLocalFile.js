@@ -56,33 +56,11 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     return this;
   }
 
-  analyseBinaryFile(file: File | string): AnalyserLocalFile {
-    // in Electron we get the full local file path
-    // $FlowFixMe: Ignore missing type values
-    let filePath;
-
-    if (typeof file === 'string') {
-      filePath = file;
-    } else {
-      filePath = file.path;
-    }
-
-    console.log('analyseBinaryFile', filePath);
-
-    if (filePath.indexOf(' ') > 0) {
-      // alert(
-      //   'Predictor does not currently work with files or paths containing spaces'
-      // );
-      this.failWithError(
-        'Predictor does not currently work with files or paths containing spaces'
-      );
-      return this;
-    }
-
+  analyseBinaryFile(filePaths: Array<string>): AnalyserLocalFile {
     this.tmpObj = tmp.dirSync();
     const skeletonDir = path.join(this.tmpObj.name, 'skeleton');
 
-    const fileName = path.parse(filePath).name;
+    const fileName = path.parse(filePaths[0]).name;
 
     this.jsonBuffer = '';
     this.isBufferingJson = false;
@@ -98,7 +76,8 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       fileName,
       'tb',
       '-1',
-      filePath,
+      filePaths.length > 1 ? '--seq' : '',
+      filePaths.join(' '),
       '--skeleton_dir',
       skeletonDir,
       '--format',

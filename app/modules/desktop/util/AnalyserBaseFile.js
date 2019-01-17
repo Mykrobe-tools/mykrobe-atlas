@@ -12,31 +12,33 @@ class AnalyserBaseFile extends EventEmitter {
     return extension.toLowerCase();
   }
 
-  analyseFile(file: File | string, id: string = ''): AnalyserBaseFile {
+  analyseFile(filePaths: Array<string>, id: string = ''): AnalyserBaseFile {
     this.cancel();
-    let filename;
-    if (typeof file === 'string') {
-      filename = file;
-    } else {
-      filename = file.name;
+    for (let i = 0; i < filePaths.length; i++) {
+      const filePath = filePaths[i];
+      const extension = this.extensionForFileName(filePath);
+      if (extension === '.json') {
+        return this.analyseJsonFile(filePath);
+      }
+      if (
+        !APIConstants.API_SAMPLE_EXTENSIONS_ARRAY_WITH_DOTS.includes(extension)
+      ) {
+        const acceptable = APIConstants.API_SAMPLE_EXTENSIONS_ARRAY_WITH_DOTS.join(
+          ', '
+        );
+        this.failWithError(
+          `Can only process files with extension: ${acceptable} - not ${extension}`
+        );
+        return this;
+      }
+      if (filePath.indexOf(' ') > 0) {
+        this.failWithError(
+          'Mykrobe does not currently work with files or paths containing spaces'
+        );
+        return this;
+      }
     }
-    const extension = this.extensionForFileName(filename);
-    if (extension === '.json') {
-      return this.analyseJsonFile(file);
-    } else if (
-      APIConstants.API_SAMPLE_EXTENSIONS_ARRAY_WITH_DOTS.indexOf(extension) !==
-      -1
-    ) {
-      return this.analyseBinaryFile(file, id);
-    } else {
-      const acceptable = APIConstants.API_SAMPLE_EXTENSIONS_ARRAY_WITH_DOTS.join(
-        ', '
-      );
-      this.failWithError(
-        `Can only process files with extension: ${acceptable} - not ${extension}`
-      );
-      return this;
-    }
+    return this.analyseBinaryFile(filePaths, id);
   }
 
   failWithError(err: string | Error) {
@@ -73,8 +75,8 @@ class AnalyserBaseFile extends EventEmitter {
     return this;
   }
 
-  analyseBinaryFile(file: File | string): AnalyserBaseFile {
-    console.log('analyseBinaryFile', file);
+  analyseBinaryFile(filePaths: Array<string>): AnalyserBaseFile {
+    console.log('analyseBinaryFile', filePaths);
     return this;
   }
 

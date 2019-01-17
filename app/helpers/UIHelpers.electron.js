@@ -18,7 +18,7 @@ export function openFileDialog() {
   });
 
   if (files && files.length) {
-    return files[0];
+    return files;
   }
 
   return false;

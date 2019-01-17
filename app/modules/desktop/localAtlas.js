@@ -75,7 +75,7 @@ export const getIsAnalysing = createSelector(
 
 export const getProgress = createSelector(getState, state => state.progress);
 
-export const getFilePath = createSelector(getState, state => state.filePath);
+export const getFilePaths = createSelector(getState, state => state.filePaths);
 
 export const getJson = createSelector(getState, state => state.json);
 
@@ -119,10 +119,17 @@ export const analyseFileError = (payload: Error) => ({
 
 const initialState = {
   isAnalysing: false,
-  filePath: null,
+  filePaths: null,
   error: null,
   progress: 0,
   json: null,
+};
+
+const normalizeFilePaths = files => {
+  if (typeof files === 'string') {
+    files = [files];
+  }
+  return files.map(file => (typeof file === 'string' ? file : file.path));
 };
 
 export default function reducer(
@@ -134,10 +141,7 @@ export default function reducer(
       return {
         ...state,
         isAnalysing: true,
-        filePath:
-          typeof action.payload === 'string'
-            ? action.payload
-            : action.payload.path,
+        filePaths: normalizeFilePaths(action.payload),
         error: undefined,
       };
     case ANALYSE_FILE_CANCEL:
@@ -175,9 +179,9 @@ function* analyseFileWatcher() {
 }
 
 export function* analyseFileWorker(): Saga {
-  const filePath = yield select(getFilePath);
-  yield apply(app, 'addRecentDocument', [filePath]);
-  yield apply(_analyserLocalFile, 'analyseFile', [filePath]);
+  const filePaths = yield select(getFilePaths);
+  yield apply(app, 'addRecentDocument', [filePaths[0]]);
+  yield apply(_analyserLocalFile, 'analyseFile', [filePaths]);
   yield put(hideAllNotifications());
   yield put(push('/'));
 }
@@ -202,8 +206,10 @@ function* analyseFileSuccessWatcher() {
 
 export function* analyseFileSuccessWorker(): Saga {
   const json = yield select(getJson);
-  const filePath = yield select(getFilePath);
-  const parsed = parsePath(filePath);
+  const filePaths = yield select(getFilePaths);
+  const filePathBaseNames = filePaths.map(
+    filePath => parsePath(filePath).basename
+  );
   // set the result as the experiment - the transformed version is now generated on-demand by selector
   // only one sample from Predictor
   const sampleIds = Object.keys(json);
@@ -211,7 +217,9 @@ export function* analyseFileSuccessWorker(): Saga {
   const sampleModel = json[sampleId];
   yield put({ type: experimentActionTypes.SET, payload: sampleModel });
   yield put(push('/results'));
-  yield put(showNotification(`Sample ${parsed.basename} analysis complete`));
+  yield put(
+    showNotification(`${filePathBaseNames.join(', ')} analysis complete`)
+  );
   yield call(setSaveEnabled, true);
 }
 
