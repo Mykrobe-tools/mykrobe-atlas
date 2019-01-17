@@ -24,6 +24,8 @@ if (process.env.NODE_ENV === 'development') {
   const path = require('path');
   const p = path.join(__dirname, '../node_modules');
   require('module').globalPaths.push(p);
+  // Log level
+  log.transports.console.level = 'info';
 }
 
 app.on('window-all-closed', () => {

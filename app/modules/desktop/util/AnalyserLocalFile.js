@@ -5,6 +5,7 @@ import fs from 'fs';
 import os from 'os';
 import { spawn } from 'child_process';
 import readline from 'readline';
+import log from 'electron-log';
 
 import * as TargetConstants from '../../../constants/TargetConstants';
 import AnalyserBaseFile from './AnalyserBaseFile';
@@ -75,9 +76,8 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       '--force',
       fileName,
       'tb',
-      '-1',
-      filePaths.length > 1 ? '--seq' : '',
-      filePaths.join(' '),
+      filePaths.length > 1 ? '--seq' : '-1',
+      ...filePaths,
       '--skeleton_dir',
       skeletonDir,
       '--format',
@@ -85,9 +85,9 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       '--quiet',
     ];
 
-    console.log('Guess at command line:', pathToBin, args.join(' '));
-    console.log('Spawning executable at path:', pathToBin);
-    console.log('With arguments:', args);
+    log.info('Guess at command line:', pathToBin, args.join(' '));
+    log.info('Spawning executable at path:', pathToBin);
+    log.info('With arguments:', args);
     this.child = spawn(pathToBin, args);
 
     if (!this.child) {
@@ -96,7 +96,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     }
 
     this.child.on('error', err => {
-      console.log('Failed to start child process.', err);
+      log.error('Failed to start child process.', err);
       this.failWithError(err);
     });
 
@@ -109,12 +109,12 @@ class AnalyserLocalFile extends AnalyserBaseFile {
           return;
         }
         if (!this.isBufferingJson) {
-          console.log(line);
+          log.info(line);
         } else {
-          console.log('Received json, muted');
+          log.info('Received json, muted');
         }
         if (line.indexOf('Progress:') >= 0) {
-          console.log('progress');
+          log.info('progress');
           // we get a string like "[15 Oct 2017 16:19:47-Kac] Progress: 130,000/454,797"
           // extract groups of digits
           const trimmed = line.substr(line.indexOf('Progress:'));
@@ -122,8 +122,8 @@ class AnalyserLocalFile extends AnalyserBaseFile {
           if (digitGroups.length > 1) {
             const progress = parseInt(digitGroups[0]);
             const total = parseInt(digitGroups[1]);
-            console.log('progress:' + progress);
-            console.log('total:' + total);
+            log.info('progress:' + progress);
+            log.info('total:' + total);
             this.emit('progress', {
               progress,
               total,
@@ -142,7 +142,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
         // sometimes receive json after process has exited
         if (this.isBufferingJson && this.processExited) {
           if (this.jsonBuffer.length) {
-            console.log('done');
+            log.info('done');
             this.doneWithJsonString(this.jsonBuffer);
           }
         }
@@ -166,21 +166,21 @@ class AnalyserLocalFile extends AnalyserBaseFile {
           line.startsWith('WARNING') ||
           line.startsWith('[')
         ) {
-          console.log('IGNORING ERROR: ' + line);
+          log.warn('IGNORING ERROR: ' + line);
           return;
         }
         this.didReceiveError = true;
-        console.log('ERROR: ' + line);
+        log.error('ERROR: ' + line);
         this.failWithError(line);
       });
 
     this.child.on('exit', code => {
-      console.log('Processing exited with code: ' + code);
+      log.info('Processing exited with code: ' + code);
       // this.child = null;
       // deferring seems to allow the spawn to exit cleanly
       if (code === 0) {
         if (this.jsonBuffer.length) {
-          console.log('done');
+          log.info('done');
           this.doneWithJsonString(this.jsonBuffer);
         }
       }
@@ -205,7 +205,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
   dirToBin() {
     const rootDir =
       process.env.NODE_ENV === 'development' ? process.cwd() : app.getAppPath();
-    console.log('rootDir', rootDir);
+    log.info('rootDir', rootDir);
 
     let dirToBin = '';
 
@@ -219,7 +219,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     } else {
       dirToBin = path.join(rootDir, '../bin');
     }
-    console.log('dirToBin', dirToBin);
+    log.info('dirToBin', dirToBin);
     return dirToBin;
   }
 
@@ -243,7 +243,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       throw UnsupportedError;
     }
 
-    console.log('pathToBin', pathToBin);
+    log.info('pathToBin', pathToBin);
 
     return pathToBin;
   }

@@ -8,7 +8,7 @@ export function openFileDialog() {
 
   const files = dialog.showOpenDialog(browserWindow, {
     title: 'Open',
-    properties: ['openFile'],
+    properties: ['openFile', 'multiSelections'],
     filters: [
       {
         name: 'Extensions',
