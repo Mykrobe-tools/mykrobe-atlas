@@ -5,10 +5,10 @@ import fs from 'fs';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { push } from 'react-router-redux';
 import Dropzone from 'react-dropzone';
 import { withRouter } from 'react-router-dom';
+import DocumentTitle from 'react-document-title';
 
 import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
 import * as APIConstants from '../constants/APIConstants';
@@ -17,6 +17,7 @@ import {
   analyseFileNew,
   analyseFile,
   analyseFileSave,
+  getFileNames,
 } from '../modules/desktop';
 
 import styles from './App.scss';
@@ -27,6 +28,8 @@ import NotificationsStyle from '../components/notifications/NotificationsStyle';
 type State = {
   isDragActive: boolean,
 };
+
+const defaultTitle = require('../../package.json').productName;
 
 class App extends React.Component<*, State> {
   state = {
@@ -131,9 +134,12 @@ class App extends React.Component<*, State> {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, fileNames } = this.props;
     const { isDragActive } = this.state;
-
+    const title =
+      fileNames && fileNames.length
+        ? `${fileNames.join(', ')} – ${defaultTitle}`
+        : defaultTitle;
     return (
       <Dropzone
         className={isDragActive ? styles.containerDragActive : styles.container}
@@ -145,6 +151,7 @@ class App extends React.Component<*, State> {
         multiple
         accept={APIConstants.API_SAMPLE_EXTENSIONS_STRING_WITH_DOTS}
       >
+        <DocumentTitle title={title} />
         <div className={styles.contentContainer}>{children}</div>
         <div className={styles.notificationsContainerElectron}>
           <NotificationsContainer
@@ -160,21 +167,17 @@ class App extends React.Component<*, State> {
   }
 }
 
-function mapStateToProps() {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      analyseFileSave,
-      analyseFileNew,
-      analyseFile,
-      push,
-    },
-    dispatch
-  );
-}
+const withRedux = connect(
+  state => ({
+    fileNames: getFileNames(state),
+  }),
+  {
+    analyseFileSave,
+    analyseFileNew,
+    analyseFile,
+    push,
+  }
+);
 
 App.propTypes = {
   analyseFileSave: PropTypes.func.isRequired,
@@ -182,11 +185,7 @@ App.propTypes = {
   analyseFile: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  fileNames: PropTypes.array,
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default withRouter(withRedux(App));

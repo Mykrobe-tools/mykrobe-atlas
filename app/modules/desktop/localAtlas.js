@@ -80,6 +80,12 @@ export const getProgress = createSelector(getState, state => state.progress);
 
 export const getFilePaths = createSelector(getState, state => state.filePaths);
 
+export const getFileNames = createSelector(
+  getFilePaths,
+  filePaths =>
+    filePaths && filePaths.map(filePath => parsePath(filePath).basename)
+);
+
 export const getJson = createSelector(getState, state => state.json);
 
 export const getError = createSelector(getState, state => state.error);
@@ -241,10 +247,7 @@ function* analyseFileSuccessWatcher() {
 
 export function* analyseFileSuccessWorker(): Saga {
   const json = yield select(getJson);
-  const filePaths = yield select(getFilePaths);
-  const filePathBaseNames = filePaths.map(
-    filePath => parsePath(filePath).basename
-  );
+  const fileNames = yield select(getFileNames);
   // set the result as the experiment - the transformed version is now generated on-demand by selector
   // only one sample from Predictor
   const sampleIds = Object.keys(json);
@@ -252,9 +255,7 @@ export function* analyseFileSuccessWorker(): Saga {
   const sampleModel = json[sampleId];
   yield put({ type: experimentActionTypes.SET, payload: sampleModel });
   yield put(push('/results'));
-  yield put(
-    showNotification(`${filePathBaseNames.join(', ')} analysis complete`)
-  );
+  yield put(showNotification(`${fileNames.join(', ')} analysis complete`));
   yield call(setSaveEnabled, true);
 }
 

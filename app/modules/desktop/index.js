@@ -14,6 +14,7 @@ export {
   getIsAnalysing,
   getError,
   getProgress,
+  getFileNames,
 } from './localAtlas';
 
 const desktopReducer = combineReducers({
