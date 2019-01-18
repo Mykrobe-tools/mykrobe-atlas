@@ -13,6 +13,7 @@ import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransfor
 import * as APIConstants from '../../../constants/APIConstants';
 
 import pathToBin from './pathToBin';
+import extensionForFileName from './extensionForFileName';
 
 const tmp = require('tmp');
 const app = require('electron').remote.app;
@@ -27,16 +28,11 @@ class AnalyserLocalFile extends EventEmitter {
   didReceiveError: boolean;
   tmpObj: ?Object;
 
-  extensionForFileName(fileName: string) {
-    const extension = fileName.substr(fileName.lastIndexOf('.'));
-    return extension.toLowerCase();
-  }
-
   analyseFile(filePaths: Array<string>, id: string = ''): AnalyserLocalFile {
     this.cancel();
     for (let i = 0; i < filePaths.length; i++) {
       const filePath = filePaths[i];
-      const extension = this.extensionForFileName(filePath);
+      const extension = extensionForFileName(filePath);
       if (extension === '.json') {
         return this.analyseJsonFile(filePath);
       }

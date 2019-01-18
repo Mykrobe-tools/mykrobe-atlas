@@ -33,6 +33,7 @@ import {
 } from '../notifications';
 
 import detectFileSeq from './util/detectFileSeq';
+import extensionForFileName from './util/extensionForFileName';
 
 // TODO: refactor - does this need to be an event emitter?
 const _analyserLocalFileChannel = channel();
@@ -207,6 +208,11 @@ export function* analyseFileDetectFileSeq(): Saga {
     return;
   }
   const filePath = filePaths[0];
+  const extension = extensionForFileName(filePath);
+  if (extension === '.json') {
+    return;
+  }
+
   const result = yield call(detectFileSeq, filePath);
   if (!result) {
     return;
