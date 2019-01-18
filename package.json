@@ -1,7 +1,7 @@
 {
   "name": "mykrobe-atlas",
-  "productName": "Mykrobe",
-  "version": "0.6.0",
+  "productName": "Mykrobe Atlas TB",
+  "version": "0.2.0",
   "description": "Mykrobe Atlas UI",
   "private": true,
   "main": "main.js",
@@ -45,7 +45,7 @@
     "web-open": "open http://localhost:3000"
   },
   "build": {
-    "appId": "com.mykrobe.desktop",
+    "appId": "com.mykrobe.atlas-tb",
     "publish": {
       "provider": "github",
       "owner": "Mykrobe-tools",
@@ -53,7 +53,7 @@
     },
     "mac": {
       "category": "public.app-category.tools",
-      "icon": "./desktop/resources/icon/desktop/icon.icns",
+      "icon": "./desktop/resources/icon/atlas-tb/icon.icns",
       "target": [
         "dmg",
         "zip"
@@ -79,7 +79,7 @@
         "nsis",
         "portable"
       ],
-      "icon": "./desktop/resources/icon/desktop/icon.ico"
+      "icon": "./desktop/resources/icon/atlas-tb/icon.ico"
     },
     "nsis": {
       "perMachine": true
@@ -254,7 +254,7 @@
   "devEngines": {
     "node": "6.x"
   },
-  "targetName": "desktop",
+  "targetName": "atlas-tb",
   "jest": {
     "verbose": true,
     "testURL": "http://localhost/",
