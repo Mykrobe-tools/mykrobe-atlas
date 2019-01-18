@@ -35,7 +35,7 @@
     "test:e2e": "yarn test -t 'e2e'",
     "test:fast": "cross-env BABEL_DISABLE_CACHE=1 INCLUDE_SLOW_TESTS=false jest",
     "test:watch": "yarn test:fast --watch",
-    "test": "cross-env BABEL_DISABLE_CACHE=1 INCLUDE_SLOW_TESTS=true jest",
+    "test": "cross-env BABEL_DISABLE_CACHE=1 INCLUDE_SLOW_TESTS=true jest --runInBand",
     "web-api-server": "babel-node web/api-dev-server.js",
     "web-build-server": "babel-node web/build/simple-server.js",
     "web-build-simple-server": "concurrently \"yarn web-build-server\" \"yarn web-open\"",

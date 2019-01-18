@@ -21,10 +21,7 @@ export const detectFileSeqForFileNameInDir = (
   }
   const name = fileName.substr(0, index);
   const ext = fileName.substr(index);
-  console.log('fileName', fileName);
-  console.log('name, ext', name, ext);
   const matches = name.match(/(.+)(\d+)$/);
-  console.log(JSON.stringify(matches, null, 2));
   if (matches && matches.length === 3) {
     const prefix = matches[1];
     const number = parseInt(matches[2]);

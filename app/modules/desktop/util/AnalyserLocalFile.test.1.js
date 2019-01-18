@@ -1,9 +1,6 @@
 /* @flow */
 
 import path from 'path';
-import parsePath from 'parse-filepath';
-
-import { isArray, isString } from 'makeandship-js-common/src/util/is';
 
 import {
   ensureMykrobeBinaries,
@@ -14,7 +11,8 @@ import {
 } from '../../../../desktop/util';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
-import detectFileSeq from './detectFileSeq';
+
+import { isArray, isString } from 'makeandship-js-common/src/util/is';
 
 const GENERATE_JSON_FIXTURES = true;
 
@@ -46,25 +44,25 @@ describe('AnalyserLocalFile', () => {
     const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
     for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
       let source = exemplarSamplesExpectEntry.source[j];
-      const extension = source
-        .substr(source.lastIndexOf('.') + 1)
-        .toLowerCase();
-      const isJson = extension === 'json';
-      if (!isJson && !INCLUDE_SLOW_TESTS) {
-        console.log(`Skipping slow test for ${source}`);
-        continue;
+      let isJson = false;
+      if (isString(source)) {
+        const extension = source
+          .substr(source.lastIndexOf('.') + 1)
+          .toLowerCase();
+        isJson = extension === 'json';
+        if (!isJson && !INCLUDE_SLOW_TESTS) {
+          console.log(`Skipping slow test for ${source}`);
+          continue;
+        }
       }
-      const filePath = path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, source);
-      const result = detectFileSeq(filePath);
-      let filePaths = [filePath];
-      if (result) {
-        filePaths = filePaths.concat(result);
-      }
-      const fileNames = filePaths.map(filePath => parsePath(filePath).basename);
-      it(`should analyse source file ${source} - analysing (${fileNames.join(
-        ', '
-      )})`, async done => {
+      it(`should analyse source file(s) ${source}`, async done => {
         const analyser = new AnalyserLocalFile();
+        if (!isArray(source)) {
+          source = [source];
+        }
+        const filePaths = source.map(filePath =>
+          path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, filePath)
+        );
         analyser
           .analyseFile(filePaths)
           .on('progress', progress => {
@@ -77,13 +75,17 @@ describe('AnalyserLocalFile', () => {
               if (!isJson) {
                 // write unprocessed json
                 fs.writeFileSync(
-                  `test/__fixtures__/exemplar-samples/${source}.json`,
+                  `test/__fixtures__/exemplar-samples/${source.join(
+                    '__'
+                  )}.json`,
                   JSON.stringify(json, null, 2)
                 );
               }
               // write transformed json
               fs.writeFileSync(
-                `test/__fixtures__/exemplar-samples/${source}__AnalyserLocalFile__.json`,
+                `test/__fixtures__/exemplar-samples/${source.join(
+                  '__'
+                )}__AnalyserLocalFile__.json`,
                 JSON.stringify(transformed, null, 2)
               );
             }

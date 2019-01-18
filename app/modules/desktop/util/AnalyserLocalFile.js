@@ -7,6 +7,8 @@ import { spawn } from 'child_process';
 import readline from 'readline';
 import log from 'electron-log';
 
+import { isString } from 'makeandship-js-common/src/util/is';
+
 import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransformer';
 import * as APIConstants from '../../../constants/APIConstants';
 
@@ -14,6 +16,8 @@ import pathToBin from './pathToBin';
 
 const tmp = require('tmp');
 const app = require('electron').remote.app;
+
+// TODO - refactor into action-based Saga
 
 class AnalyserLocalFile extends EventEmitter {
   jsonBuffer: string;
@@ -96,7 +100,7 @@ class AnalyserLocalFile extends EventEmitter {
   }
 
   analyseJsonFile(file: File | string): AnalyserLocalFile {
-    if (typeof file === 'string') {
+    if (isString(file)) {
       fs.readFile(file, (err, data) => {
         if (err) throw err;
         const dataString = data.toString();

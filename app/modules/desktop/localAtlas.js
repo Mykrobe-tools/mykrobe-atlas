@@ -19,6 +19,8 @@ const remote = require('electron').remote;
 const app = require('electron').remote.app;
 const fs = require('fs');
 
+import { isString } from 'makeandship-js-common/src/util/is';
+
 import { experimentActionTypes } from '../../modules/experiments/experiment';
 
 import AnalyserLocalFile from './util/AnalyserLocalFile';
@@ -140,10 +142,10 @@ const initialState = {
 };
 
 const normalizeFilePaths = files => {
-  if (typeof files === 'string') {
+  if (isString(files)) {
     files = [files];
   }
-  return files.map(file => (typeof file === 'string' ? file : file.path));
+  return files.map(file => (isString(file) ? file : file.path));
 };
 
 export default function reducer(
