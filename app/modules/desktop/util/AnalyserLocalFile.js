@@ -1,27 +1,90 @@
 /* @flow */
 
+import EventEmitter from 'events';
 import path from 'path';
 import fs from 'fs';
-import os from 'os';
 import { spawn } from 'child_process';
 import readline from 'readline';
 import log from 'electron-log';
 
-import * as TargetConstants from '../../../constants/TargetConstants';
-import AnalyserBaseFile from './AnalyserBaseFile';
+import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransformer';
+import * as APIConstants from '../../../constants/APIConstants';
+
+import pathToBin from './pathToBin';
 
 const tmp = require('tmp');
 const app = require('electron').remote.app;
-const platform = os.platform(); // eslint-disable-line global-require
-const arch = os.arch();
 
-class AnalyserLocalFile extends AnalyserBaseFile {
+class AnalyserLocalFile extends EventEmitter {
   jsonBuffer: string;
   isBufferingJson: boolean;
   processExited: boolean;
   child: child_process$ChildProcess; // eslint-disable-line camelcase
   didReceiveError: boolean;
   tmpObj: ?Object;
+
+  extensionForFileName(fileName: string) {
+    const extension = fileName.substr(fileName.lastIndexOf('.'));
+    return extension.toLowerCase();
+  }
+
+  analyseFile(filePaths: Array<string>, id: string = ''): AnalyserLocalFile {
+    this.cancel();
+    for (let i = 0; i < filePaths.length; i++) {
+      const filePath = filePaths[i];
+      const extension = this.extensionForFileName(filePath);
+      if (extension === '.json') {
+        return this.analyseJsonFile(filePath);
+      }
+      if (
+        !APIConstants.API_SAMPLE_EXTENSIONS_ARRAY_WITH_DOTS.includes(extension)
+      ) {
+        const acceptable = APIConstants.API_SAMPLE_EXTENSIONS_ARRAY_WITH_DOTS.join(
+          ', '
+        );
+        this.failWithError(
+          `Mykrobe can only process files with extension: ${acceptable} - not ${extension}`
+        );
+        return this;
+      }
+      if (filePath.indexOf(' ') > 0) {
+        this.failWithError(
+          'Mykrobe does not currently work with files or paths containing spaces'
+        );
+        return this;
+      }
+    }
+    return this.analyseBinaryFile(filePaths, id);
+  }
+
+  failWithError(err: string | Error) {
+    let message = err;
+    if (err.message) {
+      message = err.message;
+    }
+    setTimeout(() => {
+      this.emit('error', {
+        description: message,
+      });
+    }, 0);
+  }
+
+  doneWithJsonString(jsonString: string) {
+    // const fs = require('fs');
+    // fs.writeFileSync('doneWithJsonString.json', jsonString);
+    const transformer = new AnalyserJsonTransformer();
+    transformer
+      .transform(jsonString)
+      .then(result => {
+        // const { json, transformed } = result;
+        // console.log('json', json);
+        // console.log('transformed', transformed);
+        this.emit('done', result);
+      })
+      .catch(err => {
+        this.failWithError(err);
+      });
+  }
 
   constructor() {
     super();
@@ -32,7 +95,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       });
   }
 
-  analyseJsonFile(file: File | string): AnalyserBaseFile {
+  analyseJsonFile(file: File | string): AnalyserLocalFile {
     if (typeof file === 'string') {
       fs.readFile(file, (err, data) => {
         if (err) throw err;
@@ -67,7 +130,7 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     this.isBufferingJson = false;
     this.processExited = false;
 
-    const pathToBin = this.pathToBin();
+    const pathToBinValue = pathToBin();
 
     // FIXME: if we don't use --force, occasionally get error - some files cached??
 
@@ -85,10 +148,10 @@ class AnalyserLocalFile extends AnalyserBaseFile {
       '--quiet',
     ];
 
-    log.info('Guess at command line:', pathToBin, args.join(' '));
-    log.info('Spawning executable at path:', pathToBin);
+    log.info('Guess at command line:', pathToBinValue, args.join(' '));
+    log.info('Spawning executable at path:', pathToBinValue);
     log.info('With arguments:', args);
-    this.child = spawn(pathToBin, args);
+    this.child = spawn(pathToBinValue, args);
 
     if (!this.child) {
       this.failWithError('Failed to start child process');
@@ -200,52 +263,6 @@ class AnalyserLocalFile extends AnalyserBaseFile {
     } catch (error) {
       // may fail if the temp directory is not empty
     }
-  }
-
-  dirToBin() {
-    const rootDir =
-      process.env.NODE_ENV === 'development' ? process.cwd() : app.getAppPath();
-    log.info('rootDir', rootDir);
-
-    let dirToBin = '';
-
-    if (process.env.NODE_ENV === 'development') {
-      dirToBin = path.join(
-        rootDir,
-        `desktop/resources/bin/${
-          TargetConstants.TARGET_NAME
-        }/${platform}-${arch}/bin`
-      );
-    } else {
-      dirToBin = path.join(rootDir, '../bin');
-    }
-    log.info('dirToBin', dirToBin);
-    return dirToBin;
-  }
-
-  pathToBin() {
-    const UnsupportedError = new Error({
-      message: 'Unsupported configuration',
-      config: TargetConstants,
-    });
-
-    const dirToBin = this.dirToBin();
-
-    let pathToBin = '';
-
-    if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
-      pathToBin = path.join(
-        dirToBin,
-        platform === 'win32' ? 'mykrobe_atlas.exe' : 'mykrobe_atlas'
-      );
-    } else {
-      // unsupported configuration
-      throw UnsupportedError;
-    }
-
-    log.info('pathToBin', pathToBin);
-
-    return pathToBin;
   }
 }
 
