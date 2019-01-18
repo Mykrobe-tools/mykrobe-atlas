@@ -3,12 +3,6 @@
 .container {
 	composes: container from 'styles/layout.scss';
 	position: relative;
-	flex: 1;
-}
-
-.containerDragActive {
-	composes: container;
-	border: 12px solid $color-grey-mid;
 }
 
 .notificationsContainer {
@@ -42,4 +36,15 @@
 
 .contentContainer {
 	composes: container from 'styles/layout.scss';
+}
+
+.dragIndicator {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	pointer-events: none;
+	opacity: 0.7;
+	border: 12px solid $color-grey-mid;
 }

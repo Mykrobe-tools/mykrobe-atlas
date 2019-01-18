@@ -11,7 +11,8 @@ class ResistanceEmpty extends React.Component<*> {
   }
   static defaultProps = {
     title: 'No Resistance Profile',
-    subtitle: 'The analysis has no resistance profile',
+    subtitle:
+      'Mykrobe does not detect any resistance mutations from its catalog',
   };
 }
 

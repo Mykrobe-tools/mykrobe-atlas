@@ -142,7 +142,7 @@ class App extends React.Component<*, State> {
         : defaultTitle;
     return (
       <Dropzone
-        className={isDragActive ? styles.containerDragActive : styles.container}
+        className={styles.container}
         onDropAccepted={this.onDropAccepted}
         onDropRejected={this.onDropRejected}
         onDragLeave={this.onDragLeave}
@@ -162,6 +162,7 @@ class App extends React.Component<*, State> {
             hidden={false}
           />
         </div>
+        {isDragActive && <div className={styles.dragIndicator} />}
       </Dropzone>
     );
   }
