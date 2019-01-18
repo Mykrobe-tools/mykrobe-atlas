@@ -24,6 +24,8 @@ if (process.env.NODE_ENV === 'development') {
   const path = require('path');
   const p = path.join(__dirname, '../node_modules');
   require('module').globalPaths.push(p);
+  // Log level
+  log.transports.console.level = 'info';
 }
 
 app.on('window-all-closed', () => {
@@ -47,15 +49,17 @@ app.on('will-finish-launching', () => {
 app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development') {
     const installExtensions = async () => {
-      const installer = require('electron-devtools-installer');
-      const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-      const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
-
-      return Promise.all(
-        extensions.map(name =>
-          installer.default(installer[name], forceDownload)
-        )
-      ).catch(console.log);
+      const {
+        default: installExtension,
+        REACT_DEVELOPER_TOOLS,
+        REDUX_DEVTOOLS,
+      } = require('electron-devtools-installer');
+      installExtension(REACT_DEVELOPER_TOOLS)
+        .then(name => console.log(`Added Extension:  ${name}`))
+        .catch(err => console.log('An error occurred: ', err));
+      installExtension(REDUX_DEVTOOLS)
+        .then(name => console.log(`Added Extension:  ${name}`))
+        .catch(err => console.log('An error occurred: ', err));
     };
 
     await installExtensions();

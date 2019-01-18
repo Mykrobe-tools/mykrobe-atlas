@@ -103,6 +103,60 @@
     }
   },
   {
+    "source": ["MDR_1.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": ["Isoniazid", "Rifampicin"]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid RESISTANT",
+          "Rifampicin RESISTANT",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistance": ["Multi-Drug Resistant (MDR)"],
+        "resistanceFlags": {
+          "mdr": true,
+          "xdr": false
+        }
+      },
+      "evidence": {
+        "Rifampicin": [
+          "Resistance mutation found: S450X in gene rpoB",
+          "1920 kmers from the resistant allele",
+          "0 kmers from the susceptible allele"
+        ],
+        "Isoniazid": [
+          "Resistance mutation found: S315X in gene katG",
+          "1700 kmers from the resistant allele",
+          "0 kmers from the susceptible allele"
+        ]
+      },
+      "species": "Mycobacterium tuberculosis (lineage: European American)"
+    }
+  },
+  {
     "source": ["Mycobacterium_kansasii.bam"],
     "expect": {
       "species": "Mycobacterium kansasii (lineage: Unknown)"

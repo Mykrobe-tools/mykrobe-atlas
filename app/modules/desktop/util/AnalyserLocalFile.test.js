@@ -1,6 +1,9 @@
 /* @flow */
 
 import path from 'path';
+import parsePath from 'parse-filepath';
+
+import { isArray, isString } from 'makeandship-js-common/src/util/is';
 
 import {
   ensureMykrobeBinaries,
@@ -11,6 +14,7 @@ import {
 } from '../../../../desktop/util';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
+import detectFileSeq from './detectFileSeq';
 
 const GENERATE_JSON_FIXTURES = true;
 
@@ -41,7 +45,7 @@ describe('AnalyserLocalFile', () => {
   for (let i = 0; i < exemplarSamplesExpect.length; i++) {
     const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
     for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
-      const source = exemplarSamplesExpectEntry.source[j];
+      let source = exemplarSamplesExpectEntry.source[j];
       const extension = source
         .substr(source.lastIndexOf('.') + 1)
         .toLowerCase();
@@ -50,11 +54,19 @@ describe('AnalyserLocalFile', () => {
         console.log(`Skipping slow test for ${source}`);
         continue;
       }
-      it(`should analyse source file ${source}`, async done => {
+      const filePath = path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, source);
+      const result = detectFileSeq(filePath);
+      let filePaths = [filePath];
+      if (result) {
+        filePaths = filePaths.concat(result);
+      }
+      const fileNames = filePaths.map(filePath => parsePath(filePath).basename);
+      it(`should analyse source file ${source} - analysing (${fileNames.join(
+        ', '
+      )})`, async done => {
         const analyser = new AnalyserLocalFile();
-        const filePath = path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, source);
         analyser
-          .analyseFile(filePath)
+          .analyseFile(filePaths)
           .on('progress', progress => {
             console.log('progress', progress);
           })

@@ -19,6 +19,8 @@ const remote = require('electron').remote;
 const app = require('electron').remote.app;
 const fs = require('fs');
 
+import { isString } from 'makeandship-js-common/src/util/is';
+
 import { experimentActionTypes } from '../../modules/experiments/experiment';
 
 import AnalyserLocalFile from './util/AnalyserLocalFile';
@@ -29,6 +31,9 @@ import {
   hideAllNotifications,
   NotificationCategories,
 } from '../notifications';
+
+import detectFileSeq from './util/detectFileSeq';
+import extensionForFileName from './util/extensionForFileName';
 
 // TODO: refactor - does this need to be an event emitter?
 const _analyserLocalFileChannel = channel();
@@ -63,6 +68,7 @@ export const ANALYSE_FILE_PROGRESS = `${typePrefix}ANALYSE_FILE_PROGRESS`;
 export const ANALYSE_FILE_CANCEL = `${typePrefix}ANALYSE_FILE_CANCEL`;
 export const ANALYSE_FILE_NEW = `${typePrefix}ANALYSE_FILE_NEW`;
 export const ANALYSE_FILE_SAVE = `${typePrefix}ANALYSE_FILE_SAVE`;
+export const ANALYSE_FILE_SET_FILE_PATHS = `${typePrefix}ANALYSE_FILE_SET_FILE_PATHS`;
 
 // Selectors
 
@@ -75,7 +81,13 @@ export const getIsAnalysing = createSelector(
 
 export const getProgress = createSelector(getState, state => state.progress);
 
-export const getFilePath = createSelector(getState, state => state.filePath);
+export const getFilePaths = createSelector(getState, state => state.filePaths);
+
+export const getFileNames = createSelector(
+  getFilePaths,
+  filePaths =>
+    filePaths && filePaths.map(filePath => parsePath(filePath).basename)
+);
 
 export const getJson = createSelector(getState, state => state.json);
 
@@ -115,14 +127,26 @@ export const analyseFileError = (payload: Error) => ({
   payload,
 });
 
+export const analyseFileSetFilePaths = (payload: string) => ({
+  type: ANALYSE_FILE_SET_FILE_PATHS,
+  payload,
+});
+
 // Reducer
 
 const initialState = {
   isAnalysing: false,
-  filePath: null,
+  filePaths: null,
   error: null,
   progress: 0,
   json: null,
+};
+
+const normalizeFilePaths = files => {
+  if (isString(files)) {
+    files = [files];
+  }
+  return files.map(file => (isString(file) ? file : file.path));
 };
 
 export default function reducer(
@@ -134,11 +158,13 @@ export default function reducer(
       return {
         ...state,
         isAnalysing: true,
-        filePath:
-          typeof action.payload === 'string'
-            ? action.payload
-            : action.payload.path,
+        filePaths: normalizeFilePaths(action.payload),
         error: undefined,
+      };
+    case ANALYSE_FILE_SET_FILE_PATHS:
+      return {
+        ...state,
+        filePaths: normalizeFilePaths(action.payload),
       };
     case ANALYSE_FILE_CANCEL:
     case ANALYSE_FILE_NEW:
@@ -174,11 +200,38 @@ function* analyseFileWatcher() {
   yield takeEvery(ANALYSE_FILE, analyseFileWorker);
 }
 
+// detect a squence e.g. MDR_1 should find MDR_2 automatically
+
+export function* analyseFileDetectFileSeq(): Saga {
+  const filePaths = yield select(getFilePaths);
+  if (filePaths.length !== 1) {
+    return;
+  }
+  const filePath = filePaths[0];
+  const extension = extensionForFileName(filePath);
+  if (extension === '.json') {
+    return;
+  }
+
+  const result = yield call(detectFileSeq, filePath);
+  if (!result) {
+    return;
+  }
+  filePaths.push(result);
+  yield put(analyseFileSetFilePaths(filePaths));
+  yield put(
+    showNotification(
+      `Detected ${parsePath(result).basename} for inclusion in analysis`
+    )
+  );
+}
+
 export function* analyseFileWorker(): Saga {
-  const filePath = yield select(getFilePath);
-  yield apply(app, 'addRecentDocument', [filePath]);
-  yield apply(_analyserLocalFile, 'analyseFile', [filePath]);
   yield put(hideAllNotifications());
+  yield call(analyseFileDetectFileSeq);
+  const filePaths = yield select(getFilePaths);
+  yield apply(app, 'addRecentDocument', [filePaths[0]]);
+  yield apply(_analyserLocalFile, 'analyseFile', [filePaths]);
   yield put(push('/'));
 }
 
@@ -202,8 +255,7 @@ function* analyseFileSuccessWatcher() {
 
 export function* analyseFileSuccessWorker(): Saga {
   const json = yield select(getJson);
-  const filePath = yield select(getFilePath);
-  const parsed = parsePath(filePath);
+  const fileNames = yield select(getFileNames);
   // set the result as the experiment - the transformed version is now generated on-demand by selector
   // only one sample from Predictor
   const sampleIds = Object.keys(json);
@@ -211,7 +263,7 @@ export function* analyseFileSuccessWorker(): Saga {
   const sampleModel = json[sampleId];
   yield put({ type: experimentActionTypes.SET, payload: sampleModel });
   yield put(push('/results'));
-  yield put(showNotification(`Sample ${parsed.basename} analysis complete`));
+  yield put(showNotification(`${fileNames.join(', ')} analysis complete`));
   yield call(setSaveEnabled, true);
 }
 
