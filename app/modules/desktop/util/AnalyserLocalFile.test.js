@@ -3,13 +3,12 @@
 import path from 'path';
 import parsePath from 'parse-filepath';
 
-import { isArray, isString } from 'makeandship-js-common/src/util/is';
-
 import {
   ensureMykrobeBinaries,
   ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
-  EXEMPLAR_SAMPLES_FOLDER_PATH,
+  EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
+  EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
   expectCaseInsensitiveEqual,
 } from '../../../../desktop/util';
 
@@ -54,7 +53,7 @@ describe('AnalyserLocalFile', () => {
         console.log(`Skipping slow test for ${source}`);
         continue;
       }
-      const filePath = path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, source);
+      const filePath = path.join(EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH, source);
       const result = detectFileSeq(filePath);
       let filePaths = [filePath];
       if (result) {
@@ -77,13 +76,19 @@ describe('AnalyserLocalFile', () => {
               if (!isJson) {
                 // write unprocessed json
                 fs.writeFileSync(
-                  `test/__fixtures__/exemplar_seqeuence_data/${source}.json`,
+                  path.join(
+                    EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
+                    `${source}.json`
+                  ),
                   JSON.stringify(json, null, 2)
                 );
               }
               // write transformed json
               fs.writeFileSync(
-                `test/__fixtures__/exemplar_seqeuence_data/${source}__AnalyserLocalFile__.json`,
+                path.join(
+                  EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
+                  `${source}__transformed__.json`
+                ),
                 JSON.stringify(transformed, null, 2)
               );
             }

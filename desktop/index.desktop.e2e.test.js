@@ -19,7 +19,8 @@ import {
   ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
   ELECTRON_EXECUTABLE_PATH,
-  EXEMPLAR_SAMPLES_FOLDER_PATH,
+  EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
+  EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH,
   expectCaseInsensitiveEqual,
 } from './util';
 
@@ -85,7 +86,7 @@ INCLUDE_SLOW_TESTS &&
       const { webContents } = this.app;
       webContents.send(
         'capture-page',
-        path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, filename)
+        path.join(EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH, filename)
       );
     };
 
@@ -160,7 +161,10 @@ INCLUDE_SLOW_TESTS &&
 
         it(`should open source file ${source}`, async () => {
           const { client, webContents } = this.app;
-          const filePath = path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, source);
+          const filePath = path.join(
+            EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
+            source
+          );
 
           // check existence of component
           expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
