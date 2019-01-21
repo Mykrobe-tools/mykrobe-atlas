@@ -11,7 +11,7 @@ import * as TargetConstants from '../app/constants/TargetConstants';
 const DEBUG = true;
 
 const pkg = require('../package.json');
-const exemplarSamplesExpect = require('../test/__fixtures__/exemplar-samples.expect.json');
+const exemplarSamplesExpect = require('../test/__fixtures__/exemplar_seqeuence_data.expect.json');
 
 import {
   executeCommand,

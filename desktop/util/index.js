@@ -23,10 +23,9 @@ export const ELECTRON_EXECUTABLE_PATH =
         `Contents/MacOS/${pkg.productName}`
       );
 
-// export const EXEMPLAR_SAMPLES_FOLDER_PATH = `${process.env.HOME}/Dropbox/exemplar-samples/`;
 export const EXEMPLAR_SAMPLES_FOLDER_PATH = path.join(
   __dirname,
-  '../../test/__fixtures__/exemplar-samples'
+  '../../test/__fixtures__/exemplar_seqeuence_data'
 );
 
 const ENV_HOME = process.env.HOME;

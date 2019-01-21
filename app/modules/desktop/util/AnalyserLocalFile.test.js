@@ -18,7 +18,7 @@ import detectFileSeq from './detectFileSeq';
 
 const GENERATE_JSON_FIXTURES = true;
 
-const exemplarSamplesExpect = require('../../../../test/__fixtures__/exemplar-samples.expect.json');
+const exemplarSamplesExpect = require('../../../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
 
 INCLUDE_SLOW_TESTS && jest.setTimeout(10 * 60 * 1000); // 10 minutes
 
@@ -77,13 +77,13 @@ describe('AnalyserLocalFile', () => {
               if (!isJson) {
                 // write unprocessed json
                 fs.writeFileSync(
-                  `test/__fixtures__/exemplar-samples/${source}.json`,
+                  `test/__fixtures__/exemplar_seqeuence_data/${source}.json`,
                   JSON.stringify(json, null, 2)
                 );
               }
               // write transformed json
               fs.writeFileSync(
-                `test/__fixtures__/exemplar-samples/${source}__AnalyserLocalFile__.json`,
+                `test/__fixtures__/exemplar_seqeuence_data/${source}__AnalyserLocalFile__.json`,
                 JSON.stringify(transformed, null, 2)
               );
             }

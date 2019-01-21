@@ -56,7 +56,7 @@ tmp
 web/tmp
 
 # large test fixtures
-test/__fixtures__/exemplar-samples
+test/__fixtures__/exemplar_seqeuence_data
 
 # Environment
 .env
