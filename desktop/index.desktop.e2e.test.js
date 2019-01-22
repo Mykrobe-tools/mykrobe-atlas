@@ -41,15 +41,15 @@ ensureExemplarSamples();
 // this step is very slow - compiles desktop app and creates distribution images
 // comment out while adjusting only tests
 
-// describe('Desktop e2e prerequisites', () => {
-//   it('should package app', async () => {
-//     executeCommand('yarn desktop-package');
-//   });
-//   INCLUDE_SLOW_TESTS &&
-//     it('should create distribution app', async () => {
-//       executeCommand('yarn desktop-dist');
-//     });
-// });
+describe('Desktop e2e prerequisites', () => {
+  it('should package app', async () => {
+    executeCommand('yarn desktop-package');
+  });
+  INCLUDE_SLOW_TESTS &&
+    it('should create distribution app', async () => {
+      executeCommand('yarn desktop-dist');
+    });
+});
 
 console.log('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
 
