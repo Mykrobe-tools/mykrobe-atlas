@@ -135,10 +135,14 @@ INCLUDE_SLOW_TESTS &&
       const isFocused = await browserWindow.isFocused();
       expect(isFocused).toBeTruthy();
 
-      const bounds = await browserWindow.getBounds();
+      const bounds = await browserWindow.getContentBounds();
 
       expect(bounds.width).toBeGreaterThanOrEqual(640);
       expect(bounds.height).toBeGreaterThanOrEqual(480);
+
+      // make large enough to see 'evidence' tab in screen grab
+      await browserWindow.setContentSize(1024, 1024);
+      await browserWindow.center();
     });
 
     it("should haven't any logs in console of main window", async () => {

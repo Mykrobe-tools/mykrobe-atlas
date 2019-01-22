@@ -444,5 +444,140 @@
       },
       "species": "Mycobacterium tuberculosis (lineage: East Africa Indian ocean)"
     }
+  },
+  {
+    "source": ["nanopore_file/matched-illumina-fq/BC03_1.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": ["Isoniazid"]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid RESISTANT",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "evidence": {
+        "Isoniazid": [
+          "Resistance mutation found: S315X in gene katG",
+          "1287 kmers from the resistant allele",
+          "0 kmers from the susceptible allele"
+        ]
+      },
+      "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"
+    }
+  },
+  {
+    "source": ["nanopore_file/matched-illumina-fq/BC04_1.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": []
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid SUSCEPTIBLE",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "species": "Mycobacterium tuberculosis (lineage: East Africa Indian ocean)"
+    }
+  },
+  {
+    "source": ["nanopore_file/matched-illumina-fq/BC05_1.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": []
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid SUSCEPTIBLE",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "species": "Mycobacterium tuberculosis (lineage: European American)"
+    }
   }
 ]
