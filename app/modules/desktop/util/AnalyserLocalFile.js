@@ -58,6 +58,7 @@ class AnalyserLocalFile extends EventEmitter {
   }
 
   failWithError(err: string | Error) {
+    this.cleanup();
     let message = err;
     if (err.message) {
       message = err.message;
@@ -70,8 +71,7 @@ class AnalyserLocalFile extends EventEmitter {
   }
 
   doneWithJsonString(jsonString: string) {
-    // const fs = require('fs');
-    // fs.writeFileSync('doneWithJsonString.json', jsonString);
+    this.cleanup();
     const transformer = new AnalyserJsonTransformer();
     transformer
       .transform(jsonString)
@@ -258,6 +258,11 @@ class AnalyserLocalFile extends EventEmitter {
       this.child.kill();
       delete this.child;
     }
+    this.cleanup();
+  }
+
+  cleanup() {
+    log.info('cleanup');
     try {
       this.tmpObj && this.tmpObj.removeCallback();
     } catch (error) {
