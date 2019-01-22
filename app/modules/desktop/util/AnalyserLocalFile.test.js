@@ -73,7 +73,6 @@ describe('AnalyserLocalFile', () => {
           .on('done', result => {
             const { json, transformed } = result;
             if (GENERATE_JSON_FIXTURES) {
-              const fs = require('fs');
               if (!isJson) {
                 // write unprocessed json
                 const outputPath = path.join(
