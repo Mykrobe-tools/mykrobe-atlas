@@ -166,7 +166,7 @@ INCLUDE_SLOW_TESTS &&
           .toLowerCase();
         const isJson = extension === 'json';
 
-        it(`should open source file ${source}`, async () => {
+        it(`${source} - should open source file`, async () => {
           const { client, webContents } = this.app;
           const filePath = path.join(
             EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
@@ -232,7 +232,7 @@ INCLUDE_SLOW_TESTS &&
         });
 
         if (!exemplarSamplesExpectEntry.expect.reject) {
-          it('should display the expected results', async () => {
+          it(`${source} - should display the expected results`, async () => {
             const { client } = this.app;
 
             // click each section and check the result shown in the UI
