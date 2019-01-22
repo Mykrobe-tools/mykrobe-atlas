@@ -5,6 +5,7 @@ jest.unmock('electron');
 
 import { Application } from 'spectron';
 import path from 'path';
+import fs from 'fs-extra';
 
 import * as TargetConstants from '../app/constants/TargetConstants';
 
@@ -40,15 +41,15 @@ ensureExemplarSamples();
 // this step is very slow - compiles desktop app and creates distribution images
 // comment out while adjusting only tests
 
-describe('Desktop e2e prerequisites', () => {
-  it('should package app', async () => {
-    executeCommand('yarn desktop-package');
-  });
-  INCLUDE_SLOW_TESTS &&
-    it('should create distribution app', async () => {
-      executeCommand('yarn desktop-dist');
-    });
-});
+// describe('Desktop e2e prerequisites', () => {
+//   it('should package app', async () => {
+//     executeCommand('yarn desktop-package');
+//   });
+//   INCLUDE_SLOW_TESTS &&
+//     it('should create distribution app', async () => {
+//       executeCommand('yarn desktop-dist');
+//     });
+// });
 
 console.log('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
 
@@ -84,10 +85,12 @@ INCLUDE_SLOW_TESTS &&
       // browserWindow.capturePage() is not reliable
       // so we capture screen within browser process
       const { webContents } = this.app;
-      webContents.send(
-        'capture-page',
-        path.join(EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH, filename)
+      const filePath = path.join(
+        EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH,
+        filename
       );
+      fs.ensureDirSync(path.dirname(filePath));
+      webContents.send('capture-page', filePath);
     };
 
     // these run even if test is excluded: https://github.com/facebook/jest/issues/4166

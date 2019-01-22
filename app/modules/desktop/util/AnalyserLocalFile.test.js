@@ -2,6 +2,7 @@
 
 import path from 'path';
 import parsePath from 'parse-filepath';
+import fs from 'fs-extra';
 
 import {
   ensureMykrobeBinaries,
@@ -75,20 +76,21 @@ describe('AnalyserLocalFile', () => {
               const fs = require('fs');
               if (!isJson) {
                 // write unprocessed json
-                fs.writeFileSync(
-                  path.join(
-                    EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
-                    `${source}.json`
-                  ),
-                  JSON.stringify(json, null, 2)
+                const outputPath = path.join(
+                  EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
+                  `${source}.json`
                 );
+                fs.ensureDirSync(path.dirname(outputPath));
+                fs.writeFileSync(outputPath, JSON.stringify(json, null, 2));
               }
               // write transformed json
+              const outputPath = path.join(
+                EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
+                `${source}__transformed__.json`
+              );
+              fs.ensureDirSync(path.dirname(outputPath));
               fs.writeFileSync(
-                path.join(
-                  EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
-                  `${source}__transformed__.json`
-                ),
+                outputPath,
                 JSON.stringify(transformed, null, 2)
               );
             }
