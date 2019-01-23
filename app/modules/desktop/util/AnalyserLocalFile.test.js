@@ -2,14 +2,14 @@
 
 import path from 'path';
 import parsePath from 'parse-filepath';
-
-import { isArray, isString } from 'makeandship-js-common/src/util/is';
+import fs from 'fs-extra';
 
 import {
   ensureMykrobeBinaries,
   ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
-  EXEMPLAR_SAMPLES_FOLDER_PATH,
+  EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
+  EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
   expectCaseInsensitiveEqual,
 } from '../../../../desktop/util';
 
@@ -18,7 +18,7 @@ import detectFileSeq from './detectFileSeq';
 
 const GENERATE_JSON_FIXTURES = true;
 
-const exemplarSamplesExpect = require('../../../../test/__fixtures__/exemplar-samples.expect.json');
+const exemplarSamplesExpect = require('../../../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
 
 INCLUDE_SLOW_TESTS && jest.setTimeout(10 * 60 * 1000); // 10 minutes
 
@@ -54,7 +54,7 @@ describe('AnalyserLocalFile', () => {
         console.log(`Skipping slow test for ${source}`);
         continue;
       }
-      const filePath = path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, source);
+      const filePath = path.join(EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH, source);
       const result = detectFileSeq(filePath);
       let filePaths = [filePath];
       if (result) {
@@ -73,17 +73,23 @@ describe('AnalyserLocalFile', () => {
           .on('done', result => {
             const { json, transformed } = result;
             if (GENERATE_JSON_FIXTURES) {
-              const fs = require('fs');
               if (!isJson) {
                 // write unprocessed json
-                fs.writeFileSync(
-                  `test/__fixtures__/exemplar-samples/${source}.json`,
-                  JSON.stringify(json, null, 2)
+                const outputPath = path.join(
+                  EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
+                  `${source}.json`
                 );
+                fs.ensureDirSync(path.dirname(outputPath));
+                fs.writeFileSync(outputPath, JSON.stringify(json, null, 2));
               }
               // write transformed json
+              const outputPath = path.join(
+                EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
+                `${source}__transformed__.json`
+              );
+              fs.ensureDirSync(path.dirname(outputPath));
               fs.writeFileSync(
-                `test/__fixtures__/exemplar-samples/${source}__AnalyserLocalFile__.json`,
+                outputPath,
                 JSON.stringify(transformed, null, 2)
               );
             }

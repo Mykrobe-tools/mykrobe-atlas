@@ -23,10 +23,20 @@ export const ELECTRON_EXECUTABLE_PATH =
         `Contents/MacOS/${pkg.productName}`
       );
 
-// export const EXEMPLAR_SAMPLES_FOLDER_PATH = `${process.env.HOME}/Dropbox/exemplar-samples/`;
-export const EXEMPLAR_SAMPLES_FOLDER_PATH = path.join(
+export const EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH = path.join(
   __dirname,
-  '../../test/__fixtures__/exemplar-samples'
+  '../../test/__fixtures__/exemplar_seqeuence_data'
+);
+
+export const EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH = path.join(
+  EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
+  '__test_artefacts__',
+  'img'
+);
+export const EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH = path.join(
+  EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
+  '__test_artefacts__',
+  'json'
 );
 
 const ENV_HOME = process.env.HOME;
@@ -52,10 +62,12 @@ export const executeCommand = command => {
 };
 
 export const ensureExemplarSamples = () => {
-  const exists = fs.existsSync(EXEMPLAR_SAMPLES_FOLDER_PATH);
+  const exists = fs.existsSync(EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH);
   if (!exists) {
-    throw `No bam folder found at '${EXEMPLAR_SAMPLES_FOLDER_PATH}' - Please see README.md and download bam folder before running this test`;
+    throw `No exemplar sequence data folder found at '${EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH}' - Please see README.md and download folder before running this test`;
   }
+  fs.ensureDirSync(EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH);
+  fs.ensureDirSync(EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH);
 };
 
 export const ensureMykrobeBinaries = () => {

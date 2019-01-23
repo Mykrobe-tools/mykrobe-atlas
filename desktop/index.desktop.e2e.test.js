@@ -5,13 +5,14 @@ jest.unmock('electron');
 
 import { Application } from 'spectron';
 import path from 'path';
+import fs from 'fs-extra';
 
 import * as TargetConstants from '../app/constants/TargetConstants';
 
 const DEBUG = true;
 
 const pkg = require('../package.json');
-const exemplarSamplesExpect = require('../test/__fixtures__/exemplar-samples.expect.json');
+const exemplarSamplesExpect = require('../test/__fixtures__/exemplar_seqeuence_data.expect.json');
 
 import {
   executeCommand,
@@ -19,7 +20,8 @@ import {
   ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
   ELECTRON_EXECUTABLE_PATH,
-  EXEMPLAR_SAMPLES_FOLDER_PATH,
+  EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
+  EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH,
   expectCaseInsensitiveEqual,
 } from './util';
 
@@ -83,10 +85,12 @@ INCLUDE_SLOW_TESTS &&
       // browserWindow.capturePage() is not reliable
       // so we capture screen within browser process
       const { webContents } = this.app;
-      webContents.send(
-        'capture-page',
-        path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, filename)
+      const filePath = path.join(
+        EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH,
+        filename
       );
+      fs.ensureDirSync(path.dirname(filePath));
+      webContents.send('capture-page', filePath);
     };
 
     // these run even if test is excluded: https://github.com/facebook/jest/issues/4166
@@ -131,10 +135,14 @@ INCLUDE_SLOW_TESTS &&
       const isFocused = await browserWindow.isFocused();
       expect(isFocused).toBeTruthy();
 
-      const bounds = await browserWindow.getBounds();
+      const bounds = await browserWindow.getContentBounds();
 
       expect(bounds.width).toBeGreaterThanOrEqual(640);
       expect(bounds.height).toBeGreaterThanOrEqual(480);
+
+      // make large enough to see 'evidence' tab in screen grab
+      await browserWindow.setContentSize(1024, 1024);
+      await browserWindow.center();
     });
 
     it("should haven't any logs in console of main window", async () => {
@@ -158,9 +166,12 @@ INCLUDE_SLOW_TESTS &&
           .toLowerCase();
         const isJson = extension === 'json';
 
-        it(`should open source file ${source}`, async () => {
+        it(`${source} - should open source file`, async () => {
           const { client, webContents } = this.app;
-          const filePath = path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, source);
+          const filePath = path.join(
+            EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
+            source
+          );
 
           // check existence of component
           expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
@@ -221,7 +232,7 @@ INCLUDE_SLOW_TESTS &&
         });
 
         if (!exemplarSamplesExpectEntry.expect.reject) {
-          it('should display the expected results', async () => {
+          it(`${source} - should display the expected results`, async () => {
             const { client } = this.app;
 
             // click each section and check the result shown in the UI
