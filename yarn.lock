@@ -11179,9 +11179,9 @@ make-fetch-happen@^3.0.0:
     shortid "^2.2.13"
     url "^0.11.0"
 
-"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.50":
-  version "0.0.50"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#e49543ac984f3f548c86a02110c4d5c9ad42a791"
+"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.54":
+  version "0.0.54"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#6fd8aff623a3eb6d044c13959ac1f04a5752ebe2"
   dependencies:
     ajv "^6.5.1"
     base-64 "^0.1.0"

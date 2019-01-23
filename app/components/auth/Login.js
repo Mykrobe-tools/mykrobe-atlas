@@ -53,6 +53,7 @@ class Login extends React.Component<*> {
         <Container fluid>
           <DecoratedForm
             formKey="auth/login"
+            promptUnsavedChanges={false}
             schema={loginSchema}
             uiSchema={uiSchema}
             onSubmit={signIn}

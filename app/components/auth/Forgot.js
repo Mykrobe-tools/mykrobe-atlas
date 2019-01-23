@@ -39,6 +39,7 @@ class Forgot extends React.Component<*> {
         <Container fluid>
           <DecoratedForm
             formKey="auth/forgot"
+            promptUnsavedChanges={false}
             schema={forgotPasswordSchema}
             uiSchema={uiSchema}
             onSubmit={onSubmit}
