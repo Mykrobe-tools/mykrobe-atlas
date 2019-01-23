@@ -4,9 +4,11 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Lozenge.scss';
 
+const SCALE = 1.3;
+
 const LozengeDimensions = {
-  width: 185,
-  height: 65,
+  width: SCALE * 185,
+  height: SCALE * 65,
 };
 
 type State = {
@@ -39,12 +41,12 @@ class Lozenge extends React.Component<*, State> {
     const { containerWidth, containerHeight } = props;
     this.setState({
       initialised: true,
-      x: (-0.1 + 1.2 * Math.random()) * containerWidth,
-      y: 300 + Math.random() * (containerHeight - 200),
-      scale: 1.5 + Math.random() * 0.5,
+      x: (-0.2 + 1.2 * Math.random()) * containerWidth,
+      y: Math.random() * containerHeight,
+      scale: 0.75 + Math.random() * 0.25,
       rotation: Math.random() * 180,
-      vx: 0.1 + Math.random() * 0.2,
-      vr: 0.1 + Math.random() * 0.2,
+      vx: 0.15 + Math.random() * 0.15,
+      vr: 0.15 + Math.random() * 0.15,
     });
   }
 
@@ -76,11 +78,11 @@ class Lozenge extends React.Component<*, State> {
       y,
       rotation,
     };
-    newState.x += vx * 3;
+    newState.x += vx * 2;
     newState.rotation += vr * 0.5;
     if (newState.x > containerWidth + thisWidth) {
-      newState.x -= containerWidth + 2 * thisWidth;
-      newState.y = 300 + Math.random() * (containerHeight - 200);
+      newState.x = -thisWidth - Math.random() * thisWidth;
+      newState.y = Math.random() * containerHeight;
     }
     this.setState(newState);
     this._raf = requestAnimationFrame(this.onEnterFrame);
@@ -89,6 +91,9 @@ class Lozenge extends React.Component<*, State> {
   render() {
     const { lozengeClassName } = this.props;
     const { x, y, rotation, scale } = this.state;
+    const width = scale * LozengeDimensions.width;
+    const height = scale * LozengeDimensions.height;
+    const opacity = scale;
     return (
       <div
         className={styles.lozengeContainer}
@@ -100,8 +105,9 @@ class Lozenge extends React.Component<*, State> {
           className={lozengeClassName || styles.lozengeBlue}
           style={{
             transform: `rotate(${rotation}deg) translate3d(0, 0, 0)`,
-            width: `${scale * LozengeDimensions.width}px`,
-            height: `${scale * LozengeDimensions.height}px`,
+            opacity: `${opacity}`,
+            width: `${width}px`,
+            height: `${height}px`,
           }}
         />
       </div>
