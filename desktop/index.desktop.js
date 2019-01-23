@@ -90,6 +90,7 @@ app.on('ready', async () => {
     if (SHOW_DEV_TOOLS) {
       mainWindow.webContents.openDevTools();
     }
+    mainWindow.center();
     mainWindow.show();
     mainWindow.focus();
   });

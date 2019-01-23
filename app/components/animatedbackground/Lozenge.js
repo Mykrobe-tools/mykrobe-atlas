@@ -59,9 +59,7 @@ class Lozenge extends React.Component<*, State> {
   }
 
   componentDidMount() {
-    this._raf = requestAnimationFrame(() => {
-      this.onEnterFrame();
-    });
+    this._raf = requestAnimationFrame(this.onEnterFrame);
   }
 
   componentWillUnmount() {
@@ -69,7 +67,7 @@ class Lozenge extends React.Component<*, State> {
     delete this._raf;
   }
 
-  onEnterFrame() {
+  onEnterFrame = () => {
     const { x, y, scale, rotation, vx, vr } = this.state;
     const { containerWidth, containerHeight } = this.props;
     const thisWidth = LozengeDimensions.width * scale;
@@ -85,10 +83,8 @@ class Lozenge extends React.Component<*, State> {
       newState.y = 300 + Math.random() * (containerHeight - 200);
     }
     this.setState(newState);
-    this._raf = requestAnimationFrame(() => {
-      this.onEnterFrame();
-    });
-  }
+    this._raf = requestAnimationFrame(this.onEnterFrame);
+  };
 
   render() {
     const { lozengeClassName } = this.props;
