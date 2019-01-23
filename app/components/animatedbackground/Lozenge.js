@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Lozenge.scss';
 
-const SCALE = 1.3;
+const SCALE = 1.5;
 
 const LozengeDimensions = {
   width: SCALE * 185,

@@ -90,9 +90,13 @@ app.on('ready', async () => {
     if (SHOW_DEV_TOOLS) {
       mainWindow.webContents.openDevTools();
     }
-    mainWindow.center();
-    mainWindow.show();
-    mainWindow.focus();
+    // FIXME: timeout avoids 1 frame of rendering with no text before fonts are ready
+    // find a more concrete way e.g. measure a fragment of styled text, callback when font is ready
+    setTimeout(() => {
+      mainWindow.center();
+      mainWindow.show();
+      mainWindow.focus();
+    }, 0);
   });
 
   mainWindow.on('closed', () => {

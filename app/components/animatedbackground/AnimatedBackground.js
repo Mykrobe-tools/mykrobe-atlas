@@ -5,7 +5,7 @@ import Lozenge from './Lozenge';
 import styles from './AnimatedBackground.scss';
 import lozengeStyles from './Lozenge.scss';
 
-const LOZENGES_PER_COLOR = 10;
+const LOZENGES_PER_COLOR = 8;
 
 type State = {
   width: number,
