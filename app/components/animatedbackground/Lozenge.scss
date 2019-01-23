@@ -1,5 +1,6 @@
 .lozengeContainer {
 	position: absolute;
+	animation: fadein 2s;
 }
 
 .lozenge {
@@ -16,4 +17,13 @@
 .lozengeYellow {
 	composes: lozenge;
 	background-color: rgba(255, 137, 0, 0.7);
+}
+
+@keyframes fadein {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
