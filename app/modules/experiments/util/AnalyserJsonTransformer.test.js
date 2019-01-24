@@ -16,7 +16,7 @@ const samples = [
 
 const BASE_PATH = path.join(
   __dirname,
-  '../../../../test/__fixtures__/exemplar_seqeuence_data'
+  '../../../../test/__fixtures__/exemplar_seqeuence_data/__test_artefacts__/json'
 );
 
 describe('AnalyserJsonTransformer', () => {
