@@ -16,6 +16,7 @@ Object {
           "onSuccess": [Function],
           "operationId": "usersCreate",
         },
+        "meta": undefined,
         "parameters": Object {
           "body": Object {
             "test": true,
@@ -48,6 +49,7 @@ Object {
           "onSuccess": [Function],
           "operationId": "currentUserDelete",
         },
+        "meta": undefined,
         "parameters": undefined,
         "types": Array [
           "users/currentUser/DELETE_CURRENT_USER_REQUEST",
@@ -76,6 +78,7 @@ Object {
           "onFailure": [Function],
           "operationId": "currentUserGet",
         },
+        "meta": undefined,
         "parameters": undefined,
         "types": Array [
           "users/currentUser/REQUEST_CURRENT_USER_REQUEST",
@@ -106,6 +109,7 @@ Object {
           "onSuccess": [Function],
           "operationId": "currentUserUpdate",
         },
+        "meta": undefined,
         "parameters": Object {
           "body": Object {
             "test": true,

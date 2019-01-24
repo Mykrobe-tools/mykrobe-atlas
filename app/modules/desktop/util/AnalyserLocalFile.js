@@ -121,7 +121,7 @@ class AnalyserLocalFile extends EventEmitter {
   }
 
   analyseBinaryFile(filePaths: Array<string>): AnalyserLocalFile {
-    this.tmpObj = tmp.dirSync({prefix:'mykrobe-'});
+    this.tmpObj = tmp.dirSync({ prefix: 'mykrobe-' });
     const skeletonDir = path.join(this.tmpObj.name, 'skeleton');
 
     const fileName = path.parse(filePaths[0]).name;

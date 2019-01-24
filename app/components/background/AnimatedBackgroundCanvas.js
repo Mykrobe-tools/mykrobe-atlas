@@ -1,103 +1,15 @@
 /* @flow */
 
 import * as React from 'react';
+
 import styles from './AnimatedBackgroundCanvas.scss';
-
-const SCALE = 1.5;
-
-const LOZENGES_PER_COLOR = 8;
-
-const LOZENGE_COLORS = ['rgba(0, 93, 138, 0.8)', 'rgba(255, 137, 0, 0.7)'];
-
-const LozengeDimensions = {
-  width: SCALE * 185,
-  height: SCALE * 65,
-};
+import { CanvasLozenge } from './CanvasLozenge';
+import { LOZENGE_COLORS, LOZENGES_PER_COLOR } from './constants';
 
 type State = {
   width: number,
   height: number,
 };
-
-const fillRoundedRect = (context, x, y, w, h, r) => {
-  r = Math.min(r, w / 2, h / 2);
-  context.beginPath();
-  context.moveTo(x + r, y);
-  context.arcTo(x + w, y, x + w, y + h, r);
-  context.arcTo(x + w, y + h, x, y + h, r);
-  context.arcTo(x, y + h, x, y, r);
-  context.arcTo(x, y, x + w, y, r);
-  context.fill();
-};
-
-class CanvasLozenge {
-  constructor({ containerWidth, containerHeight, color }) {
-    this.state = {
-      initialised: true,
-      x: (-0.2 + 1.2 * Math.random()) * containerWidth,
-      y: Math.random() * containerHeight,
-      scale: 0.75 + Math.random() * 0.25,
-      rotation: Math.random() * 180,
-      vx: 0.15 + Math.random() * 0.15,
-      vr: 0.15 + Math.random() * 0.15,
-    };
-    this.props = {
-      containerWidth,
-      containerHeight,
-      color,
-    };
-  }
-
-  setProps = props => {
-    this.props = {
-      ...this.props,
-      ...props,
-    };
-  };
-
-  onEnterFrame = () => {
-    const { x, y, scale, rotation, vx, vr } = this.state;
-    const { containerWidth, containerHeight } = this.props;
-    const thisWidth = LozengeDimensions.width * scale;
-    let newState = {
-      x,
-      y,
-      rotation,
-    };
-    newState.x += vx * 2;
-    newState.rotation += (vr * 0.5 * 3.14) / 180.0;
-    if (newState.x > containerWidth + thisWidth) {
-      newState.x = -thisWidth - Math.random() * thisWidth;
-      newState.y = Math.random() * containerHeight;
-    }
-    this.state = {
-      ...this.state,
-      ...newState,
-    };
-  };
-
-  renderInContext = context => {
-    const { color } = this.props;
-    const { x, y, rotation, scale } = this.state;
-    const width = scale * LozengeDimensions.width;
-    const height = scale * LozengeDimensions.height;
-    // const opacity = scale;
-    context.save();
-    context.translate(x, y);
-    context.rotate(rotation);
-    context.fillStyle = color;
-    fillRoundedRect(
-      context,
-      -0.5 * width,
-      -0.5 * height,
-      width,
-      height,
-      0.25 * width
-    );
-    // fillRoundedRect(context, -50, -100, 100, 200, 50);
-    context.restore();
-  };
-}
 
 class AnimatedBackgroundCanvas extends React.Component<*, State> {
   _canvasRef: HTMLCanvasElement;
@@ -105,6 +17,7 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
   _context: CanvasRenderingContext2D;
   _raf: number;
   _lozenges: Array<CanvasLozenge>;
+  _measureContainerDeferred: number;
 
   state = {
     width: 1024,
@@ -134,20 +47,31 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize);
     this._raf && cancelAnimationFrame(this._raf);
+    this._measureContainerDeferred &&
+      clearTimeout(this._measureContainerDeferred);
   }
 
   resize = () => {
     this.measureContainer();
   };
 
-  measureContainer() {
-    if (!this._container) {
-      return;
-    }
-    // FIXME - maybe overflow: hidden on container will prevent this being necessary?
-    // reset canvas size so the containing DOM element relaxes to natural size
+  measureContainerDeferred = () => {
+    this._measureContainerDeferred &&
+      clearTimeout(this._measureContainerDeferred);
+    this._measureContainerDeferred = setTimeout(this.measureContainer, 0);
+  };
+
+  measureContainer = () => {
     const boundingClientRect = this._container.getBoundingClientRect();
     const { width, height } = boundingClientRect;
+    // returns 0 if still initialising layout
+    const stillInitialisingLayout = 0 === height;
+    if (stillInitialisingLayout) {
+      // try again next frame
+      this.measureContainerDeferred();
+      return;
+    }
+    console.log('boundingClientRect', boundingClientRect);
     this.setState({
       width,
       height,
@@ -158,11 +82,14 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
         containerHeight: height,
       });
     });
-  }
+  };
 
   containerRef = (ref: Element | null) => {
+    if (!ref) {
+      return;
+    }
     this._container = ref;
-    this.measureContainer();
+    this.measureContainerDeferred();
   };
 
   canvasRef = (ref: HTMLCanvasElement | null) => {
@@ -171,6 +98,7 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
     }
     this._canvasRef = ref;
     this._context = ref.getContext('2d', { alpha: false });
+    this.measureContainerDeferred();
   };
 
   renderCanvas = () => {
@@ -190,7 +118,6 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
 
   render() {
     const { width, height } = this.state;
-
     return (
       <div ref={this.containerRef} className={styles.container}>
         <canvas width={width} height={height} ref={this.canvasRef} />

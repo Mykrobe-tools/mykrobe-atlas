@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 
 import styles from './Upload.scss';
-import AnimatedBackground from '../background/AnimatedBackground';
+import AnimatedBackgroundCanvas from '../background/AnimatedBackgroundCanvas';
 import CircularProgress from '../ui/CircularProgress';
 import Logo from '../logo/Logo';
 import * as UIHelpers from '../../helpers/UIHelpers';
@@ -103,7 +103,7 @@ class Upload extends React.Component<*> {
     const { isAnalysing } = this.props;
     return (
       <div className={styles.container} data-tid="component-upload">
-        <AnimatedBackground />
+        <AnimatedBackgroundCanvas />
         <div className={styles.contentContainer}>
           {isAnalysing
             ? this.renderContentAnalysing()

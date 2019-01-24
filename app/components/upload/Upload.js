@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import styles from './Upload.scss';
-import AnimatedBackground from '../background/AnimatedBackground';
+import AnimatedBackgroundCanvas from '../background/AnimatedBackgroundCanvas';
 import Logo from '../logo/Logo';
 import Header from '../header/Header';
 
@@ -19,7 +19,7 @@ class Upload extends React.Component<*> {
     const { isAuthenticated } = this.props;
     return (
       <div className={styles.container} data-tid="component-upload">
-        <AnimatedBackground />
+        <AnimatedBackgroundCanvas />
         <div className={styles.contentContainer}>
           <div className={styles.content}>
             <div className={styles.logoWrap}>
