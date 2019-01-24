@@ -6,10 +6,19 @@
 
 .summaryContainer {
 	composes: container from 'styles/layout.scss';
-	flex-wrap: wrap;
-	flex-direction: row;
+	flex-direction: column;
 	padding: 18px;
+}
+
+.topRow {
+	display: flex;
+}
+
+.bottomRow {
+	display: flex;
+	flex-direction: row;
 	align-items: stretch;
+	flex: 1 0 auto;
 }
 
 .title {
