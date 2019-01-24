@@ -2,10 +2,10 @@
 
 import EventEmitter from 'events';
 import path from 'path';
-import fs from 'fs';
 import { spawn } from 'child_process';
 import readline from 'readline';
 import log from 'electron-log';
+import fs from 'fs-extra';
 
 import { isString } from 'makeandship-js-common/src/util/is';
 
@@ -121,7 +121,7 @@ class AnalyserLocalFile extends EventEmitter {
   }
 
   analyseBinaryFile(filePaths: Array<string>): AnalyserLocalFile {
-    this.tmpObj = tmp.dirSync();
+    this.tmpObj = tmp.dirSync({prefix:'mykrobe-'});
     const skeletonDir = path.join(this.tmpObj.name, 'skeleton');
 
     const fileName = path.parse(filePaths[0]).name;
@@ -263,11 +263,8 @@ class AnalyserLocalFile extends EventEmitter {
 
   cleanup() {
     log.info('cleanup');
-    try {
-      this.tmpObj && this.tmpObj.removeCallback();
-    } catch (error) {
-      // may fail if the temp directory is not empty
-    }
+    // this.tmpObj.removeCallback() doesn't always work
+    this.tmpObj && fs.removeSync(this.tmpObj.name);
   }
 }
 
