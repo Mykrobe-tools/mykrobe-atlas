@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import styles from './Upload.scss';
-import AnimatedBackground from '../animatedbackground/AnimatedBackground';
+import AnimatedBackground from '../background/AnimatedBackground';
 import Logo from '../logo/Logo';
 import Header from '../header/Header';
 

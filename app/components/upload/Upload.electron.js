@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 
 import styles from './Upload.scss';
-import AnimatedBackground from '../animatedbackground/AnimatedBackground';
+import AnimatedBackground from '../background/AnimatedBackground';
 import CircularProgress from '../ui/CircularProgress';
 import Logo from '../logo/Logo';
 import * as UIHelpers from '../../helpers/UIHelpers';
