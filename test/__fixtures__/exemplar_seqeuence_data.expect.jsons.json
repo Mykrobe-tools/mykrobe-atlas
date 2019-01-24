@@ -1,6 +1,6 @@
 [
   {
-    "source": ["INH_monoresistant.fastq.gz.json"],
+    "source": ["__test_artefacts__/json/INH_monoresistant.fastq.gz.json"],
     "expect": {
       "all": {
         "susceptible": [
@@ -49,7 +49,7 @@
     }
   },
   {
-    "source": ["MDR.fastq.gz.json"],
+    "source": ["__test_artefacts__/json/MDR.fastq.gz.json"],
     "expect": {
       "all": {
         "susceptible": [
@@ -103,13 +103,13 @@
     }
   },
   {
-    "source": ["Mycobacterium_kansasii.bam.json"],
+    "source": ["__test_artefacts__/json/Mycobacterium_kansasii.bam.json"],
     "expect": {
       "species": "Mycobacterium kansasii (lineage: Unknown)"
     }
   },
   {
-    "source": ["RIF_monoresistant.fastq.gz.json"],
+    "source": ["__test_artefacts__/json/RIF_monoresistant.fastq.gz.json"],
     "expect": {
       "all": {
         "susceptible": [
@@ -158,7 +158,7 @@
     }
   },
   {
-    "source": ["XDR.fastq.gz.json"],
+    "source": ["__test_artefacts__/json/XDR.fastq.gz.json"],
     "expect": {
       "all": {
         "susceptible": [],
@@ -262,7 +262,7 @@
     }
   },
   {
-    "source": ["nanopore_file/expected-results-from-cmdline-on-illumina/bc01.json"],
+    "source": ["expected-results-from-cmdline-on-illumina/bc01.json"],
     "expect": {
       "all": {
         "susceptible": [
