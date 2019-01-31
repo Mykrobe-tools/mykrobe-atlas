@@ -145,6 +145,7 @@ class AnalyserLocalFile extends EventEmitter {
       skeletonDir,
       '--format',
       'json',
+      '--guess_sequence_method',
       '--quiet',
     ];
 

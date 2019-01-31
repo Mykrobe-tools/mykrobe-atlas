@@ -246,7 +246,7 @@ INCLUDE_SLOW_TESTS &&
                   '[data-tid="component-resistance-drugs"]'
                 )
               ).toBe(true);
-              await saveScreenshot(`${source}__resistance-drugs__.png`);
+              await saveScreenshot(`${source}__resistance-drugs.png`);
               if (exemplarSamplesExpectEntry.expect.drugs) {
                 const firstLineDrugs = await textForSelector(
                   '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
