@@ -12,7 +12,7 @@ import { isString } from 'makeandship-js-common/src/util/is';
 import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransformer';
 import * as APIConstants from '../../../constants/APIConstants';
 
-import pathToBin from './pathToBin';
+import { pathToBin, pathToMccortex, validateTarget } from './pathToBin';
 import extensionForFileName from './extensionForFileName';
 
 const tmp = require('tmp');
@@ -121,6 +121,8 @@ class AnalyserLocalFile extends EventEmitter {
   }
 
   analyseBinaryFile(filePaths: Array<string>): AnalyserLocalFile {
+    validateTarget();
+
     this.tmpObj = tmp.dirSync({ prefix: 'mykrobe-' });
     const skeletonDir = path.join(this.tmpObj.name, 'skeleton');
 
@@ -131,6 +133,7 @@ class AnalyserLocalFile extends EventEmitter {
     this.processExited = false;
 
     const pathToBinValue = pathToBin();
+    const pathToMccortexValue = pathToMccortex();
 
     // FIXME: if we don't use --force, occasionally get error - some files cached??
 
@@ -143,6 +146,8 @@ class AnalyserLocalFile extends EventEmitter {
       ...filePaths,
       '--skeleton_dir',
       skeletonDir,
+      '--mccortex31_path',
+      pathToMccortexValue,
       '--format',
       'json',
       '--guess_sequence_method',
