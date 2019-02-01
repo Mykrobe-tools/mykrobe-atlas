@@ -30,7 +30,7 @@ This will checkout or update the latest source from [https://github.com/iqbal-la
 
 1. Setup environment
 
-	- Install [NodeJS](https://nodejs.org/dist/v8.9.1/node-v8.9.1-x64.msi)
+	- Install [NodeJS](https://nodejs.org/dist/v8.12.0/node-v8.12.0-x64.msi)
 	- Install [Yarn](https://yarnpkg.com/latest.msi)
 	- Install [Cygwin64](https://www.cygwin.com/setup-x86_64.exe) with the following packages:
 
