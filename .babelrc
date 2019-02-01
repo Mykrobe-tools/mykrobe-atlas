@@ -14,7 +14,11 @@
 	"plugins": [
 		"add-module-exports",
 		"inline-dotenv",
-		"transform-runtime",
+		["transform-runtime", {
+			"helpers": false,
+			"polyfill": false,
+			"regenerator": true
+		}],
 		"transform-flow-strip-types"
 	],
 	"env": {
