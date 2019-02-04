@@ -190,6 +190,15 @@ app.on('ready', async () => {
               mainWindow.send('menu-capture-page');
             },
           },
+          {
+            type: 'separator',
+          },
+          {
+            label: 'Exit',
+            click() {
+              app.quit();
+            },
+          },
         ],
       },
       {
@@ -309,14 +318,39 @@ app.on('ready', async () => {
         label: '&File',
         submenu: [
           {
-            label: '&Open',
-            accelerator: 'Ctrl+O',
+            label: '&New',
+            accelerator: 'Ctrl+N',
+            click() {
+              mainWindow.send('menu-file-new');
+            },
           },
           {
-            label: '&Close',
-            accelerator: 'Ctrl+W',
+            type: 'separator',
+          },
+          {
+            label: '&Open File…',
+            accelerator: 'Ctrl+O',
             click() {
-              mainWindow.close();
+              mainWindow.send('menu-file-open');
+            },
+          },
+          {
+            type: 'separator',
+          },
+          {
+            label: '&Save As…',
+            accelerator: 'Ctrl+Shift+S',
+            click() {
+              mainWindow.send('menu-file-save-as');
+            },
+          },
+          {
+            type: 'separator',
+          },
+          {
+            label: 'Save Screenshot…',
+            click() {
+              mainWindow.send('menu-capture-page');
             },
           },
         ],
