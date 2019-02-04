@@ -190,15 +190,6 @@ app.on('ready', async () => {
               mainWindow.send('menu-capture-page');
             },
           },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Exit',
-            click() {
-              app.quit();
-            },
-          },
         ],
       },
       {
@@ -351,6 +342,15 @@ app.on('ready', async () => {
             label: 'Save Screenshot…',
             click() {
               mainWindow.send('menu-capture-page');
+            },
+          },
+          {
+            type: 'separator',
+          },
+          {
+            label: 'Exit',
+            click() {
+              app.quit();
             },
           },
         ],
