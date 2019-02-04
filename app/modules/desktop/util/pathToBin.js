@@ -10,50 +10,62 @@ const app = require('electron').remote.app;
 const platform = os.platform(); // eslint-disable-line global-require
 const arch = os.arch();
 
-const dirToBin = () => {
+export const isWindows = platform === 'win32';
+
+export const rootDir = () => {
   const rootDir =
     process.env.NODE_ENV === 'development' ? process.cwd() : app.getAppPath();
   log.info('rootDir', rootDir);
-
-  let dirToBin = '';
-
-  if (process.env.NODE_ENV === 'development') {
-    dirToBin = path.join(
-      rootDir,
-      `desktop/resources/bin/${
-        TargetConstants.TARGET_NAME
-      }/${platform}-${arch}/bin`
-    );
-  } else {
-    dirToBin = path.join(rootDir, '../bin');
-  }
-  log.info('dirToBin', dirToBin);
-  return dirToBin;
+  return rootDir;
 };
 
-const pathToBin = () => {
+export const validateTarget = () => {
   const UnsupportedError = new Error({
     message: 'Unsupported configuration',
     config: TargetConstants,
   });
 
-  const dirToBinVal = dirToBin();
-
-  let pathToBin = '';
-
   if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
-    pathToBin = path.join(
-      dirToBinVal,
-      platform === 'win32' ? 'mykrobe_atlas.exe' : 'mykrobe_atlas'
-    );
+    // supported
   } else {
     // unsupported configuration
     throw UnsupportedError;
   }
+};
 
+export const dirToBin = () => {
+  const rootDirValue = rootDir();
+
+  let dirToBin;
+
+  if (process.env.NODE_ENV === 'development') {
+    dirToBin = path.join(
+      rootDirValue,
+      `desktop/resources/bin/${
+        TargetConstants.TARGET_NAME
+      }/${platform}-${arch}/bin`
+    );
+  } else {
+    dirToBin = path.join(rootDirValue, '../bin');
+  }
+  log.info('dirToBin', dirToBin);
+  return dirToBin;
+};
+
+export const pathToBin = () => {
+  const pathToBin = path.join(
+    dirToBin(),
+    isWindows ? 'mykrobe_atlas.exe' : 'mykrobe_atlas'
+  );
   log.info('pathToBin', pathToBin);
-
   return pathToBin;
 };
 
-export default pathToBin;
+export const pathToMccortex = () => {
+  const pathToMccortex = path.join(
+    dirToBin(),
+    isWindows ? 'mccortex31.exe' : 'mccortex31'
+  );
+  log.info('pathToMccortex', pathToMccortex);
+  return pathToMccortex;
+};

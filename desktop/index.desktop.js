@@ -4,6 +4,10 @@ import { app, BrowserWindow, Menu, shell } from 'electron';
 import log from 'electron-log';
 import { autoUpdater } from 'electron-updater';
 
+const DEBUG =
+  process.env.DEBUG_PRODUCTION === '1' ||
+  process.env.NODE_ENV === 'development';
+
 if (process.env.NODE_ENV === 'production') {
   setupAutoUpdater();
 }
@@ -16,10 +20,7 @@ let mainWindow: BrowserWindow;
 let filepath;
 let ready = false;
 
-const SHOW_DEV_TOOLS = process.env.NODE_ENV === 'development';
-// const SHOW_DEV_TOOLS = true;
-
-if (process.env.NODE_ENV === 'development') {
+if (DEBUG) {
   require('electron-debug')(); // eslint-disable-line global-require
   const path = require('path');
   const p = path.join(__dirname, '../node_modules');
@@ -87,7 +88,7 @@ app.on('ready', async () => {
   }
 
   mainWindow.webContents.on('did-finish-load', () => {
-    if (SHOW_DEV_TOOLS) {
+    if (DEBUG) {
       mainWindow.webContents.openDevTools();
     }
     // FIXME: timeout avoids 1 frame of rendering with no text before fonts are ready
@@ -231,7 +232,7 @@ app.on('ready', async () => {
       },
       {
         label: 'View',
-        submenu: SHOW_DEV_TOOLS
+        submenu: DEBUG
           ? [
               {
                 label: 'Reload',
@@ -308,54 +309,87 @@ app.on('ready', async () => {
         label: '&File',
         submenu: [
           {
-            label: '&Open',
-            accelerator: 'Ctrl+O',
+            label: '&New',
+            accelerator: 'Ctrl+N',
+            click() {
+              mainWindow.send('menu-file-new');
+            },
           },
           {
-            label: '&Close',
-            accelerator: 'Ctrl+W',
+            type: 'separator',
+          },
+          {
+            label: '&Open File…',
+            accelerator: 'Ctrl+O',
             click() {
-              mainWindow.close();
+              mainWindow.send('menu-file-open');
+            },
+          },
+          {
+            type: 'separator',
+          },
+          {
+            label: '&Save As…',
+            accelerator: 'Ctrl+Shift+S',
+            click() {
+              mainWindow.send('menu-file-save-as');
+            },
+          },
+          {
+            type: 'separator',
+          },
+          {
+            label: 'Save Screenshot…',
+            click() {
+              mainWindow.send('menu-capture-page');
+            },
+          },
+          {
+            type: 'separator',
+          },
+          {
+            label: 'Exit',
+            click() {
+              app.quit();
             },
           },
         ],
       },
       {
         label: '&View',
-        submenu:
-          process.env.NODE_ENV === 'development'
-            ? [
-                {
-                  label: '&Reload',
-                  accelerator: 'Ctrl+R',
-                  click() {
-                    mainWindow.webContents.reload();
-                  },
+        submenu: DEBUG
+          ? [
+              {
+                label: '&Reload',
+                accelerator: 'Ctrl+R',
+                click() {
+                  mainWindow.webContents.reload();
                 },
-                {
-                  label: 'Toggle &Full Screen',
-                  accelerator: 'F11',
-                  click() {
-                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                  },
+              },
+              {
+                label: 'Toggle &Full Screen',
+                accelerator: 'F11',
+                click() {
+                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
                 },
-                {
-                  label: 'Toggle &Developer Tools',
-                  accelerator: 'Alt+Ctrl+I',
-                  click() {
-                    mainWindow.toggleDevTools();
-                  },
+              },
+              {
+                label: 'Toggle &Developer Tools',
+                accelerator: 'Alt+Ctrl+I',
+                click() {
+                  mainWindow.toggleDevTools();
                 },
-              ]
-            : [
-                {
-                  label: 'Toggle &Full Screen',
-                  accelerator: 'F11',
-                  click() {
-                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                  },
+              },
+            ]
+          : [
+              {
+                label: 'Toggle &Full Screen',
+                accelerator: 'F11',
+                click() {
+                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
                 },
-              ],
+              },
+            ],
       },
       {
         label: 'Help',

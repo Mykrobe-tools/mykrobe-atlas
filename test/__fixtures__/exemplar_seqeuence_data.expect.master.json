@@ -499,6 +499,7 @@
     "expect": {
       "all": {
         "susceptible": [
+          "Pyrazinamide",
           "Rifampicin",
           "Amikacin",
           "Capreomycin"
@@ -510,8 +511,7 @@
           "Kanamycin",
           "Ethambutol",
           "Streptomycin",
-          "Ciprofloxacin",
-          "Pyrazinamide"
+          "Ciprofloxacin"
         ]
       },
       "drugs": {
@@ -519,7 +519,7 @@
           "Isoniazid RESISTANT",
           "Rifampicin SUSCEPTIBLE",
           "Ethambutol RESISTANT",
-          "Pyrazinamide RESISTANT"
+          "Pyrazinamide SUSCEPTIBLE"
         ],
         "secondLineDrugs": [
           "Ofloxacin RESISTANT",
@@ -537,9 +537,9 @@
       },
       "evidence": {
         "Isoniazid": [
-          "Resistance mutation found: CGT66C in gene katG",
-          "51 kmers from the resistant allele",
-          "41 kmers from the susceptible allele"
+          "Resistance mutation found: S315X in gene katG",
+          "323 kmers from the resistant allele",
+          "0 kmers from the susceptible allele"
         ],
         "Ethambutol": [
           "Resistance mutation found: Q497R in gene embB",
@@ -570,12 +570,7 @@
           "Resistance mutation found: A90V in gene gyrA",
           "271 kmers from the resistant allele",
           "1 kmers from the susceptible allele"
-        ],
-        "Pyrazinamide": [
-          "Resistance mutation found: TC193T in gene pncA",
-          "55 kmers from the resistant allele",
-          "109 kmers from the susceptible allele"
-        ]
+         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"
     }
@@ -587,31 +582,31 @@
         "susceptible": [
           "Ofloxacin",
           "Moxifloxacin",
+          "Isoniazid",
           "Kanamycin",
           "Ethambutol",
+          "Streptomycin",
           "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
           "Amikacin",
           "Capreomycin"
         ],
         "resistant": [
-          "Isoniazid",
-          "Streptomycin",
-          "Pyrazinamide",
-          "Rifampicin"
         ]
       },
       "drugs": {
         "firstLineDrugs": [
-          "Isoniazid RESISTANT",
-          "Rifampicin RESISTANT",
+          "Isoniazid SUSCEPTIBLE",
+          "Rifampicin SUSCEPTIBLE",
           "Ethambutol SUSCEPTIBLE",
-          "Pyrazinamide RESISTANT"
+          "Pyrazinamide SUSCEPTIBLE"
         ],
         "secondLineDrugs": [
           "Ofloxacin SUSCEPTIBLE",
           "Moxifloxacin SUSCEPTIBLE",
           "Ciprofloxacin SUSCEPTIBLE",
-          "Streptomycin RESISTANT",
+          "Streptomycin SUSCEPTIBLE",
           "Amikacin SUSCEPTIBLE",
           "Capreomycin SUSCEPTIBLE",
           "Kanamycin SUSCEPTIBLE"
@@ -620,28 +615,6 @@
           "mdr": false,
           "xdr": false
         }
-      },
-      "evidence": {
-        "Isoniazid": [
-          "Resistance mutation found: CG39C in gene katG",
-          "126 kmers from the resistant allele",
-          "449 kmers from the susceptible allele"
-        ],
-        "Streptomycin": [
-          "Resistance mutation found: L91P in gene gid",
-          "190 kmers from the resistant allele",
-          "528 kmers from the susceptible allele"
-        ],
-        "Pyrazinamide": [
-          "Resistance mutation found: CGT24C in gene pncA",
-          "252 kmers from the resistant allele",
-          "731 kmers from the susceptible allele"
-        ],
-        "Rifampicin": [
-          "Resistance mutation found: CG1322C in gene rpoB",
-          "158 kmers from the resistant allele",
-          "503 kmers from the susceptible allele"
-        ]
       },
       "species": "Mycobacterium tuberculosis (lineage: East Africa Indian ocean)"
     }
@@ -657,13 +630,13 @@
           "Ethambutol",
           "Streptomycin",
           "Ciprofloxacin",
+          "Pyrazinamide",
           "Rifampicin",
           "Amikacin",
           "Capreomycin"
         ],
         "resistant": [
-          "Isoniazid",
-          "Pyrazinamide"
+          "Isoniazid"
         ]
       },
       "drugs": {
@@ -671,7 +644,7 @@
           "Isoniazid RESISTANT",
           "Rifampicin SUSCEPTIBLE",
           "Ethambutol SUSCEPTIBLE",
-          "Pyrazinamide RESISTANT"
+          "Pyrazinamide SUSCEPTIBLE"
         ],
         "secondLineDrugs": [
           "Ofloxacin SUSCEPTIBLE",
@@ -689,17 +662,12 @@
       },
       "evidence": {
         "Isoniazid": [
-          "Resistance mutation found: TG422T in gene katG",
-          "59 kmers from the resistant allele",
-          "31 kmers from the susceptible allele"
-        ],
-        "Pyrazinamide": [
-          "Resistance mutation found: TC556T in gene pncA",
-          "55 kmers from the resistant allele",
-          "92 kmers from the susceptible allele"
+          "Resistance mutation found: S315X in gene katG",
+          "153 kmers from the resistant allele",
+          "0 kmers from the susceptible allele"
         ]
       },
-      "species": "Mycobacterium tuberculosis (lineage: European American)"
+      "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"
     }
   },
   {
@@ -709,25 +677,24 @@
         "susceptible": [
           "Ofloxacin",
           "Moxifloxacin",
+          "Isoniazid",
           "Kanamycin",
           "Ethambutol",
           "Streptomycin",
           "Ciprofloxacin",
+          "Pyrazinamide",
           "Rifampicin",
           "Amikacin",
           "Capreomycin"
         ],
-        "resistant": [
-          "Isoniazid",
-          "Pyrazinamide"
-        ]
+        "resistant": []
       },
       "drugs": {
         "firstLineDrugs": [
-          "Isoniazid RESISTANT",
+          "Isoniazid SUSCEPTIBLE",
           "Rifampicin SUSCEPTIBLE",
           "Ethambutol SUSCEPTIBLE",
-          "Pyrazinamide RESISTANT"
+          "Pyrazinamide SUSCEPTIBLE"
         ],
         "secondLineDrugs": [
           "Ofloxacin SUSCEPTIBLE",
@@ -742,18 +709,6 @@
           "mdr": false,
           "xdr": false
         }
-      },
-      "evidence": {
-        "Isoniazid": [
-          "Resistance mutation found: TG422T in gene katG",
-          "72 kmers from the resistant allele",
-          "36 kmers from the susceptible allele"
-        ],
-        "Pyrazinamide": [
-          "Resistance mutation found: CGT24C in gene pncA",
-          "81 kmers from the resistant allele",
-          "176 kmers from the susceptible allele"
-        ]
       },
       "species": "Mycobacterium tuberculosis (lineage: East Africa Indian ocean)"
     }
@@ -765,25 +720,24 @@
         "susceptible": [
           "Ofloxacin",
           "Moxifloxacin",
+          "Isoniazid",
           "Kanamycin",
           "Ethambutol",
           "Streptomycin",
           "Ciprofloxacin",
+          "Pyrazinamide",
           "Rifampicin",
           "Amikacin",
           "Capreomycin"
         ],
-        "resistant": [
-          "Isoniazid",
-          "Pyrazinamide"
-        ]
+        "resistant": []
       },
       "drugs": {
         "firstLineDrugs": [
-          "Isoniazid RESISTANT",
+          "Isoniazid SUSCEPTIBLE",
           "Rifampicin SUSCEPTIBLE",
           "Ethambutol SUSCEPTIBLE",
-          "Pyrazinamide RESISTANT"
+          "Pyrazinamide SUSCEPTIBLE"
         ],
         "secondLineDrugs": [
           "Ofloxacin SUSCEPTIBLE",
@@ -798,18 +752,6 @@
           "mdr": false,
           "xdr": false
         }
-      },
-      "evidence": {
-        "Isoniazid": [
-          "Resistance mutation found: AC83A in gene katG",
-          "54 kmers from the resistant allele",
-          "80 kmers from the susceptible allele"
-        ],
-        "Pyrazinamide": [
-          "Resistance mutation found: TC193T in gene pncA",
-          "123 kmers from the resistant allele",
-          "127 kmers from the susceptible allele"
-        ]
       },
       "species": "Mycobacterium tuberculosis (lineage: European American)"
     }

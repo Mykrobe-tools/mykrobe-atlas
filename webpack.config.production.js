@@ -163,7 +163,7 @@ module.exports = merge(webpackConfig, {
             ecma: 8,
           },
           compress: {
-            drop_console: true,
+            drop_console: process.env.DEBUG_PRODUCTION !== '1',
             ecma: 5,
             warnings: false,
             // Disabled because of an issue with Uglify breaking seemingly valid code:
