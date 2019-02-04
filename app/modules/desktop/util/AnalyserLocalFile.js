@@ -13,7 +13,6 @@ import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransfor
 import * as APIConstants from '../../../constants/APIConstants';
 
 import {
-  rootDir,
   pathToBin,
   pathToMccortex,
   validateTarget,
