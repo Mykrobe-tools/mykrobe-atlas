@@ -67,7 +67,7 @@ class AnalyserLocalFile extends EventEmitter {
   }
 
   failWithError(err: string | Error) {
-    this.cleanup();
+    this.cancel();
     let message = err;
     if (err.message) {
       message = err.message;
@@ -179,18 +179,12 @@ class AnalyserLocalFile extends EventEmitter {
     });
 
     if (DEBUG) {
-      const rootDirValue = rootDir();
-      const cmdPath = path.join(rootDirValue, 'tmp/AnalyserLocalFile.cmd.txt');
+      const tmpDir = tmp.dirSync({ prefix: 'mykrobe-debug-' }).name;
+      const cmdPath = path.join(tmpDir, 'AnalyserLocalFile.cmd.txt');
       log.info('Logging command to', cmdPath);
       fs.writeFileSync(cmdPath, `${pathToBinValue} ${args.join(' ')}`);
-      const stdoutPath = path.join(
-        rootDirValue,
-        'tmp/AnalyserLocalFile.stdout.txt'
-      );
-      const stderrPath = path.join(
-        rootDirValue,
-        'tmp/AnalyserLocalFile.stderr.txt'
-      );
+      const stdoutPath = path.join(tmpDir, 'AnalyserLocalFile.stdout.txt');
+      const stderrPath = path.join(tmpDir, 'AnalyserLocalFile.stderr.txt');
       log.info('Logging stdout and stderr to', stdoutPath, stderrPath);
       const stdoutStream = fs.createWriteStream(stdoutPath);
       const stderrStream = fs.createWriteStream(stderrPath);
