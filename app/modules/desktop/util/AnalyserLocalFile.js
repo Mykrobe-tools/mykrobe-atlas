@@ -12,11 +12,7 @@ import { isString } from 'makeandship-js-common/src/util/is';
 import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransformer';
 import * as APIConstants from '../../../constants/APIConstants';
 
-import {
-  pathToBin,
-  pathToMccortex,
-  validateTarget,
-} from './pathToBin';
+import { pathToBin, pathToMccortex, validateTarget } from './pathToBin';
 import extensionForFileName from './extensionForFileName';
 
 const DEBUG =
