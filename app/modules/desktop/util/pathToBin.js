@@ -12,6 +12,13 @@ const arch = os.arch();
 
 export const isWindows = platform === 'win32';
 
+export const rootDir = () => {
+  const rootDir =
+    process.env.NODE_ENV === 'development' ? process.cwd() : app.getAppPath();
+  log.info('rootDir', rootDir);
+  return rootDir;
+};
+
 export const validateTarget = () => {
   const UnsupportedError = new Error({
     message: 'Unsupported configuration',
@@ -27,21 +34,19 @@ export const validateTarget = () => {
 };
 
 export const dirToBin = () => {
-  const rootDir =
-    process.env.NODE_ENV === 'development' ? process.cwd() : app.getAppPath();
-  log.info('rootDir', rootDir);
+  const rootDirValue = rootDir();
 
   let dirToBin;
 
   if (process.env.NODE_ENV === 'development') {
     dirToBin = path.join(
-      rootDir,
+      rootDirValue,
       `desktop/resources/bin/${
         TargetConstants.TARGET_NAME
       }/${platform}-${arch}/bin`
     );
   } else {
-    dirToBin = path.join(rootDir, '../bin');
+    dirToBin = path.join(rootDirValue, '../bin');
   }
   log.info('dirToBin', dirToBin);
   return dirToBin;

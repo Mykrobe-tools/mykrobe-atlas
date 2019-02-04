@@ -12,8 +12,17 @@ import { isString } from 'makeandship-js-common/src/util/is';
 import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransformer';
 import * as APIConstants from '../../../constants/APIConstants';
 
-import { pathToBin, pathToMccortex, validateTarget } from './pathToBin';
+import {
+  rootDir,
+  pathToBin,
+  pathToMccortex,
+  validateTarget,
+} from './pathToBin';
 import extensionForFileName from './extensionForFileName';
+
+const DEBUG =
+  process.env.DEBUG_PRODUCTION === '1' ||
+  process.env.NODE_ENV === 'development';
 
 const tmp = require('tmp');
 const app = require('electron').remote.app;
@@ -169,6 +178,26 @@ class AnalyserLocalFile extends EventEmitter {
       this.failWithError(err);
     });
 
+    if (DEBUG) {
+      const rootDirValue = rootDir();
+      const cmdPath = path.join(rootDirValue, 'tmp/AnalyserLocalFile.cmd.txt');
+      log.info('Logging command to', cmdPath);
+      fs.writeFileSync(cmdPath, `${pathToBinValue} ${args.join(' ')}`);
+      const stdoutPath = path.join(
+        rootDirValue,
+        'tmp/AnalyserLocalFile.stdout.txt'
+      );
+      const stderrPath = path.join(
+        rootDirValue,
+        'tmp/AnalyserLocalFile.stderr.txt'
+      );
+      log.info('Logging stdout and stderr to', stdoutPath, stderrPath);
+      const stdoutStream = fs.createWriteStream(stdoutPath);
+      const stderrStream = fs.createWriteStream(stderrPath);
+      this.child.stdout.pipe(stdoutStream);
+      this.child.stderr.pipe(stderrStream);
+    }
+
     readline
       .createInterface({
         input: this.child.stdout,
@@ -268,7 +297,6 @@ class AnalyserLocalFile extends EventEmitter {
   }
 
   cleanup() {
-    log.info('cleanup');
     // this.tmpObj.removeCallback() doesn't always work
     this.tmpObj && fs.removeSync(this.tmpObj.name);
   }
