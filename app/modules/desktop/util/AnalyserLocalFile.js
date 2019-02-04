@@ -67,7 +67,10 @@ class AnalyserLocalFile extends EventEmitter {
   }
 
   failWithError(err: string | Error) {
-    this.cancel();
+    if (!DEBUG) {
+      // fail immediately
+      this.cancel();
+    }
     let message = err;
     if (err.message) {
       message = err.message;
