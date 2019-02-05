@@ -132,6 +132,7 @@ class AnalyserLocalFile extends EventEmitter {
 
     this.tmpObj = tmp.dirSync({ prefix: 'mykrobe-' });
     const skeletonDir = path.join(this.tmpObj.name, 'skeleton');
+    const tmpDir = path.join(this.tmpObj.name, 'tmp');
 
     const fileName = path.parse(filePaths[0]).name;
 
@@ -151,6 +152,8 @@ class AnalyserLocalFile extends EventEmitter {
       'tb',
       filePaths.length > 1 ? '--seq' : '-1',
       ...filePaths,
+      '--tmp',
+      tmpDir,
       '--skeleton_dir',
       skeletonDir,
       '--mccortex31_path',
