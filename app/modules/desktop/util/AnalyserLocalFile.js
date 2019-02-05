@@ -131,7 +131,12 @@ class AnalyserLocalFile extends EventEmitter {
     validateTarget();
 
     this.tmpObj = tmp.dirSync({ prefix: 'mykrobe-' });
+
     const skeletonDir = path.join(this.tmpObj.name, 'skeleton');
+    const tmpDir = path.join(this.tmpObj.name, 'tmp');
+
+    fs.ensureDirSync(skeletonDir);
+    fs.ensureDirSync(tmpDir);
 
     const fileName = path.parse(filePaths[0]).name;
 
@@ -151,6 +156,8 @@ class AnalyserLocalFile extends EventEmitter {
       'tb',
       filePaths.length > 1 ? '--seq' : '-1',
       ...filePaths,
+      '--tmp',
+      tmpDir,
       '--skeleton_dir',
       skeletonDir,
       '--mccortex31_path',
@@ -289,6 +296,7 @@ class AnalyserLocalFile extends EventEmitter {
   }
 
   cleanup() {
+    log.info('cleanup');
     // this.tmpObj.removeCallback() doesn't always work
     this.tmpObj && fs.removeSync(this.tmpObj.name);
   }
