@@ -51,12 +51,6 @@ class AnalyserLocalFile extends EventEmitter {
         );
         return this;
       }
-      if (filePath.indexOf(' ') > 0) {
-        this.failWithError(
-          'Mykrobe does not currently work with files or paths containing spaces'
-        );
-        return this;
-      }
     }
     return this.analyseBinaryFile(filePaths, id);
   }
@@ -138,7 +132,9 @@ class AnalyserLocalFile extends EventEmitter {
     fs.ensureDirSync(skeletonDir);
     fs.ensureDirSync(tmpDir);
 
-    const fileName = path.parse(filePaths[0]).name;
+    // Sample name should not contain whitespace, replace with '-'
+    let sampleName = path.parse(filePaths[0]).name;
+    sampleName = sampleName.replace(/\s+/g, '-');
 
     this.jsonBuffer = '';
     this.isBufferingJson = false;
@@ -152,7 +148,7 @@ class AnalyserLocalFile extends EventEmitter {
     const args = [
       'predict',
       '--force',
-      fileName,
+      sampleName,
       'tb',
       filePaths.length > 1 ? '--seq' : '-1',
       ...filePaths,
