@@ -9,6 +9,7 @@ import fs from 'fs-extra';
 
 import * as TargetConstants from '../app/constants/TargetConstants';
 
+const TIMEOUT = 30 * 60 * 1000; // 30 minutes (can take over 10 minutes in VM)
 const DEBUG = true;
 
 const pkg = require('../package.json');
@@ -25,7 +26,7 @@ import {
   expectCaseInsensitiveEqual,
 } from './util';
 
-jest.setTimeout(30 * 60 * 1000); // 30 minutes (can take over 10 minutes in VM)
+jest.setTimeout(TIMEOUT);
 
 describe('Desktop e2e', () => {
   it('should contain a test', done => {
@@ -200,7 +201,7 @@ INCLUDE_SLOW_TESTS &&
             // should display an error notification rejecting this file
             await client.waitForVisible(
               '[data-tid="component-notification-content"]',
-              10 * 60 * 1000
+              TIMEOUT
             );
             const notifications = await textForSelector(
               '[data-tid="component-notification-content"]'
@@ -215,7 +216,7 @@ INCLUDE_SLOW_TESTS &&
             // wait for results to appear
             await client.waitForVisible(
               '[data-tid="component-resistance"]',
-              10 * 60 * 1000
+              TIMEOUT
             );
           }
         });
