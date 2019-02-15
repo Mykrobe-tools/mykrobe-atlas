@@ -43,7 +43,7 @@ console.log(
 );
 
 const renderRoot = () => {
-  const routes = require('./routes');
+  const routes = require('./routes').default;
   render(
     <Provider store={store}>
       <ConnectedRouter history={history}>{routes}</ConnectedRouter>
