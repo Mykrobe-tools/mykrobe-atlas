@@ -96,7 +96,7 @@ app.on('ready', async () => {
 
   mainWindow.webContents.on('did-finish-load', () => {
     if (DEBUG) {
-      mainWindow.webContents.openDevTools();
+      mainWindow.webContents.openDevTools({ mode: 'detach' });
     }
     // FIXME: timeout avoids 1 frame of rendering with no text before fonts are ready
     // find a more concrete way e.g. measure a fragment of styled text, callback when font is ready

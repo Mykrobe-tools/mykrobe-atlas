@@ -25,7 +25,7 @@ import {
   expectCaseInsensitiveEqual,
 } from './util';
 
-jest.setTimeout(10 * 60 * 1000); // 10 minutes
+jest.setTimeout(30 * 60 * 1000); // 30 minutes (can take over 10 minutes in VM)
 
 describe('Desktop e2e', () => {
   it('should contain a test', done => {
@@ -41,24 +41,25 @@ ensureExemplarSamples();
 // this step is very slow - compiles desktop app and creates distribution images
 // comment out while adjusting only tests
 
-describe('Desktop e2e prerequisites', () => {
-  it('should package app', async () => {
-    executeCommand('yarn desktop-package');
-  });
-  INCLUDE_SLOW_TESTS &&
-    it('should create distribution app', async () => {
-      executeCommand('yarn desktop-dist');
-    });
-});
+// describe('Desktop e2e prerequisites', () => {
+//   it('should package app', async () => {
+//     executeCommand('yarn desktop-package');
+//   });
+//   INCLUDE_SLOW_TESTS &&
+//     it('should create distribution app', async () => {
+//       executeCommand('yarn desktop-dist');
+//     });
+// });
 
 console.log('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
+let _app;
 
 INCLUDE_SLOW_TESTS &&
   describe('Desktop e2e main window', function spec() {
     const textForSelector = async (selector, asArray = true) => {
-      const { client } = this.app;
+      const { client } = _app;
       const { value } = await client.elements(selector);
       let result = [];
       for (let i = 0; i < value.length; i++) {
@@ -71,7 +72,7 @@ INCLUDE_SLOW_TESTS &&
     // convenience to tell us which element wasn't found
 
     const isExisting = async selector => {
-      const { client } = this.app;
+      const { client } = _app;
       const existing = await client.isExisting(selector);
       if (!existing) {
         throw `Element not found for selector ${selector}`;
@@ -84,7 +85,7 @@ INCLUDE_SLOW_TESTS &&
     const saveScreenshot = async filename => {
       // browserWindow.capturePage() is not reliable
       // so we capture screen within browser process
-      const { webContents } = this.app;
+      const { webContents } = _app;
       const filePath = path.join(
         EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH,
         filename
@@ -97,25 +98,25 @@ INCLUDE_SLOW_TESTS &&
 
     beforeAll(async () => {
       if (INCLUDE_SLOW_TESTS) {
-        this.app = new Application({
+        _app = new Application({
           path: ELECTRON_EXECUTABLE_PATH,
         });
 
-        await this.app.start();
+        await _app.start();
       }
     });
 
     afterAll(async () => {
       if (INCLUDE_SLOW_TESTS) {
         console.log('Quitting app');
-        if (this.app && this.app.isRunning()) {
-          await this.app.stop();
+        if (_app && _app.isRunning()) {
+          await _app.stop();
         }
       }
     });
 
     it('should open window', async () => {
-      const { client, browserWindow } = this.app;
+      const { client, browserWindow } = _app;
 
       await client.waitUntilWindowLoaded();
       await delay(500);
@@ -155,7 +156,7 @@ INCLUDE_SLOW_TESTS &&
         const isJson = extension === 'json';
 
         it(`${source} - should open source file`, async () => {
-          const { client, webContents } = this.app;
+          const { client, webContents } = _app;
           const filePath = path.join(
             EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
             source
@@ -221,7 +222,7 @@ INCLUDE_SLOW_TESTS &&
 
         if (!exemplarSamplesExpectEntry.expect.reject) {
           it(`${source} - should display the expected results`, async () => {
-            const { client } = this.app;
+            const { client } = _app;
 
             // click each section and check the result shown in the UI
 
