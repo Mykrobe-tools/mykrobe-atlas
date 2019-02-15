@@ -20,7 +20,7 @@ const GENERATE_JSON_FIXTURES = true;
 
 const exemplarSamplesExpect = require('../../../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
 
-INCLUDE_SLOW_TESTS && jest.setTimeout(30 * 60 * 1000); // 10 minutes
+jest.setTimeout(30 * 60 * 1000); // 30 minutes (can take over 10 minutes in VM)
 
 describe('AnalyserLocalFile', () => {
   it('should contain a test', done => {
