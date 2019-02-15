@@ -2,15 +2,15 @@
 
 import { app, BrowserWindow, Menu, shell } from 'electron';
 import log from 'electron-log';
-// import { autoUpdater } from 'electron-updater';
+import { autoUpdater } from 'electron-updater';
 
 const DEBUG =
   process.env.DEBUG_PRODUCTION === '1' ||
   process.env.NODE_ENV === 'development';
 
-// if (process.env.NODE_ENV === 'production') {
-//   setupAutoUpdater();
-// }
+if (process.env.NODE_ENV === 'production') {
+  setupAutoUpdater();
+}
 
 const pkg = require('./static/package.json');
 
@@ -66,10 +66,10 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-  // if (process.env.NODE_ENV === 'production') {
-  //   // This will immediately download an update, then install when the app quits
-  //   autoUpdater.checkForUpdatesAndNotify();
-  // }
+  if (process.env.NODE_ENV === 'production') {
+    // This will immediately download an update, then install when the app quits
+    autoUpdater.checkForUpdatesAndNotify();
+  }
 
   // const packageJson = require('./package.json');
 
@@ -82,15 +82,8 @@ app.on('ready', async () => {
   });
 
   if (process.env.NODE_ENV == 'production') {
-    let url = require('url').format({
-      protocol: 'file',
-      slashes: true,
-      pathname: require('path').join(__dirname, 'index.html')
-    });
-    log.info('mainWindow.loadURL', url);
-    mainWindow.loadURL(url);
+    mainWindow.loadURL(`file://${__dirname}/index.html`);
   } else {
-    log.info('mainWindow.loadURL', `http://localhost:3000`);
     mainWindow.loadURL('http://localhost:3000');
   }
 
@@ -426,41 +419,41 @@ app.on('ready', async () => {
   }
 });
 
-// function setupAutoUpdater() {
-//   autoUpdater.logger = log;
-//   autoUpdater.logger.transports.file.level = 'info';
-//   log.info('App starting...');
-//   autoUpdater.on('checking-for-update', () => {
-//     log.info('Checking for update...');
-//   });
-//   autoUpdater.on('update-available', info => {
-//     log.info('Update available.', info);
-//   });
-//   autoUpdater.on('update-not-available', info => {
-//     log.info('Update not available.', info);
-//   });
-//   autoUpdater.on('error', err => {
-//     log.error('Error in auto-updater.', err);
-//   });
-//   autoUpdater.on('download-progress', progressObj => {
-//     let log_message = 'Download speed: ' + progressObj.bytesPerSecond;
-//     log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-//     log_message =
-//       log_message +
-//       ' (' +
-//       progressObj.transferred +
-//       '/' +
-//       progressObj.total +
-//       ')';
-//     log.info(log_message);
-//   });
-//   autoUpdater.on('update-downloaded', info => {
-//     log.info('Update downloaded', info);
-//     // Wait 5 seconds, then quit and install
-//     // In your application, you don't need to wait 5 seconds.
-//     // You could call autoUpdater.quitAndInstall(); immediately
-//     // setTimeout(() => {
-//     //   autoUpdater.quitAndInstall();
-//     // }, 5000);
-//   });
-// }
+function setupAutoUpdater() {
+  autoUpdater.logger = log;
+  autoUpdater.logger.transports.file.level = 'info';
+  log.info('App starting...');
+  autoUpdater.on('checking-for-update', () => {
+    log.info('Checking for update...');
+  });
+  autoUpdater.on('update-available', info => {
+    log.info('Update available.', info);
+  });
+  autoUpdater.on('update-not-available', info => {
+    log.info('Update not available.', info);
+  });
+  autoUpdater.on('error', err => {
+    log.error('Error in auto-updater.', err);
+  });
+  autoUpdater.on('download-progress', progressObj => {
+    let log_message = 'Download speed: ' + progressObj.bytesPerSecond;
+    log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+    log_message =
+      log_message +
+      ' (' +
+      progressObj.transferred +
+      '/' +
+      progressObj.total +
+      ')';
+    log.info(log_message);
+  });
+  autoUpdater.on('update-downloaded', info => {
+    log.info('Update downloaded', info);
+    // Wait 5 seconds, then quit and install
+    // In your application, you don't need to wait 5 seconds.
+    // You could call autoUpdater.quitAndInstall(); immediately
+    // setTimeout(() => {
+    //   autoUpdater.quitAndInstall();
+    // }, 5000);
+  });
+}
