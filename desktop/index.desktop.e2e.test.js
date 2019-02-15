@@ -145,18 +145,6 @@ INCLUDE_SLOW_TESTS &&
       await browserWindow.center();
     });
 
-    it("should haven't any logs in console of main window", async () => {
-      const { client } = this.app;
-      const logs = await client.getRenderProcessLogs();
-      // Print renderer process logs
-      logs.forEach(log => {
-        console.log(log.message);
-        console.log(log.source);
-        console.log(log.level);
-      });
-      expect(logs).toHaveLength(0);
-    });
-
     for (let i = 0; i < exemplarSamplesExpect.length; i++) {
       const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
       for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
