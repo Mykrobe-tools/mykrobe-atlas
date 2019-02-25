@@ -36,6 +36,10 @@ describe('Desktop e2e', () => {
 
 // prerequisites
 
+if (process.env.DEBUG_PRODUCTION === '1') {
+  throw('process.env.DEBUG_PRODUCTION should be falsy when running index.desktop.e2e.test.js');
+}
+
 ensureMykrobeBinaries();
 ensureExemplarSamples();
 
