@@ -13,10 +13,10 @@ let autoUpdater;
 // nb. modifying this with an addional variable/flag check will not currently work
 // as the require() is still evaluated, resulting in error and build failure
 
-// if (process.env.NODE_ENV === 'production') {
-//   autoUpdater = require('electron-updater').autoUpdater;
-//   setupAutoUpdater();
-// }
+if (process.env.NODE_ENV === 'production') {
+  autoUpdater = require('electron-updater').autoUpdater;
+  setupAutoUpdater();
+}
 
 // end FIXME
 
@@ -78,8 +78,7 @@ app.on('ready', async () => {
     log.info('Auto updater starting');
     // This will immediately download an update, then install when the app quits
     autoUpdater.checkForUpdatesAndNotify();
-  }
-  else {
+  } else {
     log.info('Auto updater is disabled');
   }
 
