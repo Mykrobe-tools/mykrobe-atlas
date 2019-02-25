@@ -2,17 +2,23 @@
 
 import { app, BrowserWindow, Menu, shell } from 'electron';
 import log from 'electron-log';
-import { autoUpdater } from 'electron-updater';
-
-const DISABLE_DESKTOP_UPDATER = process.env.DISABLE_DESKTOP_UPDATER === '1'
 
 const DEBUG =
   process.env.DEBUG_PRODUCTION === '1' ||
   process.env.NODE_ENV === 'development';
 
-if (!DISABLE_DESKTOP_UPDATER && process.env.NODE_ENV === 'production') {
-  setupAutoUpdater();
-}
+let autoUpdater;
+
+// FIXME: currently have to comment out the following block to build on Windows
+// nb. modifying this with an addional variable/flag check will not currently work
+// as the require() is still evaluated, resulting in error and build failure
+
+// if (process.env.NODE_ENV === 'production') {
+//   autoUpdater = require('electron-updater').autoUpdater;
+//   setupAutoUpdater();
+// }
+
+// end FIXME
 
 const pkg = require('./static/package.json');
 
@@ -68,10 +74,14 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-  // if (process.env.NODE_ENV === 'production') {
-  //   // This will immediately download an update, then install when the app quits
-  //   autoUpdater.checkForUpdatesAndNotify();
-  // }
+  if (autoUpdater) {
+    log.info('Auto updater starting');
+    // This will immediately download an update, then install when the app quits
+    autoUpdater.checkForUpdatesAndNotify();
+  }
+  else {
+    log.info('Auto updater is disabled');
+  }
 
   // const packageJson = require('./package.json');
 
@@ -87,7 +97,7 @@ app.on('ready', async () => {
     let url = require('url').format({
       protocol: 'file',
       slashes: true,
-      pathname: require('path').join(__dirname, 'index.html')
+      pathname: require('path').join(__dirname, 'index.html'),
     });
     log.info('mainWindow.loadURL', url);
     mainWindow.loadURL(url);
@@ -431,7 +441,6 @@ app.on('ready', async () => {
 function setupAutoUpdater() {
   autoUpdater.logger = log;
   autoUpdater.logger.transports.file.level = 'info';
-  log.info('App starting...');
   autoUpdater.on('checking-for-update', () => {
     log.info('Checking for update...');
   });

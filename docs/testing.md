@@ -10,13 +10,14 @@ This app uses the [Jest](http://facebook.github.io/jest/) testing framework.
 
 2. Move this folder into the project (or create a symbolic link) at path `/test/__fixtures__/exemplar_seqeuence_data`
 
-3. For Windows, set up environemt variables in `.env`
+3. Set up environemt variables in `.env`
 
    ```
    DEBUG_PRODUCTION=0
-   DISABLE_DESKTOP_UPDATER=1
    DISABLE_DESKTOP_BACKGROUND_ANIMATION=1
    ```
+
+4. `FIXME` - On Windows, modify `desktop/index.desktop.js` - see `FIXME` on line 12
 
 ## Run tests
 
