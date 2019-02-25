@@ -8,7 +8,16 @@ This app uses the [Jest](http://facebook.github.io/jest/) testing framework.
 
 1. Download the large `exemplar_seqeuence_data` fixtures from [here](https://www.dropbox.com/sh/7v8foml90gvqapk/AADiRLFx6PIBjbcavV9Spylwa?dl=0)
 
-2. Move this folder into the project at path `/test/__fixtures__/exemplar_seqeuence_data`
+2. Move this folder into the project (or create a symbolic link) at path `/test/__fixtures__/exemplar_seqeuence_data`
+
+3. Set up environemt variables in `.env`
+
+   ```
+   DEBUG_PRODUCTION=0
+   DISABLE_DESKTOP_BACKGROUND_ANIMATION=1
+   ```
+
+4. `FIXME` - On Windows, modify `desktop/index.desktop.js` - see `FIXME` on line 12
 
 ## Run tests
 

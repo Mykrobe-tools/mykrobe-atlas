@@ -9,6 +9,7 @@ import fs from 'fs-extra';
 
 import * as TargetConstants from '../app/constants/TargetConstants';
 
+const TIMEOUT = 30 * 60 * 1000; // 30 minutes (can take over 10 minutes in VM)
 const DEBUG = true;
 
 const pkg = require('../package.json');
@@ -25,7 +26,7 @@ import {
   expectCaseInsensitiveEqual,
 } from './util';
 
-jest.setTimeout(10 * 60 * 1000); // 10 minutes
+jest.setTimeout(TIMEOUT);
 
 describe('Desktop e2e', () => {
   it('should contain a test', done => {
@@ -34,6 +35,10 @@ describe('Desktop e2e', () => {
 });
 
 // prerequisites
+
+if (process.env.DEBUG_PRODUCTION === '1') {
+  throw 'process.env.DEBUG_PRODUCTION should be falsy when running index.desktop.e2e.test.js';
+}
 
 ensureMykrobeBinaries();
 ensureExemplarSamples();
@@ -54,11 +59,12 @@ describe('Desktop e2e prerequisites', () => {
 console.log('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
 
 const delay = time => new Promise(resolve => setTimeout(resolve, time));
+let _app;
 
 INCLUDE_SLOW_TESTS &&
   describe('Desktop e2e main window', function spec() {
     const textForSelector = async (selector, asArray = true) => {
-      const { client } = this.app;
+      const { client } = _app;
       const { value } = await client.elements(selector);
       let result = [];
       for (let i = 0; i < value.length; i++) {
@@ -71,7 +77,7 @@ INCLUDE_SLOW_TESTS &&
     // convenience to tell us which element wasn't found
 
     const isExisting = async selector => {
-      const { client } = this.app;
+      const { client } = _app;
       const existing = await client.isExisting(selector);
       if (!existing) {
         throw `Element not found for selector ${selector}`;
@@ -84,7 +90,7 @@ INCLUDE_SLOW_TESTS &&
     const saveScreenshot = async filename => {
       // browserWindow.capturePage() is not reliable
       // so we capture screen within browser process
-      const { webContents } = this.app;
+      const { webContents } = _app;
       const filePath = path.join(
         EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH,
         filename
@@ -97,25 +103,25 @@ INCLUDE_SLOW_TESTS &&
 
     beforeAll(async () => {
       if (INCLUDE_SLOW_TESTS) {
-        this.app = new Application({
+        _app = new Application({
           path: ELECTRON_EXECUTABLE_PATH,
         });
 
-        await this.app.start();
+        await _app.start();
       }
     });
 
     afterAll(async () => {
       if (INCLUDE_SLOW_TESTS) {
         console.log('Quitting app');
-        if (this.app && this.app.isRunning()) {
-          await this.app.stop();
+        if (_app && _app.isRunning()) {
+          await _app.stop();
         }
       }
     });
 
     it('should open window', async () => {
-      const { client, browserWindow } = this.app;
+      const { client, browserWindow } = _app;
 
       await client.waitUntilWindowLoaded();
       await delay(500);
@@ -145,18 +151,6 @@ INCLUDE_SLOW_TESTS &&
       await browserWindow.center();
     });
 
-    it("should haven't any logs in console of main window", async () => {
-      const { client } = this.app;
-      const logs = await client.getRenderProcessLogs();
-      // Print renderer process logs
-      logs.forEach(log => {
-        console.log(log.message);
-        console.log(log.source);
-        console.log(log.level);
-      });
-      expect(logs).toHaveLength(0);
-    });
-
     for (let i = 0; i < exemplarSamplesExpect.length; i++) {
       const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
       for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
@@ -167,7 +161,7 @@ INCLUDE_SLOW_TESTS &&
         const isJson = extension === 'json';
 
         it(`${source} - should open source file`, async () => {
-          const { client, webContents } = this.app;
+          const { client, webContents } = _app;
           const filePath = path.join(
             EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
             source
@@ -211,7 +205,7 @@ INCLUDE_SLOW_TESTS &&
             // should display an error notification rejecting this file
             await client.waitForVisible(
               '[data-tid="component-notification-content"]',
-              10 * 60 * 1000
+              TIMEOUT
             );
             const notifications = await textForSelector(
               '[data-tid="component-notification-content"]'
@@ -226,14 +220,14 @@ INCLUDE_SLOW_TESTS &&
             // wait for results to appear
             await client.waitForVisible(
               '[data-tid="component-resistance"]',
-              10 * 60 * 1000
+              TIMEOUT
             );
           }
         });
 
         if (!exemplarSamplesExpectEntry.expect.reject) {
           it(`${source} - should display the expected results`, async () => {
-            const { client } = this.app;
+            const { client } = _app;
 
             // click each section and check the result shown in the UI
 

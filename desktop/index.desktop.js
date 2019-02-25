@@ -2,15 +2,23 @@
 
 import { app, BrowserWindow, Menu, shell } from 'electron';
 import log from 'electron-log';
-import { autoUpdater } from 'electron-updater';
 
 const DEBUG =
   process.env.DEBUG_PRODUCTION === '1' ||
   process.env.NODE_ENV === 'development';
 
+let autoUpdater;
+
+// FIXME: currently have to comment out the following block to build on Windows
+// nb. modifying this with an addional variable/flag check will not currently work
+// as the require() is still evaluated, resulting in error and build failure
+
 if (process.env.NODE_ENV === 'production') {
+  autoUpdater = require('electron-updater').autoUpdater;
   setupAutoUpdater();
 }
+
+// end FIXME
 
 const pkg = require('./static/package.json');
 
@@ -66,9 +74,12 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-  if (process.env.NODE_ENV === 'production') {
+  if (autoUpdater) {
+    log.info('Auto updater starting');
     // This will immediately download an update, then install when the app quits
     autoUpdater.checkForUpdatesAndNotify();
+  } else {
+    log.info('Auto updater is disabled');
   }
 
   // const packageJson = require('./package.json');
@@ -82,14 +93,21 @@ app.on('ready', async () => {
   });
 
   if (process.env.NODE_ENV == 'production') {
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    let url = require('url').format({
+      protocol: 'file',
+      slashes: true,
+      pathname: require('path').join(__dirname, 'index.html'),
+    });
+    log.info('mainWindow.loadURL', url);
+    mainWindow.loadURL(url);
   } else {
+    log.info('mainWindow.loadURL', `http://localhost:3000`);
     mainWindow.loadURL('http://localhost:3000');
   }
 
   mainWindow.webContents.on('did-finish-load', () => {
     if (DEBUG) {
-      mainWindow.webContents.openDevTools();
+      mainWindow.webContents.openDevTools({ mode: 'detach' });
     }
     // FIXME: timeout avoids 1 frame of rendering with no text before fonts are ready
     // find a more concrete way e.g. measure a fragment of styled text, callback when font is ready
@@ -422,7 +440,6 @@ app.on('ready', async () => {
 function setupAutoUpdater() {
   autoUpdater.logger = log;
   autoUpdater.logger.transports.file.level = 'info';
-  log.info('App starting...');
   autoUpdater.on('checking-for-update', () => {
     log.info('Checking for update...');
   });

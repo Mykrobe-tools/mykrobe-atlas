@@ -1,6 +1,6 @@
 /* @flow */
 
-jest.setTimeout(10 * 60 * 1000); // 10 minutes
+jest.setTimeout(30 * 60 * 1000); // 30 minutes (can take over 10 minutes in VM)
 
 import http from 'http';
 const { execSync } = require('child_process');

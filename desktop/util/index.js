@@ -31,11 +31,13 @@ export const EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH = path.join(
 export const EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH = path.join(
   EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
   '__test_artefacts__',
+  `${plat}-${arch}`,
   'img'
 );
 export const EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH = path.join(
   EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
   '__test_artefacts__',
+  `${plat}-${arch}`,
   'json'
 );
 
