@@ -115,8 +115,8 @@ const susceptibilityTransformer = (
         } else {
           elements = [
             ...elements,
-            `Depth ${alternate[genotypeModel]} on the resistant allele`,
-            `Depth ${reference[genotypeModel]} on the susceptible allele`,
+            `Depth ${alternate['median_depth']} on the resistant allele`,
+            `Depth ${reference['median_depth']} on the susceptible allele`,
           ];
         }
         o.push(elements);
