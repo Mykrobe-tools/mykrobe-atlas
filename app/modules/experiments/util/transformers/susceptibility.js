@@ -17,6 +17,8 @@ for another data type (which we now support but didn't previously).
 
 */
 
+const USE_LEGACY_DESCRIPTION = false;
+
 const susceptibilityTransformer = (
   susceptibilityModel: any,
   genotypeModel: string = 'median_depth'
@@ -93,19 +95,31 @@ const susceptibilityTransformer = (
 
         susceptibility.mutation = `${genes[0]} (${genes[1]})`;
 
-        if (genotypeModel === 'median_depth') {
-          o.push([
-            'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
-            'Resistant allele coverage: ' + alternate[genotypeModel],
-            'Susceptible allele coverage: ' + reference[genotypeModel],
-          ]);
+        let elements = [
+          `Resistance mutation found: ${genes[1]} in gene ${genes[0]}`,
+        ];
+        if (USE_LEGACY_DESCRIPTION) {
+          if (genotypeModel === 'median_depth') {
+            elements = [
+              ...elements,
+              `Resistant allele coverage: ${alternate[genotypeModel]}`,
+              `Susceptible allele coverage: ${reference[genotypeModel]}`,
+            ];
+          } else {
+            elements = [
+              ...elements,
+              `${alternate[genotypeModel]} kmers from the resistant allele`,
+              `${reference[genotypeModel]} kmers from the susceptible allele`,
+            ];
+          }
         } else {
-          o.push([
-            'Resistance mutation found: ' + genes[1] + ' in gene ' + genes[0],
-            alternate[genotypeModel] + ' kmers from the resistant allele',
-            reference[genotypeModel] + ' kmers from the susceptible allele',
-          ]);
+          elements = [
+            ...elements,
+            `Depth ${alternate['median_depth']} on the resistant allele`,
+            `Depth ${reference['median_depth']} on the susceptible allele`,
+          ];
         }
+        o.push(elements);
       }
     }
     transformed.susceptibility[key] = susceptibility;

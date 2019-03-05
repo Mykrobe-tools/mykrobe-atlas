@@ -41,8 +41,8 @@
       "evidence": {
         "Isoniazid": [
           "Resistance mutation found: S315X in gene katG",
-          "1633 kmers from the resistant allele",
-          "14 kmers from the susceptible allele"
+          "Depth 1633 on the resistant allele",
+          "Depth 14 on the susceptible allele"
         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: European American)"
@@ -90,13 +90,13 @@
       "evidence": {
         "Rifampicin": [
           "Resistance mutation found: S450X in gene rpoB",
-          "960 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 960 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Isoniazid": [
           "Resistance mutation found: S315X in gene katG",
-          "850 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 850 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: European American)"
@@ -150,8 +150,8 @@
       "evidence": {
         "Rifampicin": [
           "Resistance mutation found: H445X in gene rpoB",
-          "558 kmers from the resistant allele",
-          "2016 kmers from the susceptible allele"
+          "Depth 558 on the resistant allele",
+          "Depth 2016 on the susceptible allele"
         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: European American)"
@@ -204,58 +204,58 @@
       "evidence": {
         "Rifampicin": [
           "Resistance mutation found: S450X in gene rpoB",
-          "844 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 844 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Capreomycin": [
           "Resistance mutation found: A1401X in gene rrs",
-          "1025 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 1025 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Isoniazid": [
           "Resistance mutation found: S315X in gene katG",
-          "606 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 606 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Amikacin": [
           "Resistance mutation found: A1401X in gene rrs",
-          "1025 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 1025 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Ethambutol": [
           "Resistance mutation found: M306V in gene embB",
-          "871 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 871 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Kanamycin": [
           "Resistance mutation found: A1401X in gene rrs",
-          "1025 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 1025 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Streptomycin": [
           "Resistance mutation found: K43R in gene rpsL",
-          "1060 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 1060 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Ciprofloxacin": [
           "Resistance mutation found: A90V in gene gyrA",
-          "252 kmers from the resistant allele",
-          "432 kmers from the susceptible allele"
+          "Depth 252 on the resistant allele",
+          "Depth 432 on the susceptible allele"
         ],
         "Moxifloxacin": [
           "Resistance mutation found: A90V in gene gyrA",
-          "252 kmers from the resistant allele",
-          "432 kmers from the susceptible allele"
+          "Depth 252 on the resistant allele",
+          "Depth 432 on the susceptible allele"
         ],
         "Ofloxacin": [
           "Resistance mutation found: A90V in gene gyrA",
-          "252 kmers from the resistant allele",
-          "432 kmers from the susceptible allele"
+          "Depth 252 on the resistant allele",
+          "Depth 432 on the susceptible allele"
         ],
         "Pyrazinamide": [
           "Resistance mutation found: H137R in gene pncA",
-          "123 kmers from the resistant allele",
-          "446 kmers from the susceptible allele"
+          "Depth 123 on the resistant allele",
+          "Depth 446 on the susceptible allele"
         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"
@@ -305,38 +305,38 @@
       "evidence": {
         "Isoniazid": [
           "Resistance mutation found: S315X in gene GCT2155167GGT-katG",
-          "323 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 323 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Ethambutol": [
           "Resistance mutation found: Q497R in gene CAG4248002CGG-embB",
-          "146 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 146 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Kanamycin": [
           "Resistance mutation found: G in gene 10A-eis",
-          "132 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 132 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Streptomycin": [
           "Resistance mutation found: K43R in gene AAG781686AGG-rpsL",
-          "127 kmers from the resistant allele",
-          "0 kmers from the susceptible allele"
+          "Depth 127 on the resistant allele",
+          "Depth 0 on the susceptible allele"
         ],
         "Ciprofloxacin": [
           "Resistance mutation found: A90V in gene GCG7569GTG-gyrA",
-          "271 kmers from the resistant allele",
-          "1 kmers from the susceptible allele"
+          "Depth 271 on the resistant allele",
+          "Depth 1 on the susceptible allele"
         ],
         "Moxifloxacin": [
           "Resistance mutation found: A90V in gene GCG7569GTG-gyrA",
-          "271 kmers from the resistant allele",
-          "1 kmers from the susceptible allele"
+          "Depth 271 on the resistant allele",
+          "Depth 1 on the susceptible allele"
         ],
         "Ofloxacin": [
           "Resistance mutation found: A90V in gene GCG7569GTG-gyrA",
-          "271 kmers from the resistant allele",
-          "1 kmers from the susceptible allele"
+          "Depth 271 on the resistant allele",
+          "Depth 1 on the susceptible allele"
         ]
       },
       "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"

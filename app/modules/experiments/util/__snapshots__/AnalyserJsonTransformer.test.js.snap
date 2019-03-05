@@ -10,8 +10,8 @@ Object {
     "Isoniazid": Array [
       Array [
         "Resistance mutation found: S315X in gene katG",
-        "1633 kmers from the resistant allele",
-        "14 kmers from the susceptible allele",
+        "Depth 82 on the resistant allele",
+        "Depth 1 on the susceptible allele",
       ],
     ],
   },
@@ -127,15 +127,15 @@ Object {
     "Isoniazid": Array [
       Array [
         "Resistance mutation found: S315X in gene katG",
-        "850 kmers from the resistant allele",
-        "0 kmers from the susceptible allele",
+        "Depth 43 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Rifampicin": Array [
       Array [
         "Resistance mutation found: S450X in gene rpoB",
-        "960 kmers from the resistant allele",
-        "0 kmers from the susceptible allele",
+        "Depth 51 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
   },
@@ -268,13 +268,13 @@ Object {
     "Rifampicin": Array [
       Array [
         "Resistance mutation found: H445X in gene rpoB",
-        "558 kmers from the resistant allele",
-        "2016 kmers from the susceptible allele",
+        "Depth 28 on the resistant allele",
+        "Depth 98 on the susceptible allele",
       ],
       Array [
         "Resistance mutation found: S450X in gene rpoB",
-        "1922 kmers from the resistant allele",
-        "745 kmers from the susceptible allele",
+        "Depth 100 on the resistant allele",
+        "Depth 40 on the susceptible allele",
       ],
     ],
   },
@@ -390,93 +390,93 @@ Object {
     "Amikacin": Array [
       Array [
         "Resistance mutation found: A1401X in gene rrs",
-        "1025 kmers from the resistant allele",
-        "0 kmers from the susceptible allele",
+        "Depth 52 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Capreomycin": Array [
       Array [
         "Resistance mutation found: A1401X in gene rrs",
-        "1025 kmers from the resistant allele",
-        "0 kmers from the susceptible allele",
+        "Depth 52 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Ciprofloxacin": Array [
       Array [
         "Resistance mutation found: A90V in gene gyrA",
-        "252 kmers from the resistant allele",
-        "432 kmers from the susceptible allele",
+        "Depth 13 on the resistant allele",
+        "Depth 22 on the susceptible allele",
       ],
       Array [
         "Resistance mutation found: D94G in gene gyrA",
-        "360 kmers from the resistant allele",
-        "227 kmers from the susceptible allele",
+        "Depth 18 on the resistant allele",
+        "Depth 11 on the susceptible allele",
       ],
     ],
     "Ethambutol": Array [
       Array [
         "Resistance mutation found: M306V in gene embB",
-        "871 kmers from the resistant allele",
-        "0 kmers from the susceptible allele",
+        "Depth 45 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Isoniazid": Array [
       Array [
         "Resistance mutation found: S315X in gene katG",
-        "606 kmers from the resistant allele",
-        "0 kmers from the susceptible allele",
+        "Depth 30 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Kanamycin": Array [
       Array [
         "Resistance mutation found: A1401X in gene rrs",
-        "1025 kmers from the resistant allele",
-        "0 kmers from the susceptible allele",
+        "Depth 52 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Moxifloxacin": Array [
       Array [
         "Resistance mutation found: A90V in gene gyrA",
-        "252 kmers from the resistant allele",
-        "432 kmers from the susceptible allele",
+        "Depth 13 on the resistant allele",
+        "Depth 22 on the susceptible allele",
       ],
       Array [
         "Resistance mutation found: D94G in gene gyrA",
-        "360 kmers from the resistant allele",
-        "227 kmers from the susceptible allele",
+        "Depth 18 on the resistant allele",
+        "Depth 11 on the susceptible allele",
       ],
     ],
     "Ofloxacin": Array [
       Array [
         "Resistance mutation found: A90V in gene gyrA",
-        "252 kmers from the resistant allele",
-        "432 kmers from the susceptible allele",
+        "Depth 13 on the resistant allele",
+        "Depth 22 on the susceptible allele",
       ],
       Array [
         "Resistance mutation found: D94G in gene gyrA",
-        "360 kmers from the resistant allele",
-        "227 kmers from the susceptible allele",
+        "Depth 18 on the resistant allele",
+        "Depth 11 on the susceptible allele",
       ],
     ],
     "Pyrazinamide": Array [
       Array [
         "Resistance mutation found: H137R in gene pncA",
-        "123 kmers from the resistant allele",
-        "446 kmers from the susceptible allele",
+        "Depth 7 on the resistant allele",
+        "Depth 22 on the susceptible allele",
       ],
     ],
     "Rifampicin": Array [
       Array [
         "Resistance mutation found: S450X in gene rpoB",
-        "844 kmers from the resistant allele",
-        "0 kmers from the susceptible allele",
+        "Depth 44 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Streptomycin": Array [
       Array [
         "Resistance mutation found: K43R in gene rpsL",
-        "1060 kmers from the resistant allele",
-        "0 kmers from the susceptible allele",
+        "Depth 56 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
   },
@@ -597,8 +597,8 @@ Object {
     "Isoniazid": Array [
       Array [
         "Resistance mutation found: S315X in gene katG",
-        "Resistant allele coverage: 82",
-        "Susceptible allele coverage: 1",
+        "Depth 82 on the resistant allele",
+        "Depth 1 on the susceptible allele",
       ],
     ],
   },
@@ -697,15 +697,15 @@ Object {
     "Isoniazid": Array [
       Array [
         "Resistance mutation found: S315X in gene katG",
-        "Resistant allele coverage: 43",
-        "Susceptible allele coverage: 0",
+        "Depth 43 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Rifampicin": Array [
       Array [
         "Resistance mutation found: S450X in gene rpoB",
-        "Resistant allele coverage: 51",
-        "Susceptible allele coverage: 0",
+        "Depth 51 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
   },
@@ -895,13 +895,13 @@ Object {
     "Rifampicin": Array [
       Array [
         "Resistance mutation found: H445X in gene rpoB",
-        "Resistant allele coverage: 28",
-        "Susceptible allele coverage: 98",
+        "Depth 28 on the resistant allele",
+        "Depth 98 on the susceptible allele",
       ],
       Array [
         "Resistance mutation found: S450X in gene rpoB",
-        "Resistant allele coverage: 100",
-        "Susceptible allele coverage: 40",
+        "Depth 100 on the resistant allele",
+        "Depth 40 on the susceptible allele",
       ],
     ],
   },
@@ -1000,93 +1000,93 @@ Object {
     "Amikacin": Array [
       Array [
         "Resistance mutation found: A1401X in gene rrs",
-        "Resistant allele coverage: 52",
-        "Susceptible allele coverage: 0",
+        "Depth 52 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Capreomycin": Array [
       Array [
         "Resistance mutation found: A1401X in gene rrs",
-        "Resistant allele coverage: 52",
-        "Susceptible allele coverage: 0",
+        "Depth 52 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Ciprofloxacin": Array [
       Array [
         "Resistance mutation found: A90V in gene gyrA",
-        "Resistant allele coverage: 13",
-        "Susceptible allele coverage: 22",
+        "Depth 13 on the resistant allele",
+        "Depth 22 on the susceptible allele",
       ],
       Array [
         "Resistance mutation found: D94G in gene gyrA",
-        "Resistant allele coverage: 18",
-        "Susceptible allele coverage: 11",
+        "Depth 18 on the resistant allele",
+        "Depth 11 on the susceptible allele",
       ],
     ],
     "Ethambutol": Array [
       Array [
         "Resistance mutation found: M306V in gene embB",
-        "Resistant allele coverage: 45",
-        "Susceptible allele coverage: 0",
+        "Depth 45 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Isoniazid": Array [
       Array [
         "Resistance mutation found: S315X in gene katG",
-        "Resistant allele coverage: 30",
-        "Susceptible allele coverage: 0",
+        "Depth 30 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Kanamycin": Array [
       Array [
         "Resistance mutation found: A1401X in gene rrs",
-        "Resistant allele coverage: 52",
-        "Susceptible allele coverage: 0",
+        "Depth 52 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Moxifloxacin": Array [
       Array [
         "Resistance mutation found: A90V in gene gyrA",
-        "Resistant allele coverage: 13",
-        "Susceptible allele coverage: 22",
+        "Depth 13 on the resistant allele",
+        "Depth 22 on the susceptible allele",
       ],
       Array [
         "Resistance mutation found: D94G in gene gyrA",
-        "Resistant allele coverage: 18",
-        "Susceptible allele coverage: 11",
+        "Depth 18 on the resistant allele",
+        "Depth 11 on the susceptible allele",
       ],
     ],
     "Ofloxacin": Array [
       Array [
         "Resistance mutation found: A90V in gene gyrA",
-        "Resistant allele coverage: 13",
-        "Susceptible allele coverage: 22",
+        "Depth 13 on the resistant allele",
+        "Depth 22 on the susceptible allele",
       ],
       Array [
         "Resistance mutation found: D94G in gene gyrA",
-        "Resistant allele coverage: 18",
-        "Susceptible allele coverage: 11",
+        "Depth 18 on the resistant allele",
+        "Depth 11 on the susceptible allele",
       ],
     ],
     "Pyrazinamide": Array [
       Array [
         "Resistance mutation found: H137R in gene pncA",
-        "Resistant allele coverage: 7",
-        "Susceptible allele coverage: 22",
+        "Depth 7 on the resistant allele",
+        "Depth 22 on the susceptible allele",
       ],
     ],
     "Rifampicin": Array [
       Array [
         "Resistance mutation found: S450X in gene rpoB",
-        "Resistant allele coverage: 44",
-        "Susceptible allele coverage: 0",
+        "Depth 44 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
     "Streptomycin": Array [
       Array [
         "Resistance mutation found: K43R in gene rpsL",
-        "Resistant allele coverage: 56",
-        "Susceptible allele coverage: 0",
+        "Depth 56 on the resistant allele",
+        "Depth 0 on the susceptible allele",
       ],
     ],
   },
