@@ -90,12 +90,12 @@
       "evidence": {
         "Rifampicin": [
           "Resistance mutation found: S450X in gene rpoB",
-          "Depth 43 on the resistant allele",
+          "Depth 51 on the resistant allele",
           "Depth 0 on the susceptible allele"
         ],
         "Isoniazid": [
           "Resistance mutation found: S315X in gene katG",
-          "Depth 51 on the resistant allele",
+          "Depth 43 on the resistant allele",
           "Depth 0 on the susceptible allele"
         ]
       },
@@ -144,12 +144,12 @@
       "evidence": {
         "Rifampicin": [
           "Resistance mutation found: S450X in gene rpoB",
-          "Depth 86 on the resistant allele",
+          "Depth 102 on the resistant allele",
           "Depth 0 on the susceptible allele"
         ],
         "Isoniazid": [
           "Resistance mutation found: S315X in gene katG",
-          "Depth 102 on the resistant allele",
+          "Depth 86 on the resistant allele",
           "Depth 0 on the susceptible allele"
         ]
       },
@@ -559,17 +559,17 @@
         "Ciprofloxacin": [
           "Resistance mutation found: A90V in gene gyrA",
           "Depth 14 on the resistant allele",
-          "Depth 1 on the susceptible allele"
+          "Depth 0 on the susceptible allele"
         ],
         "Moxifloxacin": [
           "Resistance mutation found: A90V in gene gyrA",
           "Depth 14 on the resistant allele",
-          "Depth 1 on the susceptible allele"
+          "Depth 0 on the susceptible allele"
         ],
         "Ofloxacin": [
           "Resistance mutation found: A90V in gene gyrA",
           "Depth 14 on the resistant allele",
-          "Depth 1 on the susceptible allele"
+          "Depth 0 on the susceptible allele"
          ]
       },
       "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"
