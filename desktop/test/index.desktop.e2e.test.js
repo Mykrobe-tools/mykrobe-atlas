@@ -101,19 +101,21 @@ describeSlowTest('Desktop e2e main window', function spec() {
         await testOpenSourceFile(source, exemplarSamplesExpectEntry, _app);
       });
 
-      it(`${source} - should display the expected results`, async () => {
-        await testDisplayResults(source, exemplarSamplesExpectEntry, _app);
-      });
+      if (!exemplarSamplesExpectEntry.expect.reject) {
+        it(`${source} - should display the expected results`, async () => {
+          await testDisplayResults(source, exemplarSamplesExpectEntry, _app);
+        });
 
-      it(`${source} - should return to front screen`, async () => {
-        const { isExisting } = createTestHelpers(_app);
-        const { client } = _app;
-        // new
-        await client.click('[data-tid="button-file-new"]');
-        await delay(500);
-        // check existence of component
-        expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
-      });
+        it(`${source} - should return to front screen`, async () => {
+          const { isExisting } = createTestHelpers(_app);
+          const { client } = _app;
+          // new
+          await client.click('[data-tid="button-file-new"]');
+          await delay(500);
+          // check existence of component
+          expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
+        });
+      }
     }
   }
 });
