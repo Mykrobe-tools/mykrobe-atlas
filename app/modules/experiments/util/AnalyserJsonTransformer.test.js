@@ -3,7 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH } from '../../../../desktop/util';
+import { EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH } from '../../../../desktop/test/util';
 
 import AnalyserJsonTransformer from './AnalyserJsonTransformer';
 import susceptibilityTransformer from './transformers/susceptibility';

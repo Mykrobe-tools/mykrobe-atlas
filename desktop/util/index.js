@@ -7,39 +7,8 @@ import fs from 'fs-extra';
 
 const pkg = require('../../package.json');
 
-export const INCLUDE_SLOW_TESTS =
-  process.env.INCLUDE_SLOW_TESTS && process.env.INCLUDE_SLOW_TESTS === 'true';
-
 export const arch = os.arch();
 export const plat = os.platform();
-
-export const ELECTRON_EXECUTABLE_PATH =
-  plat === 'win32'
-    ? path.join(__dirname, '../dist/win-unpacked', `${pkg.productName}.exe`)
-    : path.join(
-        __dirname,
-        '../dist/mac',
-        `${pkg.productName}.app`,
-        `Contents/MacOS/${pkg.productName}`
-      );
-
-export const EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH = path.join(
-  __dirname,
-  '../../test/__fixtures__/exemplar_seqeuence_data'
-);
-
-export const EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH = path.join(
-  EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
-  '__test_artefacts__',
-  `${plat}-${arch}`,
-  'img'
-);
-export const EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH = path.join(
-  EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
-  '__test_artefacts__',
-  `${plat}-${arch}`,
-  'json'
-);
 
 const ENV_HOME = process.env.HOME;
 const IS_CYGWIN = !!/cygwin/.test(ENV_HOME);
@@ -61,32 +30,6 @@ export const executeCommand = command => {
   }
   console.log(command);
   execSync(command, { stdio: [0, 1, 2] });
-};
-
-export const ensureExemplarSamples = () => {
-  const exists = fs.existsSync(EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH);
-  if (!exists) {
-    throw `No exemplar sequence data folder found at '${EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH}' - Please see README.md and download folder before running this test`;
-  }
-  fs.ensureDirSync(EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH);
-  fs.ensureDirSync(EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH);
-};
-
-export const ensureMykrobeBinaries = () => {
-  const binFolder = path.join(
-    __dirname,
-    `../resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
-  );
-  const executableName =
-    plat === 'win32' ? 'mykrobe_atlas.exe' : 'mykrobe_atlas';
-  const executablePath = path.join(binFolder, executableName);
-  console.log(`Checking for existence of '${executablePath}'`);
-  const exists = fs.existsSync(executablePath);
-
-  // check for existence of binary and bail with error
-  if (!exists) {
-    throw `No executable found at '${executablePath}' - Please run 'yarn build-mykrobe-binaries' before running this test`;
-  }
 };
 
 export const updateStaticPackageJson = () => {
@@ -111,18 +54,4 @@ export const updateStaticPackageJson = () => {
   const json = JSON.stringify(staticPackageJson, null, 2);
   const filePath = path.join(__dirname, '../static/package.json');
   fs.writeFileSync(filePath, json);
-};
-
-export const asLowerCase = (o: any) => {
-  if (typeof o === 'string') {
-    return o.toLowerCase();
-  }
-  if (Array.isArray(o)) {
-    return o.map(value => asLowerCase(value));
-  }
-  return o;
-};
-
-export const expectCaseInsensitiveEqual = (a, b) => {
-  expect(asLowerCase(a)).toEqual(asLowerCase(b));
 };
