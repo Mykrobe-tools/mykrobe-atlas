@@ -82,8 +82,6 @@ describeSlowTest('Desktop e2e main window', function spec() {
     await testOpenWindow(_app);
   });
 
-  // console.log(JSON.stringify(exemplarSamplesExpect, null, 2));
-
   for (let i = 0; i < exemplarSamplesExpect.length; i++) {
     const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
     for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
