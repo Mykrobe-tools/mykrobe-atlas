@@ -15,6 +15,8 @@ import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import parsePath from 'parse-filepath';
 
+export const MAX_FILES = 2;
+
 const remote = require('electron').remote;
 const app = require('electron').remote.app;
 const fs = require('fs');
@@ -122,7 +124,7 @@ export const analyseFileCancel = () => ({
   type: ANALYSE_FILE_CANCEL,
 });
 
-export const analyseFileError = (payload: Error) => ({
+export const analyseFileError = (payload: any) => ({
   type: ANALYSE_FILE_ERROR,
   payload,
 });
@@ -228,6 +230,15 @@ export function* analyseFileDetectFileSeq(): Saga {
 
 export function* analyseFileWorker(): Saga {
   yield put(hideAllNotifications());
+  const initialFilePaths = yield select(getFilePaths);
+  if (initialFilePaths.length > MAX_FILES) {
+    yield put(
+      analyseFileError(
+        `Mykrobe is able to analyse a maximum of ${MAX_FILES} sequence files at once`
+      )
+    );
+    return;
+  }
   yield call(analyseFileDetectFileSeq);
   const filePaths = yield select(getFilePaths);
   yield apply(app, 'addRecentDocument', [filePaths[0]]);
