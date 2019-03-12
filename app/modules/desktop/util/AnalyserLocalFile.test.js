@@ -11,7 +11,7 @@ import {
   EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
   EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
   expectCaseInsensitiveEqual,
-} from '../../../../desktop/util';
+} from '../../../../desktop/test/util';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
 import detectFileSeq from './detectFileSeq';
