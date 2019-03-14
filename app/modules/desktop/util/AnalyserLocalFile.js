@@ -14,6 +14,7 @@ import * as APIConstants from '../../../constants/APIConstants';
 
 import { pathToBin, pathToMccortex, validateTarget } from './pathToBin';
 import extensionForFileName from './extensionForFileName';
+import isAnalyserError from './isAnalyserError';
 
 const DEBUG =
   process.env.DEBUG_PRODUCTION === '1' ||
@@ -241,30 +242,18 @@ class AnalyserLocalFile extends EventEmitter {
         }
       });
 
-    /*
-    ingore errors like
-    INFO:mykrobe.cmds.amr:Running AMR prediction with panels …
-    [08 Jan 2019 12:20:42-wac] Saving graph to: …
-    WARNING:mykrobe.cortex.mccortex:Not running mccortex…
-    */
-
     readline
       .createInterface({
         input: this.child.stderr,
       })
       .on('line', line => {
-        if (
-          line.startsWith('INFO') ||
-          line.startsWith('DEBUG') ||
-          line.startsWith('WARNING') ||
-          line.startsWith('[')
-        ) {
+        if (isAnalyserError(line)) {
+          this.didReceiveError = true;
+          log.error('ERROR: ' + line);
+          this.failWithError(line);
+        } else {
           log.warn('IGNORING ERROR: ' + line);
-          return;
         }
-        this.didReceiveError = true;
-        log.error('ERROR: ' + line);
-        this.failWithError(line);
       });
 
     this.child.on('exit', code => {
