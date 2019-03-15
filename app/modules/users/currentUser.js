@@ -8,39 +8,36 @@ import { createSelector } from 'reselect';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import {
   getIsAuthenticated,
-  signOut as authSignOut,
-  SIGNIN_SUCCESS,
-  SIGNOUT_SUCCESS,
-  SESSION_EXPIRED_SUCCESS,
-  INITIALISE_SUCCESS,
-} from 'makeandship-js-common/src/modules/auth/auth';
+  logout as authLogout,
+  authActionTypes,
+} from 'makeandship-js-common/src/modules/auth';
 
 import { showNotification } from '../notifications';
 
 const typePrefix = 'users/currentUser/';
 
-export const SIGN_OUT = `${typePrefix}SIGN_OUT`;
-export const SIGN_OUT_CANCEL = `${typePrefix}SIGN_OUT_CANCEL`;
+export const LOGOUT = `${typePrefix}LOGOUT`;
+export const LOGOUT_CANCEL = `${typePrefix}LOGOUT_CANCEL`;
 
 // Actions
 
-export const signOut = () => ({
-  type: SIGN_OUT,
+export const logout = () => ({
+  type: LOGOUT,
 });
 
-export const signOutCancel = () => ({
-  type: SIGN_OUT_CANCEL,
+export const logoutCancel = () => ({
+  type: LOGOUT_CANCEL,
 });
 
 // Side effects
 
-export function* signOutWatcher(): Saga {
-  yield takeEvery(SIGN_OUT, function*() {
+export function* logoutWatcher(): Saga {
+  yield takeEvery(LOGOUT, function*() {
     if (!confirm(`Sign out - are you sure?`)) {
-      yield put(signOutCancel());
+      yield put(logoutCancel());
       return;
     }
-    yield put(authSignOut());
+    yield put(authLogout());
   });
 }
 
@@ -56,7 +53,7 @@ const module = createEntityModule('currentUser', {
   request: {
     operationId: 'currentUserGet',
     onFailure: function*() {
-      yield put(authSignOut());
+      yield put(authLogout());
       yield put(showNotification('Please sign in again'));
     },
   },
@@ -69,7 +66,7 @@ const module = createEntityModule('currentUser', {
   delete: {
     operationId: 'currentUserDelete',
     onSuccess: function*() {
-      yield put(authSignOut());
+      yield put(authLogout());
       yield put(showNotification('Account deleted'));
     },
   },
@@ -104,7 +101,7 @@ export const getCurrentUserRole = createSelector(
 // watch other actions where we want to fetch the current user
 
 function* authInitialiseWatcher() {
-  yield takeEvery(INITIALISE_SUCCESS, authInitialiseWorker);
+  yield takeEvery(authActionTypes.INITIALISE_SUCCESS, authInitialiseWorker);
 }
 
 function* authInitialiseWorker() {
@@ -115,7 +112,7 @@ function* authInitialiseWorker() {
 }
 
 function* authSignInWatcher() {
-  yield takeEvery(SIGNIN_SUCCESS, authSignInWorker);
+  yield takeEvery(authActionTypes.LOGIN_SUCCESS, authSignInWorker);
 }
 
 function* authSignInWorker() {
@@ -124,7 +121,7 @@ function* authSignInWorker() {
 
 function* authSignOutWatcher() {
   yield takeEvery(
-    [SIGNOUT_SUCCESS, SESSION_EXPIRED_SUCCESS],
+    [authActionTypes.LOGOUT_SUCCESS, authActionTypes.SESSION_EXPIRED_SUCCESS],
     authSignOutWorker
   );
 }
@@ -141,7 +138,7 @@ function* currentUserSaga(): Saga {
     fork(authInitialiseWatcher),
     fork(authSignInWatcher),
     fork(authSignOutWatcher),
-    fork(signOutWatcher),
+    fork(logoutWatcher),
   ]);
 }
 

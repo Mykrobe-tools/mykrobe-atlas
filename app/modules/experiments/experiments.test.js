@@ -4,7 +4,8 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import nock from 'nock';
 
-import { API_URL } from '../../constants/APIConstants.js';
+import { ensureEnv, env } from 'makeandship-js-common/src/util';
+const API_URL = ensureEnv(env.API_URL);
 
 import reducer, { requestExperiments } from './experiments';
 

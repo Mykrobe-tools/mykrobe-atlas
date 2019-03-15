@@ -18,15 +18,10 @@ import { push } from 'react-router-redux';
 import moment from 'moment';
 
 import {
-  INITIALISE_SUCCESS,
-  SET_TOKEN,
-  CHECK_TOKEN_SUCCESS,
-  REFRESH_TOKEN_SUCCESS,
-  REFRESH_TOKEN_FAIL,
-  SIGNOUT_SUCCESS,
   getAccessToken,
   checkToken,
-} from 'makeandship-js-common/src/modules/auth/auth';
+  authActionTypes,
+} from 'makeandship-js-common/src/modules/auth';
 
 import * as APIConstants from '../../constants/APIConstants';
 import {
@@ -244,7 +239,10 @@ function* uploadFileAssignBrowseWatcher() {
 // set the access token on resumablejs when it changes
 
 function* accessTokenWatcher() {
-  yield takeEvery([INITIALISE_SUCCESS, SET_TOKEN], accessTokenWorker);
+  yield takeEvery(
+    [authActionTypes.INITIALISE_SUCCESS, authActionTypes.SET_TOKEN],
+    accessTokenWorker
+  );
 }
 
 export function* accessTokenWorker(): Saga {
@@ -321,9 +319,9 @@ export function* uploadFileWorker(): Saga {
   // this will request a fresh token if necessary
   yield put(checkToken());
   const { failure } = yield race({
-    checked: take(CHECK_TOKEN_SUCCESS),
-    success: take(REFRESH_TOKEN_SUCCESS),
-    failure: take(REFRESH_TOKEN_FAIL),
+    checked: take(authActionTypes.CHECK_TOKEN_SUCCESS),
+    success: take(authActionTypes.REFRESH_TOKEN_SUCCESS),
+    failure: take(authActionTypes.REFRESH_TOKEN_FAIL),
   });
   if (failure) {
     return;
@@ -334,15 +332,18 @@ export function* uploadFileWorker(): Saga {
 // upload events
 
 function* uploadFileCancelWatcher() {
-  yield takeEvery([UPLOAD_FILE_CANCEL, SIGNOUT_SUCCESS], function*() {
-    const experimentId = yield select(getExperimentId);
-    yield apply(_uploadFile, 'cancel');
-    yield apply(_computeChecksums, 'cancel');
-    if (experimentId) {
-      yield put(deleteExperiment(experimentId));
+  yield takeEvery(
+    [UPLOAD_FILE_CANCEL, authActionTypes.SIGNOUT_SUCCESS],
+    function*() {
+      const experimentId = yield select(getExperimentId);
+      yield apply(_uploadFile, 'cancel');
+      yield apply(_computeChecksums, 'cancel');
+      if (experimentId) {
+        yield put(deleteExperiment(experimentId));
+      }
+      yield put({ type: UPLOAD_FILE_CANCEL_SUCCESS });
     }
-    yield put({ type: UPLOAD_FILE_CANCEL_SUCCESS });
-  });
+  );
 }
 
 export function* uploadFileSaga(): Saga {

@@ -21,11 +21,11 @@ import styles from './Header.scss';
 
 import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
 
-import { getCurrentUser, signOut } from '../../modules/users';
+import { getCurrentUser, logout } from '../../modules/users';
 
 class Header extends React.Component<*> {
   render() {
-    const { signOut, currentUser, title } = this.props;
+    const { logout, currentUser, title } = this.props;
     const hasTitle = title && title.length > 0;
     return (
       <Container fluid className={styles.container}>
@@ -65,7 +65,7 @@ class Header extends React.Component<*> {
                   <DropdownItem onClick={notImplemented}>Help</DropdownItem>
                   <DropdownItem onClick={notImplemented}>Settings</DropdownItem>
                   <DropdownItem
-                    onClick={signOut}
+                    onClick={logout}
                     data-tid="navbar-link-sign-out"
                   >
                     Sign out
@@ -85,7 +85,7 @@ class Header extends React.Component<*> {
               <Button
                 tag={Link}
                 to="/auth/signup"
-                className={styles.signUpLink}
+                className={styles.registerLink}
                 data-tid="button-sign-up"
               >
                 Sign up
@@ -108,7 +108,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      signOut,
+      logout,
     },
     dispatch
   );
@@ -117,7 +117,7 @@ function mapDispatchToProps(dispatch) {
 Header.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   currentUser: PropTypes.object,
-  signOut: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   title: PropTypes.string,
 };
 

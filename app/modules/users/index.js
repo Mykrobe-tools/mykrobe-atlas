@@ -18,7 +18,7 @@ export {
   deleteCurrentUser,
   getCurrentUser,
   getCurrentUserRole,
-  signOut,
+  logout,
   getIsFetching as getCurrentUserIsFetching,
   getError as getCurrentUserError,
 } from './currentUser';
