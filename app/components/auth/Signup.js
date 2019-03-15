@@ -15,7 +15,7 @@ import {
   LinkButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import { signUp } from 'makeandship-js-common/src/modules/auth';
+import { register } from 'makeandship-js-common/src/modules/auth';
 
 import {
   createCurrentUser,
@@ -61,15 +61,15 @@ const USE_KEYCLOAK = !!process.env.AUTH_KEYCLOAK_URL;
 class Signup extends React.Component<*> {
   componentDidMount = () => {
     if (USE_KEYCLOAK) {
-      const { signUp } = this.props;
-      signUp();
+      const { register } = this.props;
+      register();
     }
   };
   render() {
     if (USE_KEYCLOAK) {
       return null;
     }
-    const { isFetching, createCurrentUser, error } = this.props;
+    const { isFetching, register, error } = this.props;
     return (
       <div className={styles.container}>
         <Header title={'Account'} />
@@ -78,7 +78,7 @@ class Signup extends React.Component<*> {
             formKey="auth/signup"
             schema={signupSchema}
             uiSchema={uiSchema}
-            onSubmit={createCurrentUser}
+            onSubmit={register}
             isFetching={isFetching}
             validate={validatePasswordMatch}
             error={error}
@@ -101,7 +101,7 @@ class Signup extends React.Component<*> {
 Signup.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   createCurrentUser: PropTypes.func.isRequired,
-  signUp: PropTypes.func,
+  register: PropTypes.func,
   error: PropTypes.any,
 };
 
@@ -110,7 +110,7 @@ const withRedux = connect(
     isFetching: getCurrentUserIsFetching(state),
     error: getCurrentUserError(state),
   }),
-  { createCurrentUser, signUp }
+  { createCurrentUser, register }
 );
 
 export default withRedux(Signup);

@@ -3,6 +3,7 @@
 exports[`experiments module should handle "requestExperiments" action 1`] = `
 Array [
   Object {
+    "meta": undefined,
     "payload": undefined,
     "type": "experiments/experiments/REQUEST_EXPERIMENTS",
   },
