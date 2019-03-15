@@ -8,6 +8,7 @@
 
 	```
 	$ brew install yarn
+	$ brew install flow
 	```
 
 - If using `nvm`, set the Node version
