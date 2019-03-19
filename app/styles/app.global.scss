@@ -1,16 +1,17 @@
 @font-face {
 	font-family: 'Minion-Regular';
-	src: url('./webfonts/2AB146_0_0.eot');
-	src: url('./webfonts/2AB146_0_0.eot?#iefix') format('embedded-opentype'),
-		url('./webfonts/2AB146_0_0.woff') format('woff'),
-		url('./webfonts/2AB146_0_0.ttf') format('truetype');
+	src: url('~styles/webfonts/2AB146_0_0.eot');
+	src: url('~styles/webfonts/2AB146_0_0.eot?#iefix') format('embedded-opentype'),
+		url('~styles/webfonts/2AB146_0_0.woff') format('woff'),
+		url('~styles/webfonts/2AB146_0_0.ttf') format('truetype');
 }
 
 @font-face {
 	font-family: 'Bryant2-Bold';
-	src: url('./webfonts/BryantWebBold.eot');
-	src: url('./webfonts/BryantWebBold.eot?#iefix') format('embedded-opentype'),
-		url('./webfonts/BryantWebBold.woff') format('woff');
+	src: url('~styles/webfonts/BryantWebBold.eot');
+	src: url('~styles/webfonts/BryantWebBold.eot?#iefix')
+			format('embedded-opentype'),
+		url('~styles/webfonts/BryantWebBold.woff') format('woff');
 }
 
 @import '~styles/colors.global';
