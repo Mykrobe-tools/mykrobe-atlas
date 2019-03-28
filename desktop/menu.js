@@ -1,13 +1,13 @@
 /* @flow */
 
-import { app, Menu, shell } from 'electron';
+import { Menu, shell } from 'electron';
 import type { BrowserWindow } from 'electron';
 
 import { DEBUG } from './constants';
 const pkg = require('./static/package.json');
 
-export const createMenu = (mainWindow: BrowserWindow) => {
-  const template = getMenuTemplate(mainWindow);
+export const createMenu = (options: any) => {
+  const template = getMenuTemplate(options);
   const menu = Menu.buildFromTemplate(template);
   return menu;
 };
@@ -20,7 +20,12 @@ export const installMenu = (menu: Menu, mainWindow: BrowserWindow) => {
   }
 };
 
-const getMenuTemplate = (mainWindow: BrowserWindow) => {
+const getMenuTemplate = ({
+  mainWindow,
+  onMenuFileNew,
+  onMenuFileOpen,
+  onMenuQuit,
+}) => {
   if (process.platform === 'darwin') {
     return [
       {
@@ -62,9 +67,7 @@ const getMenuTemplate = (mainWindow: BrowserWindow) => {
           {
             label: 'Quit',
             accelerator: 'Command+Q',
-            click() {
-              app.quit();
-            },
+            click: onMenuQuit,
           },
         ],
       },
@@ -74,9 +77,7 @@ const getMenuTemplate = (mainWindow: BrowserWindow) => {
           {
             label: 'New',
             accelerator: 'CmdOrCtrl+N',
-            click() {
-              mainWindow.send('menu-file-new');
-            },
+            click: onMenuFileNew,
           },
           {
             type: 'separator',
@@ -84,9 +85,7 @@ const getMenuTemplate = (mainWindow: BrowserWindow) => {
           {
             label: 'Open…',
             accelerator: 'CmdOrCtrl+O',
-            click() {
-              mainWindow.send('menu-file-open');
-            },
+            click: onMenuFileOpen,
           },
           {
             type: 'separator',
@@ -225,9 +224,7 @@ const getMenuTemplate = (mainWindow: BrowserWindow) => {
         {
           label: '&New',
           accelerator: 'Ctrl+N',
-          click() {
-            mainWindow.send('menu-file-new');
-          },
+          click: onMenuFileNew,
         },
         {
           type: 'separator',
@@ -235,9 +232,7 @@ const getMenuTemplate = (mainWindow: BrowserWindow) => {
         {
           label: '&Open File…',
           accelerator: 'Ctrl+O',
-          click() {
-            mainWindow.send('menu-file-open');
-          },
+          click: onMenuFileOpen,
         },
         {
           type: 'separator',
@@ -263,9 +258,7 @@ const getMenuTemplate = (mainWindow: BrowserWindow) => {
         },
         {
           label: 'Exit',
-          click() {
-            app.quit();
-          },
+          click: onMenuQuit,
         },
       ],
     },

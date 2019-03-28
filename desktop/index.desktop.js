@@ -26,6 +26,7 @@ let filepath;
 let ready = false;
 let menu: Menu;
 let isAnalysing = false;
+let quittingProgramatically = false;
 
 if (DEBUG) {
   require('electron-debug')(); // eslint-disable-line global-require
@@ -38,6 +39,7 @@ if (DEBUG) {
 
 // quit on closing windows
 app.on('window-all-closed', () => {
+  quittingProgramatically = true;
   app.quit();
 });
 
@@ -104,7 +106,7 @@ app.on('ready', async () => {
     minHeight: 600,
   });
 
-  menu = createMenu(mainWindow);
+  menu = createMenu({ mainWindow, onMenuQuit, onMenuFileNew, onMenuFileOpen });
 
   if (process.env.NODE_ENV == 'production') {
     let url = require('url').format({
@@ -133,18 +135,7 @@ app.on('ready', async () => {
     }, 0);
   });
 
-  mainWindow.on('close', e => {
-    if (isAnalysing) {
-      const choice = dialog.showMessageBox(mainWindow, {
-        type: 'question',
-        buttons: ['OK', 'Cancel'],
-        message: 'Analysis in progress - are you sure you want to quit?',
-      });
-      if (choice == 1) {
-        e.preventDefault();
-      }
-    }
-  });
+  mainWindow.on('close', onWindowClose);
 
   ready = true;
   if (filepath) {
@@ -152,6 +143,48 @@ app.on('ready', async () => {
     filepath = null;
   }
 });
+
+const confirmIfAnalysing = () => {
+  if (isAnalysing) {
+    const choice = dialog.showMessageBox(mainWindow, {
+      type: 'question',
+      buttons: ['OK', 'Cancel'],
+      message: 'Analysis in progress - are you sure?',
+    });
+    if (choice == 1) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const onWindowClose = e => {
+  // this is also triggered as a result of app.quit()
+  if (!quittingProgramatically) {
+    if (!confirmIfAnalysing()) {
+      e.preventDefault();
+    }
+  }
+};
+
+const onMenuQuit = () => {
+  if (confirmIfAnalysing()) {
+    quittingProgramatically = true;
+    app.quit();
+  }
+};
+
+const onMenuFileNew = () => {
+  if (confirmIfAnalysing()) {
+    mainWindow.send('menu-file-new');
+  }
+};
+
+const onMenuFileOpen = () => {
+  if (confirmIfAnalysing()) {
+    mainWindow.send('menu-file-open');
+  }
+};
 
 function setupAutoUpdater() {
   autoUpdater.logger = log;
