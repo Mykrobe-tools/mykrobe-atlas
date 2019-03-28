@@ -1,5 +1,6 @@
 /* @flow */
 
+import { ipcRenderer } from 'electron';
 import { channel } from 'redux-saga';
 import {
   all,
@@ -17,11 +18,11 @@ import parsePath from 'parse-filepath';
 
 export const MAX_FILES = 2;
 
-const remote = require('electron').remote;
 const app = require('electron').remote.app;
 const fs = require('fs');
 
 import { isString } from 'makeandship-js-common/src/util/is';
+import { waitForChange } from 'makeandship-js-common/src/modules/util';
 
 import { experimentActionTypes } from '../../modules/experiments/experiment';
 
@@ -255,7 +256,7 @@ function* analyseFileCancelWatcher() {
 export function* analyseFileCancelWorker(): Saga {
   yield apply(_analyserLocalFile, 'cancel');
   yield put(push('/'));
-  yield call(setSaveEnabled, false);
+  yield call(setRendererSaveEnabled, false);
 }
 
 // success
@@ -275,7 +276,7 @@ export function* analyseFileSuccessWorker(): Saga {
   yield put({ type: experimentActionTypes.SET, payload: sampleModel });
   yield put(push('/results'));
   yield put(showNotification(`${fileNames.join(', ')} analysis complete`));
-  yield call(setSaveEnabled, true);
+  yield call(setRendererSaveEnabled, true);
 }
 
 // failure
@@ -294,7 +295,7 @@ export function* analyseFileErrorWorker(action: any): Saga {
     })
   );
   yield put(push('/'));
-  yield call(setSaveEnabled, false);
+  yield call(setRendererSaveEnabled, false);
 }
 
 // new
@@ -309,7 +310,7 @@ export function* analyseFileNewWorker(): Saga {
     yield put(analyseFileCancel());
   }
   yield put(push('/'));
-  yield call(setSaveEnabled, false);
+  yield call(setRendererSaveEnabled, false);
 }
 
 // save
@@ -333,15 +334,34 @@ export function* analyseFileSaveWorker(): Saga {
   }
 }
 
-export const setSaveEnabled = (enabled: boolean) => {
-  const menu = remote.Menu.getApplicationMenu();
-  if (process.platform === 'darwin') {
-    menu.items[1].submenu.items[4].enabled = enabled;
-  }
+export const setRendererSaveEnabled = (enabled: boolean) => {
+  ipcRenderer.send('set-save-enabled', enabled);
 };
+
+// analysing state
+
+export function* isAnalysingWatcher(): Saga {
+  const isAnalysing = yield select(getIsAnalysing);
+  yield call(setRendererIsAnalysing, isAnalysing);
+  while (true) {
+    const isAnalysing = yield waitForChange(getIsAnalysing);
+    yield call(setRendererIsAnalysing, isAnalysing);
+  }
+}
+
+export const setRendererIsAnalysing = (isAnalysing: boolean) => {
+  ipcRenderer.send('set-is-analysing', isAnalysing);
+};
+
+// init
+
+export function* localAtlasInit(): Saga {
+  yield call(setRendererSaveEnabled, false);
+}
 
 export function* localAtlasSaga(): Saga {
   yield all([
+    fork(localAtlasInit),
     fork(analyserLocalFileChannelWatcher),
     fork(analyseFileWatcher),
     fork(analyseFileCancelWatcher),
@@ -349,5 +369,6 @@ export function* localAtlasSaga(): Saga {
     fork(analyseFileErrorWatcher),
     fork(analyseFileNewWatcher),
     fork(analyseFileSaveWatcher),
+    fork(isAnalysingWatcher),
   ]);
 }
