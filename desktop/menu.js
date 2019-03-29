@@ -3,7 +3,7 @@
 import { Menu, shell } from 'electron';
 import type { BrowserWindow } from 'electron';
 
-import { DEBUG } from './constants';
+import { DEBUG, IS_MAC } from './constants';
 const pkg = require('./static/package.json');
 
 export const createMenu = (options: any) => {
@@ -13,7 +13,7 @@ export const createMenu = (options: any) => {
 };
 
 export const installMenu = (menu: Menu, mainWindow: BrowserWindow) => {
-  if (process.platform === 'darwin') {
+  if (IS_MAC) {
     Menu.setApplicationMenu(menu);
   } else {
     mainWindow.setMenu(menu);
@@ -26,7 +26,7 @@ const getMenuTemplate = ({
   onMenuFileOpen,
   onMenuQuit,
 }) => {
-  if (process.platform === 'darwin') {
+  if (IS_MAC) {
     return [
       {
         label: `${pkg.productName}`,

@@ -4,7 +4,7 @@ import { app, ipcMain, BrowserWindow, dialog } from 'electron';
 import log from 'electron-log';
 import type { Menu } from 'electron';
 
-import { DEBUG } from './constants';
+import { DEBUG, IS_MAC } from './constants';
 
 import { createMenu, installMenu } from './menu';
 
@@ -61,7 +61,11 @@ app.on('will-finish-launching', () => {
 
 ipcMain.on('set-save-enabled', (event, value) => {
   log.info('set-save-enabled', value);
-  menu.items[1].submenu.items[4].enabled = value;
+  if (IS_MAC) {
+    menu.items[1].submenu.items[4].enabled = value;
+  } else {
+    menu.items[0].submenu.items[4].enabled = value;
+  }
 });
 
 ipcMain.on('set-is-analysing', (event, value) => {

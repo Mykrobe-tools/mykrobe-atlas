@@ -2,7 +2,7 @@
   "name": "mykrobe-atlas",
   "productName": "Mykrobe",
   "version": "0.6.1",
-  "description": "Mykrobe Atlas UI",
+  "description": "Mykrobe",
   "private": true,
   "main": "main.js",
   "scripts": {
