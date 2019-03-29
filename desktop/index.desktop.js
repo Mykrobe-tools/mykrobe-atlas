@@ -1,11 +1,12 @@
 /* @flow */
 
-import { app, BrowserWindow, Menu, shell } from 'electron';
+import { app, ipcMain, BrowserWindow, dialog } from 'electron';
 import log from 'electron-log';
+import type { Menu } from 'electron';
 
-const DEBUG =
-  process.env.DEBUG_PRODUCTION === '1' ||
-  process.env.NODE_ENV === 'development';
+import { DEBUG, IS_MAC } from './constants';
+
+import { createMenu, installMenu } from './menu';
 
 let autoUpdater;
 
@@ -20,13 +21,12 @@ if (process.env.NODE_ENV === 'production') {
 
 // end FIXME
 
-const pkg = require('./static/package.json');
-
-let menu;
-let template;
 let mainWindow: BrowserWindow;
 let filepath;
 let ready = false;
+let menu: Menu;
+let isAnalysing = false;
+let quittingProgramatically = false;
 
 if (DEBUG) {
   require('electron-debug')(); // eslint-disable-line global-require
@@ -37,8 +37,10 @@ if (DEBUG) {
   log.transports.console.level = 'info';
 }
 
+// quit on closing windows
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  quittingProgramatically = true;
+  app.quit();
 });
 
 // TODO: this is not yet working - perhaps need to set file associations in mac info.plist
@@ -55,6 +57,22 @@ app.on('will-finish-launching', () => {
   });
 });
 
+// save enabled
+
+ipcMain.on('set-save-enabled', (event, value) => {
+  log.info('set-save-enabled', value);
+  if (IS_MAC) {
+    menu.items[1].submenu.items[4].enabled = value;
+  } else {
+    menu.items[0].submenu.items[4].enabled = value;
+  }
+});
+
+ipcMain.on('set-is-analysing', (event, value) => {
+  log.info('set-is-analysing', value);
+  isAnalysing = value;
+});
+
 app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development') {
     const installExtensions = async () => {
@@ -64,11 +82,11 @@ app.on('ready', async () => {
         REDUX_DEVTOOLS,
       } = require('electron-devtools-installer');
       installExtension(REACT_DEVELOPER_TOOLS)
-        .then(name => console.log(`Added Extension:  ${name}`))
-        .catch(err => console.log('An error occurred: ', err));
+        .then(name => log.info(`Added Extension:  ${name}`))
+        .catch(err => log.error('An error occurred: ', err));
       installExtension(REDUX_DEVTOOLS)
-        .then(name => console.log(`Added Extension:  ${name}`))
-        .catch(err => console.log('An error occurred: ', err));
+        .then(name => log.info(`Added Extension:  ${name}`))
+        .catch(err => log.error('An error occurred: ', err));
     };
 
     await installExtensions();
@@ -92,6 +110,8 @@ app.on('ready', async () => {
     minHeight: 600,
   });
 
+  menu = createMenu({ mainWindow, onMenuQuit, onMenuFileNew, onMenuFileOpen });
+
   if (process.env.NODE_ENV == 'production') {
     let url = require('url').format({
       protocol: 'file',
@@ -106,6 +126,7 @@ app.on('ready', async () => {
   }
 
   mainWindow.webContents.on('did-finish-load', () => {
+    installMenu(menu, mainWindow);
     if (DEBUG) {
       mainWindow.webContents.openDevTools({ mode: 'detach' });
     }
@@ -118,324 +139,56 @@ app.on('ready', async () => {
     }, 0);
   });
 
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
+  mainWindow.on('close', onWindowClose);
 
-  if (process.platform === 'darwin') {
-    template = [
-      {
-        label: `${pkg.productName}`,
-        submenu: [
-          {
-            label: `About ${pkg.productName}`,
-            click() {
-              mainWindow.send('menu-about');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Services',
-            submenu: [],
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: `Hide ${pkg.productName}`,
-            accelerator: 'Command+H',
-            selector: 'hide:',
-          },
-          {
-            label: 'Hide Others',
-            accelerator: 'Command+Shift+H',
-            selector: 'hideOtherApplications:',
-          },
-          {
-            label: 'Show All',
-            selector: 'unhideAllApplications:',
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Quit',
-            accelerator: 'Command+Q',
-            click() {
-              app.quit();
-            },
-          },
-        ],
-      },
-      {
-        label: 'File',
-        submenu: [
-          {
-            label: 'New',
-            accelerator: 'CmdOrCtrl+N',
-            click() {
-              mainWindow.send('menu-file-new');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Open…',
-            accelerator: 'CmdOrCtrl+O',
-            click() {
-              mainWindow.send('menu-file-open');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Save As…',
-            accelerator: 'CmdOrCtrl+Shift+S',
-            click() {
-              mainWindow.send('menu-file-save-as');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Save Screenshot…',
-            click() {
-              mainWindow.send('menu-capture-page');
-            },
-          },
-        ],
-      },
-      {
-        label: 'Edit',
-        submenu: [
-          {
-            label: 'Undo',
-            accelerator: 'Command+Z',
-            selector: 'undo:',
-          },
-          {
-            label: 'Redo',
-            accelerator: 'Shift+Command+Z',
-            selector: 'redo:',
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Cut',
-            accelerator: 'Command+X',
-            selector: 'cut:',
-          },
-          {
-            label: 'Copy',
-            accelerator: 'Command+C',
-            selector: 'copy:',
-          },
-          {
-            label: 'Paste',
-            accelerator: 'Command+V',
-            selector: 'paste:',
-          },
-          {
-            label: 'Select All',
-            accelerator: 'Command+A',
-            selector: 'selectAll:',
-          },
-        ],
-      },
-      {
-        label: 'View',
-        submenu: DEBUG
-          ? [
-              {
-                label: 'Reload',
-                accelerator: 'Command+R',
-                click() {
-                  mainWindow.webContents.reload();
-                },
-              },
-              {
-                label: 'Toggle Full Screen',
-                accelerator: 'Ctrl+Command+F',
-                click() {
-                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                },
-              },
-              {
-                label: 'Toggle Developer Tools',
-                accelerator: 'Alt+Command+I',
-                click() {
-                  mainWindow.toggleDevTools();
-                },
-              },
-            ]
-          : [
-              {
-                label: 'Toggle Full Screen',
-                accelerator: 'Ctrl+Command+F',
-                click() {
-                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                },
-              },
-            ],
-      },
-      {
-        label: 'Window',
-        submenu: [
-          {
-            label: 'Minimize',
-            accelerator: 'Command+M',
-            selector: 'performMiniaturize:',
-          },
-          {
-            label: 'Close',
-            accelerator: 'Command+W',
-            selector: 'performClose:',
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Bring All to Front',
-            selector: 'arrangeInFront:',
-          },
-        ],
-      },
-      {
-        label: 'Help',
-        submenu: [
-          {
-            label: 'Learn More',
-            click() {
-              shell.openExternal('http://www.mykrobe.com/');
-            },
-          },
-        ],
-      },
-    ];
-
-    menu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(menu);
-  } else {
-    template = [
-      {
-        label: '&File',
-        submenu: [
-          {
-            label: '&New',
-            accelerator: 'Ctrl+N',
-            click() {
-              mainWindow.send('menu-file-new');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: '&Open File…',
-            accelerator: 'Ctrl+O',
-            click() {
-              mainWindow.send('menu-file-open');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: '&Save As…',
-            accelerator: 'Ctrl+Shift+S',
-            click() {
-              mainWindow.send('menu-file-save-as');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Save Screenshot…',
-            click() {
-              mainWindow.send('menu-capture-page');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Exit',
-            click() {
-              app.quit();
-            },
-          },
-        ],
-      },
-      {
-        label: '&View',
-        submenu: DEBUG
-          ? [
-              {
-                label: '&Reload',
-                accelerator: 'Ctrl+R',
-                click() {
-                  mainWindow.webContents.reload();
-                },
-              },
-              {
-                label: 'Toggle &Full Screen',
-                accelerator: 'F11',
-                click() {
-                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                },
-              },
-              {
-                label: 'Toggle &Developer Tools',
-                accelerator: 'Alt+Ctrl+I',
-                click() {
-                  mainWindow.toggleDevTools();
-                },
-              },
-            ]
-          : [
-              {
-                label: 'Toggle &Full Screen',
-                accelerator: 'F11',
-                click() {
-                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                },
-              },
-            ],
-      },
-      {
-        label: 'Help',
-        submenu: [
-          {
-            label: `About ${pkg.productName}`,
-            click() {
-              mainWindow.send('menu-about');
-            },
-          },
-          {
-            label: 'Learn More',
-            click() {
-              shell.openExternal('http://www.mykrobe.com/');
-            },
-          },
-        ],
-      },
-    ];
-    menu = Menu.buildFromTemplate(template);
-    mainWindow.setMenu(menu);
-  }
   ready = true;
   if (filepath) {
     mainWindow.webContents.send('open-file', filepath);
     filepath = null;
   }
 });
+
+const confirmIfAnalysing = () => {
+  if (isAnalysing) {
+    const choice = dialog.showMessageBox(mainWindow, {
+      type: 'question',
+      buttons: ['OK', 'Cancel'],
+      message: 'Analysis in progress - are you sure?',
+    });
+    if (choice == 1) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const onWindowClose = e => {
+  // this is also triggered as a result of app.quit()
+  if (!quittingProgramatically) {
+    if (!confirmIfAnalysing()) {
+      e.preventDefault();
+    }
+  }
+};
+
+const onMenuQuit = () => {
+  if (confirmIfAnalysing()) {
+    quittingProgramatically = true;
+    app.quit();
+  }
+};
+
+const onMenuFileNew = () => {
+  if (confirmIfAnalysing()) {
+    mainWindow.send('menu-file-new');
+  }
+};
+
+const onMenuFileOpen = () => {
+  if (confirmIfAnalysing()) {
+    mainWindow.send('menu-file-open');
+  }
+};
 
 function setupAutoUpdater() {
   autoUpdater.logger = log;
