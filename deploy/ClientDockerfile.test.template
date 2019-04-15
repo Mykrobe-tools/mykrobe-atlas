@@ -1,0 +1,6 @@
+FROM mthomsit/atlas-client:$GO_PIPELINE_LABEL
+
+# Install dev dependencies
+RUN yarn
+
+CMD yarn test:fast
