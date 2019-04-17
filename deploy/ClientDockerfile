@@ -110,7 +110,9 @@ RUN yarn web-build-server-compile
 
 # remove devDependencies
 RUN rm -rf /app/node_modules
-RUN cd /app && yarn install --production
+
+# dependencies for the web server
+RUN cd /app/web && yarn install
 
 # run up the server
 CMD NODE_ENV=$NODE_ENV yarn web-build-server-start
