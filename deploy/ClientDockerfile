@@ -105,8 +105,9 @@ EXPOSE 3000
 
 # rebuild sass with current npm
 RUN npm rebuild node-sass 
-
+RUN yarn web-build
 RUN yarn web-build-server-compile
+RUN cp -r web/build/static web/dist/static
 
 # remove devDependencies
 RUN rm -rf /app/node_modules
