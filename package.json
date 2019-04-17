@@ -38,6 +38,8 @@
     "test": "cross-env INCLUDE_SLOW_TESTS=true jest --no-cache --bail --runInBand",
     "web-api-server": "babel-node web/api-dev-server.js",
     "web-build-server": "babel-node web/build/simple-server.js",
+    "web-build-server-compile": "rm -rf web/dist && babel web/build --out-dir web/dist",
+    "web-build-server-start": "node web/dist/simple-server.js",
     "web-build-simple-server": "concurrently \"yarn web-build-server\" \"yarn web-open\"",
     "web-build": "cross-env NODE_ENV=production webpack --config ./web/webpack.config.production.js",
     "web-dev-server": "cross-env NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0 --port 3000 --inline --history-api-fallback --progress --config ./web/webpack.config.development.js",
