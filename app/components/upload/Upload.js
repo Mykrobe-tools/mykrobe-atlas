@@ -26,8 +26,8 @@ class Upload extends React.Component<*> {
               <Logo width={192} />
             </div>
             <div className={styles.title}>
-              <div>Outbreak and resistance</div>
-              <div>analysis in minutes</div>
+              <div>Antimicrobial resistance and outbreak</div>
+              <div>information within minutes</div>
             </div>
             {isAuthenticated && (
               <div className={styles.buttonContainer}>
