@@ -15,9 +15,9 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
   _canvasRef: HTMLCanvasElement;
   _container: HTMLElement;
   _context: CanvasRenderingContext2D;
-  _raf: number;
+  _raf: AnimationFrameID;
   _lozenges: Array<CanvasLozenge>;
-  _measureContainerDeferred: number;
+  _measureContainerDeferred: TimeoutID;
 
   state = {
     width: 1024,
@@ -27,12 +27,13 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
   constructor(props: any) {
     super(props);
     this._lozenges = [];
-    for (let color in LOZENGE_COLORS) {
+    for (let j = 0; j < LOZENGE_COLORS.length; j++) {
+      const color = LOZENGE_COLORS[j];
       for (let i = 0; i < LOZENGES_PER_COLOR; i++) {
         const l = new CanvasLozenge({
           containerWidth: 1024,
           containerHeight: 1024,
-          color: LOZENGE_COLORS[color],
+          color,
         });
         this._lozenges.push(l);
       }
@@ -40,12 +41,15 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
   }
 
   componentDidMount() {
+    // load event in case we are resized due to css change, e.g. in dev
     window.addEventListener('resize', this.resize);
+    window.addEventListener('load', this.resize);
     this._raf = requestAnimationFrame(this.renderCanvas);
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize);
+    window.removeEventListener('load', this.resize);
     this._raf && cancelAnimationFrame(this._raf);
     this._measureContainerDeferred &&
       clearTimeout(this._measureContainerDeferred);
@@ -71,7 +75,6 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
       this.measureContainerDeferred();
       return;
     }
-    console.log('boundingClientRect', boundingClientRect);
     this.setState({
       width,
       height,
@@ -84,7 +87,7 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
     });
   };
 
-  containerRef = (ref: Element | null) => {
+  containerRef = (ref: HTMLElement | null) => {
     if (!ref) {
       return;
     }
