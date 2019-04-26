@@ -13,7 +13,6 @@
 	],
 	"plugins": [
 		"inline-dotenv",
-		"transform-inline-environment-variables",
 		[
 			"transform-runtime",
 			{
