@@ -25,11 +25,6 @@ module.exports = merge(webpackConfig, {
     }),
     new webpack.DefinePlugin({
       IS_ELECTRON: JSON.stringify(false),
-      API_URL: JSON.stringify(process.env.API_URL),
-      API_SWAGGER_URL: JSON.stringify(process.env.API_SWAGGER_URL),
-      AUTH_COOKIE_URL: JSON.stringify(process.env.AUTH_COOKIE_URL),
-      API_DEBUG: JSON.stringify(process.env.API_DEBUG),
-      PRODUCTION_DEBUG: JSON.stringify(process.env.PRODUCTION_DEBUG),
     }),
   ],
 });
