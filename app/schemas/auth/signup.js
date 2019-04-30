@@ -4,7 +4,7 @@ export default {
   title: 'Sign up',
   type: 'object',
   properties: {
-    email: {
+    username: {
       type: 'string',
       format: 'email',
       title: 'Email',
@@ -26,5 +26,11 @@ export default {
       title: 'Confirm password',
     },
   },
-  required: ['firstname', 'lastname', 'email', 'password', 'confirmPassword'],
+  required: [
+    'firstname',
+    'lastname',
+    'username',
+    'password',
+    'confirmPassword',
+  ],
 };
