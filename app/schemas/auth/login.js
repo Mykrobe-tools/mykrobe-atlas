@@ -4,7 +4,7 @@ export default {
   title: 'Log in',
   type: 'object',
   properties: {
-    email: {
+    username: {
       type: 'string',
       format: 'email',
       title: 'Email',
@@ -14,5 +14,5 @@ export default {
       title: 'Password',
     },
   },
-  required: ['email', 'password'],
+  required: ['username', 'password'],
 };

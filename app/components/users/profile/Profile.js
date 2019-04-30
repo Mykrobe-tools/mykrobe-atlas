@@ -34,7 +34,7 @@ import { profileSchema } from '../../../schemas/users';
 import styles from './Profile.scss';
 
 const uiSchema = {
-  email: {
+  username: {
     'ui:readonly': true,
   },
   firstname: {
