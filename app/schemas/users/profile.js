@@ -4,7 +4,7 @@ export default {
   title: 'Profile',
   type: 'object',
   properties: {
-    email: {
+    username: {
       type: 'string',
       format: 'email',
       title: 'Email',
@@ -18,5 +18,5 @@ export default {
       title: 'Last name',
     },
   },
-  required: ['email', 'firstname', 'lastname'],
+  required: ['username', 'firstname', 'lastname'],
 };

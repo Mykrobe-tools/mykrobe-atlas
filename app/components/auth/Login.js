@@ -24,7 +24,7 @@ import Header from '../header/Header';
 import styles from './Common.scss';
 
 const uiSchema = {
-  email: {
+  username: {
     'ui:placeholder': 'sam.smith@example.com',
     'ui:autofocus': true,
   },
