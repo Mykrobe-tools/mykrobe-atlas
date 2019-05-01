@@ -25,7 +25,7 @@ import {
   DestructiveButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import Header from '../../header/Header';
+import HeaderContainer from '../../header/HeaderContainer';
 import Footer from '../../footer/Footer';
 
 // TODO: this is effectively a variation of EditUser - consolidate
@@ -75,7 +75,7 @@ class Profile extends React.Component<*> {
     const { isFetching, error, currentUser } = this.props;
     return (
       <div className={styles.container}>
-        <Header title={'Profile'} />
+        <HeaderContainer title={'Profile'} />
         <div className={styles.container}>
           <Container fluid>
             <DecoratedForm

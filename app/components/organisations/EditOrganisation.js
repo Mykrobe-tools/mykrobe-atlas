@@ -10,7 +10,7 @@ import { goBack, push } from 'connected-react-router';
 import { Container } from 'reactstrap';
 
 import type { OrganisationType } from '../../types/OrganisationTypes';
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 import Footer from '../footer/Footer';
 
 import styles from './Common.scss';
@@ -81,7 +81,7 @@ class Edit extends React.Component<*> {
     const { isNew, organisation, isFetching, error } = this.props;
     return (
       <div className={styles.container}>
-        <Header title={'Organisation'} />
+        <HeaderContainer title={'Organisation'} />
         <div className={styles.container}>
           <Container fluid>
             <DecoratedForm

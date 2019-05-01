@@ -20,7 +20,7 @@ import {
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import { loginSchema } from '../../schemas/auth';
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 import styles from './Common.scss';
 
 const uiSchema = {
@@ -49,7 +49,7 @@ class Login extends React.Component<*> {
     const { isFetching, login, error } = this.props;
     return (
       <div className={styles.container}>
-        <Header title={'Account'} />
+        <HeaderContainer title={'Account'} />
         <Container fluid>
           <DecoratedForm
             formKey="auth/login"

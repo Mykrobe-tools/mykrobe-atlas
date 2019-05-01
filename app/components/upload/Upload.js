@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import styles from './Upload.scss';
 import AnimatedBackgroundCanvas from '../background/AnimatedBackgroundCanvas';
 import Logo from '../logo/Logo';
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 
 import UploadButton from './button/UploadButton';
 
@@ -41,7 +41,7 @@ class Upload extends React.Component<*> {
             )}
           </div>
         </div>
-        <Header />
+        <HeaderContainer />
       </div>
     );
   }

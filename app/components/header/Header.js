@@ -2,8 +2,6 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { Link, NavLink as ReactRouterNavLink } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
 import {
@@ -19,11 +17,22 @@ import NotificationsButton from '../notifications/NotificationsButton';
 import { notImplemented } from '../../util';
 import styles from './Header.scss';
 
-import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
-
-import { getCurrentUser, logout } from '../../modules/users';
+import { withAuthPropTypes } from 'makeandship-js-common/src/hoc/withAuth';
+import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
 
 class Header extends React.Component<*> {
+  login = (e: any) => {
+    const { navigateLogin } = this.props;
+    e && e.preventDefault();
+    navigateLogin();
+  };
+
+  register = (e: any) => {
+    const { navigateRegister } = this.props;
+    e && e.preventDefault();
+    navigateRegister();
+  };
+
   render() {
     const { logout, currentUser, title } = this.props;
     const hasTitle = title && title.length > 0;
@@ -79,6 +88,7 @@ class Header extends React.Component<*> {
                 to="/auth/login"
                 className={styles.authLink}
                 data-tid="button-log-in"
+                onClick={this.login}
               >
                 <i className="fa fa-user" /> Log in
               </Link>
@@ -87,6 +97,7 @@ class Header extends React.Component<*> {
                 to="/auth/signup"
                 className={styles.registerLink}
                 data-tid="button-sign-up"
+                onClick={this.register}
               >
                 Sign up
               </Button>
@@ -98,30 +109,10 @@ class Header extends React.Component<*> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    isAuthenticated: getIsAuthenticated(state),
-    currentUser: getCurrentUser(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      logout,
-    },
-    dispatch
-  );
-}
-
 Header.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
-  currentUser: PropTypes.object,
-  logout: PropTypes.func.isRequired,
+  ...withAuthPropTypes,
+  ...withCurrentUserPropTypes,
   title: PropTypes.string,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header);
+export default Header;

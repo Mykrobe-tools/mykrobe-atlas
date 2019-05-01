@@ -23,7 +23,7 @@ import {
 } from '../../modules/users';
 
 import { signupSchema } from '../../schemas/auth';
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 import styles from './Common.scss';
 
 const uiSchema = {
@@ -65,7 +65,7 @@ class Signup extends React.Component<*> {
     const { isFetching, register, error } = this.props;
     return (
       <div className={styles.container}>
-        <Header title={'Account'} />
+        <HeaderContainer title={'Account'} />
         <Container fluid>
           <DecoratedForm
             formKey="auth/signup"
