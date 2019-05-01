@@ -1,7 +1,6 @@
 /* @flow */
 
 const merge = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpackConfig = require('./webpack.config');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -148,7 +147,6 @@ module.exports = merge(webpackConfig, {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
       chunkFilename: '[name].[hash].chunk.css',

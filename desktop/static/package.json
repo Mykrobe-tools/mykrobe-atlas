@@ -1,0 +1,8 @@
+{
+  "targetName": "desktop",
+  "name": "mykrobe",
+  "productName": "Mykrobe",
+  "version": "0.6.1",
+  "main": "./main.js",
+  "description": "Mykrobe"
+}
