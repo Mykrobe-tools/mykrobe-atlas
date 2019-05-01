@@ -1,19 +1,9 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { goBack } from 'connected-react-router';
 import { Container } from 'reactstrap';
 
-import {
-  requestCurrentUser,
-  updateCurrentUser,
-  deleteCurrentUser,
-  getCurrentUser,
-  getCurrentUserIsFetching,
-  getCurrentUserError,
-} from '../../../modules/users';
+import { withCurrentUserPropTypes } from '../../../hoc/withCurrentUser';
 
 import {
   DecoratedForm,
@@ -90,7 +80,7 @@ class Profile extends React.Component<*> {
               <FormFooter>
                 <div>
                   <SubmitButton marginRight>Save profile</SubmitButton>
-                  <CancelButton onClick={this.onCancelClick} />
+                  {/*<CancelButton onClick={this.onCancelClick} />*/}
                 </div>
                 <DestructiveButton onClick={this.onDeleteClick}>
                   Delete account
@@ -106,27 +96,7 @@ class Profile extends React.Component<*> {
 }
 
 Profile.propTypes = {
-  isFetching: PropTypes.bool.isRequired,
-  requestCurrentUser: PropTypes.func.isRequired,
-  updateCurrentUser: PropTypes.func.isRequired,
-  deleteCurrentUser: PropTypes.func.isRequired,
-  goBack: PropTypes.func.isRequired,
-  error: PropTypes.any,
-  currentUser: PropTypes.any,
+  ...withCurrentUserPropTypes,
 };
 
-const withRedux = connect(
-  state => ({
-    isFetching: getCurrentUserIsFetching(state),
-    error: getCurrentUserError(state),
-    currentUser: getCurrentUser(state),
-  }),
-  {
-    updateCurrentUser,
-    requestCurrentUser,
-    deleteCurrentUser,
-    goBack,
-  }
-);
-
-export default withRedux(Profile);
+export default Profile;
