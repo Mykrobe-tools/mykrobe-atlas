@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { goBack } from 'react-router-redux';
+import { goBack } from 'connected-react-router';
 import { Container } from 'reactstrap';
 
 import {

@@ -1,60 +1,60 @@
 @import '~styles/colors.global';
 
 .font {
-	font-family: 'Minion-Regular', serif;
+  font-family: 'Minion-Regular', serif;
 }
 
 .fontSizeExtraLarge {
-	font-size: 36px;
+  font-size: 36px;
 }
 
 .fontSizeLarge {
-	font-size: 24px;
+  font-size: 24px;
 }
 
 .fontSizeNormal {
-	font-size: 19px;
+  font-size: 19px;
 }
 
 .fontSizeSmall {
-	font-size: 14px;
+  font-size: 14px;
 }
 
 .fontSecondary {
-	font-family: 'Bryant2-Bold', sans-serif;
-	text-transform: uppercase;
+  font-family: 'Bryant2-Bold', sans-serif;
+  text-transform: uppercase;
 }
 
 .fontSecondarySizeNormal {
-	font-size: 16px;
+  font-size: 16px;
 }
 
 .fontSecondarySizeSmall {
-	font-size: 14px;
+  font-size: 14px;
 }
 
 .titleExtraLarge {
-	composes: font;
-	composes: fontSizeExtraLarge;
-	color: $color-tint-primary;
+  composes: font;
+  composes: fontSizeExtraLarge;
+  color: $color-tint-primary;
 }
 
 .subtitle {
-	composes: fontSecondary;
-	composes: fontSecondarySizeNormal;
+  composes: fontSecondary;
+  composes: fontSecondarySizeNormal;
 }
 
 .subtitleSmall {
-	composes: fontSecondary;
-	composes: fontSecondarySizeSmall;
+  composes: fontSecondary;
+  composes: fontSecondarySizeSmall;
 }
 
 .subtitleRuled {
-	composes: fontSecondary;
-	composes: fontSecondarySizeNormal;
-	display: flex;
-	width: 100%;
-	color: $color-tint-primary;
-	padding-bottom: 8px;
-	border-bottom: 1px solid $color-rule;
+  composes: fontSecondary;
+  composes: fontSecondarySizeNormal;
+  display: flex;
+  width: 100%;
+  color: $color-tint-primary;
+  padding-bottom: 8px;
+  border-bottom: 1px solid $color-rule;
 }

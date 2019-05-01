@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
 
 import {
-  PasswordInput,
   DecoratedForm,
   FormFooter,
 } from 'makeandship-js-common/src/components/ui/form';
@@ -37,12 +36,6 @@ const uiSchema = {
   },
   lastname: {
     'ui:placeholder': 'Smith',
-  },
-  password: {
-    'ui:widget': PasswordInput,
-  },
-  confirmPassword: {
-    'ui:widget': PasswordInput,
   },
 };
 

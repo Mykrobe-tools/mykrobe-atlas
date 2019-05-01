@@ -1,44 +1,44 @@
 @import '~styles/colors.global';
 
 .container {
-	composes: container from 'styles/layout.scss';
-	background-color: white;
+  composes: container from 'styles/layout.scss';
+  background-color: white;
 }
 
 .contentContainer {
-	composes: container from 'styles/layout.scss';
-	position: relative;
+  composes: container from 'styles/layout.scss';
+  position: relative;
 }
 
 .controlsContainer {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	z-index: 1;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
 }
 
 .zoomControl {
-	composes: overlayControl from 'styles/controls.scss';
-	padding: 0 12px;
+  composes: overlayControl from 'styles/controls.scss';
+  padding: 0 12px;
 }
 
 .zoomControlText {
-	composes: overlayControlText from 'styles/controls.scss';
+  composes: overlayControlText from 'styles/controls.scss';
 }
 
 .demoTreeTypeContainer {
-	position: absolute;
-	right: 0;
-	top: 0;
-	z-index: 1;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
 }
 
 .demoTreeTypeSelected {
-	cursor: pointer;
-	color: $color-grey-mid;
+  cursor: pointer;
+  color: $color-grey-mid;
 }
 
 .demoTreeType {
-	cursor: pointer;
-	color: $color-grey-light;
+  cursor: pointer;
+  color: $color-grey-light;
 }

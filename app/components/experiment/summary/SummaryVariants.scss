@@ -1,16 +1,16 @@
 @import '~styles/colors.global';
 
 .container {
-	composes: container from 'styles/layout.scss';
-	flex-direction: column;
+  composes: container from 'styles/layout.scss';
+  flex-direction: column;
 }
 
 .title {
-	composes: subtitle from 'styles/typography.scss';
-	color: $color-grey-mid;
-	padding: 8px 0;
+  composes: subtitle from 'styles/typography.scss';
+  color: $color-grey-mid;
+  padding: 8px 0;
 }
 
 .group + .group {
-	margin-top: 12px;
+  margin-top: 12px;
 }

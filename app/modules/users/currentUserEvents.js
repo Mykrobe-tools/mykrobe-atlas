@@ -1,7 +1,15 @@
 /* @flow */
 
 import { channel } from 'redux-saga';
-import { all, fork, takeEvery, select, put, take } from 'redux-saga/effects';
+import {
+  all,
+  fork,
+  takeEvery,
+  takeLatest,
+  select,
+  put,
+  take,
+} from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 
 import { buildOptionsWithToken } from 'makeandship-js-common/src/modules/api/util';
@@ -125,8 +133,8 @@ function* startWorker() {
 }
 
 function* stopWatcher() {
-  yield takeEvery(
-    [authActionTypes.SIGNOUT_SUCCESS, authActionTypes.SESSION_EXPIRED_SUCCESS],
+  yield takeLatest(
+    [authActionTypes.LOGOUT_SUCCESS, authActionTypes.SESSION_EXPIRED_SUCCESS],
     stopWorker
   );
 }

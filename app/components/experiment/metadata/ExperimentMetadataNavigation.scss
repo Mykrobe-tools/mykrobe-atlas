@@ -1,94 +1,94 @@
 @import '~styles/colors.global';
 
 .container {
-	composes: global(border-top);
-	composes: global(border-bottom);
-	background-color: $color-panel-light;
+  composes: global(border-top);
+  composes: global(border-bottom);
+  background-color: $color-panel-light;
 }
 
 /* header */
 
 .progress {
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	padding: 2rem 0 1rem 0;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0 1rem 0;
 }
 
 .percent {
-	composes: fontSecondary from 'styles/typography.scss';
-	background-color: $color-white;
-	border-radius: 50%;
-	display: inline-block;
-	margin-right: 1.5rem;
-	position: relative;
-	width: 100 / 16 * 1rem;
-	height: 100 / 16 * 1rem;
-	line-height: 1;
+  composes: fontSecondary from 'styles/typography.scss';
+  background-color: $color-white;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 1.5rem;
+  position: relative;
+  width: 100 / 16 * 1rem;
+  height: 100 / 16 * 1rem;
+  line-height: 1;
 }
 
 .circularProgressContainer {
-	composes: containerAbsolute from 'styles/layout.scss';
+  composes: containerAbsolute from 'styles/layout.scss';
 }
 
 .percentContent {
-	composes: containerAbsolute from 'styles/layout.scss';
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  composes: containerAbsolute from 'styles/layout.scss';
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .percentValue {
-	font-size: 2rem;
+  font-size: 2rem;
 }
 
 .percentSign {
 }
 
 .titleHead {
-	color: $color-grey-dark;
+  color: $color-grey-dark;
 }
 
 .titleSubhead {
-	color: $color-grey-mid;
+  color: $color-grey-mid;
 }
 
 .navigation {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navigationItem {
-	composes: fontSecondary from 'styles/typography.scss';
-	composes: fontSecondarySizeNormal from 'styles/typography.scss';
-	padding: 1rem 1rem 0.75rem 1rem;
-	text-transform: uppercase;
-	color: $color-text;
-	border-bottom: 0.25rem solid transparent;
+  composes: fontSecondary from 'styles/typography.scss';
+  composes: fontSecondarySizeNormal from 'styles/typography.scss';
+  padding: 1rem 1rem 0.75rem 1rem;
+  text-transform: uppercase;
+  color: $color-text;
+  border-bottom: 0.25rem solid transparent;
 }
 
 .navigationItemActive {
-	composes: navigationItem;
-	color: $color-tint-primary;
-	border-bottom-color: $color-tint-primary;
+  composes: navigationItem;
+  color: $color-tint-primary;
+  border-bottom-color: $color-tint-primary;
 }
 
 .uploadingMessage {
-	margin: 0 auto;
-	max-width: 50%;
-	text-align: center;
+  margin: 0 auto;
+  max-width: 50%;
+  text-align: center;
 }
 
 .uploadingMessageTitle {
-	composes: font from 'styles/typography.scss';
-	composes: fontSizeExtraLarge from 'styles/typography.scss';
-	color: $color-tint-primary;
-	line-height: 1;
-	padding-top: 2rem;
+  composes: font from 'styles/typography.scss';
+  composes: fontSizeExtraLarge from 'styles/typography.scss';
+  color: $color-tint-primary;
+  line-height: 1;
+  padding-top: 2rem;
 }
 
 .uploadingMessageText {
-	composes: font from 'styles/typography.scss';
-	composes: fontSizeLarge from 'styles/typography.scss';
+  composes: font from 'styles/typography.scss';
+  composes: fontSizeLarge from 'styles/typography.scss';
 }

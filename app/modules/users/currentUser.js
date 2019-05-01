@@ -2,7 +2,7 @@
 
 import { all, fork, put, takeEvery, select } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { createSelector } from 'reselect';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';

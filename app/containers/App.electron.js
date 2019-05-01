@@ -5,7 +5,7 @@ import fs from 'fs';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import Dropzone from 'react-dropzone';
 import { withRouter } from 'react-router-dom';
 import DocumentTitle from 'react-document-title';
