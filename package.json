@@ -20,7 +20,7 @@
     "desktop-package:all": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --all",
     "desktop-package:win": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --win --x64",
     "desktop-package": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js",
-    "desktop-start-hot": "cross-env HOT=1 PLATFORM=electron NODE_ENV=development electron -r babel-register -r babel-polyfill ./desktop/index.desktop",
+    "desktop-start-hot": "cross-env HOT=1 PLATFORM=electron NODE_ENV=development electron -r @babel/register -r @babel/polyfill ./desktop/index.desktop",
     "desktop-start": "cross-env PLATFORM=electron NODE_ENV=production electron ./desktop/static/",
     "flow": "flow",
     "generate-icons": "babel-node scripts/generate-icons.js",
