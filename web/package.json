@@ -1,0 +1,12 @@
+{
+  "name": "mykrobe-atlas-web-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/simple-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
