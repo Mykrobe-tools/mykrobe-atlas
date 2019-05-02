@@ -14,13 +14,13 @@ import NotFoundPage from './components/notFound/NotFoundPage';
 
 import {
   withUserIsNotAuthenticatedRedirect,
-  withUserIsAuthenticatedRedirect,
+  // withUserIsAuthenticatedRedirect,
 } from 'makeandship-js-common/src/modules/auth/util';
 
-const AuthenticatedHome = withUserIsAuthenticatedRedirect(
-  HomePage,
-  '/experiments'
-);
+// const AuthenticatedHome = withUserIsAuthenticatedRedirect(
+//   HomePage,
+//   '/experiments'
+// );
 const AuthenticatedExperimentsRoutes = withUserIsNotAuthenticatedRedirect(
   ExperimentsRoutes
 );
@@ -37,7 +37,7 @@ const AuthenticatedNotificationsPage = withUserIsNotAuthenticatedRedirect(
 export default (
   <App>
     <Switch>
-      <Route exact path="/" component={AuthenticatedHome} />
+      <Route exact path="/" component={HomePage} />
       <Route path="/experiments" component={AuthenticatedExperimentsRoutes} />
       <Route path="/auth" component={AuthRoutes} />
       <Route path="/users" component={AuthenticatedUsersRoutes} />

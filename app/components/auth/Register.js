@@ -14,13 +14,11 @@ import {
   LinkButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import { register } from 'makeandship-js-common/src/modules/auth';
-
 import {
-  createCurrentUser,
-  getCurrentUserIsFetching,
-  getCurrentUserError,
-} from '../../modules/users';
+  register,
+  getIsFetching,
+  getError,
+} from 'makeandship-js-common/src/modules/auth';
 
 import { signupSchema } from '../../schemas/auth';
 import HeaderContainer from '../header/HeaderContainer';
@@ -49,26 +47,15 @@ export const validatePasswordMatch = (formData: any, errors: any) => {
   return errors;
 };
 
-const USE_KEYCLOAK = !!process.env.AUTH_KEYCLOAK_URL;
-
 class Signup extends React.Component<*> {
-  componentDidMount = () => {
-    if (USE_KEYCLOAK) {
-      const { register } = this.props;
-      register();
-    }
-  };
   render() {
-    if (USE_KEYCLOAK) {
-      return null;
-    }
     const { isFetching, register, error } = this.props;
     return (
       <div className={styles.container}>
         <HeaderContainer title={'Account'} />
         <Container fluid>
           <DecoratedForm
-            formKey="auth/signup"
+            formKey="auth/register"
             schema={signupSchema}
             uiSchema={uiSchema}
             onSubmit={register}
@@ -93,17 +80,16 @@ class Signup extends React.Component<*> {
 
 Signup.propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  createCurrentUser: PropTypes.func.isRequired,
   register: PropTypes.func,
   error: PropTypes.any,
 };
 
 const withRedux = connect(
   state => ({
-    isFetching: getCurrentUserIsFetching(state),
-    error: getCurrentUserError(state),
+    isFetching: getIsFetching(state),
+    error: getError(state),
   }),
-  { createCurrentUser, register }
+  { register }
 );
 
 export default withRedux(Signup);

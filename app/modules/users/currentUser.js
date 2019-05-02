@@ -47,7 +47,7 @@ const module = createEntityModule('currentUser', {
   create: {
     operationId: 'usersCreate',
     onSuccess: function*() {
-      yield put(push('/auth/signupsuccess'));
+      yield put(push('/auth/registersuccess'));
     },
   },
   request: {

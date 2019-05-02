@@ -94,7 +94,7 @@ class Header extends React.Component<*> {
               </Link>
               <Button
                 tag={Link}
-                to="/auth/signup"
+                to="/auth/register"
                 className={styles.registerLink}
                 data-tid="button-sign-up"
                 onClick={this.register}

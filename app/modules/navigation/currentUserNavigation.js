@@ -12,7 +12,7 @@ function* createWatcher() {
 }
 
 export function* createWorker(): Generator<*, *, *> {
-  yield put(push('/auth/signupsuccess'));
+  yield put(push('/auth/registersuccess'));
 }
 
 export function* currentUserNavigationSaga(): Generator<*, *, *> {

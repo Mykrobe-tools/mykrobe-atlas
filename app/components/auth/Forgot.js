@@ -54,7 +54,7 @@ class Forgot extends React.Component<*> {
                 <LinkButton to="/auth/login" marginRight>
                   Log in
                 </LinkButton>
-                <LinkButton to="/auth/signup">Sign up</LinkButton>
+                <LinkButton to="/auth/register">Sign up</LinkButton>
               </div>
             </FormFooter>
           </DecoratedForm>
