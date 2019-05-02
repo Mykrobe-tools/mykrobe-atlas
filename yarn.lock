@@ -3038,10 +3038,10 @@ babel-plugin-emotion@^10.0.7, babel-plugin-emotion@^10.0.9:
     find-root "^1.1.0"
     source-map "^0.5.7"
 
-babel-plugin-inline-dotenv@^1.2.0:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/babel-plugin-inline-dotenv/-/babel-plugin-inline-dotenv-1.3.1.tgz#fba73608e28350dffac356aa686b8cf04313445f"
-  integrity sha512-e1VGNCxZteWXkFEmEEi0ETa/5MGRIgOAK2ozEW4DtKpVqZfDmmmQoQGylcSyuhdEyX5TpxVRlw5Uq+VCTUZvGQ==
+babel-plugin-inline-dotenv@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-inline-dotenv/-/babel-plugin-inline-dotenv-1.2.2.tgz#64085ded999d6e91543f397c5ed5c8c02732f70f"
+  integrity sha512-9Xr9SVbgqk4rynL07PxEXSCw6v+oTf21Lk7xiTZmA4vTBAXUSL6lmnk/1t6I7+HcTEKHIDZ5DoCqOoWweuk8og==
   dependencies:
     dotenv "^7.0.0"
 
