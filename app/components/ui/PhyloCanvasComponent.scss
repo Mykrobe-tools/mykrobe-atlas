@@ -1,33 +1,33 @@
 .container {
-	composes: container from 'styles/layout.scss';
-	position: relative;
+  composes: container from 'styles/layout.scss';
+  position: relative;
 }
 
 .controlsContainer {
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	z-index: 1;
-	display: flex;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
 }
 
 .zoomControl {
-	composes: overlayControl from 'styles/controls.scss';
+  composes: overlayControl from 'styles/controls.scss';
 }
 
 .zoomControl + .zoomControl {
-	margin-left: 4px;
+  margin-left: 4px;
 }
 
 .zoomInControl {
-	composes: zoomControl;
+  composes: zoomControl;
 }
 
 .zoomOutControl {
-	composes: zoomControl;
+  composes: zoomControl;
 }
 
 .zoomResetControl {
-	composes: zoomControl;
-	font-size: 140%;
+  composes: zoomControl;
+  font-size: 140%;
 }

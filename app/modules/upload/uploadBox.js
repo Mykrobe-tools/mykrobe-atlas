@@ -2,7 +2,7 @@
 
 import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import loadScript from 'load-script';
 
 const BOX_SDK_URL = 'https://cdn01.boxcdn.net/js/static/select.js';

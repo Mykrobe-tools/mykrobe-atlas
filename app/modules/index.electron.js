@@ -1,7 +1,7 @@
 /* @flow */
 
 import { combineReducers } from 'redux';
-import { routerReducer as routing } from 'react-router-redux';
+import { connectRouter } from 'connected-react-router';
 import { all, call } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 
@@ -18,13 +18,14 @@ const experiments = combineReducers({
   experiment,
 });
 
-export const rootReducer = combineReducers({
-  form,
-  experiments,
-  notifications,
-  routing,
-  desktop,
-});
+export const rootReducer = (history: any) =>
+  combineReducers({
+    router: connectRouter(history),
+    form,
+    experiments,
+    notifications,
+    desktop,
+  });
 
 const sagas = [rootNotificationsSaga, rootDesktopSaga];
 

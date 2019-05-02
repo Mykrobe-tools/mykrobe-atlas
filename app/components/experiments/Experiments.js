@@ -20,7 +20,7 @@ import { styles as pageHeaderStyles } from 'makeandship-js-common/src/components
 import styles from './Experiments.scss';
 import ExperimentsTable from './ExperimentsTable';
 import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 import Footer from '../footer/Footer';
 import { notImplemented } from '../../util';
 
@@ -124,7 +124,7 @@ class Experiments extends React.Component<*, State> {
     const showCompare = selected && (selected === '*' || selected.length > 1);
     return (
       <div className={styles.container}>
-        <Header title={'Sample Library'} />
+        <HeaderContainer title={'Sample Library'} />
         <Container className={styles.headerContainer} fluid>
           <div className={styles.headerContainerInner}>
             <div className={pageHeaderStyles.title}>{title}</div>

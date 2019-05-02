@@ -1,92 +1,92 @@
 @import '~styles/colors.global';
 
 .componentWrap {
-	display: flex;
-	flex-wrap: wrap;
-	margin-right: -0.5rem;
-	margin-bottom: -0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -0.5rem;
+  margin-bottom: -0.5rem;
 }
 
 .dropdownMenu {
-	max-height: 20rem;
-	overflow-y: scroll;
+  max-height: 20rem;
+  overflow-y: scroll;
 }
 
 .remove {
-	composes: global(text-mid);
-	composes: global(px-2);
-	font-size: 14/16 * 1rem;
-	line-height: 1;
+  composes: global(text-mid);
+  composes: global(px-2);
+  font-size: 14/16 * 1rem;
+  line-height: 1;
 }
 
 .clear {
-	composes: global(btn);
-	composes: global(text-mid);
-	composes: global(p-0);
+  composes: global(btn);
+  composes: global(text-mid);
+  composes: global(p-0);
 }
 
 .element {
-	margin-right: 0.5rem;
-	margin-bottom: 0.5rem;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .select {
-	background-color: none;
-	width: 140px;
-	font-size: 1rem;
-	:global(.Select) {
-		:global(.Select-control) {
-			background: none !important;
-			border: 1px solid rgba($color-tint-primary, 0.4) !important;
-			border-radius: 500px !important;
-			height: 30px;
-			:global(.Select-value) {
-				padding: 0 1rem;
-				line-height: 30px;
-				:global(.Select-value-label) {
-					color: $color-tint-primary !important;
-					line-height: 30px;
-				}
-			}
-			:global(.Select-input) {
-				padding: 0 1rem;
-				height: 30px;
-				line-height: 30px;
-				input {
-					color: $color-tint-primary;
-					background: none;
-					padding: 0;
-				}
-			}
-			:global(.Select-placeholder) {
-				padding: 0 1rem;
-				height: 30px;
-				line-height: 30px;
-				color: $color-tint-primary;
-				font-family: 'Bryant2-Bold', sans-serif;
-				text-transform: uppercase;
-				font-size: 14/16 * 1rem;
-			}
-			:global(.Select-arrow-zone) {
-				padding: 0 1rem;
-				width: 10px;
-				:global(.Select-arrow) {
-					border-top-color: $color-tint-primary;
-				}
-			}
-		}
-		:global(.Select-menu-outer) {
-			width: 300% !important;
-		}
-		&:global(.is-open) {
-			:global(.Select-control) {
-				:global(.Select-placeholder) {
-					color: $color-placeholder-text;
-				}
-			}
-		}
-	}
+  background-color: none;
+  width: 140px;
+  font-size: 1rem;
+  :global(.Select) {
+    :global(.Select-control) {
+      background: none !important;
+      border: 1px solid rgba($color-tint-primary, 0.4) !important;
+      border-radius: 500px !important;
+      height: 30px;
+      :global(.Select-value) {
+        padding: 0 1rem;
+        line-height: 30px;
+        :global(.Select-value-label) {
+          color: $color-tint-primary !important;
+          line-height: 30px;
+        }
+      }
+      :global(.Select-input) {
+        padding: 0 1rem;
+        height: 30px;
+        line-height: 30px;
+        input {
+          color: $color-tint-primary;
+          background: none;
+          padding: 0;
+        }
+      }
+      :global(.Select-placeholder) {
+        padding: 0 1rem;
+        height: 30px;
+        line-height: 30px;
+        color: $color-tint-primary;
+        font-family: 'Bryant2-Bold', sans-serif;
+        text-transform: uppercase;
+        font-size: 14/16 * 1rem;
+      }
+      :global(.Select-arrow-zone) {
+        padding: 0 1rem;
+        width: 10px;
+        :global(.Select-arrow) {
+          border-top-color: $color-tint-primary;
+        }
+      }
+    }
+    :global(.Select-menu-outer) {
+      width: 300% !important;
+    }
+    &:global(.is-open) {
+      :global(.Select-control) {
+        :global(.Select-placeholder) {
+          color: $color-placeholder-text;
+        }
+      }
+    }
+  }
 }

@@ -1,25 +1,25 @@
 /* composed classes used in component css */
 
 .container {
-	display: flex;
-	flex: 1;
+  display: flex;
+  flex: 1;
 }
 
 .containerCompact {
-	display: flex;
+  display: flex;
 }
 
 .containerCenterContent {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .containerAbsolute {
-	position: absolute;
-	display: flex;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
+  position: absolute;
+  display: flex;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }

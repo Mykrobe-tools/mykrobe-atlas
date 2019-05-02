@@ -20,7 +20,7 @@ import {
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import { forgotPasswordSchema } from '../../schemas/auth';
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 import styles from './Common.scss';
 
 const uiSchema = {
@@ -35,7 +35,7 @@ class Forgot extends React.Component<*> {
     const { isFetching, onSubmit, error } = this.props;
     return (
       <div className={styles.container}>
-        <Header title={'Account'} />
+        <HeaderContainer title={'Account'} />
         <Container fluid>
           <DecoratedForm
             formKey="auth/forgot"
@@ -54,7 +54,7 @@ class Forgot extends React.Component<*> {
                 <LinkButton to="/auth/login" marginRight>
                   Log in
                 </LinkButton>
-                <LinkButton to="/auth/signup">Sign up</LinkButton>
+                <LinkButton to="/auth/register">Sign up</LinkButton>
               </div>
             </FormFooter>
           </DecoratedForm>

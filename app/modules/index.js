@@ -1,7 +1,7 @@
 /* @flow */
 
 import { combineReducers } from 'redux';
-import { routerReducer as routing } from 'react-router-redux';
+import { connectRouter } from 'connected-react-router';
 import { all, call } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 
@@ -22,19 +22,20 @@ import upload, { rootUploadSaga } from './upload';
 import notifications, { rootNotificationsSaga } from './notifications';
 import { rootNavigationSaga } from './navigation';
 
-export const rootReducer = combineReducers({
-  api,
-  auth,
-  form,
-  users,
-  experiments,
-  notifications,
-  organisations,
-  phylogeny,
-  routing,
-  upload,
-  networkStatus,
-});
+export const rootReducer = (history: any) =>
+  combineReducers({
+    router: connectRouter(history),
+    api,
+    auth,
+    form,
+    users,
+    experiments,
+    notifications,
+    organisations,
+    phylogeny,
+    upload,
+    networkStatus,
+  });
 
 const sagas = [
   rootApiSaga,

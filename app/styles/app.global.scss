@@ -1,17 +1,17 @@
 @font-face {
-	font-family: 'Minion-Regular';
-	src: url('~styles/webfonts/2AB146_0_0.eot');
-	src: url('~styles/webfonts/2AB146_0_0.eot?#iefix') format('embedded-opentype'),
-		url('~styles/webfonts/2AB146_0_0.woff') format('woff'),
-		url('~styles/webfonts/2AB146_0_0.ttf') format('truetype');
+  font-family: 'Minion-Regular';
+  src: url('~styles/webfonts/2AB146_0_0.eot');
+  src: url('~styles/webfonts/2AB146_0_0.eot?#iefix') format('embedded-opentype'),
+    url('~styles/webfonts/2AB146_0_0.woff') format('woff'),
+    url('~styles/webfonts/2AB146_0_0.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'Bryant2-Bold';
-	src: url('~styles/webfonts/BryantWebBold.eot');
-	src: url('~styles/webfonts/BryantWebBold.eot?#iefix')
-			format('embedded-opentype'),
-		url('~styles/webfonts/BryantWebBold.woff') format('woff');
+  font-family: 'Bryant2-Bold';
+  src: url('~styles/webfonts/BryantWebBold.eot');
+  src: url('~styles/webfonts/BryantWebBold.eot?#iefix')
+      format('embedded-opentype'),
+    url('~styles/webfonts/BryantWebBold.woff') format('woff');
 }
 
 @import '~styles/colors.global';
@@ -29,26 +29,26 @@
 /* fill the window */
 
 html {
-	display: flex;
-	flex: 1 0 auto;
-	flex-direction: column;
-	height: 100%;
-	font-variant-ligatures: common-ligatures;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  height: 100%;
+  font-variant-ligatures: common-ligatures;
 }
 
 body {
-	margin: 0;
-	padding: 0;
-	display: flex;
-	flex: 1 0 auto;
-	flex-direction: column;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
 }
 
 #app-root,
 #app-root > [data-reactroot] {
-	display: flex;
-	flex: 1 0 auto;
-	flex-direction: column;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
 }
 
 @import 'variables.global.scss';
@@ -57,5 +57,5 @@ body {
 @import 'vendor.global.scss';
 
 .fa-fw {
-	width: auto;
+  width: auto;
 }

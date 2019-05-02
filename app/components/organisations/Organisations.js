@@ -22,7 +22,7 @@ import {
   setOrganisationsFilters,
 } from '../../modules/organisations';
 
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 import Footer from '../footer/Footer';
 
 import styles from './Common.scss';
@@ -80,7 +80,7 @@ class Profile extends React.Component<*> {
     const { organisations, organisationsFilters } = this.props;
     return (
       <div className={styles.container}>
-        <Header title={'Organisations'} />
+        <HeaderContainer title={'Organisations'} />
         <div className={styles.container}>
           <Container fluid>
             <PageHeader border={false}>
