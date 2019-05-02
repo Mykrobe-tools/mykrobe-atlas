@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 import Footer from '../footer/Footer';
 import Empty from '../ui/Empty';
 
@@ -12,7 +12,7 @@ class NotFoundPage extends React.Component<*> {
   render() {
     return (
       <div className={styles.container}>
-        <Header title={'Not Found'} />
+        <HeaderContainer title={'Not Found'} />
         <Empty
           title={'Not Found'}
           subtitle={'The requested URL has no match'}

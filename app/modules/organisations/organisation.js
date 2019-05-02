@@ -1,7 +1,7 @@
 /* @flow */
 
 import { put } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 

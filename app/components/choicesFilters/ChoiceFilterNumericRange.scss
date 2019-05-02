@@ -1,56 +1,56 @@
 @import '~styles/colors.global';
 
 .componentWrap {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	font-size: 1rem;
-	line-height: 1;
-	margin-right: -5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1rem;
+  line-height: 1;
+  margin-right: -5px;
 }
 
 .widthSizer {
-	visibility: hidden;
-	padding-right: 1rem;
-	height: 0;
+  visibility: hidden;
+  padding-right: 1rem;
+  height: 0;
 }
 
 .select {
-	padding: 0 5px;
-	background-color: none;
-	font-size: 1rem;
-	:global(.Select-control) {
-		background: none !important;
-		border: none;
-		height: 32px;
-		:global(.Select-value) {
-			padding: 0;
-			line-height: 32px;
-			:global(.Select-value-label) {
-				color: $color-tint-primary !important;
-				line-height: 32px;
-			}
-		}
-		:global(.Select-input) {
-			padding: 0;
-			height: 32px;
-			line-height: 32px;
-			input {
-				background: none;
-				padding: 0;
-			}
-		}
-		:global(.Select-placeholder) {
-			padding: 0;
-			height: 32px;
-			line-height: 32px;
-		}
-		:global(.Select-arrow-zone) {
-			padding: 0;
-			width: 10px;
-			:global(.Select-arrow) {
-				border-top-color: $color-tint-primary;
-			}
-		}
-	}
+  padding: 0 5px;
+  background-color: none;
+  font-size: 1rem;
+  :global(.Select-control) {
+    background: none !important;
+    border: none;
+    height: 32px;
+    :global(.Select-value) {
+      padding: 0;
+      line-height: 32px;
+      :global(.Select-value-label) {
+        color: $color-tint-primary !important;
+        line-height: 32px;
+      }
+    }
+    :global(.Select-input) {
+      padding: 0;
+      height: 32px;
+      line-height: 32px;
+      input {
+        background: none;
+        padding: 0;
+      }
+    }
+    :global(.Select-placeholder) {
+      padding: 0;
+      height: 32px;
+      line-height: 32px;
+    }
+    :global(.Select-arrow-zone) {
+      padding: 0;
+      width: 10px;
+      :global(.Select-arrow) {
+        border-top-color: $color-tint-primary;
+      }
+    }
+  }
 }

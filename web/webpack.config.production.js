@@ -18,7 +18,7 @@ module.exports = merge(webpackConfig, {
   },
 
   plugins: [
-    new CleanWebpackPlugin([path.resolve(__dirname, 'build/static')]),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'index.template.html'),
       title: appHtmlTitle,

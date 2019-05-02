@@ -1,44 +1,44 @@
 @import '~styles/colors.global';
 
 .container {
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	background-color: white;
-	margin: 1.5rem 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  margin: 1.5rem 0;
 }
 
 .iconContainer {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 500px;
-	width: 8rem;
-	height: 8rem;
-	background-color: $color-grey-panel;
-	color: $color-grey-light;
-	font-size: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 500px;
+  width: 8rem;
+  height: 8rem;
+  background-color: $color-grey-panel;
+  color: $color-grey-light;
+  font-size: 6rem;
 }
 
 .textContainer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	max-width: 30rem;
-	margin: 1.5rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 30rem;
+  margin: 1.5rem 0 0 0;
 }
 
 .title {
-	composes: fontSizeLarge from 'styles/typography.scss';
-	color: $color-grey-mid;
-	text-align: center;
+  composes: fontSizeLarge from 'styles/typography.scss';
+  color: $color-grey-mid;
+  text-align: center;
 }
 
 .subtitle {
-	margin-top: 0.5rem;
-	color: $color-grey-mid;
-	text-align: center;
+  margin-top: 0.5rem;
+  color: $color-grey-mid;
+  text-align: center;
 }

@@ -14,7 +14,7 @@ import {
 } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import moment from 'moment';
 
 import {
@@ -22,6 +22,7 @@ import {
   checkToken,
   authActionTypes,
 } from 'makeandship-js-common/src/modules/auth';
+import { waitForChange } from 'makeandship-js-common/src/modules/util';
 
 import * as APIConstants from '../../constants/APIConstants';
 import {
@@ -238,11 +239,12 @@ function* uploadFileAssignBrowseWatcher() {
 
 // set the access token on resumablejs when it changes
 
-function* accessTokenWatcher() {
-  yield takeEvery(
-    [authActionTypes.INITIALISE_SUCCESS, authActionTypes.SET_TOKEN],
-    accessTokenWorker
-  );
+export function* accessTokenWatcher(): Saga {
+  yield fork(accessTokenWorker);
+  while (true) {
+    yield waitForChange(getAccessToken);
+    yield fork(accessTokenWorker);
+  }
 }
 
 export function* accessTokenWorker(): Saga {
@@ -333,7 +335,11 @@ export function* uploadFileWorker(): Saga {
 
 function* uploadFileCancelWatcher() {
   yield takeEvery(
-    [UPLOAD_FILE_CANCEL, authActionTypes.SIGNOUT_SUCCESS],
+    [
+      UPLOAD_FILE_CANCEL,
+      authActionTypes.LOGOUT_SUCCESS,
+      authActionTypes.SESSION_EXPIRED_SUCCESS,
+    ],
     function*() {
       const experimentId = yield select(getExperimentId);
       yield apply(_uploadFile, 'cancel');

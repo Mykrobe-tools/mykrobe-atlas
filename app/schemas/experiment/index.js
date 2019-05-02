@@ -42,7 +42,7 @@ export const filteredSchemaWithSubsections = _.memoize(
     };
     return filteredSchema;
   },
-  (subsections: Array<string>) => subsections.join('-')
+  (subsections: Array<string>) => (subsections ? subsections.join('-') : '-')
 );
 
 const metadataKeys = Object.keys(

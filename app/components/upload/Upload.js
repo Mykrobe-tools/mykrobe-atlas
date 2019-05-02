@@ -1,18 +1,18 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import styles from './Upload.scss';
 import AnimatedBackgroundCanvas from '../background/AnimatedBackgroundCanvas';
 import Logo from '../logo/Logo';
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 
 import UploadButton from './button/UploadButton';
 
-import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
+import withAuth, {
+  withAuthPropTypes,
+} from 'makeandship-js-common/src/hoc/withAuth';
 
 class Upload extends React.Component<*> {
   render() {
@@ -41,18 +41,14 @@ class Upload extends React.Component<*> {
             )}
           </div>
         </div>
-        <Header />
+        <HeaderContainer />
       </div>
     );
   }
 }
 
 Upload.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
+  ...withAuthPropTypes,
 };
 
-const withRedux = connect(state => ({
-  isAuthenticated: getIsAuthenticated(state),
-}));
-
-export default withRedux(Upload);
+export default withAuth(Upload);

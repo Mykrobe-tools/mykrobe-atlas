@@ -13,7 +13,7 @@ import {
 } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import parsePath from 'parse-filepath';
 
 export const MAX_FILES = 2;

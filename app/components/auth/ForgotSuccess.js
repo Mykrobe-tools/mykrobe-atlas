@@ -10,12 +10,12 @@ import {
 } from 'makeandship-js-common/src/components/ui/form';
 import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 import styles from './Common.scss';
 
 const ForgotSuccess = () => (
   <div className={styles.container}>
-    <Header title={'Account'} />
+    <HeaderContainer title={'Account'} />
     <Container fluid>
       <FormHeader title="Forgot password" />
       <p className="pt-3">Password reset instructions have been sent</p>
