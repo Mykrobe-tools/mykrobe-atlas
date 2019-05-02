@@ -11,14 +11,11 @@ import {
 } from 'makeandship-js-common/src/components/ui/form';
 import {
   SubmitButton,
-  CancelButton,
   DestructiveButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import HeaderContainer from '../../header/HeaderContainer';
 import Footer from '../../footer/Footer';
-
-// TODO: this is effectively a variation of EditUser - consolidate
 
 import { profileSchema } from '../../../schemas/users';
 import styles from './Profile.scss';
@@ -80,7 +77,6 @@ class Profile extends React.Component<*> {
               <FormFooter>
                 <div>
                   <SubmitButton marginRight>Save profile</SubmitButton>
-                  {/*<CancelButton onClick={this.onCancelClick} />*/}
                 </div>
                 <DestructiveButton onClick={this.onDeleteClick}>
                   Delete account
