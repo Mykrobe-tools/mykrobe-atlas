@@ -1,0 +1,759 @@
+[
+  {
+    "source": ["INH_monoresistant.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": ["Isoniazid"]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid RESISTANT",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "evidence": {
+        "Isoniazid": [
+          "Resistance mutation found: S315X in gene katG",
+          "Depth 82 on the resistant allele",
+          "Depth 1 on the susceptible allele"
+        ]
+      },
+      "species": "Mycobacterium tuberculosis (lineage: European American)"
+    }
+  },
+  {
+    "source": ["MDR.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": ["Isoniazid", "Rifampicin"]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid RESISTANT",
+          "Rifampicin RESISTANT",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistance": ["Multi-Drug Resistant (MDR)"],
+        "resistanceFlags": {
+          "mdr": true,
+          "xdr": false
+        }
+      },
+      "evidence": {
+        "Rifampicin": [
+          "Resistance mutation found: S450X in gene rpoB",
+          "Depth 51 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Isoniazid": [
+          "Resistance mutation found: S315X in gene katG",
+          "Depth 43 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ]
+      },
+      "species": "Mycobacterium tuberculosis (lineage: European American)"
+    }
+  },
+  {
+    "source": ["MDR_1.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": ["Isoniazid", "Rifampicin"]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid RESISTANT",
+          "Rifampicin RESISTANT",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistance": ["Multi-Drug Resistant (MDR)"],
+        "resistanceFlags": {
+          "mdr": true,
+          "xdr": false
+        }
+      },
+      "evidence": {
+        "Rifampicin": [
+          "Resistance mutation found: S450X in gene rpoB",
+          "Depth 102 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Isoniazid": [
+          "Resistance mutation found: S315X in gene katG",
+          "Depth 86 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ]
+      },
+      "species": "Mycobacterium tuberculosis (lineage: European American)"
+    }
+  },
+  {
+    "source": ["Mycobacterium_kansasii.bam"],
+    "expect": {
+      "species": "Mycobacterium kansasii (lineage: Unknown)"
+    }
+  },
+  {
+    "source": ["non-mycobacterium_saur.fastq.gz"],
+    "expect": {
+      "reject": true
+    }
+  },
+  {
+    "source": ["RIF_monoresistant.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": ["Rifampicin"]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid SUSCEPTIBLE",
+          "Rifampicin RESISTANT",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "evidence": {
+        "Rifampicin": [
+          "Resistance mutation found: H445X in gene rpoB",
+          "Depth 28 on the resistant allele",
+          "Depth 98 on the susceptible allele"
+        ]
+      },
+      "species": "Mycobacterium tuberculosis (lineage: European American)"
+    }
+  },
+  {
+    "source": ["XDR.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [],
+        "resistant": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid RESISTANT",
+          "Rifampicin RESISTANT",
+          "Ethambutol RESISTANT",
+          "Pyrazinamide RESISTANT"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin RESISTANT",
+          "Moxifloxacin RESISTANT",
+          "Ciprofloxacin RESISTANT",
+          "Streptomycin RESISTANT",
+          "Amikacin RESISTANT",
+          "Capreomycin RESISTANT",
+          "Kanamycin RESISTANT"
+        ],
+        "resistance": [
+          "Extensively Drug Resistant (XDR)",
+          "Multi-Drug Resistant (MDR)"
+        ],
+        "resistanceFlags": {
+          "mdr": true,
+          "xdr": true
+        }
+      },
+      "evidence": {
+        "Rifampicin": [
+          "Resistance mutation found: S450X in gene rpoB",
+          "Depth 44 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Capreomycin": [
+          "Resistance mutation found: A1401X in gene rrs",
+          "Depth 52 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Isoniazid": [
+          "Resistance mutation found: S315X in gene katG",
+          "Depth 30 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Amikacin": [
+          "Resistance mutation found: A1401X in gene rrs",
+          "Depth 52 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Ethambutol": [
+          "Resistance mutation found: M306V in gene embB",
+          "Depth 45 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Kanamycin": [
+          "Resistance mutation found: A1401X in gene rrs",
+          "Depth 52 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Streptomycin": [
+          "Resistance mutation found: K43R in gene rpsL",
+          "Depth 56 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Ciprofloxacin": [
+          "Resistance mutation found: A90V in gene gyrA",
+          "Depth 13 on the resistant allele",
+          "Depth 22 on the susceptible allele"
+        ],
+        "Moxifloxacin": [
+          "Resistance mutation found: A90V in gene gyrA",
+          "Depth 13 on the resistant allele",
+          "Depth 22 on the susceptible allele"
+        ],
+        "Ofloxacin": [
+          "Resistance mutation found: A90V in gene gyrA",
+          "Depth 13 on the resistant allele",
+          "Depth 22 on the susceptible allele"
+        ],
+        "Pyrazinamide": [
+          "Resistance mutation found: H137R in gene pncA",
+          "Depth 7 on the resistant allele",
+          "Depth 22 on the susceptible allele"
+        ]
+      },
+      "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"
+    }
+  },
+  {
+    "source": ["nanopore_file/matched-illumina-fq/BC01_1.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin"
+        ]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid RESISTANT",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol RESISTANT",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin RESISTANT",
+          "Moxifloxacin RESISTANT",
+          "Ciprofloxacin RESISTANT",
+          "Streptomycin RESISTANT",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin RESISTANT"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "evidence": {
+        "Isoniazid": [
+          "Resistance mutation found: S315X in gene katG",
+          "Depth 64 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Ethambutol": [
+          "Resistance mutation found: Q497R in gene embB",
+          "Depth 73 on the resistant allele",
+          "Depth 1 on the susceptible allele"
+        ],
+        "Kanamycin": [
+          "Resistance mutation found: G in gene eis",
+          "Depth 67 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Streptomycin": [
+          "Resistance mutation found: K43R in gene rpsL",
+          "Depth 66 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Ciprofloxacin": [
+          "Resistance mutation found: A90V in gene gyrA",
+          "Depth 60 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Moxifloxacin": [
+          "Resistance mutation found: A90V in gene gyrA",
+          "Depth 60 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Ofloxacin": [
+          "Resistance mutation found: A90V in gene gyrA",
+          "Depth 60 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ]
+      },
+      "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"
+    }
+  },
+  {
+    "source": ["nanopore_file/matched-illumina-fq/BC02_1.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": []
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid SUSCEPTIBLE",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "species": "Mycobacterium tuberculosis (lineage: East Africa Indian ocean)"
+    }
+  },
+  {
+    "source": ["nanopore_file/matched-illumina-fq/BC03_1.fastq.gz"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": ["Isoniazid"]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid RESISTANT",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "evidence": {
+        "Isoniazid": [
+          "Resistance mutation found: S315X in gene katG",
+          "Depth 65 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ]
+      },
+      "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"
+    }
+  },
+  {
+    "source": ["nanopore_file/nanopore-fq/BC01_filtered.fastq"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin"
+        ]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid RESISTANT",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol RESISTANT",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin RESISTANT",
+          "Moxifloxacin RESISTANT",
+          "Ciprofloxacin RESISTANT",
+          "Streptomycin RESISTANT",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin RESISTANT"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "evidence": {
+        "Isoniazid": [
+          "Resistance mutation found: S315X in gene katG",
+          "Depth 16 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Ethambutol": [
+          "Resistance mutation found: Q497R in gene embB",
+          "Depth 8 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Kanamycin": [
+          "Resistance mutation found: G in gene eis",
+          "Depth 7 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Streptomycin": [
+          "Resistance mutation found: K43R in gene rpsL",
+          "Depth 7 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Ciprofloxacin": [
+          "Resistance mutation found: A90V in gene gyrA",
+          "Depth 14 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Moxifloxacin": [
+          "Resistance mutation found: A90V in gene gyrA",
+          "Depth 14 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ],
+        "Ofloxacin": [
+          "Resistance mutation found: A90V in gene gyrA",
+          "Depth 14 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+         ]
+      },
+      "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"
+    }
+  },
+  {
+    "source": ["nanopore_file/nanopore-fq/BC02_filtered.fastq"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": [
+        ]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid SUSCEPTIBLE",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "species": "Mycobacterium tuberculosis (lineage: East Africa Indian ocean)"
+    }
+  },
+  {
+    "source": ["nanopore_file/nanopore-fq/BC03_filtered.fastq"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": [
+          "Isoniazid"
+        ]
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid RESISTANT",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "evidence": {
+        "Isoniazid": [
+          "Resistance mutation found: S315X in gene katG",
+          "Depth 8 on the resistant allele",
+          "Depth 0 on the susceptible allele"
+        ]
+      },
+      "species": "Mycobacterium tuberculosis (lineage: Beijing East Asia)"
+    }
+  },
+  {
+    "source": ["nanopore_file/nanopore-fq/BC04_filtered.fastq"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": []
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid SUSCEPTIBLE",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "species": "Mycobacterium tuberculosis (lineage: East Africa Indian ocean)"
+    }
+  },
+  {
+    "source": ["nanopore_file/nanopore-fq/BC05_filtered.fastq"],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": []
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid SUSCEPTIBLE",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "species": "Mycobacterium tuberculosis (lineage: European American)"
+    }
+  }
+]

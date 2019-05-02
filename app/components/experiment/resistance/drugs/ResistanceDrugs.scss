@@ -1,53 +1,53 @@
 @import '~styles/colors.global';
 
 .container {
-	composes: container from 'styles/layout.scss';
-	padding: 18px;
-	overflow-y: auto;
-	background-color: white;
-	flex-wrap: wrap;
+  composes: containerCompact from 'styles/layout.scss';
+  padding: 18px;
+  overflow-y: auto;
+  background-color: white;
+  flex-wrap: wrap;
 }
 
 .drugs {
-	padding: 8px 0;
+  padding: 8px 0;
 }
 
 .indicator {
-	composes: subtitleSmall from 'styles/typography.scss';
-	display: inline-block;
+  composes: subtitleSmall from 'styles/typography.scss';
+  display: inline-block;
 }
 
 .susceptible {
-	composes: indicator;
-	color: $color-susceptible;
+  composes: indicator;
+  color: $color-susceptible;
 }
 
 .susceptible::before {
-	font-family: FontAwesome;
-	content: '\f058\00a0';
+  font-family: FontAwesome;
+  content: '\f058\00a0';
 }
 
 .resistant {
-	composes: indicator;
-	color: $color-resistant;
+  composes: indicator;
+  color: $color-resistant;
 }
 
 .resistant::before {
-	font-family: FontAwesome;
-	content: '\f071\00a0';
+  font-family: FontAwesome;
+  content: '\f071\00a0';
 }
 
 .inconclusive {
-	composes: indicator;
-	color: $color-inconclusive;
+  composes: indicator;
+  color: $color-inconclusive;
 }
 
 .inconclusive::before {
-	font-family: FontAwesome;
-	content: '\f146\00a0';
+  font-family: FontAwesome;
+  content: '\f146\00a0';
 }
 
 .empty {
-	display: flex;
-	flex: 1;
+  display: flex;
+  flex: 1;
 }

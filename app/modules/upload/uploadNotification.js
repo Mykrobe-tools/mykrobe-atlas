@@ -3,7 +3,7 @@
 import { channel } from 'redux-saga';
 import { all, fork, put, take, takeEvery, select } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import moment from 'moment';
 
 import {
@@ -188,7 +188,7 @@ function* thirdPartyUploadProgressWatcher() {
     yield put(
       updateNotification(experimentId, {
         category: NotificationCategories.MESSAGE,
-        content: `${progress}% Retreiving ${fileName} from ${provider}`,
+        content: `${progress}% Retrieving ${fileName} from ${provider}`,
         progress,
       })
     );

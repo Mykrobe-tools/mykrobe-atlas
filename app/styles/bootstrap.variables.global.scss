@@ -30,7 +30,7 @@ $link-hover-decoration: none;
 $link-hover-color: none;
 
 $transition-base: all 0.1s ease-in-out;
-$btn-transition: $transition-base;
+$btn-transition: opacity 0.1s ease-in-out, color 0.1s ease-in-out;
 
 $dropdown-link-color: $color-grey-dark;
 $dropdown-link-hover-color: rgba($color-grey-dark, 0.7);
@@ -43,7 +43,8 @@ $nav-divider-margin-y: 0;
 
 $spacer: 1rem;
 $spacers: (
-	4h: (
-		$spacer * 2,
-	),
+  4h: (
+    $spacer * 2,
+  ),
 );
+@import '~makeandship-js-common/src/styles/bootstrap.variables.global';

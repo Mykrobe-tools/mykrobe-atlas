@@ -5,10 +5,10 @@ import fs from 'fs';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import Dropzone from 'react-dropzone';
 import { withRouter } from 'react-router-dom';
+import DocumentTitle from 'react-document-title';
 
 import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
 import * as APIConstants from '../constants/APIConstants';
@@ -17,6 +17,7 @@ import {
   analyseFileNew,
   analyseFile,
   analyseFileSave,
+  getFileNames,
 } from '../modules/desktop';
 
 import styles from './App.scss';
@@ -28,6 +29,8 @@ type State = {
   isDragActive: boolean,
 };
 
+const defaultTitle = require('../../package.json').productName;
+
 class App extends React.Component<*, State> {
   state = {
     isDragActive: false,
@@ -38,10 +41,10 @@ class App extends React.Component<*, State> {
     const { analyseFile, analyseFileNew, analyseFileSave, push } = props;
     const ipcRenderer = require('electron').ipcRenderer;
 
-    ipcRenderer.on('open-file', (e, filePath) => {
+    ipcRenderer.on('open-file', (e, filePaths) => {
       console.log('App open-file');
-      if (filePath) {
-        analyseFile(filePath);
+      if (filePaths) {
+        analyseFile(filePaths);
       }
     });
 
@@ -54,9 +57,9 @@ class App extends React.Component<*, State> {
     });
 
     ipcRenderer.on('menu-file-open', () => {
-      const filePath = UIHelpers.openFileDialog(); // eslint-disable-line import/namespace
-      if (filePath) {
-        analyseFile(filePath);
+      const filePaths = UIHelpers.openFileDialog(); // eslint-disable-line import/namespace
+      if (filePaths) {
+        analyseFile(filePaths);
       }
     });
 
@@ -112,6 +115,7 @@ class App extends React.Component<*, State> {
   };
 
   onDropAccepted = files => {
+    const { analyseFile } = this.props;
     console.log('onDropAccepted', files);
     this.setState({
       isDragActive: false,
@@ -119,9 +123,7 @@ class App extends React.Component<*, State> {
     if (!files.length) {
       return;
     }
-    const { analyseFile } = this.props;
-    const filePath = files[0];
-    analyseFile(filePath);
+    analyseFile(files);
   };
 
   onDropRejected = files => {
@@ -132,20 +134,24 @@ class App extends React.Component<*, State> {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, fileNames } = this.props;
     const { isDragActive } = this.state;
-
+    const title =
+      fileNames && fileNames.length
+        ? `${fileNames.join(', ')} – ${defaultTitle}`
+        : defaultTitle;
     return (
       <Dropzone
-        className={isDragActive ? styles.containerDragActive : styles.container}
+        className={styles.container}
         onDropAccepted={this.onDropAccepted}
         onDropRejected={this.onDropRejected}
         onDragLeave={this.onDragLeave}
         onDragEnter={this.onDragEnter}
         disableClick
-        multiple={false}
+        multiple
         accept={APIConstants.API_SAMPLE_EXTENSIONS_STRING_WITH_DOTS}
       >
+        <DocumentTitle title={title} />
         <div className={styles.contentContainer}>{children}</div>
         <div className={styles.notificationsContainerElectron}>
           <NotificationsContainer
@@ -156,26 +162,23 @@ class App extends React.Component<*, State> {
             hidden={false}
           />
         </div>
+        {isDragActive && <div className={styles.dragIndicator} />}
       </Dropzone>
     );
   }
 }
 
-function mapStateToProps() {
-  return {};
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      analyseFileSave,
-      analyseFileNew,
-      analyseFile,
-      push,
-    },
-    dispatch
-  );
-}
+const withRedux = connect(
+  state => ({
+    fileNames: getFileNames(state),
+  }),
+  {
+    analyseFileSave,
+    analyseFileNew,
+    analyseFile,
+    push,
+  }
+);
 
 App.propTypes = {
   analyseFileSave: PropTypes.func.isRequired,
@@ -183,11 +186,7 @@ App.propTypes = {
   analyseFile: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  fileNames: PropTypes.array,
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default withRouter(withRedux(App));

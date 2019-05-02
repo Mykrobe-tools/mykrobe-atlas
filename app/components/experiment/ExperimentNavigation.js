@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 import styles from './ExperimentNavigation.scss';
 
 class ExperimentNavigation extends React.Component<*> {
@@ -16,7 +16,7 @@ class ExperimentNavigation extends React.Component<*> {
       : 'Unknown sample';
     return (
       <div className={styles.container}>
-        <Header title={title} />
+        <HeaderContainer title={title} />
         <Container fluid>
           <div className={styles.navigation}>
             <NavLink

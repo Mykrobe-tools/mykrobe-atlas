@@ -9,8 +9,8 @@
 			<array>
 				<string>json</string>
 				<string>bam</string>
-				<string>gz</string>
 				<string>fastq</string>
+				<string>fastq.gz</string>
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>

@@ -7,6 +7,7 @@ Object {
     "args": Array [
       Object {
         "action": Object {
+          "meta": undefined,
           "payload": Object {
             "test": true,
           },
@@ -16,6 +17,7 @@ Object {
           "onSuccess": [Function],
           "operationId": "usersCreate",
         },
+        "meta": undefined,
         "parameters": Object {
           "body": Object {
             "test": true,
@@ -41,6 +43,7 @@ Object {
     "args": Array [
       Object {
         "action": Object {
+          "meta": undefined,
           "payload": undefined,
           "type": "users/currentUser/DELETE_CURRENT_USER",
         },
@@ -48,6 +51,7 @@ Object {
           "onSuccess": [Function],
           "operationId": "currentUserDelete",
         },
+        "meta": undefined,
         "parameters": undefined,
         "types": Array [
           "users/currentUser/DELETE_CURRENT_USER_REQUEST",
@@ -69,6 +73,7 @@ Object {
     "args": Array [
       Object {
         "action": Object {
+          "meta": undefined,
           "payload": undefined,
           "type": "users/currentUser/REQUEST_CURRENT_USER",
         },
@@ -76,11 +81,14 @@ Object {
           "onFailure": [Function],
           "operationId": "currentUserGet",
         },
+        "meta": undefined,
         "parameters": undefined,
+        "shouldExecuteJsonApiAction": undefined,
         "types": Array [
           "users/currentUser/REQUEST_CURRENT_USER_REQUEST",
           "users/currentUser/REQUEST_CURRENT_USER_SUCCESS",
           "users/currentUser/REQUEST_CURRENT_USER_FAILURE",
+          "users/currentUser/REQUEST_CURRENT_USER_ABORT",
         ],
       },
     ],
@@ -97,6 +105,7 @@ Object {
     "args": Array [
       Object {
         "action": Object {
+          "meta": undefined,
           "payload": Object {
             "test": true,
           },
@@ -106,6 +115,7 @@ Object {
           "onSuccess": [Function],
           "operationId": "currentUserUpdate",
         },
+        "meta": undefined,
         "parameters": Object {
           "body": Object {
             "test": true,

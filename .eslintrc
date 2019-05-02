@@ -22,12 +22,11 @@
   },
   "settings": {
     "import/resolver": "webpack",
-    "import/ignore": [".css$", "node_modules/*"],
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true
     },
     "react": {
-      "version": "16.2"
+      "version": "detect"
     }
   },
   "globals": {

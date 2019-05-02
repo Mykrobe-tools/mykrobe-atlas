@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Popover, Nav, NavItem, NavLink, Navbar } from 'reactstrap';
+import { UncontrolledPopover, Nav, NavItem, NavLink, Navbar } from 'reactstrap';
 import { NavLink as ReactRouterNavLink } from 'react-router-dom';
 
 import {
@@ -17,26 +17,7 @@ import styles from './NotificationsButton.scss';
 import NotificationsContainer from './NotificationsContainer';
 import NotificationsStyle from './NotificationsStyle';
 
-type State = {
-  popoverOpen: boolean,
-};
-
-class NotificationsButton extends React.Component<*, State> {
-  state = {
-    popoverOpen: false,
-  };
-
-  toggle = () => {
-    this.setState({
-      popoverOpen: !this.state.popoverOpen,
-    });
-  };
-
-  onIconClick = e => {
-    e.preventDefault();
-    this.toggle();
-  };
-
+class NotificationsButton extends React.Component<*> {
   onClearClick = e => {
     const { dismissAllNotifications } = this.props;
     e.preventDefault();
@@ -48,19 +29,18 @@ class NotificationsButton extends React.Component<*, State> {
     const hasNotifications = notifications && notifications.length > 0;
     return (
       <div className={styles.container}>
-        <a className={styles.link} href="#" onClick={this.onIconClick}>
-          <span id={'NotificationsButton'} className={styles.icon}>
+        <a id={'NotificationsButton'} className={styles.link}>
+          <span className={styles.icon}>
             <i className={'fa fa-bell'} />
           </span>
           {hasNotifications && (
             <span className={styles.count}>{`${notifications.length}`}</span>
           )}
         </a>
-        <Popover
+        <UncontrolledPopover
           placement={'bottom'}
-          isOpen={this.state.popoverOpen}
           target={'NotificationsButton'}
-          toggle={this.toggle}
+          trigger={'legacy'}
         >
           <Navbar color="light" expand="sm">
             <span>{hasNotifications ? 'Recent' : 'No notifications'}</span>
@@ -92,7 +72,7 @@ class NotificationsButton extends React.Component<*, State> {
             order={'desc'}
             limit={5}
           />
-        </Popover>
+        </UncontrolledPopover>
       </div>
     );
   }

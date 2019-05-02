@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 
 import store, { history } from './store';
 import './styles/app.global.scss';
@@ -27,6 +27,19 @@ if (!element) {
 }
 
 console.log('process.env.NODE_ENV', JSON.stringify(process.env.NODE_ENV));
+console.log(
+  'process.env.DEBUG_PRODUCTION',
+  JSON.stringify(process.env.DEBUG_PRODUCTION)
+);
+console.log(
+  'process.env.DISABLE_DESKTOP_UPDATER',
+  JSON.stringify(process.env.DISABLE_DESKTOP_UPDATER)
+);
+console.log(
+  'process.env.DISABLE_DESKTOP_BACKGROUND_ANIMATION',
+  JSON.stringify(process.env.DISABLE_DESKTOP_BACKGROUND_ANIMATION)
+);
+console.log('process.env.API_DEBUG', JSON.stringify(process.env.API_DEBUG));
 console.log('process.env.API_URL', JSON.stringify(process.env.API_URL));
 console.log(
   'process.env.API_SWAGGER_URL',
@@ -38,7 +51,7 @@ console.log(
 );
 
 const renderRoot = () => {
-  const routes = require('./routes');
+  const routes = require('./routes').default;
   render(
     <Provider store={store}>
       <ConnectedRouter history={history}>{routes}</ConnectedRouter>

@@ -1,22 +1,26 @@
 /* @flow */
 
 import path from 'path';
+import parsePath from 'parse-filepath';
+import fs from 'fs-extra';
 
 import {
-  ensurePredictorBinaries,
+  ensureMykrobeBinaries,
   ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
-  EXEMPLAR_SAMPLES_FOLDER_PATH,
+  EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
+  EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
   expectCaseInsensitiveEqual,
-} from '../../../../desktop/util';
+} from '../../../../desktop/test/util';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
+import detectFileSeq from './detectFileSeq';
 
 const GENERATE_JSON_FIXTURES = true;
 
-const exemplarSamplesExpect = require('../../../../test/__fixtures__/exemplar-samples.expect.json');
+const exemplarSamplesExpect = require('../../../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
 
-INCLUDE_SLOW_TESTS && jest.setTimeout(10 * 60 * 1000); // 10 minutes
+jest.setTimeout(30 * 60 * 1000); // 30 minutes (can take over 10 minutes in VM)
 
 describe('AnalyserLocalFile', () => {
   it('should contain a test', done => {
@@ -24,7 +28,7 @@ describe('AnalyserLocalFile', () => {
   });
 });
 
-ensurePredictorBinaries();
+ensureMykrobeBinaries();
 ensureExemplarSamples();
 
 // TODO: this affects where the analyser looks for the mykrobe executable - should use a more explicit flag
@@ -41,7 +45,7 @@ describe('AnalyserLocalFile', () => {
   for (let i = 0; i < exemplarSamplesExpect.length; i++) {
     const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
     for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
-      const source = exemplarSamplesExpectEntry.source[j];
+      let source = exemplarSamplesExpectEntry.source[j];
       const extension = source
         .substr(source.lastIndexOf('.') + 1)
         .toLowerCase();
@@ -50,28 +54,42 @@ describe('AnalyserLocalFile', () => {
         console.log(`Skipping slow test for ${source}`);
         continue;
       }
-      it(`should analyse source file ${source}`, async done => {
+      const filePath = path.join(EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH, source);
+      const result = detectFileSeq(filePath);
+      let filePaths = [filePath];
+      if (result) {
+        filePaths = filePaths.concat(result);
+      }
+      const fileNames = filePaths.map(filePath => parsePath(filePath).basename);
+      it(`should analyse source file ${source} - analysing (${fileNames.join(
+        ', '
+      )})`, async done => {
         const analyser = new AnalyserLocalFile();
-        const filePath = path.join(EXEMPLAR_SAMPLES_FOLDER_PATH, source);
         analyser
-          .analyseFile(filePath)
+          .analyseFile(filePaths)
           .on('progress', progress => {
             console.log('progress', progress);
           })
           .on('done', result => {
             const { json, transformed } = result;
             if (GENERATE_JSON_FIXTURES) {
-              const fs = require('fs');
               if (!isJson) {
                 // write unprocessed json
-                fs.writeFileSync(
-                  `test/__fixtures__/exemplar-samples/${source}.json`,
-                  JSON.stringify(json, null, 2)
+                const outputPath = path.join(
+                  EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
+                  `${source}.json`
                 );
+                fs.ensureDirSync(path.dirname(outputPath));
+                fs.writeFileSync(outputPath, JSON.stringify(json, null, 2));
               }
               // write transformed json
+              const outputPath = path.join(
+                EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
+                `${source}__transformed__.json`
+              );
+              fs.ensureDirSync(path.dirname(outputPath));
               fs.writeFileSync(
-                `test/__fixtures__/exemplar-samples/${source}__AnalyserLocalFile__.json`,
+                outputPath,
                 JSON.stringify(transformed, null, 2)
               );
             }

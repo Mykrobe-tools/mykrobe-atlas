@@ -1,22 +1,22 @@
 @import '~styles/colors.global';
 
 .checkboxContainer {
-	composes: global(form-group);
-	margin: 0;
+  composes: global(form-group);
+  margin: 0;
 }
 
 .dropdownToggle {
-	composes: global(text-mid);
-	composes: global(px-2);
+  composes: global(text-mid);
+  composes: global(px-2);
 }
 
 .resistanceProfile {
-	white-space: nowrap;
+  white-space: nowrap;
 }
 
 .resistant {
 }
 
 .susceptible {
-	opacity: 0.2;
+  opacity: 0.2;
 }

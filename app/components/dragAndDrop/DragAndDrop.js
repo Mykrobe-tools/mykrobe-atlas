@@ -4,7 +4,9 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth';
+import withAuth, {
+  withAuthPropTypes,
+} from 'makeandship-js-common/src/hoc/withAuth';
 
 import { shouldAcceptDropEvent } from './util';
 import styles from './DragAndDrop.scss';
@@ -56,10 +58,9 @@ class Upload extends React.Component<*, State> {
 
   render() {
     const { isDragActive } = this.state;
-    const { className } = this.props;
     return (
       <div
-        className={className}
+        className={this.props.className}
         onDragOver={this.onDragOver}
         onDragLeave={this.onDragLeave}
         onDrop={this.onDrop}
@@ -73,19 +74,15 @@ class Upload extends React.Component<*, State> {
 }
 
 Upload.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
+  ...withAuthPropTypes,
   uploadFileDrop: PropTypes.func.isRequired,
-  children: PropTypes.node,
-  className: PropTypes.string,
 };
 
 const withRedux = connect(
-  state => ({
-    isAuthenticated: getIsAuthenticated(state),
-  }),
+  null,
   {
     uploadFileDrop,
   }
 );
 
-export default withRedux(Upload);
+export default withRedux(withAuth(Upload));

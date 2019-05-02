@@ -1,7 +1,8 @@
 /* @flow */
 
 import Resumablejs from 'resumablejs';
-import { API_URL } from '../../../constants/APIConstants';
+
+import { ensureEnv, env } from 'makeandship-js-common/src/util';
 
 export const typePrefix = 'upload/uploadFileResumable/';
 
@@ -28,6 +29,7 @@ class ResumableUpload {
   };
 
   constructor(actionChannel: any, acceptedExtensions: Array<string>) {
+    const API_URL = ensureEnv(env.API_URL);
     this.actionChannel = actionChannel;
     this.acceptedExtensions = acceptedExtensions;
     this.resumable = new Resumablejs({

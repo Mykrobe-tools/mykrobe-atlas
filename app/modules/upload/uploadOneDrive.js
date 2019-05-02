@@ -2,7 +2,7 @@
 
 import { all, fork, put, call, takeLatest } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import loadScript from 'load-script';
 
 const ONEDRIVE_SDK_URL = 'https://js.live.net/v7.0/OneDrive.js';

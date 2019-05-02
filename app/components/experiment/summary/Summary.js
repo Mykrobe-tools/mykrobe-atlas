@@ -26,25 +26,29 @@ class Summary extends React.Component<*> {
     } else {
       content = (
         <div className={styles.summaryContainer}>
-          <Panel title="Metadata" columns={8}>
-            <SummaryMetadata
-              experiment={experiment}
-              experimentTransformed={experimentTransformed}
-              experimentNearestNeigbours={experimentNearestNeigbours}
-            />
-          </Panel>
-          <Panel title="Resistance Profile" columns={4}>
-            <ResistanceProfile
-              experiment={experiment}
-              experimentTransformed={experimentTransformed}
-            />
-          </Panel>
-          <Panel title="Variants Inducing Resistance" columns={4}>
-            <SummaryVariants
-              experiment={experiment}
-              experimentTransformed={experimentTransformed}
-            />
-          </Panel>
+          <div className={styles.topRow}>
+            <Panel title="Metadata" columns={8}>
+              <SummaryMetadata
+                experiment={experiment}
+                experimentTransformed={experimentTransformed}
+                experimentNearestNeigbours={experimentNearestNeigbours}
+              />
+            </Panel>
+          </div>
+          <div className={styles.bottomRow}>
+            <Panel title="Resistance Profile" columns={4}>
+              <ResistanceProfile
+                experiment={experiment}
+                experimentTransformed={experimentTransformed}
+              />
+            </Panel>
+            <Panel title="Variants Inducing Resistance" columns={4}>
+              <SummaryVariants
+                experiment={experiment}
+                experimentTransformed={experimentTransformed}
+              />
+            </Panel>
+          </div>
         </div>
       );
     }

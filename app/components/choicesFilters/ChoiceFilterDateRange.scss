@@ -1,16 +1,16 @@
 @import '~styles/colors.global';
 
 .componentWrap {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	font-size: 1rem;
-	line-height: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .customInput {
-	composes: global(px-1);
-	:global(i.fa) {
-		font-size: 14/16 * 1rem;
-	}
+  composes: global(px-1);
+  :global(i.fa) {
+    font-size: 14/16 * 1rem;
+  }
 }

@@ -1,12 +1,10 @@
 /* @flow */
 
-/* eslint-disable react/no-string-refs */
-
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { goBack, push } from 'react-router-redux';
+import { goBack, push } from 'connected-react-router';
 import { Container } from 'reactstrap';
 
 import Footer from '../../footer/Footer';

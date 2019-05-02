@@ -3,7 +3,7 @@
 import os from 'os';
 const argv = require('minimist')(process.argv.slice(2));
 
-// dtermine arch and platforms from command line arguments
+// determine arch and platforms from command line arguments
 
 export default () => {
   let archs;
@@ -18,17 +18,22 @@ export default () => {
   } else {
     platforms = [];
     // archs = ['ia32', 'x64'];
-    archs = ['x64'];
     if (argv.mac) {
+      archs = ['x64'];
       platforms.push('darwin');
     }
     if (argv.win) {
-      platforms.push('win32');
-      if (argv.x64 && !argv.ia32) {
-        archs = ['x64'];
+      archs = [];
+      if (argv.ia32) {
+        archs.push('ia32');
       }
+      if (argv.x64 || !archs.length) {
+        archs.push('x64');
+      }
+      platforms.push('win32');
     }
     if (argv.linux) {
+      archs = ['x64'];
       platforms.push('linux');
     }
   }
@@ -37,7 +42,7 @@ export default () => {
     platforms = [os.platform()];
   }
 
-  if (!archs.length) {
+  if (!archs || !archs.length) {
     archs = [os.arch()];
   }
 

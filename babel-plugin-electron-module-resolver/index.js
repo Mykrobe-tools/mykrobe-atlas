@@ -11,6 +11,10 @@ const resolvedPath = (source, state) => {
     return;
   }
 
+  if (!source || typeof source !== 'string') {
+    return;
+  }
+
   // ignore anything which is not a relative import
   if (!source.startsWith('./') && !source.startsWith('../')) {
     return;

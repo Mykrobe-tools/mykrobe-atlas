@@ -11,5 +11,11 @@
     "name": "Mykrobe Atlas TB - Web and Desktop",
     "productName": "Mykrobe Atlas TB",
     "appId": "com.mykrobe.atlas-tb"
+  },
+  {
+    "value": "desktop",
+    "name": "Mykrobe - Desktop",
+    "productName": "Mykrobe",
+    "appId": "com.mykrobe.desktop"
   }
 ]

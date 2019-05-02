@@ -1,7 +1,7 @@
 /* @flow */
 
 import { all, fork, put, takeLatest } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import { currentUserActionTypes } from '../users/currentUser';
 
@@ -12,7 +12,7 @@ function* createWatcher() {
 }
 
 export function* createWorker(): Generator<*, *, *> {
-  yield put(push('/auth/signupsuccess'));
+  yield put(push('/auth/registersuccess'));
 }
 
 export function* currentUserNavigationSaga(): Generator<*, *, *> {

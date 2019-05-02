@@ -1,19 +1,24 @@
 /* @flow */
 
 import { channel } from 'redux-saga';
-import { all, fork, takeEvery, select, put, take } from 'redux-saga/effects';
+import {
+  all,
+  fork,
+  takeEvery,
+  takeLatest,
+  select,
+  put,
+  take,
+} from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 
-import { getAccessToken } from 'makeandship-js-common/src/modules/auth';
-import { buildOptionsWithToken } from 'makeandship-js-common/src/modules/api/jsonApi';
-import { API_URL } from 'makeandship-js-common/src/modules/api/constants';
+import { buildOptionsWithToken } from 'makeandship-js-common/src/modules/api/util';
 import {
+  getAccessToken,
   getIsAuthenticated,
-  SIGNIN_SUCCESS,
-  SIGNOUT_SUCCESS,
-  SESSION_EXPIRED_SUCCESS,
-  INITIALISE_SUCCESS,
-} from 'makeandship-js-common/src/modules/auth/auth';
+  authActionTypes,
+} from 'makeandship-js-common/src/modules/auth';
+import { ensureEnv, env } from 'makeandship-js-common/src/util';
 
 export const typePrefix = 'users/currentUserEvents/';
 
@@ -71,7 +76,10 @@ export function* eventSourceChannelWatcher(): Saga {
 
 function* startWatcher() {
   yield fork(startWorker);
-  yield takeEvery([INITIALISE_SUCCESS, SIGNIN_SUCCESS], startWorker);
+  yield takeEvery(
+    [authActionTypes.INITIALISE_SUCCESS, authActionTypes.LOGIN_SUCCESS],
+    startWorker
+  );
 }
 
 function* startWorker() {
@@ -91,6 +99,7 @@ function* startWorker() {
 
   // TODO construct this with Swagger operation id
   try {
+    const API_URL = ensureEnv(env.API_URL);
     _eventSource = new EventSourcePolyfill(`${API_URL}/user/events`, {
       headers: options.headers,
       heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
@@ -124,7 +133,10 @@ function* startWorker() {
 }
 
 function* stopWatcher() {
-  yield takeEvery([SIGNOUT_SUCCESS, SESSION_EXPIRED_SUCCESS], stopWorker);
+  yield takeLatest(
+    [authActionTypes.LOGOUT_SUCCESS, authActionTypes.SESSION_EXPIRED_SUCCESS],
+    stopWorker
+  );
 }
 
 function* stopWorker() {

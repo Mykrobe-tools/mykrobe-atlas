@@ -1,28 +1,28 @@
 @import '~styles/colors.global';
 
 .container {
-	composes: global(pr-3);
+  composes: global(pr-3);
 }
 
 .link {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .icon {
-	padding-right: 0.1rem;
-	font-size: 1rem;
-	color: $color-grey-dark;
-	line-height: 1;
+  padding-right: 0.1rem;
+  font-size: 1rem;
+  color: $color-grey-dark;
+  line-height: 1;
 }
 
 .count {
-	background-color: $color-app-red;
-	color: $color-white;
-	font-family: 'Bryant2-Bold', sans-serif;
-	text-transform: uppercase;
-	font-size: 14/16 * 1rem;
-	padding: 0 0.25rem;
-	border-radius: 500px;
-	line-height: 1;
+  background-color: $color-app-red;
+  color: $color-white;
+  font-family: 'Bryant2-Bold', sans-serif;
+  text-transform: uppercase;
+  font-size: 14/16 * 1rem;
+  padding: 0 0.25rem;
+  border-radius: 500px;
+  line-height: 1;
 }

@@ -1,33 +1,46 @@
 /* @flow */
 
-import { app, BrowserWindow, Menu, shell } from 'electron';
+import { app, ipcMain, BrowserWindow, dialog } from 'electron';
 import log from 'electron-log';
-import { autoUpdater } from 'electron-updater';
+import type { Menu } from 'electron';
+
+import { DEBUG, IS_MAC } from './constants';
+
+import { createMenu, installMenu } from './menu';
+
+let autoUpdater;
+
+// FIXME: currently have to comment out the following block to build on Windows
+// nb. modifying this with an addional variable/flag check will not currently work
+// as the require() is still evaluated, resulting in error and build failure
 
 if (process.env.NODE_ENV === 'production') {
+  autoUpdater = require('electron-updater').autoUpdater;
   setupAutoUpdater();
 }
 
-const pkg = require('./static/package.json');
+// end FIXME
 
-let menu;
-let template;
 let mainWindow: BrowserWindow;
 let filepath;
 let ready = false;
+let menu: Menu;
+let isAnalysing = false;
+let quittingProgramatically = false;
 
-const SHOW_DEV_TOOLS = process.env.NODE_ENV === 'development';
-// const SHOW_DEV_TOOLS = true;
-
-if (process.env.NODE_ENV === 'development') {
+if (DEBUG) {
   require('electron-debug')(); // eslint-disable-line global-require
   const path = require('path');
   const p = path.join(__dirname, '../node_modules');
   require('module').globalPaths.push(p);
+  // Log level
+  log.transports.console.level = 'info';
 }
 
+// quit on closing windows
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  quittingProgramatically = true;
+  app.quit();
 });
 
 // TODO: this is not yet working - perhaps need to set file associations in mac info.plist
@@ -44,26 +57,47 @@ app.on('will-finish-launching', () => {
   });
 });
 
+// save enabled
+
+ipcMain.on('set-save-enabled', (event, value) => {
+  log.info('set-save-enabled', value);
+  if (IS_MAC) {
+    menu.items[1].submenu.items[4].enabled = value;
+  } else {
+    menu.items[0].submenu.items[4].enabled = value;
+  }
+});
+
+ipcMain.on('set-is-analysing', (event, value) => {
+  log.info('set-is-analysing', value);
+  isAnalysing = value;
+});
+
 app.on('ready', async () => {
   if (process.env.NODE_ENV === 'development') {
     const installExtensions = async () => {
-      const installer = require('electron-devtools-installer');
-      const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-      const extensions = ['REACT_DEVELOPER_TOOLS', 'REDUX_DEVTOOLS'];
-
-      return Promise.all(
-        extensions.map(name =>
-          installer.default(installer[name], forceDownload)
-        )
-      ).catch(console.log);
+      const {
+        default: installExtension,
+        REACT_DEVELOPER_TOOLS,
+        REDUX_DEVTOOLS,
+      } = require('electron-devtools-installer');
+      installExtension(REACT_DEVELOPER_TOOLS)
+        .then(name => log.info(`Added Extension:  ${name}`))
+        .catch(err => log.error('An error occurred: ', err));
+      installExtension(REDUX_DEVTOOLS)
+        .then(name => log.info(`Added Extension:  ${name}`))
+        .catch(err => log.error('An error occurred: ', err));
     };
 
     await installExtensions();
   }
 
-  if (process.env.NODE_ENV === 'production') {
+  if (autoUpdater) {
+    log.info('Auto updater starting');
     // This will immediately download an update, then install when the app quits
     autoUpdater.checkForUpdatesAndNotify();
+  } else {
+    log.info('Auto updater is disabled');
   }
 
   // const packageJson = require('./package.json');
@@ -76,299 +110,37 @@ app.on('ready', async () => {
     minHeight: 600,
   });
 
+  menu = createMenu({ mainWindow, onMenuQuit, onMenuFileNew, onMenuFileOpen });
+
   if (process.env.NODE_ENV == 'production') {
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
+    let url = require('url').format({
+      protocol: 'file',
+      slashes: true,
+      pathname: require('path').join(__dirname, 'index.html'),
+    });
+    log.info('mainWindow.loadURL', url);
+    mainWindow.loadURL(url);
   } else {
+    log.info('mainWindow.loadURL', `http://localhost:3000`);
     mainWindow.loadURL('http://localhost:3000');
   }
 
   mainWindow.webContents.on('did-finish-load', () => {
-    if (SHOW_DEV_TOOLS) {
-      mainWindow.webContents.openDevTools();
+    installMenu(menu, mainWindow);
+    if (DEBUG) {
+      mainWindow.webContents.openDevTools({ mode: 'detach' });
     }
-    mainWindow.show();
-    mainWindow.focus();
+    // FIXME: timeout avoids 1 frame of rendering with no text before fonts are ready
+    // find a more concrete way e.g. measure a fragment of styled text, callback when font is ready
+    setTimeout(() => {
+      mainWindow.center();
+      mainWindow.show();
+      mainWindow.focus();
+    }, 0);
   });
 
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
+  mainWindow.on('close', onWindowClose);
 
-  if (process.platform === 'darwin') {
-    template = [
-      {
-        label: `${pkg.productName}`,
-        submenu: [
-          {
-            label: `About ${pkg.productName}`,
-            click() {
-              mainWindow.send('menu-about');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Services',
-            submenu: [],
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: `Hide ${pkg.productName}`,
-            accelerator: 'Command+H',
-            selector: 'hide:',
-          },
-          {
-            label: 'Hide Others',
-            accelerator: 'Command+Shift+H',
-            selector: 'hideOtherApplications:',
-          },
-          {
-            label: 'Show All',
-            selector: 'unhideAllApplications:',
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Quit',
-            accelerator: 'Command+Q',
-            click() {
-              app.quit();
-            },
-          },
-        ],
-      },
-      {
-        label: 'File',
-        submenu: [
-          {
-            label: 'New',
-            accelerator: 'CmdOrCtrl+N',
-            click() {
-              mainWindow.send('menu-file-new');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Open…',
-            accelerator: 'CmdOrCtrl+O',
-            click() {
-              mainWindow.send('menu-file-open');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Save As…',
-            accelerator: 'CmdOrCtrl+Shift+S',
-            click() {
-              mainWindow.send('menu-file-save-as');
-            },
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Save Screenshot…',
-            click() {
-              mainWindow.send('menu-capture-page');
-            },
-          },
-        ],
-      },
-      {
-        label: 'Edit',
-        submenu: [
-          {
-            label: 'Undo',
-            accelerator: 'Command+Z',
-            selector: 'undo:',
-          },
-          {
-            label: 'Redo',
-            accelerator: 'Shift+Command+Z',
-            selector: 'redo:',
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Cut',
-            accelerator: 'Command+X',
-            selector: 'cut:',
-          },
-          {
-            label: 'Copy',
-            accelerator: 'Command+C',
-            selector: 'copy:',
-          },
-          {
-            label: 'Paste',
-            accelerator: 'Command+V',
-            selector: 'paste:',
-          },
-          {
-            label: 'Select All',
-            accelerator: 'Command+A',
-            selector: 'selectAll:',
-          },
-        ],
-      },
-      {
-        label: 'View',
-        submenu: SHOW_DEV_TOOLS
-          ? [
-              {
-                label: 'Reload',
-                accelerator: 'Command+R',
-                click() {
-                  mainWindow.webContents.reload();
-                },
-              },
-              {
-                label: 'Toggle Full Screen',
-                accelerator: 'Ctrl+Command+F',
-                click() {
-                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                },
-              },
-              {
-                label: 'Toggle Developer Tools',
-                accelerator: 'Alt+Command+I',
-                click() {
-                  mainWindow.toggleDevTools();
-                },
-              },
-            ]
-          : [
-              {
-                label: 'Toggle Full Screen',
-                accelerator: 'Ctrl+Command+F',
-                click() {
-                  mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                },
-              },
-            ],
-      },
-      {
-        label: 'Window',
-        submenu: [
-          {
-            label: 'Minimize',
-            accelerator: 'Command+M',
-            selector: 'performMiniaturize:',
-          },
-          {
-            label: 'Close',
-            accelerator: 'Command+W',
-            selector: 'performClose:',
-          },
-          {
-            type: 'separator',
-          },
-          {
-            label: 'Bring All to Front',
-            selector: 'arrangeInFront:',
-          },
-        ],
-      },
-      {
-        label: 'Help',
-        submenu: [
-          {
-            label: 'Learn More',
-            click() {
-              shell.openExternal('http://www.mykrobe.com/');
-            },
-          },
-        ],
-      },
-    ];
-
-    menu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(menu);
-  } else {
-    template = [
-      {
-        label: '&File',
-        submenu: [
-          {
-            label: '&Open',
-            accelerator: 'Ctrl+O',
-          },
-          {
-            label: '&Close',
-            accelerator: 'Ctrl+W',
-            click() {
-              mainWindow.close();
-            },
-          },
-        ],
-      },
-      {
-        label: '&View',
-        submenu:
-          process.env.NODE_ENV === 'development'
-            ? [
-                {
-                  label: '&Reload',
-                  accelerator: 'Ctrl+R',
-                  click() {
-                    mainWindow.webContents.reload();
-                  },
-                },
-                {
-                  label: 'Toggle &Full Screen',
-                  accelerator: 'F11',
-                  click() {
-                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                  },
-                },
-                {
-                  label: 'Toggle &Developer Tools',
-                  accelerator: 'Alt+Ctrl+I',
-                  click() {
-                    mainWindow.toggleDevTools();
-                  },
-                },
-              ]
-            : [
-                {
-                  label: 'Toggle &Full Screen',
-                  accelerator: 'F11',
-                  click() {
-                    mainWindow.setFullScreen(!mainWindow.isFullScreen());
-                  },
-                },
-              ],
-      },
-      {
-        label: 'Help',
-        submenu: [
-          {
-            label: `About ${pkg.productName}`,
-            click() {
-              mainWindow.send('menu-about');
-            },
-          },
-          {
-            label: 'Learn More',
-            click() {
-              shell.openExternal('http://www.mykrobe.com/');
-            },
-          },
-        ],
-      },
-    ];
-    menu = Menu.buildFromTemplate(template);
-    mainWindow.setMenu(menu);
-  }
   ready = true;
   if (filepath) {
     mainWindow.webContents.send('open-file', filepath);
@@ -376,10 +148,51 @@ app.on('ready', async () => {
   }
 });
 
+const confirmIfAnalysing = () => {
+  if (isAnalysing) {
+    const choice = dialog.showMessageBox(mainWindow, {
+      type: 'question',
+      buttons: ['OK', 'Cancel'],
+      message: 'Analysis in progress - are you sure?',
+    });
+    if (choice == 1) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const onWindowClose = e => {
+  // this is also triggered as a result of app.quit()
+  if (!quittingProgramatically) {
+    if (!confirmIfAnalysing()) {
+      e.preventDefault();
+    }
+  }
+};
+
+const onMenuQuit = () => {
+  if (confirmIfAnalysing()) {
+    quittingProgramatically = true;
+    app.quit();
+  }
+};
+
+const onMenuFileNew = () => {
+  if (confirmIfAnalysing()) {
+    mainWindow.send('menu-file-new');
+  }
+};
+
+const onMenuFileOpen = () => {
+  if (confirmIfAnalysing()) {
+    mainWindow.send('menu-file-open');
+  }
+};
+
 function setupAutoUpdater() {
   autoUpdater.logger = log;
   autoUpdater.logger.transports.file.level = 'info';
-  log.info('App starting...');
   autoUpdater.on('checking-for-update', () => {
     log.info('Checking for update...');
   });

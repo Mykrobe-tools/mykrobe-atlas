@@ -1,20 +1,29 @@
 .container {
-	composes: container from 'styles/layout.scss';
-	flex-direction: column;
-	background-color: white;
+  composes: container from 'styles/layout.scss';
+  flex-direction: column;
+  background-color: white;
 }
 
 .summaryContainer {
-	composes: container from 'styles/layout.scss';
-	flex-wrap: wrap;
-	flex-direction: row;
-	padding: 18px;
-	align-items: stretch;
+  composes: container from 'styles/layout.scss';
+  flex-direction: column;
+  padding: 18px;
+}
+
+.topRow {
+  display: flex;
+}
+
+.bottomRow {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex: 1 0 auto;
 }
 
 .title {
-	composes: titleExtraLarge from 'styles/typography.scss';
-	text-align: center;
-	width: 100%;
-	padding: 30px 30px 0;
+  composes: titleExtraLarge from 'styles/typography.scss';
+  text-align: center;
+  width: 100%;
+  padding: 30px 30px 0;
 }

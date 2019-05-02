@@ -6,100 +6,100 @@
 
 .container-fluid,
 .navbar {
-	@extend .px-2;
-	@extend .px-sm-3;
-	@extend .px-lg-4h;
+  @extend .px-2;
+  @extend .px-sm-3;
+  @extend .px-lg-4h;
 }
 
 // links
 
 a {
-	transition: $transition-base;
-	&:hover {
-		opacity: 0.7;
-	}
+  transition: $transition-fade;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
 // nav links
 
 .nav-link {
-	font-family: 'Bryant2-Bold', sans-serif;
-	text-transform: uppercase;
-	font-size: 14/16 * 1rem;
-	i.fa {
-		font-size: 12/16 * 1rem;
-	}
+  font-family: 'Bryant2-Bold', sans-serif;
+  text-transform: uppercase;
+  font-size: 14/16 * 1rem;
+  i.fa {
+    font-size: 12/16 * 1rem;
+  }
 }
 
 // buttons
 
 .btn {
-	font-family: 'Bryant2-Bold', sans-serif;
-	text-transform: uppercase;
-	font-size: 14/16 * 1rem;
-	i.fa {
-		font-size: 12/16 * 1rem;
-	}
+  font-family: 'Bryant2-Bold', sans-serif;
+  text-transform: uppercase;
+  font-size: 14/16 * 1rem;
+  i.fa {
+    font-size: 12/16 * 1rem;
+  }
 }
 
 .btn-lg {
-	font-size: 16/16 * 1rem;
-	i.fa {
-		font-size: 14/16 * 1rem;
-	}
+  font-size: 16/16 * 1rem;
+  i.fa {
+    font-size: 14/16 * 1rem;
+  }
 }
 
 @each $color, $value in $theme-colors {
-	.btn-#{$color} {
-		color: white;
-		background-color: $value;
-		border-color: $value;
-		@include hover {
-			color: white;
-			background-color: $value;
-			border-color: $value;
-			opacity: 0.7;
-		}
-	}
+  .btn-#{$color} {
+    color: white;
+    background-color: $value;
+    border-color: $value;
+    @include hover {
+      color: white;
+      background-color: $value;
+      border-color: $value;
+      opacity: 0.7;
+    }
+  }
 }
 
 @each $color, $value in $theme-colors {
-	.btn-outline-#{$color} {
-		color: $value;
-		background-color: transparent;
-		border-color: rgba($value, 0.4);
-		@include hover {
-			color: $value;
-			background-color: transparent;
-			border-color: rgba($value, 0.4);
-			opacity: 0.7;
-		}
-	}
+  .btn-outline-#{$color} {
+    color: $value;
+    background-color: transparent;
+    border-color: rgba($value, 0.4);
+    @include hover {
+      color: $value;
+      background-color: transparent;
+      border-color: rgba($value, 0.4);
+      opacity: 0.7;
+    }
+  }
 }
 
 // dropdown
 
 .dropdown-item {
-	font-family: 'Bryant2-Bold', sans-serif;
-	text-transform: uppercase;
-	font-size: 14/16 * 1rem;
-	i.fa {
-		font-size: 12/16 * 1rem;
-	}
+  font-family: 'Bryant2-Bold', sans-serif;
+  text-transform: uppercase;
+  font-size: 14/16 * 1rem;
+  i.fa {
+    font-size: 12/16 * 1rem;
+  }
 }
 
 .btn-lg + .dropdown-menu {
-	.dropdown-item {
-		font-size: 16/16 * 1rem;
-		i.fa {
-			font-size: 14/16 * 1rem;
-		}
-	}
+  .dropdown-item {
+    font-size: 16/16 * 1rem;
+    i.fa {
+      font-size: 14/16 * 1rem;
+    }
+  }
 }
 
 // popover
 
 .popover-inner {
-	border-radius: 0.3em;
-	overflow: hidden;
+  border-radius: 0.3em;
+  overflow: hidden;
 }

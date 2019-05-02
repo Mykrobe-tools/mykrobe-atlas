@@ -1,19 +1,9 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { goBack } from 'react-router-redux';
 import { Container } from 'reactstrap';
 
-import {
-  requestCurrentUser,
-  updateCurrentUser,
-  deleteCurrentUser,
-  getCurrentUser,
-  getCurrentUserIsFetching,
-  getCurrentUserError,
-} from '../../../modules/users';
+import { withCurrentUserPropTypes } from '../../../hoc/withCurrentUser';
 
 import {
   DecoratedForm,
@@ -21,20 +11,17 @@ import {
 } from 'makeandship-js-common/src/components/ui/form';
 import {
   SubmitButton,
-  CancelButton,
   DestructiveButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import Header from '../../header/Header';
+import HeaderContainer from '../../header/HeaderContainer';
 import Footer from '../../footer/Footer';
-
-// TODO: this is effectively a variation of EditUser - consolidate
 
 import { profileSchema } from '../../../schemas/users';
 import styles from './Profile.scss';
 
 const uiSchema = {
-  email: {
+  username: {
     'ui:readonly': true,
   },
   firstname: {
@@ -75,7 +62,7 @@ class Profile extends React.Component<*> {
     const { isFetching, error, currentUser } = this.props;
     return (
       <div className={styles.container}>
-        <Header title={'Profile'} />
+        <HeaderContainer title={'Profile'} />
         <div className={styles.container}>
           <Container fluid>
             <DecoratedForm
@@ -90,7 +77,6 @@ class Profile extends React.Component<*> {
               <FormFooter>
                 <div>
                   <SubmitButton marginRight>Save profile</SubmitButton>
-                  <CancelButton onClick={this.onCancelClick} />
                 </div>
                 <DestructiveButton onClick={this.onDeleteClick}>
                   Delete account
@@ -106,27 +92,7 @@ class Profile extends React.Component<*> {
 }
 
 Profile.propTypes = {
-  isFetching: PropTypes.bool.isRequired,
-  requestCurrentUser: PropTypes.func.isRequired,
-  updateCurrentUser: PropTypes.func.isRequired,
-  deleteCurrentUser: PropTypes.func.isRequired,
-  goBack: PropTypes.func.isRequired,
-  error: PropTypes.any,
-  currentUser: PropTypes.any,
+  ...withCurrentUserPropTypes,
 };
 
-const withRedux = connect(
-  state => ({
-    isFetching: getCurrentUserIsFetching(state),
-    error: getCurrentUserError(state),
-    currentUser: getCurrentUser(state),
-  }),
-  {
-    updateCurrentUser,
-    requestCurrentUser,
-    deleteCurrentUser,
-    goBack,
-  }
-);
-
-export default withRedux(Profile);
+export default Profile;

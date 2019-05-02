@@ -1,4 +1,11 @@
 [ignore]
+.*/__fixtures__/.*
+<PROJECT_ROOT>/deploy/.*
+<PROJECT_ROOT>/desktop/dist/.*
+<PROJECT_ROOT>/desktop/release/.*
+<PROJECT_ROOT>/desktop/mykrobe-binaries/.*
+<PROJECT_ROOT>/desktop/static/.*
+<PROJECT_ROOT>/test/.*
 
 [include]
 

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
 
 import {
-  signIn,
+  login,
   getIsFetching,
   getError,
 } from 'makeandship-js-common/src/modules/auth';
@@ -20,11 +20,11 @@ import {
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import { loginSchema } from '../../schemas/auth';
-import Header from '../header/Header';
+import HeaderContainer from '../header/HeaderContainer';
 import styles from './Common.scss';
 
 const uiSchema = {
-  email: {
+  username: {
     'ui:placeholder': 'sam.smith@example.com',
     'ui:autofocus': true,
   },
@@ -33,29 +33,19 @@ const uiSchema = {
   },
 };
 
-const USE_KEYCLOAK = !!process.env.AUTH_KEYCLOAK_URL;
-
 class Login extends React.Component<*> {
-  componentDidMount = () => {
-    if (USE_KEYCLOAK) {
-      const { signIn } = this.props;
-      signIn();
-    }
-  };
   render() {
-    if (USE_KEYCLOAK) {
-      return null;
-    }
-    const { isFetching, signIn, error } = this.props;
+    const { isFetching, login, error } = this.props;
     return (
       <div className={styles.container}>
-        <Header title={'Account'} />
+        <HeaderContainer title={'Account'} />
         <Container fluid>
           <DecoratedForm
             formKey="auth/login"
+            promptUnsavedChanges={false}
             schema={loginSchema}
             uiSchema={uiSchema}
-            onSubmit={signIn}
+            onSubmit={login}
             isFetching={isFetching}
             error={error}
           >
@@ -64,7 +54,7 @@ class Login extends React.Component<*> {
                 <SubmitButton data-tid="button-submit" marginRight>
                   Log in
                 </SubmitButton>
-                <LinkButton to="/auth/signup" marginRight>
+                <LinkButton to="/auth/register" marginRight>
                   Sign up
                 </LinkButton>
                 <LinkButton to="/auth/forgot">Forgot password</LinkButton>
@@ -79,7 +69,7 @@ class Login extends React.Component<*> {
 
 Login.propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  signIn: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
   error: PropTypes.any,
 };
 
@@ -88,7 +78,7 @@ const withRedux = connect(
     isFetching: getIsFetching(state),
     error: getError(state),
   }),
-  { signIn }
+  { login }
 );
 
 export default withRedux(Login);

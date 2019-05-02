@@ -1,9 +1,7 @@
 /* @flow */
 
-import {
-  createFiltersModule,
-  createSyncFiltersWithReactRouterRedux,
-} from 'makeandship-js-common/src/modules/generic';
+import { createFiltersModule } from 'makeandship-js-common/src/modules/generic';
+import { createSyncFiltersWithReactRouterRedux } from 'makeandship-js-common/src/modules/generic/navigation/syncFiltersWithReactRouterRedux';
 
 const module = createFiltersModule('experimentsFilters', {
   typePrefix: 'experiments/experimentsFilters/',

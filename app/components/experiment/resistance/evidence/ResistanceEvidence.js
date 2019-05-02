@@ -6,8 +6,6 @@ import styles from './ResistanceEvidence.scss';
 import Panel from '../../../ui/Panel';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
 
-// TODO: push route on state change
-
 class ResistanceEvidence extends React.Component<*> {
   renderEmpty(error: string) {
     return (

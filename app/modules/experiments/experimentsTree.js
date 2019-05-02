@@ -2,7 +2,7 @@
 
 import { all, fork, put, take, select } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { getLocation, LOCATION_CHANGE } from 'connected-react-router';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
@@ -32,8 +32,6 @@ export {
 export default reducer;
 
 // Fetch tree, if not already loaded, when user navigates to an experiment
-
-export const getLocation = (state: any) => state.routing.location;
 
 function* experimentsTreeWatcher() {
   let treeLoaded = false;

@@ -5,10 +5,13 @@ import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 
 import styles from './Upload.scss';
-import AnimatedBackground from '../animatedbackground/AnimatedBackground';
+import AnimatedBackgroundCanvas from '../background/AnimatedBackgroundCanvas';
 import CircularProgress from '../ui/CircularProgress';
 import Logo from '../logo/Logo';
 import * as UIHelpers from '../../helpers/UIHelpers';
+
+const DISABLE_DESKTOP_BACKGROUND_ANIMATION =
+  process.env.DISABLE_DESKTOP_BACKGROUND_ANIMATION === '1';
 
 class Upload extends React.Component<*> {
   onOpenClick = () => {
@@ -103,7 +106,7 @@ class Upload extends React.Component<*> {
     const { isAnalysing } = this.props;
     return (
       <div className={styles.container} data-tid="component-upload">
-        <AnimatedBackground />
+        {!DISABLE_DESKTOP_BACKGROUND_ANIMATION && <AnimatedBackgroundCanvas />}
         <div className={styles.contentContainer}>
           {isAnalysing
             ? this.renderContentAnalysing()

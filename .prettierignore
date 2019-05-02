@@ -1,14 +1,13 @@
 package.json
 __mocks__
-__fixtures__/exemplar-samples
-__fixtures__/api
+__fixtures__
 flow-typed
 .vscode
 web/build
 web/demo
 app/static
 desktop/dist
-desktop/predictor-binaries
+desktop/mykrobe-binaries
 desktop/release
 desktop/resources
 desktop/static
