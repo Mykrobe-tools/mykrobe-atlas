@@ -1,15 +1,12 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
 
-import {
-  login,
-  getIsFetching,
-  getError,
-} from 'makeandship-js-common/src/modules/auth';
+import withAuth, {
+  withAuthPropTypes,
+} from 'makeandship-js-common/src/hoc/withAuth';
+
 import {
   DecoratedForm,
   FormFooter,
@@ -22,6 +19,7 @@ import {
 import { loginSchema } from '../../schemas/auth';
 import HeaderContainer from '../header/HeaderContainer';
 import styles from './Common.scss';
+import { USE_KEYCLOAK } from 'makeandship-js-common/src/modules/auth/auth';
 
 const uiSchema = {
   username: {
@@ -34,7 +32,17 @@ const uiSchema = {
 };
 
 class Login extends React.Component<*> {
+  componentDidMount() {
+    const { navigateLogin, authIsInitialised, isAuthenticated } = this.props;
+    if (USE_KEYCLOAK && authIsInitialised && !isAuthenticated) {
+      navigateLogin();
+    }
+  }
+
   render() {
+    if (USE_KEYCLOAK) {
+      return null;
+    }
     const { isFetching, login, error } = this.props;
     return (
       <div className={styles.container}>
@@ -68,17 +76,7 @@ class Login extends React.Component<*> {
 }
 
 Login.propTypes = {
-  isFetching: PropTypes.bool.isRequired,
-  login: PropTypes.func.isRequired,
-  error: PropTypes.any,
+  ...withAuthPropTypes,
 };
 
-const withRedux = connect(
-  state => ({
-    isFetching: getIsFetching(state),
-    error: getError(state),
-  }),
-  { login }
-);
-
-export default withRedux(Login);
+export default withAuth(Login);

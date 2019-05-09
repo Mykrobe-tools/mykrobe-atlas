@@ -12,7 +12,7 @@ import {
   getIsFetchingExperimentsChoices,
 } from '../../modules/experiments';
 
-import ChoicesFilters from '../choicesFilters/ChoicesFilters';
+import ChoicesFilters from 'makeandship-js-common/src/components/choicesFilters';
 
 const withRedux = connect(
   state => ({
