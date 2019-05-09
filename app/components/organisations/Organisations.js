@@ -11,7 +11,7 @@ import PageHeader, {
   styles as pageHeaderStyles,
 } from 'makeandship-js-common/src/components/ui/PageHeader';
 import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
-import { Table } from 'makeandship-js-common/src/components/ui/table';
+import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
 
 import {
   getOrganisations,
@@ -66,13 +66,11 @@ class Profile extends React.Component<*> {
   renderRow = (organisation: any) => {
     const { id, name, template } = organisation;
     return (
-      <tr key={id}>
-        <td>
-          <Link to={`/organisations/${id}`}>{name}</Link>
-        </td>
+      <TdLink key={id} to={`/organisations/${id}`}>
+        <td>{name}</td>
         <td>{template}</td>
         <td />
-      </tr>
+      </TdLink>
     );
   };
 
