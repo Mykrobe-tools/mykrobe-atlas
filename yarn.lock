@@ -10852,9 +10852,9 @@ make-dir@^2.1.0:
     tough-cookie "^3.0.1"
     url "^0.11.0"
 
-"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.88":
+"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#feature/190-custom-redux-auth-wrapper":
   version "0.0.88"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#aa785f499e7ce73a241148bc9ced1bc2f2a16a6f"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#341492072d655153bdcec9e4da0dda1b7be47556"
   dependencies:
     ajv "^6.7.0"
     base-64 "^0.1.0"
