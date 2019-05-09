@@ -9,6 +9,8 @@ import { bindActionCreators } from 'redux';
 import { goBack, push } from 'connected-react-router';
 import { Container } from 'reactstrap';
 
+import { isNewEntityKey } from 'makeandship-js-common/src/modules/generic';
+
 import type { OrganisationType } from '../../types/OrganisationTypes';
 import HeaderContainer from '../header/HeaderContainer';
 import Footer from '../footer/Footer';
@@ -116,8 +118,6 @@ class Edit extends React.Component<*> {
 }
 
 const getOrganisationId = props => props.match.params.organisationId;
-const isNewOrganisationId = organisationId =>
-  !organisationId || organisationId === 'new';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -125,7 +125,7 @@ function mapStateToProps(state, ownProps) {
     isFetching: getOrganisationIsFetching(state),
     error: getOrganisationError(state),
     organisationId: getOrganisationId(ownProps),
-    isNew: isNewOrganisationId(getOrganisationId(ownProps)),
+    isNew: isNewEntityKey(getOrganisationId(ownProps)),
   };
 }
 
