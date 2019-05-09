@@ -12,7 +12,7 @@ import {
 } from 'reactstrap';
 import moment from 'moment';
 
-import { Table } from 'makeandship-js-common/src/components/ui/table';
+import Table from 'makeandship-js-common/src/components/ui/table';
 
 import styles from './ExperimentsTable.scss';
 
