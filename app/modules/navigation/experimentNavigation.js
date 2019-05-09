@@ -3,6 +3,8 @@
 import { all, fork, put, takeLatest } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 
+import { NEW_ENTITY_KEY } from 'makeandship-js-common/src/modules/generic';
+
 import { experimentActionTypes } from '../experiments/experiment';
 
 // Side effects
@@ -12,7 +14,7 @@ function* newWatcher() {
 }
 
 export function* newWorker(): Generator<*, *, *> {
-  yield put(push(`/experiments/new`));
+  yield put(push(`/experiments/${NEW_ENTITY_KEY}`));
 }
 
 function* createWatcher() {
