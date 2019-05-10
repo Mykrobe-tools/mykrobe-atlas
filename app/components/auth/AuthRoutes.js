@@ -12,7 +12,7 @@ import Forgot from './Forgot';
 import ForgotSuccess from './ForgotSuccess';
 import AuthError from './AuthError';
 
-import { withUserIsAuthenticatedRedirect } from 'makeandship-js-common/src/modules/auth/util';
+import { withUserIsAuthenticatedRedirect } from 'makeandship-js-common/src/modules/auth/withBrowserRedirect';
 
 const AuthenticatedLogin = withUserIsAuthenticatedRedirect(Login, '/');
 

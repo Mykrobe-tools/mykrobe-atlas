@@ -10,5 +10,5 @@ export default {
       title: 'Email',
     },
   },
-  required: ['email'],
+  required: ['username'],
 };

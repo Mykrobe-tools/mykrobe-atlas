@@ -15,7 +15,7 @@ import NotFoundPage from './components/notFound/NotFoundPage';
 import {
   withUserIsNotAuthenticatedRedirect,
   // withUserIsAuthenticatedRedirect,
-} from 'makeandship-js-common/src/modules/auth/util';
+} from 'makeandship-js-common/src/modules/auth/withBrowserRedirect';
 
 // const AuthenticatedHome = withUserIsAuthenticatedRedirect(
 //   HomePage,

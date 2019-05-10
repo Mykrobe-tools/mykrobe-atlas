@@ -12,7 +12,11 @@ import {
 
 import {
   login,
-  verify,
+  logout,
+  navigateLogin,
+  navigateLogout,
+  navigateRegister,
+  checkToken,
   setLocalData,
   clearLocalData,
 } from 'makeandship-js-common/src/modules/auth';
@@ -46,7 +50,11 @@ import {
 
 export const actionCreators = {
   login,
-  verify,
+  logout,
+  navigateLogin,
+  navigateLogout,
+  navigateRegister,
+  checkToken,
   setLocalData,
   clearLocalData,
   deleteCurrentUser,
