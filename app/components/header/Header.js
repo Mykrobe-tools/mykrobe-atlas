@@ -14,7 +14,6 @@ import {
 } from 'reactstrap';
 
 import NotificationsButton from '../notifications/NotificationsButton';
-import { notImplemented } from '../../util';
 import styles from './Header.scss';
 
 import { withAuthPropTypes } from 'makeandship-js-common/src/hoc/withAuth';
@@ -31,6 +30,12 @@ class Header extends React.Component<*> {
     const { navigateRegister } = this.props;
     e && e.preventDefault();
     navigateRegister();
+  };
+
+  profile = (e: any) => {
+    const { navigateProfile } = this.props;
+    e && e.preventDefault();
+    navigateProfile();
   };
 
   render() {
@@ -67,12 +72,11 @@ class Header extends React.Component<*> {
                     tag={ReactRouterNavLink}
                     to="/users/profile"
                     data-tid="navbar-link-profile"
+                    onClick={this.profile}
                   >
                     Your Profile
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem onClick={notImplemented}>Help</DropdownItem>
-                  <DropdownItem onClick={notImplemented}>Settings</DropdownItem>
                   <DropdownItem
                     onClick={logout}
                     data-tid="navbar-link-sign-out"
