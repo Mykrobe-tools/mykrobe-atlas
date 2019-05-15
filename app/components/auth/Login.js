@@ -19,7 +19,6 @@ import {
 import { loginSchema } from '../../schemas/auth';
 import HeaderContainer from '../header/HeaderContainer';
 import styles from './Common.scss';
-import { USE_KEYCLOAK } from 'makeandship-js-common/src/modules/auth/auth';
 
 const uiSchema = {
   username: {
@@ -32,17 +31,7 @@ const uiSchema = {
 };
 
 class Login extends React.Component<*> {
-  componentDidMount() {
-    const { navigateLogin, authIsInitialised, isAuthenticated } = this.props;
-    if (USE_KEYCLOAK && authIsInitialised && !isAuthenticated) {
-      navigateLogin();
-    }
-  }
-
   render() {
-    if (USE_KEYCLOAK) {
-      return null;
-    }
     const { isFetching, login, error } = this.props;
     return (
       <div className={styles.container}>
@@ -59,7 +48,11 @@ class Login extends React.Component<*> {
           >
             <FormFooter>
               <div>
-                <SubmitButton data-tid="button-submit" marginRight>
+                <SubmitButton
+                  busy={isFetching}
+                  data-tid="button-submit"
+                  marginRight
+                >
                   Log in
                 </SubmitButton>
                 <LinkButton to="/auth/register" marginRight>

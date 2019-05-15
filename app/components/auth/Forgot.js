@@ -1,15 +1,12 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
 
-import {
-  forgotPassword,
-  getIsFetching,
-  getError,
-} from 'makeandship-js-common/src/modules/auth';
+import withAuth, {
+  withAuthPropTypes,
+} from 'makeandship-js-common/src/hoc/withAuth';
+
 import {
   DecoratedForm,
   FormFooter,
@@ -32,7 +29,7 @@ const uiSchema = {
 
 class Forgot extends React.Component<*> {
   render() {
-    const { isFetching, onSubmit, error } = this.props;
+    const { isFetching, forgotPassword, error } = this.props;
     return (
       <div className={styles.container}>
         <HeaderContainer title={'Account'} />
@@ -42,13 +39,17 @@ class Forgot extends React.Component<*> {
             promptUnsavedChanges={false}
             schema={forgotPasswordSchema}
             uiSchema={uiSchema}
-            onSubmit={onSubmit}
+            onSubmit={forgotPassword}
             isFetching={isFetching}
             error={error}
           >
             <FormFooter>
               <div>
-                <SubmitButton data-tid="button-submit" marginRight>
+                <SubmitButton
+                  busy={isFetching}
+                  data-tid="button-submit"
+                  marginRight
+                >
                   Get new password
                 </SubmitButton>
                 <LinkButton to="/auth/login" marginRight>
@@ -65,21 +66,7 @@ class Forgot extends React.Component<*> {
 }
 
 Forgot.propTypes = {
-  isFetching: PropTypes.bool.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  error: PropTypes.any,
+  ...withAuthPropTypes,
 };
 
-const withRedux = connect(
-  state => ({
-    isFetching: getIsFetching(state),
-    error: getError(state),
-  }),
-  dispatch => ({
-    onSubmit(formData) {
-      dispatch(forgotPassword(formData));
-    },
-  })
-);
-
-export default withRedux(Forgot);
+export default withAuth(Forgot);

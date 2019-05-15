@@ -1,8 +1,6 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Container } from 'reactstrap';
 
 import {
@@ -14,11 +12,9 @@ import {
   LinkButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import {
-  register,
-  getIsFetching,
-  getError,
-} from 'makeandship-js-common/src/modules/auth';
+import withAuth, {
+  withAuthPropTypes,
+} from 'makeandship-js-common/src/hoc/withAuth';
 
 import { signupSchema } from '../../schemas/auth';
 import HeaderContainer from '../header/HeaderContainer';
@@ -65,7 +61,11 @@ class Signup extends React.Component<*> {
           >
             <FormFooter>
               <div>
-                <SubmitButton data-tid="button-submit" marginRight>
+                <SubmitButton
+                  busy={isFetching}
+                  data-tid="button-submit"
+                  marginRight
+                >
                   Sign up
                 </SubmitButton>
                 <LinkButton to="/auth/login">Log in</LinkButton>
@@ -79,17 +79,7 @@ class Signup extends React.Component<*> {
 }
 
 Signup.propTypes = {
-  isFetching: PropTypes.bool.isRequired,
-  register: PropTypes.func,
-  error: PropTypes.any,
+  ...withAuthPropTypes,
 };
 
-const withRedux = connect(
-  state => ({
-    isFetching: getIsFetching(state),
-    error: getError(state),
-  }),
-  { register }
-);
-
-export default withRedux(Signup);
+export default withAuth(Signup);
