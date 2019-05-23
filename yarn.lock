@@ -10857,9 +10857,9 @@ make-dir@^2.1.0:
     tough-cookie "^3.0.1"
     url "^0.11.0"
 
-"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.93":
-  version "0.0.93"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#8864bc6defb745eef72b599a9b7fdd0f9557cb21"
+"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.95":
+  version "0.0.95"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#ac2a0084030e6d61ce4a2736eb67c52e336ae9b4"
   dependencies:
     ajv "^6.7.0"
     base-64 "^0.1.0"
@@ -11387,9 +11387,9 @@ mute-stream@0.0.7:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-"mykrobe-atlas-jsonschema@git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.1":
-  version "0.0.1"
-  resolved "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#cb1d5272da119a11f7868fd6e9f2f709ecedff3d"
+"mykrobe-atlas-jsonschema@git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.12":
+  version "0.0.12"
+  resolved "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#1d61d0b978794b682f41d8f7b75aeadae04a46f0"
   dependencies:
     onchange "^4.0.0"
 

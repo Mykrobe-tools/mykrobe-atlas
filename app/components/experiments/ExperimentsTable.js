@@ -207,7 +207,13 @@ class ExperimentsTable extends React.Component<*> {
           )}
         </td>
         <td>
-          {owner.lastname}, {owner.firstname}
+          {owner ? (
+            <React.Fragment>
+              {owner.lastname}, {owner.firstname}
+            </React.Fragment>
+          ) : (
+            '–'
+          )}
         </td>
         <td>{moment(created).format('L')}</td>
         <td>{moment(modified).format('L')}</td>
