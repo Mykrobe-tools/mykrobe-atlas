@@ -3,11 +3,7 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import ExperimentGeographicMap from './ExperimentGeographicMap';
-
-const setNodeHighlighted = (id, highlighted) => {
-  console.log('setNodeHighlighted', id, highlighted);
-};
+import PhyloCanvasTooltip from './PhyloCanvasTooltip';
 
 const experiment = {
   metadata: {
@@ -28,14 +24,13 @@ const experiment = {
 
 const variations = {
   default: {
-    setNodeHighlighted,
-    experiments: [experiment],
-    highlighted: [experiment.id],
+    node: experiment,
+    visible: true,
+    x: '50%',
+    y: '50%',
   },
 };
 
-storiesOf('ExperimentGeographicMap', module).add('Default', () => (
-  <div style={{ display: 'flex', height: '100vh' }}>
-    <ExperimentGeographicMap {...variations.default} />
-  </div>
+storiesOf('PhyloCanvasTooltip', module).add('Default', () => (
+  <PhyloCanvasTooltip {...variations.default} />
 ));
