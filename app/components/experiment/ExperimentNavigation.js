@@ -12,7 +12,8 @@ import styles from './ExperimentNavigation.scss';
 class ExperimentNavigation extends React.Component<*> {
   render() {
     const { match, experiment } = this.props;
-    const isolateId = _.get(experiment, 'metadata.sample.isolateId') || 'No isolate Id';
+    const isolateId =
+      _.get(experiment, 'metadata.sample.isolateId') || 'No isolate Id';
     return (
       <div className={styles.container}>
         <HeaderContainer title={isolateId} />

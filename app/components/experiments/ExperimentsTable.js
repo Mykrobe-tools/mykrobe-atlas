@@ -122,9 +122,10 @@ class ExperimentsTable extends React.Component<*> {
   renderRow = (experiment: any) => {
     const { selected } = this.props;
     const allSelected = (selected && selected === '*') || false;
-    let { id, created, modified, owner, results } = experiment;
+    let { id, created, modified, results } = experiment;
     const isolateId = _.get(experiment, 'metadata.sample.isolateId') || '–';
-    const countryIsolate = _.get(experiment, 'metadata.sample.countryIsolate') || '–';
+    const countryIsolate =
+      _.get(experiment, 'metadata.sample.countryIsolate') || '–';
     const cityIsolate = _.get(experiment, 'metadata.sample.cityIsolate') || '–';
     const isSelected =
       allSelected ||
@@ -211,12 +212,8 @@ class ExperimentsTable extends React.Component<*> {
             '–'
           )}
         </td>
-        <td>
-          {cityIsolate}
-        </td>
-        <td>
-          {countryIsolate}
-        </td>
+        <td>{cityIsolate}</td>
+        <td>{countryIsolate}</td>
         <td>{moment(created).format('L')}</td>
         <td>{moment(modified).format('L')}</td>
         <td>

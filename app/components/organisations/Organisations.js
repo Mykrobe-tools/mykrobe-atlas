@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Container } from 'reactstrap';
-import { Link } from 'react-router-dom';
 
 import PageHeader, {
   styles as pageHeaderStyles,
