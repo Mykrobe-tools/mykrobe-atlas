@@ -2,8 +2,8 @@
 
 import { all, fork, put, takeEvery } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
-
 import { createSelector } from 'reselect';
+import produce from 'immer';
 
 export const typePrefix = 'experiments/experimentMetadataTemplate/';
 export const REQUEST_EXPERIMENT_METADATA_TEMPLATE = `${typePrefix}REQUEST_EXPERIMENT_METADATA_TEMPLATE`;
@@ -28,27 +28,27 @@ const initialState = {
   data: [],
 };
 
-export default function reducer(
-  state: Object = initialState,
-  action: Object = {}
-) {
-  switch (action.type) {
-    case REQUEST_EXPERIMENT_METADATA_TEMPLATE:
-      return {
-        ...state,
-        isFetching: true,
-        data: initialState.data,
-      };
-    case REQUEST_EXPERIMENT_METADATA_TEMPLATE_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-        data: action.payload,
-      };
-    default:
-      return state;
-  }
-}
+const reducer = (state?: State = initialState, action?: Object = {}): State =>
+  produce(state, draft => {
+    switch (action.type) {
+      case REQUEST_EXPERIMENT_METADATA_TEMPLATE:
+        Object.assign(draft, {
+          isFetching: true,
+          data: initialState.data,
+        });
+        return;
+      case REQUEST_EXPERIMENT_METADATA_TEMPLATE_SUCCESS:
+        Object.assign(draft, {
+          isFetching: false,
+          data: action.payload,
+        });
+        return;
+      default:
+        return;
+    }
+  });
+
+export default reducer;
 
 // Action creators
 
