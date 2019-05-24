@@ -200,7 +200,7 @@ class PhyloCanvasComponent extends React.Component<*> {
   }
 
   draw() {
-    this._tree.draw();
+    this._tree && this._tree.draw();
   }
 
   afterDraw() {

@@ -1,0 +1,9 @@
+@import '~styles/colors.global';
+
+.mapContainer {
+  composes: container from 'styles/layout.scss';
+}
+
+.map {
+  composes: container from 'styles/layout.scss';
+}
