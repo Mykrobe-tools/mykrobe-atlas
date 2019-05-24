@@ -15,7 +15,7 @@ class SummaryMetadata extends React.Component<*> {
       experiment: { metadata },
       experimentNearestNeigbours,
     } = this.props;
-    const labId = _.get(metadata, 'sample.labId') || '–';
+    const isolateId = _.get(metadata, 'sample.isolateId') || 'No isolate Id';
     let collectionDate = _.get(metadata, 'sample.collectionDate');
     collectionDate = collectionDate
       ? moment(collectionDate).format('LLL')
@@ -28,8 +28,8 @@ class SummaryMetadata extends React.Component<*> {
           <table className={styles.table}>
             <tbody>
               <tr>
-                <td>Lab Id</td>
-                <td>{labId}</td>
+                <td>Isolate Id</td>
+                <td>{isolateId}</td>
               </tr>
               <tr>
                 <td>Country Isolate</td>

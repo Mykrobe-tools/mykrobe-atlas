@@ -4,6 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import _ from 'lodash';
 
 import HeaderContainer from '../header/HeaderContainer';
 import styles from './ExperimentNavigation.scss';
@@ -11,12 +12,10 @@ import styles from './ExperimentNavigation.scss';
 class ExperimentNavigation extends React.Component<*> {
   render() {
     const { match, experiment } = this.props;
-    const title = experiment
-      ? experiment.file || experiment.id || 'New sample'
-      : 'Unknown sample';
+    const isolateId = _.get(experiment, 'metadata.sample.isolateId') || 'No isolate Id';
     return (
       <div className={styles.container}>
-        <HeaderContainer title={title} />
+        <HeaderContainer title={isolateId} />
         <Container fluid>
           <div className={styles.navigation}>
             <NavLink

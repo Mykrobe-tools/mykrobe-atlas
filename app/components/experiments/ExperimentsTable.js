@@ -11,6 +11,7 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap';
 import moment from 'moment';
+import _ from 'lodash';
 
 import Table from 'makeandship-js-common/src/components/ui/table';
 
@@ -82,8 +83,8 @@ class ExperimentsTable extends React.Component<*> {
         ),
       },
       {
-        title: 'Sample',
-        sort: 'id',
+        title: 'Isolate ID',
+        sort: 'metadata.sample.isolateId',
       },
       {
         title: 'Resistance profile',
@@ -118,9 +119,7 @@ class ExperimentsTable extends React.Component<*> {
     const { selected } = this.props;
     const allSelected = (selected && selected === '*') || false;
     let { id, created, modified, owner, results } = experiment;
-    const title = experiment.file
-      ? `${experiment.file} (${experiment.id})`
-      : experiment.id;
+    const isolateId = _.get(experiment, 'metadata.sample.isolateId') || '–';
     const isSelected =
       allSelected ||
       (selected && selected.includes && selected.includes(id)) ||
@@ -189,7 +188,7 @@ class ExperimentsTable extends React.Component<*> {
           </div>
         </td>
         <td>
-          <Link to={`/experiments/${id}`}>{title}</Link>
+          <Link to={`/experiments/${id}`}>{isolateId}</Link>
         </td>
         <td>{susceptibilityProfile}</td>
         <td>
