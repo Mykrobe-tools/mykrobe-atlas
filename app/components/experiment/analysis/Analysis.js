@@ -2,12 +2,15 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import memoizeOne from 'memoize-one';
 
 import styles from './Analysis.scss';
 import Phylogeny from '../../phylogeny/Phylogeny';
 import Uploading from '../../ui/Uploading';
 
 import ExperimentGeographicMap from './ExperimentGeographicMap';
+
+export const makeExperiments = memoizeOne(experiment => [experiment]);
 
 class Analysis extends React.Component<*> {
   render() {
@@ -22,11 +25,12 @@ class Analysis extends React.Component<*> {
     if (isBusyWithCurrentRoute) {
       content = <Uploading sectionName="Analysis" />;
     } else {
+      const experiments = makeExperiments(experiment);
       content = (
         <div className={styles.content}>
           <div className={styles.mapAndPhylogenyContainer}>
             <ExperimentGeographicMap
-              experiments={[experiment]}
+              experiments={experiments}
               highlighted={highlighted}
               setNodeHighlighted={setNodeHighlighted}
             />

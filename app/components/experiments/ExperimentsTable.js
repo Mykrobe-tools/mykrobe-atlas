@@ -99,8 +99,12 @@ class ExperimentsTable extends React.Component<*> {
         sort: 'results.predictor.xdr',
       },
       {
-        title: 'Owner',
-        sort: 'owner.lastname',
+        title: 'City',
+        sort: 'metadata.sample.cityIsolate',
+      },
+      {
+        title: 'Country',
+        sort: 'metadata.sample.countryIsolate',
       },
       {
         title: 'Created',
@@ -120,6 +124,8 @@ class ExperimentsTable extends React.Component<*> {
     const allSelected = (selected && selected === '*') || false;
     let { id, created, modified, owner, results } = experiment;
     const isolateId = _.get(experiment, 'metadata.sample.isolateId') || '–';
+    const countryIsolate = _.get(experiment, 'metadata.sample.countryIsolate') || '–';
+    const cityIsolate = _.get(experiment, 'metadata.sample.cityIsolate') || '–';
     const isSelected =
       allSelected ||
       (selected && selected.includes && selected.includes(id)) ||
@@ -206,13 +212,10 @@ class ExperimentsTable extends React.Component<*> {
           )}
         </td>
         <td>
-          {owner ? (
-            <React.Fragment>
-              {owner.lastname}, {owner.firstname}
-            </React.Fragment>
-          ) : (
-            '–'
-          )}
+          {cityIsolate}
+        </td>
+        <td>
+          {countryIsolate}
         </td>
         <td>{moment(created).format('L')}</td>
         <td>{moment(modified).format('L')}</td>

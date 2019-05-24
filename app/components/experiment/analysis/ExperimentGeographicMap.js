@@ -182,10 +182,10 @@ class ExperimentGeographicMap extends React.Component<*> {
 
   componentDidUpdate = (prevProps: any) => {
     const { highlighted, experiments } = this.props;
-    if (experiments !== prevProps.experiments) {
+    if (!_.isEqual(experiments, prevProps.experiments)) {
       this.updateMarkers();
     }
-    if (highlighted !== prevProps.highlighted) {
+    if (!_.isEqual(highlighted, prevProps.highlighted)) {
       this.updateHighlighted();
     }
   };
