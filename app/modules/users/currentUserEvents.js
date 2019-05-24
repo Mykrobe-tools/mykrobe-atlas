@@ -16,14 +16,16 @@ import { buildOptionsWithToken } from 'makeandship-js-common/src/modules/api/uti
 import {
   getAccessToken,
   getIsAuthenticated,
-  authActionTypes,
 } from 'makeandship-js-common/src/modules/auth';
 import { ensureEnv, env } from 'makeandship-js-common/src/util';
+import { waitForChange } from 'makeandship-js-common/src/modules/util';
 
 export const typePrefix = 'users/currentUserEvents/';
 
 export const EVENT = `${typePrefix}EVENT`;
 export const ERROR = `${typePrefix}ERROR`;
+export const START = `${typePrefix}START`;
+export const STOP = `${typePrefix}STOP`;
 export const STARTED = `${typePrefix}STARTED`;
 export const STOPPED = `${typePrefix}STOPPED`;
 
@@ -54,6 +56,14 @@ export const error = (payload: any) => ({
   payload,
 });
 
+export const start = () => ({
+  type: START,
+});
+
+export const stop = () => ({
+  type: STOP,
+});
+
 export const started = () => ({
   type: STARTED,
 });
@@ -72,14 +82,22 @@ export function* eventSourceChannelWatcher(): Saga {
   }
 }
 
-// try and start immediately in case auth is alreay initialised
+// start when authenticated; stop when not
+
+function* startStopWatcher() {
+  while (true) {
+    const isAuthenticated = yield select(getIsAuthenticated);
+    if (!isAuthenticated) {
+      yield waitForChange(getIsAuthenticated);
+    }
+    yield put(start());
+    yield waitForChange(getIsAuthenticated);
+    yield put(stop());
+  }
+}
 
 function* startWatcher() {
-  yield fork(startWorker);
-  yield takeEvery(
-    [authActionTypes.INITIALISE_SUCCESS, authActionTypes.LOGIN_SUCCESS],
-    startWorker
-  );
+  yield takeLatest(START, startWorker);
 }
 
 function* startWorker() {
@@ -133,10 +151,7 @@ function* startWorker() {
 }
 
 function* stopWatcher() {
-  yield takeLatest(
-    [authActionTypes.LOGOUT_SUCCESS, authActionTypes.SESSION_EXPIRED_SUCCESS],
-    stopWorker
-  );
+  yield takeLatest(STOP, stopWorker);
 }
 
 function* stopWorker() {
@@ -225,6 +240,7 @@ function* eventWorker(action: any) {
 export function* currentUserEventsSaga(): Saga {
   yield all([
     fork(eventSourceChannelWatcher),
+    fork(startStopWatcher),
     fork(startWatcher),
     fork(stopWatcher),
     fork(eventWatcher),
