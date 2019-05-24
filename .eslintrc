@@ -22,6 +22,7 @@
   },
   "settings": {
     "import/resolver": "webpack",
+    "import/ignore": [".css$", "node_modules/*"],
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true
     },

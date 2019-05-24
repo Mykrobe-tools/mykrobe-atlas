@@ -1,6 +1,7 @@
 /* @flow */
 
 import { createSelector } from 'reselect';
+import produce from 'immer';
 
 export const typePrefix = 'phylogeny/node/';
 export const SET_NODE_HIGHLIGHTED = `${typePrefix}SET_NODE_HIGHLIGHTED`;
@@ -20,8 +21,10 @@ export const getHighlighted = createSelector(
 export function setNodeHighlighted(node: string, highlighted: boolean) {
   return {
     type: SET_NODE_HIGHLIGHTED,
-    node,
-    highlighted,
+    payload: {
+      node,
+      highlighted,
+    },
   };
 }
 
@@ -37,37 +40,32 @@ const initialState = {
   highlighted: [],
 };
 
-export default function reducer(
-  state: Object = initialState,
-  action: Object = {}
-) {
-  switch (action.type) {
-    case SET_NODE_HIGHLIGHTED: {
-      // clone the current array
-      let highlighted = state.highlighted.slice();
-      const index = highlighted.indexOf(action.node);
-      if (action.highlighted) {
-        if (index === -1) {
-          highlighted = highlighted.concat(action.node);
+const reducer = (state?: State = initialState, action?: Object = {}): State =>
+  produce(state, draft => {
+    switch (action.type) {
+      case SET_NODE_HIGHLIGHTED: {
+        const { node, highlighted } = action.payload;
+        if (highlighted) {
+          if (!draft.highlighted.includes(node)) {
+            draft.highlighted.push(node);
+          }
+        } else {
+          if (draft.highlighted.includes(node)) {
+            draft.highlighted.splice(
+              draft.highlighted.findIndex(id => id === node),
+              1
+            );
+          }
         }
-      } else {
-        if (index !== -1) {
-          highlighted.splice(index, 1);
-        }
-        if (highlighted.length !== 0) {
-          console.log(highlighted);
-        }
+        return;
       }
-      return {
-        ...state,
-        highlighted,
-      };
+      case UNSET_NODE_HIGHLIGHTED_ALL:
+        return initialState;
+      default:
+        return;
     }
-    case UNSET_NODE_HIGHLIGHTED_ALL:
-      return initialState;
-    default:
-      return state;
-  }
-}
+  });
+
+export default reducer;
 
 // Side effects
