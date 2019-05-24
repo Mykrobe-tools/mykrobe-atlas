@@ -3,6 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
+import _ from 'lodash';
 
 import styles from './Analysis.scss';
 import Phylogeny from '../../phylogeny/Phylogeny';
@@ -10,7 +11,10 @@ import Uploading from '../../ui/Uploading';
 import PhyloCanvasTooltip from '../../ui/PhyloCanvasTooltip';
 import MapStyle from './MapStyle';
 
-class Analysis extends React.Component<*> {
+export const DEFAULT_LAT = 51.5074;
+export const DEFAULT_LNG = 0.1278;
+
+class ExperimentGeographicMap extends React.Component<*> {
   _google: Object;
   _map: Object;
   _mapDiv: Object;
@@ -21,8 +25,31 @@ class Analysis extends React.Component<*> {
     super(props);
     GoogleMapsLoader.KEY = process.env.GOOGLE_MAPS_API_KEY;
     GoogleMapsLoader.REGION = 'GB';
+    GoogleMapsLoader.load(this.onGoogleMapsLoaded);
   }
 
+  onGoogleMapsLoaded = (google: any) => {
+    this._google = google;
+    this.initMap();
+    // this.updateMarkers(experiment, experiments);
+  };
+
+  initMap = () => {
+    if (!this._google || !this._mapDiv) {
+      return;
+    }
+    const options = {
+      center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
+      maxZoom: 7,
+      zoom: 3,
+      backgroundColor: '#e2e1dc',
+      styles: MapStyle,
+    };
+    this._map = new this._google.maps.Map(this._mapDiv, options);
+    this.updateMarkers();
+  };
+
+  /*
   componentDidMount() {
     const { experiment } = this.props;
     this.loadMaps(experiment);
@@ -127,16 +154,9 @@ class Analysis extends React.Component<*> {
     return { x, y };
   }
 
-  zoomToMarkers() {
-    let bounds = new this._google.maps.LatLngBounds();
-    for (let id in this._markers) {
-      bounds.extend(this._markers[id].getPosition());
-    }
-    this._map.fitBounds(bounds);
-  }
+
 
   componentWillReceiveProps(nextProps) {
-    debugger;
     const { highlighted } = nextProps;
     if (!this._map) {
       this.loadMaps(nextProps.experiment);
@@ -172,47 +192,85 @@ class Analysis extends React.Component<*> {
       }
     }
   }
+  */
 
   setMapRef = (ref: any) => {
     this._mapDiv = ref;
+    this.initMap();
   };
 
   setPhyloCanvasTooltipRef = (ref: any) => {
     this._phyloCanvasTooltip = ref;
   };
 
-  render() {
-    const { isBusyWithCurrentRoute } = this.props;
-
-    let content;
-    if (isBusyWithCurrentRoute) {
-      content = <Uploading sectionName="Analysis" />;
-    } else {
-      content = (
-        <div className={styles.content}>
-          <div className={styles.mapAndPhylogenyContainer}>
-            <div className={styles.mapContainer}>
-              <div ref={this.setMapRef} className={styles.map} />
-              <PhyloCanvasTooltip ref={this.setPhyloCanvasTooltipRef} />
-            </div>
-            <div className={styles.phylogenyContainer}>
-              <Phylogeny />
-            </div>
-          </div>
-        </div>
-      );
+  updateMarkers = () => {
+    const { setNodeHighlighted, experiments } = this.props;
+    if (this._markers) {
+      for (let markerKey in this._markers) {
+        const marker = this._markers[markerKey];
+        marker.setMap(null);
+      }
     }
-    return <div className={styles.container}>{content}</div>;
+    this._markers = {};
+    experiments.forEach((experiment, index) => {
+      const longitudeIsolate = _.get(
+        experiment,
+        'metadata.sample.longitudeIsolate'
+      );
+      const latitudeIsolate = _.get(
+        experiment,
+        'metadata.sample.latitudeIsolate'
+      );
+      if (longitudeIsolate && latitudeIsolate) {
+        const lat = parseFloat(latitudeIsolate);
+        const lng = parseFloat(longitudeIsolate);
+        const marker = new this._google.maps.Marker({
+          icon: {
+            path: this._google.maps.SymbolPath.CIRCLE,
+            scale: 10,
+            strokeWeight: 4,
+            fillColor: index === 0 ? '#c30042' : '#0f82d0',
+            strokeColor: '#fff',
+            fillOpacity: 1,
+          },
+          position: { lat, lng },
+          map: this._map,
+        });
+        marker.addListener('mouseover', () => {
+          setNodeHighlighted(experiment.id, true);
+        });
+        marker.addListener('mouseout', () => {
+          setNodeHighlighted(experiment.id, false);
+        });
+        this._markers[experiment.id] = marker;
+      }
+    });
+    this.zoomToMarkers();
+  };
+
+  zoomToMarkers = () => {
+    let bounds = new this._google.maps.LatLngBounds();
+    for (let id in this._markers) {
+      bounds.extend(this._markers[id].getPosition());
+    }
+    this._map.fitBounds(bounds);
+  };
+
+  render() {
+    return (
+      <div className={styles.mapContainer}>
+        <div ref={this.setMapRef} className={styles.map} />
+        <PhyloCanvasTooltip ref={this.setPhyloCanvasTooltipRef} />
+      </div>
+    );
   }
 }
 
-Analysis.propTypes = {
-  setNodeHighlighted: PropTypes.func.isRequired,
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
-  highlighted: PropTypes.array.isRequired,
+ExperimentGeographicMap.propTypes = {
+  setNodeHighlighted: PropTypes.func,
+  experiments: PropTypes.array,
+  highlighted: PropTypes.array,
   isBusyWithCurrentRoute: PropTypes.bool,
-  experimentsTree: PropTypes.object,
 };
 
-export default Analysis;
+export default ExperimentGeographicMap;

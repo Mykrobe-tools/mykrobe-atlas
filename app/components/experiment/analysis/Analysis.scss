@@ -36,7 +36,10 @@
 }
 
 .mapContainer {
-  composes: container from 'styles/layout.scss';
+  // composes: container from 'styles/layout.scss';
+  display: flex;
+  flex: 1 0 auto;
+  background-color: magenta;
 }
 
 .map {
