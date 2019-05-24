@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
 import _ from 'lodash';
 
-import styles from './Analysis.scss';
 import PhyloCanvasTooltip from '../../ui/PhyloCanvasTooltip';
 import MapStyle from './MapStyle';
+
+import styles from './ExperimentGeographicMap.scss';
 
 export const DEFAULT_LAT = 51.5074;
 export const DEFAULT_LNG = 0.1278;
@@ -37,7 +38,7 @@ class ExperimentGeographicMap extends React.Component<*> {
     }
     const options = {
       center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
-      maxZoom: 7,
+      maxZoom: 5,
       zoom: 3,
       backgroundColor: '#e2e1dc',
       styles: MapStyle,

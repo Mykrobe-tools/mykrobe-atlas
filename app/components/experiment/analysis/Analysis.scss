@@ -35,17 +35,6 @@
   background-color: white;
 }
 
-.mapContainer {
-  // composes: container from 'styles/layout.scss';
-  display: flex;
-  flex: 1 0 auto;
-  background-color: magenta;
-}
-
-.map {
-  composes: container from 'styles/layout.scss';
-}
-
 .phylogenyContainer {
   composes: container from 'styles/layout.scss';
 }

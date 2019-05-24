@@ -188,7 +188,7 @@ class ExperimentsTable extends React.Component<*> {
           </div>
         </td>
         <td>
-          <Link to={`/experiments/${id}`}>{isolateId}</Link>
+          <Link to={`/experiments/${id}/analysis`}>{isolateId}</Link>
         </td>
         <td>{susceptibilityProfile}</td>
         <td>
