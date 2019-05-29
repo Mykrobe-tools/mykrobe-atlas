@@ -6,7 +6,7 @@ import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import moment from 'moment';
 import uuid from 'uuid';
-import _ from 'lodash';
+import _orderBy from 'lodash.orderby';
 import produce from 'immer';
 
 import { SHOW as JS_COMMON_SHOW_NOTIFICATION } from 'makeandship-js-common/src/modules/notifications/notifications';
@@ -97,7 +97,7 @@ export const getFilteredNotifications = (
       filteredNotifications.push(notification);
     }
   });
-  const sorted = _.orderBy(filteredNotifications, 'updated', order);
+  const sorted = _orderBy(filteredNotifications, 'updated', order);
   return limit && sorted.length > limit ? sorted.slice(0, limit) : sorted;
 };
 

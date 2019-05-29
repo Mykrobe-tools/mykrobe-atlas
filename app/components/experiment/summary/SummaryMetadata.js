@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import _get from 'lodash.get';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
@@ -15,13 +15,13 @@ class SummaryMetadata extends React.Component<*> {
       experiment: { metadata },
       experimentNearestNeigbours,
     } = this.props;
-    const isolateId = _.get(metadata, 'sample.isolateId') || 'No isolate Id';
-    let collectionDate = _.get(metadata, 'sample.collectionDate');
+    const isolateId = _get(metadata, 'sample.isolateId') || 'No isolate Id';
+    let collectionDate = _get(metadata, 'sample.collectionDate');
     collectionDate = collectionDate
       ? moment(collectionDate).format('LLL')
       : '–';
-    const countryIsolate = _.get(metadata, 'sample.countryIsolate') || '–';
-    const cityIsolate = _.get(metadata, 'sample.cityIsolate') || '–';
+    const countryIsolate = _get(metadata, 'sample.countryIsolate') || '–';
+    const cityIsolate = _get(metadata, 'sample.cityIsolate') || '–';
     return (
       <div className={styles.container}>
         <div className={styles.summaryContainer}>

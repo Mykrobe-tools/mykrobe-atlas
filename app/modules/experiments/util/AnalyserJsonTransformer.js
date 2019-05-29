@@ -1,6 +1,6 @@
 /* @flow */
 
-import _ from 'lodash';
+import { isArray } from 'makeandship-js-common/src/util/is';
 
 import susceptibilityTransformer from './transformers/susceptibility';
 import speciesTransformer from './transformers/species';
@@ -59,7 +59,7 @@ class AnalyserJsonTransformer {
     if (sourceModel.results) {
       // web
       let sampleModel;
-      if (_.isArray(sourceModel.results)) {
+      if (isArray(sourceModel.results)) {
         // if it's an array, just do the first one for now
         sampleModel = sourceModel.results[0];
       } else {
