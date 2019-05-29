@@ -122,7 +122,7 @@ export const getExperimentTransformed = createSelector(
 export const getExperimentNearestNeigbours = createSelector(
   getExperiment,
   experiment => {
-    return _.get(experiment, 'results.nearestNeighbours.experiments');
+    return _.get(experiment, 'results.distance-nearest-neighbour.experiments');
   }
 );
 

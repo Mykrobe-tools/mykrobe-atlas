@@ -65,7 +65,7 @@ class SummaryMetadata extends React.Component<*> {
                   {experimentNearestNeigbours &&
                     experimentNearestNeigbours.map(({ id, distance }) => (
                       <div key={id}>
-                        <Link to={`/experiments/${id}/resistance`}>
+                        <Link to={`/experiments/${id}/analysis`}>
                           <i className="fa fa-chevron-circle-right" /> {id} –{' '}
                           {distance} SNPs apart
                         </Link>
