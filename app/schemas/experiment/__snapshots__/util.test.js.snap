@@ -22,6 +22,8 @@ Array [
   "metadata.sample.prospectiveIsolate",
   "metadata.sample.countryIsolate",
   "metadata.sample.cityIsolate",
+  "metadata.sample.longitudeIsolate",
+  "metadata.sample.latitudeIsolate",
   "metadata.sample.dateArrived",
   "metadata.sample.anatomicalOrigin",
   "metadata.sample.smear",
@@ -167,6 +169,6 @@ Array [
 exports[`experiment schema util should determine completeness as expected 1`] = `
 Object {
   "complete": 2,
-  "total": 159,
+  "total": 161,
 }
 `;

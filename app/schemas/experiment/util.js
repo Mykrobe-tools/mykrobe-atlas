@@ -1,6 +1,6 @@
 /* @flow */
 
-import _ from 'lodash';
+import _get from 'lodash.get';
 
 // TODO: move into common library
 
@@ -33,7 +33,7 @@ export const keysForSchema = (
 
 export const findSchemaDefinitionForRef = (schema: any, ref: string) => {
   const parts = ref.split('/').slice(1);
-  const definition = _.get(schema, parts);
+  const definition = _get(schema, parts);
   return definition;
 };
 
@@ -44,7 +44,7 @@ export const completenessForSchemaAndData = (schema: any, data: any) => {
   const keys = keysForSchema(schema);
   const total = keys.length;
   keys.forEach(key => {
-    const value = _.get(data, key);
+    const value = _get(data, key);
     if (value) {
       complete++;
     }

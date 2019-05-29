@@ -3,7 +3,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
-import _ from 'lodash';
+import _get from 'lodash.get';
+import _isEqual from 'lodash.isequal';
 
 import PhyloCanvasTooltip from '../../ui/PhyloCanvasTooltip';
 import MapStyle from './MapStyle';
@@ -114,11 +115,11 @@ class ExperimentGeographicMap extends React.Component<*> {
     }
     this._markers = {};
     experiments.forEach((experiment, index) => {
-      const longitudeIsolate = _.get(
+      const longitudeIsolate = _get(
         experiment,
         'metadata.sample.longitudeIsolate'
       );
-      const latitudeIsolate = _.get(
+      const latitudeIsolate = _get(
         experiment,
         'metadata.sample.latitudeIsolate'
       );
@@ -183,10 +184,10 @@ class ExperimentGeographicMap extends React.Component<*> {
 
   componentDidUpdate = (prevProps: any) => {
     const { highlighted, experiments } = this.props;
-    if (!_.isEqual(experiments, prevProps.experiments)) {
+    if (!_isEqual(experiments, prevProps.experiments)) {
       this.updateMarkers();
     }
-    if (!_.isEqual(highlighted, prevProps.highlighted)) {
+    if (!_isEqual(highlighted, prevProps.highlighted)) {
       this.updateHighlighted();
     }
   };

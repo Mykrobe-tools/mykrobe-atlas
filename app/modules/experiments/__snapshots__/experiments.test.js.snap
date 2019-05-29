@@ -15,6 +15,5 @@ Object {
   "data": Object {
     "results": Array [],
   },
-  "isFetching": false,
 }
 `;

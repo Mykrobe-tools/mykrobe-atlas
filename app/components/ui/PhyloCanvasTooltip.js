@@ -4,7 +4,7 @@ import * as React from 'react';
 import styles from './PhyloCanvasTooltip.scss';
 import type { SampleType } from '../../types/SampleType';
 import moment from 'moment';
-import _ from 'lodash';
+import _get from 'lodash.get';
 
 type State = {
   visible: boolean,
@@ -50,10 +50,10 @@ class PhyloCanvasTooltip extends React.Component<*, State> {
     if (!visible || !node) {
       return null;
     }
-    const isolateId = _.get(node, 'metadata.sample.isolateId') || '–';
-    const countryIsolate = _.get(node, 'metadata.sample.countryIsolate') || '–';
-    const cityIsolate = _.get(node, 'metadata.sample.cityIsolate') || '–';
-    const collected = _.get(node, 'collected');
+    const isolateId = _get(node, 'metadata.sample.isolateId') || '–';
+    const countryIsolate = _get(node, 'metadata.sample.countryIsolate') || '–';
+    const cityIsolate = _get(node, 'metadata.sample.cityIsolate') || '–';
+    const collected = _get(node, 'collected');
     const date = collected ? moment(collected).format('LLL') : '–';
     return (
       <div className={styles.tooltip} style={{ left: x, top: y }}>
