@@ -11,7 +11,7 @@ import {
   UncontrolledTooltip,
 } from 'reactstrap';
 import moment from 'moment';
-import _ from 'lodash';
+import _get from 'lodash.get';
 
 import Table from 'makeandship-js-common/src/components/ui/table';
 
@@ -123,10 +123,10 @@ class ExperimentsTable extends React.Component<*> {
     const { selected } = this.props;
     const allSelected = (selected && selected === '*') || false;
     let { id, created, modified, results } = experiment;
-    const isolateId = _.get(experiment, 'metadata.sample.isolateId') || '–';
+    const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
     const countryIsolate =
-      _.get(experiment, 'metadata.sample.countryIsolate') || '–';
-    const cityIsolate = _.get(experiment, 'metadata.sample.cityIsolate') || '–';
+      _get(experiment, 'metadata.sample.countryIsolate') || '–';
+    const cityIsolate = _get(experiment, 'metadata.sample.cityIsolate') || '–';
     const isSelected =
       allSelected ||
       (selected && selected.includes && selected.includes(id)) ||

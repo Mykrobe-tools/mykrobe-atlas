@@ -16,6 +16,7 @@ import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import { push } from 'connected-react-router';
 import moment from 'moment';
+import produce from 'immer';
 
 import {
   getAccessToken,
@@ -158,69 +159,57 @@ const initialState = {
   checksumProgress: 0,
 };
 
-export default function reducer(
-  state: Object = initialState,
-  action: Object = {}
-) {
-  switch (action.type) {
-    case UPLOAD_FILE_CANCEL_SUCCESS:
-      return {
-        ...initialState,
-      };
-    case SET_FILE_NAME:
-      return {
-        ...state,
-        fileName: action.payload,
-      };
-    case SET_EXPERIMENT_ID:
-      return {
-        ...state,
-        experimentId: action.payload,
-      };
-    case COMPUTE_CHECKSUMS:
-      return {
-        ...state,
-        isComputingChecksums: true,
-      };
-    case COMPUTE_CHECKSUMS_PROGRESS:
-      return {
-        ...state,
-        checksumProgress: action.payload,
-      };
-    case COMPUTE_CHECKSUMS_COMPLETE:
-      return {
-        ...state,
-        checksumProgress: 1,
-        isComputingChecksums: false,
-      };
-    case UPLOAD_FILE:
-      return {
-        ...state,
-        isUploading: true,
-        uploadBeganAt: moment().format(),
-      };
-    case RESUMABLE_UPLOAD_PROGRESS:
-      return {
-        ...state,
-        uploadProgress: action.payload,
-      };
-    case RESUMABLE_UPLOAD_DONE:
-      return {
-        ...state,
-        isUploading: false,
-        uploadProgress: 0,
-        checksumProgress: 0,
-      };
-    case RESUMABLE_UPLOAD_ERROR:
-      return {
-        ...state,
-        isUploading: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
-}
+const reducer = (state?: State = initialState, action?: Object = {}): State =>
+  produce(state, draft => {
+    switch (action.type) {
+      case UPLOAD_FILE_CANCEL_SUCCESS:
+        return initialState;
+      case SET_FILE_NAME:
+        draft.fileName = action.payload;
+        return;
+      case SET_EXPERIMENT_ID:
+        draft.experimentId = action.payload;
+        return;
+      case COMPUTE_CHECKSUMS:
+        draft.isComputingChecksums = true;
+        return;
+      case COMPUTE_CHECKSUMS_PROGRESS:
+        draft.checksumProgress = action.payload;
+        return;
+      case COMPUTE_CHECKSUMS_COMPLETE:
+        Object.assign(draft, {
+          checksumProgress: 1,
+          isComputingChecksums: false,
+        });
+        return;
+      case UPLOAD_FILE:
+        Object.assign(draft, {
+          isUploading: true,
+          uploadBeganAt: moment().format(),
+        });
+        return;
+      case RESUMABLE_UPLOAD_PROGRESS:
+        draft.uploadProgress = action.payload;
+        return;
+      case RESUMABLE_UPLOAD_DONE:
+        Object.assign(draft, {
+          isUploading: false,
+          uploadProgress: 0,
+          checksumProgress: 0,
+        });
+        return;
+      case RESUMABLE_UPLOAD_ERROR:
+        Object.assign(draft, {
+          isUploading: false,
+          error: action.payload,
+        });
+        return;
+      default:
+        return;
+    }
+  });
+
+export default reducer;
 
 // set the values on resumablejs instance when components are available
 // we keep a ref to the dropzone so we can

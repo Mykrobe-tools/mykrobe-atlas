@@ -15,6 +15,7 @@ import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import { push } from 'connected-react-router';
 import parsePath from 'parse-filepath';
+import produce from 'immer';
 
 export const MAX_FILES = 2;
 
@@ -152,48 +153,45 @@ const normalizeFilePaths = files => {
   return files.map(file => (isString(file) ? file : file.path));
 };
 
-export default function reducer(
-  state: Object = initialState,
-  action: Object = {}
-) {
-  switch (action.type) {
-    case ANALYSE_FILE:
-      return {
-        ...state,
-        isAnalysing: true,
-        filePaths: normalizeFilePaths(action.payload),
-        error: undefined,
-      };
-    case ANALYSE_FILE_SET_FILE_PATHS:
-      return {
-        ...state,
-        filePaths: normalizeFilePaths(action.payload),
-      };
-    case ANALYSE_FILE_CANCEL:
-    case ANALYSE_FILE_NEW:
-      return initialState;
-    case ANALYSE_FILE_PROGRESS: {
-      const { progress, total } = action.payload;
-      return {
-        ...state,
-        progress: Math.round((100 * progress) / total),
-      };
+const reducer = (state?: State = initialState, action?: Object = {}): State =>
+  produce(state, draft => {
+    switch (action.type) {
+      case ANALYSE_FILE:
+        Object.assign(draft, {
+          isAnalysing: true,
+          filePaths: normalizeFilePaths(action.payload),
+          error: undefined,
+        });
+        return;
+      case ANALYSE_FILE_SET_FILE_PATHS:
+        draft.filePaths = normalizeFilePaths(action.payload);
+        return;
+      case ANALYSE_FILE_CANCEL:
+      case ANALYSE_FILE_NEW:
+        return initialState;
+      case ANALYSE_FILE_PROGRESS: {
+        const { progress, total } = action.payload;
+        draft.progress = Math.round((100 * progress) / total);
+        return;
+      }
+      case ANALYSE_FILE_SUCCESS:
+        Object.assign(draft, {
+          isAnalysing: false,
+          json: action.payload,
+        });
+        return;
+      case ANALYSE_FILE_ERROR:
+        Object.assign(draft, {
+          ...initialState,
+          error: action.payload,
+        });
+        return;
+      default:
+        return;
     }
-    case ANALYSE_FILE_SUCCESS:
-      return {
-        ...state,
-        isAnalysing: false,
-        json: action.payload,
-      };
-    case ANALYSE_FILE_ERROR:
-      return {
-        ...initialState,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
-}
+  });
+
+export default reducer;
 
 // Side effects
 

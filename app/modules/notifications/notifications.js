@@ -6,7 +6,8 @@ import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import moment from 'moment';
 import uuid from 'uuid';
-import _ from 'lodash';
+import _orderBy from 'lodash.orderby';
+import produce from 'immer';
 
 import { SHOW as JS_COMMON_SHOW_NOTIFICATION } from 'makeandship-js-common/src/modules/notifications/notifications';
 
@@ -96,7 +97,7 @@ export const getFilteredNotifications = (
       filteredNotifications.push(notification);
     }
   });
-  const sorted = _.orderBy(filteredNotifications, 'updated', order);
+  const sorted = _orderBy(filteredNotifications, 'updated', order);
   return limit && sorted.length > limit ? sorted.slice(0, limit) : sorted;
 };
 
@@ -120,8 +121,8 @@ export const shapeNotification = (arg: Notification | string) => {
     dismissed = false,
     hidden = false,
     actions,
-    added = moment(),
-    updated = moment(),
+    added = moment().toISOString(),
+    updated = moment().toISOString(),
     progress,
   } = notification;
   return {
@@ -182,84 +183,53 @@ export const updateNotification = (id: string, attributes: any) => ({
 
 const initialState: State = {};
 
-export default function reducer(
-  state: State = initialState,
-  action: Object = {}
-): State {
-  switch (action.type) {
-    case SHOW_NOTIFICATION:
-    case JS_COMMON_SHOW_NOTIFICATION:
-      return {
-        ...state,
-        [action.payload.id]: action.payload,
-      };
-    case UPDATE_NOTIFICATION: {
-      if (!state[action.payload.id]) {
-        // doesn't exist, so create a new notification
-        return {
-          ...state,
-          [action.payload.id]: action.payload,
-        };
+const reducer = (state?: State = initialState, action?: Object = {}): State =>
+  produce(state, draft => {
+    switch (action.type) {
+      case SHOW_NOTIFICATION:
+      case JS_COMMON_SHOW_NOTIFICATION:
+        draft[action.payload.id] = action.payload;
+        return;
+      case UPDATE_NOTIFICATION: {
+        if (!draft[action.payload.id]) {
+          // doesn't exist, so create a new notification
+          draft[action.payload.id] = action.payload;
+        }
+        Object.assign(draft[action.payload.id], action.payload);
+        return;
       }
-      return {
-        ...state,
-        [action.payload.id]: {
-          ...state[action.payload.id],
-          ...action.payload,
-        },
-      };
-    }
-    case HIDE_NOTIFICATION:
-      return {
-        ...state,
-        [action.payload]: {
-          ...state[action.payload],
-          hidden: true,
-        },
-      };
-    case HIDE_ALL_NOTIFICATIONS: {
-      const newState = {};
-      Object.keys(state).map(id => {
-        const notification = state[id];
-        notification.hidden = true;
-        newState[id] = notification;
-      });
-      return newState;
-    }
-    case DISMISS_NOTIFICATION:
-      return {
-        ...state,
-        [action.payload]: {
-          ...state[action.payload],
+      case HIDE_NOTIFICATION:
+        draft[action.payload].hidden = true;
+        return;
+      case HIDE_ALL_NOTIFICATIONS: {
+        Object.keys(draft).map(id => {
+          draft[id].hidden = true;
+        });
+        return;
+      }
+      case DISMISS_NOTIFICATION:
+        Object.assign(draft[action.payload], {
           hidden: true,
           dismissed: true,
-        },
-      };
-    case DISMISS_ALL_NOTIFICATIONS: {
-      const newState = {};
-      Object.keys(state).map(id => {
-        const notification = state[id];
-        notification.hidden = true;
-        notification.dismissed = true;
-        newState[id] = notification;
-      });
-      return newState;
+        });
+        return;
+      case DISMISS_ALL_NOTIFICATIONS:
+        Object.keys(draft).map(id => {
+          draft[id].hidden = true;
+          draft[id].dismissed = true;
+        });
+        return;
+      case SET_NOTIFICATION_EXPANDED:
+        draft[action.payload.id].expanded = action.payload.expanded;
+        return;
+      case CLEAR_ALL_NOTIFICATIONS:
+        return initialState;
+      default:
+        return;
     }
+  });
 
-    case SET_NOTIFICATION_EXPANDED:
-      return {
-        ...state,
-        [action.payload.id]: {
-          ...state[action.payload.id],
-          expanded: action.payload.expanded,
-        },
-      };
-    case CLEAR_ALL_NOTIFICATIONS:
-      return initialState;
-    default:
-      return state;
-  }
-}
+export default reducer;
 
 // Side effects
 
