@@ -29,6 +29,7 @@ export {
   getExperimentsIsPending,
   requestExperiments,
   experimentsSaga,
+  getExperimentsSearchDescription,
 } from './experiments';
 
 export {

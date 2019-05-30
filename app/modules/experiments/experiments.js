@@ -6,6 +6,7 @@ import _get from 'lodash.get';
 import { createCollectionModule } from 'makeandship-js-common/src/modules/generic';
 
 import { getExperimentsFiltersSaga } from './experimentsFilters';
+import { descriptionForBigsi } from './util/bigsi';
 
 export const getState = (state: any) => state.experiments.experiments;
 
@@ -20,6 +21,11 @@ export const getIsPending = createSelector(
 
 export const getBigsi = createSelector(getState, state =>
   _get(state, 'data.bigsi')
+);
+
+export const getSearchDescription = createSelector(
+  getBigsi,
+  bigsi => (bigsi ? descriptionForBigsi(bigsi) : 'Search')
 );
 
 const module = createCollectionModule('experiments', {
@@ -47,6 +53,7 @@ export {
   collectionSaga as experimentsSaga,
   getStatus as getExperimentsStatus,
   getIsPending as getExperimentsIsPending,
+  getSearchDescription as getExperimentsSearchDescription,
 };
 
 export default reducer;

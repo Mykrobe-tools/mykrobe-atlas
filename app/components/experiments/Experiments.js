@@ -114,6 +114,8 @@ class Experiments extends React.Component<*, State> {
       isFetchingExperiments,
       onChangeListOrder,
       experimentsIsPending,
+      experimentsSearchDescription,
+      experimentError,
     } = this.props;
     const { pagination, results, total } = experiments;
     const hasTotal = total !== undefined;
@@ -123,6 +125,107 @@ class Experiments extends React.Component<*, State> {
       : 'Experiments';
     const { q, selected } = this.state;
     const showCompare = selected && (selected === '*' || selected.length > 1);
+    let content;
+    if (hasResults) {
+      content = (
+        <Container fluid>
+          <div className={styles.actionsContainer}>
+            <div className={styles.filtersActionsContainer}>
+              <ExperimentsChoicesFilters size="sm" />
+              {selected && (
+                <div className="ml-3 border-left">
+                  <UncontrolledDropdown>
+                    <DropdownToggle
+                      color="link"
+                      size={'sm'}
+                      data-tid="actions-dropdown-toggle"
+                    >
+                      Actions <i className="fa fa-caret-down" />
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem disabled>
+                        {selected === '*'
+                          ? `${total.toLocaleString()} selected`
+                          : `${selected.length} selected`}
+                      </DropdownItem>
+                      <DropdownItem divider />
+                      {showCompare && (
+                        <DropdownItem onClick={notImplemented}>
+                          Compare
+                        </DropdownItem>
+                      )}
+                      <DropdownItem onClick={notImplemented}>
+                        Share
+                      </DropdownItem>
+                      <DropdownItem onClick={notImplemented}>
+                        Delete
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                </div>
+              )}
+            </div>
+            <div className="ml-auto">
+              <UploadButton right size="sm" outline={false} />
+            </div>
+          </div>
+          <ExperimentsTable
+            isFetching={isFetchingExperiments}
+            experiments={results}
+            onChangeOrder={onChangeListOrder}
+            filters={experimentsFilters}
+            selected={selected}
+            setSelected={this.setSelected}
+          />
+          {pagination && (
+            <Pagination
+              first={1}
+              last={pagination.pages}
+              current={pagination.page}
+              onPageClick={this.onPageClick}
+            />
+          )}
+        </Container>
+      );
+    } else if (experimentsIsPending) {
+      content = (
+        <Empty
+          icon={'clock-o'}
+          title={`${experimentsSearchDescription} in progress`}
+          subtitle={
+            'You will see a notification and this page will refresh when the search is complete'
+          }
+        >
+          <Button outline color="mid" onClick={this.onReset}>
+            New search
+          </Button>
+        </Empty>
+      );
+    } else if (experimentError) {
+      content = (
+        <Empty
+          title={`${experimentsSearchDescription} returned an error`}
+          subtitle={experimentError.statusText}
+        >
+          <Button outline color="mid" onClick={this.onSubmit}>
+            Retry search
+          </Button>
+        </Empty>
+      );
+    } else {
+      content = (
+        <Empty
+          title={`${experimentsSearchDescription} returned no results`}
+          subtitle={
+            'No experiments containing all your search terms were found'
+          }
+        >
+          <Button outline color="mid" onClick={this.onReset}>
+            Clear search
+          </Button>
+        </Empty>
+      );
+    }
     return (
       <div className={styles.container}>
         <HeaderContainer title={'Sample Library'} />
@@ -141,97 +244,10 @@ class Experiments extends React.Component<*, State> {
             </div>
           </div>
         </Container>
-        {hasResults ? (
-          <div className={styles.resultsContainer}>
-            <Container fluid>
-              <div className={styles.actionsContainer}>
-                <div className={styles.filtersActionsContainer}>
-                  <ExperimentsChoicesFilters size="sm" />
-                  {selected && (
-                    <div className="ml-3 border-left">
-                      <UncontrolledDropdown>
-                        <DropdownToggle
-                          color="link"
-                          size={'sm'}
-                          data-tid="actions-dropdown-toggle"
-                        >
-                          Actions <i className="fa fa-caret-down" />
-                        </DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem disabled>
-                            {selected === '*'
-                              ? `${total.toLocaleString()} selected`
-                              : `${selected.length} selected`}
-                          </DropdownItem>
-                          <DropdownItem divider />
-                          {showCompare && (
-                            <DropdownItem onClick={notImplemented}>
-                              Compare
-                            </DropdownItem>
-                          )}
-                          <DropdownItem onClick={notImplemented}>
-                            Share
-                          </DropdownItem>
-                          <DropdownItem onClick={notImplemented}>
-                            Delete
-                          </DropdownItem>
-                        </DropdownMenu>
-                      </UncontrolledDropdown>
-                    </div>
-                  )}
-                </div>
-                <div className="ml-auto">
-                  <UploadButton right size="sm" outline={false} />
-                </div>
-              </div>
-              <ExperimentsTable
-                isFetching={isFetchingExperiments}
-                experiments={results}
-                onChangeOrder={onChangeListOrder}
-                filters={experimentsFilters}
-                selected={selected}
-                setSelected={this.setSelected}
-              />
-              {pagination && (
-                <Pagination
-                  first={1}
-                  last={pagination.pages}
-                  current={pagination.page}
-                  onPageClick={this.onPageClick}
-                />
-              )}
-            </Container>
-            {isFetchingExperiments && <Loading overlay />}
-          </div>
-        ) : experimentsIsPending ? (
-          <div className={styles.resultsContainer}>
-            <Empty
-              icon={'clock-o'}
-              title={'Search in progress'}
-              subtitle={
-                'You will see a notification and this page will refresh when the search is complete'
-              }
-            >
-              <Button outline color="mid" onClick={this.onReset}>
-                New search
-              </Button>
-            </Empty>
-          </div>
-        ) : (
-          <div className={styles.resultsContainer}>
-            <Empty
-              title={'No results'}
-              subtitle={
-                'No experiments containing all your search terms were found'
-              }
-            >
-              <Button outline color="mid" onClick={this.onReset}>
-                Clear search
-              </Button>
-            </Empty>
-            {isFetchingExperiments && <Loading overlay />}
-          </div>
-        )}
+        <div className={styles.resultsContainer}>
+          {content}
+          {isFetchingExperiments && <Loading overlay />}
+        </div>
         <Footer />
       </div>
     );
@@ -251,6 +267,8 @@ Experiments.propTypes = {
   setPage: PropTypes.func,
   newExperiment: PropTypes.func,
   experimentsIsPending: PropTypes.bool,
+  experimentsSearchDescription: PropTypes.string,
+  experimentError: PropTypes.any,
 };
 
 export default Experiments;
