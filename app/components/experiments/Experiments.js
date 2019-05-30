@@ -209,7 +209,7 @@ class Experiments extends React.Component<*, State> {
               icon={'clock-o'}
               title={'Search in progress'}
               subtitle={
-                'You will see a notificaiton and this page will refresh when the search is complete'
+                'You will see a notification and this page will refresh when the search is complete'
               }
             />
           </div>

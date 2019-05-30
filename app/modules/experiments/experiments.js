@@ -18,6 +18,10 @@ export const getIsPending = createSelector(
   status => status === 'pending'
 );
 
+export const getBigsi = createSelector(getState, state =>
+  _get(state, 'data.bigsi')
+);
+
 const module = createCollectionModule('experiments', {
   typePrefix: 'experiments/experiments/',
   getState,
