@@ -63,14 +63,20 @@ class SummaryMetadata extends React.Component<*> {
                 <td>Closest relatives</td>
                 <td>
                   {experimentNearestNeigbours &&
-                    experimentNearestNeigbours.map(({ id, distance }) => (
-                      <div key={id}>
-                        <Link to={`/experiments/${id}/analysis`}>
-                          <i className="fa fa-chevron-circle-right" /> {id} –{' '}
-                          {distance} SNPs apart
-                        </Link>
-                      </div>
-                    ))}
+                    experimentNearestNeigbours.map(
+                      ({ id, distance, metadata }) => {
+                        const isolateId =
+                          _get(metadata, 'sample.isolateId') || 'No isolate Id';
+                        return (
+                          <div key={id}>
+                            <Link to={`/experiments/${id}/analysis`}>
+                              <i className="fa fa-chevron-circle-right" />{' '}
+                              {isolateId} – {distance} SNPs apart
+                            </Link>
+                          </div>
+                        );
+                      }
+                    )}
                 </td>
               </tr>
             </tbody>
