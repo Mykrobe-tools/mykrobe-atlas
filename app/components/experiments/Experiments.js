@@ -204,8 +204,9 @@ class Experiments extends React.Component<*, State> {
     } else if (experimentError) {
       content = (
         <Empty
+          icon={'exclamation-circle'}
           title={`${experimentsSearchDescription} returned an error`}
-          subtitle={experimentError.statusText}
+          subtitle={`Error: ${experimentError.statusText}`}
         >
           <Button outline color="mid" onClick={this.onSubmit}>
             Retry search
@@ -255,7 +256,7 @@ class Experiments extends React.Component<*, State> {
 }
 
 Experiments.propTypes = {
-  experiments: PropTypes.object.isRequired,
+  experiments: PropTypes.object,
   experimentsFilters: PropTypes.any,
   setExperimentsFilters: PropTypes.func,
   resetExperimentsFilters: PropTypes.func,
