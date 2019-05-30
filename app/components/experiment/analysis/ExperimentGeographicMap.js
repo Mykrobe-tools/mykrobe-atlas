@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
 import _get from 'lodash.get';
 import _isEqual from 'lodash.isequal';
+import MarkerClusterer from '@google/markerclusterer';
 
 import PhyloCanvasTooltip from '../../ui/PhyloCanvasTooltip';
 import MapStyle from './MapStyle';
@@ -19,6 +20,7 @@ class ExperimentGeographicMap extends React.Component<*> {
   _map: Object;
   _mapDiv: Object;
   _markers: Object;
+  _markerClusterer: MarkerClusterer;
   _phyloCanvasTooltip: PhyloCanvasTooltip;
 
   constructor(props: any) {
@@ -46,6 +48,17 @@ class ExperimentGeographicMap extends React.Component<*> {
       styles: MapStyle,
     };
     this._map = new this._google.maps.Map(this._mapDiv, options);
+    // https://googlemaps.github.io/js-marker-clusterer/docs/reference.html
+    this._markerClusterer = new MarkerClusterer(this._map, [], {
+      imagePath:
+        'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m',
+      styles: [
+        {
+          textColor: 'white',
+          textSize: 16,
+        },
+      ],
+    });
     this.updateMarkers();
     // wait for getProjection() to be usable
     this._google.maps.event.addListenerOnce(
@@ -113,6 +126,7 @@ class ExperimentGeographicMap extends React.Component<*> {
         marker.setMap(null);
       }
     }
+    this._markerClusterer.clearMarkers();
     this._markers = {};
     experiments.forEach((experiment, index) => {
       const longitudeIsolate = _get(
@@ -150,8 +164,7 @@ class ExperimentGeographicMap extends React.Component<*> {
         console.log(`experiment id ${experiment.id} has no lat/lng`);
       }
     });
-    console.log('updateMarkers', this._markers);
-    debugger;
+    this._markerClusterer.addMarkers(this._markers);
     this.zoomToMarkers();
   };
 
