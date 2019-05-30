@@ -22,8 +22,10 @@ import { experimentsFiltersChoicesSaga } from './experimentsFiltersChoices';
 
 export {
   getExperiments,
-  getError as getExperimentError,
-  getIsFetching as getIsFetchingExperiments,
+  getExperimentError,
+  getIsFetchingExperiments,
+  getExperimentsStatus,
+  getExperimentsIsPending,
   requestExperiments,
   experimentsSaga,
 } from './experiments';

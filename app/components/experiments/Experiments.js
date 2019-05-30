@@ -113,6 +113,7 @@ class Experiments extends React.Component<*, State> {
       experimentsFilters,
       isFetchingExperiments,
       onChangeListOrder,
+      experimentsIsPending,
     } = this.props;
     const { pagination, results, total } = experiments;
     const hasTotal = total !== undefined;
@@ -202,6 +203,16 @@ class Experiments extends React.Component<*, State> {
             </Container>
             {isFetchingExperiments && <Loading overlay />}
           </div>
+        ) : experimentsIsPending ? (
+          <div className={styles.resultsContainer}>
+            <Empty
+              icon={'clock-o'}
+              title={'Search in progress'}
+              subtitle={
+                'You will see a notificaiton and this page will refresh when the search is complete'
+              }
+            />
+          </div>
         ) : (
           <div className={styles.resultsContainer}>
             <Empty
@@ -235,6 +246,7 @@ Experiments.propTypes = {
   onChangeListOrder: PropTypes.func,
   setPage: PropTypes.func,
   newExperiment: PropTypes.func,
+  experimentsIsPending: PropTypes.bool,
 };
 
 export default Experiments;

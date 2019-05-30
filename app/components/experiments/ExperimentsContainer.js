@@ -13,6 +13,7 @@ import {
   getExperimentsChoices,
   getIsFetchingExperiments,
   getIsFetchingExperimentsChoices,
+  getExperimentsIsPending,
   getExperimentsFilters,
   setExperimentsFilters,
   resetExperimentsFilters,
@@ -57,6 +58,7 @@ const withRedux = connect(
     isFetchingExperiments: getIsFetchingExperiments(state),
     isFetchingExperimentsChoices: getIsFetchingExperimentsChoices(state),
     experimentsFilters: getExperimentsFilters(state),
+    experimentsIsPending: getExperimentsIsPending(state),
   }),
   {
     requestExperiments,
