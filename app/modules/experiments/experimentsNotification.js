@@ -5,6 +5,7 @@ import { all, fork, put, take, takeEvery, select } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { push } from 'connected-react-router';
 import moment from 'moment';
+import produce from 'immer';
 import _get from 'lodash.get';
 import _isEqual from 'lodash.isequal';
 
@@ -32,12 +33,23 @@ import {
 } from './experiments';
 
 // use the query to identify each notification
-// strip the 'search_id' provided in server sent events
 
 export const notificationIdForBigsi = bigsi => {
-  const { search_id, ...rest } = bigsi;
-  const notificationId = queryStringKeyExtractor(rest);
+  const cleaned = produce(bigsi, draft => {
+    // strip the 'search_id' provided in server sent events
+    delete draft.search_id;
+    // strip the 'threshold' which seems to change for the same query
+    draft.query.threshold && delete draft.query.threshold;
+  });
+  const notificationId = queryStringKeyExtractor(cleaned);
   return notificationId;
+};
+
+export const descriptionForBigsi = bigsi => {
+  const query = _get(bigsi, 'query.seq');
+  const type = _get(bigsi, 'type');
+  const search = type === 'sequence' ? 'Sequence search' : 'Search';
+  return query ? `${search} for ${query}` : search;
 };
 
 // in progress
@@ -48,12 +60,12 @@ function* pendingSearchWatcher() {
     if (isPending) {
       const currentBigsi = yield select(getBigsi);
       const notificationId = notificationIdForBigsi(currentBigsi);
-      // TODO: summarise search query in the content
+      const description = descriptionForBigsi(currentBigsi);
       yield put(
         showNotification({
           id: notificationId,
           category: NotificationCategories.MESSAGE,
-          content: `Search in progress`,
+          content: `${description} in progress`,
           autoHide: false,
           progress: 0,
         })
@@ -71,12 +83,12 @@ function* searchStartedWatcher() {
       // refresh if this matches the current search
       const startedBigsi = _get(action.payload, 'search.bigsi');
       const notificationId = notificationIdForBigsi(startedBigsi);
-      // TODO: summarise search query in the content
+      const description = descriptionForBigsi(startedBigsi);
       yield put(
         showNotification({
           id: notificationId,
           category: NotificationCategories.MESSAGE,
-          content: `Search in progress`,
+          content: `${description} in progress`,
           autoHide: false,
           progress: 0,
         })
@@ -98,12 +110,12 @@ function* searchCompleteWatcher() {
         yield put(requestExperiments());
       }
       const notificationId = notificationIdForBigsi(completeBigsi);
-      // TODO: summarise search query in the content
+      const description = descriptionForBigsi(completeBigsi);
       // TODO: add action to view the results
       yield put(
         updateNotification(notificationId, {
-          category: NotificationCategories.MESSAGE,
-          content: `Search complete`,
+          category: NotificationCategories.SUCCESS,
+          content: `${description} complete`,
           autoHide: true,
           progress: undefined,
         })
