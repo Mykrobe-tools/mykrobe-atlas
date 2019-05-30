@@ -35,6 +35,19 @@ const experiment2 = {
   id: '2',
 };
 
+const experiment3 = {
+  metadata: {
+    sample: {
+      isolateId: 'SAMEA104447473',
+      countryIsolate: 'DK',
+      cityIsolate: '',
+      longitudeIsolate: 10.3333283,
+      latitudeIsolate: 55.670249,
+    },
+  },
+  id: '3',
+};
+
 const variations = {
   default: {
     setNodeHighlighted,
@@ -43,8 +56,8 @@ const variations = {
   },
   cluster: {
     setNodeHighlighted,
-    experiments: [experiment, experiment2],
-    highlighted: [],
+    experiments: [experiment, experiment2, experiment3],
+    highlighted: [experiment3.id],
   },
 };
 
