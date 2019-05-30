@@ -133,7 +133,7 @@ class Experiments extends React.Component<*, State> {
               <Col md={6}>
                 <SearchInput
                   value={q}
-                  placeholder="Metadata or sequence e.g. CAGATC"
+                  placeholder="Metadata · CAGATC · rpoB_S450L · C32T"
                   onChange={this.onChange}
                   onSubmit={this.onSubmit}
                 />
@@ -211,7 +211,11 @@ class Experiments extends React.Component<*, State> {
               subtitle={
                 'You will see a notification and this page will refresh when the search is complete'
               }
-            />
+            >
+              <Button outline color="mid" onClick={this.onReset}>
+                New search
+              </Button>
+            </Empty>
           </div>
         ) : (
           <div className={styles.resultsContainer}>

@@ -45,10 +45,16 @@ export const notificationIdForBigsi = bigsi => {
   return notificationId;
 };
 
+export const mapTypeToSearch = {
+  sequence: 'Sequence search',
+  'protein-variant': 'Protein variant search',
+  'dna-variant': 'DNA variant search',
+};
+
 export const descriptionForBigsi = bigsi => {
   const query = _get(bigsi, 'query.seq');
   const type = _get(bigsi, 'type');
-  const search = type === 'sequence' ? 'Sequence search' : 'Search';
+  const search = mapTypeToSearch[type] || 'Search';
   return query ? `${search} for ${query}` : search;
 };
 
