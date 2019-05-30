@@ -10,7 +10,15 @@ import Uploading from '../../ui/Uploading';
 
 import ExperimentGeographicMap from './ExperimentGeographicMap';
 
-export const makeExperiments = memoizeOne(experiment => [experiment]);
+export const makeExperiments = memoizeOne(
+  ({ experiment, experimentNearestNeigbours }) => {
+    let experiments = [experiment];
+    if (experimentNearestNeigbours) {
+      experiments = experiments.concat(experimentNearestNeigbours);
+    }
+    return experiments;
+  }
+);
 
 class Analysis extends React.Component<*> {
   render() {
@@ -19,13 +27,17 @@ class Analysis extends React.Component<*> {
       highlighted,
       experiment,
       setNodeHighlighted,
+      experimentNearestNeigbours,
     } = this.props;
 
     let content;
     if (isBusyWithCurrentRoute) {
       content = <Uploading sectionName="Analysis" />;
     } else {
-      const experiments = makeExperiments(experiment);
+      const experiments = makeExperiments({
+        experiment,
+        experimentNearestNeigbours,
+      });
       content = (
         <div className={styles.content}>
           <div className={styles.mapAndPhylogenyContainer}>

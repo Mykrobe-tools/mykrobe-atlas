@@ -126,6 +126,7 @@ class ExperimentGeographicMap extends React.Component<*> {
       if (longitudeIsolate && latitudeIsolate) {
         const lat = parseFloat(latitudeIsolate);
         const lng = parseFloat(longitudeIsolate);
+        console.log(`experiment id ${experiment.id} lat ${lat} lat ${lng}`);
         const marker = new this._google.maps.Marker({
           icon: {
             path: this._google.maps.SymbolPath.CIRCLE,
@@ -145,8 +146,12 @@ class ExperimentGeographicMap extends React.Component<*> {
           setNodeHighlighted(experiment.id, false);
         });
         this._markers[experiment.id] = marker;
+      } else {
+        console.log(`experiment id ${experiment.id} has no lat/lng`);
       }
     });
+    console.log('updateMarkers', this._markers);
+    debugger;
     this.zoomToMarkers();
   };
 
