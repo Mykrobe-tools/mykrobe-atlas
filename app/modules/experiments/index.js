@@ -19,13 +19,17 @@ import experimentsChoices, {
 } from './experimentsChoices';
 import experimentsTree, { experimentsTreeSaga } from './experimentsTree';
 import { experimentsFiltersChoicesSaga } from './experimentsFiltersChoices';
+import { experimentsNotificationSaga } from './experimentsNotification';
 
 export {
   getExperiments,
-  getError as getExperimentError,
-  getIsFetching as getIsFetchingExperiments,
+  getExperimentError,
+  getIsFetchingExperiments,
+  getExperimentsStatus,
+  getExperimentsIsPending,
   requestExperiments,
   experimentsSaga,
+  getExperimentsSearchDescription,
 } from './experiments';
 
 export {
@@ -121,5 +125,6 @@ export function* rootExperimentsSaga(): Saga {
     fork(experimentsFiltersChoicesSaga),
     fork(syncExperimentsFiltersSaga),
     fork(experimentsTreeSaga),
+    fork(experimentsNotificationSaga),
   ]);
 }

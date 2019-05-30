@@ -11,11 +11,14 @@ import {
   newExperiment,
   getExperiments,
   getExperimentsChoices,
+  getExperimentError,
   getIsFetchingExperiments,
   getIsFetchingExperimentsChoices,
+  getExperimentsIsPending,
   getExperimentsFilters,
   setExperimentsFilters,
   resetExperimentsFilters,
+  getExperimentsSearchDescription,
 } from '../../modules/experiments';
 
 class ExperimentsContainer extends React.Component<*> {
@@ -57,6 +60,9 @@ const withRedux = connect(
     isFetchingExperiments: getIsFetchingExperiments(state),
     isFetchingExperimentsChoices: getIsFetchingExperimentsChoices(state),
     experimentsFilters: getExperimentsFilters(state),
+    experimentsIsPending: getExperimentsIsPending(state),
+    experimentsSearchDescription: getExperimentsSearchDescription(state),
+    experimentError: getExperimentError(state),
   }),
   {
     requestExperiments,

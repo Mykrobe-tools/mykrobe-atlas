@@ -23,22 +23,24 @@
 }
 
 .textContainer {
+  composes: global(mt-3);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   max-width: 30rem;
-  margin: 1.5rem 0 0 0;
+  line-height: 1.2;
 }
 
 .title {
+  composes: global(mb-3);
   composes: fontSizeLarge from 'styles/typography.scss';
   color: $color-grey-mid;
   text-align: center;
 }
 
 .subtitle {
-  margin-top: 0.5rem;
+  composes: global(mb-3);
   color: $color-grey-mid;
   text-align: center;
 }
