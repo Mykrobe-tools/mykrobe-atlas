@@ -48,7 +48,7 @@ export {
   actionTypes as experimentsActionTypes,
   requestCollection as requestExperiments,
   getCollection as getExperiments,
-  getError as getExperimentError,
+  getError as getExperimentsError,
   getIsFetching as getIsFetchingExperiments,
   collectionSaga as experimentsSaga,
   getStatus as getExperimentsStatus,

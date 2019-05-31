@@ -23,7 +23,7 @@ import { experimentsNotificationSaga } from './experimentsNotification';
 
 export {
   getExperiments,
-  getExperimentError,
+  getExperimentsError,
   getIsFetchingExperiments,
   getExperimentsStatus,
   getExperimentsIsPending,

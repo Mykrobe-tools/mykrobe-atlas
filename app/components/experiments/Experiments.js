@@ -32,6 +32,9 @@ import SearchInput from '../ui/SearchInput';
 import Empty from '../ui/Empty';
 import ExperimentGeographicMap from '../experiment/analysis/ExperimentGeographicMap';
 
+import { withExperimentsPropTypes } from '../../hoc/withExperiments';
+import { withPhylogenyNodePropTypes } from '../../hoc/withPhylogenyNode';
+
 type State = {
   q: ?string,
   selected?: string | Array<string>,
@@ -137,7 +140,7 @@ class Experiments extends React.Component<*, State> {
       onChangeListOrder,
       experimentsIsPending,
       experimentsSearchDescription,
-      experimentError,
+      experimentsError,
       highlighted,
       setNodeHighlighted,
     } = this.props;
@@ -260,12 +263,12 @@ class Experiments extends React.Component<*, State> {
           </Button>
         </Empty>
       );
-    } else if (experimentError) {
+    } else if (experimentsError) {
       content = (
         <Empty
           icon={'exclamation-circle'}
           title={`${experimentsSearchDescription} returned an error`}
-          subtitle={`Error: ${experimentError.statusText}`}
+          subtitle={`Error: ${experimentsError.statusText}`}
         >
           <Button outline color="mid" onClick={this.onSubmit}>
             Retry search
@@ -315,20 +318,10 @@ class Experiments extends React.Component<*, State> {
 }
 
 Experiments.propTypes = {
-  experiments: PropTypes.object,
-  experimentsFilters: PropTypes.any,
-  setExperimentsFilters: PropTypes.func,
-  resetExperimentsFilters: PropTypes.func,
-  requestExperiments: PropTypes.func,
-  requestFilterValues: PropTypes.func,
-  isFetchingExperiments: PropTypes.bool,
-  isFetchingFilters: PropTypes.bool,
+  ...withExperimentsPropTypes,
+  ...withPhylogenyNodePropTypes,
   onChangeListOrder: PropTypes.func,
   setPage: PropTypes.func,
-  newExperiment: PropTypes.func,
-  experimentsIsPending: PropTypes.bool,
-  experimentsSearchDescription: PropTypes.string,
-  experimentError: PropTypes.any,
 };
 
 export default Experiments;
