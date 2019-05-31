@@ -147,6 +147,9 @@ class ExperimentGeographicMap extends React.Component<*> {
   };
 
   updateMarkers = () => {
+    if (!this._map) {
+      return;
+    }
     const { setNodeHighlighted, experiments } = this.props;
     if (this._markers) {
       for (let markerKey in this._markers) {

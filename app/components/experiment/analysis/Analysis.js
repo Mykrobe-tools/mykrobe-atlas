@@ -27,7 +27,9 @@ class Analysis extends React.Component<*> {
       highlighted,
       experiment,
       setNodeHighlighted,
+      unsetNodeHighlightedAll,
       experimentNearestNeigbours,
+      experimentsTree,
     } = this.props;
 
     let content;
@@ -47,7 +49,13 @@ class Analysis extends React.Component<*> {
               setNodeHighlighted={setNodeHighlighted}
             />
             <div className={styles.phylogenyContainer}>
-              <Phylogeny />
+              <Phylogeny
+                experiments={experiments}
+                highlighted={highlighted}
+                setNodeHighlighted={setNodeHighlighted}
+                unsetNodeHighlightedAll={unsetNodeHighlightedAll}
+                experimentsTree={experimentsTree}
+              />
             </div>
           </div>
         </div>

@@ -33,22 +33,31 @@ export default reducer;
 
 // Fetch tree, if not already loaded, when user navigates to an experiment
 
+let treeLoaded = false;
+
 function* experimentsTreeWatcher() {
-  let treeLoaded = false;
+  yield fork(experimentsTreeWorker);
   while (!treeLoaded) {
     yield take(LOCATION_CHANGE);
-    const { pathname } = yield select(getLocation);
-    // TODO: move route definitions into a common location
-    if (pathname.startsWith('/experiments/')) {
-      const experimentsTree = yield select(getExperimentsTree);
-      const isFetching = yield select(getIsFetching);
-      if (!experimentsTree) {
-        if (!isFetching) {
-          yield put(requestExperimentsTree());
-        }
-      } else {
-        treeLoaded = true;
+    yield fork(experimentsTreeWorker);
+  }
+}
+
+function* experimentsTreeWorker() {
+  if (treeLoaded) {
+    return;
+  }
+  const { pathname } = yield select(getLocation);
+  // TODO: move route definitions into a common location
+  if (pathname.startsWith('/experiments/')) {
+    const experimentsTree = yield select(getExperimentsTree);
+    const isFetching = yield select(getIsFetching);
+    if (!experimentsTree) {
+      if (!isFetching) {
+        yield put(requestExperimentsTree());
       }
+    } else {
+      treeLoaded = true;
     }
   }
 }

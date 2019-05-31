@@ -95,7 +95,7 @@ class PhyloCanvasComponent extends React.Component<*> {
       return false;
     }
     let candidateNodes = this._tree.findLeaves(ids.join('|'));
-    if (!candidateNodes) {
+    if (!candidateNodes || !candidateNodes.length) {
       return false;
     }
     this._tree.fitInPanel(candidateNodes);
@@ -136,6 +136,7 @@ class PhyloCanvasComponent extends React.Component<*> {
   highlightNodeWithId(nodeId: string, color = Colors.COLOR_TINT_SECONDARY) {
     const node = this.getNodeWithId(nodeId);
     if (!node) {
+      console.log('highlightNodeWithId not found: ', nodeId);
       return;
     }
     // rgba(1,1,1,0) prevents box outline in Safari

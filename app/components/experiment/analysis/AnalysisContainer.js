@@ -1,30 +1,25 @@
 /* @flow */
 
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import withExperiment from '../../../hoc/withExperiment';
 import withFileUpload from '../../../hoc/withFileUpload';
 import Analysis from './Analysis';
 
-import { getHighlighted, setNodeHighlighted } from '../../../modules/phylogeny';
+import {
+  getHighlighted,
+  setNodeHighlighted,
+  unsetNodeHighlightedAll,
+} from '../../../modules/phylogeny';
 
-function mapStateToProps(state) {
-  return {
+const withRedux = connect(
+  state => ({
     highlighted: getHighlighted(state),
-  };
-}
+  }),
+  {
+    setNodeHighlighted,
+    unsetNodeHighlightedAll,
+  }
+);
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      setNodeHighlighted,
-    },
-    dispatch
-  );
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withExperiment(withFileUpload(Analysis)));
+export default withExperiment(withFileUpload(withRedux(Analysis)));
