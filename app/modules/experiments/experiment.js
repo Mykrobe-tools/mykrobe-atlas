@@ -157,8 +157,8 @@ export {
   requestEntity as requestExperiment,
   updateEntity as updateExperiment,
   deleteEntity as deleteExperiment,
-  getError,
-  getIsFetching,
+  getError as getExperimentError,
+  getIsFetching as getIsFetchingExperiment,
   actionTypes as experimentActionTypes,
 };
 
