@@ -8,3 +8,6 @@ export const COLOR_BUFF = '#f7f6f1';
 export const COLOR_BUFF_DARK = '#efede4';
 export const COLOR_RULE = '#ceccc6';
 export const COLOR_GREY_MID = '#9a9893';
+
+export const COLOR_HIGHLIGHT_EXPERIMENT_FIRST = '#FF3300';
+export const COLOR_HIGHLIGHT_EXPERIMENT = '#0d7da0';

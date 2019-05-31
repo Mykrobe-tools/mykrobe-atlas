@@ -6,6 +6,8 @@ import type { SampleType } from '../../types/SampleType';
 import moment from 'moment';
 import _get from 'lodash.get';
 
+import * as Colors from '../../constants/Colors';
+
 type State = {
   visible: boolean,
   isMain: boolean,
@@ -62,7 +64,11 @@ class PhyloCanvasTooltip extends React.Component<*, State> {
             <div className={styles.marker}>
               <i
                 className="fa fa-circle"
-                style={{ color: isMain ? '#c30042' : '#0f82d0' }}
+                style={{
+                  color: isMain
+                    ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
+                    : Colors.COLOR_HIGHLIGHT_EXPERIMENT,
+                }}
               />
             </div>
             <div className={styles.title}>Isolate Id</div>

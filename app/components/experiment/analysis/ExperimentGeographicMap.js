@@ -11,17 +11,16 @@ import memoizeOne from 'memoize-one';
 import PhyloCanvasTooltip from '../../ui/PhyloCanvasTooltip';
 import MapStyle from './MapStyle';
 
+import * as Colors from '../../../constants/Colors';
+
 import styles from './ExperimentGeographicMap.scss';
 
 export const DEFAULT_LAT = 51.5074;
 export const DEFAULT_LNG = 0.1278;
 
-export const COLOR_RED = '#c30042';
-export const COLOR_BLUE = '#0f82d0';
-
 export const makeSvgMarker = memoizeOne(
   ({
-    color = COLOR_RED,
+    color = Colors.COLOR_HIGHLIGHT_EXPERIMENT,
     diameter = 32,
     strokeWidth = 4,
   }: {
@@ -176,7 +175,10 @@ class ExperimentGeographicMap extends React.Component<*> {
           icon: {
             url: makeSvgMarker({
               diameter: 24,
-              color: index === 0 ? COLOR_RED : COLOR_BLUE,
+              color:
+                index === 0
+                  ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
+                  : Colors.COLOR_HIGHLIGHT_EXPERIMENT,
             }),
             anchor: new this._google.maps.Point(12, 12),
             size: new this._google.maps.Size(24, 24),

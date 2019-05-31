@@ -52,6 +52,7 @@ export {
   getExperimentNearestNeigbours,
   getExperimentHasNearestNeigbours,
   getExperimentMetadataCompletion,
+  getExperimentAndNearestNeigbours,
   getIsFetching as getIsFetchingExperiment,
   createExperiment,
   requestExperiment,

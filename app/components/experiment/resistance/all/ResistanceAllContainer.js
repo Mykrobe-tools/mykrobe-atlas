@@ -1,6 +1,8 @@
 /* @flow */
 
-import ResistanceAll from './ResistanceAll';
 import withExperiment from '../../../../hoc/withExperiment';
+import withPhylogenyNode from '../../../../hoc/withPhylogenyNode';
 
-export default withExperiment(ResistanceAll);
+import ResistanceAll from './ResistanceAll';
+
+export default withExperiment(withPhylogenyNode(ResistanceAll));
