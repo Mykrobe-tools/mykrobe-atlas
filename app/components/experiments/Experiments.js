@@ -12,6 +12,7 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import pluralize from 'pluralize';
+import _get from 'lodash.get';
 
 import Pagination from 'makeandship-js-common/src/components/ui/pagination';
 import Loading from 'makeandship-js-common/src/components/ui/loading';
@@ -27,6 +28,7 @@ import { notImplemented } from '../../util';
 import UploadButton from '../upload/button/UploadButton';
 import SearchInput from '../ui/SearchInput';
 import Empty from '../ui/Empty';
+import ExperimentGeographicMap from '../experiment/analysis/ExperimentGeographicMap';
 
 type State = {
   q: ?string,
@@ -116,6 +118,8 @@ class Experiments extends React.Component<*, State> {
       experimentsIsPending,
       experimentsSearchDescription,
       experimentError,
+      highlighted,
+      setNodeHighlighted,
     } = this.props;
     const { pagination, results, total } = experiments;
     const hasTotal = total !== undefined;
@@ -125,9 +129,10 @@ class Experiments extends React.Component<*, State> {
       : 'Experiments';
     const { q, selected } = this.state;
     const showCompare = selected && (selected === '*' || selected.length > 1);
+    const showMap = _get(experimentsFilters, 'view') === 'map';
     let content;
     if (hasResults) {
-      content = (
+      const headerContent = (
         <Container fluid>
           <div className={styles.actionsContainer}>
             <div className={styles.filtersActionsContainer}>
@@ -169,24 +174,44 @@ class Experiments extends React.Component<*, State> {
               <UploadButton right size="sm" outline={false} />
             </div>
           </div>
-          <ExperimentsTable
-            isFetching={isFetchingExperiments}
-            experiments={results}
-            onChangeOrder={onChangeListOrder}
-            filters={experimentsFilters}
-            selected={selected}
-            setSelected={this.setSelected}
-          />
-          {pagination && (
-            <Pagination
-              first={1}
-              last={pagination.pages}
-              current={pagination.page}
-              onPageClick={this.onPageClick}
-            />
-          )}
         </Container>
       );
+      if (showMap) {
+        content = (
+          <React.Fragment>
+            {headerContent}
+            <ExperimentGeographicMap
+              experiments={results}
+              highlighted={highlighted}
+              setNodeHighlighted={setNodeHighlighted}
+            />
+          </React.Fragment>
+        );
+      } else {
+        content = (
+          <React.Fragment>
+            {headerContent}
+            <Container fluid>
+              <ExperimentsTable
+                isFetching={isFetchingExperiments}
+                experiments={results}
+                onChangeOrder={onChangeListOrder}
+                filters={experimentsFilters}
+                selected={selected}
+                setSelected={this.setSelected}
+              />
+              {pagination && (
+                <Pagination
+                  first={1}
+                  last={pagination.pages}
+                  current={pagination.page}
+                  onPageClick={this.onPageClick}
+                />
+              )}
+            </Container>
+          </React.Fragment>
+        );
+      }
     } else if (experimentsIsPending) {
       content = (
         <Empty
