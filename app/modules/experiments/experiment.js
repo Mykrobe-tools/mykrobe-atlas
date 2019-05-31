@@ -138,6 +138,18 @@ export const getExperimentMetadataCompletion = createSelector(
     completenessForSchemaAndData(experimentMetadataSchema, experiment)
 );
 
+export const getExperimentAndNearestNeigbours = createSelector(
+  getExperiment,
+  getExperimentNearestNeigbours,
+  (experiment, experimentNearestNeigbours) => {
+    let experiments = [experiment];
+    if (experimentNearestNeigbours) {
+      experiments = experiments.concat(experimentNearestNeigbours);
+    }
+    return experiments;
+  }
+);
+
 export {
   newEntity as newExperiment,
   setEntity as setExperiment,

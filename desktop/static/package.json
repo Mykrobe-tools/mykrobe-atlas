@@ -4,6 +4,5 @@
   "productName": "Mykrobe",
   "version": "0.6.1",
   "main": "./main.js",
-  "description": "Mykrobe",
-  "executableVersion": "v0.5.6-0-gbd7923a-dirty"
+  "description": "Mykrobe"
 }

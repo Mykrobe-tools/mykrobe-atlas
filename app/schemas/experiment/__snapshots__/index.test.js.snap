@@ -1043,8 +1043,9 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
+            "distance-tree-distance",
+            "distance-nearest-neighbour",
             "distance",
-            "nearestNeighbours",
           ],
           "title": "Type",
           "type": "string",
@@ -2899,8 +2900,9 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
+            "distance-tree-distance",
+            "distance-nearest-neighbour",
             "distance",
-            "nearestNeighbours",
           ],
           "title": "Type",
           "type": "string",
@@ -4755,8 +4757,9 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
+            "distance-tree-distance",
+            "distance-nearest-neighbour",
             "distance",
-            "nearestNeighbours",
           ],
           "title": "Type",
           "type": "string",
@@ -6611,8 +6614,9 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
+            "distance-tree-distance",
+            "distance-nearest-neighbour",
             "distance",
-            "nearestNeighbours",
           ],
           "title": "Type",
           "type": "string",
@@ -8467,8 +8471,9 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
+            "distance-tree-distance",
+            "distance-nearest-neighbour",
             "distance",
-            "nearestNeighbours",
           ],
           "title": "Type",
           "type": "string",
@@ -10323,8 +10328,9 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
+            "distance-tree-distance",
+            "distance-nearest-neighbour",
             "distance",
-            "nearestNeighbours",
           ],
           "title": "Type",
           "type": "string",

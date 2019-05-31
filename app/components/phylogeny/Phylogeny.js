@@ -2,17 +2,12 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import _isEqual from 'lodash.isequal';
+import _get from 'lodash.get';
+
 import styles from './Phylogeny.scss';
 
-import {
-  getHighlighted,
-  setNodeHighlighted,
-  unsetNodeHighlightedAll,
-} from '../../modules/phylogeny';
-
-import withExperiment from '../../hoc/withExperiment';
+import * as Colors from '../../constants/Colors';
 
 import PhyloCanvasComponent from '../ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
@@ -36,35 +31,13 @@ class Phylogeny extends React.Component<*, State> {
   _phyloCanvasTooltip: ?PhyloCanvasTooltip;
   _container: ?Element;
 
-  constructor(props) {
-    super(props);
-    /*
-    let samplesToHighlight = [];
-    for (let sampleKey in SAMPLE_DATA) {
-      const sample = SAMPLE_DATA[sampleKey];
-      const neighbours = sample.neighbours;
-      for (let neighbourKey in neighbours) {
-        const neighbour = neighbours[neighbourKey];
-        const distance = parseInt(neighbour.distance);
-        if (distance <= MAX_DISTANCE) {
-          const samples = neighbour.samples;
-          samplesToHighlight = samplesToHighlight.concat(samples);
-        }
-      }
-    }
-    this._samplesToHighlight = samplesToHighlight;
-    */
+  state = {
+    treeType: 'radial',
+  };
 
-    // radial, rectangular, circular, diagonal and hierarchy
-    this.state = {
-      treeType: 'radial',
-    };
-  }
-
-  nodeIsInSamplesToHighlight(node) {
-    const index = this.getSampleIds().indexOf(node.id);
-    return index !== -1;
-  }
+  nodeIsInSamplesToHighlight = node => {
+    return this.getSampleIds().includes(node.id);
+  };
 
   onNodeMouseOver = node => {
     const { setNodeHighlighted } = this.props;
@@ -84,22 +57,47 @@ class Phylogeny extends React.Component<*, State> {
     console.log('onLoad');
   };
 
-  componentWillReceiveProps(nextProps) {
-    const { highlighted } = nextProps;
-    if (
-      this.props.experimentTransformed.samples !==
-      nextProps.experimentTransformed.samples
-    ) {
-      // new samples
-      setTimeout(() => {
-        this.updateHighlightedSamples(nextProps.experimentTransformed.samples);
-        if (AUTO_ZOOM_SAMPLES) {
-          this.zoomSamples();
-        }
-      }, 0);
+  componentDidMount = () => {
+    this.updateMarkers();
+    this.updateHighlighted();
+    if (AUTO_ZOOM_SAMPLES) {
+      this.zoomSamples();
     }
-    if (highlighted.length) {
-      console.log('highlighted', highlighted);
+  };
+
+  componentDidUpdate = (prevProps: any) => {
+    const { highlighted, experiments, experimentsTree } = this.props;
+    const treeChanged = !_isEqual(experimentsTree, prevProps.experimentsTree);
+    if (treeChanged || !_isEqual(experiments, prevProps.experiments)) {
+      this.updateMarkers();
+      if (AUTO_ZOOM_SAMPLES) {
+        this.zoomSamples();
+      }
+    }
+    if (!_isEqual(highlighted, prevProps.highlighted)) {
+      this.updateHighlighted();
+    }
+  };
+
+  updateMarkers = () => {
+    const { experiments } = this.props;
+    if (!this._phyloCanvas) {
+      return;
+    }
+    this._phyloCanvas.resetHighlightedNodes();
+    experiments.forEach((experiment, index) => {
+      const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
+      const color =
+        index === 0
+          ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
+          : Colors.COLOR_HIGHLIGHT_EXPERIMENT;
+      this._phyloCanvas.highlightNodeWithId(isolateId, color);
+    });
+  };
+
+  updateHighlighted = () => {
+    const { highlighted } = this.props;
+    if (highlighted && highlighted.length) {
       const nodeId = highlighted[0];
       const screenPosition = this._phyloCanvas.getPositionOfNodeWithId(nodeId);
       if (screenPosition) {
@@ -117,7 +115,7 @@ class Phylogeny extends React.Component<*, State> {
     } else {
       this._phyloCanvasTooltip && this._phyloCanvasTooltip.setVisible(false);
     }
-  }
+  };
 
   onContainerRef = (ref: any) => {
     this._container = ref;
@@ -125,18 +123,20 @@ class Phylogeny extends React.Component<*, State> {
 
   onPhyloCanvasRef = (ref: any) => {
     this._phyloCanvas = ref;
+    this.updateMarkers();
   };
 
   onPhyloCanvasTooltipRef = (ref: any) => {
     this._phyloCanvasTooltip = ref;
   };
 
+  onZoomSamplesClick = e => {
+    e.preventDefault();
+    this.zoomSamples();
+  };
+
   render() {
-    const {
-      experimentTransformed,
-      controlsInset,
-      experimentsTree,
-    } = this.props;
+    const { controlsInset, experimentsTree } = this.props;
     const { treeType } = this.state;
     if (!experimentsTree) {
       return null;
@@ -158,10 +158,7 @@ class Phylogeny extends React.Component<*, State> {
           <div className={styles.controlsContainer} style={insetStyle}>
             <div
               className={styles.zoomControl}
-              onClick={e => {
-                e.preventDefault();
-                this.zoomSamples();
-              }}
+              onClick={this.onZoomSamplesClick}
             >
               <i className="fa fa-search" />
               <div className={styles.zoomControlText}>Fit samples</div>
@@ -179,9 +176,7 @@ class Phylogeny extends React.Component<*, State> {
                 onClick={() => {
                   this.setState({ treeType: thisTreeType });
                   setTimeout(() => {
-                    this.updateHighlightedSamples(
-                      experimentTransformed.samples
-                    );
+                    this.updateMarkers();
                     if (AUTO_ZOOM_SAMPLES) {
                       this.zoomSamples();
                     }
@@ -198,27 +193,24 @@ class Phylogeny extends React.Component<*, State> {
     );
   }
 
-  getSampleWithId(nodeId): ?SampleType {
-    const { experimentTransformed } = this.props;
-    const { samples } = experimentTransformed;
-    for (let sampleKey in samples) {
-      const sample = samples[sampleKey];
-      if (sample.id === nodeId) {
-        return sample;
-      }
-    }
-  }
+  getSampleWithId = (nodeId: string): ?SampleType => {
+    const { experiments } = this.props;
+    return experiments.find(experiment => {
+      const isolateId = _get(experiment, 'metadata.sample.isolateId');
+      return isolateId === nodeId;
+    });
+  };
 
-  getSampleIds(): Array<string> {
-    const { experimentTransformed } = this.props;
-    const { samples } = experimentTransformed;
-    let nodeIds = [];
-    for (let sampleKey in samples) {
-      const sample = samples[sampleKey];
-      nodeIds.push(sample.id);
-    }
-    return nodeIds;
-  }
+  getSampleIds = (): Array<string> => {
+    const { experiments } = this.props;
+    const isolateIds = experiments
+      .map(experiment => {
+        const isolateId = _get(experiment, 'metadata.sample.isolateId');
+        return isolateId;
+      })
+      .filter(isolateId => !!isolateId);
+    return isolateIds;
+  };
 
   zoomSamples = () => {
     if (!this._phyloCanvas) {
@@ -227,63 +219,24 @@ class Phylogeny extends React.Component<*, State> {
     this._phyloCanvas.zoomToNodesWithIds(this.getSampleIds());
   };
 
-  componentDidMount() {
-    const { experimentTransformed } = this.props;
-    const { samples } = experimentTransformed;
-    this.updateHighlightedSamples(samples);
-    if (AUTO_ZOOM_SAMPLES) {
-      this.zoomSamples();
-    }
-  }
-
-  updateHighlightedSamples(samples) {
-    if (!this._phyloCanvas) {
-      return;
-    }
-    this._phyloCanvas.resetHighlightedNodes();
-    for (let sampleKey in samples) {
-      const sample = samples[sampleKey];
-      this._phyloCanvas.highlightNodeWithId(sample.id, '#0f82d0');
-    }
-  }
-
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     const { unsetNodeHighlightedAll } = this.props;
-    unsetNodeHighlightedAll();
-  }
+    unsetNodeHighlightedAll && unsetNodeHighlightedAll();
+  };
 
   static defaultProps = {
     controlsInset: 30,
   };
 }
 
-function mapStateToProps(state) {
-  return {
-    highlighted: getHighlighted(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      setNodeHighlighted,
-      unsetNodeHighlightedAll,
-    },
-    dispatch
-  );
-}
-
 Phylogeny.propTypes = {
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
-  highlighted: PropTypes.array.isRequired,
+  experiment: PropTypes.object,
+  experimentTransformed: PropTypes.object,
+  highlighted: PropTypes.array,
   controlsInset: PropTypes.number,
-  setNodeHighlighted: PropTypes.func.isRequired,
-  unsetNodeHighlightedAll: PropTypes.func.isRequired,
+  setNodeHighlighted: PropTypes.func,
+  unsetNodeHighlightedAll: PropTypes.func,
   experimentsTree: PropTypes.object,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withExperiment(Phylogeny));
+export default Phylogeny;

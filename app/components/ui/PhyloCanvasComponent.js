@@ -95,11 +95,11 @@ class PhyloCanvasComponent extends React.Component<*> {
       return false;
     }
     let candidateNodes = this._tree.findLeaves(ids.join('|'));
-    if (!candidateNodes) {
+    if (!candidateNodes || !candidateNodes.length) {
       return false;
     }
     this._tree.fitInPanel(candidateNodes);
-    this._tree.smoothZoom(-3);
+    this._tree.smoothZoom(-5);
     this.draw();
   }
 
@@ -116,7 +116,7 @@ class PhyloCanvasComponent extends React.Component<*> {
 
   highlightNodesWithIds(
     ids: Array<string>,
-    color = Colors.COLOR_TINT_SECONDARY
+    color = Colors.COLOR_HIGHLIGHT_EXPERIMENT
   ) {
     ids.forEach(id => {
       this.highlightNodeWithId(id, color);
@@ -133,9 +133,13 @@ class PhyloCanvasComponent extends React.Component<*> {
     return node;
   }
 
-  highlightNodeWithId(nodeId: string, color = Colors.COLOR_TINT_SECONDARY) {
+  highlightNodeWithId(
+    nodeId: string,
+    color = Colors.COLOR_HIGHLIGHT_EXPERIMENT
+  ) {
     const node = this.getNodeWithId(nodeId);
     if (!node) {
+      console.log('highlightNodeWithId not found: ', nodeId);
       return;
     }
     // rgba(1,1,1,0) prevents box outline in Safari
