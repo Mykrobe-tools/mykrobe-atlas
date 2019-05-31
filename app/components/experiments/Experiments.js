@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {
   Container,
   Button,
+  ButtonGroup,
   Col,
   UncontrolledDropdown,
   DropdownMenu,
@@ -12,10 +13,12 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import pluralize from 'pluralize';
+import _get from 'lodash.get';
 
 import Pagination from 'makeandship-js-common/src/components/ui/pagination';
 import Loading from 'makeandship-js-common/src/components/ui/loading';
 import { styles as pageHeaderStyles } from 'makeandship-js-common/src/components/ui/PageHeader';
+import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import styles from './Experiments.scss';
 import ExperimentsTable from './ExperimentsTable';
@@ -27,6 +30,10 @@ import { notImplemented } from '../../util';
 import UploadButton from '../upload/button/UploadButton';
 import SearchInput from '../ui/SearchInput';
 import Empty from '../ui/Empty';
+import ExperimentGeographicMap from '../experiment/analysis/ExperimentGeographicMap';
+
+import { withExperimentsPropTypes } from '../../hoc/withExperiments';
+import { withPhylogenyNodePropTypes } from '../../hoc/withPhylogenyNode';
 
 type State = {
   q: ?string,
@@ -101,6 +108,24 @@ class Experiments extends React.Component<*, State> {
     });
   };
 
+  onViewListClick = e => {
+    e && e.preventDefault();
+    const { setExperimentsFilters, experimentsFilters } = this.props;
+    setExperimentsFilters({
+      ...experimentsFilters,
+      view: undefined,
+    });
+  };
+
+  onViewMapClick = e => {
+    e && e.preventDefault();
+    const { setExperimentsFilters, experimentsFilters } = this.props;
+    setExperimentsFilters({
+      ...experimentsFilters,
+      view: 'map',
+    });
+  };
+
   setSelected = (selected?: string | Array<string>) => {
     this.setState({
       selected,
@@ -115,7 +140,9 @@ class Experiments extends React.Component<*, State> {
       onChangeListOrder,
       experimentsIsPending,
       experimentsSearchDescription,
-      experimentError,
+      experimentsError,
+      highlighted,
+      setNodeHighlighted,
     } = this.props;
     const { pagination, results, total } = experiments;
     const hasTotal = total !== undefined;
@@ -125,68 +152,103 @@ class Experiments extends React.Component<*, State> {
       : 'Experiments';
     const { q, selected } = this.state;
     const showCompare = selected && (selected === '*' || selected.length > 1);
+    const showMap = _get(experimentsFilters, 'view') === 'map';
     let content;
     if (hasResults) {
-      content = (
-        <Container fluid>
-          <div className={styles.actionsContainer}>
-            <div className={styles.filtersActionsContainer}>
-              <ExperimentsChoicesFilters size="sm" />
-              {selected && (
-                <div className="ml-3 border-left">
-                  <UncontrolledDropdown>
-                    <DropdownToggle
-                      color="link"
-                      size={'sm'}
-                      data-tid="actions-dropdown-toggle"
-                    >
-                      Actions <i className="fa fa-caret-down" />
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem disabled>
-                        {selected === '*'
-                          ? `${total.toLocaleString()} selected`
-                          : `${selected.length} selected`}
-                      </DropdownItem>
-                      <DropdownItem divider />
-                      {showCompare && (
-                        <DropdownItem onClick={notImplemented}>
-                          Compare
-                        </DropdownItem>
-                      )}
+      const headerContent = (
+        <div className={styles.actionsContainer}>
+          <div className={styles.filtersActionsContainer}>
+            <ExperimentsChoicesFilters size="sm" />
+            {selected && (
+              <div className="ml-3 border-left">
+                <UncontrolledDropdown>
+                  <DropdownToggle
+                    color="link"
+                    size={'sm'}
+                    data-tid="actions-dropdown-toggle"
+                  >
+                    Actions <i className="fa fa-caret-down" />
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem disabled>
+                      {selected === '*'
+                        ? `${total.toLocaleString()} selected`
+                        : `${selected.length} selected`}
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    {showCompare && (
                       <DropdownItem onClick={notImplemented}>
-                        Share
+                        Compare
                       </DropdownItem>
-                      <DropdownItem onClick={notImplemented}>
-                        Delete
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </div>
-              )}
-            </div>
-            <div className="ml-auto">
-              <UploadButton right size="sm" outline={false} />
+                    )}
+                    <DropdownItem onClick={notImplemented}>Share</DropdownItem>
+                    <DropdownItem onClick={notImplemented}>Delete</DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </div>
+            )}
+          </div>
+          <div className="ml-auto">
+            <div className={styles.actionsContainer}>
+              <ButtonGroup>
+                <IconButton
+                  size="sm"
+                  icon="list-ul"
+                  onClick={this.onViewListClick}
+                  outline={showMap}
+                >
+                  List
+                </IconButton>
+                <IconButton
+                  size="sm"
+                  icon="globe"
+                  onClick={this.onViewMapClick}
+                  outline={!showMap}
+                >
+                  Map
+                </IconButton>
+              </ButtonGroup>
+              <div className="ml-2">
+                <UploadButton right size="sm" outline={false} />
+              </div>
             </div>
           </div>
-          <ExperimentsTable
-            isFetching={isFetchingExperiments}
-            experiments={results}
-            onChangeOrder={onChangeListOrder}
-            filters={experimentsFilters}
-            selected={selected}
-            setSelected={this.setSelected}
-          />
-          {pagination && (
-            <Pagination
-              first={1}
-              last={pagination.pages}
-              current={pagination.page}
-              onPageClick={this.onPageClick}
-            />
-          )}
-        </Container>
+        </div>
       );
+      if (showMap) {
+        content = (
+          <React.Fragment>
+            <Container fluid>{headerContent}</Container>
+            <ExperimentGeographicMap
+              experiments={results}
+              highlighted={highlighted}
+              setNodeHighlighted={setNodeHighlighted}
+            />
+          </React.Fragment>
+        );
+      } else {
+        content = (
+          <Container fluid>
+            {headerContent}
+            <ExperimentsTable
+              isFetching={isFetchingExperiments}
+              experiments={results}
+              onChangeOrder={onChangeListOrder}
+              filters={experimentsFilters}
+              selected={selected}
+              setSelected={this.setSelected}
+            />
+            {pagination && (
+              <Pagination
+                first={1}
+                last={pagination.pages}
+                current={pagination.page}
+                onPageClick={this.onPageClick}
+              />
+            )}
+          </Container>
+        );
+      }
     } else if (experimentsIsPending) {
       content = (
         <Empty
@@ -201,12 +263,12 @@ class Experiments extends React.Component<*, State> {
           </Button>
         </Empty>
       );
-    } else if (experimentError) {
+    } else if (experimentsError) {
       content = (
         <Empty
           icon={'exclamation-circle'}
           title={`${experimentsSearchDescription} returned an error`}
-          subtitle={`Error: ${experimentError.statusText}`}
+          subtitle={`Error: ${experimentsError.statusText}`}
         >
           <Button outline color="mid" onClick={this.onSubmit}>
             Retry search
@@ -256,20 +318,10 @@ class Experiments extends React.Component<*, State> {
 }
 
 Experiments.propTypes = {
-  experiments: PropTypes.object,
-  experimentsFilters: PropTypes.any,
-  setExperimentsFilters: PropTypes.func,
-  resetExperimentsFilters: PropTypes.func,
-  requestExperiments: PropTypes.func,
-  requestFilterValues: PropTypes.func,
-  isFetchingExperiments: PropTypes.bool,
-  isFetchingFilters: PropTypes.bool,
+  ...withExperimentsPropTypes,
+  ...withPhylogenyNodePropTypes,
   onChangeListOrder: PropTypes.func,
   setPage: PropTypes.func,
-  newExperiment: PropTypes.func,
-  experimentsIsPending: PropTypes.bool,
-  experimentsSearchDescription: PropTypes.string,
-  experimentError: PropTypes.any,
 };
 
 export default Experiments;

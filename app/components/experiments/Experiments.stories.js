@@ -24,7 +24,7 @@ const variations = {
     experiments,
     experimentsFilters,
     experimentsSearchDescription,
-    experimentError: {
+    experimentsError: {
       status: 0,
       statusText: 'Request timeout',
       errors: {},
