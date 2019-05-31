@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {
   Container,
   Button,
+  ButtonGroup,
   Col,
   UncontrolledDropdown,
   DropdownMenu,
@@ -17,6 +18,7 @@ import _get from 'lodash.get';
 import Pagination from 'makeandship-js-common/src/components/ui/pagination';
 import Loading from 'makeandship-js-common/src/components/ui/loading';
 import { styles as pageHeaderStyles } from 'makeandship-js-common/src/components/ui/PageHeader';
+import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import styles from './Experiments.scss';
 import ExperimentsTable from './ExperimentsTable';
@@ -103,6 +105,24 @@ class Experiments extends React.Component<*, State> {
     });
   };
 
+  onViewListClick = e => {
+    e && e.preventDefault();
+    const { setExperimentsFilters, experimentsFilters } = this.props;
+    setExperimentsFilters({
+      ...experimentsFilters,
+      view: undefined,
+    });
+  };
+
+  onViewMapClick = e => {
+    e && e.preventDefault();
+    const { setExperimentsFilters, experimentsFilters } = this.props;
+    setExperimentsFilters({
+      ...experimentsFilters,
+      view: 'map',
+    });
+  };
+
   setSelected = (selected?: string | Array<string>) => {
     this.setState({
       selected,
@@ -133,53 +153,69 @@ class Experiments extends React.Component<*, State> {
     let content;
     if (hasResults) {
       const headerContent = (
-        <Container fluid>
-          <div className={styles.actionsContainer}>
-            <div className={styles.filtersActionsContainer}>
-              <ExperimentsChoicesFilters size="sm" />
-              {selected && (
-                <div className="ml-3 border-left">
-                  <UncontrolledDropdown>
-                    <DropdownToggle
-                      color="link"
-                      size={'sm'}
-                      data-tid="actions-dropdown-toggle"
-                    >
-                      Actions <i className="fa fa-caret-down" />
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem disabled>
-                        {selected === '*'
-                          ? `${total.toLocaleString()} selected`
-                          : `${selected.length} selected`}
-                      </DropdownItem>
-                      <DropdownItem divider />
-                      {showCompare && (
-                        <DropdownItem onClick={notImplemented}>
-                          Compare
-                        </DropdownItem>
-                      )}
+        <div className={styles.actionsContainer}>
+          <div className={styles.filtersActionsContainer}>
+            <ExperimentsChoicesFilters size="sm" />
+            {selected && (
+              <div className="ml-3 border-left">
+                <UncontrolledDropdown>
+                  <DropdownToggle
+                    color="link"
+                    size={'sm'}
+                    data-tid="actions-dropdown-toggle"
+                  >
+                    Actions <i className="fa fa-caret-down" />
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem disabled>
+                      {selected === '*'
+                        ? `${total.toLocaleString()} selected`
+                        : `${selected.length} selected`}
+                    </DropdownItem>
+                    <DropdownItem divider />
+                    {showCompare && (
                       <DropdownItem onClick={notImplemented}>
-                        Share
+                        Compare
                       </DropdownItem>
-                      <DropdownItem onClick={notImplemented}>
-                        Delete
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </div>
-              )}
-            </div>
-            <div className="ml-auto">
-              <UploadButton right size="sm" outline={false} />
+                    )}
+                    <DropdownItem onClick={notImplemented}>Share</DropdownItem>
+                    <DropdownItem onClick={notImplemented}>Delete</DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </div>
+            )}
+          </div>
+          <div className="ml-auto">
+            <div className={styles.actionsContainer}>
+              <ButtonGroup>
+                <IconButton
+                  size="sm"
+                  icon="list-ul"
+                  onClick={this.onViewListClick}
+                  outline={showMap}
+                >
+                  List
+                </IconButton>
+                <IconButton
+                  size="sm"
+                  icon="globe"
+                  onClick={this.onViewMapClick}
+                  outline={!showMap}
+                >
+                  Map
+                </IconButton>
+              </ButtonGroup>
+              <div className="ml-2">
+                <UploadButton right size="sm" outline={false} />
+              </div>
             </div>
           </div>
-        </Container>
+        </div>
       );
       if (showMap) {
         content = (
           <React.Fragment>
-            {headerContent}
+            <Container fluid>{headerContent}</Container>
             <ExperimentGeographicMap
               experiments={results}
               highlighted={highlighted}
@@ -189,27 +225,25 @@ class Experiments extends React.Component<*, State> {
         );
       } else {
         content = (
-          <React.Fragment>
+          <Container fluid>
             {headerContent}
-            <Container fluid>
-              <ExperimentsTable
-                isFetching={isFetchingExperiments}
-                experiments={results}
-                onChangeOrder={onChangeListOrder}
-                filters={experimentsFilters}
-                selected={selected}
-                setSelected={this.setSelected}
+            <ExperimentsTable
+              isFetching={isFetchingExperiments}
+              experiments={results}
+              onChangeOrder={onChangeListOrder}
+              filters={experimentsFilters}
+              selected={selected}
+              setSelected={this.setSelected}
+            />
+            {pagination && (
+              <Pagination
+                first={1}
+                last={pagination.pages}
+                current={pagination.page}
+                onPageClick={this.onPageClick}
               />
-              {pagination && (
-                <Pagination
-                  first={1}
-                  last={pagination.pages}
-                  current={pagination.page}
-                  onPageClick={this.onPageClick}
-                />
-              )}
-            </Container>
-          </React.Fragment>
+            )}
+          </Container>
         );
       }
     } else if (experimentsIsPending) {
