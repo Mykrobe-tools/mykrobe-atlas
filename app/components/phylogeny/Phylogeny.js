@@ -18,7 +18,7 @@ const treeTypes = [
   'rectangular',
   'circular',
   'diagonal',
-  'hierarchy',
+  'hierarchical',
 ];
 const AUTO_ZOOM_SAMPLES = true;
 
