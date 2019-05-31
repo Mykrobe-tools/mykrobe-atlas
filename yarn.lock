@@ -11402,9 +11402,9 @@ mute-stream@0.0.7:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
 
-"mykrobe-atlas-jsonschema@git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.15":
-  version "0.0.15"
-  resolved "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#04e9f54dcddba8f052cd6437e4649c4af797de66"
+"mykrobe-atlas-jsonschema@git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.18":
+  version "0.0.18"
+  resolved "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#b15c29643f00c99ef9fa23733753c6a7170fb650"
   dependencies:
     onchange "^4.0.0"
 
