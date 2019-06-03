@@ -71,7 +71,7 @@ class SummaryMetadata extends React.Component<*> {
                           <div key={id}>
                             <Link to={`/experiments/${id}/analysis`}>
                               <i className="fa fa-chevron-circle-right" />{' '}
-                              {isolateId} – {distance} SNPs apart
+                              {isolateId} · {distance} SNPs apart
                             </Link>
                           </div>
                         );

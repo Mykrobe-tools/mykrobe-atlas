@@ -1,24 +1,31 @@
 @import '~styles/colors.global';
+@import '~styles/use-bootstrap.global';
 
 .tooltip {
   position: fixed;
   z-index: 3;
-  // pointer-events: none;
 }
 
 .tooltipWrapper {
   transform: translate(-50%, -100%);
-  padding-bottom: 24px;
+  padding-bottom: $popover-arrow-width;
 }
 
 .tooltipContainer {
-  composes: fontSecondary from 'styles/typography.scss';
-  composes: fontSecondarySizeSmall from 'styles/typography.scss';
   position: relative;
-  background-color: white;
-  border: 1px solid $color-rule;
-  padding: 0 8px 8px;
-  box-shadow: 4px 4px 8px 0 rgba(67, 65, 61, 0.2);
+  max-width: $popover-max-width;
+  @include reset-text();
+  background-color: $popover-bg;
+  border: $popover-border-width solid $popover-border-color;
+  @include border-radius($popover-border-radius);
+  @include box-shadow($popover-box-shadow);
+}
+
+.tooltipContent {
+  max-height: 160px;
+  overflow-y: auto;
+  padding: $popover-body-padding-y $popover-body-padding-x;
+  color: $popover-body-color;
 }
 
 .tooltipContainer::after,
@@ -36,22 +43,13 @@
 .tooltipContainer::after {
   border-color: rgba(255, 255, 255, 0);
   border-top-color: #fff;
-  border-width: 12px;
-  margin-left: -12px;
+  border-width: ($popover-arrow-width / 2);
+  margin-left: -($popover-arrow-width / 2);
 }
 
 .tooltipContainer::before {
-  border-color: rgba(206, 204, 198, 0);
-  border-top-color: $color-rule;
-  border-width: 13px;
-  margin-left: -13px;
-}
-
-.title {
-  composes: subtitle from 'styles/typography.scss';
-  padding-top: 8px;
-}
-
-.marker {
-  padding-top: 8px;
+  border-color: rgba($popover-border-color, 0);
+  border-top-color: $popover-border-color;
+  border-width: (1rem/16 + ($popover-arrow-width / 2));
+  margin-left: -(1rem/16 + ($popover-arrow-width / 2));
 }

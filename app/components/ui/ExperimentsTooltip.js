@@ -45,30 +45,31 @@ class ExperimentsTooltip extends React.PureComponent<*> {
       >
         <div className={styles.tooltipWrapper}>
           <div className={styles.tooltipContainer}>
-            {experiments.map(({ id, distance, metadata }) => {
-              const isolateId =
-                _get(metadata, 'sample.isolateId') || 'No isolate Id';
-              const countryIsolate =
-                _get(metadata, 'sample.countryIsolate') || '–';
-              const cityIsolate = _get(metadata, 'sample.cityIsolate') || '–';
-              return (
-                <div key={id}>
-                  <Link to={`/experiments/${id}/analysis`}>
-                    <i className="fa fa-chevron-circle-right" />{' '}
-                    {distance ? (
-                      <React.Fragment>
-                        {isolateId} – {distance} SNPs · {cityIsolate} ·{' '}
-                        {countryIsolate}
-                      </React.Fragment>
-                    ) : (
-                      <React.Fragment>
-                        {isolateId} · {cityIsolate} · {countryIsolate}
-                      </React.Fragment>
-                    )}
-                  </Link>
-                </div>
-              );
-            })}
+            <div className={styles.tooltipContent}>
+              {experiments.map(({ id, distance, metadata }) => {
+                const isolateId =
+                  _get(metadata, 'sample.isolateId') || 'No isolate Id';
+                const countryIsolate =
+                  _get(metadata, 'sample.countryIsolate') || '–';
+                const cityIsolate = _get(metadata, 'sample.cityIsolate') || '–';
+                return (
+                  <div key={id}>
+                    <Link to={`/experiments/${id}/analysis`}>
+                      <i className="fa fa-chevron-circle-right" />{' '}
+                      {distance ? (
+                        <React.Fragment>
+                          {isolateId} · {distance} SNPs · {countryIsolate}
+                        </React.Fragment>
+                      ) : (
+                        <React.Fragment>
+                          {isolateId} · {countryIsolate}
+                        </React.Fragment>
+                      )}
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
