@@ -67,11 +67,16 @@ class SummaryMetadata extends React.Component<*> {
                       ({ id, distance, metadata }) => {
                         const isolateId =
                           _get(metadata, 'sample.isolateId') || 'No isolate Id';
+                        const countryIsolate =
+                          _get(metadata, 'sample.countryIsolate') || '–';
+                        const cityIsolate =
+                          _get(metadata, 'sample.cityIsolate') || '–';
                         return (
                           <div key={id}>
                             <Link to={`/experiments/${id}/analysis`}>
                               <i className="fa fa-chevron-circle-right" />{' '}
-                              {isolateId} · {distance} SNPs apart
+                              {isolateId} · {distance} SNPs · {cityIsolate} ·{' '}
+                              {countryIsolate}
                             </Link>
                           </div>
                         );

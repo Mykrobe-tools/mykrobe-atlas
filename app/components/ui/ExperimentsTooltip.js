@@ -32,11 +32,6 @@ class ExperimentsTooltip extends React.PureComponent<*> {
     if (!experiments || !experiments.length) {
       return null;
     }
-    // const isolateId = _get(node, 'metadata.sample.isolateId') || '–';
-    // const countryIsolate = _get(node, 'metadata.sample.countryIsolate') || '–';
-    // const cityIsolate = _get(node, 'metadata.sample.cityIsolate') || '–';
-    // const collected = _get(node, 'collected');
-    // const date = collected ? moment(collected).format('LLL') : '–';
     return (
       <div
         className={styles.tooltip}
@@ -51,7 +46,7 @@ class ExperimentsTooltip extends React.PureComponent<*> {
                   _get(metadata, 'sample.isolateId') || 'No isolate Id';
                 const countryIsolate =
                   _get(metadata, 'sample.countryIsolate') || '–';
-                const cityIsolate = _get(metadata, 'sample.cityIsolate') || '–';
+                // const cityIsolate = _get(metadata, 'sample.cityIsolate') || '–';
                 return (
                   <div key={id}>
                     <Link to={`/experiments/${id}/analysis`}>
