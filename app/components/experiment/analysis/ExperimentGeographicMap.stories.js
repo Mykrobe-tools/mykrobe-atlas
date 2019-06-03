@@ -1,12 +1,17 @@
 /* @flow */
 
 import * as React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
 
 import ExperimentGeographicMap from './ExperimentGeographicMap';
 
-const setNodeHighlighted = (id, highlighted) => {
-  console.log('setNodeHighlighted', id, highlighted);
+const setExperimentsHighlighted = experiments => {
+  console.log('setExperimentsHighlighted', experiments);
+};
+
+const resetExperimentsHighlighted = () => {
+  console.log('resetExperimentsHighlighted');
 };
 
 const experiment = {
@@ -50,18 +55,23 @@ const experiment3 = {
 
 const variations = {
   default: {
-    setNodeHighlighted,
+    setExperimentsHighlighted,
+    resetExperimentsHighlighted,
     experiments: [experiment],
-    highlighted: [experiment.id],
+    experimentsHighlighted: [experiment],
   },
   cluster: {
-    setNodeHighlighted,
+    setExperimentsHighlighted,
+    resetExperimentsHighlighted,
     experiments: [experiment, experiment2, experiment3],
-    highlighted: [experiment3.id],
+    experimentsHighlighted: [experiment2, experiment3],
   },
 };
 
 storiesOf('ExperimentGeographicMap', module)
+  .addDecorator(story => (
+    <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
+  ))
   .add('Default', () => (
     <div style={{ display: 'flex', height: '100vh' }}>
       <ExperimentGeographicMap {...variations.default} />

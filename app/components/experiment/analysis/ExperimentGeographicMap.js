@@ -308,12 +308,9 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   };
 
   componentDidUpdate = (prevProps: any) => {
-    const { highlighted, experiments } = this.props;
+    const { experiments } = this.props;
     if (!_isEqual(experiments, prevProps.experiments)) {
       this.updateMarkers();
-    }
-    if (!_isEqual(highlighted, prevProps.highlighted)) {
-      this.updateHighlighted();
     }
   };
 
@@ -336,10 +333,7 @@ class ExperimentGeographicMap extends React.Component<*, State> {
 
 ExperimentGeographicMap.propTypes = {
   ...withExperimentsHighlightedPropTypes,
-  setNodeHighlighted: PropTypes.func,
   experiments: PropTypes.array,
-  highlighted: PropTypes.array,
-  isBusyWithCurrentRoute: PropTypes.bool,
 };
 
 export default ExperimentGeographicMap;

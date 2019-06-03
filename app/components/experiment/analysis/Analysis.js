@@ -31,7 +31,6 @@ class Analysis extends React.Component<*> {
           <div className={styles.mapAndPhylogenyContainer}>
             <ExperimentGeographicMap
               experiments={experimentAndNearestNeigbours}
-              highlighted={highlighted}
               setNodeHighlighted={setNodeHighlighted}
             />
             <div className={styles.phylogenyContainer}>
