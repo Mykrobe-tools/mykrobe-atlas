@@ -4,6 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Upload from '../components/upload/Upload';
+import AppDocumentTitle from '../components/ui/AppDocumentTitle';
 
 import {
   analyseFileCancel,
@@ -20,13 +21,19 @@ class HomePage extends React.Component<*> {
       isAnalysing,
       progress,
     } = this.props;
+    const documentTitle = isAnalysing ? (
+      <AppDocumentTitle title={'Analysing'} />
+    ) : null;
     return (
-      <Upload
-        analyseFile={analyseFile}
-        analyseFileCancel={analyseFileCancel}
-        isAnalysing={isAnalysing}
-        progress={progress}
-      />
+      <React.Fragment>
+        {documentTitle}
+        <Upload
+          analyseFile={analyseFile}
+          analyseFileCancel={analyseFileCancel}
+          isAnalysing={isAnalysing}
+          progress={progress}
+        />
+      </React.Fragment>
     );
   }
 }

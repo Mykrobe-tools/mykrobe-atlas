@@ -6,13 +6,15 @@ import DocumentTitle from 'react-document-title';
 
 import { isString, isArray } from 'makeandship-js-common/src/util/is';
 
+const productName = require('../../../package.json').productName;
+
 const AppDocumentTitle = ({ title }) => {
   if (isString(title) && title.length > 0) {
     title = [title];
   } else if (!isArray(title)) {
     title = [];
   }
-  title.push('Mykrobe Atlas');
+  title.push(productName);
   return <DocumentTitle title={title.join(' - ')} />;
 };
 

@@ -10,7 +10,7 @@ import AppDocumentTitle from '../../../ui/AppDocumentTitle';
 class ResistanceEvidence extends React.Component<*> {
   documentTitle = () => {
     const { experimentIsolateId } = this.props;
-    return IS_ELECTRON ? null : (
+    return (
       <AppDocumentTitle
         title={[experimentIsolateId, 'Resistance', 'Evidence']}
       />

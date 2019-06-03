@@ -3,7 +3,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import DocumentTitle from 'react-document-title';
 
 import NotificationsContainer from '../components/notifications/NotificationsContainer';
 import NotificationsStyle from '../components/notifications/NotificationsStyle';
@@ -13,8 +12,6 @@ import MenuButton from '../components/menu/MenuButton';
 import Menu from '../components/menu/Menu';
 import MenuBg from '../components/menu/MenuBg';
 import DragAndDrop from '../components/dragAndDrop/DragAndDrop';
-
-const defaultTitle = require('../../package.json').productName;
 
 type State = {
   displayMenu: boolean,
@@ -44,7 +41,6 @@ class App extends React.Component<*, State> {
     const { displayMenu } = this.state;
     return (
       <DragAndDrop className={styles.container}>
-        <DocumentTitle title={defaultTitle} />
         <div className={styles.contentContainer}>{this.props.children}</div>
         <div className={styles.menuContainer}>
           <MenuBg displayMenu={displayMenu} toggleMenu={this.toggleMenu} />

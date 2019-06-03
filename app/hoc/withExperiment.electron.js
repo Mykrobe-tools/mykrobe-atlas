@@ -3,38 +3,32 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 
 import {
   getExperiment,
   getExperimentTransformed,
 } from '../modules/experiments';
 
-function withExperiment(WrappedComponent: React.ElementProps<*>) {
-  class WithExperiment extends React.Component<*> {
-    render() {
-      return <WrappedComponent {...this.props} />;
-    }
-  }
+import { getFileNames } from '../modules/desktop';
 
-  WithExperiment.displayName = `WithExperiment(${getDisplayName(
-    WrappedComponent
-  )})`;
+// use file names in place of isolateId - TODO: rename this to experimentTitle
 
-  const withRedux = connect(state => ({
-    experiment: getExperiment(state),
-    experimentTransformed: getExperimentTransformed(state),
-  }));
+export const getDesktopExperimentIsolateId = createSelector(
+  getFileNames,
+  fileNames => (fileNames && fileNames.length ? fileNames.join(', ') : '–')
+);
 
-  WithExperiment.propTypes = {
-    experiment: PropTypes.object,
-    experimentTransformed: PropTypes.object,
-  };
+const withExperiment = connect(state => ({
+  experiment: getExperiment(state),
+  experimentTransformed: getExperimentTransformed(state),
+  experimentIsolateId: getDesktopExperimentIsolateId(state),
+}));
 
-  return withRedux(WithExperiment);
-}
-
-function getDisplayName(WrappedComponent) {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
-}
+export const withExperimentPropTypes = {
+  experiment: PropTypes.object,
+  experimentTransformed: PropTypes.object,
+  experimentIsolateId: PropTypes.string,
+};
 
 export default withExperiment;

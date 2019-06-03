@@ -66,7 +66,7 @@ class ResistanceDrugs extends React.Component<*> {
   render() {
     const { experimentTransformed, experimentIsolateId } = this.props;
     const { hasResistance, error } = experimentTransformed;
-    const documentTitle = IS_ELECTRON ? null : (
+    const documentTitle = (
       <AppDocumentTitle title={[experimentIsolateId, 'Resistance', 'Drugs']} />
     );
     if (!hasResistance) {

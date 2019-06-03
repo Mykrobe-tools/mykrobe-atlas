@@ -12,8 +12,10 @@ class ResistanceSpecies extends React.Component<*> {
   render() {
     const { experimentTransformed, experimentIsolateId } = this.props;
     const { speciesAndLineageString, error } = experimentTransformed;
-    const documentTitle = IS_ELECTRON ? null : (
-      <AppDocumentTitle title={[experimentIsolateId, 'Resistance', 'Drugs']} />
+    const documentTitle = (
+      <AppDocumentTitle
+        title={[experimentIsolateId, 'Resistance', 'Species']}
+      />
     );
     if (!speciesAndLineageString) {
       return (
