@@ -1,11 +1,14 @@
 /* @flow */
 
 import * as React from 'react';
-import styles from './ResistanceAll.scss';
+
 import ResistanceProfile from '../profile/ResistanceProfile';
 import Panel from '../../../ui/Panel';
+import AppDocumentTitle from '../../../ui/AppDocumentTitle';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
 import Phylogeny from '../../../phylogeny/Phylogeny';
+
+import styles from './ResistanceAll.scss';
 
 import { withExperimentPropTypes } from '../../../../hoc/withExperiment';
 import { withPhylogenyNodePropTypes } from '../../../../hoc/withPhylogenyNode';
@@ -20,17 +23,23 @@ class ResistanceAll extends React.Component<*> {
       highlighted,
       setNodeHighlighted,
       unsetNodeHighlightedAll,
+      experimentIsolateId,
     } = this.props;
     const { hasResistance, error } = experimentTransformed;
+    const documentTitle = IS_ELECTRON ? null : (
+      <AppDocumentTitle title={[experimentIsolateId, 'Resistance', 'All']} />
+    );
     if (!hasResistance) {
       return (
         <div className={styles.empty} data-tid="component-resistance-all">
+          {documentTitle}
           <ResistanceEmpty subtitle={error} />
         </div>
       );
     }
     return (
       <div className={styles.container} data-tid="component-resistance-all">
+        {documentTitle}
         <Panel title="Resistance Profile" columns={IS_ELECTRON ? undefined : 3}>
           <ResistanceProfile
             experiment={experiment}

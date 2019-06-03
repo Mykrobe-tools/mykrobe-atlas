@@ -3,7 +3,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
-import _get from 'lodash.get';
 
 import Footer from '../../footer/Footer';
 

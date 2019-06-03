@@ -5,11 +5,22 @@ import PropTypes from 'prop-types';
 import styles from './ResistanceEvidence.scss';
 import Panel from '../../../ui/Panel';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
+import AppDocumentTitle from '../../../ui/AppDocumentTitle';
 
 class ResistanceEvidence extends React.Component<*> {
+  documentTitle = () => {
+    const { experimentIsolateId } = this.props;
+    return IS_ELECTRON ? null : (
+      <AppDocumentTitle
+        title={[experimentIsolateId, 'Resistance', 'Evidence']}
+      />
+    );
+  };
+
   renderEmpty(error: string) {
     return (
       <div className={styles.empty} data-tid="component-resistance-evidence">
+        {this.documentTitle()}
         <ResistanceEmpty subtitle={error} />
       </div>
     );
@@ -45,6 +56,7 @@ class ResistanceEvidence extends React.Component<*> {
         className={styles.container}
         data-tid="component-resistance-evidence"
       >
+        {this.documentTitle()}
         {panels}
       </div>
     );
