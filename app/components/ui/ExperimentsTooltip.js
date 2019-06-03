@@ -8,6 +8,25 @@ import { withRouter, Link } from 'react-router-dom';
 import styles from './ExperimentsTooltip.scss';
 
 class ExperimentsTooltip extends React.PureComponent<*> {
+  onRef = ref => {
+    this._ref = ref;
+  };
+
+  componentDidMount = () => {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  };
+
+  componentWillUnmount = () => {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  };
+
+  handleClickOutside = event => {
+    const { onClickOutside } = this.props;
+    if (this._ref && !this._ref.contains(event.target)) {
+      onClickOutside && onClickOutside(event);
+    }
+  };
+
   render() {
     const { x, y, experiments } = this.props;
     if (!experiments || !experiments.length) {
@@ -19,7 +38,11 @@ class ExperimentsTooltip extends React.PureComponent<*> {
     // const collected = _get(node, 'collected');
     // const date = collected ? moment(collected).format('LLL') : '–';
     return (
-      <div className={styles.tooltip} style={{ left: x, top: y }}>
+      <div
+        className={styles.tooltip}
+        style={{ left: x, top: y }}
+        ref={this.onRef}
+      >
         <div className={styles.tooltipWrapper}>
           <div className={styles.tooltipContainer}>
             {experiments.map(({ id, distance, metadata }) => {
@@ -61,6 +84,7 @@ class ExperimentsTooltip extends React.PureComponent<*> {
 ExperimentsTooltip.propTypes = {
   x: PropTypes.number,
   y: PropTypes.number,
+  onClickOutside: PropTypes.func,
 };
 
 export default withRouter(ExperimentsTooltip);

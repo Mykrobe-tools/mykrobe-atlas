@@ -49,8 +49,8 @@ type State = {
     x: number,
     y: number,
   },
-  trackingCluster: MarkerClusterer,
-  trackingMarker: Marker,
+  trackingMarkerCluster?: MarkerClusterer,
+  trackingMarker?: Marker,
 };
 
 class ExperimentGeographicMap extends React.Component<*, State> {
@@ -82,10 +82,6 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   };
 
   initMap = () => {
-    const {
-      setExperimentsHighlighted,
-      resetExperimentsHighlighted,
-    } = this.props;
     if (!this._google || !this._mapDiv) {
       return;
     }
@@ -111,35 +107,23 @@ class ExperimentGeographicMap extends React.Component<*, State> {
         },
       ],
     });
-    this._google.maps.event.addListener(this._markerClusterer, 'click', c => {
-      const markers = c.getMarkers();
-      const experiments = markers.map(marker => marker.get('experiment'));
-      setExperimentsHighlighted(experiments);
-    });
+    // this._google.maps.event.addListener(this._markerClusterer, 'click', c => {
+    //   const markers = c.getMarkers();
+    //   const experiments = markers.map(marker => marker.get('experiment'));
+    //   setExperimentsHighlighted(experiments);
+    // });
     this._google.maps.event.addListener(
       this._markerClusterer,
       'mouseover',
-      c => {
-        //
-        const experimentsTooltipLocation = this.screenPositionFromLatLng(
-          c.getCenter()
-        );
-        const markers = c.getMarkers();
-        const experiments = markers.map(marker => marker.get('experiment'));
-        setExperimentsHighlighted(experiments);
-        this.setState({
-          experimentsTooltipLocation,
-          trackingCluster: c,
-        });
-      }
+      this.onMarkerClusterMouseOver
     );
-    this._google.maps.event.addListener(
-      this._markerClusterer,
-      'mouseout',
-      () => {
-        // resetExperimentsHighlighted();
-      }
-    );
+    // this._google.maps.event.addListener(
+    //   this._markerClusterer,
+    //   'mouseout',
+    //   () => {
+    //     // resetExperimentsHighlighted();
+    //   }
+    // );
     this.updateMarkers();
     // wait for getProjection() to be usable
     this._google.maps.event.addListenerOnce(
@@ -151,6 +135,30 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     );
     this._google.maps.event.addListener(this._map, 'bounds_changed', () => {
       this.updateHighlighted();
+    });
+  };
+
+  onMarkerClusterMouseOver = markerCluster => {
+    const { setExperimentsHighlighted } = this.props;
+    const experimentsTooltipLocation = this.screenPositionFromLatLng(
+      markerCluster.getCenter()
+    );
+    const markers = markerCluster.getMarkers();
+    const experiments = markers.map(marker => marker.get('experiment'));
+    setExperimentsHighlighted(experiments);
+    this.setState({
+      experimentsTooltipLocation,
+      trackingMarkerCluster: markerCluster,
+    });
+  };
+
+  onExperimentsTooltipClickOutside = e => {
+    const { resetExperimentsHighlighted } = this.props;
+    e.preventDefault();
+    resetExperimentsHighlighted();
+    this.setState({
+      trackingMarkerCluster: undefined,
+      trackingMarker: undefined,
     });
   };
 
@@ -266,6 +274,9 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   };
 
   screenPositionFromLatLng = latLng => {
+    if (!this._mapDiv) {
+      return { x: 0, y: 0 };
+    }
     const divPosition = this.fromLatLngToPoint(latLng);
     const boundingClientRect = this._mapDiv.getBoundingClientRect();
     const screenPosition = {
@@ -299,10 +310,10 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     }
 
     // TODO: add marker support
-    const { trackingCluster } = this.state;
-    if (trackingCluster) {
+    const { trackingMarkerCluster } = this.state;
+    if (trackingMarkerCluster) {
       const experimentsTooltipLocation = this.screenPositionFromLatLng(
-        trackingCluster.getCenter()
+        trackingMarkerCluster.getCenter()
       );
       this.setState({
         experimentsTooltipLocation,
@@ -331,6 +342,7 @@ class ExperimentGeographicMap extends React.Component<*, State> {
           experiments={experimentsHighlighted}
           x={experimentsTooltipLocation.x}
           y={experimentsTooltipLocation.y}
+          onClickOutside={this.onExperimentsTooltipClickOutside}
         />
       </div>
     );
