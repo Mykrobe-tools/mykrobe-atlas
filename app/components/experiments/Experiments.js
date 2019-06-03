@@ -14,7 +14,6 @@ import {
 } from 'reactstrap';
 import pluralize from 'pluralize';
 import _get from 'lodash.get';
-import DocumentTitle from 'react-document-title';
 
 import Pagination from 'makeandship-js-common/src/components/ui/pagination';
 import Loading from 'makeandship-js-common/src/components/ui/loading';
