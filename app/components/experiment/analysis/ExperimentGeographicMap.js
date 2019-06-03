@@ -149,6 +149,21 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     this.setState({
       experimentsTooltipLocation,
       trackingMarkerCluster: markerCluster,
+      trackingMarker: undefined,
+    });
+  };
+
+  onMarkerMouseOver = marker => {
+    const { setExperimentsHighlighted } = this.props;
+    const experimentsTooltipLocation = this.screenPositionFromLatLng(
+      marker.getPosition()
+    );
+    const experiments = [marker.get('experiment')];
+    setExperimentsHighlighted(experiments);
+    this.setState({
+      experimentsTooltipLocation,
+      trackingMarkerCluster: undefined,
+      trackingMarker: marker,
     });
   };
 
@@ -250,12 +265,16 @@ class ExperimentGeographicMap extends React.Component<*, State> {
           map: this._map,
         });
         marker.setValues({ experiment });
+        // marker.addListener('mouseover', () => {
+        //   setNodeHighlighted(experiment.id, true);
+        // });
         marker.addListener('mouseover', () => {
-          setNodeHighlighted(experiment.id, true);
+          this.onMarkerMouseOver(marker);
         });
-        marker.addListener('mouseout', () => {
-          setNodeHighlighted(experiment.id, false);
-        });
+
+        // marker.addListener('mouseout', () => {
+        //   setNodeHighlighted(experiment.id, false);
+        // });
         this._markers[experiment.id] = marker;
       } else {
         console.log(`experiment id ${experiment.id} has no lat/lng`);
