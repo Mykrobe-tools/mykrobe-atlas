@@ -17,7 +17,7 @@ const AppDocumentTitle = ({ title }) => {
 };
 
 AppDocumentTitle.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.any,
 };
 
 export default AppDocumentTitle;

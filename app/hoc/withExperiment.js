@@ -16,6 +16,10 @@ import {
   updateExperiment,
   deleteExperiment,
   requestExperimentMetadataTemplate,
+  getExperimentOwnerIsCurrentUser,
+  getExperimentMetadata,
+  getExperimentMetadataFormCompletion,
+  getExperimentMetadataCompletion,
 } from '../modules/experiments';
 
 const withExperiment = connect(
@@ -26,6 +30,12 @@ const withExperiment = connect(
     experimentsTree: getExperimentsTree(state),
     experimentAndNearestNeigbours: getExperimentAndNearestNeigbours(state),
     experimentIsolateId: getExperimentIsolateId(state),
+    experimentOwnerIsCurrentUser: getExperimentOwnerIsCurrentUser(state),
+    experimentMetadataFormCompletion: getExperimentMetadataFormCompletion(
+      state
+    ),
+    experimentMetadataCompletion: getExperimentMetadataCompletion(state),
+    experimentMetadata: getExperimentMetadata(state),
   }),
   {
     newExperiment,
@@ -50,6 +60,10 @@ export const withExperimentPropTypes = {
   updateExperiment: PropTypes.func,
   deleteExperiment: PropTypes.func,
   requestExperimentMetadataTemplate: PropTypes.func,
+  experimentOwnerIsCurrentUser: PropTypes.bool,
+  experimentMetadataFormCompletion: PropTypes.object,
+  experimentMetadataCompletion: PropTypes.object,
+  experimentMetadata: PropTypes.any,
 };
 
 export default withExperiment;

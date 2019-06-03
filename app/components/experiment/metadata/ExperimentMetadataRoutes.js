@@ -1,33 +1,45 @@
 /* @flow */
 
 import * as React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import urljoin from 'url-join';
 
-import EditMetadata from './EditMetadata';
+import EditMetadataContainer from './EditMetadataContainer';
 
 const EditPatientMetadata = props => (
-  <EditMetadata {...props} title="Patient" subsections={['patient']} />
+  <EditMetadataContainer {...props} title="Patient" subsections={['patient']} />
 );
 
 const EditSampleMetadata = props => (
-  <EditMetadata {...props} title="Sample" subsections={['sample']} />
+  <EditMetadataContainer {...props} title="Sample" subsections={['sample']} />
 );
 
 const EditGenotypingMetadata = props => (
-  <EditMetadata {...props} title="Genotyping" subsections={['genotyping']} />
+  <EditMetadataContainer
+    {...props}
+    title="Genotyping"
+    subsections={['genotyping']}
+  />
 );
 
 const EditPhenotypingMetadata = props => (
-  <EditMetadata {...props} title="Phenotyping" subsections={['phenotyping']} />
+  <EditMetadataContainer
+    {...props}
+    title="Phenotyping"
+    subsections={['phenotyping']}
+  />
 );
 
 const EditTreatmentMetadata = props => (
-  <EditMetadata {...props} title="Treatment" subsections={['treatment']} />
+  <EditMetadataContainer
+    {...props}
+    title="Treatment"
+    subsections={['treatment']}
+  />
 );
 
 const EditOutcomeMetadata = props => (
-  <EditMetadata {...props} title="Outcome" subsections={['outcome']} />
+  <EditMetadataContainer {...props} title="Outcome" subsections={['outcome']} />
 );
 
 const ExperimentMetadataRoutes = () => (
@@ -64,4 +76,4 @@ const ExperimentMetadataRoutes = () => (
   </Switch>
 );
 
-export default ExperimentMetadataRoutes;
+export default withRouter(ExperimentMetadataRoutes);
