@@ -1,19 +1,12 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import ExperimentNavigation from './ExperimentNavigation';
 import ExperimentRoutes from './ExperimentRoutes';
 
-import { requestCurrentUser } from '../../modules/users';
-import {
-  requestExperiment,
-  requestExperimentMetadataTemplate,
-  getExperiment,
-} from '../../modules/experiments';
+import withExperiment from '../../hoc/withExperiment';
 
 import styles from './ExperimentContainer.scss';
 
@@ -41,41 +34,17 @@ class ExperimentContainer extends React.Component<*> {
   }
 
   render() {
-    const { match, experiment } = this.props;
+    const { match, experimentIsolateId } = this.props;
     return (
       <div className={styles.container}>
-        <ExperimentNavigation match={match} experiment={experiment} />
+        <ExperimentNavigation
+          match={match}
+          experimentIsolateId={experimentIsolateId}
+        />
         <ExperimentRoutes match={match} />
       </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    experiment: getExperiment(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      requestExperiment,
-      requestExperimentMetadataTemplate,
-      requestCurrentUser,
-    },
-    dispatch
-  );
-}
-
-ExperimentContainer.propTypes = {
-  match: PropTypes.object.isRequired,
-  requestExperiment: PropTypes.func.isRequired,
-  requestExperimentMetadataTemplate: PropTypes.func.isRequired,
-  experiment: PropTypes.object,
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ExperimentContainer);
+export default withRouter(withExperiment(ExperimentContainer));

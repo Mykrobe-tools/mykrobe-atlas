@@ -17,6 +17,7 @@ import {
   setExperimentsFilters,
   resetExperimentsFilters,
   getExperimentsSearchDescription,
+  getExperimentsSearchQuery,
 } from '../modules/experiments';
 
 const withExperiments = connect(
@@ -29,6 +30,7 @@ const withExperiments = connect(
     experimentsIsPending: getExperimentsIsPending(state),
     experimentsSearchDescription: getExperimentsSearchDescription(state),
     experimentsError: getExperimentsError(state),
+    experimentsSearchQuery: getExperimentsSearchQuery(state),
   }),
   {
     requestExperiments,
@@ -53,6 +55,7 @@ export const withExperimentsPropTypes = {
   setExperimentsFilters: PropTypes.func,
   resetExperimentsFilters: PropTypes.func,
   newExperiment: PropTypes.func,
+  experimentsSearchQuery: PropTypes.string,
 };
 
 export default withExperiments;

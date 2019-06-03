@@ -147,6 +147,7 @@ class Experiments extends React.Component<*, State> {
       experimentsHighlighted,
       setExperimentsHighlighted,
       resetExperimentsHighlighted,
+      experimentsSearchQuery,
     } = this.props;
     const { pagination, results, total } = experiments;
     const hasTotal = total !== undefined;
@@ -298,7 +299,13 @@ class Experiments extends React.Component<*, State> {
     }
     return (
       <div className={styles.container}>
-        <HeaderContainer title={'Sample Library'} />
+        <HeaderContainer
+          title={
+            experimentsSearchQuery
+              ? `${experimentsSearchQuery}`
+              : 'Sample Library'
+          }
+        />
         <Container className={styles.headerContainer} fluid>
           <div className={styles.headerContainerInner}>
             <div className={pageHeaderStyles.title}>{title}</div>

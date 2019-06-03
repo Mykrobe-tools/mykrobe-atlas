@@ -97,6 +97,11 @@ export const getExperimentOwnerIsCurrentUser = createSelector(
   }
 );
 
+export const getExperimentIsolateId = createSelector(
+  getExperimentMetadata,
+  metadata => _get(metadata, 'sample.isolateId') || '–'
+);
+
 // TODO: remove once we are receiving sufficiently detailed data from API
 
 export const getExperiment = createSelector(getEntity, experiment => {
@@ -121,9 +126,8 @@ export const getExperimentTransformed = createSelector(
 
 export const getExperimentNearestNeigbours = createSelector(
   getExperiment,
-  experiment => {
-    return _get(experiment, 'results.distance-nearest-neighbour.experiments');
-  }
+  experiment =>
+    _get(experiment, 'results.distance-nearest-neighbour.experiments')
 );
 
 export const getExperimentHasNearestNeigbours = createSelector(
