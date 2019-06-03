@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
 import _get from 'lodash.get';
 import _isEqual from 'lodash.isequal';
-import MarkerClusterer from '@google/markerclusterer';
+import MarkerClusterer from '@google/markerclustererplus';
 import memoizeOne from 'memoize-one';
 
 import PhyloCanvasTooltip from '../../ui/PhyloCanvasTooltip';
@@ -75,6 +75,7 @@ class ExperimentGeographicMap extends React.Component<*> {
     this._map = new this._google.maps.Map(this._mapDiv, options);
     // https://googlemaps.github.io/js-marker-clusterer/docs/reference.html
     this._markerClusterer = new MarkerClusterer(this._map, [], {
+      averageCenter: true,
       minimumClusterSize: 2,
       styles: [
         {
@@ -86,6 +87,46 @@ class ExperimentGeographicMap extends React.Component<*> {
         },
       ],
     });
+    this._google.maps.event.addListener(this._markerClusterer, 'click', c => {
+      const markers = c.getMarkers();
+      markers.forEach(marker => {
+        const experiment = marker.get('experiment');
+        console.log(experiment.id);
+      });
+      // console.log('click: ');
+      // console.log('&mdash;Center of cluster: ' + c.getCenter());
+      // console.log(
+      //   '&mdash;Number of managed markers in cluster: ' + c.getSize()
+      // );
+      // var m = c.getMarkers();
+      // var p = [];
+      // for (var i = 0; i < m.length; i++) {
+      //   p.push(m[i].getPosition());
+      // }
+      // console.log('&mdash;Locations of managed markers: ' + p.join(', '));
+    });
+    this._google.maps.event.addListener(
+      this._markerClusterer,
+      'mouseover',
+      c => {
+        console.log('mouseover: ');
+        console.log('&mdash;Center of cluster: ' + c.getCenter());
+        console.log(
+          '&mdash;Number of managed markers in cluster: ' + c.getSize()
+        );
+      }
+    );
+    this._google.maps.event.addListener(
+      this._markerClusterer,
+      'mouseout',
+      c => {
+        console.log('mouseout: ');
+        console.log('&mdash;Center of cluster: ' + c.getCenter());
+        console.log(
+          '&mdash;Number of managed markers in cluster: ' + c.getSize()
+        );
+      }
+    );
     this.updateMarkers();
     // wait for getProjection() to be usable
     this._google.maps.event.addListenerOnce(
@@ -187,6 +228,7 @@ class ExperimentGeographicMap extends React.Component<*> {
           position: { lat, lng },
           map: this._map,
         });
+        marker.setValues({ experiment });
         marker.addListener('mouseover', () => {
           setNodeHighlighted(experiment.id, true);
         });
