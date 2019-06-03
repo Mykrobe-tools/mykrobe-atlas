@@ -8,7 +8,6 @@ import _isEqual from 'lodash.isequal';
 import MarkerClusterer from '@google/markerclustererplus';
 import memoizeOne from 'memoize-one';
 
-import PhyloCanvasTooltip from '../../ui/PhyloCanvasTooltip';
 import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
 
 import MapStyle from './MapStyle';
@@ -59,7 +58,6 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   _mapDiv: Object;
   _markers: Object;
   _markerClusterer: MarkerClusterer;
-  _phyloCanvasTooltip: PhyloCanvasTooltip;
 
   state = {
     experimentsTooltipLocation: {
@@ -107,23 +105,11 @@ class ExperimentGeographicMap extends React.Component<*, State> {
         },
       ],
     });
-    // this._google.maps.event.addListener(this._markerClusterer, 'click', c => {
-    //   const markers = c.getMarkers();
-    //   const experiments = markers.map(marker => marker.get('experiment'));
-    //   setExperimentsHighlighted(experiments);
-    // });
     this._google.maps.event.addListener(
       this._markerClusterer,
       'mouseover',
       this.onMarkerClusterMouseOver
     );
-    // this._google.maps.event.addListener(
-    //   this._markerClusterer,
-    //   'mouseout',
-    //   () => {
-    //     // resetExperimentsHighlighted();
-    //   }
-    // );
     this.updateMarkers();
     // wait for getProjection() to be usable
     this._google.maps.event.addListenerOnce(
@@ -218,15 +204,11 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     this.initMap();
   };
 
-  setPhyloCanvasTooltipRef = (ref: any) => {
-    this._phyloCanvasTooltip = ref;
-  };
-
   updateMarkers = () => {
     if (!this._map) {
       return;
     }
-    const { setNodeHighlighted, experiments } = this.props;
+    const { experiments } = this.props;
     if (this._markers) {
       for (let markerKey in this._markers) {
         const marker = this._markers[markerKey];
@@ -306,33 +288,18 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   };
 
   updateHighlighted = () => {
-    const { highlighted } = this.props;
-    if (highlighted && highlighted.length) {
-      const nodeId = highlighted[0];
-      const marker = this.markerForNodeId(nodeId);
-      if (marker) {
-        const markerLocation = marker.getPosition();
-        const screenPosition = this.fromLatLngToPoint(markerLocation);
-        const boundingClientRect = this._mapDiv.getBoundingClientRect();
-        const { experiment, isMain } = this.getExperimentWithId(nodeId);
-        if (experiment) {
-          this._phyloCanvasTooltip.setNode(experiment, isMain);
-          this._phyloCanvasTooltip.setVisible(
-            true,
-            boundingClientRect.left + screenPosition.x,
-            boundingClientRect.top + screenPosition.y
-          );
-        }
-      }
-    } else {
-      this._phyloCanvasTooltip && this._phyloCanvasTooltip.setVisible(false);
-    }
-
-    // TODO: add marker support
-    const { trackingMarkerCluster } = this.state;
+    const { trackingMarkerCluster, trackingMarker } = this.state;
     if (trackingMarkerCluster) {
       const experimentsTooltipLocation = this.screenPositionFromLatLng(
         trackingMarkerCluster.getCenter()
+      );
+      this.setState({
+        experimentsTooltipLocation,
+      });
+    }
+    if (trackingMarker) {
+      const experimentsTooltipLocation = this.screenPositionFromLatLng(
+        trackingMarker.getPosition()
       );
       this.setState({
         experimentsTooltipLocation,
@@ -356,7 +323,6 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     return (
       <div className={styles.mapContainer}>
         <div ref={this.setMapRef} className={styles.map} />
-        <PhyloCanvasTooltip ref={this.setPhyloCanvasTooltipRef} />
         <ExperimentsTooltip
           experiments={experimentsHighlighted}
           x={experimentsTooltipLocation.x}
