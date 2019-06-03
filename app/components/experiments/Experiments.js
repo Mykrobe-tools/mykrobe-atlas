@@ -34,6 +34,7 @@ import ExperimentGeographicMap from '../experiment/analysis/ExperimentGeographic
 
 import { withExperimentsPropTypes } from '../../hoc/withExperiments';
 import { withPhylogenyNodePropTypes } from '../../hoc/withPhylogenyNode';
+import { withExperimentsHighlightedPropTypes } from '../../hoc/withExperimentsHighlighted';
 
 type State = {
   q: ?string,
@@ -143,6 +144,9 @@ class Experiments extends React.Component<*, State> {
       experimentsError,
       highlighted,
       setNodeHighlighted,
+      experimentsHighlighted,
+      setExperimentsHighlighted,
+      resetExperimentsHighlighted,
     } = this.props;
     const { pagination, results, total } = experiments;
     const hasTotal = total !== undefined;
@@ -223,6 +227,9 @@ class Experiments extends React.Component<*, State> {
               experiments={results}
               highlighted={highlighted}
               setNodeHighlighted={setNodeHighlighted}
+              experimentsHighlighted={experimentsHighlighted}
+              setExperimentsHighlighted={setExperimentsHighlighted}
+              resetExperimentsHighlighted={resetExperimentsHighlighted}
             />
           </React.Fragment>
         );
@@ -320,6 +327,7 @@ class Experiments extends React.Component<*, State> {
 Experiments.propTypes = {
   ...withExperimentsPropTypes,
   ...withPhylogenyNodePropTypes,
+  ...withExperimentsHighlightedPropTypes,
   onChangeListOrder: PropTypes.func,
   setPage: PropTypes.func,
 };

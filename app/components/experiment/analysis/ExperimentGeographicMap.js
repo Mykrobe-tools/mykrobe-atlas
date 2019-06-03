@@ -9,7 +9,11 @@ import MarkerClusterer from '@google/markerclustererplus';
 import memoizeOne from 'memoize-one';
 
 import PhyloCanvasTooltip from '../../ui/PhyloCanvasTooltip';
+import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
+
 import MapStyle from './MapStyle';
+
+import { withExperimentsHighlightedPropTypes } from '../../../hoc/withExperimentsHighlighted';
 
 import * as Colors from '../../../constants/Colors';
 
@@ -40,13 +44,29 @@ export const makeSvgMarker = memoizeOne(
   }
 );
 
-class ExperimentGeographicMap extends React.Component<*> {
+type State = {
+  experimentsTooltipLocation: {
+    x: number,
+    y: number,
+  },
+  trackingCluster: MarkerClusterer,
+  trackingMarker: Marker,
+};
+
+class ExperimentGeographicMap extends React.Component<*, State> {
   _google: Object;
   _map: Object;
   _mapDiv: Object;
   _markers: Object;
   _markerClusterer: MarkerClusterer;
   _phyloCanvasTooltip: PhyloCanvasTooltip;
+
+  state = {
+    experimentsTooltipLocation: {
+      x: 0,
+      y: 0,
+    },
+  };
 
   constructor(props: any) {
     super(props);
@@ -62,6 +82,10 @@ class ExperimentGeographicMap extends React.Component<*> {
   };
 
   initMap = () => {
+    const {
+      setExperimentsHighlighted,
+      resetExperimentsHighlighted,
+    } = this.props;
     if (!this._google || !this._mapDiv) {
       return;
     }
@@ -89,42 +113,31 @@ class ExperimentGeographicMap extends React.Component<*> {
     });
     this._google.maps.event.addListener(this._markerClusterer, 'click', c => {
       const markers = c.getMarkers();
-      markers.forEach(marker => {
-        const experiment = marker.get('experiment');
-        console.log(experiment.id);
-      });
-      // console.log('click: ');
-      // console.log('&mdash;Center of cluster: ' + c.getCenter());
-      // console.log(
-      //   '&mdash;Number of managed markers in cluster: ' + c.getSize()
-      // );
-      // var m = c.getMarkers();
-      // var p = [];
-      // for (var i = 0; i < m.length; i++) {
-      //   p.push(m[i].getPosition());
-      // }
-      // console.log('&mdash;Locations of managed markers: ' + p.join(', '));
+      const experiments = markers.map(marker => marker.get('experiment'));
+      setExperimentsHighlighted(experiments);
     });
     this._google.maps.event.addListener(
       this._markerClusterer,
       'mouseover',
       c => {
-        console.log('mouseover: ');
-        console.log('&mdash;Center of cluster: ' + c.getCenter());
-        console.log(
-          '&mdash;Number of managed markers in cluster: ' + c.getSize()
+        //
+        const experimentsTooltipLocation = this.screenPositionFromLatLng(
+          c.getCenter()
         );
+        const markers = c.getMarkers();
+        const experiments = markers.map(marker => marker.get('experiment'));
+        setExperimentsHighlighted(experiments);
+        this.setState({
+          experimentsTooltipLocation,
+          trackingCluster: c,
+        });
       }
     );
     this._google.maps.event.addListener(
       this._markerClusterer,
       'mouseout',
-      c => {
-        console.log('mouseout: ');
-        console.log('&mdash;Center of cluster: ' + c.getCenter());
-        console.log(
-          '&mdash;Number of managed markers in cluster: ' + c.getSize()
-        );
+      () => {
+        // resetExperimentsHighlighted();
       }
     );
     this.updateMarkers();
@@ -252,6 +265,16 @@ class ExperimentGeographicMap extends React.Component<*> {
     this._map.fitBounds(bounds);
   };
 
+  screenPositionFromLatLng = latLng => {
+    const divPosition = this.fromLatLngToPoint(latLng);
+    const boundingClientRect = this._mapDiv.getBoundingClientRect();
+    const screenPosition = {
+      x: boundingClientRect.left + divPosition.x,
+      y: boundingClientRect.top + divPosition.y,
+    };
+    return screenPosition;
+  };
+
   updateHighlighted = () => {
     const { highlighted } = this.props;
     if (highlighted && highlighted.length) {
@@ -274,6 +297,17 @@ class ExperimentGeographicMap extends React.Component<*> {
     } else {
       this._phyloCanvasTooltip && this._phyloCanvasTooltip.setVisible(false);
     }
+
+    // TODO: add marker support
+    const { trackingCluster } = this.state;
+    if (trackingCluster) {
+      const experimentsTooltipLocation = this.screenPositionFromLatLng(
+        trackingCluster.getCenter()
+      );
+      this.setState({
+        experimentsTooltipLocation,
+      });
+    }
   };
 
   componentDidUpdate = (prevProps: any) => {
@@ -287,16 +321,24 @@ class ExperimentGeographicMap extends React.Component<*> {
   };
 
   render() {
+    const { experimentsHighlighted } = this.props;
+    const { experimentsTooltipLocation } = this.state;
     return (
       <div className={styles.mapContainer}>
         <div ref={this.setMapRef} className={styles.map} />
         <PhyloCanvasTooltip ref={this.setPhyloCanvasTooltipRef} />
+        <ExperimentsTooltip
+          experiments={experimentsHighlighted}
+          x={experimentsTooltipLocation.x}
+          y={experimentsTooltipLocation.y}
+        />
       </div>
     );
   }
 }
 
 ExperimentGeographicMap.propTypes = {
+  ...withExperimentsHighlightedPropTypes,
   setNodeHighlighted: PropTypes.func,
   experiments: PropTypes.array,
   highlighted: PropTypes.array,
