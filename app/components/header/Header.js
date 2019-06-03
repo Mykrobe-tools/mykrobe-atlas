@@ -3,7 +3,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Link, NavLink as ReactRouterNavLink } from 'react-router-dom';
-import DocumentTitle from 'react-document-title';
 import {
   Button,
   Container,
@@ -14,6 +13,7 @@ import {
 } from 'reactstrap';
 
 import NotificationsButton from '../notifications/NotificationsButton';
+import AppDocumentTitle from '../ui/AppDocumentTitle';
 import styles from './Header.scss';
 
 import { withAuthPropTypes } from 'makeandship-js-common/src/hoc/withAuth';
@@ -44,7 +44,7 @@ class Header extends React.Component<*> {
     return (
       <Container fluid className={styles.container}>
         <div className={styles.contentWrap}>
-          {hasTitle && <DocumentTitle title={title} />}
+          {hasTitle && <AppDocumentTitle title={title} />}
           {hasTitle && <div className={styles.title}>{title}</div>}
           {currentUser ? (
             <div className={styles.account}>

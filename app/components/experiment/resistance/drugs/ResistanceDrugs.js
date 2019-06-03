@@ -2,9 +2,11 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
+
 import styles from './ResistanceDrugs.scss';
 import Panel from '../../../ui/Panel';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
+import AppDocumentTitle from '../../../ui/AppDocumentTitle';
 
 /*
 Isoniazid
@@ -62,17 +64,22 @@ class ResistanceDrugs extends React.Component<*> {
   }
 
   render() {
-    const { experimentTransformed } = this.props;
+    const { experimentTransformed, experimentIsolateId } = this.props;
     const { hasResistance, error } = experimentTransformed;
+    const documentTitle = (
+      <AppDocumentTitle title={[experimentIsolateId, 'Resistance', 'Drugs']} />
+    );
     if (!hasResistance) {
       return (
         <div className={styles.empty} data-tid="component-resistance-drugs">
+          {documentTitle}
           <ResistanceEmpty subtitle={error} />
         </div>
       );
     }
     return (
       <div className={styles.container} data-tid="component-resistance-drugs">
+        {documentTitle}
         <Panel title="First line drugs" columns={4}>
           {this.listDrugsWithIndicators(firstLineDrugs)}
         </Panel>

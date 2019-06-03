@@ -7,6 +7,9 @@ import { Container } from 'reactstrap';
 
 import CircularProgress from '../../ui/CircularProgress';
 
+import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
+import { withExperimentPropTypes } from '../../../hoc/withExperiment';
+
 import styles from './ExperimentMetadataNavigation.scss';
 
 class ExperimentMetadataNavigation extends React.Component<*> {
@@ -103,10 +106,9 @@ class ExperimentMetadataNavigation extends React.Component<*> {
 }
 
 ExperimentMetadataNavigation.propTypes = {
+  ...withFileUploadPropTypes,
+  ...withExperimentPropTypes,
   match: PropTypes.object.isRequired,
-  isBusyWithCurrentRoute: PropTypes.bool.isRequired,
-  experimentOwnerIsCurrentUser: PropTypes.bool,
-  completion: PropTypes.object.isRequired,
 };
 
 export default ExperimentMetadataNavigation;

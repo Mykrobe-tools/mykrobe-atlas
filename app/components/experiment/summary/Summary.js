@@ -1,7 +1,6 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
 
 import Uploading from '../../ui/Uploading';
 import ResistanceProfile from '../resistance/profile/ResistanceProfile';
@@ -9,6 +8,10 @@ import Panel from '../../ui/Panel';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';
 import Footer from '../../footer/Footer';
+import AppDocumentTitle from '../../ui/AppDocumentTitle';
+
+import { withExperimentPropTypes } from '../../../hoc/withExperiment';
+import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
 
 import styles from './Summary.scss';
 
@@ -19,6 +22,7 @@ class Summary extends React.Component<*> {
       experimentTransformed,
       experimentNearestNeigbours,
       isBusyWithCurrentRoute,
+      experimentIsolateId,
     } = this.props;
     let content;
     if (isBusyWithCurrentRoute) {
@@ -54,6 +58,7 @@ class Summary extends React.Component<*> {
     }
     return (
       <div className={styles.container}>
+        <AppDocumentTitle title={[experimentIsolateId, 'Summary']} />
         {content}
         <Footer />
       </div>
@@ -62,10 +67,8 @@ class Summary extends React.Component<*> {
 }
 
 Summary.propTypes = {
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
-  experimentNearestNeigbours: PropTypes.array,
-  isBusyWithCurrentRoute: PropTypes.bool,
+  ...withExperimentPropTypes,
+  ...withFileUploadPropTypes,
 };
 
 export default Summary;

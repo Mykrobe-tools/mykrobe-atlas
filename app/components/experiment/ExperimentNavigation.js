@@ -4,19 +4,16 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
-import _get from 'lodash.get';
 
 import HeaderContainer from '../header/HeaderContainer';
 import styles from './ExperimentNavigation.scss';
 
 class ExperimentNavigation extends React.Component<*> {
   render() {
-    const { match, experiment } = this.props;
-    const isolateId =
-      _get(experiment, 'metadata.sample.isolateId') || 'No isolate Id';
+    const { match, experimentIsolateId } = this.props;
     return (
       <div className={styles.container}>
-        <HeaderContainer title={isolateId} />
+        <HeaderContainer title={experimentIsolateId} />
         <Container fluid>
           <div className={styles.navigation}>
             <NavLink
