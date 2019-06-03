@@ -182,6 +182,7 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   };
 
   fromLatLngToPoint = (latLng: any) => {
+    const TILE_SIZE = 256;
     const projection = this._map.getProjection();
     const bounds = this._map.getBounds();
     if (!projection) {
@@ -194,7 +195,12 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     const bottomLeft = projection.fromLatLngToPoint(bounds.getSouthWest());
     const scale = Math.pow(2, this._map.getZoom());
     const worldPoint = projection.fromLatLngToPoint(latLng);
-    const x = (worldPoint.x - bottomLeft.x) * scale;
+    let x = worldPoint.x - bottomLeft.x;
+    // FIXME: ugly fix for wrapping
+    while (x < 0) {
+      x += TILE_SIZE;
+    }
+    x *= scale;
     const y = (worldPoint.y - topRight.y) * scale;
     return { x, y };
   };
