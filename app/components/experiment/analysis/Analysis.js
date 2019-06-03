@@ -11,6 +11,7 @@ import ExperimentGeographicMap from './ExperimentGeographicMap';
 import { withExperimentPropTypes } from '../../../hoc/withExperiment';
 import { withPhylogenyNodePropTypes } from '../../../hoc/withPhylogenyNode';
 import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
+import { withExperimentsHighlightedPropTypes } from '../../../hoc/withExperimentsHighlighted';
 
 class Analysis extends React.Component<*> {
   render() {
@@ -21,6 +22,9 @@ class Analysis extends React.Component<*> {
       unsetNodeHighlightedAll,
       experimentsTree,
       experimentAndNearestNeigbours,
+      experimentsHighlighted,
+      setExperimentsHighlighted,
+      resetExperimentsHighlighted,
     } = this.props;
     let content;
     if (isBusyWithCurrentRoute) {
@@ -31,7 +35,9 @@ class Analysis extends React.Component<*> {
           <div className={styles.mapAndPhylogenyContainer}>
             <ExperimentGeographicMap
               experiments={experimentAndNearestNeigbours}
-              setNodeHighlighted={setNodeHighlighted}
+              experimentsHighlighted={experimentsHighlighted}
+              setExperimentsHighlighted={setExperimentsHighlighted}
+              resetExperimentsHighlighted={resetExperimentsHighlighted}
             />
             <div className={styles.phylogenyContainer}>
               <Phylogeny
@@ -54,6 +60,7 @@ Analysis.propTypes = {
   ...withExperimentPropTypes,
   ...withPhylogenyNodePropTypes,
   ...withFileUploadPropTypes,
+  ...withExperimentsHighlightedPropTypes,
 };
 
 export default Analysis;
