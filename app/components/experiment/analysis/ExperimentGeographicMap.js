@@ -7,8 +7,15 @@ import _get from 'lodash.get';
 import _isEqual from 'lodash.isequal';
 import MarkerClusterer from '@google/markerclustererplus';
 import memoizeOne from 'memoize-one';
+import {
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap';
 
 import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
+import ExperimentsList from '../../ui/ExperimentsList';
 
 import MapStyle from './MapStyle';
 
@@ -362,6 +369,24 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     return (
       <div className={styles.mapContainer}>
         <div ref={this.setMapRef} className={styles.map} />
+        <div className={styles.controlsContainerTop}>
+          {experimentsWithoutGeolocation &&
+            experimentsWithoutGeolocation.length && (
+              <UncontrolledDropdown>
+                <DropdownToggle color="mid" outline size={'sm'}>
+                  {experimentsWithoutGeolocation.length} not shown{' '}
+                  <i className="fa fa-caret-down" />
+                </DropdownToggle>
+                <DropdownMenu>
+                  <div className={styles.dropdownContent}>
+                    <ExperimentsList
+                      experiments={experimentsWithoutGeolocation}
+                    />
+                  </div>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            )}
+        </div>
         <ExperimentsTooltip
           experiments={experimentsHighlightedWithGeolocation}
           x={experimentsTooltipLocation.x}
