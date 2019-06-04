@@ -20,14 +20,16 @@ import { getCurrentUser } from '../../modules/users/currentUser';
 import { ANALYSIS_COMPLETE } from '../../modules/users/currentUserEvents';
 
 import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
-import addExtraData from './util/addExtraData';
+import { getExperimentsTreeNewick } from './experimentsTree';
+import {
+  experimentsInTree,
+  experimentsWithGeolocation,
+} from './util/experiments';
 
 import {
   experimentMetadataSchema,
   completenessForSchemaAndData,
 } from '../../schemas/experiment';
-
-const ADD_EXTRA_DATA = false;
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experiment/',
@@ -73,19 +75,19 @@ const {
     deleteEntity,
     setEntity,
   },
-  selectors: { getEntity, getError, getIsFetching },
+  selectors: { getEntity: getExperiment, getError, getIsFetching },
   sagas: { entitySaga },
 } = module;
 
 // Selectors
 
 export const getExperimentMetadata = createSelector(
-  getEntity,
+  getExperiment,
   experiment => experiment.metadata
 );
 
 export const getExperimentOwnerIsCurrentUser = createSelector(
-  getEntity,
+  getExperiment,
   getCurrentUser,
   (experiment, currentUser) => {
     return (
@@ -102,19 +104,6 @@ export const getExperimentIsolateId = createSelector(
   metadata => _get(metadata, 'sample.isolateId') || '–'
 );
 
-// TODO: remove once we are receiving sufficiently detailed data from API
-
-export const getExperiment = createSelector(getEntity, experiment => {
-  if (IS_ELECTRON) {
-    return experiment;
-  }
-  if (ADD_EXTRA_DATA) {
-    const experimentWithExtraData = addExtraData(experiment);
-    return experimentWithExtraData;
-  }
-  return experiment;
-});
-
 export const getExperimentTransformed = createSelector(
   getExperiment,
   experiment => {
@@ -122,6 +111,20 @@ export const getExperimentTransformed = createSelector(
     const transformed = transformer.transformModel(experiment);
     return transformed;
   }
+);
+
+// highlighted with and without tree node
+
+export const getExperimentInTree = createSelector(
+  getExperimentsTreeNewick,
+  getExperiment,
+  (newick, experiment) => experimentsInTree(newick, [experiment], true)
+);
+
+export const getExperimentNotInTree = createSelector(
+  getExperimentsTreeNewick,
+  getExperiment,
+  (newick, experiment) => experimentsInTree(newick, [experiment], false)
 );
 
 export const getExperimentNearestNeigbours = createSelector(
@@ -154,7 +157,34 @@ export const getExperimentAndNearestNeigbours = createSelector(
   }
 );
 
+// highlighted with and without tree node
+
+export const getExperimentAndNearestNeigboursInTree = createSelector(
+  getExperimentsTreeNewick,
+  getExperimentAndNearestNeigbours,
+  (newick, experiments) => experimentsInTree(newick, experiments, true)
+);
+
+export const getExperimentAndNearestNeigboursNotInTree = createSelector(
+  getExperimentsTreeNewick,
+  getExperimentAndNearestNeigbours,
+  (newick, experiments) => experimentsInTree(newick, experiments, false)
+);
+
+// highlighted with and without geolocation available
+
+export const getExperimentAndNearestNeigboursWithGeolocation = createSelector(
+  getExperimentAndNearestNeigbours,
+  experiments => experimentsWithGeolocation(experiments, true)
+);
+
+export const getExperimentAndNearestNeigboursWithoutGeolocation = createSelector(
+  getExperimentAndNearestNeigbours,
+  experiments => experimentsWithGeolocation(experiments, false)
+);
+
 export {
+  getExperiment,
   newEntity as newExperiment,
   setEntity as setExperiment,
   createEntity as createExperiment,

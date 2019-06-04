@@ -16,7 +16,6 @@ import networkStatus, { networkStatusSaga } from './networkStatus';
 
 import experiments, { rootExperimentsSaga } from './experiments';
 import organisations, { rootOrganisationsSaga } from './organisations';
-import phylogeny from './phylogeny';
 import users, { rootUsersSaga } from './users';
 import upload, { rootUploadSaga } from './upload';
 import notifications, { rootNotificationsSaga } from './notifications';
@@ -32,7 +31,6 @@ export const rootReducer = (history: any) =>
     experiments,
     notifications,
     organisations,
-    phylogeny,
     upload,
     networkStatus,
   });

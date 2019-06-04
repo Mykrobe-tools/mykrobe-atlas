@@ -20,6 +20,7 @@ import experimentsChoices, {
 import experimentsTree, { experimentsTreeSaga } from './experimentsTree';
 import { experimentsFiltersChoicesSaga } from './experimentsFiltersChoices';
 import { experimentsNotificationSaga } from './experimentsNotification';
+import experimentsHighlighted from './experimentsHighlighted';
 
 export {
   getExperiments,
@@ -31,6 +32,10 @@ export {
   experimentsSaga,
   getExperimentsSearchDescription,
   getExperimentsSearchQuery,
+  getExperimentsInTree,
+  getExperimentsNotInTree,
+  getExperimentsWithGeolocation,
+  getExperimentsWithoutGeolocation,
 } from './experiments';
 
 export {
@@ -46,25 +51,31 @@ export {
 } from './experimentsFilters';
 
 export {
-  getExperiment,
-  getExperimentTransformed,
-  getExperimentMetadata,
-  getExperimentOwnerIsCurrentUser,
-  getExperimentNearestNeigbours,
-  getExperimentHasNearestNeigbours,
-  getExperimentMetadataCompletion,
-  getExperimentAndNearestNeigbours,
-  getExperimentError,
-  getIsFetchingExperiment,
   createExperiment,
-  requestExperiment,
-  updateExperiment,
+  createExperimentId,
   deleteExperiment,
   experimentSaga,
-  createExperimentId,
-  newExperiment,
-  setExperiment,
+  getExperiment,
+  getExperimentAndNearestNeigbours,
+  getExperimentAndNearestNeigboursInTree,
+  getExperimentAndNearestNeigboursNotInTree,
+  getExperimentAndNearestNeigboursWithGeolocation,
+  getExperimentAndNearestNeigboursWithoutGeolocation,
+  getExperimentError,
+  getExperimentHasNearestNeigbours,
   getExperimentIsolateId,
+  getExperimentMetadata,
+  getExperimentMetadataCompletion,
+  getExperimentNearestNeigbours,
+  getExperimentOwnerIsCurrentUser,
+  getExperimentTransformed,
+  getIsFetchingExperiment,
+  newExperiment,
+  requestExperiment,
+  setExperiment,
+  updateExperiment,
+  getExperimentInTree,
+  getExperimentNotInTree,
 } from './experiment';
 
 export {
@@ -102,6 +113,7 @@ export {
 export {
   requestExperimentsTree,
   getExperimentsTree,
+  getExperimentsTreeNewick,
   getError as getExperimentsTreeError,
   getIsFetching as getIsFetchingExperimentsTree,
   experimentsTreeSaga,
@@ -114,7 +126,18 @@ const reducer = combineReducers({
   experimentsTree,
   experiment,
   experimentMetadataTemplate,
+  experimentsHighlighted,
 });
+
+export {
+  getExperimentsHighlighted,
+  setExperimentsHighlighted,
+  resetExperimentsHighlighted,
+  getExperimentsHighlightedInTree,
+  getExperimentsHighlightedNotInTree,
+  getExperimentsHighlightedWithGeolocation,
+  getExperimentsHighlightedWithoutGeolocation,
+} from './experimentsHighlighted';
 
 export default reducer;
 

@@ -1210,10 +1210,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.2.tgz#63985d3d8b02530e0869962f4da09142ee8e200e"
   integrity sha512-n/VQ4mbfr81aqkx/XmVicOLjviMuy02eenSdJY33SVA7S2J42EU0P1H0mOogfYedb3wXA0d/LVtBrgTSm04WEA==
 
-"@google/markerclusterer@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@google/markerclusterer/-/markerclusterer-1.0.3.tgz#830b9dbba85fae9537a16d17947b484f9e860c65"
-  integrity sha512-/fRbSPyQKnm43zRnoyMerbiGS3vG3WkZiLgpBF3ovoLO84sKhEAzKMVcyozy/khEHlZoMJ9Axkr0NRVJRAQhcg==
+"@google/markerclustererplus@^2.1.11":
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/@google/markerclustererplus/-/markerclustererplus-2.1.11.tgz#cc8598d7f17ada8eab13a2f25094d020dbd0bf36"
+  integrity sha512-B1w3TKgu1MRTJq7VXUv3JUxAd69qHROIg2tODPjQA7tjKvu4K7pCdPduE6Xu9Mfb5syhOH77BWGHqFYy7MgjCw==
 
 "@gulp-sourcemaps/map-sources@1.X":
   version "1.0.0"

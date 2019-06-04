@@ -1,9 +1,10 @@
 /* @flow */
 
 import * as React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
 
-import PhyloCanvasTooltip from './PhyloCanvasTooltip';
+import ExperimentsTooltip from './ExperimentsTooltip';
 
 const experiment = {
   metadata: {
@@ -24,13 +25,14 @@ const experiment = {
 
 const variations = {
   default: {
-    node: experiment,
-    visible: true,
+    experiments: [experiment],
     x: '50%',
     y: '50%',
   },
 };
 
-storiesOf('PhyloCanvasTooltip', module).add('Default', () => (
-  <PhyloCanvasTooltip {...variations.default} />
-));
+storiesOf('ExperimentsTooltip', module)
+  .addDecorator(story => (
+    <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
+  ))
+  .add('Default', () => <ExperimentsTooltip {...variations.default} />);

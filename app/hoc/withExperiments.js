@@ -18,6 +18,10 @@ import {
   resetExperimentsFilters,
   getExperimentsSearchDescription,
   getExperimentsSearchQuery,
+  getExperimentsInTree,
+  getExperimentsNotInTree,
+  getExperimentsWithGeolocation,
+  getExperimentsWithoutGeolocation,
 } from '../modules/experiments';
 
 const withExperiments = connect(
@@ -31,6 +35,10 @@ const withExperiments = connect(
     experimentsSearchDescription: getExperimentsSearchDescription(state),
     experimentsError: getExperimentsError(state),
     experimentsSearchQuery: getExperimentsSearchQuery(state),
+    experimentsInTree: getExperimentsInTree(state),
+    experimentsNotInTree: getExperimentsNotInTree(state),
+    experimentsWithGeolocation: getExperimentsWithGeolocation(state),
+    experimentsWithoutGeolocation: getExperimentsWithoutGeolocation(state),
   }),
   {
     requestExperiments,
@@ -56,6 +64,10 @@ export const withExperimentsPropTypes = {
   resetExperimentsFilters: PropTypes.func,
   newExperiment: PropTypes.func,
   experimentsSearchQuery: PropTypes.string,
+  getExperimentsInTree: PropTypes.array,
+  getExperimentsNotInTree: PropTypes.array,
+  getExperimentsWithGeolocation: PropTypes.array,
+  getExperimentsWithoutGeolocation: PropTypes.array,
 };
 
 export default withExperiments;

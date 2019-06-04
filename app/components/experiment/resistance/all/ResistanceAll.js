@@ -11,19 +11,22 @@ import Phylogeny from '../../../phylogeny/Phylogeny';
 import styles from './ResistanceAll.scss';
 
 import { withExperimentPropTypes } from '../../../../hoc/withExperiment';
-import { withPhylogenyNodePropTypes } from '../../../../hoc/withPhylogenyNode';
+import { withExperimentsHighlightedPropTypes } from '../../../../hoc/withExperimentsHighlighted';
 
 class ResistanceAll extends React.Component<*> {
   render() {
     const {
       experiment,
-      experimentAndNearestNeigbours,
-      experimentsTree,
+      experimentInTree,
+      experimentNotInTree,
+      experimentsTreeNewick,
       experimentTransformed,
-      highlighted,
-      setNodeHighlighted,
-      unsetNodeHighlightedAll,
       experimentIsolateId,
+      experimentsHighlighted,
+      setExperimentsHighlighted,
+      resetExperimentsHighlighted,
+      experimentsHighlightedInTree,
+      experimentsHighlightedNotInTree,
     } = this.props;
     const { hasResistance, error } = experimentTransformed;
     const documentTitle = (
@@ -49,12 +52,17 @@ class ResistanceAll extends React.Component<*> {
         {!IS_ELECTRON && (
           <Panel title="Phylogeny" columns={5}>
             <Phylogeny
-              experiments={experimentAndNearestNeigbours}
-              highlighted={highlighted}
-              setNodeHighlighted={setNodeHighlighted}
-              unsetNodeHighlightedAll={unsetNodeHighlightedAll}
-              experimentsTree={experimentsTree}
               controlsInset={0}
+              experimentsTreeNewick={experimentsTreeNewick}
+              experiments={[experiment]}
+              experimentsHighlighted={experimentsHighlighted}
+              experimentsHighlightedInTree={experimentsHighlightedInTree}
+              experimentsHighlightedNotInTree={experimentsHighlightedNotInTree}
+              experimentsInTree={experimentInTree}
+              experimentsNotInTree={experimentNotInTree}
+              setExperimentsHighlighted={setExperimentsHighlighted}
+              resetExperimentsHighlighted={resetExperimentsHighlighted}
+              experimentIsolateId={experimentIsolateId}
             />
           </Panel>
         )}
@@ -65,7 +73,7 @@ class ResistanceAll extends React.Component<*> {
 
 ResistanceAll.propTypes = {
   ...withExperimentPropTypes,
-  ...withPhylogenyNodePropTypes,
+  ...withExperimentsHighlightedPropTypes,
 };
 
 export default ResistanceAll;
