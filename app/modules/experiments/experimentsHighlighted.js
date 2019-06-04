@@ -2,6 +2,9 @@
 
 import { createSelector } from 'reselect';
 import produce from 'immer';
+import _get from 'lodash.get';
+
+import { getExperimentsTree } from './experimentsTree';
 
 export const typePrefix = 'experiments/experimentsHighlighted/';
 export const SET_EXPERIMENTS_HIGHLIGHTED = `${typePrefix}SET_EXPERIMENTS_HIGHLIGHTED`;
@@ -15,6 +18,37 @@ export const getState = (state: any) =>
 export const getExperimentsHighlighted = createSelector(
   getState,
   experimentsHighlighted => experimentsHighlighted
+);
+
+// highlighted with and without geolocation available
+
+export const experimentsWithGeolocation = (
+  experiments,
+  withGeolocation = true
+) => {
+  return experiments.filter(experiment => {
+    const longitudeIsolate = _get(
+      experiment,
+      'metadata.sample.longitudeIsolate'
+    );
+    const latitudeIsolate = _get(experiment, 'metadata.sample.latitudeIsolate');
+    if (longitudeIsolate && latitudeIsolate) {
+      return withGeolocation;
+    }
+    return !withGeolocation;
+  });
+};
+
+export const getExperimentsHighlightedWithGeolocation = createSelector(
+  getExperimentsHighlighted,
+  experimentsHighlighted =>
+    experimentsWithGeolocation(experimentsHighlighted, true)
+);
+
+export const getExperimentsHighlightedWithoutGeolocation = createSelector(
+  getExperimentsHighlighted,
+  experimentsHighlighted =>
+    experimentsWithGeolocation(experimentsHighlighted, false)
 );
 
 // Action creators

@@ -314,9 +314,10 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   };
 
   componentDidUpdate = (prevProps: any) => {
-    const { experiments } = this.props;
+    const { experiments, resetExperimentsHighlighted } = this.props;
     if (!_isEqual(experiments, prevProps.experiments)) {
       this.updateMarkers();
+      resetExperimentsHighlighted();
     }
   };
 
