@@ -5,7 +5,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import styles from './PhyloCanvasComponent.scss';
 import * as Colors from '../../constants/Colors';
-import PhyloCanvasTooltip from './PhyloCanvasTooltip';
 
 const { events, canvas } = utils;
 const { fireEvent } = events;
@@ -24,18 +23,13 @@ class DrawEventTree extends Tree {
 
 class PhyloCanvasComponent extends React.Component<*> {
   _drawDeferredTimeout: number;
-  _resize: (e: Event) => void;
-  _mouseMove: (e: MouseEvent) => void;
   _tree: DrawEventTree;
   _phyloCanvasDiv: React$Element<any>;
   _highlightedNodes: Object;
-  _phyloCanvasTooltip: PhyloCanvasTooltip;
   _currentNodeHover: Branch;
 
   constructor() {
     super();
-    this._resize = () => this.resize();
-    this._mouseMove = e => this.mouseMove(e);
     this._currentNodeHover = null;
     this._highlightedNodes = {};
   }
@@ -65,15 +59,15 @@ class PhyloCanvasComponent extends React.Component<*> {
       this.afterDraw();
     });
     this._tree.load(this.props.data);
-    this._tree.canvas.canvas.addEventListener('mousemove', this._mouseMove);
+    this._tree.canvas.canvas.addEventListener('mousemove', this.mouseMove);
     console.log('addEventListener');
-    window.addEventListener('resize', this._resize);
+    window.addEventListener('resize', this.resize);
   }
 
   componentWillUnmount() {
     console.log('removeEventListener');
-    window.removeEventListener('resize', this._resize);
-    this._tree.canvas.canvas.removeEventListener('mousemove', this._mouseMove);
+    window.removeEventListener('resize', this.resize);
+    this._tree.canvas.canvas.removeEventListener('mousemove', this.mouseMove);
     delete this._tree;
   }
 
@@ -226,7 +220,7 @@ class PhyloCanvasComponent extends React.Component<*> {
     }
   }
 
-  mouseMove(e: MouseEvent) {
+  mouseMove = (e: MouseEvent) => {
     const { onNodeMouseOver, onNodeMouseOut } = this.props;
     const node: Branch = this._tree.getNodeAtMousePosition(e);
     if (!node) {
@@ -256,7 +250,7 @@ class PhyloCanvasComponent extends React.Component<*> {
       }
     }
     this._currentNodeHover = node;
-  }
+  };
 
   componentDidUpdate(prevProps: Object) {
     if (prevProps.data !== this.props.data) {

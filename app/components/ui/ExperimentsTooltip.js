@@ -22,8 +22,13 @@ class ExperimentsTooltip extends React.PureComponent<*> {
 
   handleClickOutside = event => {
     const { onClickOutside } = this.props;
+    if (!onClickOutside) {
+      return;
+    }
     if (this._ref && !this._ref.contains(event.target)) {
-      onClickOutside && onClickOutside(event);
+      // FIXME: this is a crude way of allowing clicking on a navigation link outside
+      // this tooltip - possibly on a different tooltip - to propagate
+      setTimeout(onClickOutside, 500);
     }
   };
 

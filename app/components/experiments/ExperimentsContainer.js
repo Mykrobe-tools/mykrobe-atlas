@@ -5,7 +5,6 @@ import * as React from 'react';
 import Experiments from './Experiments';
 
 import withExperiments from '../../hoc/withExperiments';
-import withPhylogenyNode from '../../hoc/withPhylogenyNode';
 import withExperimentsHighlighted from '../../hoc/withExperimentsHighlighted';
 
 class ExperimentsContainer extends React.Component<*> {
@@ -41,5 +40,5 @@ class ExperimentsContainer extends React.Component<*> {
 }
 
 export default withExperimentsHighlighted(
-  withPhylogenyNode(withExperiments(ExperimentsContainer))
+  withExperiments(ExperimentsContainer)
 );

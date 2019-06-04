@@ -33,7 +33,6 @@ import Empty from '../ui/Empty';
 import ExperimentGeographicMap from '../experiment/analysis/ExperimentGeographicMap';
 
 import { withExperimentsPropTypes } from '../../hoc/withExperiments';
-import { withPhylogenyNodePropTypes } from '../../hoc/withPhylogenyNode';
 import { withExperimentsHighlightedPropTypes } from '../../hoc/withExperimentsHighlighted';
 
 type State = {
@@ -142,8 +141,6 @@ class Experiments extends React.Component<*, State> {
       experimentsIsPending,
       experimentsSearchDescription,
       experimentsError,
-      highlighted,
-      setNodeHighlighted,
       experimentsHighlighted,
       setExperimentsHighlighted,
       resetExperimentsHighlighted,
@@ -228,8 +225,6 @@ class Experiments extends React.Component<*, State> {
             <Container fluid>{headerContent}</Container>
             <ExperimentGeographicMap
               experiments={results}
-              highlighted={highlighted}
-              setNodeHighlighted={setNodeHighlighted}
               experimentsHighlighted={experimentsHighlighted}
               setExperimentsHighlighted={setExperimentsHighlighted}
               resetExperimentsHighlighted={resetExperimentsHighlighted}
@@ -337,7 +332,6 @@ class Experiments extends React.Component<*, State> {
 
 Experiments.propTypes = {
   ...withExperimentsPropTypes,
-  ...withPhylogenyNodePropTypes,
   ...withExperimentsHighlightedPropTypes,
   onChangeListOrder: PropTypes.func,
   setPage: PropTypes.func,

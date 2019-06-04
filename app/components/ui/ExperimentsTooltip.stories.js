@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import PhyloCanvasTooltip from './PhyloCanvasTooltip';
+import ExperimentsTooltip from './ExperimentsTooltip';
 
 const experiment = {
   metadata: {
@@ -31,6 +31,6 @@ const variations = {
   },
 };
 
-storiesOf('PhyloCanvasTooltip', module).add('Default', () => (
-  <PhyloCanvasTooltip {...variations.default} />
+storiesOf('ExperimentsTooltip', module).add('Default', () => (
+  <ExperimentsTooltip {...variations.default} />
 ));

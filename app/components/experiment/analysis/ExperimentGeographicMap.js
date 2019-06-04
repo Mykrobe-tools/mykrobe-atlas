@@ -157,9 +157,8 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     });
   };
 
-  onExperimentsTooltipClickOutside = e => {
+  onExperimentsTooltipClickOutside = () => {
     const { resetExperimentsHighlighted } = this.props;
-    e.preventDefault();
     resetExperimentsHighlighted();
     this.setState({
       trackingMarkerCluster: undefined,

@@ -10,7 +10,6 @@ import styles from './Phylogeny.scss';
 import * as Colors from '../../constants/Colors';
 
 import PhyloCanvasComponent from '../ui/PhyloCanvasComponent';
-// import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
 import ExperimentsTooltip from '../ui/ExperimentsTooltip';
 
 import type { SampleType } from '../../types/SampleType';
@@ -32,7 +31,6 @@ type State = {
 
 class Phylogeny extends React.Component<*, State> {
   _phyloCanvas: ?PhyloCanvasComponent;
-  _phyloCanvasTooltip: ?PhyloCanvasTooltip;
   _container: ?Element;
 
   state = {
@@ -48,13 +46,6 @@ class Phylogeny extends React.Component<*, State> {
     if (this.nodeIsInSamplesToHighlight(node)) {
       setExperimentsHighlighted([this.getSampleWithId(node.id)]);
     }
-  };
-
-  onNodeMouseOut = node => {
-    // const { setNodeHighlighted } = this.props;
-    // if (this.nodeIsInSamplesToHighlight(node)) {
-    //   setNodeHighlighted(node.id, false);
-    // }
   };
 
   onLoad = () => {
@@ -168,7 +159,6 @@ class Phylogeny extends React.Component<*, State> {
       experimentsInTree,
       experimentsNotInTree,
       experimentsHighlightedInTree,
-      experimentsHighlightedNotInTree,
     } = this.props;
     const { treeType } = this.state;
     if (!experimentsTreeNewick) {
@@ -221,29 +211,29 @@ class Phylogeny extends React.Component<*, State> {
               </div>
             ))}
           </div>
-          {experimentsHighlightedInTree.map(experiment => {
-            const isolateId = _get(experiment, 'metadata.sample.isolateId');
-            const experimentsTooltipLocation = this.screenPositionForNodeId(
-              isolateId
-            );
-            return (
-              <ExperimentsTooltip
-                key={isolateId}
-                experiments={[experiment]}
-                x={experimentsTooltipLocation.x}
-                y={experimentsTooltipLocation.y}
-                onClickOutside={this.onExperimentsTooltipClickOutside}
-              />
-            );
-          })}
+          {experimentsHighlightedInTree &&
+            experimentsHighlightedInTree.map(experiment => {
+              const isolateId = _get(experiment, 'metadata.sample.isolateId');
+              const experimentsTooltipLocation = this.screenPositionForNodeId(
+                isolateId
+              );
+              return (
+                <ExperimentsTooltip
+                  key={isolateId}
+                  experiments={[experiment]}
+                  x={experimentsTooltipLocation.x}
+                  y={experimentsTooltipLocation.y}
+                  onClickOutside={this.onExperimentsTooltipClickOutside}
+                />
+              );
+            })}
         </div>
       </div>
     );
   }
 
-  onExperimentsTooltipClickOutside = e => {
+  onExperimentsTooltipClickOutside = () => {
     const { resetExperimentsHighlighted } = this.props;
-    e.preventDefault();
     resetExperimentsHighlighted();
   };
 
