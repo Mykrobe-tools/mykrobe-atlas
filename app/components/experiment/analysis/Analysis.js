@@ -10,19 +10,27 @@ import ExperimentGeographicMap from './ExperimentGeographicMap';
 import AppDocumentTitle from '../../ui/AppDocumentTitle';
 
 import { withExperimentPropTypes } from '../../../hoc/withExperiment';
-import { withPhylogenyNodePropTypes } from '../../../hoc/withPhylogenyNode';
 import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
+import { withExperimentsHighlightedPropTypes } from '../../../hoc/withExperimentsHighlighted';
 
 class Analysis extends React.Component<*> {
   render() {
     const {
       isBusyWithCurrentRoute,
-      highlighted,
-      setNodeHighlighted,
-      unsetNodeHighlightedAll,
-      experimentsTree,
+      experimentsTreeNewick,
       experimentAndNearestNeigbours,
+      experimentAndNearestNeigboursInTree,
+      experimentAndNearestNeigboursNotInTree,
+      experimentAndNearestNeigboursWithGeolocation,
+      experimentAndNearestNeigboursWithoutGeolocation,
       experimentIsolateId,
+      experimentsHighlighted,
+      setExperimentsHighlighted,
+      resetExperimentsHighlighted,
+      experimentsHighlightedInTree,
+      experimentsHighlightedNotInTree,
+      experimentsHighlightedWithGeolocation,
+      experimentsHighlightedWithoutGeolocation,
     } = this.props;
     let content;
     if (isBusyWithCurrentRoute) {
@@ -33,16 +41,37 @@ class Analysis extends React.Component<*> {
           <div className={styles.mapAndPhylogenyContainer}>
             <ExperimentGeographicMap
               experiments={experimentAndNearestNeigbours}
-              highlighted={highlighted}
-              setNodeHighlighted={setNodeHighlighted}
+              experimentsWithGeolocation={
+                experimentAndNearestNeigboursWithGeolocation
+              }
+              experimentsWithoutGeolocation={
+                experimentAndNearestNeigboursWithoutGeolocation
+              }
+              experimentsHighlighted={experimentsHighlighted}
+              experimentsHighlightedWithGeolocation={
+                experimentsHighlightedWithGeolocation
+              }
+              experimentsHighlightedWithoutGeolocation={
+                experimentsHighlightedWithoutGeolocation
+              }
+              setExperimentsHighlighted={setExperimentsHighlighted}
+              resetExperimentsHighlighted={resetExperimentsHighlighted}
+              experimentIsolateId={experimentIsolateId}
             />
             <div className={styles.phylogenyContainer}>
               <Phylogeny
+                experimentsTreeNewick={experimentsTreeNewick}
                 experiments={experimentAndNearestNeigbours}
-                highlighted={highlighted}
-                setNodeHighlighted={setNodeHighlighted}
-                unsetNodeHighlightedAll={unsetNodeHighlightedAll}
-                experimentsTree={experimentsTree}
+                experimentsHighlighted={experimentsHighlighted}
+                experimentsHighlightedInTree={experimentsHighlightedInTree}
+                experimentsHighlightedNotInTree={
+                  experimentsHighlightedNotInTree
+                }
+                experimentsInTree={experimentAndNearestNeigboursInTree}
+                experimentsNotInTree={experimentAndNearestNeigboursNotInTree}
+                setExperimentsHighlighted={setExperimentsHighlighted}
+                resetExperimentsHighlighted={resetExperimentsHighlighted}
+                experimentIsolateId={experimentIsolateId}
               />
             </div>
           </div>
@@ -60,8 +89,8 @@ class Analysis extends React.Component<*> {
 
 Analysis.propTypes = {
   ...withExperimentPropTypes,
-  ...withPhylogenyNodePropTypes,
   ...withFileUploadPropTypes,
+  ...withExperimentsHighlightedPropTypes,
 };
 
 export default Analysis;

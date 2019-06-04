@@ -5,11 +5,21 @@ import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
 import _get from 'lodash.get';
 import _isEqual from 'lodash.isequal';
-import MarkerClusterer from '@google/markerclusterer';
+import MarkerClusterer from '@google/markerclustererplus';
 import memoizeOne from 'memoize-one';
+import {
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap';
 
-import PhyloCanvasTooltip from '../../ui/PhyloCanvasTooltip';
+import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
+import ExperimentsList from '../../ui/ExperimentsList';
+
 import MapStyle from './MapStyle';
+
+import { withExperimentsHighlightedPropTypes } from '../../../hoc/withExperimentsHighlighted';
 
 import * as Colors from '../../../constants/Colors';
 
@@ -40,13 +50,28 @@ export const makeSvgMarker = memoizeOne(
   }
 );
 
-class ExperimentGeographicMap extends React.Component<*> {
+type State = {
+  experimentsTooltipLocation: {
+    x: number,
+    y: number,
+  },
+  trackingMarkerCluster?: MarkerClusterer,
+  trackingMarker?: Marker,
+};
+
+class ExperimentGeographicMap extends React.Component<*, State> {
   _google: Object;
   _map: Object;
   _mapDiv: Object;
   _markers: Object;
   _markerClusterer: MarkerClusterer;
-  _phyloCanvasTooltip: PhyloCanvasTooltip;
+
+  state = {
+    experimentsTooltipLocation: {
+      x: 0,
+      y: 0,
+    },
+  };
 
   constructor(props: any) {
     super(props);
@@ -67,14 +92,19 @@ class ExperimentGeographicMap extends React.Component<*> {
     }
     const options = {
       center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
+      minZoom: 2,
       maxZoom: 5,
       zoom: 3,
       backgroundColor: '#e2e1dc',
       styles: MapStyle,
+      mapTypeControl: false,
+      fullscreenControl: false,
+      streetViewControl: false,
     };
     this._map = new this._google.maps.Map(this._mapDiv, options);
     // https://googlemaps.github.io/js-marker-clusterer/docs/reference.html
     this._markerClusterer = new MarkerClusterer(this._map, [], {
+      averageCenter: true,
       minimumClusterSize: 2,
       styles: [
         {
@@ -86,6 +116,11 @@ class ExperimentGeographicMap extends React.Component<*> {
         },
       ],
     });
+    this._google.maps.event.addListener(
+      this._markerClusterer,
+      'mouseover',
+      this.onMarkerClusterMouseOver
+    );
     this.updateMarkers();
     // wait for getProjection() to be usable
     this._google.maps.event.addListenerOnce(
@@ -97,6 +132,44 @@ class ExperimentGeographicMap extends React.Component<*> {
     );
     this._google.maps.event.addListener(this._map, 'bounds_changed', () => {
       this.updateHighlighted();
+    });
+  };
+
+  onMarkerClusterMouseOver = markerCluster => {
+    const { setExperimentsHighlighted } = this.props;
+    const experimentsTooltipLocation = this.screenPositionFromLatLng(
+      markerCluster.getCenter()
+    );
+    const markers = markerCluster.getMarkers();
+    const experiments = markers.map(marker => marker.get('experiment'));
+    setExperimentsHighlighted(experiments);
+    this.setState({
+      experimentsTooltipLocation,
+      trackingMarkerCluster: markerCluster,
+      trackingMarker: undefined,
+    });
+  };
+
+  onMarkerMouseOver = marker => {
+    const { setExperimentsHighlighted } = this.props;
+    const experimentsTooltipLocation = this.screenPositionFromLatLng(
+      marker.getPosition()
+    );
+    const experiments = [marker.get('experiment')];
+    setExperimentsHighlighted(experiments);
+    this.setState({
+      experimentsTooltipLocation,
+      trackingMarkerCluster: undefined,
+      trackingMarker: marker,
+    });
+  };
+
+  onExperimentsTooltipClickOutside = () => {
+    const { resetExperimentsHighlighted } = this.props;
+    resetExperimentsHighlighted();
+    this.setState({
+      trackingMarkerCluster: undefined,
+      trackingMarker: undefined,
     });
   };
 
@@ -147,15 +220,11 @@ class ExperimentGeographicMap extends React.Component<*> {
     this.initMap();
   };
 
-  setPhyloCanvasTooltipRef = (ref: any) => {
-    this._phyloCanvasTooltip = ref;
-  };
-
   updateMarkers = () => {
     if (!this._map) {
       return;
     }
-    const { setNodeHighlighted, experiments } = this.props;
+    const { experimentsWithGeolocation } = this.props;
     if (this._markers) {
       for (let markerKey in this._markers) {
         const marker = this._markers[markerKey];
@@ -164,7 +233,7 @@ class ExperimentGeographicMap extends React.Component<*> {
     }
     this._markerClusterer.clearMarkers();
     this._markers = {};
-    experiments.forEach((experiment, index) => {
+    experimentsWithGeolocation.forEach((experiment, index) => {
       const longitudeIsolate = _get(
         experiment,
         'metadata.sample.longitudeIsolate'
@@ -173,36 +242,37 @@ class ExperimentGeographicMap extends React.Component<*> {
         experiment,
         'metadata.sample.latitudeIsolate'
       );
-      if (longitudeIsolate && latitudeIsolate) {
-        const lat = parseFloat(latitudeIsolate);
-        const lng = parseFloat(longitudeIsolate);
-        console.log(`experiment id ${experiment.id} lat ${lat} lat ${lng}`);
-        const marker = new this._google.maps.Marker({
-          icon: {
-            url: makeSvgMarker({
-              diameter: 24,
-              color:
-                index === 0
-                  ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
-                  : Colors.COLOR_HIGHLIGHT_EXPERIMENT,
-            }),
-            anchor: new this._google.maps.Point(12, 12),
-            size: new this._google.maps.Size(24, 24),
-            scaledSize: new this._google.maps.Size(24, 24),
-          },
-          position: { lat, lng },
-          map: this._map,
-        });
-        marker.addListener('mouseover', () => {
-          setNodeHighlighted(experiment.id, true);
-        });
-        marker.addListener('mouseout', () => {
-          setNodeHighlighted(experiment.id, false);
-        });
-        this._markers[experiment.id] = marker;
-      } else {
-        console.log(`experiment id ${experiment.id} has no lat/lng`);
-      }
+      const lat = parseFloat(latitudeIsolate);
+      const lng = parseFloat(longitudeIsolate);
+      console.log(`experiment id ${experiment.id} lat ${lat} lat ${lng}`);
+      const marker = new this._google.maps.Marker({
+        icon: {
+          url: makeSvgMarker({
+            diameter: 24,
+            color:
+              index === 0
+                ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
+                : Colors.COLOR_HIGHLIGHT_EXPERIMENT,
+          }),
+          anchor: new this._google.maps.Point(12, 12),
+          size: new this._google.maps.Size(24, 24),
+          scaledSize: new this._google.maps.Size(24, 24),
+        },
+        position: { lat, lng },
+        map: this._map,
+      });
+      marker.setValues({ experiment });
+      // marker.addListener('mouseover', () => {
+      //   setNodeHighlighted(experiment.id, true);
+      // });
+      marker.addListener('mouseover', () => {
+        this.onMarkerMouseOver(marker);
+      });
+
+      // marker.addListener('mouseout', () => {
+      //   setNodeHighlighted(experiment.id, false);
+      // });
+      this._markers[experiment.id] = marker;
     });
     this._markerClusterer.addMarkers(this._markers);
     this.zoomToMarkers();
@@ -216,55 +286,123 @@ class ExperimentGeographicMap extends React.Component<*> {
     this._map.fitBounds(bounds);
   };
 
+  screenPositionFromLatLng = latLng => {
+    if (!this._mapDiv) {
+      return { x: 0, y: 0 };
+    }
+    const divPosition = this.fromLatLngToPoint(latLng);
+    const boundingClientRect = this._mapDiv.getBoundingClientRect();
+    const screenPosition = {
+      x: boundingClientRect.left + divPosition.x,
+      y: boundingClientRect.top + divPosition.y,
+    };
+    return screenPosition;
+  };
+
   updateHighlighted = () => {
-    const { highlighted } = this.props;
-    if (highlighted && highlighted.length) {
-      const nodeId = highlighted[0];
-      const marker = this.markerForNodeId(nodeId);
-      if (marker) {
-        const markerLocation = marker.getPosition();
-        const screenPosition = this.fromLatLngToPoint(markerLocation);
-        const boundingClientRect = this._mapDiv.getBoundingClientRect();
-        const { experiment, isMain } = this.getExperimentWithId(nodeId);
-        if (experiment) {
-          this._phyloCanvasTooltip.setNode(experiment, isMain);
-          this._phyloCanvasTooltip.setVisible(
-            true,
-            boundingClientRect.left + screenPosition.x,
-            boundingClientRect.top + screenPosition.y
-          );
-        }
-      }
-    } else {
-      this._phyloCanvasTooltip && this._phyloCanvasTooltip.setVisible(false);
+    const { experimentsHighlightedWithGeolocation } = this.props;
+    let { trackingMarkerCluster, trackingMarker } = this.state;
+    console.log(
+      'updateHighlighted',
+      trackingMarkerCluster,
+      trackingMarker,
+      experimentsHighlightedWithGeolocation
+    );
+    if (trackingMarkerCluster) {
+      const experimentsTooltipLocation = this.screenPositionFromLatLng(
+        trackingMarkerCluster.getCenter()
+      );
+      this.setState({
+        experimentsTooltipLocation,
+      });
+    } else if (
+      !trackingMarker &&
+      experimentsHighlightedWithGeolocation &&
+      experimentsHighlightedWithGeolocation.length
+    ) {
+      // highlight a single experiment, likely from hover over tree
+      const experiment = experimentsHighlightedWithGeolocation[0];
+      trackingMarker = this._markers[experiment.id];
+      this.setState({
+        trackingMarker,
+      });
+    }
+    if (trackingMarker) {
+      const experimentsTooltipLocation = this.screenPositionFromLatLng(
+        trackingMarker.getPosition()
+      );
+      this.setState({
+        experimentsTooltipLocation,
+      });
     }
   };
 
   componentDidUpdate = (prevProps: any) => {
-    const { highlighted, experiments } = this.props;
+    const {
+      experiments,
+      resetExperimentsHighlighted,
+      experimentsHighlighted,
+    } = this.props;
     if (!_isEqual(experiments, prevProps.experiments)) {
       this.updateMarkers();
+      resetExperimentsHighlighted();
     }
-    if (!_isEqual(highlighted, prevProps.highlighted)) {
+    if (!_isEqual(experimentsHighlighted, prevProps.experimentsHighlighted)) {
+      this.setState({
+        trackingMarkerCluster: undefined,
+        trackingMarker: undefined,
+      });
       this.updateHighlighted();
     }
   };
 
   render() {
+    const {
+      experimentsHighlighted,
+      experimentsHighlightedWithGeolocation,
+      experimentsWithGeolocation,
+      experimentsWithoutGeolocation,
+    } = this.props;
+    const { experimentsTooltipLocation } = this.state;
+    console.log('experimentsWithGeolocation', experimentsWithGeolocation);
+    console.log('experimentsWithoutGeolocation', experimentsWithoutGeolocation);
     return (
       <div className={styles.mapContainer}>
         <div ref={this.setMapRef} className={styles.map} />
-        <PhyloCanvasTooltip ref={this.setPhyloCanvasTooltipRef} />
+        <div className={styles.controlsContainerTop}>
+          {experimentsWithoutGeolocation &&
+            experimentsWithoutGeolocation.length && (
+              <UncontrolledDropdown>
+                <DropdownToggle color="mid" outline size={'sm'}>
+                  {experimentsWithoutGeolocation.length} not shown{' '}
+                  <i className="fa fa-caret-down" />
+                </DropdownToggle>
+                <DropdownMenu>
+                  <div className={styles.dropdownContent}>
+                    <ExperimentsList
+                      experiments={experimentsWithoutGeolocation}
+                    />
+                  </div>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            )}
+        </div>
+        <ExperimentsTooltip
+          experiments={experimentsHighlightedWithGeolocation}
+          x={experimentsTooltipLocation.x}
+          y={experimentsTooltipLocation.y}
+          onClickOutside={this.onExperimentsTooltipClickOutside}
+        />
       </div>
     );
   }
 }
 
 ExperimentGeographicMap.propTypes = {
-  setNodeHighlighted: PropTypes.func,
+  ...withExperimentsHighlightedPropTypes,
   experiments: PropTypes.array,
-  highlighted: PropTypes.array,
-  isBusyWithCurrentRoute: PropTypes.bool,
+  experimentsWithGeolocation: PropTypes.array,
+  experimentsWithoutGeolocation: PropTypes.array,
 };
 
 export default ExperimentGeographicMap;

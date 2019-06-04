@@ -8,6 +8,7 @@ import {
   getExperimentTransformed,
   getExperimentNearestNeigbours,
   getExperimentsTree,
+  getExperimentsTreeNewick,
   getExperimentAndNearestNeigbours,
   getExperimentIsolateId,
   newExperiment,
@@ -20,6 +21,12 @@ import {
   getExperimentMetadata,
   getExperimentMetadataFormCompletion,
   getExperimentMetadataCompletion,
+  getExperimentAndNearestNeigboursInTree,
+  getExperimentAndNearestNeigboursNotInTree,
+  getExperimentAndNearestNeigboursWithGeolocation,
+  getExperimentAndNearestNeigboursWithoutGeolocation,
+  getExperimentInTree,
+  getExperimentNotInTree,
 } from '../modules/experiments';
 
 const withExperiment = connect(
@@ -28,6 +35,7 @@ const withExperiment = connect(
     experimentTransformed: getExperimentTransformed(state),
     experimentNearestNeigbours: getExperimentNearestNeigbours(state),
     experimentsTree: getExperimentsTree(state),
+    experimentsTreeNewick: getExperimentsTreeNewick(state),
     experimentAndNearestNeigbours: getExperimentAndNearestNeigbours(state),
     experimentIsolateId: getExperimentIsolateId(state),
     experimentOwnerIsCurrentUser: getExperimentOwnerIsCurrentUser(state),
@@ -36,6 +44,20 @@ const withExperiment = connect(
     ),
     experimentMetadataCompletion: getExperimentMetadataCompletion(state),
     experimentMetadata: getExperimentMetadata(state),
+    experimentAndNearestNeigboursInTree: getExperimentAndNearestNeigboursInTree(
+      state
+    ),
+    experimentAndNearestNeigboursNotInTree: getExperimentAndNearestNeigboursNotInTree(
+      state
+    ),
+    experimentAndNearestNeigboursWithGeolocation: getExperimentAndNearestNeigboursWithGeolocation(
+      state
+    ),
+    experimentAndNearestNeigboursWithoutGeolocation: getExperimentAndNearestNeigboursWithoutGeolocation(
+      state
+    ),
+    experimentInTree: getExperimentInTree(state),
+    experimentNotInTree: getExperimentNotInTree(state),
   }),
   {
     newExperiment,
@@ -52,6 +74,7 @@ export const withExperimentPropTypes = {
   experimentTransformed: PropTypes.object,
   experimentNearestNeigbours: PropTypes.array,
   experimentsTree: PropTypes.object,
+  experimentsTreeNewick: PropTypes.string,
   experimentAndNearestNeigbours: PropTypes.array,
   experimentIsolateId: PropTypes.string,
   newExperiment: PropTypes.func,
@@ -64,6 +87,12 @@ export const withExperimentPropTypes = {
   experimentMetadataFormCompletion: PropTypes.object,
   experimentMetadataCompletion: PropTypes.object,
   experimentMetadata: PropTypes.any,
+  experimentAndNearestNeigboursInTree: PropTypes.array,
+  experimentAndNearestNeigboursNotInTree: PropTypes.array,
+  experimentAndNearestNeigboursWithGeolocation: PropTypes.array,
+  experimentAndNearestNeigboursWithoutGeolocation: PropTypes.array,
+  experimentInTree: PropTypes.array,
+  experimentNotInTree: PropTypes.array,
 };
 
 export default withExperiment;
