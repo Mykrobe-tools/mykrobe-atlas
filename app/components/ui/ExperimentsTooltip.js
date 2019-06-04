@@ -83,8 +83,9 @@ class ExperimentsTooltip extends React.PureComponent<*> {
 }
 
 ExperimentsTooltip.propTypes = {
-  x: PropTypes.number,
-  y: PropTypes.number,
+  experiments: PropTypes.array,
+  x: PropTypes.any,
+  y: PropTypes.any,
   onClickOutside: PropTypes.func,
 };
 
