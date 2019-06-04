@@ -11,6 +11,8 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
+import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
+
 import styles from './Phylogeny.scss';
 
 import * as Colors from '../../constants/Colors';
@@ -55,6 +57,8 @@ class Phylogeny extends React.Component<*, State> {
       setExperimentsHighlighted([this.getSampleWithId(node.id)]);
     }
   };
+
+  onNodeMouseOut = () => {};
 
   onLoad = () => {
     console.log('onLoad');
@@ -263,13 +267,15 @@ class Phylogeny extends React.Component<*, State> {
               className={styles.controlsContainerBottomLeft}
               style={insetStyle}
             >
-              <div
-                className={styles.zoomControl}
+              <IconButton
+                size="sm"
+                icon="search"
                 onClick={this.onZoomSamplesClick}
+                outline
+                color="mid"
               >
-                <i className="fa fa-search" />
-                <div className={styles.zoomControlText}>Fit samples</div>
-              </div>
+                Zoom to fit
+              </IconButton>
             </div>
           )}
 
