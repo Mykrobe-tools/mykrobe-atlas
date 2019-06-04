@@ -7,12 +7,9 @@ import _get from 'lodash.get';
 import _isEqual from 'lodash.isequal';
 import MarkerClusterer from '@google/markerclustererplus';
 import memoizeOne from 'memoize-one';
-import {
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from 'reactstrap';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
+
+import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
 import ExperimentsList from '../../ui/ExperimentsList';
@@ -302,12 +299,6 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   updateHighlighted = () => {
     const { experimentsHighlightedWithGeolocation } = this.props;
     let { trackingMarkerCluster, trackingMarker } = this.state;
-    console.log(
-      'updateHighlighted',
-      trackingMarkerCluster,
-      trackingMarker,
-      experimentsHighlightedWithGeolocation
-    );
     if (trackingMarkerCluster) {
       const experimentsTooltipLocation = this.screenPositionFromLatLng(
         trackingMarkerCluster.getCenter()
@@ -358,34 +349,43 @@ class ExperimentGeographicMap extends React.Component<*, State> {
 
   render() {
     const {
-      experimentsHighlighted,
       experimentsHighlightedWithGeolocation,
-      experimentsWithGeolocation,
       experimentsWithoutGeolocation,
     } = this.props;
     const { experimentsTooltipLocation } = this.state;
-    console.log('experimentsWithGeolocation', experimentsWithGeolocation);
-    console.log('experimentsWithoutGeolocation', experimentsWithoutGeolocation);
+    const hasExperimentsWithoutGeolocation = !!(
+      experimentsWithoutGeolocation && experimentsWithoutGeolocation.length
+    );
     return (
       <div className={styles.mapContainer}>
         <div ref={this.setMapRef} className={styles.map} />
-        <div className={styles.controlsContainerTop}>
-          {experimentsWithoutGeolocation &&
-            experimentsWithoutGeolocation.length && (
-              <UncontrolledDropdown>
-                <DropdownToggle color="mid" outline size={'sm'}>
-                  {experimentsWithoutGeolocation.length} not shown{' '}
-                  <i className="fa fa-caret-down" />
-                </DropdownToggle>
-                <DropdownMenu>
-                  <div className={styles.dropdownContent}>
-                    <ExperimentsList
-                      experiments={experimentsWithoutGeolocation}
-                    />
-                  </div>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            )}
+        {hasExperimentsWithoutGeolocation && (
+          <div className={styles.controlsContainerTop}>
+            <UncontrolledDropdown>
+              <DropdownToggle color="mid" outline size={'sm'}>
+                {experimentsWithoutGeolocation.length} not shown{' '}
+                <i className="fa fa-caret-down" />
+              </DropdownToggle>
+              <DropdownMenu>
+                <div className={styles.dropdownContent}>
+                  <ExperimentsList
+                    experiments={experimentsWithoutGeolocation}
+                  />
+                </div>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </div>
+        )}
+        <div className={styles.controlsContainerBottomLeft}>
+          <IconButton
+            size="sm"
+            icon="search"
+            onClick={this.zoomToMarkers}
+            outline
+            color="mid"
+          >
+            Zoom to fit
+          </IconButton>
         </div>
         <ExperimentsTooltip
           experiments={experimentsHighlightedWithGeolocation}
