@@ -27,6 +27,10 @@ class Analysis extends React.Component<*> {
       experimentsHighlighted,
       setExperimentsHighlighted,
       resetExperimentsHighlighted,
+      experimentsHighlightedInTree,
+      experimentsHighlightedNotInTree,
+      experimentsHighlightedWithGeolocation,
+      experimentsHighlightedWithoutGeolocation,
     } = this.props;
     let content;
     if (isBusyWithCurrentRoute) {
@@ -44,6 +48,12 @@ class Analysis extends React.Component<*> {
                 experimentAndNearestNeigboursWithoutGeolocation
               }
               experimentsHighlighted={experimentsHighlighted}
+              experimentsHighlightedWithGeolocation={
+                experimentsHighlightedWithGeolocation
+              }
+              experimentsHighlightedWithoutGeolocation={
+                experimentsHighlightedWithoutGeolocation
+              }
               setExperimentsHighlighted={setExperimentsHighlighted}
               resetExperimentsHighlighted={resetExperimentsHighlighted}
             />
@@ -52,6 +62,10 @@ class Analysis extends React.Component<*> {
                 experimentsTreeNewick={experimentsTreeNewick}
                 experiments={experimentAndNearestNeigbours}
                 experimentsHighlighted={experimentsHighlighted}
+                experimentsHighlightedInTree={experimentsHighlightedInTree}
+                experimentsHighlightedNotInTree={
+                  experimentsHighlightedNotInTree
+                }
                 experimentsInTree={experimentAndNearestNeigboursInTree}
                 experimentsNotInTree={experimentAndNearestNeigboursNotInTree}
                 setExperimentsHighlighted={setExperimentsHighlighted}
