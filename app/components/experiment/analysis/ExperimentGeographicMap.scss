@@ -27,3 +27,10 @@
   padding: $popover-body-padding-y $popover-body-padding-x;
   color: $popover-body-color;
 }
+
+.controlsContainerBottomLeft {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 30px;
+}

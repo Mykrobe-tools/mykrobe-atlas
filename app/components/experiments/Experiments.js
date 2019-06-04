@@ -147,6 +147,8 @@ class Experiments extends React.Component<*, State> {
       experimentsSearchQuery,
       experimentsWithGeolocation,
       experimentsWithoutGeolocation,
+      experimentsHighlightedWithGeolocation,
+      experimentsHighlightedWithoutGeolocation,
     } = this.props;
     const { pagination, results, total } = experiments;
     const hasTotal = total !== undefined;
@@ -230,6 +232,12 @@ class Experiments extends React.Component<*, State> {
               resetExperimentsHighlighted={resetExperimentsHighlighted}
               experimentsWithGeolocation={experimentsWithGeolocation}
               experimentsWithoutGeolocation={experimentsWithoutGeolocation}
+              experimentsHighlightedWithGeolocation={
+                experimentsHighlightedWithGeolocation
+              }
+              experimentsHighlightedWithoutGeolocation={
+                experimentsHighlightedWithoutGeolocation
+              }
             />
           </React.Fragment>
         );
