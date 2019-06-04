@@ -10,7 +10,6 @@ import ExperimentGeographicMap from './ExperimentGeographicMap';
 import AppDocumentTitle from '../../ui/AppDocumentTitle';
 
 import { withExperimentPropTypes } from '../../../hoc/withExperiment';
-import { withPhylogenyNodePropTypes } from '../../../hoc/withPhylogenyNode';
 import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
 import { withExperimentsHighlightedPropTypes } from '../../../hoc/withExperimentsHighlighted';
 
@@ -18,11 +17,12 @@ class Analysis extends React.Component<*> {
   render() {
     const {
       isBusyWithCurrentRoute,
-      highlighted,
-      setNodeHighlighted,
-      unsetNodeHighlightedAll,
-      experimentsTree,
+      experimentsTreeNewick,
       experimentAndNearestNeigbours,
+      experimentAndNearestNeigboursInTree,
+      experimentAndNearestNeigboursNotInTree,
+      experimentAndNearestNeigboursWithGeolocation,
+      experimentAndNearestNeigboursWithoutGeolocation,
       experimentIsolateId,
       experimentsHighlighted,
       setExperimentsHighlighted,
@@ -37,17 +37,25 @@ class Analysis extends React.Component<*> {
           <div className={styles.mapAndPhylogenyContainer}>
             <ExperimentGeographicMap
               experiments={experimentAndNearestNeigbours}
+              experimentsWithGeolocation={
+                experimentAndNearestNeigboursWithGeolocation
+              }
+              experimentsWithoutGeolocation={
+                experimentAndNearestNeigboursWithoutGeolocation
+              }
               experimentsHighlighted={experimentsHighlighted}
               setExperimentsHighlighted={setExperimentsHighlighted}
               resetExperimentsHighlighted={resetExperimentsHighlighted}
             />
             <div className={styles.phylogenyContainer}>
               <Phylogeny
+                experimentsTreeNewick={experimentsTreeNewick}
                 experiments={experimentAndNearestNeigbours}
-                highlighted={highlighted}
-                setNodeHighlighted={setNodeHighlighted}
-                unsetNodeHighlightedAll={unsetNodeHighlightedAll}
-                experimentsTree={experimentsTree}
+                experimentsHighlighted={experimentsHighlighted}
+                experimentsInTree={experimentAndNearestNeigboursInTree}
+                experimentsNotInTree={experimentAndNearestNeigboursNotInTree}
+                setExperimentsHighlighted={setExperimentsHighlighted}
+                resetExperimentsHighlighted={resetExperimentsHighlighted}
               />
             </div>
           </div>
@@ -65,7 +73,6 @@ class Analysis extends React.Component<*> {
 
 Analysis.propTypes = {
   ...withExperimentPropTypes,
-  ...withPhylogenyNodePropTypes,
   ...withFileUploadPropTypes,
   ...withExperimentsHighlightedPropTypes,
 };

@@ -3,6 +3,8 @@
 import { all, fork, put, take, select } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { getLocation, LOCATION_CHANGE } from 'connected-react-router';
+import { createSelector } from 'reselect';
+import _get from 'lodash.get';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
@@ -20,6 +22,11 @@ const {
   selectors: { getEntity: getExperimentsTree, getError, getIsFetching },
   sagas: { entitySaga: experimentsTreeEntitySaga },
 } = module;
+
+export const getExperimentsTreeNewick = createSelector(
+  getExperimentsTree,
+  experimentsTree => _get(experimentsTree, 'tree')
+);
 
 export {
   requestExperimentsTree,

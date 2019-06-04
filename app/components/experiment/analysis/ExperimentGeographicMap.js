@@ -341,6 +341,8 @@ class ExperimentGeographicMap extends React.Component<*, State> {
 ExperimentGeographicMap.propTypes = {
   ...withExperimentsHighlightedPropTypes,
   experiments: PropTypes.array,
+  experimentsWithGeolocation: PropTypes.array,
+  experimentsWithoutGeolocation: PropTypes.array,
 };
 
 export default ExperimentGeographicMap;

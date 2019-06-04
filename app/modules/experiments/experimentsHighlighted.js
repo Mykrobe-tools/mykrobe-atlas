@@ -2,10 +2,12 @@
 
 import { createSelector } from 'reselect';
 import produce from 'immer';
-import _get from 'lodash.get';
 
-import { getExperimentsTree } from './experimentsTree';
-import { newickContainsNodeId } from './util/newick';
+import { getExperimentsTreeNewick } from './experimentsTree';
+import {
+  experimentsInTree,
+  experimentsWithGeolocation,
+} from './util/experiments';
 
 export const typePrefix = 'experiments/experimentsHighlighted/';
 export const SET_EXPERIMENTS_HIGHLIGHTED = `${typePrefix}SET_EXPERIMENTS_HIGHLIGHTED`;
@@ -23,64 +25,28 @@ export const getExperimentsHighlighted = createSelector(
 
 // highlighted with and without tree node
 
-export const experimentsInTree = (
-  experimentsTree,
-  experiments,
-  inTree = true
-) => {
-  return experiments.filter(experiment => {
-    const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
-    const contains = newickContainsNodeId(experimentsTree, isolateId);
-    if (contains) {
-      return inTree;
-    }
-    return !inTree;
-  });
-};
-
 export const getExperimentsHighlightedInTree = createSelector(
-  getExperimentsTree,
+  getExperimentsTreeNewick,
   getExperimentsHighlighted,
-  (experimentsTree, experimentsHighlighted) =>
-    experimentsInTree(experimentsTree, experimentsHighlighted, true)
+  (newick, experiments) => experimentsInTree(newick, experiments, true)
 );
 
 export const getExperimentsHighlightedNotInTree = createSelector(
-  getExperimentsTree,
+  getExperimentsTreeNewick,
   getExperimentsHighlighted,
-  (experimentsTree, experimentsHighlighted) =>
-    experimentsInTree(experimentsTree, experimentsHighlighted, false)
+  (newick, experiments) => experimentsInTree(newick, experiments, false)
 );
 
 // highlighted with and without geolocation available
 
-export const experimentsWithGeolocation = (
-  experiments,
-  withGeolocation = true
-) => {
-  return experiments.filter(experiment => {
-    const longitudeIsolate = _get(
-      experiment,
-      'metadata.sample.longitudeIsolate'
-    );
-    const latitudeIsolate = _get(experiment, 'metadata.sample.latitudeIsolate');
-    if (longitudeIsolate && latitudeIsolate) {
-      return withGeolocation;
-    }
-    return !withGeolocation;
-  });
-};
-
 export const getExperimentsHighlightedWithGeolocation = createSelector(
   getExperimentsHighlighted,
-  experimentsHighlighted =>
-    experimentsWithGeolocation(experimentsHighlighted, true)
+  experiments => experimentsWithGeolocation(experiments, true)
 );
 
 export const getExperimentsHighlightedWithoutGeolocation = createSelector(
   getExperimentsHighlighted,
-  experimentsHighlighted =>
-    experimentsWithGeolocation(experimentsHighlighted, false)
+  experiments => experimentsWithGeolocation(experiments, false)
 );
 
 // Action creators

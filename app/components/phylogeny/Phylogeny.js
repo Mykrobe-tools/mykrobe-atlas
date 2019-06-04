@@ -13,6 +13,8 @@ import PhyloCanvasComponent from '../ui/PhyloCanvasComponent';
 import PhyloCanvasTooltip from '../ui/PhyloCanvasTooltip';
 import type { SampleType } from '../../types/SampleType';
 
+import { withExperimentsHighlightedPropTypes } from '../../hoc/withExperimentsHighlighted';
+
 const treeTypes = [
   'radial',
   'rectangular',
@@ -40,17 +42,17 @@ class Phylogeny extends React.Component<*, State> {
   };
 
   onNodeMouseOver = node => {
-    const { setNodeHighlighted } = this.props;
+    const { setExperimentsHighlighted } = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
-      setNodeHighlighted(node.id, true);
+      setExperimentsHighlighted([node.id]);
     }
   };
 
   onNodeMouseOut = node => {
-    const { setNodeHighlighted } = this.props;
-    if (this.nodeIsInSamplesToHighlight(node)) {
-      setNodeHighlighted(node.id, false);
-    }
+    // const { setNodeHighlighted } = this.props;
+    // if (this.nodeIsInSamplesToHighlight(node)) {
+    //   setNodeHighlighted(node.id, false);
+    // }
   };
 
   onLoad = () => {
@@ -66,10 +68,16 @@ class Phylogeny extends React.Component<*, State> {
   };
 
   componentDidUpdate = (prevProps: any) => {
-    const { highlighted, experiments, experimentsTree } = this.props;
+    const {
+      highlighted,
+      experiments,
+      experimentsTree,
+      resetExperimentsHighlighted,
+    } = this.props;
     const treeChanged = !_isEqual(experimentsTree, prevProps.experimentsTree);
     if (treeChanged || !_isEqual(experiments, prevProps.experiments)) {
       this.updateMarkers();
+      resetExperimentsHighlighted();
       if (AUTO_ZOOM_SAMPLES) {
         this.zoomSamples();
       }
@@ -80,12 +88,12 @@ class Phylogeny extends React.Component<*, State> {
   };
 
   updateMarkers = () => {
-    const { experiments } = this.props;
+    const { experimentsInTree } = this.props;
     if (!this._phyloCanvas) {
       return;
     }
     this._phyloCanvas.resetHighlightedNodes();
-    experiments.forEach((experiment, index) => {
+    experimentsInTree.forEach((experiment, index) => {
       const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
       const color =
         index === 0
@@ -96,25 +104,25 @@ class Phylogeny extends React.Component<*, State> {
   };
 
   updateHighlighted = () => {
-    const { highlighted } = this.props;
-    if (highlighted && highlighted.length) {
-      const nodeId = highlighted[0];
-      const screenPosition = this._phyloCanvas.getPositionOfNodeWithId(nodeId);
-      if (screenPosition) {
-        const boundingClientRect = this._container.getBoundingClientRect();
-        const sample = this.getSampleWithId(nodeId);
-        if (sample) {
-          this._phyloCanvasTooltip.setNode(sample);
-          this._phyloCanvasTooltip.setVisible(
-            true,
-            boundingClientRect.left + screenPosition.x,
-            boundingClientRect.top + screenPosition.y
-          );
-        }
-      }
-    } else {
-      this._phyloCanvasTooltip && this._phyloCanvasTooltip.setVisible(false);
-    }
+    // const { highlighted } = this.props;
+    // if (highlighted && highlighted.length) {
+    //   const nodeId = highlighted[0];
+    //   const screenPosition = this._phyloCanvas.getPositionOfNodeWithId(nodeId);
+    //   if (screenPosition) {
+    //     const boundingClientRect = this._container.getBoundingClientRect();
+    //     const sample = this.getSampleWithId(nodeId);
+    //     if (sample) {
+    //       this._phyloCanvasTooltip.setNode(sample);
+    //       this._phyloCanvasTooltip.setVisible(
+    //         true,
+    //         boundingClientRect.left + screenPosition.x,
+    //         boundingClientRect.top + screenPosition.y
+    //       );
+    //     }
+    //   }
+    // } else {
+    //   this._phyloCanvasTooltip && this._phyloCanvasTooltip.setVisible(false);
+    // }
   };
 
   onContainerRef = (ref: any) => {
@@ -136,12 +144,11 @@ class Phylogeny extends React.Component<*, State> {
   };
 
   render() {
-    const { controlsInset, experimentsTree } = this.props;
+    const { controlsInset, experimentsTreeNewick } = this.props;
     const { treeType } = this.state;
-    if (!experimentsTree) {
+    if (!experimentsTreeNewick) {
       return null;
     }
-    const newick = experimentsTree.tree;
     const insetStyle = { margin: `${controlsInset}px` };
     return (
       <div className={styles.container}>
@@ -149,7 +156,7 @@ class Phylogeny extends React.Component<*, State> {
           <PhyloCanvasComponent
             ref={this.onPhyloCanvasRef}
             treeType={treeType}
-            data={newick}
+            data={experimentsTreeNewick}
             onNodeMouseOver={this.onNodeMouseOver}
             onNodeMouseOut={this.onNodeMouseOut}
             onLoad={this.onLoad}
@@ -219,10 +226,10 @@ class Phylogeny extends React.Component<*, State> {
     this._phyloCanvas.zoomToNodesWithIds(this.getSampleIds());
   };
 
-  componentWillUnmount = () => {
-    const { unsetNodeHighlightedAll } = this.props;
-    unsetNodeHighlightedAll && unsetNodeHighlightedAll();
-  };
+  // componentWillUnmount = () => {
+  //   const { unsetNodeHighlightedAll } = this.props;
+  //   unsetNodeHighlightedAll && unsetNodeHighlightedAll();
+  // };
 
   static defaultProps = {
     controlsInset: 30,
@@ -230,13 +237,11 @@ class Phylogeny extends React.Component<*, State> {
 }
 
 Phylogeny.propTypes = {
-  experiment: PropTypes.object,
-  experimentTransformed: PropTypes.object,
-  highlighted: PropTypes.array,
+  ...withExperimentsHighlightedPropTypes,
+  experiments: PropTypes.array,
+  experimentsInTree: PropTypes.array,
+  experimentsNotInTree: PropTypes.array,
   controlsInset: PropTypes.number,
-  setNodeHighlighted: PropTypes.func,
-  unsetNodeHighlightedAll: PropTypes.func,
-  experimentsTree: PropTypes.object,
 };
 
 export default Phylogeny;

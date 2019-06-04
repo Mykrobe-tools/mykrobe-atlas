@@ -22,6 +22,12 @@ import { ANALYSIS_COMPLETE } from '../../modules/users/currentUserEvents';
 import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
 import addExtraData from './util/addExtraData';
 
+import { getExperimentsTreeNewick } from './experimentsTree';
+import {
+  experimentsInTree,
+  experimentsWithGeolocation,
+} from './util/experiments';
+
 import {
   experimentMetadataSchema,
   completenessForSchemaAndData,
@@ -152,6 +158,32 @@ export const getExperimentAndNearestNeigbours = createSelector(
     }
     return experiments;
   }
+);
+
+// highlighted with and without tree node
+
+export const getExperimentAndNearestNeigboursInTree = createSelector(
+  getExperimentsTreeNewick,
+  getExperimentAndNearestNeigbours,
+  (newick, experiments) => experimentsInTree(newick, experiments, true)
+);
+
+export const getExperimentAndNearestNeigboursNotInTree = createSelector(
+  getExperimentsTreeNewick,
+  getExperimentAndNearestNeigbours,
+  (newick, experiments) => experimentsInTree(newick, experiments, false)
+);
+
+// highlighted with and without geolocation available
+
+export const getExperimentAndNearestNeigboursWithGeolocation = createSelector(
+  getExperimentAndNearestNeigbours,
+  experiments => experimentsWithGeolocation(experiments, true)
+);
+
+export const getExperimentAndNearestNeigboursWithoutGeolocation = createSelector(
+  getExperimentAndNearestNeigbours,
+  experiments => experimentsWithGeolocation(experiments, false)
 );
 
 export {
