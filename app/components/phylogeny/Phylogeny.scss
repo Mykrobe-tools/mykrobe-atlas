@@ -17,6 +17,8 @@
   top: 0;
   right: 0;
   z-index: 1;
+  display: flex;
+  flex-direction: row;
 }
 
 .controlsContainerBottomLeft {
@@ -35,22 +37,15 @@
   composes: overlayControlText from 'styles/controls.scss';
 }
 
-.demoTreeTypeContainer {
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 1;
-}
+// .demoTreeTypeSelected {
+//   cursor: pointer;
+//   color: $color-grey-mid;
+// }
 
-.demoTreeTypeSelected {
-  cursor: pointer;
-  color: $color-grey-mid;
-}
-
-.demoTreeType {
-  cursor: pointer;
-  color: $color-grey-light;
-}
+// .demoTreeType {
+//   cursor: pointer;
+//   color: $color-grey-light;
+// }
 
 .dropdownContent {
   max-height: 320px;

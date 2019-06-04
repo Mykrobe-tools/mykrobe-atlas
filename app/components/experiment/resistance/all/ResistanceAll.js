@@ -17,9 +17,8 @@ class ResistanceAll extends React.Component<*> {
   render() {
     const {
       experiment,
-      experimentAndNearestNeigbours,
-      experimentAndNearestNeigboursInTree,
-      experimentAndNearestNeigboursNotInTree,
+      experimentInTree,
+      experimentNotInTree,
       experimentsTreeNewick,
       experimentTransformed,
       experimentIsolateId,
@@ -55,12 +54,12 @@ class ResistanceAll extends React.Component<*> {
             <Phylogeny
               controlsInset={0}
               experimentsTreeNewick={experimentsTreeNewick}
-              experiments={experimentAndNearestNeigbours}
+              experiments={[experiment]}
               experimentsHighlighted={experimentsHighlighted}
               experimentsHighlightedInTree={experimentsHighlightedInTree}
               experimentsHighlightedNotInTree={experimentsHighlightedNotInTree}
-              experimentsInTree={experimentAndNearestNeigboursInTree}
-              experimentsNotInTree={experimentAndNearestNeigboursNotInTree}
+              experimentsInTree={experimentInTree}
+              experimentsNotInTree={experimentNotInTree}
               setExperimentsHighlighted={setExperimentsHighlighted}
               resetExperimentsHighlighted={resetExperimentsHighlighted}
             />

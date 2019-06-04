@@ -25,6 +25,8 @@ import {
   getExperimentAndNearestNeigboursNotInTree,
   getExperimentAndNearestNeigboursWithGeolocation,
   getExperimentAndNearestNeigboursWithoutGeolocation,
+  getExperimentInTree,
+  getExperimentNotInTree,
 } from '../modules/experiments';
 
 const withExperiment = connect(
@@ -54,6 +56,8 @@ const withExperiment = connect(
     experimentAndNearestNeigboursWithoutGeolocation: getExperimentAndNearestNeigboursWithoutGeolocation(
       state
     ),
+    experimentInTree: getExperimentInTree(state),
+    experimentNotInTree: getExperimentNotInTree(state),
   }),
   {
     newExperiment,
@@ -87,6 +91,8 @@ export const withExperimentPropTypes = {
   experimentAndNearestNeigboursNotInTree: PropTypes.array,
   experimentAndNearestNeigboursWithGeolocation: PropTypes.array,
   experimentAndNearestNeigboursWithoutGeolocation: PropTypes.array,
+  experimentInTree: PropTypes.array,
+  experimentNotInTree: PropTypes.array,
 };
 
 export default withExperiment;

@@ -190,7 +190,7 @@ class Phylogeny extends React.Component<*, State> {
             {experimentsNotInTree &&
               experimentsNotInTree.length && (
                 <UncontrolledDropdown>
-                  <DropdownToggle outline size={'sm'}>
+                  <DropdownToggle color="mid" outline size={'sm'}>
                     {experimentsNotInTree.length} not shown{' '}
                     <i className="fa fa-caret-down" />
                   </DropdownToggle>
@@ -201,6 +201,36 @@ class Phylogeny extends React.Component<*, State> {
                   </DropdownMenu>
                 </UncontrolledDropdown>
               )}
+            <div className={'ml-auto'}>
+              <UncontrolledDropdown>
+                <DropdownToggle color="mid" outline size={'sm'}>
+                  {treeType} <i className="fa fa-caret-down" />
+                </DropdownToggle>
+                <DropdownMenu right>
+                  {treeTypes.map((thisTreeType, index) => (
+                    <DropdownItem
+                      className={
+                        thisTreeType === treeType
+                          ? styles.demoTreeTypeSelected
+                          : styles.demoTreeType
+                      }
+                      key={index}
+                      onClick={() => {
+                        this.setState({ treeType: thisTreeType });
+                        setTimeout(() => {
+                          this.updateMarkers();
+                          if (AUTO_ZOOM_SAMPLES) {
+                            this.zoomSamples();
+                          }
+                        }, 0);
+                      }}
+                    >
+                      {thisTreeType}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </div>
           </div>
           <div
             className={styles.controlsContainerBottomLeft}
@@ -214,29 +244,7 @@ class Phylogeny extends React.Component<*, State> {
               <div className={styles.zoomControlText}>Fit samples</div>
             </div>
           </div>
-          <div className={styles.demoTreeTypeContainer} style={insetStyle}>
-            {treeTypes.map((thisTreeType, index) => (
-              <div
-                className={
-                  thisTreeType === treeType
-                    ? styles.demoTreeTypeSelected
-                    : styles.demoTreeType
-                }
-                key={index}
-                onClick={() => {
-                  this.setState({ treeType: thisTreeType });
-                  setTimeout(() => {
-                    this.updateMarkers();
-                    if (AUTO_ZOOM_SAMPLES) {
-                      this.zoomSamples();
-                    }
-                  }, 0);
-                }}
-              >
-                {thisTreeType}
-              </div>
-            ))}
-          </div>
+
           {experimentsHighlightedInTree &&
             experimentsHighlightedInTree.map(experiment => {
               const isolateId = _get(experiment, 'metadata.sample.isolateId');

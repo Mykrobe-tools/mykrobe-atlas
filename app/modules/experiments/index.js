@@ -74,6 +74,8 @@ export {
   requestExperiment,
   setExperiment,
   updateExperiment,
+  getExperimentInTree,
+  getExperimentNotInTree,
 } from './experiment';
 
 export {
