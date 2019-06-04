@@ -1,22 +1,11 @@
 /* @flow */
 
 import * as React from 'react';
-import { connect } from 'react-redux';
 
 import Experiments from './Experiments';
 
-import {
-  requestExperiments,
-  requestExperimentsChoices,
-  newExperiment,
-  getExperiments,
-  getExperimentsChoices,
-  getIsFetchingExperiments,
-  getIsFetchingExperimentsChoices,
-  getExperimentsFilters,
-  setExperimentsFilters,
-  resetExperimentsFilters,
-} from '../../modules/experiments';
+import withExperiments from '../../hoc/withExperiments';
+import withPhylogenyNode from '../../hoc/withPhylogenyNode';
 
 class ExperimentsContainer extends React.Component<*> {
   componentDidMount() {
@@ -50,21 +39,4 @@ class ExperimentsContainer extends React.Component<*> {
   }
 }
 
-const withRedux = connect(
-  state => ({
-    experiments: getExperiments(state),
-    experimentsChoices: getExperimentsChoices(state),
-    isFetchingExperiments: getIsFetchingExperiments(state),
-    isFetchingExperimentsChoices: getIsFetchingExperimentsChoices(state),
-    experimentsFilters: getExperimentsFilters(state),
-  }),
-  {
-    requestExperiments,
-    requestExperimentsChoices,
-    setExperimentsFilters,
-    resetExperimentsFilters,
-    newExperiment,
-  }
-);
-
-export default withRedux(ExperimentsContainer);
+export default withPhylogenyNode(withExperiments(ExperimentsContainer));

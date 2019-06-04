@@ -138,6 +138,18 @@ export const getExperimentMetadataCompletion = createSelector(
     completenessForSchemaAndData(experimentMetadataSchema, experiment)
 );
 
+export const getExperimentAndNearestNeigbours = createSelector(
+  getExperiment,
+  getExperimentNearestNeigbours,
+  (experiment, experimentNearestNeigbours) => {
+    let experiments = [experiment];
+    if (experimentNearestNeigbours) {
+      experiments = experiments.concat(experimentNearestNeigbours);
+    }
+    return experiments;
+  }
+);
+
 export {
   newEntity as newExperiment,
   setEntity as setExperiment,
@@ -145,8 +157,8 @@ export {
   requestEntity as requestExperiment,
   updateEntity as updateExperiment,
   deleteEntity as deleteExperiment,
-  getError,
-  getIsFetching,
+  getError as getExperimentError,
+  getIsFetching as getIsFetchingExperiment,
   actionTypes as experimentActionTypes,
 };
 

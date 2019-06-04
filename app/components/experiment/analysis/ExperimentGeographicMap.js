@@ -5,20 +5,47 @@ import PropTypes from 'prop-types';
 import GoogleMapsLoader from 'google-maps';
 import _get from 'lodash.get';
 import _isEqual from 'lodash.isequal';
+import MarkerClusterer from '@google/markerclusterer';
+import memoizeOne from 'memoize-one';
 
 import PhyloCanvasTooltip from '../../ui/PhyloCanvasTooltip';
 import MapStyle from './MapStyle';
+
+import * as Colors from '../../../constants/Colors';
 
 import styles from './ExperimentGeographicMap.scss';
 
 export const DEFAULT_LAT = 51.5074;
 export const DEFAULT_LNG = 0.1278;
 
+export const makeSvgMarker = memoizeOne(
+  ({
+    color = Colors.COLOR_HIGHLIGHT_EXPERIMENT,
+    diameter = 32,
+    strokeWidth = 4,
+  }: {
+    color?: string,
+    diameter?: number,
+    strokeWidth?: number,
+  }) => {
+    const radiusMinusStroke = 0.5 * diameter - 0.5 * strokeWidth;
+    const radius = 0.5 * diameter;
+    const svg = `\
+<svg viewBox="-${radius} -${radius} ${diameter} ${diameter}" xmlns="http://www.w3.org/2000/svg">
+  <circle fill="${color}" stroke="white" stroke-width="4" cx="0" cy="0" r="${radiusMinusStroke}"/>
+</svg>`;
+    const svgEncoded = window.btoa(svg);
+    const dataBase64 = `data:image/svg+xml;base64,${svgEncoded}`;
+    return dataBase64;
+  }
+);
+
 class ExperimentGeographicMap extends React.Component<*> {
   _google: Object;
   _map: Object;
   _mapDiv: Object;
   _markers: Object;
+  _markerClusterer: MarkerClusterer;
   _phyloCanvasTooltip: PhyloCanvasTooltip;
 
   constructor(props: any) {
@@ -46,6 +73,19 @@ class ExperimentGeographicMap extends React.Component<*> {
       styles: MapStyle,
     };
     this._map = new this._google.maps.Map(this._mapDiv, options);
+    // https://googlemaps.github.io/js-marker-clusterer/docs/reference.html
+    this._markerClusterer = new MarkerClusterer(this._map, [], {
+      minimumClusterSize: 2,
+      styles: [
+        {
+          textColor: 'white',
+          textSize: 16,
+          width: 48,
+          height: 48,
+          url: makeSvgMarker({ diameter: 48 }),
+        },
+      ],
+    });
     this.updateMarkers();
     // wait for getProjection() to be usable
     this._google.maps.event.addListenerOnce(
@@ -79,6 +119,7 @@ class ExperimentGeographicMap extends React.Component<*> {
   };
 
   fromLatLngToPoint = (latLng: any) => {
+    const TILE_SIZE = 256;
     const projection = this._map.getProjection();
     const bounds = this._map.getBounds();
     if (!projection) {
@@ -91,7 +132,12 @@ class ExperimentGeographicMap extends React.Component<*> {
     const bottomLeft = projection.fromLatLngToPoint(bounds.getSouthWest());
     const scale = Math.pow(2, this._map.getZoom());
     const worldPoint = projection.fromLatLngToPoint(latLng);
-    const x = (worldPoint.x - bottomLeft.x) * scale;
+    let x = worldPoint.x - bottomLeft.x;
+    // FIXME: ugly fix for wrapping
+    while (x < 0) {
+      x += TILE_SIZE;
+    }
+    x *= scale;
     const y = (worldPoint.y - topRight.y) * scale;
     return { x, y };
   };
@@ -106,6 +152,9 @@ class ExperimentGeographicMap extends React.Component<*> {
   };
 
   updateMarkers = () => {
+    if (!this._map) {
+      return;
+    }
     const { setNodeHighlighted, experiments } = this.props;
     if (this._markers) {
       for (let markerKey in this._markers) {
@@ -113,6 +162,7 @@ class ExperimentGeographicMap extends React.Component<*> {
         marker.setMap(null);
       }
     }
+    this._markerClusterer.clearMarkers();
     this._markers = {};
     experiments.forEach((experiment, index) => {
       const longitudeIsolate = _get(
@@ -126,14 +176,19 @@ class ExperimentGeographicMap extends React.Component<*> {
       if (longitudeIsolate && latitudeIsolate) {
         const lat = parseFloat(latitudeIsolate);
         const lng = parseFloat(longitudeIsolate);
+        console.log(`experiment id ${experiment.id} lat ${lat} lat ${lng}`);
         const marker = new this._google.maps.Marker({
           icon: {
-            path: this._google.maps.SymbolPath.CIRCLE,
-            scale: 10,
-            strokeWeight: 4,
-            fillColor: index === 0 ? '#c30042' : '#0f82d0',
-            strokeColor: '#fff',
-            fillOpacity: 1,
+            url: makeSvgMarker({
+              diameter: 24,
+              color:
+                index === 0
+                  ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
+                  : Colors.COLOR_HIGHLIGHT_EXPERIMENT,
+            }),
+            anchor: new this._google.maps.Point(12, 12),
+            size: new this._google.maps.Size(24, 24),
+            scaledSize: new this._google.maps.Size(24, 24),
           },
           position: { lat, lng },
           map: this._map,
@@ -145,8 +200,11 @@ class ExperimentGeographicMap extends React.Component<*> {
           setNodeHighlighted(experiment.id, false);
         });
         this._markers[experiment.id] = marker;
+      } else {
+        console.log(`experiment id ${experiment.id} has no lat/lng`);
       }
     });
+    this._markerClusterer.addMarkers(this._markers);
     this.zoomToMarkers();
   };
 

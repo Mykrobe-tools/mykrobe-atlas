@@ -1,16 +1,26 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import styles from './ResistanceAll.scss';
 import ResistanceProfile from '../profile/ResistanceProfile';
 import Panel from '../../../ui/Panel';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
 import Phylogeny from '../../../phylogeny/Phylogeny';
 
+import { withExperimentPropTypes } from '../../../../hoc/withExperiment';
+import { withPhylogenyNodePropTypes } from '../../../../hoc/withPhylogenyNode';
+
 class ResistanceAll extends React.Component<*> {
   render() {
-    const { experiment, experimentTransformed } = this.props;
+    const {
+      experiment,
+      experimentAndNearestNeigbours,
+      experimentsTree,
+      experimentTransformed,
+      highlighted,
+      setNodeHighlighted,
+      unsetNodeHighlightedAll,
+    } = this.props;
     const { hasResistance, error } = experimentTransformed;
     if (!hasResistance) {
       return (
@@ -29,7 +39,14 @@ class ResistanceAll extends React.Component<*> {
         </Panel>
         {!IS_ELECTRON && (
           <Panel title="Phylogeny" columns={5}>
-            <Phylogeny controlsInset={0} />
+            <Phylogeny
+              experiments={experimentAndNearestNeigbours}
+              highlighted={highlighted}
+              setNodeHighlighted={setNodeHighlighted}
+              unsetNodeHighlightedAll={unsetNodeHighlightedAll}
+              experimentsTree={experimentsTree}
+              controlsInset={0}
+            />
           </Panel>
         )}
       </div>
@@ -38,8 +55,8 @@ class ResistanceAll extends React.Component<*> {
 }
 
 ResistanceAll.propTypes = {
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
+  ...withExperimentPropTypes,
+  ...withPhylogenyNodePropTypes,
 };
 
 export default ResistanceAll;

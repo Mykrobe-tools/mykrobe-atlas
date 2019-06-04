@@ -205,6 +205,7 @@
     "webpack-merge": "^4.2.0"
   },
   "dependencies": {
+    "@google/markerclusterer": "^1.0.3",
     "bootstrap": "^4.1.0",
     "es-check": "^2.1.0",
     "event-source-polyfill": "^0.0.16",
@@ -225,7 +226,7 @@
     "makeandship-js-common": "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.97",
     "memoize-one": "^5.0.4",
     "moment": "^2.14.1",
-    "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.15",
+    "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.18",
     "parse-filepath": "^1.0.2",
     "phylocanvas": "^2.6.1",
     "pluralize": "^7.0.0",
