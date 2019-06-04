@@ -273,11 +273,6 @@ class Phylogeny extends React.Component<*, State> {
     this._phyloCanvas.zoomToNodesWithIds(this.getSampleIds());
   };
 
-  // componentWillUnmount = () => {
-  //   const { unsetNodeHighlightedAll } = this.props;
-  //   unsetNodeHighlightedAll && unsetNodeHighlightedAll();
-  // };
-
   static defaultProps = {
     controlsInset: 30,
   };

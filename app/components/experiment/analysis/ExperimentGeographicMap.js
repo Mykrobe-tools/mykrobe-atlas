@@ -85,10 +85,14 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     }
     const options = {
       center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
+      minZoom: 2,
       maxZoom: 5,
       zoom: 3,
       backgroundColor: '#e2e1dc',
       styles: MapStyle,
+      mapTypeControl: false,
+      fullscreenControl: false,
+      streetViewControl: false,
     };
     this._map = new this._google.maps.Map(this._mapDiv, options);
     // https://googlemaps.github.io/js-marker-clusterer/docs/reference.html
@@ -290,13 +294,31 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   };
 
   updateHighlighted = () => {
-    const { trackingMarkerCluster, trackingMarker } = this.state;
+    const { experimentsHighlightedWithGeolocation } = this.props;
+    let { trackingMarkerCluster, trackingMarker } = this.state;
+    console.log(
+      'updateHighlighted',
+      trackingMarkerCluster,
+      trackingMarker,
+      experimentsHighlightedWithGeolocation
+    );
     if (trackingMarkerCluster) {
       const experimentsTooltipLocation = this.screenPositionFromLatLng(
         trackingMarkerCluster.getCenter()
       );
       this.setState({
         experimentsTooltipLocation,
+      });
+    } else if (
+      !trackingMarker &&
+      experimentsHighlightedWithGeolocation &&
+      experimentsHighlightedWithGeolocation.length
+    ) {
+      // highlight a single experiment, likely from hover over tree
+      const experiment = experimentsHighlightedWithGeolocation[0];
+      trackingMarker = this._markers[experiment.id];
+      this.setState({
+        trackingMarker,
       });
     }
     if (trackingMarker) {
@@ -310,16 +332,28 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   };
 
   componentDidUpdate = (prevProps: any) => {
-    const { experiments, resetExperimentsHighlighted } = this.props;
+    const {
+      experiments,
+      resetExperimentsHighlighted,
+      experimentsHighlighted,
+    } = this.props;
     if (!_isEqual(experiments, prevProps.experiments)) {
       this.updateMarkers();
       resetExperimentsHighlighted();
+    }
+    if (!_isEqual(experimentsHighlighted, prevProps.experimentsHighlighted)) {
+      this.setState({
+        trackingMarkerCluster: undefined,
+        trackingMarker: undefined,
+      });
+      this.updateHighlighted();
     }
   };
 
   render() {
     const {
       experimentsHighlighted,
+      experimentsHighlightedWithGeolocation,
       experimentsWithGeolocation,
       experimentsWithoutGeolocation,
     } = this.props;
@@ -330,7 +364,7 @@ class ExperimentGeographicMap extends React.Component<*, State> {
       <div className={styles.mapContainer}>
         <div ref={this.setMapRef} className={styles.map} />
         <ExperimentsTooltip
-          experiments={experimentsHighlighted}
+          experiments={experimentsHighlightedWithGeolocation}
           x={experimentsTooltipLocation.x}
           y={experimentsTooltipLocation.y}
           onClickOutside={this.onExperimentsTooltipClickOutside}
