@@ -144,11 +144,18 @@ class Phylogeny extends React.Component<*, State> {
   };
 
   render() {
-    const { controlsInset, experimentsTreeNewick } = this.props;
+    const {
+      controlsInset,
+      experimentsTreeNewick,
+      experimentsInTree,
+      experimentsNotInTree,
+    } = this.props;
     const { treeType } = this.state;
     if (!experimentsTreeNewick) {
       return null;
     }
+    console.log('experimentsInTree', experimentsInTree);
+    console.log('experimentsNotInTree', experimentsNotInTree);
     const insetStyle = { margin: `${controlsInset}px` };
     return (
       <div className={styles.container}>

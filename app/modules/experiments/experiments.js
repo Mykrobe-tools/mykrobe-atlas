@@ -7,11 +7,20 @@ import { createCollectionModule } from 'makeandship-js-common/src/modules/generi
 
 import { getExperimentsFiltersSaga } from './experimentsFilters';
 import { descriptionForBigsi } from './util/bigsi';
+import { getExperimentsTreeNewick } from './experimentsTree';
+import {
+  experimentsInTree,
+  experimentsWithGeolocation,
+} from './util/experiments';
 
 export const getState = (state: any) => state.experiments.experiments;
 
 export const getStatus = createSelector(getState, state =>
   _get(state, 'data.status')
+);
+
+export const getResults = createSelector(getState, state =>
+  _get(state, 'data.results')
 );
 
 export const getIsPending = createSelector(
@@ -47,19 +56,49 @@ const module = createCollectionModule('experiments', {
 
 const {
   reducer,
-  actionTypes,
-  actions: { requestCollection },
-  selectors: { getCollection, getError, getIsFetching },
-  sagas: { collectionSaga },
+  actionTypes: experimentsActionTypes,
+  actions: { requestCollection: requestExperiments },
+  selectors: {
+    getCollection: getExperiments,
+    getError: getExperimentsError,
+    getIsFetching: getIsFetchingExperiments,
+  },
+  sagas: { collectionSaga: experimentsSaga },
 } = module;
 
+// highlighted with and without tree node
+
+export const getExperimentsInTree = createSelector(
+  getExperimentsTreeNewick,
+  getResults,
+  (newick, experiments) => experimentsInTree(newick, experiments, true)
+);
+
+export const getExperimentsNotInTree = createSelector(
+  getExperimentsTreeNewick,
+  getResults,
+  (newick, experiments) => experimentsInTree(newick, experiments, false)
+);
+
+// highlighted with and without geolocation available
+
+export const getExperimentsWithGeolocation = createSelector(
+  getResults,
+  experiments => experimentsWithGeolocation(experiments, true)
+);
+
+export const getExperimentsWithoutGeolocation = createSelector(
+  getResults,
+  experiments => experimentsWithGeolocation(experiments, false)
+);
+
 export {
-  actionTypes as experimentsActionTypes,
-  requestCollection as requestExperiments,
-  getCollection as getExperiments,
-  getError as getExperimentsError,
-  getIsFetching as getIsFetchingExperiments,
-  collectionSaga as experimentsSaga,
+  experimentsActionTypes,
+  requestExperiments,
+  getExperiments,
+  getExperimentsError,
+  getIsFetchingExperiments,
+  experimentsSaga,
   getStatus as getExperimentsStatus,
   getIsPending as getExperimentsIsPending,
   getSearchDescription as getExperimentsSearchDescription,

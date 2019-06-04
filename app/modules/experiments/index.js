@@ -32,6 +32,10 @@ export {
   experimentsSaga,
   getExperimentsSearchDescription,
   getExperimentsSearchQuery,
+  getExperimentsInTree,
+  getExperimentsNotInTree,
+  getExperimentsWithGeolocation,
+  getExperimentsWithoutGeolocation,
 } from './experiments';
 
 export {

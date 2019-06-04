@@ -214,7 +214,7 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     if (!this._map) {
       return;
     }
-    const { experiments } = this.props;
+    const { experimentsWithGeolocation } = this.props;
     if (this._markers) {
       for (let markerKey in this._markers) {
         const marker = this._markers[markerKey];
@@ -223,7 +223,7 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     }
     this._markerClusterer.clearMarkers();
     this._markers = {};
-    experiments.forEach((experiment, index) => {
+    experimentsWithGeolocation.forEach((experiment, index) => {
       const longitudeIsolate = _get(
         experiment,
         'metadata.sample.longitudeIsolate'
@@ -232,41 +232,37 @@ class ExperimentGeographicMap extends React.Component<*, State> {
         experiment,
         'metadata.sample.latitudeIsolate'
       );
-      if (longitudeIsolate && latitudeIsolate) {
-        const lat = parseFloat(latitudeIsolate);
-        const lng = parseFloat(longitudeIsolate);
-        console.log(`experiment id ${experiment.id} lat ${lat} lat ${lng}`);
-        const marker = new this._google.maps.Marker({
-          icon: {
-            url: makeSvgMarker({
-              diameter: 24,
-              color:
-                index === 0
-                  ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
-                  : Colors.COLOR_HIGHLIGHT_EXPERIMENT,
-            }),
-            anchor: new this._google.maps.Point(12, 12),
-            size: new this._google.maps.Size(24, 24),
-            scaledSize: new this._google.maps.Size(24, 24),
-          },
-          position: { lat, lng },
-          map: this._map,
-        });
-        marker.setValues({ experiment });
-        // marker.addListener('mouseover', () => {
-        //   setNodeHighlighted(experiment.id, true);
-        // });
-        marker.addListener('mouseover', () => {
-          this.onMarkerMouseOver(marker);
-        });
+      const lat = parseFloat(latitudeIsolate);
+      const lng = parseFloat(longitudeIsolate);
+      console.log(`experiment id ${experiment.id} lat ${lat} lat ${lng}`);
+      const marker = new this._google.maps.Marker({
+        icon: {
+          url: makeSvgMarker({
+            diameter: 24,
+            color:
+              index === 0
+                ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
+                : Colors.COLOR_HIGHLIGHT_EXPERIMENT,
+          }),
+          anchor: new this._google.maps.Point(12, 12),
+          size: new this._google.maps.Size(24, 24),
+          scaledSize: new this._google.maps.Size(24, 24),
+        },
+        position: { lat, lng },
+        map: this._map,
+      });
+      marker.setValues({ experiment });
+      // marker.addListener('mouseover', () => {
+      //   setNodeHighlighted(experiment.id, true);
+      // });
+      marker.addListener('mouseover', () => {
+        this.onMarkerMouseOver(marker);
+      });
 
-        // marker.addListener('mouseout', () => {
-        //   setNodeHighlighted(experiment.id, false);
-        // });
-        this._markers[experiment.id] = marker;
-      } else {
-        console.log(`experiment id ${experiment.id} has no lat/lng`);
-      }
+      // marker.addListener('mouseout', () => {
+      //   setNodeHighlighted(experiment.id, false);
+      // });
+      this._markers[experiment.id] = marker;
     });
     this._markerClusterer.addMarkers(this._markers);
     this.zoomToMarkers();
@@ -322,8 +318,14 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   };
 
   render() {
-    const { experimentsHighlighted } = this.props;
+    const {
+      experimentsHighlighted,
+      experimentsWithGeolocation,
+      experimentsWithoutGeolocation,
+    } = this.props;
     const { experimentsTooltipLocation } = this.state;
+    console.log('experimentsWithGeolocation', experimentsWithGeolocation);
+    console.log('experimentsWithoutGeolocation', experimentsWithoutGeolocation);
     return (
       <div className={styles.mapContainer}>
         <div ref={this.setMapRef} className={styles.map} />
