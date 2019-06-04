@@ -1,6 +1,7 @@
 /* @flow */
 
 import { createSelector } from 'reselect';
+import _get from 'lodash.get';
 import produce from 'immer';
 
 export const typePrefix = 'phylogeny/node/';
@@ -9,11 +10,11 @@ export const UNSET_NODE_HIGHLIGHTED_ALL = `${typePrefix}UNSET_NODE_HIGHLIGHTED_A
 
 // Selectors
 
-export const getState = (state: any) => state.phylogeny.node;
+export const getState = (state: any) => _get(state, 'phylogeny.node');
 
 export const getHighlighted = createSelector(
   getState,
-  node => node.highlighted
+  node => node && node.highlighted
 );
 
 // Action creators

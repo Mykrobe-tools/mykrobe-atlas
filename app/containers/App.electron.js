@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import Dropzone from 'react-dropzone';
 import { withRouter } from 'react-router-dom';
-import DocumentTitle from 'react-document-title';
 
 import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
 import * as APIConstants from '../constants/APIConstants';
@@ -24,12 +23,11 @@ import styles from './App.scss';
 
 import NotificationsContainer from '../components/notifications/NotificationsContainer';
 import NotificationsStyle from '../components/notifications/NotificationsStyle';
+import AppDocumentTitle from '../components/ui/AppDocumentTitle';
 
 type State = {
   isDragActive: boolean,
 };
-
-const defaultTitle = require('../../package.json').productName;
 
 class App extends React.Component<*, State> {
   state = {
@@ -134,12 +132,8 @@ class App extends React.Component<*, State> {
   };
 
   render() {
-    const { children, fileNames } = this.props;
+    const { children } = this.props;
     const { isDragActive } = this.state;
-    const title =
-      fileNames && fileNames.length
-        ? `${fileNames.join(', ')} – ${defaultTitle}`
-        : defaultTitle;
     return (
       <Dropzone
         className={styles.container}
@@ -151,7 +145,7 @@ class App extends React.Component<*, State> {
         multiple
         accept={APIConstants.API_SAMPLE_EXTENSIONS_STRING_WITH_DOTS}
       >
-        <DocumentTitle title={title} />
+        <AppDocumentTitle />
         <div className={styles.contentContainer}>{children}</div>
         <div className={styles.notificationsContainerElectron}>
           <NotificationsContainer

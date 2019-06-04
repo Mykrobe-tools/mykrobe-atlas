@@ -34,17 +34,17 @@ const withFileUploadWithoutRouter = connect((state, ownProps) => ({
 }));
 
 export const withFileUploadPropTypes = {
-  progress: PropTypes.number.isRequired,
-  isBusy: PropTypes.bool.isRequired,
-  isBusyWithCurrentRoute: PropTypes.bool.isRequired,
-  checksumProgress: PropTypes.number.isRequired,
-  uploadProgess: PropTypes.number.isRequired,
-  isComputingChecksums: PropTypes.bool.isRequired,
-  isUploading: PropTypes.bool.isRequired,
+  progress: PropTypes.number,
+  isBusy: PropTypes.bool,
+  isBusyWithCurrentRoute: PropTypes.bool,
+  checksumProgress: PropTypes.number,
+  uploadProgess: PropTypes.number,
+  isComputingChecksums: PropTypes.bool,
+  isUploading: PropTypes.bool,
   fileName: PropTypes.string,
   experimentId: PropTypes.string,
   routeExperimentId: PropTypes.string,
-  match: PropTypes.object.isRequired,
+  match: PropTypes.object,
 };
 
 const withFileUpload = component =>

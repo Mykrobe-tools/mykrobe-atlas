@@ -30,6 +30,7 @@ export {
   requestExperiments,
   experimentsSaga,
   getExperimentsSearchDescription,
+  getExperimentsSearchQuery,
 } from './experiments';
 
 export {
@@ -63,6 +64,7 @@ export {
   createExperimentId,
   newExperiment,
   setExperiment,
+  getExperimentIsolateId,
 } from './experiment';
 
 export {

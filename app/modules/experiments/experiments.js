@@ -23,9 +23,18 @@ export const getBigsi = createSelector(getState, state =>
   _get(state, 'data.bigsi')
 );
 
+export const getSearchQuery = createSelector(getState, state =>
+  _get(state, 'data.search.q')
+);
+
 export const getSearchDescription = createSelector(
-  getBigsi,
-  bigsi => (bigsi ? descriptionForBigsi(bigsi) : 'Search')
+  getSearchQuery,
+  (bigsi, searchQuery) =>
+    bigsi
+      ? descriptionForBigsi(bigsi)
+      : searchQuery
+        ? `Search for "${searchQuery}"`
+        : 'Search'
 );
 
 const module = createCollectionModule('experiments', {
@@ -54,6 +63,7 @@ export {
   getStatus as getExperimentsStatus,
   getIsPending as getExperimentsIsPending,
   getSearchDescription as getExperimentsSearchDescription,
+  getSearchQuery as getExperimentsSearchQuery,
 };
 
 export default reducer;

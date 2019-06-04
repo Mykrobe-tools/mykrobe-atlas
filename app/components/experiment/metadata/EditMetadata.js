@@ -2,23 +2,13 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { goBack, push } from 'connected-react-router';
 import { Container } from 'reactstrap';
 
 import Footer from '../../footer/Footer';
 
 import styles from './EditMetadata.scss';
 
-import {
-  getExperiment,
-  getExperimentOwnerIsCurrentUser,
-  getIsFetchingExperiment,
-  getExperimentError,
-  updateExperiment,
-  EXPERIMENT_METADATA_FORM_ID,
-} from '../../../modules/experiments';
+import { EXPERIMENT_METADATA_FORM_ID } from '../../../modules/experiments';
 
 import {
   DecoratedForm,
@@ -29,8 +19,13 @@ import {
   CancelButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
+import AppDocumentTitle from '../../ui/AppDocumentTitle';
+
 import { filteredSchemaWithSubsections } from '../../../schemas/experiment';
 import experimentUiSchema from './experimentUiSchema';
+
+import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
+import { withExperimentPropTypes } from '../../../hoc/withExperiment';
 
 // TODO: remove once tested
 
@@ -48,8 +43,8 @@ class EditMetadata extends React.Component<*> {
 
   onCancelClick = e => {
     e && e.preventDefault();
-    const { goBack } = this.props;
-    goBack();
+    const { history } = this.props;
+    history.goBack();
   };
 
   formKey = () => {
@@ -63,12 +58,13 @@ class EditMetadata extends React.Component<*> {
 
   render() {
     const {
-      experiment,
       isFetching,
       error,
       title,
       experimentOwnerIsCurrentUser,
       subsections,
+      experimentIsolateId,
+      experimentMetadata,
     } = this.props;
     const schema = filteredSchemaWithSubsections(subsections);
     let uiSchema = experimentUiSchema;
@@ -79,8 +75,10 @@ class EditMetadata extends React.Component<*> {
         ...experimentUiSchema,
       };
     }
+    console.log('experimentIsolateId', experimentIsolateId);
     return (
       <div className={styles.container}>
+        <AppDocumentTitle title={[experimentIsolateId, 'Metadata', title]} />
         <div className={styles.container}>
           <Container fluid>
             <DecoratedForm
@@ -91,7 +89,7 @@ class EditMetadata extends React.Component<*> {
               onSubmit={this.onSubmit}
               isFetching={isFetching}
               error={error}
-              formData={{ metadata: experiment.metadata }}
+              formData={{ metadata: experimentMetadata }}
             >
               <FormFooter>
                 {!readonly && (
@@ -110,39 +108,11 @@ class EditMetadata extends React.Component<*> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    experiment: getExperiment(state),
-    isFetching: getIsFetchingExperiment(state),
-    error: getExperimentError(state),
-    experimentOwnerIsCurrentUser: getExperimentOwnerIsCurrentUser(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      updateExperiment,
-      push,
-      goBack,
-    },
-    dispatch
-  );
-}
-
 EditMetadata.propTypes = {
-  experiment: PropTypes.object,
-  isFetching: PropTypes.bool.isRequired,
-  experimentOwnerIsCurrentUser: PropTypes.bool,
-  error: PropTypes.object,
-  updateExperiment: PropTypes.func.isRequired,
-  push: PropTypes.func.isRequired,
-  goBack: PropTypes.func.isRequired,
+  ...withFileUploadPropTypes,
+  ...withExperimentPropTypes,
   title: PropTypes.string,
   subsections: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EditMetadata);
+export default EditMetadata;
