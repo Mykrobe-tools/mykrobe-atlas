@@ -31,6 +31,12 @@ const uiSchema = {
   lastname: {
     'ui:placeholder': 'Smith',
   },
+  password: {
+    'ui:widget': 'password',
+  },
+  confirmPassword: {
+    'ui:widget': 'password',
+  },
 };
 
 export const validatePasswordMatch = (formData: any, errors: any) => {
