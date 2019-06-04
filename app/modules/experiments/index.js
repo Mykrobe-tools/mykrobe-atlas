@@ -122,6 +122,10 @@ export {
   getExperimentsHighlighted,
   setExperimentsHighlighted,
   resetExperimentsHighlighted,
+  getExperimentsHighlightedInTree,
+  getExperimentsHighlightedNotInTree,
+  getExperimentsHighlightedWithGeolocation,
+  getExperimentsHighlightedWithoutGeolocation,
 } from './experimentsHighlighted';
 
 export default reducer;

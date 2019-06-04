@@ -5,6 +5,7 @@ import produce from 'immer';
 import _get from 'lodash.get';
 
 import { getExperimentsTree } from './experimentsTree';
+import { newickContainsNodeId } from './util/newick';
 
 export const typePrefix = 'experiments/experimentsHighlighted/';
 export const SET_EXPERIMENTS_HIGHLIGHTED = `${typePrefix}SET_EXPERIMENTS_HIGHLIGHTED`;
@@ -18,6 +19,37 @@ export const getState = (state: any) =>
 export const getExperimentsHighlighted = createSelector(
   getState,
   experimentsHighlighted => experimentsHighlighted
+);
+
+// highlighted with and without tree node
+
+export const experimentsInTree = (
+  experimentsTree,
+  experiments,
+  inTree = true
+) => {
+  return experiments.filter(experiment => {
+    const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
+    const contains = newickContainsNodeId(experimentsTree, isolateId);
+    if (contains) {
+      return inTree;
+    }
+    return !inTree;
+  });
+};
+
+export const getExperimentsHighlightedInTree = createSelector(
+  getExperimentsTree,
+  getExperimentsHighlighted,
+  (experimentsTree, experimentsHighlighted) =>
+    experimentsInTree(experimentsTree, experimentsHighlighted, true)
+);
+
+export const getExperimentsHighlightedNotInTree = createSelector(
+  getExperimentsTree,
+  getExperimentsHighlighted,
+  (experimentsTree, experimentsHighlighted) =>
+    experimentsInTree(experimentsTree, experimentsHighlighted, false)
 );
 
 // highlighted with and without geolocation available
