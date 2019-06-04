@@ -56,6 +56,7 @@ class Analysis extends React.Component<*> {
               }
               setExperimentsHighlighted={setExperimentsHighlighted}
               resetExperimentsHighlighted={resetExperimentsHighlighted}
+              experimentIsolateId={experimentIsolateId}
             />
             <div className={styles.phylogenyContainer}>
               <Phylogeny
@@ -70,6 +71,7 @@ class Analysis extends React.Component<*> {
                 experimentsNotInTree={experimentAndNearestNeigboursNotInTree}
                 setExperimentsHighlighted={setExperimentsHighlighted}
                 resetExperimentsHighlighted={resetExperimentsHighlighted}
+                experimentIsolateId={experimentIsolateId}
               />
             </div>
           </div>

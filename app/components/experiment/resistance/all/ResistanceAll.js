@@ -62,6 +62,7 @@ class ResistanceAll extends React.Component<*> {
               experimentsNotInTree={experimentNotInTree}
               setExperimentsHighlighted={setExperimentsHighlighted}
               resetExperimentsHighlighted={resetExperimentsHighlighted}
+              experimentIsolateId={experimentIsolateId}
             />
           </Panel>
         )}

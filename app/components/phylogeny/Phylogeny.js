@@ -18,6 +18,7 @@ import * as Colors from '../../constants/Colors';
 import PhyloCanvasComponent from '../ui/PhyloCanvasComponent';
 import ExperimentsTooltip from '../ui/ExperimentsTooltip';
 import ExperimentsList from '../ui/ExperimentsList';
+import Empty from '../ui/Empty';
 
 import type { SampleType } from '../../types/SampleType';
 
@@ -166,84 +167,111 @@ class Phylogeny extends React.Component<*, State> {
       experimentsInTree,
       experimentsNotInTree,
       experimentsHighlightedInTree,
+      experimentIsolateId,
     } = this.props;
     const { treeType } = this.state;
     if (!experimentsTreeNewick) {
       return null;
     }
-    console.log('experimentsInTree', experimentsInTree);
-    console.log('experimentsNotInTree', experimentsNotInTree);
+    const hasExperimentsInTree = !!(
+      experimentsInTree && experimentsInTree.length
+    );
+    const hasExperimentsNotInTree = !!(
+      experimentsNotInTree && experimentsNotInTree.length
+    );
     const insetStyle = { margin: `${controlsInset}px` };
+    const insetStyleHorizontal = {
+      marginLeft: `${controlsInset}px`,
+      marginRight: `${controlsInset}px`,
+    };
     return (
       <div className={styles.container}>
         <div className={styles.contentContainer} ref={this.onContainerRef}>
-          <PhyloCanvasComponent
-            ref={this.onPhyloCanvasRef}
-            treeType={treeType}
-            data={experimentsTreeNewick}
-            onNodeMouseOver={this.onNodeMouseOver}
-            onNodeMouseOut={this.onNodeMouseOut}
-            onLoad={this.onLoad}
-            controlsInset={controlsInset}
-          />
-          <div className={styles.controlsContainerTop} style={insetStyle}>
-            {experimentsNotInTree &&
-              experimentsNotInTree.length && (
-                <UncontrolledDropdown>
-                  <DropdownToggle color="mid" outline size={'sm'}>
-                    {experimentsNotInTree.length} not shown{' '}
-                    <i className="fa fa-caret-down" />
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <div className={styles.dropdownContent}>
-                      <ExperimentsList experiments={experimentsNotInTree} />
-                    </div>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              )}
-            <div className={'ml-auto'}>
+          {hasExperimentsInTree ? (
+            <PhyloCanvasComponent
+              ref={this.onPhyloCanvasRef}
+              treeType={treeType}
+              data={experimentsTreeNewick}
+              onNodeMouseOver={this.onNodeMouseOver}
+              onNodeMouseOut={this.onNodeMouseOut}
+              onLoad={this.onLoad}
+              controlsInset={controlsInset}
+            />
+          ) : (
+            <Empty
+              icon={'snowflake-o'}
+              title={'Not found on tree'}
+              subtitle={
+                experimentsNotInTree.length > 1
+                  ? `The tree does not include ${experimentIsolateId} or any of its nearest neighbours`
+                  : `The tree does not include ${experimentIsolateId}`
+              }
+            />
+          )}
+          <div
+            className={styles.controlsContainerTop}
+            style={insetStyleHorizontal}
+          >
+            {hasExperimentsNotInTree && (
               <UncontrolledDropdown>
                 <DropdownToggle color="mid" outline size={'sm'}>
-                  {treeType} <i className="fa fa-caret-down" />
+                  {experimentsNotInTree.length} not shown{' '}
+                  <i className="fa fa-caret-down" />
                 </DropdownToggle>
-                <DropdownMenu right>
-                  {treeTypes.map((thisTreeType, index) => (
-                    <DropdownItem
-                      className={
-                        thisTreeType === treeType
-                          ? styles.demoTreeTypeSelected
-                          : styles.demoTreeType
-                      }
-                      key={index}
-                      onClick={() => {
-                        this.setState({ treeType: thisTreeType });
-                        setTimeout(() => {
-                          this.updateMarkers();
-                          if (AUTO_ZOOM_SAMPLES) {
-                            this.zoomSamples();
-                          }
-                        }, 0);
-                      }}
-                    >
-                      {thisTreeType}
-                    </DropdownItem>
-                  ))}
+                <DropdownMenu>
+                  <div className={styles.dropdownContent}>
+                    <ExperimentsList experiments={experimentsNotInTree} />
+                  </div>
                 </DropdownMenu>
               </UncontrolledDropdown>
-            </div>
+            )}
+            {hasExperimentsInTree && (
+              <div className={'ml-auto'}>
+                <UncontrolledDropdown>
+                  <DropdownToggle color="mid" outline size={'sm'}>
+                    {treeType} <i className="fa fa-caret-down" />
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    {treeTypes.map((thisTreeType, index) => (
+                      <DropdownItem
+                        className={
+                          thisTreeType === treeType
+                            ? styles.demoTreeTypeSelected
+                            : styles.demoTreeType
+                        }
+                        key={index}
+                        onClick={() => {
+                          this.setState({ treeType: thisTreeType });
+                          setTimeout(() => {
+                            this.updateMarkers();
+                            if (AUTO_ZOOM_SAMPLES) {
+                              this.zoomSamples();
+                            }
+                          }, 0);
+                        }}
+                      >
+                        {thisTreeType}
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </div>
+            )}
           </div>
-          <div
-            className={styles.controlsContainerBottomLeft}
-            style={insetStyle}
-          >
+          {hasExperimentsInTree && (
             <div
-              className={styles.zoomControl}
-              onClick={this.onZoomSamplesClick}
+              className={styles.controlsContainerBottomLeft}
+              style={insetStyle}
             >
-              <i className="fa fa-search" />
-              <div className={styles.zoomControlText}>Fit samples</div>
+              <div
+                className={styles.zoomControl}
+                onClick={this.onZoomSamplesClick}
+              >
+                <i className="fa fa-search" />
+                <div className={styles.zoomControlText}>Fit samples</div>
+              </div>
             </div>
-          </div>
+          )}
 
           {experimentsHighlightedInTree &&
             experimentsHighlightedInTree.map(experiment => {
