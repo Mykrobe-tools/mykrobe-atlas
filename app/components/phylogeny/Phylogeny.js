@@ -4,6 +4,12 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import _isEqual from 'lodash.isequal';
 import _get from 'lodash.get';
+import {
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap';
 
 import styles from './Phylogeny.scss';
 
@@ -11,6 +17,7 @@ import * as Colors from '../../constants/Colors';
 
 import PhyloCanvasComponent from '../ui/PhyloCanvasComponent';
 import ExperimentsTooltip from '../ui/ExperimentsTooltip';
+import ExperimentsList from '../ui/ExperimentsList';
 
 import type { SampleType } from '../../types/SampleType';
 
@@ -34,7 +41,7 @@ class Phylogeny extends React.Component<*, State> {
   _container: ?Element;
 
   state = {
-    treeType: 'radial',
+    treeType: 'circular',
   };
 
   nodeIsInSamplesToHighlight = node => {
@@ -179,7 +186,26 @@ class Phylogeny extends React.Component<*, State> {
             onLoad={this.onLoad}
             controlsInset={controlsInset}
           />
-          <div className={styles.controlsContainer} style={insetStyle}>
+          <div className={styles.controlsContainerTop} style={insetStyle}>
+            {experimentsNotInTree &&
+              experimentsNotInTree.length && (
+                <UncontrolledDropdown>
+                  <DropdownToggle outline size={'sm'}>
+                    {experimentsNotInTree.length} not shown{' '}
+                    <i className="fa fa-caret-down" />
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <div className={styles.dropdownContent}>
+                      <ExperimentsList experiments={experimentsNotInTree} />
+                    </div>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              )}
+          </div>
+          <div
+            className={styles.controlsContainerBottomLeft}
+            style={insetStyle}
+          >
             <div
               className={styles.zoomControl}
               onClick={this.onZoomSamplesClick}

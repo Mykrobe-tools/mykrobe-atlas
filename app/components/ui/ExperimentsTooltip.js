@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import _get from 'lodash.get';
-import { withRouter, Link } from 'react-router-dom';
+
+import ExperimentsList from './ExperimentsList';
 
 import styles from './ExperimentsTooltip.scss';
 
@@ -46,29 +46,7 @@ class ExperimentsTooltip extends React.PureComponent<*> {
         <div className={styles.tooltipWrapper}>
           <div className={styles.tooltipContainer}>
             <div className={styles.tooltipContent}>
-              {experiments.map(({ id, distance, metadata }) => {
-                const isolateId =
-                  _get(metadata, 'sample.isolateId') || 'No isolate Id';
-                const countryIsolate =
-                  _get(metadata, 'sample.countryIsolate') || '–';
-                // const cityIsolate = _get(metadata, 'sample.cityIsolate') || '–';
-                return (
-                  <div key={id}>
-                    <Link to={`/experiments/${id}/analysis`}>
-                      <i className="fa fa-chevron-circle-right" />{' '}
-                      {distance ? (
-                        <React.Fragment>
-                          {isolateId} · {distance} SNPs · {countryIsolate}
-                        </React.Fragment>
-                      ) : (
-                        <React.Fragment>
-                          {isolateId} · {countryIsolate}
-                        </React.Fragment>
-                      )}
-                    </Link>
-                  </div>
-                );
-              })}
+              <ExperimentsList experiments={experiments} />
             </div>
           </div>
         </div>
@@ -89,4 +67,4 @@ ExperimentsTooltip.propTypes = {
   onClickOutside: PropTypes.func,
 };
 
-export default withRouter(ExperimentsTooltip);
+export default ExperimentsTooltip;
