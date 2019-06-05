@@ -12,6 +12,8 @@ const { fireEvent } = events;
 // Docs http://phylocanvas.org/docs/api/
 // Source http://phylocanvas.org/docs/api/Tree.js.html
 
+const FIT_ZOOM_ADJUST = -15;
+
 // extend Tree to fire an event after draw
 
 class DrawEventTree extends Tree {
@@ -81,6 +83,7 @@ class PhyloCanvasComponent extends React.Component<*> {
 
   zoomReset() {
     this._tree.fitInPanel(this._tree.leaves);
+    this._tree.smoothZoom(FIT_ZOOM_ADJUST);
     this.draw();
   }
 
@@ -93,7 +96,7 @@ class PhyloCanvasComponent extends React.Component<*> {
       return false;
     }
     this._tree.fitInPanel(candidateNodes);
-    this._tree.smoothZoom(-5);
+    this._tree.smoothZoom(FIT_ZOOM_ADJUST);
     this.draw();
   }
 
@@ -265,6 +268,21 @@ class PhyloCanvasComponent extends React.Component<*> {
     this._phyloCanvasDiv = ref;
   };
 
+  onZoomInClick = e => {
+    e.preventDefault();
+    this.zoomIn();
+  };
+
+  onZoomOutClick = e => {
+    e.preventDefault();
+    this.zoomOut();
+  };
+
+  onZoomResetClick = e => {
+    e.preventDefault();
+    this.zoomReset();
+  };
+
   render() {
     const { controlsInset } = this.props;
     const insetStyle = { margin: `${controlsInset}px` };
@@ -276,30 +294,15 @@ class PhyloCanvasComponent extends React.Component<*> {
           className={styles.container}
         />
         <div className={styles.controlsContainer} style={insetStyle}>
-          <div
-            className={styles.zoomInControl}
-            onClick={e => {
-              e.preventDefault();
-              this.zoomIn();
-            }}
-          >
+          <div className={styles.zoomInControl} onClick={this.onZoomInClick}>
             <i className="fa fa-plus" />
           </div>
-          <div
-            className={styles.zoomOutControl}
-            onClick={e => {
-              e.preventDefault();
-              this.zoomOut();
-            }}
-          >
+          <div className={styles.zoomOutControl} onClick={this.onZoomOutClick}>
             <i className="fa fa-minus" />
           </div>
           <div
             className={styles.zoomResetControl}
-            onClick={e => {
-              e.preventDefault();
-              this.zoomReset();
-            }}
+            onClick={this.onZoomResetClick}
           >
             <i className="fa fa-compress" />
           </div>
