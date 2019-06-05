@@ -11,7 +11,7 @@ class Footer extends React.Component<*> {
     return (
       <Container fluid className={styles.container}>
         <div className={styles.contentWrap}>
-          <div className={styles.item}>Copyright and hygeine links</div>
+          <div className={styles.item}>Copyright and hygiene links</div>
           <div className={styles.item}>
             <Link className={styles.link} to="/about">
               About
