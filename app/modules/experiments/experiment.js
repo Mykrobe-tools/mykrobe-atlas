@@ -127,6 +127,15 @@ export const getExperimentNotInTree = createSelector(
   (newick, experiment) => experimentsInTree(newick, [experiment], false)
 );
 
+// tree distance
+
+export const getExperimentTreeNearestNeigbours = createSelector(
+  getExperiment,
+  experiment => _get(experiment, 'results.distance-tree-distance.experiments')
+);
+
+// nearest neighbours
+
 export const getExperimentNearestNeigbours = createSelector(
   getExperiment,
   experiment =>

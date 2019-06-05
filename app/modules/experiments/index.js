@@ -69,6 +69,7 @@ export {
   getExperimentNearestNeigbours,
   getExperimentOwnerIsCurrentUser,
   getExperimentTransformed,
+  getExperimentTreeNearestNeigbours,
   getIsFetchingExperiment,
   newExperiment,
   requestExperiment,
