@@ -4,29 +4,30 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import {
-  getExperiment,
-  getExperimentTransformed,
-  getExperimentNearestNeigbours,
-  getExperimentsTree,
-  getExperimentsTreeNewick,
-  getExperimentAndNearestNeigbours,
-  getExperimentIsolateId,
-  newExperiment,
   createExperiment,
-  requestExperiment,
-  updateExperiment,
   deleteExperiment,
-  requestExperimentMetadataTemplate,
-  getExperimentOwnerIsCurrentUser,
-  getExperimentMetadata,
-  getExperimentMetadataFormCompletion,
-  getExperimentMetadataCompletion,
+  getExperiment,
+  getExperimentAndNearestNeigbours,
   getExperimentAndNearestNeigboursInTree,
   getExperimentAndNearestNeigboursNotInTree,
   getExperimentAndNearestNeigboursWithGeolocation,
   getExperimentAndNearestNeigboursWithoutGeolocation,
   getExperimentInTree,
+  getExperimentIsolateId,
+  getIsFetchingExperiment,
+  getExperimentMetadata,
+  getExperimentMetadataCompletion,
+  getExperimentMetadataFormCompletion,
+  getExperimentNearestNeigbours,
   getExperimentNotInTree,
+  getExperimentOwnerIsCurrentUser,
+  getExperimentsTree,
+  getExperimentsTreeNewick,
+  getExperimentTransformed,
+  newExperiment,
+  requestExperiment,
+  requestExperimentMetadataTemplate,
+  updateExperiment,
 } from '../modules/experiments';
 
 const withExperiment = connect(
@@ -58,6 +59,7 @@ const withExperiment = connect(
     ),
     experimentInTree: getExperimentInTree(state),
     experimentNotInTree: getExperimentNotInTree(state),
+    isFetchingExperiment: getIsFetchingExperiment(state),
   }),
   {
     newExperiment,
@@ -93,6 +95,7 @@ export const withExperimentPropTypes = {
   experimentAndNearestNeigboursWithoutGeolocation: PropTypes.array,
   experimentInTree: PropTypes.array,
   experimentNotInTree: PropTypes.array,
+  isFetchingExperiment: PropTypes.bool,
 };
 
 export default withExperiment;

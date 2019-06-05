@@ -13,11 +13,21 @@ import {
 import moment from 'moment';
 import _get from 'lodash.get';
 
+import { Sample } from 'mykrobe-atlas-jsonschema/schemas/definitions/experiment/experiment-metadata-sample';
+
 import Table from 'makeandship-js-common/src/components/ui/table';
 
 import styles from './ExperimentsTable.scss';
 
 import susceptibilityTransformer from '../../modules/experiments/util/transformers/susceptibility';
+
+export const countryCodeToName = countryCode => {
+  const index = Sample.properties.countryIsolate.enum.indexOf(countryCode);
+  if (index === -1) {
+    return countryCode;
+  }
+  return Sample.properties.countryIsolate.enumNames[index];
+};
 
 /*
 {
@@ -213,7 +223,7 @@ class ExperimentsTable extends React.Component<*> {
           )}
         </td>
         <td>{cityIsolate}</td>
-        <td>{countryIsolate}</td>
+        <td>{countryCodeToName(countryIsolate)}</td>
         <td>{moment(created).format('L')}</td>
         <td>{moment(modified).format('L')}</td>
         <td>
