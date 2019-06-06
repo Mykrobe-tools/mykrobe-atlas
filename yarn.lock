@@ -10867,9 +10867,9 @@ make-dir@^2.1.0:
     tough-cookie "^3.0.1"
     url "^0.11.0"
 
-"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.97":
-  version "0.0.97"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#028cd7026c62f057aad28b937fc752e3292469dd"
+"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.98":
+  version "0.0.98"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#ff790e77058e7d02272692001ee7ee9b68869f1d"
   dependencies:
     ajv "^6.7.0"
     base-64 "^0.1.0"
