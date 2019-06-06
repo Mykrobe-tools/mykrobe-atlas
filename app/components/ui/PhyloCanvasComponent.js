@@ -189,6 +189,9 @@ class PhyloCanvasComponent extends React.Component<*> {
 
   resize() {
     console.log('resize');
+    if (!this._tree) {
+      return;
+    }
     // set size to zero so the parent container can flex to natural size
     this._tree.setSize(0, 0);
     // allow re-render using setTimeout
