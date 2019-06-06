@@ -17,14 +17,14 @@ const FIT_ZOOM_ADJUST = -15;
 // extend Tree to fire an event after draw
 
 class DrawEventTree extends Tree {
-  draw(forceRedraw) {
+  draw(forceRedraw?: boolean) {
     super.draw(forceRedraw);
     fireEvent(this.containerElement, 'draw');
   }
 }
 
 class PhyloCanvasComponent extends React.Component<*> {
-  _drawDeferredTimeout: number;
+  _drawDeferredTimeout: TimeoutID;
   _tree: DrawEventTree;
   _phyloCanvasDiv: React$Element<any>;
   _highlightedNodes: Object;
@@ -83,7 +83,7 @@ class PhyloCanvasComponent extends React.Component<*> {
 
   zoomReset() {
     this._tree.fitInPanel(this._tree.leaves);
-    this._tree.smoothZoom(FIT_ZOOM_ADJUST);
+    // this._tree.smoothZoom(FIT_ZOOM_ADJUST);
     this.draw();
   }
 
@@ -113,7 +113,7 @@ class PhyloCanvasComponent extends React.Component<*> {
 
   highlightNodesWithIds(
     ids: Array<string>,
-    color = Colors.COLOR_HIGHLIGHT_EXPERIMENT
+    color: string = Colors.COLOR_HIGHLIGHT_EXPERIMENT
   ) {
     ids.forEach(id => {
       this.highlightNodeWithId(id, color);
@@ -132,7 +132,7 @@ class PhyloCanvasComponent extends React.Component<*> {
 
   highlightNodeWithId(
     nodeId: string,
-    color = Colors.COLOR_HIGHLIGHT_EXPERIMENT
+    color: string = Colors.COLOR_HIGHLIGHT_EXPERIMENT
   ) {
     const node = this.getNodeWithId(nodeId);
     if (!node) {
@@ -187,27 +187,27 @@ class PhyloCanvasComponent extends React.Component<*> {
     return translatedPoint;
   }
 
-  resize() {
-    console.log('resize');
+  resize = () => {
     if (!this._tree) {
       return;
     }
     // set size to zero so the parent container can flex to natural size
     this._tree.setSize(0, 0);
     // allow re-render using setTimeout
-    setTimeout(() => {
-      console.log('redraw');
-      this._tree.resizeToContainer();
-      this.draw();
-      // this._tree.fitInPanel(); // TODO - may want to check if we are zoomed before doing this?
-    }, 0);
-  }
+    setTimeout(this.resizeTree, 0);
+  };
 
-  draw() {
+  resizeTree = () => {
+    this._tree.resizeToContainer();
+    this.draw();
+    // this._tree.fitInPanel(); // TODO - may want to check if we are zoomed before doing this?
+  };
+
+  draw = () => {
     this._tree && this._tree.draw();
-  }
+  };
 
-  afterDraw() {
+  afterDraw = () => {
     // FIXME: draw still fires after tree is deleted - there is no way to stop the phylocanvas listening to window resize events which trigger draw()
     if (!this._tree) {
       return;
@@ -224,7 +224,7 @@ class PhyloCanvasComponent extends React.Component<*> {
         context.fill();
       }
     }
-  }
+  };
 
   mouseMove = (e: MouseEvent) => {
     const { onNodeMouseOver, onNodeMouseOut } = this.props;
@@ -271,18 +271,18 @@ class PhyloCanvasComponent extends React.Component<*> {
     this._phyloCanvasDiv = ref;
   };
 
-  onZoomInClick = e => {
-    e.preventDefault();
+  onZoomInClick = (e: any) => {
+    e && e.preventDefault();
     this.zoomIn();
   };
 
-  onZoomOutClick = e => {
-    e.preventDefault();
+  onZoomOutClick = (e: any) => {
+    e && e.preventDefault();
     this.zoomOut();
   };
 
-  onZoomResetClick = e => {
-    e.preventDefault();
+  onZoomResetClick = (e: any) => {
+    e && e.preventDefault();
     this.zoomReset();
   };
 
