@@ -10867,9 +10867,9 @@ make-dir@^2.1.0:
     tough-cookie "^3.0.1"
     url "^0.11.0"
 
-"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.98":
-  version "0.0.98"
-  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#ff790e77058e7d02272692001ee7ee9b68869f1d"
+"makeandship-js-common@git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.99":
+  version "0.0.99"
+  resolved "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#4d6f8cd93b7715cea6370471874846c1e4dd8306"
   dependencies:
     ajv "^6.7.0"
     base-64 "^0.1.0"
@@ -10888,6 +10888,7 @@ make-dir@^2.1.0:
     lodash.merge "^4.6.1"
     lodash.omit "^4.5.0"
     lodash.omitby "^4.6.0"
+    lodash.orderby "^4.6.0"
     lodash.set "^4.3.2"
     lodash.snakecase "^4.1.1"
     lodash.topath "^4.5.2"
