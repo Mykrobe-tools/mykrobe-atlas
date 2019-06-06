@@ -2,7 +2,8 @@
 
 import * as React from 'react';
 
-import styles from './Analysis.scss';
+import Loading from 'makeandship-js-common/src/components/ui/loading';
+
 import Phylogeny from '../../phylogeny/Phylogeny';
 import Uploading from '../../ui/Uploading';
 
@@ -13,9 +14,14 @@ import { withExperimentPropTypes } from '../../../hoc/withExperiment';
 import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
 import { withExperimentsHighlightedPropTypes } from '../../../hoc/withExperimentsHighlighted';
 
+import styles from './Analysis.scss';
+
+const EXPERIMENTAL_RENDER_TREE_NEIGHBOURS = false;
+
 class Analysis extends React.Component<*> {
   render() {
     const {
+      isFetchingExperiment,
       isBusyWithCurrentRoute,
       experimentsTreeNewick,
       experimentAndNearestNeigbours,
@@ -31,10 +37,13 @@ class Analysis extends React.Component<*> {
       experimentsHighlightedNotInTree,
       experimentsHighlightedWithGeolocation,
       experimentsHighlightedWithoutGeolocation,
+      experimentTreeNearestNeigbours,
     } = this.props;
     let content;
     if (isBusyWithCurrentRoute) {
       content = <Uploading sectionName="Analysis" />;
+    } else if (isFetchingExperiment) {
+      content = <Loading />;
     } else {
       content = (
         <div className={styles.content}>
@@ -59,20 +68,37 @@ class Analysis extends React.Component<*> {
               experimentIsolateId={experimentIsolateId}
             />
             <div className={styles.phylogenyContainer}>
-              <Phylogeny
-                experimentsTreeNewick={experimentsTreeNewick}
-                experiments={experimentAndNearestNeigbours}
-                experimentsHighlighted={experimentsHighlighted}
-                experimentsHighlightedInTree={experimentsHighlightedInTree}
-                experimentsHighlightedNotInTree={
-                  experimentsHighlightedNotInTree
-                }
-                experimentsInTree={experimentAndNearestNeigboursInTree}
-                experimentsNotInTree={experimentAndNearestNeigboursNotInTree}
-                setExperimentsHighlighted={setExperimentsHighlighted}
-                resetExperimentsHighlighted={resetExperimentsHighlighted}
-                experimentIsolateId={experimentIsolateId}
-              />
+              {EXPERIMENTAL_RENDER_TREE_NEIGHBOURS ? (
+                <Phylogeny
+                  experimentsTreeNewick={experimentsTreeNewick}
+                  experiments={experimentTreeNearestNeigbours}
+                  experimentsHighlighted={experimentsHighlighted}
+                  experimentsHighlightedInTree={experimentsHighlightedInTree}
+                  experimentsHighlightedNotInTree={
+                    experimentsHighlightedNotInTree
+                  }
+                  experimentsInTree={experimentTreeNearestNeigbours}
+                  experimentsNotInTree={[]}
+                  setExperimentsHighlighted={setExperimentsHighlighted}
+                  resetExperimentsHighlighted={resetExperimentsHighlighted}
+                  experimentIsolateId={experimentIsolateId}
+                />
+              ) : (
+                <Phylogeny
+                  experimentsTreeNewick={experimentsTreeNewick}
+                  experiments={experimentAndNearestNeigbours}
+                  experimentsHighlighted={experimentsHighlighted}
+                  experimentsHighlightedInTree={experimentsHighlightedInTree}
+                  experimentsHighlightedNotInTree={
+                    experimentsHighlightedNotInTree
+                  }
+                  experimentsInTree={experimentAndNearestNeigboursInTree}
+                  experimentsNotInTree={experimentAndNearestNeigboursNotInTree}
+                  setExperimentsHighlighted={setExperimentsHighlighted}
+                  resetExperimentsHighlighted={resetExperimentsHighlighted}
+                  experimentIsolateId={experimentIsolateId}
+                />
+              )}
             </div>
           </div>
         </div>

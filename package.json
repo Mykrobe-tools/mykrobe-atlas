@@ -1,6 +1,6 @@
 {
   "name": "mykrobe-atlas",
-  "productName": "Mykrobe",
+  "productName": "Mykrobe Atlas TB",
   "version": "0.6.1",
   "description": "Mykrobe",
   "private": true,
@@ -47,7 +47,7 @@
     "web-open": "open http://localhost:3000"
   },
   "build": {
-    "appId": "com.mykrobe.desktop",
+    "appId": "com.mykrobe.atlas-tb",
     "publish": {
       "provider": "github",
       "owner": "Mykrobe-tools",
@@ -55,7 +55,7 @@
     },
     "mac": {
       "category": "public.app-category.tools",
-      "icon": "./desktop/resources/icon/desktop/icon.icns",
+      "icon": "./desktop/resources/icon/atlas-tb/icon.icns",
       "target": [
         "dmg",
         "zip"
@@ -81,7 +81,7 @@
         "nsis",
         "portable"
       ],
-      "icon": "./desktop/resources/icon/desktop/icon.ico"
+      "icon": "./desktop/resources/icon/atlas-tb/icon.ico"
     },
     "nsis": {
       "perMachine": true
@@ -226,7 +226,7 @@
     "makeandship-js-common": "git+ssh://git@bitbucket.org:makeandship/makeandship-js-common#v0.0.98",
     "memoize-one": "^5.0.4",
     "moment": "^2.14.1",
-    "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.18",
+    "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.19",
     "parse-filepath": "^1.0.2",
     "phylocanvas": "^2.6.1",
     "pluralize": "^7.0.0",
@@ -255,7 +255,7 @@
   "devEngines": {
     "node": "6.x"
   },
-  "targetName": "desktop",
+  "targetName": "atlas-tb",
   "jest": {
     "verbose": true,
     "testURL": "http://localhost/",
