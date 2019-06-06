@@ -377,7 +377,6 @@ class ExperimentGeographicMap extends React.Component<*, State> {
             }
           />
         )}
-
         {hasExperimentsWithoutGeolocation && (
           <div className={styles.controlsContainerTop}>
             <UncontrolledDropdown>
