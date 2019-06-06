@@ -18,6 +18,7 @@ import {
   ensureMykrobeBinaries,
   ensureExemplarSamples,
   ELECTRON_EXECUTABLE_PATH,
+  INCLUDE_SLOW_TESTS,
 } from './util';
 
 import createTestHelpers from './helpers';
@@ -42,8 +43,10 @@ if (process.env.DEBUG_PRODUCTION === '1') {
   throw 'process.env.DEBUG_PRODUCTION should be falsy when running index.desktop.e2e.test.js';
 }
 
-ensureMykrobeBinaries();
-ensureExemplarSamples();
+if (INCLUDE_SLOW_TESTS) {
+  ensureMykrobeBinaries();
+  ensureExemplarSamples();
+}
 
 // this step is very slow - compiles desktop app and creates distribution images
 // comment out while adjusting only tests

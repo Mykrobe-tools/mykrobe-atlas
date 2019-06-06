@@ -28,9 +28,10 @@ describe('AnalyserLocalFile', () => {
   });
 });
 
-ensureMykrobeBinaries();
-ensureExemplarSamples();
-
+if (INCLUDE_SLOW_TESTS) {
+  ensureMykrobeBinaries();
+  ensureExemplarSamples();
+}
 // TODO: this affects where the analyser looks for the mykrobe executable - should use a more explicit flag
 
 beforeEach(() => {
