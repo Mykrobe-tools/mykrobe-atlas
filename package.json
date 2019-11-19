@@ -1,6 +1,6 @@
 {
   "name": "mykrobe-atlas",
-  "productName": "Mykrobe Atlas TB",
+  "productName": "Mykrobe",
   "version": "0.6.1",
   "description": "Mykrobe",
   "private": true,
@@ -17,9 +17,9 @@
     "desktop-dist": "cross-env DEBUG=electron-builder,electron-builder:* PLATFORM=electron babel-node ./desktop/dist.js",
     "desktop-hot-server": "cross-env PLATFORM=electron NODE_ENV=development webpack-dev-server --hot --host 0.0.0.0 --port 3000 --inline --history-api-fallback --progress --config ./desktop/webpack.config.development.js",
     "desktop-install-dependencies": "electron-builder install-app-deps",
-    "desktop-package:all": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --all",
-    "desktop-package:win": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --win --x64",
-    "desktop-package": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js",
+    "desktop-package:all": "cross-env DEBUG=electron-packager,electron-osx-sign,electron-notarize PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --all",
+    "desktop-package:win": "cross-env DEBUG=electron-packager,electron-osx-sign,electron-notarize PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js --win --x64",
+    "desktop-package": "cross-env DEBUG=electron-packager,electron-osx-sign,electron-notarize PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js",
     "desktop-start-hot": "cross-env HOT=1 PLATFORM=electron NODE_ENV=development electron -r @babel/register -r @babel/polyfill ./desktop/index.desktop",
     "desktop-start": "cross-env PLATFORM=electron NODE_ENV=production electron ./desktop/static/",
     "flow": "flow",
@@ -47,7 +47,7 @@
     "web-open": "open http://localhost:3000"
   },
   "build": {
-    "appId": "com.mykrobe.atlas-tb",
+    "appId": "com.mykrobe.desktop",
     "publish": {
       "provider": "github",
       "owner": "Mykrobe-tools",
@@ -55,7 +55,7 @@
     },
     "mac": {
       "category": "public.app-category.tools",
-      "icon": "./desktop/resources/icon/atlas-tb/icon.icns",
+      "icon": "./desktop/resources/icon/desktop/icon.icns",
       "target": [
         "dmg",
         "zip"
@@ -81,7 +81,7 @@
         "nsis",
         "portable"
       ],
-      "icon": "./desktop/resources/icon/atlas-tb/icon.ico"
+      "icon": "./desktop/resources/icon/desktop/icon.ico"
     },
     "nsis": {
       "perMachine": true
@@ -161,7 +161,7 @@
     "electron-debug": "^2.0.0",
     "electron-devtools-installer": "^2.2.1",
     "electron-log": "^2.2.11",
-    "electron-packager": "^12.1.0",
+    "electron-packager": "^14.0.6",
     "electron-updater": "^2.17.6",
     "enzyme": "^3.2.0",
     "eslint": "^5.15.0",
@@ -255,7 +255,7 @@
   "devEngines": {
     "node": "6.x"
   },
-  "targetName": "atlas-tb",
+  "targetName": "desktop",
   "jest": {
     "verbose": true,
     "testURL": "http://localhost/",
