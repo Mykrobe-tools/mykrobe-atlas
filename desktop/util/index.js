@@ -4,6 +4,9 @@ import { execSync } from 'child_process';
 import os from 'os';
 import path from 'path';
 import fs from 'fs-extra';
+import debug from 'debug';
+
+const d = debug('mykrobe:desktop-util');
 
 const pkg = require('../../package.json');
 
@@ -28,7 +31,7 @@ export const executeCommand = command => {
       command.replace(/\\/g, '/').replace(/"/g, '\\"') +
       '"';
   }
-  console.log(command);
+  d(command);
   execSync(command, { stdio: [0, 1, 2] });
 };
 
