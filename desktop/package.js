@@ -22,6 +22,7 @@ const icon = path.join(__dirname, `resources/icon/${pkg.targetName}/icon`);
 // copy the version number from the main package.json
 updateStaticPackageJson();
 
+// do not sign app here - signing is handled by dist.js
 const DEFAULT_OPTS = {
   dir: path.join(__dirname, 'static'),
   name: pkg.productName,
@@ -29,18 +30,6 @@ const DEFAULT_OPTS = {
   version: '',
   extendInfo: path.join(__dirname, 'resources/plist/extendInfo.plist'),
   appBundleId: pkg.build.appId,
-  // osxSign: {
-  //   // $ security find-identity -p codesigning -v
-  //   identity: 'Developer ID Application: Make and Ship Limited',
-  //   hardenedRuntime: true,
-  // },
-  // osxNotarize: {
-  //   appleId: 'si@simonheys.com',
-  //   appleIdPassword: '@keychain:Application Loader: si@simonheys.com',
-  //   // $ xcrun altool --list-providers -u 'si@simonheys.com' -p @keychain:"Application Loader: si@simonheys.com"
-  //   // ProviderShortname
-  //   ascProvider: '67D36TNWRH',
-  // },
 };
 
 // this is the version of Electron to use

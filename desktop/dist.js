@@ -34,20 +34,6 @@ const build = (plat, arch) => {
       from: sourceDir,
       to: 'bin',
     };
-
-    // if (plat === 'darwin') {
-    //   // sign the .Python file
-    //   const pathToApp = path.join(
-    //     __dirname,
-    //     '..',
-    //     pkg.build.directories.output,
-    //     'mac',
-    //     `${pkg.productName}.app`
-    //   );
-    //   draft.mac.binaries = [
-    //     path.join(pathToApp, 'Contents/Resources/bin/.Python'),
-    //   ];
-    // }
   });
 
   // specify platform and arch

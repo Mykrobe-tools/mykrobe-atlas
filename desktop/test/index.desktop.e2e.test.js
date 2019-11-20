@@ -52,17 +52,17 @@ if (INCLUDE_SLOW_TESTS) {
 // this step is very slow - compiles desktop app and creates distribution images
 // comment out while adjusting only tests
 
-describe('Desktop e2e package', () => {
-  it('should package app', async () => {
-    executeCommand('yarn desktop-package');
-  });
-});
+// describe('Desktop e2e package', () => {
+//   it('should package app', async () => {
+//     executeCommand('yarn desktop-package');
+//   });
+// });
 
-describeSlowTest('Desktop e2e dist', () => {
-  it('should create distribution app', async () => {
-    executeCommand('yarn desktop-dist');
-  });
-});
+// describeSlowTest('Desktop e2e dist', () => {
+//   it('should create distribution app', async () => {
+//     executeCommand('yarn desktop-dist');
+//   });
+// });
 
 let _app: Application;
 

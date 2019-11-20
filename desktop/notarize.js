@@ -7,7 +7,7 @@ const d = debug('mykrobe:desktop-notarize');
 
 const pkg = require('../package.json');
 
-exports.default = async function notarizing(context) {
+exports.default = async context => {
   const { electronPlatformName, appOutDir } = context;
   if (electronPlatformName !== 'darwin') {
     d(`Skipping notarize for platform '${electronPlatformName}'`);
@@ -25,6 +25,8 @@ exports.default = async function notarizing(context) {
     // ProviderShortname
     ascProvider: '67D36TNWRH',
   };
-  d(`Calling notarize with args`, JSON.stringify(args, null, 2));
+
+  d(`Calling electron-notarize with args`, JSON.stringify(args, null, 2));
+
   return await notarize(args);
 };
