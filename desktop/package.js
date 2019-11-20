@@ -28,13 +28,13 @@ const DEFAULT_OPTS = {
   icon: icon,
   version: '',
   'extend-info': path.join(__dirname, 'resources/plist/extend-info.plist'),
+  appBundleId: pkg.build.appId,
   osxSign: {
     // $ security find-identity -p codesigning -v
     identity: 'Developer ID Application: Make and Ship Limited',
     hardenedRuntime: true,
   },
   osxNotarize: {
-    appBundleId: pkg.build.appId,
     appleId: 'si@simonheys.com',
     appleIdPassword: '@keychain:Application Loader: si@simonheys.com',
     // $ xcrun altool --list-providers -u 'si@simonheys.com' -p @keychain:"Application Loader: si@simonheys.com"
