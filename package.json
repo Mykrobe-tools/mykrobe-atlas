@@ -56,11 +56,11 @@
     "mac": {
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
-      "entitlements": "desktop/resources/plist/entitlements.mac.plist",
-      "entitlementsInherit": "desktop/resources/plist/entitlements.mac.plist",
+      "entitlements": "./desktop/resources/plist/entitlements.mac.plist",
+      "entitlementsInherit": "./desktop/resources/plist/entitlements.mac.plist",
       "category": "public.app-category.tools",
       "identity": "Make and Ship Limited",
-      "icon": "desktop/resources/icon/desktop/icon.icns",
+      "icon": "./desktop/resources/icon/desktop/icon.icns",
       "target": [
         "dmg",
         "zip"
@@ -87,7 +87,7 @@
         "nsis",
         "portable"
       ],
-      "icon": "desktop/resources/icon/desktop/icon.ico"
+      "icon": "./desktop/resources/icon/desktop/icon.ico"
     },
     "nsis": {
       "perMachine": true
@@ -117,11 +117,11 @@
       }
     ],
     "directories": {
-      "buildResources": "desktop/resources/build",
-      "output": "desktop/dist",
-      "app": "desktop/static"
+      "buildResources": "./desktop/resources/build",
+      "output": "./desktop/dist",
+      "app": "./desktop/static"
     },
-    "afterSign": "desktop/notarize.js"
+    "afterSign": "./desktop/notarize.js"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -202,7 +202,7 @@
     "redux-saga-testing": "^1.0.5",
     "sass-loader": "^7.0.1",
     "selenium-webdriver": "^4.0.0-alpha.1",
-    "spectron": "^5.0.0",
+    "spectron": "^4.0.0",
     "style-loader": "^0.23.0",
     "terser-webpack-plugin": "^1.2.3",
     "tmp": "^0.0.33",

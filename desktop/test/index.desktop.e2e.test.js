@@ -3,6 +3,7 @@
 // we mock 'electron' for other tests but want to actually use it here
 jest.unmock('electron');
 
+// nb. version of spectron should map to version of electron https://github.com/electron-userland/spectron#version-map
 import { Application } from 'spectron';
 
 const exemplarSamplesExpect = require('../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
