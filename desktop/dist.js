@@ -3,6 +3,10 @@
 // https://github.com/electron-userland/electron-builder
 
 import path from 'path';
+import debug from 'debug';
+
+const d = debug('mykrobe:desktop-dist');
+
 const builder = require('electron-builder');
 const pkg = require('../package.json');
 
@@ -51,7 +55,7 @@ const build = (plat, arch) => {
       break;
   }
 
-  console.log('options', JSON.stringify(options, null, 2));
+  d('options', JSON.stringify(options, null, 2));
 
   return builder.build(options);
 };
@@ -66,7 +70,7 @@ platforms.forEach(plat => {
 
 Promise.all(builds)
   .then(() => {
-    console.log('done');
+    d('done');
   })
   .catch(error => {
     console.error(error);

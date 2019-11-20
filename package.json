@@ -54,8 +54,13 @@
       "repo": "mykrobe"
     },
     "mac": {
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "desktop/resources/plist/entitlements.mac.plist",
+      "entitlementsInherit": "desktop/resources/plist/entitlements.mac.plist",
       "category": "public.app-category.tools",
-      "icon": "./desktop/resources/icon/desktop/icon.icns",
+      "identity": "Make and Ship Limited",
+      "icon": "desktop/resources/icon/desktop/icon.icns",
       "target": [
         "dmg",
         "zip"
@@ -74,14 +79,15 @@
           "y": 150,
           "type": "file"
         }
-      ]
+      ],
+      "sign": false
     },
     "win": {
       "target": [
         "nsis",
         "portable"
       ],
-      "icon": "./desktop/resources/icon/desktop/icon.ico"
+      "icon": "desktop/resources/icon/desktop/icon.ico"
     },
     "nsis": {
       "perMachine": true
@@ -114,7 +120,8 @@
       "buildResources": "desktop/resources/build",
       "output": "desktop/dist",
       "app": "desktop/static"
-    }
+    },
+    "afterSign": "desktop/notarize.js"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -158,7 +165,7 @@
     "del": "^3.0.0",
     "devtron": "^1.2.1",
     "electron": "^2.0.2",
-    "electron-builder": "^20.28.1",
+    "electron-builder": "^21.2.0",
     "electron-debug": "^2.0.0",
     "electron-devtools-installer": "^2.2.1",
     "electron-log": "^2.2.11",
