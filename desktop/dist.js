@@ -3,6 +3,7 @@
 // https://github.com/electron-userland/electron-builder
 
 import path from 'path';
+import produce from 'immer';
 import debug from 'debug';
 
 const d = debug('mykrobe:desktop-dist');
@@ -21,19 +22,33 @@ const build = (plat, arch) => {
   if (plat === 'darwin' && arch === 'ia32') {
     return;
   }
-  const config = JSON.parse(JSON.stringify(pkg.build));
 
-  // include the bin folder
+  const config = produce(pkg.build, draft => {
+    // include the bin folder
+    const sourceDir = path.join(
+      __dirname,
+      `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
+    );
 
-  const sourceDir = path.join(
-    __dirname,
-    `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
-  );
+    draft.extraResources = {
+      from: sourceDir,
+      to: 'bin',
+    };
 
-  config.extraResources = {
-    from: sourceDir,
-    to: 'bin',
-  };
+    if (plat === 'darwin') {
+      // sign the .Python file
+      const pathToApp = path.join(
+        __dirname,
+        '..',
+        pkg.build.directories.output,
+        'mac',
+        `${pkg.productName}.app`
+      );
+      draft.mac.binaries = [
+        path.join(pathToApp, 'Contents/Resources/bin/.Python'),
+      ];
+    }
+  });
 
   // specify platform and arch
 
