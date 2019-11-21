@@ -4,6 +4,9 @@ import os from 'os';
 import path from 'path';
 import fs from 'fs-extra';
 
+import debug from 'debug';
+const d = debug('mykrobe:desktop-test-util');
+
 export const pkg = require('../../package.json');
 
 export const TIMEOUT = 30 * 60 * 1000; // 30 minutes (can take over 10 minutes in VM)
@@ -71,7 +74,7 @@ export const ensureMykrobeBinaries = () => {
   const executableName =
     plat === 'win32' ? 'mykrobe_atlas.exe' : 'mykrobe_atlas';
   const executablePath = path.join(binFolder, executableName);
-  console.log(`Checking for existence of '${executablePath}'`);
+  d(`Checking for existence of '${executablePath}'`);
   const exists = fs.existsSync(executablePath);
 
   // check for existence of binary and bail with error
