@@ -3,6 +3,10 @@
 import path from 'path';
 import parsePath from 'parse-filepath';
 import fs from 'fs-extra';
+import log from 'electron-log';
+
+// Log level
+log.transports.console.level = 'info';
 
 import {
   ensureMykrobeBinaries,

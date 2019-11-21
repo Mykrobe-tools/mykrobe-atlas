@@ -5,7 +5,7 @@ import path from 'path';
 import fs from 'fs-extra';
 
 import debug from 'debug';
-const d = debug('mykrobe:desktop-test-util');
+const d = debug('mykrobe:desktop-test:util');
 
 export const pkg = require('../../package.json');
 

@@ -4,8 +4,8 @@ import { execSync } from 'child_process';
 import os from 'os';
 import path from 'path';
 import fs from 'fs-extra';
-import debug from 'debug';
 
+import debug from 'debug';
 const d = debug('mykrobe:desktop-util');
 
 const pkg = require('../../package.json');
