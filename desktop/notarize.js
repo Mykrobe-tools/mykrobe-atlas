@@ -25,11 +25,9 @@ exports.default = async context => {
   const args = {
     appBundleId: pkg.build.appId,
     appPath: `${appOutDir}/${appName}.app`,
-    appleId: 'si@simonheys.com',
-    appleIdPassword: '@keychain:Application Loader: si@simonheys.com',
-    // $ xcrun altool --list-providers -u 'si@simonheys.com' -p @keychain:"Application Loader: si@simonheys.com"
-    // ProviderShortname
-    ascProvider: '67D36TNWRH',
+    appleId: process.env.MAC_NOTARIZE_APPLE_ID,
+    appleIdPassword: process.env.MAC_NOTARIZE_APPLE_ID_PASSWORD,
+    ascProvider: process.env.MAC_NOTARIZE_ASC_PROVIDER,
   };
 
   d(`Calling electron-notarize with args`, JSON.stringify(args, null, 2));
