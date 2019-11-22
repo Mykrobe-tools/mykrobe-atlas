@@ -18,9 +18,9 @@ This will launch a local dev server and instance of the app. This has DevTools e
 $ yarn desktop-dev
 ```
 
-You will see `Failed to load resource: net::ERR_CONNECTION_REFUSED` in the Electron window while the app compiles.
+After you see `Compiled successfully` in the terminal window, you may reload the view (Menu: View → Reload) in Electron to see the app.
 
-After you see `webpack: Compiled successfully` in the terminal window, you may reload the view (Menu: View → Reload) in Electron to see the app.
+To debug the main process, open Chrome app and visit [chrome://inspect/#devices](chrome://inspect/#devices). Ensure that you have `localhost:5858` included in the 'Discover network targets'.
 
 ## Run production version
 
