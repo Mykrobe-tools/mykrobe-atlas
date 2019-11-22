@@ -3,6 +3,11 @@
 // https://github.com/electron-userland/electron-builder
 
 import path from 'path';
+import produce from 'immer';
+import debug from 'debug';
+
+const d = debug('mykrobe:desktop-dist');
+
 const builder = require('electron-builder');
 const pkg = require('../package.json');
 
@@ -17,19 +22,19 @@ const build = (plat, arch) => {
   if (plat === 'darwin' && arch === 'ia32') {
     return;
   }
-  const config = JSON.parse(JSON.stringify(pkg.build));
 
-  // include the bin folder
+  const config = produce(pkg.build, draft => {
+    // include the bin folder
+    const sourceDir = path.join(
+      __dirname,
+      `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
+    );
 
-  const sourceDir = path.join(
-    __dirname,
-    `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
-  );
-
-  config.extraResources = {
-    from: sourceDir,
-    to: 'bin',
-  };
+    draft.extraResources = {
+      from: sourceDir,
+      to: 'bin',
+    };
+  });
 
   // specify platform and arch
 
@@ -51,7 +56,7 @@ const build = (plat, arch) => {
       break;
   }
 
-  console.log('options', JSON.stringify(options, null, 2));
+  d('options', JSON.stringify(options, null, 2));
 
   return builder.build(options);
 };
@@ -66,7 +71,7 @@ platforms.forEach(plat => {
 
 Promise.all(builds)
   .then(() => {
-    console.log('done');
+    d('done');
   })
   .catch(error => {
     console.error(error);

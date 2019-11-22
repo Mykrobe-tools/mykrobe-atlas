@@ -138,7 +138,15 @@ export const analyseFileSetFilePaths = (payload: string) => ({
 
 // Reducer
 
-const initialState = {
+export type State = {
+  isAnalysing: boolean,
+  filePaths: any,
+  error: Error | null,
+  progress: number,
+  json: any,
+};
+
+const initialState: State = {
   isAnalysing: false,
   filePaths: null,
   error: null,

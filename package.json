@@ -35,7 +35,7 @@
     "test:e2e": "yarn test -t 'e2e'",
     "test:fast": "cross-env INCLUDE_SLOW_TESTS=false jest --no-cache",
     "test:watch": "yarn test:fast --watch",
-    "test": "cross-env INCLUDE_SLOW_TESTS=true jest --no-cache --bail --runInBand",
+    "test": "cross-env INCLUDE_SLOW_TESTS=true DEBUG=mykrobe*,electron* jest --no-cache --bail --runInBand",
     "web-api-server": "babel-node web/api-dev-server.js",
     "web-build-server": "babel-node web/build/simple-server.js",
     "web-build-server-compile": "rm -rf web/dist && babel web/build --out-dir web/dist",
@@ -54,6 +54,10 @@
       "repo": "mykrobe"
     },
     "mac": {
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "./desktop/resources/plist/entitlements.mac.plist",
+      "entitlementsInherit": "./desktop/resources/plist/entitlements.mac.plist",
       "category": "public.app-category.tools",
       "identity": "Make and Ship Limited",
       "icon": "./desktop/resources/icon/desktop/icon.icns",
@@ -75,7 +79,8 @@
           "y": 150,
           "type": "file"
         }
-      ]
+      ],
+      "sign": false
     },
     "win": {
       "target": [
@@ -112,10 +117,11 @@
       }
     ],
     "directories": {
-      "buildResources": "desktop/resources/build",
-      "output": "desktop/dist",
-      "app": "desktop/static"
-    }
+      "buildResources": "./desktop/resources/build",
+      "output": "./desktop/dist",
+      "app": "./desktop/static"
+    },
+    "afterSign": "./desktop/notarize.js"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -155,15 +161,16 @@
     "cross-env": "^5.1.1",
     "css-loader": "^1.0.0",
     "css-modules-require-hook": "^4.2.2",
+    "debug": "^4.1.1",
     "del": "^3.0.0",
     "devtron": "^1.2.1",
     "electron": "^2.0.2",
-    "electron-builder": "^20.28.1",
+    "electron-builder": "^21.2.0",
     "electron-debug": "^2.0.0",
     "electron-devtools-installer": "^2.2.1",
     "electron-log": "^2.2.11",
-    "electron-packager": "^12.1.0",
-    "electron-updater": "^2.17.6",
+    "electron-packager": "^14.0.6",
+    "electron-updater": "^4.2.0",
     "enzyme": "^3.2.0",
     "eslint": "^5.15.0",
     "eslint-import-resolver-webpack": "^0.11.0",
@@ -195,7 +202,7 @@
     "redux-saga-testing": "^1.0.5",
     "sass-loader": "^7.0.1",
     "selenium-webdriver": "^4.0.0-alpha.1",
-    "spectron": "^5.0.0",
+    "spectron": "^4.0.0",
     "style-loader": "^0.23.0",
     "terser-webpack-plugin": "^1.2.3",
     "tmp": "^0.0.33",

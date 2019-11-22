@@ -2,6 +2,9 @@
 
 import { Application } from 'spectron';
 
+import debug from 'debug';
+const d = debug('mykrobe:desktop-test:testDisplayResults');
+
 import * as TargetConstants from '../../app/constants/TargetConstants';
 
 import { delay, expectCaseInsensitiveEqual } from './util';
@@ -18,8 +21,6 @@ const testOpenSourceFile = async (
   }
   const { textForSelector, saveScreenshot } = createTestHelpers(app);
   const { client } = app;
-
-  const DEBUG = true;
 
   // click each section and check the result shown in the UI
 
@@ -40,8 +41,7 @@ const testOpenSourceFile = async (
         firstLineDrugs,
         exemplarSamplesExpectEntry.expect.drugs.firstLineDrugs
       );
-      DEBUG &&
-        console.log('firstLineDrugs', JSON.stringify(firstLineDrugs, null, 2));
+      d('firstLineDrugs', JSON.stringify(firstLineDrugs, null, 2));
       const secondLineDrugs = await textForSelector(
         '[data-tid="panel-second-line-drugs"] [data-tid="drug"]'
       );
@@ -49,11 +49,7 @@ const testOpenSourceFile = async (
         secondLineDrugs,
         exemplarSamplesExpectEntry.expect.drugs.secondLineDrugs
       );
-      DEBUG &&
-        console.log(
-          'secondLineDrugs',
-          JSON.stringify(secondLineDrugs, null, 2)
-        );
+      d('secondLineDrugs', JSON.stringify(secondLineDrugs, null, 2));
       if (exemplarSamplesExpectEntry.expect.drugs.resistance) {
         const resistance = await textForSelector(
           '[data-tid="panel-resistance"] [data-tid="resistance"]'
@@ -62,7 +58,7 @@ const testOpenSourceFile = async (
           resistance,
           exemplarSamplesExpectEntry.expect.drugs.resistance
         );
-        DEBUG && console.log('resistance', JSON.stringify(resistance, null, 2));
+        d('resistance', JSON.stringify(resistance, null, 2));
       }
     } else {
       // TODO: verify that nothing is shown
@@ -89,8 +85,7 @@ const testOpenSourceFile = async (
     const evidenceDrugs = Object.keys(
       exemplarSamplesExpectEntry.expect.evidence
     );
-    DEBUG &&
-      console.log('evidenceDrugs', JSON.stringify(evidenceDrugs, null, 2));
+    d('evidenceDrugs', JSON.stringify(evidenceDrugs, null, 2));
 
     for (let k = 0; k < evidenceDrugs.length; k++) {
       const drug = evidenceDrugs[k];
@@ -101,8 +96,7 @@ const testOpenSourceFile = async (
         evidence,
         exemplarSamplesExpectEntry.expect.evidence[drug]
       );
-      DEBUG &&
-        console.log(`evidence[${drug}]`, JSON.stringify(evidence, null, 2));
+      d(`evidence[${drug}]`, JSON.stringify(evidence, null, 2));
     }
   } else {
     // TODO: verify that no evidence is shown
@@ -121,7 +115,7 @@ const testOpenSourceFile = async (
     species,
     exemplarSamplesExpectEntry.expect.species
   );
-  DEBUG && console.log('species', JSON.stringify(species, null, 2));
+  d('species', JSON.stringify(species, null, 2));
 
   // all
 
@@ -139,7 +133,7 @@ const testOpenSourceFile = async (
       susceptible,
       exemplarSamplesExpectEntry.expect.all.susceptible
     );
-    DEBUG && console.log('susceptible', JSON.stringify(susceptible, null, 2));
+    d('susceptible', JSON.stringify(susceptible, null, 2));
 
     const resistant = await textForSelector(
       '[data-tid="column-resistant"] [data-tid="drug"]'
@@ -148,7 +142,7 @@ const testOpenSourceFile = async (
       resistant,
       exemplarSamplesExpectEntry.expect.all.resistant
     );
-    DEBUG && console.log('resistant', JSON.stringify(resistant, null, 2));
+    d('resistant', JSON.stringify(resistant, null, 2));
   } else {
     // TODO: verify that nothing is shown
   }

@@ -3,7 +3,11 @@
 // we mock 'electron' for other tests but want to actually use it here
 jest.unmock('electron');
 
+// nb. version of spectron should map to version of electron https://github.com/electron-userland/spectron#version-map
 import { Application } from 'spectron';
+
+import debug from 'debug';
+const d = debug('mykrobe:desktop-test');
 
 const exemplarSamplesExpect = require('../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
 
@@ -29,7 +33,7 @@ import testDisplayResults from './testDisplayResults';
 
 jest.setTimeout(TIMEOUT);
 
-console.log('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
+d('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
 
 describe('Desktop e2e', () => {
   it('should contain a test', done => {
@@ -51,17 +55,17 @@ if (INCLUDE_SLOW_TESTS) {
 // this step is very slow - compiles desktop app and creates distribution images
 // comment out while adjusting only tests
 
-describe('Desktop e2e package', () => {
-  it('should package app', async () => {
-    executeCommand('yarn desktop-package');
-  });
-});
+// describe('Desktop e2e package', () => {
+//   it('should package app', async () => {
+//     executeCommand('yarn desktop-package');
+//   });
+// });
 
-describeSlowTest('Desktop e2e dist', () => {
-  it('should create distribution app', async () => {
-    executeCommand('yarn desktop-dist');
-  });
-});
+// describeSlowTest('Desktop e2e dist', () => {
+//   it('should create distribution app', async () => {
+//     executeCommand('yarn desktop-dist');
+//   });
+// });
 
 let _app: Application;
 
@@ -101,6 +105,7 @@ describeSlowTest('Desktop e2e main window', function spec() {
       });
 
       it(`${source} - should open source file`, async () => {
+        d(`Opening source file ${source}`);
         await testOpenSourceFile(source, exemplarSamplesExpectEntry, _app);
       });
 

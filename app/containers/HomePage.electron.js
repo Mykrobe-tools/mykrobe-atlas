@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import Upload from '../components/upload/Upload';
 import AppDocumentTitle from '../components/ui/AppDocumentTitle';
 
+import withExperiment, { withExperimentPropTypes } from '../hoc/withExperiment';
+
 import {
   analyseFileCancel,
   analyseFile,
@@ -20,9 +22,10 @@ class HomePage extends React.Component<*> {
       analyseFileCancel,
       isAnalysing,
       progress,
+      experimentIsolateId,
     } = this.props;
     const documentTitle = isAnalysing ? (
-      <AppDocumentTitle title={'Analysing'} />
+      <AppDocumentTitle title={[experimentIsolateId, 'Analysing']} />
     ) : null;
     return (
       <React.Fragment>
@@ -39,6 +42,7 @@ class HomePage extends React.Component<*> {
 }
 
 HomePage.propTypes = {
+  ...withExperimentPropTypes,
   analyseFile: PropTypes.func.isRequired,
   analyseFileCancel: PropTypes.func.isRequired,
   isAnalysing: PropTypes.bool,
@@ -56,4 +60,4 @@ const withRedux = connect(
   }
 );
 
-export default withRedux(HomePage);
+export default withRedux(withExperiment(HomePage));

@@ -1,10 +1,10 @@
 const pathLib = require('path');
 const fs = require('fs');
+const debug = require('debug');
+const d = debug('babel-plugin-electron-module-resolver');
 
 // This plugin will modify imports and requires to resolve sources with a '.electron' suffix
 // Only if process.PLATFORM === 'electron'
-
-const DEBUG = false;
 
 const resolvedPath = (source, state) => {
   if (process.env.PLATFORM !== 'electron') {
@@ -19,7 +19,7 @@ const resolvedPath = (source, state) => {
   if (!source.startsWith('./') && !source.startsWith('../')) {
     return;
   }
-  DEBUG && console.log('source', source);
+  d('source', source);
 
   const originalImportFilePath = pathLib.resolve(
     pathLib.dirname(state.file.opts.filename),
@@ -53,20 +53,15 @@ const resolvedPath = (source, state) => {
     }
   }
 
-  DEBUG &&
-    console.log(
-      'originalImportFilePathResolved',
-      originalImportFilePathResolved
-    );
+  d('originalImportFilePathResolved', originalImportFilePathResolved);
 
   const originalImportFilePathResolvedParsed = pathLib.parse(
     originalImportFilePathResolved
   );
-  DEBUG &&
-    console.log(
-      'originalImportFilePathResolved',
-      JSON.stringify(originalImportFilePathResolvedParsed, null, 2)
-    );
+  d(
+    'originalImportFilePathResolved',
+    JSON.stringify(originalImportFilePathResolvedParsed, null, 2)
+  );
 
   const electronImportFilePath = pathLib.resolve(
     originalImportFilePathResolvedParsed.dir,
@@ -76,9 +71,9 @@ const resolvedPath = (source, state) => {
   );
 
   if (fs.existsSync(electronImportFilePath)) {
-    DEBUG && console.log('******** Use: ', electronImportFilePath);
+    d('******** Use: ', electronImportFilePath);
     const sourceFolder = pathLib.dirname(state.file.opts.filename);
-    DEBUG && console.log('******** sourceFolder: ', sourceFolder);
+    d('******** sourceFolder: ', sourceFolder);
     let relativeImportPath = pathLib.relative(
       sourceFolder,
       electronImportFilePath
@@ -90,7 +85,7 @@ const resolvedPath = (source, state) => {
       // ensure path starts with './'
       relativeImportPath = `./${relativeImportPath}`;
     }
-    DEBUG && console.log('******** relativeImportPath: ', relativeImportPath);
+    d('******** relativeImportPath: ', relativeImportPath);
     return relativeImportPath;
   }
 };
