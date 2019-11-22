@@ -6,7 +6,7 @@ export function openFileDialog() {
   const { dialog, BrowserWindow } = require('electron').remote;
   const browserWindow = BrowserWindow.getFocusedWindow();
 
-  const files = dialog.showOpenDialog(browserWindow, {
+  const files = dialog.showOpenDialogSync(browserWindow, {
     title: 'Open',
     properties: ['openFile', 'multiSelections'],
     filters: [
@@ -28,7 +28,7 @@ export function saveFileDialog(defaultPath: string = 'mykrobe.json') {
   const { dialog, BrowserWindow } = require('electron').remote;
   const browserWindow = BrowserWindow.getFocusedWindow();
 
-  const filePath = dialog.showSaveDialog(browserWindow, {
+  const filePath = dialog.showSaveDialogSync(browserWindow, {
     title: 'Save',
     defaultPath,
   });

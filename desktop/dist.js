@@ -15,6 +15,8 @@ import archPlatArgs from './util/archPlatArgs';
 
 const argv = require('minimist')(process.argv.slice(2));
 
+d('argv', JSON.stringify(argv, null, 2));
+
 const { platforms, archs } = archPlatArgs();
 
 const build = (plat, arch) => {
@@ -38,23 +40,21 @@ const build = (plat, arch) => {
 
   // specify platform and arch
 
-  let options = {
-    config,
-    [arch]: true,
-    publish: argv.publish ? 'always' : 'never',
-  };
-
-  switch (plat) {
-    case 'darwin':
-      options.mac = [];
-      break;
-    case 'win32':
-      options.win = [];
-      break;
-    case 'linux':
-      options.linux = [];
-      break;
-  }
+  const options = produce({ config }, draft => {
+    draft[arch] = true;
+    draft.publish = argv.publish ? 'always' : 'never';
+    switch (plat) {
+      case 'darwin':
+        draft.mac = [];
+        break;
+      case 'win32':
+        draft.win = [];
+        break;
+      case 'linux':
+        draft.linux = [];
+        break;
+    }
+  });
 
   d('options', JSON.stringify(options, null, 2));
 

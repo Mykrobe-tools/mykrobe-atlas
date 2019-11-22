@@ -13,6 +13,7 @@ module.exports = {
   ],
   plugins: [
     'inline-dotenv',
+    // Keycloak.js is UMD
     '@babel/plugin-transform-modules-umd',
     '@babel/plugin-transform-destructuring',
     '@babel/plugin-proposal-class-properties',

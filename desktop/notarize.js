@@ -1,8 +1,9 @@
 /* @flow */
 
 const { notarize } = require('electron-notarize');
-import debug from 'debug';
+const argv = require('minimist')(process.argv.slice(2));
 
+import debug from 'debug';
 const d = debug('mykrobe:desktop-notarize');
 
 const pkg = require('../package.json');
@@ -11,6 +12,11 @@ exports.default = async context => {
   const { electronPlatformName, appOutDir } = context;
   if (electronPlatformName !== 'darwin') {
     d(`Skipping notarize for platform '${electronPlatformName}'`);
+    return;
+  }
+
+  if (argv['skip-notarize']) {
+    d(`Skipping notarize`);
     return;
   }
 

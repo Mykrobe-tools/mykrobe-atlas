@@ -26,7 +26,7 @@ After you see `webpack: Compiled successfully` in the terminal window, you may r
 
 * `desktop-package` builds and packages a standalone app inside the `desktop/releases` folder. At this stage the app is a folder full of files.
 
-* `desktop-dist` takes the folder(s) created by `desktop-package` and combines into single individual self-contained apps / images / installers for specified platforms, signed and ready for distribution.
+* `desktop-dist [--skip-notarize]` takes the folder(s) created by `desktop-package` and combines into single individual self-contained apps / images / installers for specified platforms, signed and ready for distribution. Add `--skip-notarize` to skip the Mac notiarize step.
 
 ### Production build for current platform
 
