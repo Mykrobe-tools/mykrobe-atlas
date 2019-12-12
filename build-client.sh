@@ -11,12 +11,15 @@ export GOOGLE_DRIVE_DEVELOPER_KEY=AIzaSyAGWxdeXCK_1_AGRWZlkoaH6gQCjfC-3pI
 export ONEDRIVE_CLIENT_ID=e39a152d-61a5-4dbc-981c-95a0d0f23d9f
 export AUTH_COOKIE_NAME=api-dev.mykro.be
 export API_SWAGGER_URL=http://api-dev.mykro.be/swagger.json
+export AUTH_KEYCLOAK_URL=https://accounts-dev.makeandship.com/auth
+export AUTH_KEYCLOAK_REALM=atlas
+export AUTH_KEYCLOAK_CLIENT_ID=react-web-client
 
 #copy ssh keys
 cp ~/.ssh/bitbucket-readonly .
 cp ~/.ssh/atlas-jsonschema-readonly .
 
-docker build --build-arg DEBUG_PRODUCTION --build-arg API_DEBUG --build-arg API_URL --build-arg ATLAS_APP --build-arg GOOGLE_MAPS_API_KEY --build-arg BOX_CLIENT_ID --build-arg DROPBOX_APP_KEY --build-arg GOOGLE_DRIVE_CLIENT_ID --build-arg GOOGLE_DRIVE_DEVELOPER_KEY --build-arg ONEDRIVE_CLIENT_ID --build-arg AUTH_COOKIE_NAME --build-arg API_SWAGGER_URL -t makeandship/atlas-client . -f deploy/ClientDockerfile
+docker build --build-arg DEBUG_PRODUCTION --build-arg API_DEBUG --build-arg API_URL --build-arg ATLAS_APP --build-arg GOOGLE_MAPS_API_KEY --build-arg BOX_CLIENT_ID --build-arg DROPBOX_APP_KEY --build-arg GOOGLE_DRIVE_CLIENT_ID --build-arg GOOGLE_DRIVE_DEVELOPER_KEY --build-arg ONEDRIVE_CLIENT_ID --build-arg AUTH_COOKIE_NAME --build-arg API_SWAGGER_URL --build-arg AUTH_KEYCLOAK_CLIENT_ID --build-arg AUTH_KEYCLOAK_REALM --build-arg AUTH_KEYCLOAK_URL -t makeandship/atlas-client . -f deploy/ClientDockerfile
 
 #remove ssh keys
 rm bitbucket-readonly
