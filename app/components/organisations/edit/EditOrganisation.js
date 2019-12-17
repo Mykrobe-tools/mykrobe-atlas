@@ -32,8 +32,6 @@ const uiSchema = {
 };
 
 class EditOrganisation extends React.Component<*> {
-  id: string;
-
   componentWillMount() {
     const { requestOrganisation, organisationId, isNew } = this.props;
     if (!isNew) {
@@ -111,7 +109,7 @@ EditOrganisation.propTypes = {
   requestOrganisation: PropTypes.func,
   updateOrganisation: PropTypes.func,
   deleteOrganisation: PropTypes.func,
-  push: PropTypes.func.isRequired,
+  push: PropTypes.func,
   goBack: PropTypes.func,
   isNew: PropTypes.bool,
   organisationId: PropTypes.string,

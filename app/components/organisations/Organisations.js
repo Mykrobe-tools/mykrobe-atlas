@@ -35,13 +35,13 @@ class Organisations extends React.Component<*> {
     requestOrganisations();
   }
 
-  onNewOrganisation = e => {
+  onNewOrganisation = (e: any) => {
     e && e.preventDefault();
     const { newOrganisation } = this.props;
     newOrganisation();
   };
 
-  onChangeListOrder = ({ sort, order }) => {
+  onChangeListOrder = ({ sort, order }: any) => {
     const { setOrganisationsFilters, organisationsFilters } = this.props;
     setOrganisationsFilters({
       ...organisationsFilters,
