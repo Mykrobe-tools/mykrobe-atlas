@@ -4,28 +4,13 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { goBack, push } from 'connected-react-router';
 import { Container } from 'reactstrap';
 
-import { isNewEntityKey } from 'makeandship-js-common/src/modules/generic';
+import type { OrganisationType } from '../../../types/OrganisationTypes';
+import HeaderContainer from '../../header/HeaderContainer';
+import Footer from '../../footer/Footer';
 
-import type { OrganisationType } from '../../types/OrganisationTypes';
-import HeaderContainer from '../header/HeaderContainer';
-import Footer from '../footer/Footer';
-
-import styles from './Common.scss';
-
-import {
-  getOrganisation,
-  getOrganisationIsFetching,
-  getOrganisationError,
-  createOrganisation,
-  requestOrganisation,
-  updateOrganisation,
-  deleteOrganisation,
-} from '../../modules/organisations';
+import styles from '../Common.scss';
 
 import {
   Select,
@@ -38,7 +23,7 @@ import {
   DestructiveButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import { organisationSchema } from '../../schemas/organisations';
+import { organisationSchema } from '../../../schemas/organisations';
 
 const uiSchema = {
   template: {
@@ -46,7 +31,7 @@ const uiSchema = {
   },
 };
 
-class Edit extends React.Component<*> {
+class EditOrganisation extends React.Component<*> {
   id: string;
 
   componentWillMount() {
@@ -65,13 +50,13 @@ class Edit extends React.Component<*> {
     }
   };
 
-  onCancelClick = e => {
+  onCancelClick = (e: any) => {
     e && e.preventDefault();
     const { goBack } = this.props;
     goBack();
   };
 
-  onDeleteClick = e => {
+  onDeleteClick = (e: any) => {
     e && e.preventDefault();
     const { organisation, deleteOrganisation } = this.props;
     if (confirm('Delete organisation?')) {
@@ -117,48 +102,19 @@ class Edit extends React.Component<*> {
   }
 }
 
-const getOrganisationId = props => props.match.params.organisationId;
-
-function mapStateToProps(state, ownProps) {
-  return {
-    organisation: getOrganisation(state),
-    isFetching: getOrganisationIsFetching(state),
-    error: getOrganisationError(state),
-    organisationId: getOrganisationId(ownProps),
-    isNew: isNewEntityKey(getOrganisationId(ownProps)),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      createOrganisation,
-      requestOrganisation,
-      updateOrganisation,
-      deleteOrganisation,
-      push,
-      goBack,
-    },
-    dispatch
-  );
-}
-
-Edit.propTypes = {
-  match: PropTypes.object.isRequired,
+EditOrganisation.propTypes = {
+  match: PropTypes.object,
   organisation: PropTypes.object,
-  isFetching: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool,
   error: PropTypes.object,
-  createOrganisation: PropTypes.func.isRequired,
-  requestOrganisation: PropTypes.func.isRequired,
-  updateOrganisation: PropTypes.func.isRequired,
-  deleteOrganisation: PropTypes.func.isRequired,
+  createOrganisation: PropTypes.func,
+  requestOrganisation: PropTypes.func,
+  updateOrganisation: PropTypes.func,
+  deleteOrganisation: PropTypes.func,
   push: PropTypes.func.isRequired,
-  goBack: PropTypes.func.isRequired,
-  isNew: PropTypes.bool.isRequired,
+  goBack: PropTypes.func,
+  isNew: PropTypes.bool,
   organisationId: PropTypes.string,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Edit);
+export default EditOrganisation;
