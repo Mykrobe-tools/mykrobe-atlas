@@ -118,8 +118,8 @@ class Upload extends React.Component<*> {
 }
 
 Upload.propTypes = {
-  analyseFile: PropTypes.func.isRequired,
-  analyseFileCancel: PropTypes.func.isRequired,
+  analyseFile: PropTypes.func,
+  analyseFileCancel: PropTypes.func,
   isAnalysing: PropTypes.bool,
   progress: PropTypes.number,
 };

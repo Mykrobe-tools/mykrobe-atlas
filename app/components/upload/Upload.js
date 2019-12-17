@@ -10,9 +10,7 @@ import HeaderContainer from '../header/HeaderContainer';
 
 import UploadButton from './button/UploadButton';
 
-import withAuth, {
-  withAuthPropTypes,
-} from 'makeandship-js-common/src/hoc/withAuth';
+import { withAuthPropTypes } from 'makeandship-js-common/src/hoc/withAuth';
 
 class Upload extends React.Component<*> {
   render() {
@@ -51,4 +49,4 @@ Upload.propTypes = {
   ...withAuthPropTypes,
 };
 
-export default withAuth(Upload);
+export default Upload;

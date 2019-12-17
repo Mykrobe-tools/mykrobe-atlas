@@ -3,19 +3,21 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Upload from '../components/upload/Upload';
-import AppDocumentTitle from '../components/ui/AppDocumentTitle';
+import Upload from './Upload';
+import AppDocumentTitle from '../ui/AppDocumentTitle';
 
-import withExperiment, { withExperimentPropTypes } from '../hoc/withExperiment';
+import withExperiment, {
+  withExperimentPropTypes,
+} from '../../hoc/withExperiment';
 
 import {
   analyseFileCancel,
   analyseFile,
   getIsAnalysing,
   getProgress,
-} from '../modules/desktop';
+} from '../../modules/desktop';
 
-class HomePage extends React.Component<*> {
+class UploadContainer extends React.Component<*> {
   render() {
     const {
       analyseFile,
@@ -41,7 +43,7 @@ class HomePage extends React.Component<*> {
   }
 }
 
-HomePage.propTypes = {
+UploadContainer.propTypes = {
   ...withExperimentPropTypes,
   analyseFile: PropTypes.func.isRequired,
   analyseFileCancel: PropTypes.func.isRequired,
@@ -60,4 +62,4 @@ const withRedux = connect(
   }
 );
 
-export default withRedux(withExperiment(HomePage));
+export default withRedux(withExperiment(UploadContainer));

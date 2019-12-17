@@ -9,21 +9,21 @@ import { push } from 'connected-react-router';
 import Dropzone from 'react-dropzone';
 import { withRouter } from 'react-router-dom';
 
-import * as UIHelpers from '../helpers/UIHelpers'; // eslint-disable-line import/namespace
-import * as APIConstants from '../constants/APIConstants';
+import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
+import * as APIConstants from '../../constants/APIConstants';
 
 import {
   analyseFileNew,
   analyseFile,
   analyseFileSave,
   getFileNames,
-} from '../modules/desktop';
+} from '../../modules/desktop';
 
 import styles from './App.scss';
 
-import NotificationsContainer from '../components/notifications/NotificationsContainer';
-import NotificationsStyle from '../components/notifications/NotificationsStyle';
-import AppDocumentTitle from '../components/ui/AppDocumentTitle';
+import NotificationsContainer from '../notifications/NotificationsContainer';
+import NotificationsStyle from '../notifications/NotificationsStyle';
+import AppDocumentTitle from '../ui/AppDocumentTitle';
 
 type State = {
   isDragActive: boolean,

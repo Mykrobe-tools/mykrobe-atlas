@@ -4,14 +4,14 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import NotificationsContainer from '../components/notifications/NotificationsContainer';
-import NotificationsStyle from '../components/notifications/NotificationsStyle';
+import NotificationsContainer from '../notifications/NotificationsContainer';
+import NotificationsStyle from '../notifications/NotificationsStyle';
 
 import styles from './App.scss';
-import MenuButton from '../components/menu/MenuButton';
-import Menu from '../components/menu/Menu';
-import MenuBg from '../components/menu/MenuBg';
-import DragAndDrop from '../components/dragAndDrop/DragAndDrop';
+import MenuButton from '../menu/MenuButton';
+import Menu from '../menu/Menu';
+import MenuBg from '../menu/MenuBg';
+import DragAndDrop from '../dragAndDrop/DragAndDrop';
 
 type State = {
   displayMenu: boolean,
