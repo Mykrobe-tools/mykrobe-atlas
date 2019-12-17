@@ -2,8 +2,6 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Container } from 'reactstrap';
 
 import PageHeader, {
@@ -11,15 +9,6 @@ import PageHeader, {
 } from 'makeandship-js-common/src/components/ui/PageHeader';
 import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
-
-import {
-  getOrganisations,
-  getOrganisationIsFetching,
-  requestOrganisations,
-  newOrganisation,
-  getOrganisationsFilters,
-  setOrganisationsFilters,
-} from '../../modules/organisations';
 
 import HeaderContainer from '../header/HeaderContainer';
 import Footer from '../footer/Footer';
@@ -40,7 +29,7 @@ const headings = [
   },
 ];
 
-class Profile extends React.Component<*> {
+class Organisations extends React.Component<*> {
   componentWillMount() {
     const { requestOrganisations } = this.props;
     requestOrganisations();
@@ -112,35 +101,13 @@ class Profile extends React.Component<*> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    organisations: getOrganisations(state),
-    isFetching: getOrganisationIsFetching(state),
-    organisationsFilters: getOrganisationsFilters(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      requestOrganisations,
-      newOrganisation,
-      setOrganisationsFilters,
-    },
-    dispatch
-  );
-}
-
-Profile.propTypes = {
-  organisations: PropTypes.array.isRequired,
-  requestOrganisations: PropTypes.func.isRequired,
-  newOrganisation: PropTypes.func.isRequired,
+Organisations.propTypes = {
+  organisations: PropTypes.array,
+  requestOrganisations: PropTypes.func,
+  newOrganisation: PropTypes.func,
   isFetching: PropTypes.bool,
   organisationsFilters: PropTypes.any,
   setOrganisationsFilters: PropTypes.func,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Profile);
+export default Organisations;
