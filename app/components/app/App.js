@@ -62,7 +62,7 @@ class App extends React.Component<*, State> {
 }
 
 App.propTypes = {
-  history: PropTypes.object.isRequired,
+  history: PropTypes.object,
 };
 
 export default withRouter(App);

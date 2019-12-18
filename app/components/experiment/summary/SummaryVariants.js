@@ -47,8 +47,8 @@ class SummaryVariants extends React.Component<*> {
 }
 
 SummaryVariants.propTypes = {
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
+  experiment: PropTypes.object,
+  experimentTransformed: PropTypes.object,
   isBusyWithCurrentRoute: PropTypes.bool,
 };
 

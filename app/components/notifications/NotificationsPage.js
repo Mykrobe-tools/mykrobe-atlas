@@ -59,7 +59,7 @@ class NotificationsPage extends React.Component<*> {
 }
 
 NotificationsPage.propTypes = {
-  clearAllNotifications: PropTypes.func.isRequired,
+  clearAllNotifications: PropTypes.func,
 };
 
 const withRedux = connect(

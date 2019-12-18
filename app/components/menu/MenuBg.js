@@ -17,8 +17,8 @@ class MenuBg extends React.Component<*> {
 }
 
 MenuBg.propTypes = {
-  displayMenu: PropTypes.bool.isRequired,
-  toggleMenu: PropTypes.func.isRequired,
+  displayMenu: PropTypes.bool,
+  toggleMenu: PropTypes.func,
 };
 
 export default MenuBg;

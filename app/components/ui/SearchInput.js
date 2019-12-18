@@ -43,8 +43,8 @@ class SearchInput extends React.Component<*> {
 }
 
 SearchInput.propTypes = {
-  placeholder: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   value: PropTypes.string,

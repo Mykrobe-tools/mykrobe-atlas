@@ -81,10 +81,10 @@ class Key extends React.Component<*> {
 }
 
 Key.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  analyser: PropTypes.object.isRequired,
-  experiments: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired,
+  dispatch: PropTypes.func,
+  analyser: PropTypes.object,
+  experiments: PropTypes.object,
+  node: PropTypes.object,
   single: PropTypes.bool,
 };
 

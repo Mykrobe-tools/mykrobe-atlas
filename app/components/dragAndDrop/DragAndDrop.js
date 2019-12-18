@@ -75,7 +75,7 @@ class Upload extends React.Component<*, State> {
 
 Upload.propTypes = {
   ...withAuthPropTypes,
-  uploadFileDrop: PropTypes.func.isRequired,
+  uploadFileDrop: PropTypes.func,
 };
 
 const withRedux = connect(

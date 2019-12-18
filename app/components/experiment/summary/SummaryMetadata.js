@@ -77,8 +77,8 @@ class SummaryMetadata extends React.Component<*> {
 }
 
 SummaryMetadata.propTypes = {
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
+  experiment: PropTypes.object,
+  experimentTransformed: PropTypes.object,
   experimentNearestNeigbours: PropTypes.array,
 };
 

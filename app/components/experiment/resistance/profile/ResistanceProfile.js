@@ -64,8 +64,8 @@ class ResistanceProfile extends React.Component<*> {
 }
 
 ResistanceProfile.propTypes = {
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
+  experiment: PropTypes.object,
+  experimentTransformed: PropTypes.object,
 };
 
 export default ResistanceProfile;

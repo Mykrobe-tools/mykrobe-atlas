@@ -45,8 +45,8 @@ class UploadContainer extends React.Component<*> {
 
 UploadContainer.propTypes = {
   ...withExperimentPropTypes,
-  analyseFile: PropTypes.func.isRequired,
-  analyseFileCancel: PropTypes.func.isRequired,
+  analyseFile: PropTypes.func,
+  analyseFileCancel: PropTypes.func,
   isAnalysing: PropTypes.bool,
   progress: PropTypes.number,
 };

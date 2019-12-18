@@ -54,7 +54,7 @@ class Menu extends React.Component<*> {
 }
 
 Menu.propTypes = {
-  displayMenu: PropTypes.bool.isRequired,
+  displayMenu: PropTypes.bool,
 };
 
 export default Menu;

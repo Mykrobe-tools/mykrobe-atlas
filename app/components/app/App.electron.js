@@ -175,11 +175,11 @@ const withRedux = connect(
 );
 
 App.propTypes = {
-  analyseFileSave: PropTypes.func.isRequired,
-  analyseFileNew: PropTypes.func.isRequired,
-  analyseFile: PropTypes.func.isRequired,
-  push: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  analyseFileSave: PropTypes.func,
+  analyseFileNew: PropTypes.func,
+  analyseFile: PropTypes.func,
+  push: PropTypes.func,
+  children: PropTypes.node,
   fileNames: PropTypes.array,
 };
 

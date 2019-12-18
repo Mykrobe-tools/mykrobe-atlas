@@ -86,7 +86,7 @@ class ExperimentMetadataNavigation extends React.Component<*> {
 ExperimentMetadataNavigation.propTypes = {
   ...withFileUploadPropTypes,
   ...withExperimentPropTypes,
-  match: PropTypes.object.isRequired,
+  match: PropTypes.object,
 };
 
 export default ExperimentMetadataNavigation;

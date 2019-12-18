@@ -149,11 +149,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 Resistance.propTypes = {
-  analyseFileSave: PropTypes.func.isRequired,
-  analyseFileNew: PropTypes.func.isRequired,
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
+  analyseFileSave: PropTypes.func,
+  analyseFileNew: PropTypes.func,
+  experiment: PropTypes.object,
+  experimentTransformed: PropTypes.object,
+  match: PropTypes.object,
 };
 
 export default withRouter(

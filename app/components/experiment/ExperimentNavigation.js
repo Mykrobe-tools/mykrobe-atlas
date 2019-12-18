@@ -52,7 +52,7 @@ class ExperimentNavigation extends React.Component<*> {
 }
 
 ExperimentNavigation.propTypes = {
-  match: PropTypes.object.isRequired,
+  match: PropTypes.object,
   experiment: PropTypes.object,
 };
 

@@ -131,8 +131,8 @@ function mapStateToProps() {
 }
 
 Resistance.propTypes = {
-  isBusyWithCurrentRoute: PropTypes.bool.isRequired,
-  match: PropTypes.object.isRequired,
+  isBusyWithCurrentRoute: PropTypes.bool,
+  match: PropTypes.object,
 };
 
 export default withRouter(connect(mapStateToProps)(withFileUpload(Resistance)));
