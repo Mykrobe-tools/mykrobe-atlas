@@ -12,12 +12,12 @@ import {
   DropdownToggle,
 } from 'reactstrap';
 
-import NotificationsButton from '../notifications/NotificationsButton';
-import AppDocumentTitle from '../ui/AppDocumentTitle';
+import NotificationsButton from '../../notifications/NotificationsButton';
+import AppDocumentTitle from '../AppDocumentTitle';
 import styles from './Header.scss';
 
 import { withAuthPropTypes } from 'makeandship-js-common/src/hoc/withAuth';
-import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
+import { withCurrentUserPropTypes } from '../../../hoc/withCurrentUser';
 
 class Header extends React.Component<*> {
   login = (e: any) => {

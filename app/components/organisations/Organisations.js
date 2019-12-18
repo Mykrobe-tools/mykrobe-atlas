@@ -10,8 +10,8 @@ import PageHeader, {
 import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
 
-import HeaderContainer from '../header/HeaderContainer';
-import Footer from '../footer/Footer';
+import HeaderContainer from '../ui/header/HeaderContainer';
+import Footer from '../ui/footer/Footer';
 
 import styles from './Common.scss';
 

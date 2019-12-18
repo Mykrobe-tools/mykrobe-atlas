@@ -11,7 +11,7 @@ import withAuth, {
 import { shouldAcceptDropEvent } from './util';
 import styles from './DragAndDrop.scss';
 
-import { uploadFileDrop } from '../../modules/upload';
+import { uploadFileDrop } from '../../../modules/upload';
 
 type State = {
   isDragActive: boolean,

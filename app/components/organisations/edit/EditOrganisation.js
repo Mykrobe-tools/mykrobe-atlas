@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
 
 import type { OrganisationType } from '../../../types/OrganisationTypes';
-import HeaderContainer from '../../header/HeaderContainer';
-import Footer from '../../footer/Footer';
+import HeaderContainer from '../../ui/header/HeaderContainer';
+import Footer from '../../ui/footer/Footer';
 
 import styles from '../Common.scss';
 

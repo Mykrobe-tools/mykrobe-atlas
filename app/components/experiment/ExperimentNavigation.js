@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
-import HeaderContainer from '../header/HeaderContainer';
+import HeaderContainer from '../ui/header/HeaderContainer';
 import styles from './ExperimentNavigation.scss';
 
 class ExperimentNavigation extends React.Component<*> {

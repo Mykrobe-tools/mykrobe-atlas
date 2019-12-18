@@ -8,10 +8,10 @@ import NotificationsContainer from '../notifications/NotificationsContainer';
 import NotificationsStyle from '../notifications/NotificationsStyle';
 
 import styles from './App.scss';
-import MenuButton from '../menu/MenuButton';
-import Menu from '../menu/Menu';
-import MenuBg from '../menu/MenuBg';
-import DragAndDrop from '../dragAndDrop/DragAndDrop';
+import MenuButton from '../ui/navigation/menu/MenuButton';
+import Menu from '../ui/navigation/menu/Menu';
+import MenuBg from '../ui/navigation/menu/MenuBg';
+import DragAndDrop from '../ui/dragAndDrop/DragAndDrop';
 
 type State = {
   displayMenu: boolean,

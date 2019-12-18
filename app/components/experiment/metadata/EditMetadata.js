@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
 
-import Footer from '../../footer/Footer';
+import Footer from '../../ui/footer/Footer';
 
 import styles from './EditMetadata.scss';
 

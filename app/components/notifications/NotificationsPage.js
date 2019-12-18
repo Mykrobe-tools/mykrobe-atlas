@@ -12,8 +12,8 @@ import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import { clearAllNotifications } from '../../modules/notifications';
 
-import HeaderContainer from '../header/HeaderContainer';
-import Footer from '../footer/Footer';
+import HeaderContainer from '../ui/header/HeaderContainer';
+import Footer from '../ui/footer/Footer';
 
 import styles from './NotificationsPage.scss';
 import NotificationsContainer from './NotificationsContainer';

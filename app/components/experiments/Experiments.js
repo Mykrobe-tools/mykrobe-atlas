@@ -23,8 +23,8 @@ import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
 import styles from './Experiments.scss';
 import ExperimentsTable from './ExperimentsTable';
 import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
-import HeaderContainer from '../header/HeaderContainer';
-import Footer from '../footer/Footer';
+import HeaderContainer from '../ui/header/HeaderContainer';
+import Footer from '../ui/footer/Footer';
 import { notImplemented } from '../../util';
 
 import UploadButton from '../upload/button/UploadButton';
