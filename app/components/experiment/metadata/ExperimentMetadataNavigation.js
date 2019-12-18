@@ -2,10 +2,12 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
 import CircularProgress from '../../ui/CircularProgress';
+import TabNavigation, {
+  TabNavigationLink,
+} from '../../ui/navigation/TabNavigation';
 
 import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
 import { withExperimentPropTypes } from '../../../hoc/withExperiment';
@@ -55,51 +57,27 @@ class ExperimentMetadataNavigation extends React.Component<*> {
               </div>
             </div>
           )}
-          <div className={styles.navigation}>
-            <NavLink
-              to={`${match.url}/patient`}
-              className={styles.navigationItem}
-              activeClassName={styles.navigationItemActive}
-            >
-              Patient
-            </NavLink>
-            <NavLink
-              to={`${match.url}/sample`}
-              className={styles.navigationItem}
-              activeClassName={styles.navigationItemActive}
-            >
-              Sample
-            </NavLink>
-            <NavLink
-              to={`${match.url}/genotyping`}
-              className={styles.navigationItem}
-              activeClassName={styles.navigationItemActive}
-            >
-              Genotyping
-            </NavLink>
-            <NavLink
-              to={`${match.url}/phenotyping`}
-              className={styles.navigationItem}
-              activeClassName={styles.navigationItemActive}
-            >
-              Phenotyping
-            </NavLink>
-            <NavLink
-              to={`${match.url}/treatment`}
-              className={styles.navigationItem}
-              activeClassName={styles.navigationItemActive}
-            >
-              Treatment
-            </NavLink>
-            <NavLink
-              to={`${match.url}/outcome`}
-              className={styles.navigationItem}
-              activeClassName={styles.navigationItemActive}
-            >
-              Outcome
-            </NavLink>
-          </div>
         </Container>
+        <TabNavigation>
+          <TabNavigationLink to={`${match.url}/patient`}>
+            Patient
+          </TabNavigationLink>
+          <TabNavigationLink to={`${match.url}/sample`}>
+            Sample
+          </TabNavigationLink>
+          <TabNavigationLink to={`${match.url}/genotyping`}>
+            Genotyping
+          </TabNavigationLink>
+          <TabNavigationLink to={`${match.url}/phenotyping`}>
+            Phenotyping
+          </TabNavigationLink>
+          <TabNavigationLink to={`${match.url}/treatment`}>
+            Treatment
+          </TabNavigationLink>
+          <TabNavigationLink to={`${match.url}/outcome`}>
+            Outcome
+          </TabNavigationLink>
+        </TabNavigation>
       </div>
     );
   }

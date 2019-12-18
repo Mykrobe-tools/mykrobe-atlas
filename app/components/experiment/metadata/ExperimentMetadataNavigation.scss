@@ -2,7 +2,7 @@
 
 .container {
   composes: global(border-top);
-  composes: global(border-bottom);
+  // composes: global(border-bottom);
   background-color: $color-panel-light;
 }
 
@@ -51,27 +51,6 @@
 
 .titleSubhead {
   color: $color-grey-mid;
-}
-
-.navigation {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.navigationItem {
-  composes: fontSecondary from 'styles/typography.scss';
-  composes: fontSecondarySizeNormal from 'styles/typography.scss';
-  padding: 1rem 1rem 0.75rem 1rem;
-  text-transform: uppercase;
-  color: $color-text;
-  border-bottom: 0.25rem solid transparent;
-}
-
-.navigationItemActive {
-  composes: navigationItem;
-  color: $color-tint-primary;
-  border-bottom-color: $color-tint-primary;
 }
 
 .uploadingMessage {
