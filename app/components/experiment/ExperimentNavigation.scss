@@ -3,8 +3,3 @@
 .container {
   background-color: $color-background;
 }
-
-.title {
-  composes: font from 'styles/typography.scss';
-  composes: fontSizeLarge from 'styles/typography.scss';
-}

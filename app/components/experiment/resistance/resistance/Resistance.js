@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter, Route, Redirect, Switch, NavLink } from 'react-router-dom';
+import { withRouter, Route, Redirect, Switch } from 'react-router-dom';
 import urljoin from 'url-join';
 
 import ResistanceAllContainer from '../all/ResistanceAllContainer';
@@ -14,6 +14,9 @@ import ResistanceSpeciesContainer from '../species/ResistanceSpeciesContainer';
 
 import styles from './Resistance.scss';
 import Uploading from '../../../ui/Uploading';
+import TabNavigation, {
+  TabNavigationLink,
+} from '../../../ui/navigation/TabNavigation';
 import * as TargetConstants from '../../../../constants/TargetConstants';
 
 import withFileUpload from '../../../../hoc/withFileUpload';
@@ -29,67 +32,31 @@ class Resistance extends React.Component<*> {
       content = (
         <div className={styles.content}>
           {TargetConstants.SPECIES_TB === TargetConstants.SPECIES ? (
-            <div className={styles.navigation}>
-              <NavLink
-                to={`${match.url}/all`}
-                className={styles.navigationItem}
-                activeClassName={styles.navigationItemActive}
-              >
-                All
-              </NavLink>
-              <NavLink
-                to={`${match.url}/drugs`}
-                className={styles.navigationItem}
-                activeClassName={styles.navigationItemActive}
-              >
+            <TabNavigation>
+              <TabNavigationLink to={`${match.url}/all`}>All</TabNavigationLink>
+              <TabNavigationLink to={`${match.url}/drugs`}>
                 Drugs
-              </NavLink>
-              <NavLink
-                to={`${match.url}/evidence`}
-                className={styles.navigationItem}
-                activeClassName={styles.navigationItemActive}
-              >
+              </TabNavigationLink>
+              <TabNavigationLink to={`${match.url}/evidence`}>
                 Evidence
-              </NavLink>
-              <NavLink
-                to={`${match.url}/species`}
-                className={styles.navigationItem}
-                activeClassName={styles.navigationItemActive}
-              >
+              </TabNavigationLink>
+              <TabNavigationLink to={`${match.url}/species`}>
                 Species
-              </NavLink>
-            </div>
+              </TabNavigationLink>
+            </TabNavigation>
           ) : (
-            <div className={styles.navigation}>
-              <NavLink
-                to={`${match.url}/all`}
-                className={styles.navigationItem}
-                activeClassName={styles.navigationItemActive}
-              >
-                All
-              </NavLink>
-              <NavLink
-                to={`${match.url}/class`}
-                className={styles.navigationItem}
-                activeClassName={styles.navigationItemActive}
-              >
+            <TabNavigation>
+              <TabNavigationLink to={`${match.url}/all`}>All</TabNavigationLink>
+              <TabNavigationLink to={`${match.url}/class`}>
                 Class
-              </NavLink>
-              <NavLink
-                to={`${match.url}/evidence`}
-                className={styles.navigationItem}
-                activeClassName={styles.navigationItemActive}
-              >
+              </TabNavigationLink>
+              <TabNavigationLink to={`${match.url}/evidence`}>
                 Evidence
-              </NavLink>
-              <NavLink
-                to={`${match.url}/species`}
-                className={styles.navigationItem}
-                activeClassName={styles.navigationItemActive}
-              >
+              </TabNavigationLink>
+              <TabNavigationLink to={`${match.url}/species`}>
                 Species
-              </NavLink>
-            </div>
+              </TabNavigationLink>
+            </TabNavigation>
           )}
           <Switch>
             <Route

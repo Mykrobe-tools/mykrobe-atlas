@@ -10,33 +10,3 @@
   display: flex;
   flex-direction: column;
 }
-
-.headerTitle {
-  composes: fontSizeLarge from 'styles/typography.scss';
-  color: $color-tint-primary;
-  padding-bottom: 16px;
-}
-
-.navigation {
-  composes: global(border-top);
-  composes: global(border-bottom);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: $color-panel-light;
-}
-
-.navigationItem {
-  composes: fontSecondary from 'styles/typography.scss';
-  composes: fontSecondarySizeNormal from 'styles/typography.scss';
-  padding: 1rem 1rem 0.75rem 1rem;
-  text-transform: uppercase;
-  color: $color-text;
-  border-bottom: 0.25rem solid transparent;
-}
-
-.navigationItemActive {
-  composes: navigationItem;
-  color: $color-tint-primary;
-  border-bottom-color: $color-tint-primary;
-}
