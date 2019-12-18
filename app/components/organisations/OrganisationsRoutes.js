@@ -5,15 +5,16 @@ import { Route, Switch } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 
 import OrganisationsContainer from './OrganisationsContainer';
-import EditOrganisationContainer from './edit/EditOrganisationContainer';
+import OrganisationRoutes from '../organisation/OrganisationRoutes';
 
-const OrganisationsRoutes = ({ match }: { match: Match }) => (
+const OrganisationsRoutes = props => (
   <Switch>
-    <Route path={`${match.url}`} exact component={OrganisationsContainer} />
     <Route
-      path={`${match.url}/:organisationId`}
-      component={EditOrganisationContainer}
+      path={`${props.match.url}`}
+      exact
+      component={OrganisationsContainer}
     />
+    <OrganisationRoutes {...props} />
   </Switch>
 );
 

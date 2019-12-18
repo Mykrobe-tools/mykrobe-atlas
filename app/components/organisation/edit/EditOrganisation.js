@@ -10,7 +10,7 @@ import type { OrganisationType } from '../../../types/OrganisationTypes';
 import HeaderContainer from '../../ui/header/HeaderContainer';
 import Footer from '../../ui/footer/Footer';
 
-import styles from '../Common.scss';
+import styles from '../../organisations/Common.scss';
 
 import {
   Select,
