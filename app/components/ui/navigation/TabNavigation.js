@@ -17,11 +17,9 @@ export const TabNavigationLink = (
 );
 
 const TabNavigation = (props: React.ElementProps<*>): React.Element<*> => (
-  <div className={styles.container}>
-    <Container fluid>
-      <div className={styles.navigation}>{props.children}</div>
-    </Container>
-  </div>
+  <Container fluid className={styles.container}>
+    <div className={styles.navigation}>{props.children}</div>
+  </Container>
 );
 
 export default TabNavigation;
