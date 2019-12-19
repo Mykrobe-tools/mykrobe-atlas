@@ -231,7 +231,7 @@
     "lodash.isequal": "^4.5.0",
     "lodash.memoize": "^4.1.2",
     "lodash.orderby": "^4.6.0",
-    "makeandship-js-common": "https://bitbucket.org/makeandship/makeandship-js-common#v0.0.118",
+    "makeandship-js-common": "https://bitbucket.org/makeandship/makeandship-js-common#v0.0.119",
     "memoize-one": "^5.0.4",
     "moment": "^2.22.0",
     "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.19",

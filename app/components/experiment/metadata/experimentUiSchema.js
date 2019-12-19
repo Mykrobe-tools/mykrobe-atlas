@@ -142,7 +142,7 @@ const uiSchema = {
       sputumSmearConversion: selectUiSchema,
       sputumCultureConversion: selectUiSchema,
       whoOutcomeCategory: selectUiSchema,
-      dateOfDeath: datePickerUiSchema,
+      dateOfDeath: dateTimePickerUiSchema,
     },
   },
 };

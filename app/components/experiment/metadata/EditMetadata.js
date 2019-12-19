@@ -75,7 +75,6 @@ class EditMetadata extends React.Component<*> {
         ...experimentUiSchema,
       };
     }
-    console.log('experimentIsolateId', experimentIsolateId);
     return (
       <div className={styles.container}>
         <AppDocumentTitle title={[experimentIsolateId, 'Metadata', title]} />
