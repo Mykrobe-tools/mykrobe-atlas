@@ -93,7 +93,7 @@ class AnalyserLocalFile extends EventEmitter {
     app &&
       app.on('quit', () => {
         this.cancel();
-        console.log('ev:app quit');
+        log.info('ev:app quit');
       });
   }
 
@@ -236,10 +236,13 @@ class AnalyserLocalFile extends EventEmitter {
         // sometimes receive json after process has exited
         if (this.isBufferingJson && this.processExited) {
           if (this.jsonBuffer.length) {
-            log.info('done');
+            log.info('readline - done');
             this.doneWithJsonString(this.jsonBuffer);
           }
         }
+      })
+      .on('close', () => {
+        log.info('readline stdin close');
       });
 
     readline
@@ -254,6 +257,9 @@ class AnalyserLocalFile extends EventEmitter {
         } else {
           log.warn('IGNORING ERROR: ' + line);
         }
+      })
+      .on('close', () => {
+        log.info('readline stderr close');
       });
 
     this.child.on('exit', code => {
@@ -261,10 +267,12 @@ class AnalyserLocalFile extends EventEmitter {
       // this.child = null;
       // deferring seems to allow the spawn to exit cleanly
       if (code === 0) {
-        if (this.jsonBuffer.length) {
-          log.info('done');
-          this.doneWithJsonString(this.jsonBuffer);
-        }
+        setTimeout(() => {
+          if (this.jsonBuffer.length) {
+            log.info('exit - done');
+            this.doneWithJsonString(this.jsonBuffer);
+          }
+        }, 1000);
       }
       this.processExited = true;
     });
