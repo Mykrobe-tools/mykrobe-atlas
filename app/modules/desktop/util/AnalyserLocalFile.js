@@ -179,6 +179,7 @@ class AnalyserLocalFile extends EventEmitter {
 
   setChildProcess = (child: child_process$ChildProcess) => {
     this.child = child;
+    return this;
   };
 
   monitorChildProcess = () => {
@@ -244,7 +245,7 @@ class AnalyserLocalFile extends EventEmitter {
         } else if (line.indexOf('{') !== -1) {
           // start collecting as soon as we see { in the buffer
           this.isBufferingJson = true;
-          this.jsonBuffer = line;
+          this.jsonBuffer = line.substr(line.indexOf('{'));
         }
       })
       .on('close', () => {
@@ -271,6 +272,8 @@ class AnalyserLocalFile extends EventEmitter {
       console.log('Processing exited with code: ' + code);
       if (code === 0) {
         this.onProcessExited();
+      } else {
+        this.failWithError(`Process exit unexpectedly with code ${code}`);
       }
     });
 

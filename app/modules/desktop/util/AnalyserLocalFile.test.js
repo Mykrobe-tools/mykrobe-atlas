@@ -3,10 +3,7 @@
 import path from 'path';
 import parsePath from 'parse-filepath';
 import fs from 'fs-extra';
-import log from 'electron-log';
-
-// Log level
-log.transports.console.level = 'info';
+import { exec } from 'child_process';
 
 import {
   ensureMykrobeBinaries,
@@ -46,7 +43,53 @@ afterEach(() => {
   delete process.env.NODE_ENV;
 });
 
+const pathToProcessMock = path.join(
+  __dirname,
+  '__fixtures__',
+  'analyserLocalFileProcessMock.js'
+);
+
 describe('AnalyserLocalFile', () => {
+  it(`should handle exit with code 123`, async done => {
+    const child = exec(`babel-node "${pathToProcessMock}" --exitWithCode 123`);
+    const analyser = new AnalyserLocalFile();
+    analyser
+      .setChildProcess(child)
+      .monitorChildProcess()
+      .on('done', result => {
+        console.log(result);
+        throw 'Analyser should not emit done';
+      })
+      .on('error', error => {
+        console.error(error);
+        expect(error.description).toEqual(
+          'Process exit unexpectedly with code 123'
+        );
+        done();
+      });
+  });
+  // it(`should handle exit with code 123`, async done => {
+  //   console.log('pathToProcessMock', pathToProcessMock);
+  //   const child = exec(`babel-node "${pathToProcessMock}" --exitWithCode 123`);
+  //   const analyser = new AnalyserLocalFile();
+  //   analyser
+  //     .setChildProcess(child)
+  //     .monitorChildProcess()
+  //     .on('progress', progress => {
+  //       console.log('progress', progress);
+  //     })
+  //     .on('done', result => {
+  //       console.log(result);
+  //       done();
+  //     })
+  //     .on('error', error => {
+  //       console.error(error);
+  //       done();
+  //     });
+  // });
+});
+
+xdescribe('AnalyserLocalFile', () => {
   for (let i = 0; i < exemplarSamplesExpect.length; i++) {
     const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
     for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
