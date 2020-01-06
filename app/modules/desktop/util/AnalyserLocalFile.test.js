@@ -96,28 +96,31 @@ describe('AnalyserLocalFile', () => {
       });
   });
 
-  // it(`should handle exit with code 123`, async done => {
-  //   console.log('pathToProcessMock', pathToProcessMock);
-  //   const child = exec(`babel-node "${pathToProcessMock}" --exitWithCode 123`);
-  //   const analyser = new AnalyserLocalFile();
-  //   analyser
-  //     .setChildProcess(child)
-  //     .monitorChildProcess()
-  //     .on('progress', progress => {
-  //       console.log('progress', progress);
-  //     })
-  //     .on('done', result => {
-  //       console.log(result);
-  //       done();
-  //     })
-  //     .on('error', error => {
-  //       console.error(error);
-  //       done();
-  //     });
-  // });
+  it(`should handle noisy JSON`, async done => {
+    const json = { progress: 'true' };
+    const noise = 'ABCxyz123';
+    const jsonString = JSON.stringify({ progress: 'true' });
+    const command = `babel-node "${pathToProcessMock}" --emit '${noise}${jsonString}'`;
+    console.log('command', command);
+    const child = exec(command);
+    const analyser = new AnalyserLocalFile();
+    analyser
+      .setChildProcess(child)
+      .monitorChildProcess()
+      .on('done', result => {
+        console.log('result', result);
+        console.log('json', json);
+        expect(result.json).toEqual(json);
+        done();
+      })
+      .on('error', error => {
+        console.error('error', error);
+        throw 'Analyser should not emit error';
+      });
+  });
 });
 
-xdescribe('AnalyserLocalFile', () => {
+describe('AnalyserLocalFile', () => {
   for (let i = 0; i < exemplarSamplesExpect.length; i++) {
     const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
     for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
