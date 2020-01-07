@@ -4,7 +4,6 @@ import EventEmitter from 'events';
 import path from 'path';
 import { spawn } from 'child_process';
 import readline from 'readline';
-import log from 'electron-log';
 import fs from 'fs-extra';
 
 import { isString } from 'makeandship-js-common/src/util/is';
@@ -29,8 +28,9 @@ class AnalyserLocalFile extends EventEmitter {
   jsonBuffer: string;
   isBufferingJson: boolean;
   processExited: boolean;
-  child: child_process$ChildProcess; // eslint-disable-line camelcase
+  child: child_process$ChildProcess;
   didReceiveError: boolean;
+  readLineExited: boolean;
   tmpObj: ?Object;
 
   analyseFile(filePaths: Array<string>, id: string = ''): AnalyserLocalFile {
@@ -97,7 +97,7 @@ class AnalyserLocalFile extends EventEmitter {
       });
   }
 
-  analyseJsonFile(file: File | string): AnalyserLocalFile {
+  analyseJsonFile = (file: File | string): AnalyserLocalFile => {
     if (isString(file)) {
       fs.readFile(file, (err, data) => {
         if (err) throw err;
@@ -120,9 +120,9 @@ class AnalyserLocalFile extends EventEmitter {
       reader.readAsText(file);
     }
     return this;
-  }
+  };
 
-  analyseBinaryFile(filePaths: Array<string>): AnalyserLocalFile {
+  analyseBinaryFile = (filePaths: Array<string>): AnalyserLocalFile => {
     validateTarget();
 
     this.tmpObj = tmp.dirSync({ prefix: 'mykrobe-' });
@@ -136,10 +136,6 @@ class AnalyserLocalFile extends EventEmitter {
     // Sample name should not contain whitespace, replace with '-'
     let sampleName = path.parse(filePaths[0]).name;
     sampleName = sampleName.replace(/\s+/g, '-');
-
-    this.jsonBuffer = '';
-    this.isBufferingJson = false;
-    this.processExited = false;
 
     const pathToBinValue = pathToBin();
     const pathToMccortexValue = pathToMccortex();
@@ -165,10 +161,32 @@ class AnalyserLocalFile extends EventEmitter {
       '--quiet',
     ];
 
-    log.info('Guess at command line:', pathToBinValue, args.join(' '));
-    log.info('Spawning executable at path:', pathToBinValue);
-    log.info('With arguments:', args);
-    this.child = spawn(pathToBinValue, args);
+    console.log('Guess at command line:', pathToBinValue, args.join(' '));
+    console.log('Spawning executable at path:', pathToBinValue);
+    console.log('With arguments:', args);
+    const child = spawn(pathToBinValue, args);
+    this.setChildProcess(child);
+
+    if (DEBUG) {
+      const tmpDir = tmp.dirSync({ prefix: 'mykrobe-debug-' }).name;
+      const cmdPath = path.join(tmpDir, 'AnalyserLocalFile.cmd.txt');
+      console.log('Logging command to', cmdPath);
+      fs.writeFileSync(cmdPath, `${pathToBinValue} ${args.join(' ')}`);
+    }
+
+    return this.monitorChildProcess();
+  };
+
+  setChildProcess = (child: child_process$ChildProcess) => {
+    this.child = child;
+    return this;
+  };
+
+  monitorChildProcess = () => {
+    this.jsonBuffer = '';
+    this.isBufferingJson = false;
+    this.processExited = false;
+    this.readLineExited = false;
 
     if (!this.child) {
       this.failWithError('Failed to start child process');
@@ -176,18 +194,15 @@ class AnalyserLocalFile extends EventEmitter {
     }
 
     this.child.on('error', err => {
-      log.error('Failed to start child process.', err);
+      console.log('Failed to start child process.', err);
       this.failWithError(err);
     });
 
     if (DEBUG) {
       const tmpDir = tmp.dirSync({ prefix: 'mykrobe-debug-' }).name;
-      const cmdPath = path.join(tmpDir, 'AnalyserLocalFile.cmd.txt');
-      log.info('Logging command to', cmdPath);
-      fs.writeFileSync(cmdPath, `${pathToBinValue} ${args.join(' ')}`);
       const stdoutPath = path.join(tmpDir, 'AnalyserLocalFile.stdout.txt');
       const stderrPath = path.join(tmpDir, 'AnalyserLocalFile.stderr.txt');
-      log.info('Logging stdout and stderr to', stdoutPath, stderrPath);
+      console.log('Logging stdout and stderr to', stdoutPath, stderrPath);
       const stdoutStream = fs.createWriteStream(stdoutPath);
       const stderrStream = fs.createWriteStream(stderrPath);
       this.child.stdout.pipe(stdoutStream);
@@ -203,12 +218,12 @@ class AnalyserLocalFile extends EventEmitter {
           return;
         }
         if (!this.isBufferingJson) {
-          log.info(line);
+          console.log(line);
         } else {
-          log.info('Received json, muted');
+          console.log('Received json, muted');
         }
         if (line.indexOf('Progress:') >= 0) {
-          log.info('progress');
+          console.log('progress');
           // we get a string like "[15 Oct 2017 16:19:47-Kac] Progress: 130,000/454,797"
           // extract groups of digits
           const trimmed = line.substr(line.indexOf('Progress:'));
@@ -216,8 +231,8 @@ class AnalyserLocalFile extends EventEmitter {
           if (digitGroups.length > 1) {
             const progress = parseInt(digitGroups[0]);
             const total = parseInt(digitGroups[1]);
-            log.info('progress:' + progress);
-            log.info('total:' + total);
+            console.log('progress:' + progress);
+            console.log('total:' + total);
             this.emit('progress', {
               progress,
               total,
@@ -230,16 +245,12 @@ class AnalyserLocalFile extends EventEmitter {
         } else if (line.indexOf('{') !== -1) {
           // start collecting as soon as we see { in the buffer
           this.isBufferingJson = true;
-          this.jsonBuffer = line;
+          this.jsonBuffer = line.substr(line.indexOf('{'));
         }
-
-        // sometimes receive json after process has exited
-        if (this.isBufferingJson && this.processExited) {
-          if (this.jsonBuffer.length) {
-            log.info('done');
-            this.doneWithJsonString(this.jsonBuffer);
-          }
-        }
+      })
+      .on('close', () => {
+        console.log('readline stdin close');
+        this.onReadLineExited();
       });
 
     readline
@@ -248,29 +259,50 @@ class AnalyserLocalFile extends EventEmitter {
       })
       .on('line', line => {
         if (isAnalyserError(line)) {
-          this.didReceiveError = true;
-          log.error('ERROR: ' + line);
-          this.failWithError(line);
+          this.onReadLineError(line);
         } else {
-          log.warn('IGNORING ERROR: ' + line);
+          console.log('IGNORING ERROR: ' + line);
         }
+      })
+      .on('close', () => {
+        console.log('readline stderr close');
       });
 
     this.child.on('exit', code => {
-      log.info('Processing exited with code: ' + code);
-      // this.child = null;
-      // deferring seems to allow the spawn to exit cleanly
+      console.log('Processing exited with code: ' + code);
       if (code === 0) {
-        if (this.jsonBuffer.length) {
-          log.info('done');
-          this.doneWithJsonString(this.jsonBuffer);
-        }
+        this.onProcessExited();
+      } else {
+        this.failWithError(`Process exit unexpectedly with code ${code}`);
       }
-      this.processExited = true;
     });
 
     return this;
-  }
+  };
+
+  onProcessExited = () => {
+    this.processExited = true;
+    this.checkDone();
+  };
+
+  onReadLineExited = () => {
+    this.readLineExited = true;
+    this.checkDone();
+  };
+
+  checkDone = () => {
+    // wait until both readline and process have exited;
+    // this can happen in different orders on different systems
+    if (this.readLineExited && this.processExited && this.jsonBuffer.length) {
+      this.doneWithJsonString(this.jsonBuffer);
+    }
+  };
+
+  onReadLineError = (line: string) => {
+    console.log('ERROR: ' + line);
+    this.didReceiveError = true;
+    this.failWithError(line);
+  };
 
   cancel() {
     if (this.child) {
@@ -281,7 +313,7 @@ class AnalyserLocalFile extends EventEmitter {
   }
 
   cleanup() {
-    log.info('cleanup');
+    console.log('cleanup');
     // this.tmpObj.removeCallback() doesn't always work
     this.tmpObj && fs.removeSync(this.tmpObj.name);
   }

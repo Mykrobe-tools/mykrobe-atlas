@@ -15,7 +15,7 @@ export const isWindows = platform === 'win32';
 export const rootDir = () => {
   const rootDir =
     process.env.NODE_ENV === 'development' ? process.cwd() : app.getAppPath();
-  log.info('rootDir', rootDir);
+  console.log('rootDir', rootDir);
   return rootDir;
 };
 
@@ -48,7 +48,7 @@ export const dirToBin = () => {
   } else {
     dirToBin = path.join(rootDirValue, '../bin');
   }
-  log.info('dirToBin', dirToBin);
+  console.log('dirToBin', dirToBin);
   return dirToBin;
 };
 
@@ -57,7 +57,7 @@ export const pathToBin = () => {
     dirToBin(),
     isWindows ? 'mykrobe_atlas.exe' : 'mykrobe_atlas'
   );
-  log.info('pathToBin', pathToBin);
+  console.log('pathToBin', pathToBin);
   return pathToBin;
 };
 
@@ -66,6 +66,6 @@ export const pathToMccortex = () => {
     dirToBin(),
     isWindows ? 'mccortex31.exe' : 'mccortex31'
   );
-  log.info('pathToMccortex', pathToMccortex);
+  console.log('pathToMccortex', pathToMccortex);
   return pathToMccortex;
 };
