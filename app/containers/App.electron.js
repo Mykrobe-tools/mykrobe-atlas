@@ -66,7 +66,9 @@ class App extends React.Component<*, State> {
     });
 
     ipcRenderer.on('menu-capture-page', () => {
-      const filePath = UIHelpers.saveFileDialog('screenshot.png'); // eslint-disable-line import/namespace
+      const filePath = UIHelpers.saveFileDialog('screenshot.png', [
+        { name: 'PNG', extensions: ['png'] },
+      ]); // eslint-disable-line import/namespace
       if (filePath) {
         this.onCapturePage(filePath);
       }
