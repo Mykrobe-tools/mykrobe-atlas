@@ -65,28 +65,26 @@ class App extends React.Component<*, State> {
       analyseFileSave();
     });
 
-    ipcRenderer.on('menu-capture-page', () => {
+    ipcRenderer.on('menu-capture-page', async () => {
       const filePath = UIHelpers.saveFileDialog('screenshot.png', [
         { name: 'PNG', extensions: ['png'] },
       ]); // eslint-disable-line import/namespace
       if (filePath) {
-        this.onCapturePage(filePath);
+        await this.onCapturePage(filePath);
       }
     });
 
-    ipcRenderer.on('capture-page', (e, filePath) => {
-      console.log('App capture-page');
-      this.onCapturePage(filePath);
+    ipcRenderer.on('capture-page', async (e, filePath) => {
+      await this.onCapturePage(filePath);
     });
   }
 
-  onCapturePage = filePath => {
+  onCapturePage = async filePath => {
     const currentWindow = require('electron').remote.getCurrentWindow();
     if (filePath) {
-      currentWindow.capturePage(image => {
-        fs.writeFileSync(filePath, image.toPNG());
-        console.log('Saved', filePath);
-      });
+      const image = await currentWindow.capturePage();
+      fs.writeFileSync(filePath, image.toPNG());
+      console.log('Saved', filePath);
     }
   };
 

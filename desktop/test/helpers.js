@@ -4,7 +4,7 @@ import { Application } from 'spectron';
 import path from 'path';
 import fs from 'fs-extra';
 
-import { EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH } from './util';
+import { delay, EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH } from './util';
 
 const createTestHelpers = (_app: Application) => {
   const textForSelector = async (selector: string, asArray: boolean = true) => {
@@ -32,15 +32,21 @@ const createTestHelpers = (_app: Application) => {
   // convenience to save screenshot
 
   const saveScreenshot = async (filename: string) => {
-    // browserWindow.capturePage() is not reliable
-    // so we capture screen within browser process
-    const { webContents } = _app;
     const filePath = path.join(
       EXEMPLAR_SEQUENCE_DATA_ARTEFACT_IMG_FOLDER_PATH,
       filename
     );
+    console.log('saveScreenshot', filePath);
     fs.ensureDirSync(path.dirname(filePath));
+
+    // browserWindow.capturePage() is not reliable
+    // so we capture screen within browser process
+    // in current Electron version, this is async and there is no sync capture method
+    // so we wait 1000ms to give time for async capture to finish
+    // TODO: find a guaranteed method of screen capture completion
+    const { webContents } = _app;
     webContents.send('capture-page', filePath);
+    await delay(1000);
   };
 
   return {
