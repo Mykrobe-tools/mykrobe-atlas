@@ -39,14 +39,18 @@ class Header extends React.Component<*> {
   };
 
   render() {
-    const { logout, currentUser, title } = this.props;
+    const { logout, currentUser, currentUserIsFetching, title } = this.props;
     const hasTitle = title && title.length > 0;
+    const showLoggedIn = currentUserIsFetching || currentUser;
+    const displayUserName = currentUser
+      ? `${currentUser.lastname}, ${currentUser.firstname}`
+      : 'Profile loading';
     return (
       <Container fluid className={styles.container}>
         <div className={styles.contentWrap}>
           {hasTitle && <AppDocumentTitle title={title} />}
           {hasTitle && <div className={styles.title}>{title}</div>}
-          {currentUser ? (
+          {showLoggedIn ? (
             <div className={styles.account}>
               <NotificationsButton />
               <UncontrolledDropdown>
@@ -56,16 +60,19 @@ class Header extends React.Component<*> {
                   data-tid="current-user-dropdown-toggle"
                 >
                   <span>
-                    {currentUser.lastname}, {currentUser.firstname}{' '}
-                    <i className="fa fa-caret-down" />
+                    {displayUserName} <i className="fa fa-caret-down" />
                   </span>
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem disabled>
-                    <span>
-                      Signed in as<br />
-                      <strong>{currentUser.email}</strong>
-                    </span>
+                    {currentUser ? (
+                      <span>
+                        Signed in as<br />
+                        <strong>{currentUser.email}</strong>
+                      </span>
+                    ) : (
+                      <span>Profile loading…</span>
+                    )}
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem
