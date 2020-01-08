@@ -1,5 +1,13 @@
 @import '~styles/colors.global';
 
+.name {
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+}
+
 .actionsContainer {
   display: flex;
   flex-direction: row;

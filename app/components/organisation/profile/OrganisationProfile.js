@@ -21,7 +21,7 @@ import OrganisationStatusIcon from './OrganisationStatusIcon';
 
 class OrganisationProfile extends React.Component<*> {
   renderActions = () => {
-    const { currentUserStatus, currentUserRole } = this.props;
+    const { currentUserStatus } = this.props;
     return (
       <div className={styles.actionsContainer}>
         {!currentUserStatus && (
@@ -63,21 +63,18 @@ class OrganisationProfile extends React.Component<*> {
               <OrganisationStatusIcon status={currentUserStatus} /> Membership
               declined
             </div>
-            <PrimaryButton outline icon={'plus-circle'}>
-              Ask to join
-            </PrimaryButton>
+            <SecondaryButton icon={'plus-circle'}>Ask to join</SecondaryButton>
           </React.Fragment>
-        )}
-        {currentUserRole === 'admin' && (
-          <IconButton outline icon={'pencil'}>
-            Edit
-          </IconButton>
         )}
       </div>
     );
   };
   render() {
-    const { organisation, organisationIsFetching } = this.props;
+    const {
+      organisation,
+      organisationIsFetching,
+      currentUserRole,
+    } = this.props;
     if (organisationIsFetching) {
       return null;
     }
@@ -89,8 +86,15 @@ class OrganisationProfile extends React.Component<*> {
             <Row>
               <Col sm={2} />
               <Col sm={8}>
-                <h1>{organisation.name}</h1>
-                <p>{organisation.description}</p>
+                <h1 className={styles.name}>{organisation.name}</h1>
+                <p className={styles.description}>{organisation.description}</p>
+                {currentUserRole === 'admin' && (
+                  <div className={`${styles.actionsContainer} mb-3`}>
+                    <IconButton outline icon={'pencil'}>
+                      Edit
+                    </IconButton>
+                  </div>
+                )}
                 {this.renderActions()}
               </Col>
               <Col sm={2} />
