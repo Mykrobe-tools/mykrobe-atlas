@@ -1,5 +1,4 @@
 /* @flow */
-/* @flow */
 
 import withAuth from 'makeandship-js-common/src/hoc/withAuth';
 
