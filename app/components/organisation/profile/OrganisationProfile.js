@@ -15,7 +15,9 @@ import {
 import HeaderContainer from '../../ui/header/HeaderContainer';
 import Footer from '../../ui/footer/Footer';
 
-import styles from '../../organisations/Common.scss';
+import styles from './OrganisationProfile.scss';
+
+import OrganisationStatusIcon from './OrganisationStatusIcon';
 
 class OrganisationProfile extends React.Component<*> {
   renderActions = () => {
@@ -28,31 +30,43 @@ class OrganisationProfile extends React.Component<*> {
           </PrimaryButton>
         )}
         {currentUserStatus === 'member' && (
-          <div>
-            <i className={'fa fa-check-circle'} /> You are a member{' '}
+          <React.Fragment>
+            <div>
+              <OrganisationStatusIcon status={currentUserStatus} /> You are a
+              member{' '}
+            </div>
             <SecondaryButton icon={'ban'}>Leave</SecondaryButton>
-          </div>
+          </React.Fragment>
         )}
         {currentUserStatus === 'requested' && (
-          <div>
-            <i className={'fa fa-bell'} /> Membership requested{' '}
+          <React.Fragment>
+            <div>
+              <OrganisationStatusIcon status={currentUserStatus} /> Membership
+              requested
+            </div>
             <SecondaryButton icon={'repeat'}>Resend</SecondaryButton>
             <SecondaryButton icon={'times-circle'}>Cancel</SecondaryButton>{' '}
-          </div>
+          </React.Fragment>
         )}
         {currentUserStatus === 'invited' && (
-          <div>
-            <i className={'fa fa-clock-o'} /> You have been invited to join{' '}
+          <React.Fragment>
+            <div>
+              <OrganisationStatusIcon status={currentUserStatus} /> You are
+              invited
+            </div>
             <IconButton>Accept and join</IconButton>
-          </div>
+          </React.Fragment>
         )}
         {currentUserStatus === 'declined' && (
-          <div>
-            <i className={'fa fa-exclamation-circle'} /> Membership declined{' '}
+          <React.Fragment>
+            <div>
+              <OrganisationStatusIcon status={currentUserStatus} /> Membership
+              declined
+            </div>
             <PrimaryButton outline icon={'plus-circle'}>
               Ask to join
             </PrimaryButton>
-          </div>
+          </React.Fragment>
         )}
         {currentUserRole === 'admin' && (
           <IconButton outline icon={'pencil'}>
