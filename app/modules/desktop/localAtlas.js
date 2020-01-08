@@ -327,7 +327,7 @@ function* analyseFileSaveWatcher() {
 
 export function* analyseFileSaveWorker(): Saga {
   const json = yield select(getJson);
-  const filePath = UIHelpers.saveFileDialog('mykrobe.json'); // eslint-disable-line import/namespace
+  const filePath = UIHelpers.saveFileDialog('mykrobe'); // eslint-disable-line import/namespace
   if (filePath) {
     const prettyJson = JSON.stringify(json, null, 2);
     fs.writeFile(filePath, prettyJson, err => {

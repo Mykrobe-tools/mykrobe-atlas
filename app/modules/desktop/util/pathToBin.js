@@ -2,7 +2,6 @@
 
 import path from 'path';
 import os from 'os';
-import log from 'electron-log';
 
 import * as TargetConstants from '../../../constants/TargetConstants';
 
