@@ -2,7 +2,7 @@
 
 export DEBUG_PRODUCTION=1
 export API_DEBUG=1
-export API_URL=http://api-dev.mykro.be
+export API_URL=https://api-dev.mykro.be
 export GOOGLE_MAPS_API_KEY=AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc
 export BOX_CLIENT_ID=uudga67zohcl0ttwzd38lc3orwumrppo
 export DROPBOX_APP_KEY=sqvzeehijk0hx50
@@ -10,8 +10,8 @@ export GOOGLE_DRIVE_CLIENT_ID=780918371602-rqgivkfba07ko1vvu5h868eomc3edq6f.apps
 export GOOGLE_DRIVE_DEVELOPER_KEY=AIzaSyAGWxdeXCK_1_AGRWZlkoaH6gQCjfC-3pI
 export ONEDRIVE_CLIENT_ID=e39a152d-61a5-4dbc-981c-95a0d0f23d9f
 export AUTH_COOKIE_NAME=api-dev.mykro.be
-export API_SWAGGER_URL=http://api-dev.mykro.be/swagger.json
-export AUTH_KEYCLOAK_URL=https://accounts-dev.makeandship.com/auth
+export API_SWAGGER_URL=https://api-dev.mykro.be/swagger.json
+export AUTH_KEYCLOAK_URL=https://accounts.makeandship.com/auth
 export AUTH_KEYCLOAK_REALM=atlas
 export AUTH_KEYCLOAK_CLIENT_ID=react-web-client
 
