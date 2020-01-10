@@ -32,7 +32,7 @@ const headings = [
 class Organisations extends React.Component<*> {
   componentWillMount() {
     const { requestOrganisations } = this.props;
-    requestOrganisations();
+    requestOrganisations && requestOrganisations();
   }
 
   onNewOrganisation = (e: any) => {
