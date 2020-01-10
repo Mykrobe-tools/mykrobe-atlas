@@ -20,13 +20,26 @@ import styles from './OrganisationProfile.scss';
 
 import OrganisationStatusIcon from './OrganisationStatusIcon';
 
+export const OrganisationProfileStatBadgeIcon = ({
+  type,
+}: React.ElementProps<*>): any => {
+  if (type === 'gold') {
+    return <i className={`${styles.badgeTypeGold} fa fa-trophy`} />;
+  } else if (type === 'warn') {
+    return <i className={`${styles.badgeTypeWarn} fa fa-warning`} />;
+  }
+  return null;
+};
+
 export const OrganisationProfileStatBadge = ({
   badge,
 }: React.ElementProps<*>): React.Element<*> => (
   <div className={styles.statBadgeContainer}>
-    {badge.type}
-    <p>{badge.description}</p>
-    <Link to={badge.to}>{badge.link}</Link>
+    <OrganisationProfileStatBadgeIcon type={badge.type} />
+    <div>{badge.description}</div>
+    <Link to={badge.to}>
+      <i className="fa fa-chevron-circle-right" /> {badge.link}
+    </Link>
   </div>
 );
 
@@ -36,9 +49,9 @@ export const OrganisationProfileStat = ({
   <div className={styles.statContainer}>
     <div className={styles.statValue}>
       {stat.value}
-      <span className={stat.valueUnit}>{stat.valueUnit}</span>
-      <OrganisationProfileStatBadge badge={stat.badge} />
+      <span className={styles.statValueUnit}>{stat.valueUnit}</span>
     </div>
+    <OrganisationProfileStatBadge badge={stat.badge} />
   </div>
 );
 
@@ -116,15 +129,19 @@ class OrganisationProfile extends React.Component<*> {
           <Container fluid>
             <Row className="justify-content-sm-center">
               <Col sm={8}>
-                <h1 className={styles.name}>{organisation.name}</h1>
-                <p className={styles.description}>{organisation.description}</p>
-                {currentUserRole === 'admin' && (
-                  <div className={`${styles.actionsContainer} mb-3`}>
-                    <IconButton outline icon={'pencil'}>
-                      Edit
-                    </IconButton>
-                  </div>
-                )}
+                <div className={styles.organisationProfile}>
+                  <h1 className={styles.name}>{organisation.name}</h1>
+                  <p className={styles.description}>
+                    {organisation.description}
+                  </p>
+                  {currentUserRole === 'admin' && (
+                    <div className={`${styles.actionsContainer} mb-3`}>
+                      <IconButton outline icon={'pencil'}>
+                        Edit
+                      </IconButton>
+                    </div>
+                  )}
+                </div>
                 <OrganisationProfileActions
                   currentUserStatus={currentUserStatus}
                 />
