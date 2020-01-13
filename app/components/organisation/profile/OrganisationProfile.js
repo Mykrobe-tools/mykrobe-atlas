@@ -73,6 +73,14 @@ export const OrganisationProfileActions = ({
         Ask to join
       </PrimaryButton>
     )}
+    {currentUserStatus === 'owner' && (
+      <React.Fragment>
+        <div>
+          <OrganisationStatusIcon status={currentUserStatus} /> You are an owner{' '}
+        </div>
+        <SecondaryButton icon={'ban'}>Leave</SecondaryButton>
+      </React.Fragment>
+    )}
     {currentUserStatus === 'member' && (
       <React.Fragment>
         <div>
@@ -81,29 +89,21 @@ export const OrganisationProfileActions = ({
         <SecondaryButton icon={'ban'}>Leave</SecondaryButton>
       </React.Fragment>
     )}
-    {currentUserStatus === 'requested' && (
+    {currentUserStatus === 'unapproved' && (
       <React.Fragment>
         <div>
           <OrganisationStatusIcon status={currentUserStatus} /> Membership
-          requested
+          pending approval
         </div>
         <SecondaryButton icon={'repeat'}>Resend</SecondaryButton>
         <SecondaryButton icon={'times-circle'}>Cancel</SecondaryButton>{' '}
       </React.Fragment>
     )}
-    {currentUserStatus === 'invited' && (
-      <React.Fragment>
-        <div>
-          <OrganisationStatusIcon status={currentUserStatus} /> You are invited
-        </div>
-        <IconButton>Accept and join</IconButton>
-      </React.Fragment>
-    )}
-    {currentUserStatus === 'declined' && (
+    {currentUserStatus === 'rejected' && (
       <React.Fragment>
         <div>
           <OrganisationStatusIcon status={currentUserStatus} /> Membership
-          declined
+          rejected
         </div>
         <SecondaryButton icon={'plus-circle'}>Ask to join</SecondaryButton>
       </React.Fragment>
@@ -116,7 +116,6 @@ class OrganisationProfile extends React.Component<*> {
     const {
       organisation,
       organisationIsFetching,
-      currentUserRole,
       currentUserStatus,
     } = this.props;
     if (organisationIsFetching) {
@@ -134,7 +133,7 @@ class OrganisationProfile extends React.Component<*> {
                   <p className={styles.description}>
                     {organisation.description}
                   </p>
-                  {currentUserRole === 'admin' && (
+                  {currentUserStatus === 'owner' && (
                     <div className={`${styles.actionsContainer} mb-3`}>
                       <IconButton outline icon={'pencil'}>
                         Edit

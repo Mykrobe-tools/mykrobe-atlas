@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import {
   getOrganisations,
+  getOrganisationsWithCurrentUserStatus,
   getOrganisationIsFetching,
   requestOrganisations,
   newOrganisation,
@@ -16,6 +17,9 @@ import Organisations from './Organisations';
 const withRedux = connect(
   state => ({
     organisations: getOrganisations(state),
+    organisationsWithCurrentUserStatus: getOrganisationsWithCurrentUserStatus(
+      state
+    ),
     isFetching: getOrganisationIsFetching(state),
     organisationsFilters: getOrganisationsFilters(state),
   }),

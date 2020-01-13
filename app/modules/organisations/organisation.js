@@ -4,7 +4,6 @@ import { put, all, fork, takeLatest } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import { push } from 'connected-react-router';
-import _find from 'lodash.find';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import { callSwaggerApi } from 'makeandship-js-common/src/modules/api/swaggerApi';

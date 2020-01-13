@@ -11,9 +11,10 @@ import organisationsFilters, {
 } from './organisationsFilters';
 
 export {
-  getIsFetching as getOrganisationsIsFetching,
-  getError as getOrganisationsError,
+  getOrganisationsIsFetching,
+  getOrganisationsError,
   getOrganisations,
+  getOrganisationsWithCurrentUserStatus,
   requestOrganisations,
   organisationsSaga,
 } from './organisations';

@@ -43,26 +43,21 @@ const variations = {
   default: {
     organisation,
   },
+  owner: {
+    organisation,
+    currentUserStatus: 'owner',
+  },
   member: {
     organisation,
     currentUserStatus: 'member',
   },
-  memberAndAdmin: {
+  unapproved: {
     organisation,
-    currentUserStatus: 'member',
-    currentUserRole: 'admin',
+    currentUserStatus: 'unapproved',
   },
-  requested: {
+  rejected: {
     organisation,
-    currentUserStatus: 'requested',
-  },
-  invited: {
-    organisation,
-    currentUserStatus: 'invited',
-  },
-  declined: {
-    organisation,
-    currentUserStatus: 'declined',
+    currentUserStatus: 'rejected',
   },
 };
 
@@ -72,10 +67,7 @@ storiesOf('OrganisationProfile', module)
   ))
   .addDecorator(story => <ConnectedStorybook story={story()} />)
   .add('Default', () => <OrganisationProfile {...variations.default} />)
+  .add('Owner', () => <OrganisationProfile {...variations.owner} />)
   .add('Member', () => <OrganisationProfile {...variations.member} />)
-  .add('Member, Admin', () => (
-    <OrganisationProfile {...variations.memberAndAdmin} />
-  ))
-  .add('Requested', () => <OrganisationProfile {...variations.requested} />)
-  .add('Invited', () => <OrganisationProfile {...variations.invited} />)
-  .add('Declined', () => <OrganisationProfile {...variations.declined} />);
+  .add('Unapproved', () => <OrganisationProfile {...variations.unapproved} />)
+  .add('Rejected', () => <OrganisationProfile {...variations.rejected} />);

@@ -21,6 +21,7 @@ import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
 
 import HeaderContainer from '../ui/header/HeaderContainer';
 import Footer from '../ui/footer/Footer';
+import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
 
 import styles from './Common.scss';
 
@@ -142,6 +143,7 @@ class Organisations extends React.Component<*> {
 }
 
 Organisations.propTypes = {
+  ...withCurrentUserPropTypes,
   organisations: PropTypes.array,
   requestOrganisations: PropTypes.func,
   newOrganisation: PropTypes.func,
