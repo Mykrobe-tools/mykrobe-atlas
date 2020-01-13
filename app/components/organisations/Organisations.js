@@ -35,6 +35,10 @@ const headings = [
     sort: 'template',
   },
   {
+    title: 'Your status',
+    sort: false,
+  },
+  {
     title: '',
   },
 ];
@@ -62,18 +66,22 @@ class Organisations extends React.Component<*> {
   };
 
   renderRow = (organisation: any) => {
-    const { id, name, template } = organisation;
+    const { id, name, template, currentUserStatus } = organisation;
     return (
       <TdLink key={id} to={`/organisations/${id}`}>
         <td>{name}</td>
         <td>{template}</td>
+        <td>{currentUserStatus}</td>
         <td />
       </TdLink>
     );
   };
 
   render() {
-    const { organisations, organisationsFilters } = this.props;
+    const {
+      organisationsWithCurrentUserStatus,
+      organisationsFilters,
+    } = this.props;
     return (
       <div className={styles.container}>
         <HeaderContainer title={'Organisations'} />
@@ -128,7 +136,7 @@ class Organisations extends React.Component<*> {
             </PageHeader>
             <Table
               headings={headings}
-              data={organisations}
+              data={organisationsWithCurrentUserStatus}
               sort={organisationsFilters.sort || 'id'}
               order={organisationsFilters.order || Table.Order.Descending}
               renderRow={this.renderRow}
@@ -145,6 +153,7 @@ class Organisations extends React.Component<*> {
 Organisations.propTypes = {
   ...withCurrentUserPropTypes,
   organisations: PropTypes.array,
+  organisationsWithCurrentUserStatus: PropTypes.array,
   requestOrganisations: PropTypes.func,
   newOrganisation: PropTypes.func,
   isFetching: PropTypes.bool,

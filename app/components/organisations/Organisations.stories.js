@@ -16,11 +16,21 @@ const organisations = [
   },
 ];
 
+const organisationsWithCurrentUserStatus = [
+  {
+    id: '123',
+    name: 'Acme Corporation',
+    template: 'Lorem ipsum',
+    currentUserStatus: 'owner',
+  },
+];
+
 const organisationsFilters = {};
 
 const variations = {
   default: {
     organisations,
+    organisationsWithCurrentUserStatus,
     organisationsFilters,
   },
 };
