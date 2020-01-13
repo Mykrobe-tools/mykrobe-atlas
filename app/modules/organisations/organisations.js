@@ -7,7 +7,7 @@ import produce from 'immer';
 
 import { getCurrentUser } from '../../modules/users/currentUser';
 
-import { getOrganisationCurrentUserStatus } from './organisation';
+import { organisationUserStatus } from './organisation';
 
 const collectionName = 'organisations';
 
@@ -36,15 +36,17 @@ const {
 export const getOrganisationsWithCurrentUserStatus = createSelector(
   getOrganisations,
   getCurrentUser,
-  (organisations, currentUser) =>
-    produce(organisations, draft => {
+  (organisations, currentUser) => {
+    return produce(organisations, draft => {
       draft.forEach(organisation => {
-        organisation.currentUserStatus = getOrganisationCurrentUserStatus(
+        const currentUserStatus = organisationUserStatus(
           organisation,
           currentUser
         );
+        organisation.currentUserStatus = currentUserStatus;
       });
-    })
+    });
+  }
 );
 
 export {

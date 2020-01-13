@@ -58,7 +58,7 @@ export const OrganisationProfileStat = ({
 
 export const OrganisationProfileStats = ({
   stats,
-}: React.ElementProps<*>): React.Element<*> =>
+}: React.ElementProps<*>): React.Element<*> | null =>
   stats
     ? stats.map((stat, index) => (
         <Col
@@ -129,6 +129,7 @@ class OrganisationProfile extends React.Component<*> {
   render() {
     const {
       organisation,
+      organisationId,
       organisationIsFetching,
       organisationCurrentUserStatus,
       organisationCurrentUserIsOwner,
@@ -166,7 +167,12 @@ class OrganisationProfile extends React.Component<*> {
                   </p>
                   {organisationCurrentUserStatus === 'owner' && (
                     <div className={`${styles.actionsContainer} mb-3`}>
-                      <IconButton outline icon={'pencil'}>
+                      <IconButton
+                        outline
+                        icon={'pencil'}
+                        tag={Link}
+                        to={`/organisations/${organisationId}/edit`}
+                      >
                         Edit
                       </IconButton>
                     </div>

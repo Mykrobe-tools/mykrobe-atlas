@@ -90,7 +90,7 @@ export const organisationUserIsRejectedMember = (
   user &&
   !!organisation.rejectedMembers.find(element => element.userId === user.id);
 
-export const organisationCurrentUserStatus = (organisation: any, user: any) => {
+export const organisationUserStatus = (organisation: any, user: any) => {
   let currentUserStatus;
   if (organisationUserIsOwner(organisation, user)) {
     currentUserStatus = 'owner';
@@ -136,7 +136,7 @@ export const getOrganisationCurrentUserStatus = createSelector(
   getOrganisation,
   getCurrentUser,
   (organisation, currentUser) =>
-    organisationCurrentUserStatus(organisation, currentUser)
+    organisationUserStatus(organisation, currentUser)
 );
 
 // actions
