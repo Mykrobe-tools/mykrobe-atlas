@@ -21,6 +21,7 @@ class OrganisationHeader extends React.Component<*> {
       organisationCurrentUserIsMember,
       organisationCurrentUserIsUnapprovedMember,
       organisationCurrentUserIsRejectedMember,
+      organisationCurrentUserMemberId,
     } = this.props;
     const title = isNew
       ? 'New organistaion'
@@ -37,6 +38,7 @@ class OrganisationHeader extends React.Component<*> {
               organisationCurrentUserIsMember,
               organisationCurrentUserIsUnapprovedMember,
               organisationCurrentUserIsRejectedMember,
+              organisationCurrentUserMemberId,
             },
             null,
             2
@@ -55,7 +57,7 @@ class OrganisationHeader extends React.Component<*> {
               Settings
             </TabNavigationLink>
           </TabNavigation>
-        )};
+        )}
       </React.Fragment>
     );
   }

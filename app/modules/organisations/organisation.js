@@ -101,6 +101,34 @@ export const organisationUserStatus = (organisation: any, user: any) => {
   return currentUserStatus;
 };
 
+export const organisationUserMemberId = (organisation: any, user: any) => {
+  if (!organisation || !user) {
+    return;
+  }
+  const owner = organisation.owners.find(element => element.userId === user.id);
+  if (owner) {
+    return owner.id;
+  }
+  const member = organisation.members.find(
+    element => element.userId === user.id
+  );
+  if (member) {
+    return member.id;
+  }
+  const unapprovedMember = organisation.unapprovedMembers.find(
+    element => element.userId === user.id
+  );
+  if (unapprovedMember) {
+    return unapprovedMember.id;
+  }
+  const rejectedMember = organisation.rejectedMembers.find(
+    element => element.userId === user.id
+  );
+  if (rejectedMember) {
+    return rejectedMember.id;
+  }
+};
+
 export const getOrganisationCurrentUserIsOwner = createSelector(
   getOrganisation,
   getCurrentUser,
@@ -134,6 +162,13 @@ export const getOrganisationCurrentUserStatus = createSelector(
   getCurrentUser,
   (organisation, currentUser) =>
     organisationUserStatus(organisation, currentUser)
+);
+
+export const getOrganisationCurrentUserMemberId = createSelector(
+  getOrganisation,
+  getCurrentUser,
+  (organisation, currentUser) =>
+    organisationUserMemberId(organisation, currentUser)
 );
 
 // actions
