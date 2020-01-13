@@ -1,28 +1,49 @@
 /* @flow */
 
-import { userIsOrganisationOwner } from './organisation';
+import {
+  organisationUserIsOwner,
+  organisationUserIsMember,
+  organisationUserIsUnapprovedMember,
+  organisationUserIsRejectedMember,
+} from './organisation';
+
+const currentUser = {
+  id: '1',
+};
+
+const memberUser = {
+  id: '2',
+};
+
+const unapprovedUser = {
+  id: '3',
+};
+
+const rejectedUser = {
+  id: '4',
+};
 
 const organisation = {
   owners: [
     {
-      userId: '1',
-      firstname: 'Lorem 1',
-      lastname: 'Ispum 1',
-      email: 'test1@example.com',
-      username: 'test1@example.com',
+      userId: currentUser.id,
     },
   ],
-  members: [],
+  members: [
+    {
+      userId: memberUser.id,
+    },
+  ],
   unapprovedMembers: [
     {
-      userId: '2',
-      firstname: 'Lorem 2',
-      lastname: 'Ispum 2',
-      email: 'test2@example.com',
-      username: 'test2@example.com',
+      userId: unapprovedUser.id,
     },
   ],
-  rejectedMembers: [],
+  rejectedMembers: [
+    {
+      userId: rejectedUser.id,
+    },
+  ],
   name: 'Test',
   slug: 'test',
   membersGroupId: '123',
@@ -30,22 +51,50 @@ const organisation = {
   id: '1',
 };
 
-const currentUser = {
-  id: '1',
-};
-
-const otherUser = {
-  id: '2',
-};
-
 describe('organisation module', () => {
   it('should handle bad input', () => {
-    expect(userIsOrganisationOwner()).toBeFalsy();
-    expect(userIsOrganisationOwner(currentUser)).toBeFalsy();
-    expect(userIsOrganisationOwner(undefined, organisation)).toBeFalsy();
+    expect(organisationUserIsOwner()).toBeFalsy();
+    expect(organisationUserIsOwner(organisation)).toBeFalsy();
+    expect(organisationUserIsOwner(undefined, currentUser)).toBeFalsy();
   });
   it('should identify owners', () => {
-    expect(userIsOrganisationOwner(currentUser, organisation)).toBeTruthy();
-    expect(userIsOrganisationOwner(otherUser, organisation)).toBeFalsy();
+    expect(organisationUserIsOwner(organisation, currentUser)).toBeTruthy();
+    expect(organisationUserIsOwner(organisation, memberUser)).toBeFalsy();
+    expect(organisationUserIsOwner(organisation, unapprovedUser)).toBeFalsy();
+    expect(organisationUserIsOwner(organisation, rejectedUser)).toBeFalsy();
+  });
+  it('should identify members', () => {
+    expect(organisationUserIsMember(organisation, currentUser)).toBeFalsy();
+    expect(organisationUserIsMember(organisation, memberUser)).toBeTruthy();
+    expect(organisationUserIsMember(organisation, unapprovedUser)).toBeFalsy();
+    expect(organisationUserIsMember(organisation, rejectedUser)).toBeFalsy();
+  });
+  it('should identify unapproved members', () => {
+    expect(
+      organisationUserIsUnapprovedMember(organisation, currentUser)
+    ).toBeFalsy();
+    expect(
+      organisationUserIsUnapprovedMember(organisation, memberUser)
+    ).toBeFalsy();
+    expect(
+      organisationUserIsUnapprovedMember(organisation, unapprovedUser)
+    ).toBeTruthy();
+    expect(
+      organisationUserIsUnapprovedMember(organisation, rejectedUser)
+    ).toBeFalsy();
+  });
+  it('should identify rejected members', () => {
+    expect(
+      organisationUserIsRejectedMember(organisation, currentUser)
+    ).toBeFalsy();
+    expect(
+      organisationUserIsRejectedMember(organisation, memberUser)
+    ).toBeFalsy();
+    expect(
+      organisationUserIsRejectedMember(organisation, unapprovedUser)
+    ).toBeFalsy();
+    expect(
+      organisationUserIsRejectedMember(organisation, rejectedUser)
+    ).toBeTruthy();
   });
 });

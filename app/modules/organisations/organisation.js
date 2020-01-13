@@ -4,6 +4,7 @@ import { put, all, fork, takeLatest } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import { push } from 'connected-react-router';
+import _find from 'lodash.find';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import { callSwaggerApi } from 'makeandship-js-common/src/modules/api/swaggerApi';
@@ -64,50 +65,58 @@ const {
 
 // selectors
 
-/*
-data {
-  "owners": [
-    {
-      "userId": "5e16e71654559200114c24a4",
-      "firstname": "Simon",
-      "lastname": "Heys",
-      "email": "simon@makeandship.com",
-      "username": "simon@makeandship.com",
-      "id": "5e1c5a433c68a70011bdd322"
-    }
-  ],
-  "members": [],
-  "unapprovedMembers": [
-    {
-      "userId": "5e16e71654559200114c24a4",
-      "firstname": "Simon",
-      "lastname": "Heys",
-      "email": "simon@makeandship.com",
-      "username": "simon@makeandship.com",
-      "id": "5e1c5a673c68a70011bdd324"
-    }
-  ],
-  "rejectedMembers": [],
-  "name": "Test",
-  "slug": "test",
-  "membersGroupId": "08ed0283-9314-432b-8193-c927f92f2975",
-  "ownersGroupId": "d158fbad-0e32-4ac6-8469-b46c5ba3ecb2",
-  "id": "5e1c5a433c68a70011bdd321"
-}
-*/
+export const organisationUserIsOwner = (organisation: any, user: any) =>
+  organisation &&
+  user &&
+  !!organisation.owners.find(element => element.userId === user.id);
 
-export const userIsOrganisationOwner = (user: any, organisation: any) => {
-  if (!organisation || !user) {
-    return false;
-  }
-  return !!organisation.owners.find(element => element.userId === user.id);
-};
+export const organisationUserIsMember = (organisation: any, user: any) =>
+  organisation &&
+  user &&
+  !!organisation.members.find(element => element.userId === user.id);
+
+export const organisationUserIsUnapprovedMember = (
+  organisation: any,
+  user: any
+) =>
+  organisation &&
+  user &&
+  !!organisation.unapprovedMembers.find(element => element.userId === user.id);
+
+export const organisationUserIsRejectedMember = (
+  organisation: any,
+  user: any
+) =>
+  organisation &&
+  user &&
+  !!organisation.rejectedMembers.find(element => element.userId === user.id);
 
 export const getOrganisationCurrentUserIsOwner = createSelector(
   getOrganisation,
   getCurrentUser,
   (organisation, currentUser) =>
-    userIsOrganisationOwner(organisation, currentUser)
+    organisationUserIsOwner(organisation, currentUser)
+);
+
+export const getOrganisationCurrentUserIsMember = createSelector(
+  getOrganisation,
+  getCurrentUser,
+  (organisation, currentUser) =>
+    organisationUserIsMember(organisation, currentUser)
+);
+
+export const getOrganisationCurrentUserIsUnapprovedMember = createSelector(
+  getOrganisation,
+  getCurrentUser,
+  (organisation, currentUser) =>
+    organisationUserIsUnapprovedMember(organisation, currentUser)
+);
+
+export const getOrganisationCurrentUserIsRejectedMember = createSelector(
+  getOrganisation,
+  getCurrentUser,
+  (organisation, currentUser) =>
+    organisationUserIsRejectedMember(organisation, currentUser)
 );
 
 // actions

@@ -69,10 +69,24 @@ class EditOrganisation extends React.Component<*> {
       organisationIsFetching,
       organisationError,
       organisationCurrentUserIsOwner,
+      organisationCurrentUserIsMember,
+      organisationCurrentUserIsUnapprovedMember,
+      organisationCurrentUserIsRejectedMember,
     } = this.props;
     return (
       <div className={styles.container}>
-        <pre>{JSON.stringify({ organisationCurrentUserIsOwner }, null, 2)}</pre>
+        <pre>
+          {JSON.stringify(
+            {
+              organisationCurrentUserIsOwner,
+              organisationCurrentUserIsMember,
+              organisationCurrentUserIsUnapprovedMember,
+              organisationCurrentUserIsRejectedMember,
+            },
+            null,
+            2
+          )}
+        </pre>
         <HeaderContainer title={'Organisation'} />
         <div className={styles.container}>
           <Container fluid>

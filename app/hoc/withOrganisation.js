@@ -14,6 +14,9 @@ import {
   deleteOrganisation,
   joinOrganisation,
   getOrganisationCurrentUserIsOwner,
+  getOrganisationCurrentUserIsMember,
+  getOrganisationCurrentUserIsUnapprovedMember,
+  getOrganisationCurrentUserIsRejectedMember,
 } from '../modules/organisations/organisation';
 
 const withOrganisation = connect(
@@ -22,6 +25,13 @@ const withOrganisation = connect(
     organisationIsFetching: getOrganisationIsFetching(state),
     organisationError: getOrganisationError(state),
     organisationCurrentUserIsOwner: getOrganisationCurrentUserIsOwner(state),
+    organisationCurrentUserIsMember: getOrganisationCurrentUserIsMember(state),
+    organisationCurrentUserIsUnapprovedMember: getOrganisationCurrentUserIsUnapprovedMember(
+      state
+    ),
+    organisationCurrentUserIsRejectedMember: getOrganisationCurrentUserIsRejectedMember(
+      state
+    ),
   }),
   {
     newOrganisation,
@@ -44,6 +54,9 @@ export const withOrganisationPropTypes = {
   deleteOrganisation: PropTypes.func,
   joinOrganisation: PropTypes.func,
   organisationCurrentUserIsOwner: PropTypes.bool,
+  organisationCurrentUserIsMember: PropTypes.bool,
+  organisationCurrentUserIsUnapprovedMember: PropTypes.bool,
+  organisationCurrentUserIsRejectedMember: PropTypes.bool,
 };
 
 export default withOrganisation;
