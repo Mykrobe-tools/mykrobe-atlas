@@ -35,8 +35,11 @@ const headings = [
     sort: 'template',
   },
   {
+    title: 'Members',
+    sort: 'members',
+  },
+  {
     title: 'Your status',
-    sort: false,
   },
   {
     title: '',
@@ -66,11 +69,19 @@ class Organisations extends React.Component<*> {
   };
 
   renderRow = (organisation: any) => {
-    const { id, name, template, currentUserStatus } = organisation;
+    const {
+      id,
+      name,
+      template,
+      currentUserStatus,
+      members,
+      owners,
+    } = organisation;
     return (
       <TdLink key={id} to={`/organisations/${id}`}>
         <td>{name}</td>
         <td>{template}</td>
+        <td>{members.length + owners.length}</td>
         <td>{currentUserStatus}</td>
         <td />
       </TdLink>
@@ -90,7 +101,6 @@ class Organisations extends React.Component<*> {
             <PageHeader border={false}>
               <div>
                 <div className={pageHeaderStyles.title}>Organisations</div>
-
                 <Nav>
                   <NavItem>
                     <NavLink href="#" active>
