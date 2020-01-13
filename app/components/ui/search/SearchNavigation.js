@@ -26,7 +26,7 @@ const SearchNavigation = ({
     e.preventDefault();
     let result = stateQ;
     // clear the parameter when empty string
-    if (typeof q === 'string' && q.length === 0) {
+    if (typeof result === 'string' && result.length === 0) {
       result = undefined;
     }
     onSubmit && onSubmit(result);
