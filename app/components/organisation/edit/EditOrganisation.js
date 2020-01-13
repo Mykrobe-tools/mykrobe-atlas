@@ -18,7 +18,7 @@ import {
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import type { OrganisationType } from '../../../types/OrganisationTypes';
-import HeaderContainer from '../../ui/header/HeaderContainer';
+import OrganisationHeader from '../ui/OrganisationHeader';
 import Footer from '../../ui/footer/Footer';
 import { organisationSchema } from '../../../schemas/organisations';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
@@ -87,7 +87,7 @@ class EditOrganisation extends React.Component<*> {
             2
           )}
         </pre>
-        <HeaderContainer title={'Organisation'} />
+        <OrganisationHeader {...this.props} />
         <div className={styles.container}>
           <Container fluid>
             <DecoratedForm

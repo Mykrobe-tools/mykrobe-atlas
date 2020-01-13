@@ -13,13 +13,13 @@ import {
   SecondaryButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import HeaderContainer from '../../ui/header/HeaderContainer';
 import Footer from '../../ui/footer/Footer';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
 
 import styles from './OrganisationProfile.scss';
 
-import OrganisationStatusIcon from './OrganisationStatusIcon';
+import OrganisationStatusIcon from '../ui/OrganisationStatusIcon';
+import OrganisationHeader from '../ui/OrganisationHeader';
 
 export const OrganisationProfileStatBadgeIcon = ({
   type,
@@ -153,7 +153,7 @@ class OrganisationProfile extends React.Component<*> {
     }
     return (
       <div className={styles.container}>
-        <HeaderContainer title={organisation.name} />
+        <OrganisationHeader {...this.props} />
         <div className={styles.container}>
           <pre>
             {JSON.stringify(

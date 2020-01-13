@@ -20,7 +20,7 @@ import PageHeader, {
 import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
 
-import OrganisationStatusIcon from '../organisation/profile/OrganisationStatusIcon';
+import OrganisationStatusIcon from '../organisation/ui/OrganisationStatusIcon';
 
 import HeaderContainer from '../ui/header/HeaderContainer';
 import Footer from '../ui/footer/Footer';
