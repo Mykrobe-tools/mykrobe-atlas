@@ -19,8 +19,8 @@ export {
 } from './organisations';
 
 export {
-  getIsFetching as getOrganisationIsFetching,
-  getError as getOrganisationError,
+  getOrganisationIsFetching,
+  getOrganisationError,
   getOrganisation,
   newOrganisation,
   createOrganisation,

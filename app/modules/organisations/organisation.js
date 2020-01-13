@@ -52,7 +52,11 @@ const {
     updateEntity,
     deleteEntity,
   },
-  selectors: { getEntity: getOrganisation, getError, getIsFetching },
+  selectors: {
+    getEntity: getOrganisation,
+    getError: getOrganisationError,
+    getIsFetching: getOrganisationIsFetching,
+  },
   sagas: { entitySaga: organisationModuleSaga },
 } = module;
 
@@ -92,17 +96,18 @@ data {
 }
 */
 
-export const getCurrentUserIsOrganisationOwner = createSelector(
+export const userIsOrganisationOwner = (user: any, organisation: any) => {
+  if (!organisation || !user) {
+    return false;
+  }
+  return !!organisation.owners.find(element => element.userId === user.id);
+};
+
+export const getOrganisationCurrentUserIsOwner = createSelector(
   getOrganisation,
   getCurrentUser,
-  (organisation, currentUser) => {
-    if (!organisation || !currentUser) {
-      return false;
-    }
-    return organisation.owners.find(
-      element => element.userId === currentUser.id
-    );
-  }
+  (organisation, currentUser) =>
+    userIsOrganisationOwner(organisation, currentUser)
 );
 
 // actions
@@ -142,8 +147,8 @@ export {
   updateEntity as updateOrganisation,
   deleteEntity as deleteOrganisation,
   getOrganisation,
-  getError,
-  getIsFetching,
+  getOrganisationError,
+  getOrganisationIsFetching,
 };
 
 export default reducer;

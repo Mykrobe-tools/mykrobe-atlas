@@ -6,12 +6,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
 
-import type { OrganisationType } from '../../../types/OrganisationTypes';
-import HeaderContainer from '../../ui/header/HeaderContainer';
-import Footer from '../../ui/footer/Footer';
-
-import styles from '../../organisations/Common.scss';
-
 import {
   Select,
   DecoratedForm,
@@ -23,7 +17,13 @@ import {
   DestructiveButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
+import type { OrganisationType } from '../../../types/OrganisationTypes';
+import HeaderContainer from '../../ui/header/HeaderContainer';
+import Footer from '../../ui/footer/Footer';
 import { organisationSchema } from '../../../schemas/organisations';
+import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
+
+import styles from '../../organisations/Common.scss';
 
 const uiSchema = {
   template: {
@@ -63,9 +63,16 @@ class EditOrganisation extends React.Component<*> {
   };
 
   render() {
-    const { isNew, organisation, isFetching, error } = this.props;
+    const {
+      isNew,
+      organisation,
+      organisationIsFetching,
+      organisationError,
+      organisationCurrentUserIsOwner,
+    } = this.props;
     return (
       <div className={styles.container}>
+        <pre>{JSON.stringify({ organisationCurrentUserIsOwner }, null, 2)}</pre>
         <HeaderContainer title={'Organisation'} />
         <div className={styles.container}>
           <Container fluid>
@@ -74,8 +81,8 @@ class EditOrganisation extends React.Component<*> {
               schema={organisationSchema}
               uiSchema={uiSchema}
               onSubmit={this.onSubmit}
-              isFetching={isFetching}
-              error={error}
+              isFetching={organisationIsFetching}
+              error={organisationError}
               formData={organisation}
             >
               <FormFooter>
@@ -101,14 +108,8 @@ class EditOrganisation extends React.Component<*> {
 }
 
 EditOrganisation.propTypes = {
+  ...withOrganisationPropTypes,
   match: PropTypes.object,
-  organisation: PropTypes.object,
-  isFetching: PropTypes.bool,
-  error: PropTypes.object,
-  createOrganisation: PropTypes.func,
-  requestOrganisation: PropTypes.func,
-  updateOrganisation: PropTypes.func,
-  deleteOrganisation: PropTypes.func,
   push: PropTypes.func,
   goBack: PropTypes.func,
   isNew: PropTypes.bool,
