@@ -28,6 +28,7 @@ export {
   updateOrganisation,
   deleteOrganisation,
   organisationSaga,
+  joinOrganisation,
 } from './organisation';
 
 export {
