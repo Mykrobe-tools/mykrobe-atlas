@@ -29,6 +29,11 @@ export {
   deleteOrganisation,
   organisationSaga,
   joinOrganisation,
+  approveJoinOrganisationRequest,
+  rejectJoinOrganisationRequest,
+  removeOrganisationMember,
+  promoteOrganisationMember,
+  demoteOrganisationOwner,
 } from './organisation';
 
 export {
