@@ -15,6 +15,7 @@ import {
 
 import HeaderContainer from '../../ui/header/HeaderContainer';
 import Footer from '../../ui/footer/Footer';
+import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
 
 import styles from './OrganisationProfile.scss';
 
@@ -58,11 +59,17 @@ export const OrganisationProfileStat = ({
 export const OrganisationProfileStats = ({
   stats,
 }: React.ElementProps<*>): React.Element<*> =>
-  stats.map((stat, index) => (
-    <Col key={`${index}`} sm={4} className={index > 0 ? 'border-left' : null}>
-      <OrganisationProfileStat stat={stat} />
-    </Col>
-  ));
+  stats
+    ? stats.map((stat, index) => (
+        <Col
+          key={`${index}`}
+          sm={4}
+          className={index > 0 ? 'border-left' : null}
+        >
+          <OrganisationProfileStat stat={stat} />
+        </Col>
+      ))
+    : null;
 
 export const OrganisationProfileActions = ({
   currentUserStatus,
@@ -112,19 +119,43 @@ export const OrganisationProfileActions = ({
 );
 
 class OrganisationProfile extends React.Component<*> {
+  componentWillMount() {
+    const { requestOrganisation, organisationId, isNew } = this.props;
+    if (!isNew) {
+      requestOrganisation(organisationId);
+    }
+  }
+
   render() {
     const {
       organisation,
       organisationIsFetching,
-      currentUserStatus,
+      organisationCurrentUserStatus,
+      organisationCurrentUserIsOwner,
+      organisationCurrentUserIsMember,
+      organisationCurrentUserIsUnapprovedMember,
+      organisationCurrentUserIsRejectedMember,
     } = this.props;
-    if (organisationIsFetching) {
+    if (!organisation || organisationIsFetching) {
       return null;
     }
     return (
       <div className={styles.container}>
         <HeaderContainer title={organisation.name} />
         <div className={styles.container}>
+          <pre>
+            {JSON.stringify(
+              {
+                organisationCurrentUserIsOwner,
+                organisationCurrentUserIsMember,
+                organisationCurrentUserIsUnapprovedMember,
+                organisationCurrentUserIsRejectedMember,
+                organisationCurrentUserStatus,
+              },
+              null,
+              2
+            )}
+          </pre>
           <Container fluid>
             <Row className="justify-content-sm-center">
               <Col sm={8}>
@@ -133,7 +164,7 @@ class OrganisationProfile extends React.Component<*> {
                   <p className={styles.description}>
                     {organisation.description}
                   </p>
-                  {currentUserStatus === 'owner' && (
+                  {organisationCurrentUserStatus === 'owner' && (
                     <div className={`${styles.actionsContainer} mb-3`}>
                       <IconButton outline icon={'pencil'}>
                         Edit
@@ -142,7 +173,7 @@ class OrganisationProfile extends React.Component<*> {
                   )}
                 </div>
                 <OrganisationProfileActions
-                  currentUserStatus={currentUserStatus}
+                  currentUserStatus={organisationCurrentUserStatus}
                 />
               </Col>
             </Row>
@@ -158,7 +189,7 @@ class OrganisationProfile extends React.Component<*> {
 }
 
 OrganisationProfile.propTypes = {
-  organisation: PropTypes.object,
+  ...withOrganisationPropTypes,
   currentUserStatus: PropTypes.string,
   currentUserRole: PropTypes.string,
 };

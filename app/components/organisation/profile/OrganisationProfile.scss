@@ -1,11 +1,12 @@
 @import '~styles/colors.global';
 
 .container {
-  composes: global(py-4);
+  composes: container from 'styles/layout.scss';
+  flex-direction: column;
 }
 
 .organisationProfile {
-  composes: global(mb-4);
+  composes: global(my-4);
 }
 
 .name {

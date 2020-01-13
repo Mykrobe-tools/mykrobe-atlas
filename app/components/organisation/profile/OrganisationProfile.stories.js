@@ -45,19 +45,19 @@ const variations = {
   },
   owner: {
     organisation,
-    currentUserStatus: 'owner',
+    organisationCurrentUserStatus: 'owner',
   },
   member: {
     organisation,
-    currentUserStatus: 'member',
+    organisationCurrentUserStatus: 'member',
   },
   unapproved: {
     organisation,
-    currentUserStatus: 'unapproved',
+    organisationCurrentUserStatus: 'unapproved',
   },
   rejected: {
     organisation,
-    currentUserStatus: 'rejected',
+    organisationCurrentUserStatus: 'rejected',
   },
 };
 

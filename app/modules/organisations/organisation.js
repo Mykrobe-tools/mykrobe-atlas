@@ -90,6 +90,20 @@ export const organisationUserIsRejectedMember = (
   user &&
   !!organisation.rejectedMembers.find(element => element.userId === user.id);
 
+export const organisationCurrentUserStatus = (organisation: any, user: any) => {
+  let currentUserStatus;
+  if (organisationUserIsOwner(organisation, user)) {
+    currentUserStatus = 'owner';
+  } else if (organisationUserIsMember(organisation, user)) {
+    currentUserStatus = 'member';
+  } else if (organisationUserIsUnapprovedMember(organisation, user)) {
+    currentUserStatus = 'unapproved';
+  } else if (organisationUserIsRejectedMember(organisation, user)) {
+    currentUserStatus = 'rejected';
+  }
+  return currentUserStatus;
+};
+
 export const getOrganisationCurrentUserIsOwner = createSelector(
   getOrganisation,
   getCurrentUser,
@@ -116,6 +130,13 @@ export const getOrganisationCurrentUserIsRejectedMember = createSelector(
   getCurrentUser,
   (organisation, currentUser) =>
     organisationUserIsRejectedMember(organisation, currentUser)
+);
+
+export const getOrganisationCurrentUserStatus = createSelector(
+  getOrganisation,
+  getCurrentUser,
+  (organisation, currentUser) =>
+    organisationCurrentUserStatus(organisation, currentUser)
 );
 
 // actions

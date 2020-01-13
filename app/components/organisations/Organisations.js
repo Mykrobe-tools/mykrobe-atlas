@@ -103,10 +103,10 @@ class Organisations extends React.Component<*> {
               <i className="fa fa-ellipsis-v" />
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem tag={Link} to={`/incidents/${id}`}>
+              <DropdownItem tag={Link} to={`/organisations/${id}`}>
                 <i className="fa fa-chevron-circle-right" /> View
               </DropdownItem>
-              <DropdownItem tag={Link} to={`/incidents/${id}/edit`}>
+              <DropdownItem tag={Link} to={`/organisations/${id}/edit`}>
                 <i className="fa fa-pencil" /> Edit
               </DropdownItem>
             </DropdownMenu>

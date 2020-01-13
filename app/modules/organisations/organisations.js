@@ -7,12 +7,7 @@ import produce from 'immer';
 
 import { getCurrentUser } from '../../modules/users/currentUser';
 
-import {
-  organisationUserIsOwner,
-  organisationUserIsMember,
-  organisationUserIsUnapprovedMember,
-  organisationUserIsRejectedMember,
-} from './organisation';
+import { getOrganisationCurrentUserStatus } from './organisation';
 
 const collectionName = 'organisations';
 
@@ -44,21 +39,10 @@ export const getOrganisationsWithCurrentUserStatus = createSelector(
   (organisations, currentUser) =>
     produce(organisations, draft => {
       draft.forEach(organisation => {
-        let currentUserStatus;
-        if (organisationUserIsOwner(organisation, currentUser)) {
-          currentUserStatus = 'owner';
-        } else if (organisationUserIsMember(organisation, currentUser)) {
-          currentUserStatus = 'member';
-        } else if (
-          organisationUserIsUnapprovedMember(organisation, currentUser)
-        ) {
-          currentUserStatus = 'unapproved';
-        } else if (
-          organisationUserIsRejectedMember(organisation, currentUser)
-        ) {
-          currentUserStatus = 'rejected';
-        }
-        organisation.currentUserStatus = currentUserStatus;
+        organisation.currentUserStatus = getOrganisationCurrentUserStatus(
+          organisation,
+          currentUser
+        );
       });
     })
 );
