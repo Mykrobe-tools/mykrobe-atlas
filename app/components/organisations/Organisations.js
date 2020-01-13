@@ -12,6 +12,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import PageHeader, {
   styles as pageHeaderStyles,
@@ -19,11 +20,13 @@ import PageHeader, {
 import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
 
+import OrganisationStatusIcon from '../organisation/profile/OrganisationStatusIcon';
+
 import HeaderContainer from '../ui/header/HeaderContainer';
 import Footer from '../ui/footer/Footer';
 import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
 
-import styles from './Common.scss';
+import styles from './Organisations.scss';
 
 const headings = [
   {
@@ -82,8 +85,33 @@ class Organisations extends React.Component<*> {
         <td>{name}</td>
         <td>{template}</td>
         <td>{members.length + owners.length}</td>
-        <td>{currentUserStatus}</td>
-        <td />
+        <td>
+          <OrganisationStatusIcon status={currentUserStatus} />{' '}
+          {currentUserStatus || '–'}
+        </td>
+        <td>
+          <UncontrolledDropdown>
+            <DropdownToggle
+              tag={'a'}
+              href="#"
+              className={styles.dropdownToggle}
+              onClick={e => {
+                e.stopPropagation();
+                e.preventDefault();
+              }}
+            >
+              <i className="fa fa-ellipsis-v" />
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem tag={Link} to={`/incidents/${id}`}>
+                <i className="fa fa-chevron-circle-right" /> View
+              </DropdownItem>
+              <DropdownItem tag={Link} to={`/incidents/${id}/edit`}>
+                <i className="fa fa-pencil" /> Edit
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </td>
       </TdLink>
     );
   };
@@ -99,39 +127,7 @@ class Organisations extends React.Component<*> {
         <div className={styles.container}>
           <Container fluid>
             <PageHeader border={false}>
-              <div>
-                <div className={pageHeaderStyles.title}>Organisations</div>
-                <Nav>
-                  <NavItem>
-                    <NavLink href="#" active>
-                      Link
-                    </NavLink>
-                  </NavItem>
-                  <UncontrolledDropdown nav>
-                    <DropdownToggle nav caret>
-                      Dropdown
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem header>Header</DropdownItem>
-                      <DropdownItem disabled>Action</DropdownItem>
-                      <DropdownItem>Another Action</DropdownItem>
-                      <DropdownItem divider />
-                      <DropdownItem>Another Action</DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                  <NavItem>
-                    <NavLink href="#">Link</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink href="#">Another Link</NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink disabled href="#">
-                      Disabled Link
-                    </NavLink>
-                  </NavItem>
-                </Nav>
-              </div>
+              <div className={pageHeaderStyles.title}>Organisations</div>
               <div>
                 <PrimaryButton
                   onClick={this.onNewOrganisation}

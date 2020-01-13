@@ -5,7 +5,9 @@ import * as React from 'react';
 import styles from './OrganisationStatusIcon.scss';
 
 const OrganisationStatusIcon = ({ status }: React.ElementProps<*>): any => {
-  if (status === 'member') {
+  if (status === 'owner') {
+    return <i className={`${styles.member} fa fa-key`} />;
+  } else if (status === 'member') {
     return <i className={`${styles.member} fa fa-check-circle`} />;
   } else if (status === 'unapproved') {
     return <i className={`${styles.default} fa fa-bell`} />;
