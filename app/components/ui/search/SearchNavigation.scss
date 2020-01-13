@@ -1,0 +1,27 @@
+@import '~styles/colors.global';
+
+.container {
+  composes: global(border-top);
+  composes: global(border-bottom);
+  composes: global(py-3);
+  background-color: $color-panel-light;
+}
+
+.rowContainer {
+  align-items: center;
+}
+
+.searchContainer {
+  input[name='q'] {
+    background-color: $color-white;
+    padding-left: 1.5rem;
+    /* TODO: find a clean way to override input border radius */
+    border-top-left-radius: 500px !important;
+    border-bottom-left-radius: 500px !important;
+  }
+  button[type='submit'] {
+    i {
+      font-size: 1rem;
+    }
+  }
+}

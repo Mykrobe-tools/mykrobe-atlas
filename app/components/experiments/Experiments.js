@@ -28,7 +28,7 @@ import Footer from '../ui/footer/Footer';
 import { notImplemented } from '../../util';
 
 import UploadButton from '../upload/button/UploadButton';
-import SearchInput from '../ui/SearchInput';
+import SearchInput from '../ui/search/SearchInput';
 import Empty from '../ui/Empty';
 import ExperimentGeographicMap from '../experiment/analysis/ExperimentGeographicMap';
 

@@ -2,7 +2,16 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Container } from 'reactstrap';
+import {
+  Container,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap';
 
 import PageHeader, {
   styles as pageHeaderStyles,
@@ -72,6 +81,37 @@ class Organisations extends React.Component<*> {
             <PageHeader border={false}>
               <div>
                 <div className={pageHeaderStyles.title}>Organisations</div>
+
+                <Nav>
+                  <NavItem>
+                    <NavLink href="#" active>
+                      Link
+                    </NavLink>
+                  </NavItem>
+                  <UncontrolledDropdown nav>
+                    <DropdownToggle nav caret>
+                      Dropdown
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem header>Header</DropdownItem>
+                      <DropdownItem disabled>Action</DropdownItem>
+                      <DropdownItem>Another Action</DropdownItem>
+                      <DropdownItem divider />
+                      <DropdownItem>Another Action</DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                  <NavItem>
+                    <NavLink href="#">Link</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink href="#">Another Link</NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink disabled href="#">
+                      Disabled Link
+                    </NavLink>
+                  </NavItem>
+                </Nav>
               </div>
               <div>
                 <PrimaryButton
