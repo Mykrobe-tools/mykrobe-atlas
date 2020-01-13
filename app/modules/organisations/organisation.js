@@ -20,7 +20,6 @@ const module = createEntityModule('organisation', {
     operationId: 'organisationsCreate',
     onSuccess: function*() {
       yield put(showNotification('Organisation created'));
-      yield put(push(`/organisations`));
     },
   },
   request: {
@@ -30,14 +29,12 @@ const module = createEntityModule('organisation', {
     operationId: 'organisationsUpdateById',
     onSuccess: function*() {
       yield put(showNotification('Organisation saved'));
-      yield put(push(`/organisations`));
     },
   },
   delete: {
     operationId: 'organisationsDeleteById',
     onSuccess: function*() {
       yield put(showNotification('Organisation deleted'));
-      yield put(push('/organisations'));
     },
   },
 });
