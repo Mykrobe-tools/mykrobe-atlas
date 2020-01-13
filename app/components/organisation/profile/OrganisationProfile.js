@@ -73,10 +73,11 @@ export const OrganisationProfileStats = ({
 
 export const OrganisationProfileActions = ({
   currentUserStatus,
+  onJoinClick,
 }: React.ElementProps<*>): React.Element<*> => (
   <div className={styles.actionsContainer}>
     {!currentUserStatus && (
-      <PrimaryButton outline icon={'plus-circle'}>
+      <PrimaryButton onClick={onJoinClick} outline icon={'plus-circle'}>
         Ask to join
       </PrimaryButton>
     )}
@@ -102,7 +103,9 @@ export const OrganisationProfileActions = ({
           <OrganisationStatusIcon status={currentUserStatus} /> Membership
           pending approval
         </div>
-        <SecondaryButton icon={'repeat'}>Resend</SecondaryButton>
+        <SecondaryButton onClick={onJoinClick} icon={'repeat'}>
+          Resend
+        </SecondaryButton>
         <SecondaryButton icon={'times-circle'}>Cancel</SecondaryButton>{' '}
       </React.Fragment>
     )}
@@ -112,7 +115,9 @@ export const OrganisationProfileActions = ({
           <OrganisationStatusIcon status={currentUserStatus} /> Membership
           rejected
         </div>
-        <SecondaryButton icon={'plus-circle'}>Ask to join</SecondaryButton>
+        <SecondaryButton onClick={onJoinClick} icon={'plus-circle'}>
+          Ask to join
+        </SecondaryButton>
       </React.Fragment>
     )}
   </div>
@@ -125,6 +130,12 @@ class OrganisationProfile extends React.Component<*> {
       requestOrganisation(organisationId);
     }
   }
+
+  onJoinClick = (e: any) => {
+    const { joinOrganisation, organisationId } = this.props;
+    e.preventDefault();
+    joinOrganisation({ id: organisationId });
+  };
 
   render() {
     const {
@@ -179,6 +190,7 @@ class OrganisationProfile extends React.Component<*> {
                   )}
                 </div>
                 <OrganisationProfileActions
+                  onJoinClick={this.onJoinClick}
                   currentUserStatus={organisationCurrentUserStatus}
                 />
               </Col>

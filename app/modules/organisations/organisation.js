@@ -43,11 +43,11 @@ const {
   reducer,
   actionTypes: organisationActionTypes,
   actions: {
-    newEntity,
-    createEntity,
-    requestEntity,
-    updateEntity,
-    deleteEntity,
+    newEntity: newOrganisation,
+    createEntity: createOrganisation,
+    requestEntity: requestOrganisation,
+    updateEntity: updateOrganisation,
+    deleteEntity: deleteOrganisation,
   },
   selectors: {
     getEntity: getOrganisation,
@@ -212,6 +212,16 @@ export function* joinOrganisationWatcher(): Saga {
   });
 }
 
+export function* joinOrganisationSuccessWatcher(): Saga {
+  yield takeLatest(JOIN_SUCCESS, function*(action) {
+    yield put(showNotification('Request sent'));
+    // refresh membership status
+    const entity = action.payload;
+    const { id } = entity;
+    yield put(requestOrganisation(id));
+  });
+}
+
 export function* approveJoinOrganisationRequestWatcher(): Saga {
   yield takeLatest(APPROVE_JOIN, function*(action) {
     yield put(
@@ -291,6 +301,7 @@ export function* demoteOrganisationOwnerWatcher(): Saga {
 const sagas = [
   organisationModuleSaga,
   joinOrganisationWatcher,
+  joinOrganisationSuccessWatcher,
   approveJoinOrganisationRequestWatcher,
   rejectJoinOrganisationRequestWatcher,
   removeOrganisationMemberWatcher,
@@ -304,11 +315,11 @@ export function* organisationSaga(): Saga {
 
 export {
   organisationActionTypes,
-  newEntity as newOrganisation,
-  createEntity as createOrganisation,
-  requestEntity as requestOrganisation,
-  updateEntity as updateOrganisation,
-  deleteEntity as deleteOrganisation,
+  newOrganisation,
+  createOrganisation,
+  requestOrganisation,
+  updateOrganisation,
+  deleteOrganisation,
   getOrganisation,
   getOrganisationError,
   getOrganisationIsFetching,
