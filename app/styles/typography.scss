@@ -41,10 +41,19 @@
   font-size: 14px;
 }
 
-.titleExtraLarge {
+.title {
   composes: font;
-  composes: fontSizeExtraLarge;
   color: $color-tint-primary;
+}
+
+.titleLarge {
+  composes: title;
+  composes: fontSizeLarge;
+}
+
+.titleExtraLarge {
+  composes: title;
+  composes: fontSizeExtraLarge;
 }
 
 .subtitle {

@@ -1,9 +1,8 @@
 /* @flow */
 
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'reactstrap';
-
-import { styles as pageHeaderStyles } from 'makeandship-js-common/src/components/ui/PageHeader';
 
 import SearchInput from './SearchInput';
 
@@ -14,6 +13,7 @@ const SearchNavigation = ({
   onSubmit,
   title,
   placeholder,
+  transparent,
 }: React.ElementProps<*>): React.Element<*> => {
   const [stateQ, setStateQ] = React.useState(q);
 
@@ -33,11 +33,13 @@ const SearchNavigation = ({
   };
 
   return (
-    <Container className={styles.container} fluid>
-      <pre>{JSON.stringify(stateQ, null, 2)}</pre>
+    <Container
+      className={transparent ? styles.containerTransparent : styles.container}
+      fluid
+    >
       <Row className={styles.rowContainer}>
         <Col md={3}>
-          <div className={pageHeaderStyles.title}>{title}</div>
+          <div className={styles.title}>{title}</div>
         </Col>
         <Col md={6} className={styles.searchContainer}>
           <SearchInput
@@ -49,8 +51,21 @@ const SearchNavigation = ({
         </Col>
         <Col md={3} />
       </Row>
+      {transparent && <div className={styles.afterTransparent} />}
     </Container>
   );
+};
+
+SearchNavigation.defaultProps = {
+  transparent: false,
+};
+
+SearchNavigation.propTypes = {
+  onChange: PropTypes.func,
+  q: PropTypes.string,
+  title: PropTypes.string,
+  placeholder: PropTypes.string,
+  transparent: PropTypes.bool,
 };
 
 export default SearchNavigation;
