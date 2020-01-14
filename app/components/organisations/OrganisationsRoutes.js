@@ -9,6 +9,7 @@ import { NEW_ENTITY_KEY } from 'makeandship-js-common/src/modules/generic';
 import OrganisationsContainer from './OrganisationsContainer';
 import OrganisationProfileContainer from '../organisation/profile/OrganisationProfileContainer';
 import EditOrganisationContainer from '../organisation/edit/EditOrganisationContainer';
+import OrganisationMembersContainer from '../organisation/members/OrganisationMembersContainer';
 
 const OrganisationsRoutes = ({ match }: { match: Match }) => (
   <Switch>
@@ -16,6 +17,10 @@ const OrganisationsRoutes = ({ match }: { match: Match }) => (
     <Route
       path={`${match.url}/:organisationId/edit`}
       component={EditOrganisationContainer}
+    />
+    <Route
+      path={`${match.url}/:organisationId/members`}
+      component={OrganisationMembersContainer}
     />
     <Redirect
       from={`${match.url}/${NEW_ENTITY_KEY}`}
