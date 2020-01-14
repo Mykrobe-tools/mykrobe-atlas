@@ -3,6 +3,7 @@
 import { put, all, fork, takeLatest } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
+import produce from 'immer';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import { callSwaggerApi } from 'makeandship-js-common/src/modules/api/swaggerApi';
@@ -89,17 +90,17 @@ export const organisationUserIsRejectedMember = (
   !!organisation.rejectedMembers.find(element => element.userId === user.id);
 
 export const organisationUserStatus = (organisation: any, user: any) => {
-  let currentUserStatus;
+  let userStatus;
   if (organisationUserIsOwner(organisation, user)) {
-    currentUserStatus = 'owner';
+    userStatus = 'owner';
   } else if (organisationUserIsMember(organisation, user)) {
-    currentUserStatus = 'member';
+    userStatus = 'member';
   } else if (organisationUserIsUnapprovedMember(organisation, user)) {
-    currentUserStatus = 'unapproved';
+    userStatus = 'unapproved';
   } else if (organisationUserIsRejectedMember(organisation, user)) {
-    currentUserStatus = 'rejected';
+    userStatus = 'rejected';
   }
-  return currentUserStatus;
+  return userStatus;
 };
 
 export const organisationUserMemberId = (organisation: any, user: any) => {
@@ -128,6 +129,30 @@ export const organisationUserMemberId = (organisation: any, user: any) => {
   if (rejectedMember) {
     return rejectedMember.id;
   }
+};
+
+export const organisationMembers = (organisation: any): Array<*> => {
+  if (!organisation) {
+    return [];
+  }
+  const members = [
+    ...organisation.owners,
+    ...organisation.members,
+    ...organisation.unapprovedMembers,
+    ...organisation.rejectedMembers,
+  ];
+  return produce(members, draft => {
+    draft.forEach(member => {
+      // create user with id of userId, since id in this context is the actual memberId
+      const memberAsUser = {
+        id: member.userId,
+      };
+      member.organisationUserStatus = organisationUserStatus(
+        organisation,
+        memberAsUser
+      );
+    });
+  });
 };
 
 export const getOrganisationCurrentUserIsOwner = createSelector(
@@ -170,6 +195,11 @@ export const getOrganisationCurrentUserMemberId = createSelector(
   getCurrentUser,
   (organisation, currentUser) =>
     organisationUserMemberId(organisation, currentUser)
+);
+
+export const getOrganisationMembers = createSelector(
+  getOrganisation,
+  organisation => organisationMembers(organisation)
 );
 
 // actions

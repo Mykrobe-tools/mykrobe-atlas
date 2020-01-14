@@ -147,6 +147,7 @@ class OrganisationProfile extends React.Component<*> {
       organisationCurrentUserIsMember,
       organisationCurrentUserIsUnapprovedMember,
       organisationCurrentUserIsRejectedMember,
+      organisationMembers,
     } = this.props;
     if (!organisation || organisationIsFetching) {
       return null;
@@ -163,6 +164,7 @@ class OrganisationProfile extends React.Component<*> {
                 organisationCurrentUserIsUnapprovedMember,
                 organisationCurrentUserIsRejectedMember,
                 organisationCurrentUserStatus,
+                organisationMembers,
               },
               null,
               2

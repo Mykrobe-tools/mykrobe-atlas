@@ -24,6 +24,7 @@ import {
   getOrganisationCurrentUserIsRejectedMember,
   getOrganisationCurrentUserStatus,
   getOrganisationCurrentUserMemberId,
+  getOrganisationMembers,
 } from '../modules/organisations/organisation';
 
 const withOrganisation = connect(
@@ -41,6 +42,7 @@ const withOrganisation = connect(
     ),
     organisationCurrentUserStatus: getOrganisationCurrentUserStatus(state),
     organisationCurrentUserMemberId: getOrganisationCurrentUserMemberId(state),
+    organisationMembers: getOrganisationMembers(state),
   }),
   {
     newOrganisation,
@@ -78,6 +80,7 @@ export const withOrganisationPropTypes = {
   organisationCurrentUserIsRejectedMember: PropTypes.bool,
   organisationCurrentUserStatus: PropTypes.any,
   organisationCurrentUserMemberId: PropTypes.any,
+  organisationMembers: PropTypes.array,
 };
 
 export default withOrganisation;
