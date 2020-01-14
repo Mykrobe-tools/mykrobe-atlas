@@ -6,6 +6,7 @@ import { createSelector } from 'reselect';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import { callSwaggerApi } from 'makeandship-js-common/src/modules/api/swaggerApi';
+import { isString } from 'makeandship-js-common/src/util/is';
 
 import { showNotification } from '../notifications';
 import { getCurrentUser } from '../../modules/users/currentUser';
@@ -344,7 +345,14 @@ export function* refreshOrganisationWatcher(): Saga {
     function*(action) {
       const entity = action.payload;
       const { id } = entity;
-      yield put(requestOrganisation(id));
+      // FIXME: remove once working as expected
+      if (!isString(id)) {
+        console.warn(
+          'Not refreshing organisation - object returned from API has no id'
+        );
+      } else {
+        yield put(requestOrganisation(id));
+      }
     }
   );
 }
