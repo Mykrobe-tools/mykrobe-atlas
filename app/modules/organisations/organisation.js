@@ -3,7 +3,6 @@
 import { put, all, fork, takeLatest } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
-import { push } from 'connected-react-router';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import { callSwaggerApi } from 'makeandship-js-common/src/modules/api/swaggerApi';
@@ -48,6 +47,7 @@ const {
     requestEntity: requestOrganisation,
     updateEntity: updateOrganisation,
     deleteEntity: deleteOrganisation,
+    setEntity: setOrganisation,
   },
   selectors: {
     getEntity: getOrganisation,
@@ -248,12 +248,8 @@ export function* joinOrganisationWatcher(): Saga {
 }
 
 export function* joinOrganisationSuccessWatcher(): Saga {
-  yield takeLatest(JOIN_SUCCESS, function*(action) {
-    yield put(showNotification('Request sent'));
-    // refresh membership status
-    const entity = action.payload;
-    const { id } = entity;
-    yield put(requestOrganisation(id));
+  yield takeLatest(JOIN_SUCCESS, function*() {
+    yield put(showNotification('Request sent, waiting for approval.'));
   });
 }
 
@@ -333,6 +329,26 @@ export function* demoteOrganisationOwnerWatcher(): Saga {
   });
 }
 
+// refresh membership status
+
+export function* refreshOrganisationWatcher(): Saga {
+  yield takeLatest(
+    [
+      JOIN_SUCCESS,
+      APPROVE_JOIN_SUCCESS,
+      REJECT_JOIN_SUCCESS,
+      REMOVE_MEMBER_SUCCESS,
+      PROMOTE_MEMBER_SUCCESS,
+      DEMOTE_MEMBER_SUCCESS,
+    ],
+    function*(action) {
+      const entity = action.payload;
+      const { id } = entity;
+      yield put(requestOrganisation(id));
+    }
+  );
+}
+
 const sagas = [
   organisationModuleSaga,
   joinOrganisationWatcher,
@@ -342,6 +358,7 @@ const sagas = [
   removeOrganisationMemberWatcher,
   promoteOrganisationMemberWatcher,
   demoteOrganisationOwnerWatcher,
+  refreshOrganisationWatcher,
 ];
 
 export function* organisationSaga(): Saga {
@@ -355,6 +372,7 @@ export {
   requestOrganisation,
   updateOrganisation,
   deleteOrganisation,
+  setOrganisation,
   getOrganisation,
   getOrganisationError,
   getOrganisationIsFetching,
