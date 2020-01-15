@@ -7,7 +7,6 @@ import produce from 'immer';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import { callSwaggerApi } from 'makeandship-js-common/src/modules/api/swaggerApi';
-import { isString } from 'makeandship-js-common/src/util/is';
 
 import { showNotification } from '../notifications';
 import { getCurrentUser } from '../../modules/users/currentUser';
@@ -278,12 +277,6 @@ export function* joinOrganisationWatcher(): Saga {
   });
 }
 
-export function* joinOrganisationSuccessWatcher(): Saga {
-  yield takeLatest(JOIN_SUCCESS, function*() {
-    yield put(showNotification('Request sent, waiting for approval.'));
-  });
-}
-
 export function* approveJoinOrganisationRequestWatcher(): Saga {
   yield takeLatest(APPROVE_JOIN, function*(action) {
     yield put(
@@ -360,9 +353,8 @@ export function* demoteOrganisationOwnerWatcher(): Saga {
   });
 }
 
-// refresh membership status
-
-export function* refreshOrganisationWatcher(): Saga {
+export function* successWatcher(): Saga {
+  // refresh membership status
   yield takeLatest(
     [
       JOIN_SUCCESS,
@@ -375,28 +367,39 @@ export function* refreshOrganisationWatcher(): Saga {
     function*(action) {
       const entity = action.payload;
       const { id } = entity;
-      // FIXME: remove once working as expected
-      if (!isString(id)) {
-        console.warn(
-          'Not refreshing organisation - object returned from API has no id'
-        );
-      } else {
-        yield put(requestOrganisation(id));
-      }
+      yield put(requestOrganisation(id));
     }
   );
+  // show notification
+  yield takeLatest(JOIN_SUCCESS, function*() {
+    yield put(showNotification('Request awaiting approval'));
+  });
+  yield takeLatest(APPROVE_JOIN_SUCCESS, function*() {
+    yield put(showNotification('Request approved'));
+  });
+  yield takeLatest(REJECT_JOIN_SUCCESS, function*() {
+    yield put(showNotification('Request rejected'));
+  });
+  yield takeLatest(REMOVE_MEMBER_SUCCESS, function*() {
+    yield put(showNotification('Member removed'));
+  });
+  yield takeLatest(PROMOTE_MEMBER_SUCCESS, function*() {
+    yield put(showNotification('Promoted to owner'));
+  });
+  yield takeLatest(DEMOTE_MEMBER_SUCCESS, function*() {
+    yield put(showNotification('Demoted to member'));
+  });
 }
 
 const sagas = [
   organisationModuleSaga,
   joinOrganisationWatcher,
-  joinOrganisationSuccessWatcher,
   approveJoinOrganisationRequestWatcher,
   rejectJoinOrganisationRequestWatcher,
   removeOrganisationMemberWatcher,
   promoteOrganisationMemberWatcher,
   demoteOrganisationOwnerWatcher,
-  refreshOrganisationWatcher,
+  successWatcher,
 ];
 
 export function* organisationSaga(): Saga {

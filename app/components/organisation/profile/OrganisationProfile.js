@@ -73,55 +73,76 @@ export const OrganisationProfileStats = ({
 
 export const OrganisationProfileActions = ({
   currentUserStatus,
-  onJoinClick,
-}: React.ElementProps<*>): React.Element<*> => (
-  <div className={styles.actionsContainer}>
-    {!currentUserStatus && (
-      <PrimaryButton onClick={onJoinClick} outline icon={'plus-circle'}>
-        Ask to join
-      </PrimaryButton>
-    )}
-    {currentUserStatus === 'owner' && (
-      <React.Fragment>
-        <div>
-          <OrganisationStatusIcon status={currentUserStatus} /> You are an owner{' '}
-        </div>
-        <SecondaryButton icon={'ban'}>Leave</SecondaryButton>
-      </React.Fragment>
-    )}
-    {currentUserStatus === 'member' && (
-      <React.Fragment>
-        <div>
-          <OrganisationStatusIcon status={currentUserStatus} /> You are a member{' '}
-        </div>
-        <SecondaryButton icon={'ban'}>Leave</SecondaryButton>
-      </React.Fragment>
-    )}
-    {currentUserStatus === 'unapproved' && (
-      <React.Fragment>
-        <div>
-          <OrganisationStatusIcon status={currentUserStatus} /> Membership
-          pending approval
-        </div>
-        <SecondaryButton onClick={onJoinClick} icon={'repeat'}>
-          Resend
-        </SecondaryButton>
-        <SecondaryButton icon={'times-circle'}>Cancel</SecondaryButton>{' '}
-      </React.Fragment>
-    )}
-    {currentUserStatus === 'rejected' && (
-      <React.Fragment>
-        <div>
-          <OrganisationStatusIcon status={currentUserStatus} /> Membership
-          rejected
-        </div>
-        <SecondaryButton onClick={onJoinClick} icon={'plus-circle'}>
+  onJoin,
+  onRemove,
+}: React.ElementProps<*>): React.Element<*> => {
+  const onJoinClick = e => {
+    e.preventDefault();
+    onJoin();
+  };
+
+  const onRemoveClick = e => {
+    e.preventDefault();
+    onRemove();
+  };
+
+  return (
+    <div className={styles.actionsContainer}>
+      {!currentUserStatus && (
+        <PrimaryButton onClick={onJoinClick} outline icon={'plus-circle'}>
           Ask to join
-        </SecondaryButton>
-      </React.Fragment>
-    )}
-  </div>
-);
+        </PrimaryButton>
+      )}
+      {currentUserStatus === 'owner' && (
+        <React.Fragment>
+          <div>
+            <OrganisationStatusIcon status={currentUserStatus} /> You are an
+            owner{' '}
+          </div>
+          <SecondaryButton onClick={onRemoveClick} icon={'ban'}>
+            Leave
+          </SecondaryButton>
+        </React.Fragment>
+      )}
+      {currentUserStatus === 'member' && (
+        <React.Fragment>
+          <div>
+            <OrganisationStatusIcon status={currentUserStatus} /> You are a
+            member{' '}
+          </div>
+          <SecondaryButton onClick={onRemoveClick} icon={'ban'}>
+            Leave
+          </SecondaryButton>
+        </React.Fragment>
+      )}
+      {currentUserStatus === 'unapproved' && (
+        <React.Fragment>
+          <div>
+            <OrganisationStatusIcon status={currentUserStatus} /> Membership
+            pending approval
+          </div>
+          <SecondaryButton onClick={onJoinClick} icon={'repeat'}>
+            Resend
+          </SecondaryButton>
+          <SecondaryButton onClick={onRemoveClick} icon={'times-circle'}>
+            Cancel
+          </SecondaryButton>{' '}
+        </React.Fragment>
+      )}
+      {currentUserStatus === 'rejected' && (
+        <React.Fragment>
+          <div>
+            <OrganisationStatusIcon status={currentUserStatus} /> Membership
+            rejected
+          </div>
+          <SecondaryButton onClick={onJoinClick} icon={'plus-circle'}>
+            Ask to join
+          </SecondaryButton>
+        </React.Fragment>
+      )}
+    </div>
+  );
+};
 
 class OrganisationProfile extends React.Component<*> {
   componentWillMount() {
@@ -132,9 +153,25 @@ class OrganisationProfile extends React.Component<*> {
   }
 
   onJoinClick = (e: any) => {
-    const { joinOrganisation, organisationId } = this.props;
     e.preventDefault();
+    this.onJoin();
+  };
+
+  onJoin = () => {
+    const { joinOrganisation, organisationId } = this.props;
     joinOrganisation({ id: organisationId });
+  };
+
+  onRemove = () => {
+    const {
+      removeOrganisationMember,
+      organisationId,
+      organisationCurrentUserMemberId,
+    } = this.props;
+    removeOrganisationMember({
+      memberId: organisationCurrentUserMemberId,
+      id: organisationId,
+    });
   };
 
   render() {
@@ -192,7 +229,8 @@ class OrganisationProfile extends React.Component<*> {
                   )}
                 </div>
                 <OrganisationProfileActions
-                  onJoinClick={this.onJoinClick}
+                  onJoin={this.onJoin}
+                  onRemove={this.onRemove}
                   currentUserStatus={organisationCurrentUserStatus}
                 />
               </Col>
