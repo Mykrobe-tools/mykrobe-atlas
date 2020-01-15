@@ -17,6 +17,7 @@ import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
 
 import OrganisationHeader from '../ui/OrganisationHeader';
+import OrganisationMembershipActions from '../ui/OrganisationMembershipActions';
 import OrganisationStatusIcon from '../../organisation/ui/OrganisationStatusIcon';
 import Footer from '../../ui/footer/Footer';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
@@ -144,9 +145,19 @@ class OrganisationMembers extends React.Component<*> {
     }
   }
 
-  onNewMember = (e: any) => {
-    e && e.preventDefault();
+  onNewMemberClick = (e: any) => {
+    e.preventDefault();
     notImplemented();
+  };
+
+  onJoinClick = (e: any) => {
+    e.preventDefault();
+    this.onJoin();
+  };
+
+  onJoin = () => {
+    const { joinOrganisation, organisationId } = this.props;
+    joinOrganisation({ id: organisationId });
   };
 
   onChangeListOrder = ({ sort, order }: any) => {
@@ -198,7 +209,7 @@ class OrganisationMembers extends React.Component<*> {
   };
 
   renderRow = (member: any) => {
-    const { organisationId } = this.props;
+    const { organisationId, organisationCurrentUserIsOwner } = this.props;
     const { id, firstname, lastname, email, organisationUserStatus } = member;
     return (
       <TdLink key={id} to={`/organisations/${organisationId}/members/${id}`}>
@@ -210,16 +221,18 @@ class OrganisationMembers extends React.Component<*> {
           {organisationUserStatus || '–'}
         </td>
         <td>
-          <OrganisationMemberActions
-            organisationId={organisationId}
-            organisationUserStatus={organisationUserStatus}
-            member={member}
-            onApprove={this.onApprove}
-            onReject={this.onReject}
-            onPromote={this.onPromote}
-            onDemote={this.onDemote}
-            onRemove={this.onRemove}
-          />
+          {organisationCurrentUserIsOwner && (
+            <OrganisationMemberActions
+              organisationId={organisationId}
+              organisationUserStatus={organisationUserStatus}
+              member={member}
+              onApprove={this.onApprove}
+              onReject={this.onReject}
+              onPromote={this.onPromote}
+              onDemote={this.onDemote}
+              onRemove={this.onRemove}
+            />
+          )}
         </td>
       </TdLink>
     );
@@ -230,6 +243,8 @@ class OrganisationMembers extends React.Component<*> {
       organisationMembers,
       organisationIsFetching,
       organisationMembersIsFetching,
+      organisationCurrentUserIsOwner,
+      organisationCurrentUserStatus,
     } = this.props;
     return (
       <div className={styles.container}>
@@ -239,15 +254,23 @@ class OrganisationMembers extends React.Component<*> {
             <PageHeader border={false}>
               <div className={pageHeaderStyles.title}>Members</div>
               <div>
-                <PrimaryButton
-                  onClick={this.onNewMember}
-                  outline
+                <OrganisationMembershipActions
                   size="sm"
-                  icon="plus-circle"
-                  marginLeft
-                >
-                  New Member
-                </PrimaryButton>
+                  currentUserStatus={organisationCurrentUserStatus}
+                  onJoin={this.onJoin}
+                  onRemove={this.onRemove}
+                />
+                {organisationCurrentUserIsOwner && (
+                  <PrimaryButton
+                    onClick={this.onNewMemberClick}
+                    outline
+                    size="sm"
+                    icon="plus-circle"
+                    marginLeft
+                  >
+                    New Member
+                  </PrimaryButton>
+                )}
               </div>
             </PageHeader>
             <Table

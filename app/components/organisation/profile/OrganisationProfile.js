@@ -7,18 +7,14 @@ import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import {
-  IconButton,
-  PrimaryButton,
-  SecondaryButton,
-} from 'makeandship-js-common/src/components/ui/Buttons';
+import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import Footer from '../../ui/footer/Footer';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
 
 import styles from './OrganisationProfile.scss';
 
-import OrganisationStatusIcon from '../ui/OrganisationStatusIcon';
+import OrganisationMembershipActions from '../ui/OrganisationMembershipActions';
 import OrganisationHeader from '../ui/OrganisationHeader';
 
 export const OrganisationProfileStatBadgeIcon = ({
@@ -70,79 +66,6 @@ export const OrganisationProfileStats = ({
         </Col>
       ))
     : null;
-
-export const OrganisationProfileActions = ({
-  currentUserStatus,
-  onJoin,
-  onRemove,
-}: React.ElementProps<*>): React.Element<*> => {
-  const onJoinClick = e => {
-    e.preventDefault();
-    onJoin();
-  };
-
-  const onRemoveClick = e => {
-    e.preventDefault();
-    onRemove();
-  };
-
-  return (
-    <div className={styles.actionsContainer}>
-      {!currentUserStatus && (
-        <PrimaryButton onClick={onJoinClick} outline icon={'plus-circle'}>
-          Ask to join
-        </PrimaryButton>
-      )}
-      {currentUserStatus === 'owner' && (
-        <React.Fragment>
-          <div>
-            <OrganisationStatusIcon status={currentUserStatus} /> You are an
-            owner{' '}
-          </div>
-          <SecondaryButton onClick={onRemoveClick} icon={'ban'}>
-            Leave
-          </SecondaryButton>
-        </React.Fragment>
-      )}
-      {currentUserStatus === 'member' && (
-        <React.Fragment>
-          <div>
-            <OrganisationStatusIcon status={currentUserStatus} /> You are a
-            member{' '}
-          </div>
-          <SecondaryButton onClick={onRemoveClick} icon={'ban'}>
-            Leave
-          </SecondaryButton>
-        </React.Fragment>
-      )}
-      {currentUserStatus === 'unapproved' && (
-        <React.Fragment>
-          <div>
-            <OrganisationStatusIcon status={currentUserStatus} /> Membership
-            pending approval
-          </div>
-          <SecondaryButton onClick={onJoinClick} icon={'repeat'}>
-            Resend
-          </SecondaryButton>
-          <SecondaryButton onClick={onRemoveClick} icon={'times-circle'}>
-            Cancel
-          </SecondaryButton>{' '}
-        </React.Fragment>
-      )}
-      {currentUserStatus === 'rejected' && (
-        <React.Fragment>
-          <div>
-            <OrganisationStatusIcon status={currentUserStatus} /> Membership
-            rejected
-          </div>
-          <SecondaryButton onClick={onJoinClick} icon={'plus-circle'}>
-            Ask to join
-          </SecondaryButton>
-        </React.Fragment>
-      )}
-    </div>
-  );
-};
 
 class OrganisationProfile extends React.Component<*> {
   componentWillMount() {
@@ -230,7 +153,7 @@ class OrganisationProfile extends React.Component<*> {
                     </div>
                   )}
                 </div>
-                <OrganisationProfileActions
+                <OrganisationMembershipActions
                   onJoin={this.onJoin}
                   onRemove={this.onRemove}
                   currentUserStatus={organisationCurrentUserStatus}

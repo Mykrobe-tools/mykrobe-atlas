@@ -1,0 +1,12 @@
+@import '~styles/colors.global';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  > * {
+    margin-right: 0.5rem;
+  }
+  composes: global(mb-4);
+}

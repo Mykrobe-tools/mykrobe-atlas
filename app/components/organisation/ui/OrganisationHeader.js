@@ -45,19 +45,19 @@ class OrganisationHeader extends React.Component<*> {
           )}
         </pre>
         <HeaderContainer title={title} />
-        {organisationCurrentUserIsOwner && (
-          <TabNavigation>
-            <TabNavigationLink exact to={`/organisations/${organisationId}`}>
-              Profile
-            </TabNavigationLink>
-            <TabNavigationLink to={`/organisations/${organisationId}/members`}>
-              Members
-            </TabNavigationLink>
+        <TabNavigation>
+          <TabNavigationLink exact to={`/organisations/${organisationId}`}>
+            Profile
+          </TabNavigationLink>
+          <TabNavigationLink to={`/organisations/${organisationId}/members`}>
+            Members
+          </TabNavigationLink>
+          {organisationCurrentUserIsOwner && (
             <TabNavigationLink to={`/organisations/${organisationId}/edit`}>
               Settings
             </TabNavigationLink>
-          </TabNavigation>
-        )}
+          )}
+        </TabNavigation>
       </React.Fragment>
     );
   }
