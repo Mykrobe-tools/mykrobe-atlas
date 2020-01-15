@@ -2,31 +2,31 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
-import withAuth, {
-  withAuthPropTypes,
-} from 'makeandship-js-common/src/hoc/withAuth';
+import { shouldAcceptDropEventForExtensions } from './util';
+import * as APIConstants from '../../../constants/APIConstants';
 
-import { shouldAcceptDropEvent } from './util';
 import styles from './DragAndDrop.scss';
-
-import { uploadFileDrop } from '../../../modules/upload';
 
 type State = {
   isDragActive: boolean,
 };
 
-class Upload extends React.Component<*, State> {
-  _uploadButton: Element;
-
+class DragAndDrop extends React.Component<*, State> {
   state = {
     isDragActive: false,
   };
 
-  onDragOver = e => {
+  shouldAcceptDropEvent = (e: any) => {
+    const { accept } = this.props;
+    return shouldAcceptDropEventForExtensions(e, accept);
+  };
+
+  onDragOver = (e: any) => {
+    // nb cannot interrogate files during dragOver event - have to wait for drop
     e.preventDefault();
-    if (!shouldAcceptDropEvent(e)) {
+    const { enabled } = this.props;
+    if (!enabled) {
       return false;
     }
     this.setState({
@@ -35,22 +35,21 @@ class Upload extends React.Component<*, State> {
     return false;
   };
 
-  onDrop = e => {
+  onDrop = (e: any) => {
     e.preventDefault();
-    const { uploadFileDrop } = this.props;
     this.setState({
       isDragActive: false,
     });
-    const { isAuthenticated } = this.props;
-    if (!isAuthenticated) {
+    const { enabled } = this.props;
+    if (!enabled || !this.shouldAcceptDropEvent(e)) {
       return false;
     }
-    if (shouldAcceptDropEvent(e)) {
-      uploadFileDrop(e);
-    }
+    const { onDrop } = this.props;
+    onDrop && e.dataTransfer.files && onDrop(Array.from(e.dataTransfer.files));
   };
 
-  onDragLeave = () => {
+  onDragLeave = (e: any) => {
+    e.preventDefault();
     this.setState({
       isDragActive: false,
     });
@@ -60,29 +59,27 @@ class Upload extends React.Component<*, State> {
     const { isDragActive } = this.state;
     return (
       <div
-        className={this.props.className}
+        className={styles.container}
         onDragOver={this.onDragOver}
         onDragLeave={this.onDragLeave}
         onDrop={this.onDrop}
         data-tid="component-drag-and-drop"
       >
-        {isDragActive && <div className={styles.dragIndicator} />}
         {this.props.children}
+        {isDragActive && <div className={styles.dragIndicator} />}
       </div>
     );
   }
+
+  static defaultProps = {
+    enabled: true,
+    accept: APIConstants.API_SAMPLE_EXTENSIONS_ARRAY_WITH_DOTS,
+  };
 }
 
-Upload.propTypes = {
-  ...withAuthPropTypes,
-  uploadFileDrop: PropTypes.func,
+DragAndDrop.propTypes = {
+  enabled: PropTypes.bool,
+  onDrop: PropTypes.func,
 };
 
-const withRedux = connect(
-  null,
-  {
-    uploadFileDrop,
-  }
-);
-
-export default withRedux(withAuth(Upload));
+export default DragAndDrop;

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
 
-import ConnectedStorybook from '../../../util/ConnectedStorybook';
+import ConnectedStorybook from '../../../util/storybook/ConnectedStorybook';
 
 import Header from './Header';
 

@@ -6,11 +6,9 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import Dropzone from 'react-dropzone';
 import { withRouter } from 'react-router-dom';
 
 import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
-import * as APIConstants from '../../constants/APIConstants';
 
 import {
   analyseFileNew,
@@ -24,16 +22,9 @@ import styles from './App.scss';
 import NotificationsContainer from '../notifications/NotificationsContainer';
 import NotificationsStyle from '../notifications/NotificationsStyle';
 import AppDocumentTitle from '../ui/AppDocumentTitle';
+import DragAndDrop from '../ui/dragAndDrop/DragAndDrop';
 
-type State = {
-  isDragActive: boolean,
-};
-
-class App extends React.Component<*, State> {
-  state = {
-    isDragActive: false,
-  };
-
+class App extends React.Component<*> {
   constructor(props) {
     super(props);
     const { analyseFile, analyseFileNew, analyseFileSave, push } = props;
@@ -88,63 +79,10 @@ class App extends React.Component<*, State> {
     }
   };
 
-  onDragEnter = e => {
-    const dt = e.dataTransfer;
-    if (
-      !(
-        dt.types &&
-        (dt.types.indexOf
-          ? dt.types.indexOf('Files') !== -1
-          : dt.types.contains('Files'))
-      )
-    ) {
-      this.setState({ isDragActive: false });
-    } else {
-      this.setState({
-        isDragActive: true,
-      });
-    }
-  };
-
-  onDragLeave = () => {
-    this.setState({
-      isDragActive: false,
-    });
-  };
-
-  onDropAccepted = files => {
-    const { analyseFile } = this.props;
-    console.log('onDropAccepted', files);
-    this.setState({
-      isDragActive: false,
-    });
-    if (!files.length) {
-      return;
-    }
-    analyseFile(files);
-  };
-
-  onDropRejected = files => {
-    console.log('onDropRejected', files);
-    this.setState({
-      isDragActive: false,
-    });
-  };
-
   render() {
-    const { children } = this.props;
-    const { isDragActive } = this.state;
+    const { children, analyseFile } = this.props;
     return (
-      <Dropzone
-        className={styles.container}
-        onDropAccepted={this.onDropAccepted}
-        onDropRejected={this.onDropRejected}
-        onDragLeave={this.onDragLeave}
-        onDragEnter={this.onDragEnter}
-        disableClick
-        multiple
-        accept={APIConstants.API_SAMPLE_EXTENSIONS_STRING_WITH_DOTS}
-      >
+      <DragAndDrop onDrop={analyseFile}>
         <AppDocumentTitle />
         <div className={styles.contentContainer}>{children}</div>
         <div className={styles.notificationsContainerElectron}>
@@ -156,8 +94,7 @@ class App extends React.Component<*, State> {
             hidden={false}
           />
         </div>
-        {isDragActive && <div className={styles.dragIndicator} />}
-      </Dropzone>
+      </DragAndDrop>
     );
   }
 }

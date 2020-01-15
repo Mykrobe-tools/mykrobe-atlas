@@ -244,7 +244,6 @@
     "react-datepicker": "^2.10.1",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.8.0",
-    "react-dropzone": "^4.2.0",
     "react-redux": "^6.0.0",
     "react-router-dom": "^5.0.0",
     "react-transition-group": "^2.4.0",

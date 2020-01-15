@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { NotificationCategories } from '../../modules/notifications';
 import { Button } from 'reactstrap';
 
-import { isNumeric } from '../../util';
+import { isNumeric } from 'makeandship-js-common/src/util/is';
 
 import styles from './Notification.scss';
 import NotificationsStyle from './NotificationsStyle';

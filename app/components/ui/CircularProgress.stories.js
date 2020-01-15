@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import FillContainerStorybook from '../../util/FillContainerStorybook';
+import FillContainerStorybook from '../../util/storybook/FillContainerStorybook';
 
 import CircularProgress from './CircularProgress';
 

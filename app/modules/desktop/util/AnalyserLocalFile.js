@@ -12,7 +12,7 @@ import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransfor
 import * as APIConstants from '../../../constants/APIConstants';
 
 import { pathToBin, pathToMccortex, validateTarget } from './pathToBin';
-import extensionForFileName from './extensionForFileName';
+import { extensionForFileName } from '../../../util';
 import isAnalyserError from './isAnalyserError';
 
 const DEBUG =
@@ -270,7 +270,8 @@ class AnalyserLocalFile extends EventEmitter {
 
     this.child.on('exit', code => {
       console.log('Processing exited with code: ' + code);
-      if (code === 0) {
+      // 0 = exited normally, null = cancelled
+      if (code === 0 || code === null) {
         this.onProcessExited();
       } else {
         this.failWithError(`Process exit unexpectedly with code ${code}`);
