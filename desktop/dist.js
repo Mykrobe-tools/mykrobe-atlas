@@ -3,12 +3,19 @@
 // https://github.com/electron-userland/electron-builder
 
 import path from 'path';
+import produce from 'immer';
+import debug from 'debug';
+
+const d = debug('mykrobe:desktop-dist');
+
 const builder = require('electron-builder');
 const pkg = require('../package.json');
 
 import archPlatArgs from './util/archPlatArgs';
 
 const argv = require('minimist')(process.argv.slice(2));
+
+d('argv', JSON.stringify(argv, null, 2));
 
 const { platforms, archs } = archPlatArgs();
 
@@ -17,41 +24,39 @@ const build = (plat, arch) => {
   if (plat === 'darwin' && arch === 'ia32') {
     return;
   }
-  const config = JSON.parse(JSON.stringify(pkg.build));
 
-  // include the bin folder
+  const config = produce(pkg.build, draft => {
+    // include the bin folder
+    const sourceDir = path.join(
+      __dirname,
+      `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
+    );
 
-  const sourceDir = path.join(
-    __dirname,
-    `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
-  );
-
-  config.extraResources = {
-    from: sourceDir,
-    to: 'bin',
-  };
+    draft.extraResources = {
+      from: sourceDir,
+      to: 'bin',
+    };
+  });
 
   // specify platform and arch
 
-  let options = {
-    config,
-    [arch]: true,
-    publish: argv.publish ? 'always' : 'never',
-  };
+  const options = produce({ config }, draft => {
+    draft[arch] = true;
+    draft.publish = argv.publish ? 'always' : 'never';
+    switch (plat) {
+      case 'darwin':
+        draft.mac = [];
+        break;
+      case 'win32':
+        draft.win = [];
+        break;
+      case 'linux':
+        draft.linux = [];
+        break;
+    }
+  });
 
-  switch (plat) {
-    case 'darwin':
-      options.mac = [];
-      break;
-    case 'win32':
-      options.win = [];
-      break;
-    case 'linux':
-      options.linux = [];
-      break;
-  }
-
-  console.log('options', JSON.stringify(options, null, 2));
+  d('options', JSON.stringify(options, null, 2));
 
   return builder.build(options);
 };
@@ -66,7 +71,7 @@ platforms.forEach(plat => {
 
 Promise.all(builds)
   .then(() => {
-    console.log('done');
+    d('done');
   })
   .catch(error => {
     console.error(error);

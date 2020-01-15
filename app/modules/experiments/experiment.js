@@ -10,7 +10,6 @@ import {
   fork,
 } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
-import { push } from 'connected-react-router';
 import { createSelector } from 'reselect';
 import _get from 'lodash.get';
 
@@ -37,13 +36,6 @@ const module = createEntityModule('experiment', {
   initialData: {},
   create: {
     operationId: 'experimentsCreate',
-    // url: function*(url) {
-    //   return yield 'http://localhost:3001/experiments';
-    // },
-    onSuccess: function*() {
-      // yield put(showNotification('Experiment created'));
-      // yield put(push('/experiments'));
-    },
   },
   request: {
     operationId: 'experimentsGetById',
@@ -52,14 +44,12 @@ const module = createEntityModule('experiment', {
     operationId: 'experimentsUpdateById',
     onSuccess: function*() {
       yield put(showNotification('Experiment saved'));
-      // yield put(push('/experiments'));
     },
   },
   delete: {
     operationId: 'experimentsDeleteById',
     onSuccess: function*() {
       yield put(showNotification('Experiment deleted'));
-      yield put(push('/experiments'));
     },
   },
 });
@@ -126,6 +116,15 @@ export const getExperimentNotInTree = createSelector(
   getExperiment,
   (newick, experiment) => experimentsInTree(newick, [experiment], false)
 );
+
+// tree distance
+
+export const getExperimentTreeNearestNeigbours = createSelector(
+  getExperiment,
+  experiment => _get(experiment, 'results.distance-tree-distance.experiments')
+);
+
+// nearest neighbours
 
 export const getExperimentNearestNeigbours = createSelector(
   getExperiment,

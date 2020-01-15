@@ -4,15 +4,13 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './Upload.scss';
-import AnimatedBackgroundCanvas from '../background/AnimatedBackgroundCanvas';
-import Logo from '../logo/Logo';
-import HeaderContainer from '../header/HeaderContainer';
+import AnimatedBackgroundCanvas from '../ui/background/AnimatedBackgroundCanvas';
+import Logo from '../ui/logo/Logo';
+import HeaderContainer from '../ui/header/HeaderContainer';
 
 import UploadButton from './button/UploadButton';
 
-import withAuth, {
-  withAuthPropTypes,
-} from 'makeandship-js-common/src/hoc/withAuth';
+import { withAuthPropTypes } from 'makeandship-js-common/src/hoc/withAuth';
 
 class Upload extends React.Component<*> {
   render() {
@@ -51,4 +49,4 @@ Upload.propTypes = {
   ...withAuthPropTypes,
 };
 
-export default withAuth(Upload);
+export default Upload;

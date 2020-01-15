@@ -1,0 +1,13 @@
+@import '~styles/colors.global';
+
+.default {
+  color: $color-grey-mid;
+}
+
+.member {
+  color: $color-app-green;
+}
+
+.rejected {
+  color: $color-app-amber;
+}

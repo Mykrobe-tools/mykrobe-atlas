@@ -14,8 +14,8 @@ import {
   DestructiveButton,
 } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import HeaderContainer from '../../header/HeaderContainer';
-import Footer from '../../footer/Footer';
+import HeaderContainer from '../../ui/header/HeaderContainer';
+import Footer from '../../ui/footer/Footer';
 
 import { profileSchema } from '../../../schemas/users';
 import styles from './Profile.scss';

@@ -18,15 +18,15 @@ This will launch a local dev server and instance of the app. This has DevTools e
 $ yarn desktop-dev
 ```
 
-You will see `Failed to load resource: net::ERR_CONNECTION_REFUSED` in the Electron window while the app compiles.
+After you see `Compiled successfully` in the terminal window, you may reload the view (Menu: View → Reload) in Electron to see the app.
 
-After you see `webpack: Compiled successfully` in the terminal window, you may reload the view (Menu: View → Reload) in Electron to see the app.
+To debug the main process, open Chrome app and visit [chrome://inspect/#devices](chrome://inspect/#devices). Ensure that you have `localhost:5858` included in the 'Discover network targets'.
 
 ## Run production version
 
 * `desktop-package` builds and packages a standalone app inside the `desktop/releases` folder. At this stage the app is a folder full of files.
 
-* `desktop-dist` takes the folder(s) created by `desktop-package` and combines into single individual self-contained apps / images / installers for specified platforms, signed and ready for distribution.
+* `desktop-dist [--skip-notarize]` takes the folder(s) created by `desktop-package` and combines into single individual self-contained apps / images / installers for specified platforms, signed and ready for distribution. Add `--skip-notarize` to skip the Mac notiarize step.
 
 ### Production build for current platform
 

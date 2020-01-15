@@ -100,14 +100,14 @@ class UploadButton extends React.Component<*> {
 }
 
 UploadButton.propTypes = {
-  uploadFileAssignBrowse: PropTypes.func.isRequired,
-  uploadDropbox: PropTypes.func.isRequired,
-  uploadGoogleDrive: PropTypes.func.isRequired,
-  uploadBox: PropTypes.func.isRequired,
-  uploadOneDrive: PropTypes.func.isRequired,
-  size: PropTypes.string.isRequired,
-  right: PropTypes.bool.isRequired,
-  outline: PropTypes.bool.isRequired,
+  uploadFileAssignBrowse: PropTypes.func,
+  uploadDropbox: PropTypes.func,
+  uploadGoogleDrive: PropTypes.func,
+  uploadBox: PropTypes.func,
+  uploadOneDrive: PropTypes.func,
+  size: PropTypes.string,
+  right: PropTypes.bool,
+  outline: PropTypes.bool,
 };
 
 const withRedux = connect(

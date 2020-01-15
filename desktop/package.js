@@ -1,6 +1,9 @@
 /* @flow */
 
 import { exec, execSync } from 'child_process';
+import debug from 'debug';
+
+const d = debug('mykrobe:desktop-package');
 
 const packager = require('electron-packager');
 const del = require('del');
@@ -19,12 +22,14 @@ const icon = path.join(__dirname, `resources/icon/${pkg.targetName}/icon`);
 // copy the version number from the main package.json
 updateStaticPackageJson();
 
+// do not sign app here - signing is handled by dist.js
 const DEFAULT_OPTS = {
   dir: path.join(__dirname, 'static'),
   name: pkg.productName,
   icon: icon,
   version: '',
-  'extend-info': path.join(__dirname, 'resources/plist/extend-info.plist'),
+  extendInfo: path.join(__dirname, 'resources/plist/extendInfo.plist'),
+  appBundleId: pkg.build.appId,
 };
 
 // this is the version of Electron to use
@@ -49,22 +54,22 @@ if (version) {
 }
 
 function startPack() {
-  console.log('Start pack...');
+  d('Start pack...');
   (async () => {
     try {
-      console.log('Building shell...');
+      d('Building shell...');
       execSync('yarn desktop-build-main', { stdio: [0, 1, 2] });
-      console.log('Building renderer...');
+      d('Building renderer...');
       execSync('yarn desktop-build-renderer', { stdio: [0, 1, 2] });
       await del(path.join(__dirname, 'release'));
-      console.log('Packaging releases...');
+      d('Packaging releases...');
       for (let i = 0; i < platforms.length; i++) {
         const plat = platforms[i];
         for (let j = 0; j < archs.length; j++) {
           const arch = archs[j];
-          console.log(`Packing ${plat} ${arch}`);
+          d(`Packing ${plat} ${arch}`);
           const appPaths = await pack(plat, arch);
-          console.log(appPaths);
+          d(appPaths);
         }
       }
     } catch (err) {
@@ -100,7 +105,7 @@ async function pack(plat, arch) {
     'app-version': pkg.version || DEFAULT_OPTS.version,
     out: path.join(__dirname, `release/${plat}-${arch}`),
   });
-  console.log('opts:', JSON.stringify(opts, null, 2));
+  d('opts:', JSON.stringify(opts, null, 2));
 
   const appPaths = await packager(opts);
   return appPaths;

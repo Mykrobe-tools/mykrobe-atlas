@@ -1,0 +1,53 @@
+@import '~styles/colors.global';
+
+.container {
+  composes: container from 'styles/layout.scss';
+  flex-direction: column;
+}
+
+.organisationProfile {
+  composes: container from 'styles/layout.scss';
+  composes: global(pt-4);
+  flex-direction: column;
+  align-items: center;
+}
+
+.name {
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+}
+
+.organisationMembershipActionsContainer {
+  composes: global(mb-4);
+}
+
+.statContainer {
+  text-align: center;
+}
+
+.statValue {
+  composes: fontSizeExtraExtraExtraLarge from 'styles/typography.scss';
+  composes: fontSecondary from 'styles/typography.scss';
+  color: $color-tint-supporting;
+}
+
+.statValueUnit {
+  composes: fontSizeExtraExtraLarge from 'styles/typography.scss';
+}
+
+.badge {
+  composes: fontSizeExtraLarge from 'styles/typography.scss';
+}
+
+.badgeTypeGold {
+  composes: badge;
+  color: $color-tint-supporting;
+}
+
+.badgeTypeWarn {
+  composes: badge;
+  color: $color-grey-mid;
+}

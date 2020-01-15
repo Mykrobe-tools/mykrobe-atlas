@@ -38,6 +38,8 @@ import {
   UPDATE_NOTIFICATION,
 } from '../modules/notifications/notifications';
 
+import { joinOrganisation } from '../modules/organisations/organisationMembers';
+
 import {
   RESUMABLE_UPLOAD_PROGRESS,
   COMPUTE_CHECKSUMS_PROGRESS,
@@ -49,6 +51,7 @@ import {
 } from '../modules/users/currentUserEvents';
 
 export const actionCreators = {
+  joinOrganisation,
   login,
   logout,
   navigateLogin,

@@ -4,10 +4,10 @@ import { all, fork, put, call, takeEvery } from 'redux-saga/effects';
 import { delay } from 'redux-saga';
 import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
-import moment from 'moment';
 import uuid from 'uuid';
 import _orderBy from 'lodash.orderby';
 import produce from 'immer';
+import * as dateFns from 'date-fns';
 
 import { SHOW as JS_COMMON_SHOW_NOTIFICATION } from 'makeandship-js-common/src/modules/notifications/notifications';
 
@@ -121,8 +121,8 @@ export const shapeNotification = (arg: Notification | string) => {
     dismissed = false,
     hidden = false,
     actions,
-    added = moment().toISOString(),
-    updated = moment().toISOString(),
+    added = dateFns.formatISO(new Date()),
+    updated = dateFns.formatISO(new Date()),
     progress,
   } = notification;
   return {

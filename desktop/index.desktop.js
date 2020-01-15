@@ -15,6 +15,13 @@ let autoUpdater;
 // as the require() is still evaluated, resulting in error and build failure
 
 if (process.env.NODE_ENV === 'production') {
+  // don't throw error ui dialog, e.g. auto-update transport error Error: net::ERR_HTTP_RESPONSE_CODE_FAILURE
+  // see https://github.com/electron-userland/electron-builder/issues/4442
+  process.on('uncaughtException', error => {
+    // Handle the error
+    log.error('uncaughtException', error);
+  });
+
   autoUpdater = require('electron-updater').autoUpdater;
   setupAutoUpdater();
 }
@@ -108,11 +115,14 @@ app.on('ready', async () => {
     height: 728,
     minWidth: 800,
     minHeight: 600,
+    webPreferences: {
+      nodeIntegration: true,
+    },
   });
 
   menu = createMenu({ mainWindow, onMenuQuit, onMenuFileNew, onMenuFileOpen });
 
-  if (process.env.NODE_ENV == 'production') {
+  if (process.env.NODE_ENV === 'production') {
     let url = require('url').format({
       protocol: 'file',
       slashes: true,
@@ -150,7 +160,7 @@ app.on('ready', async () => {
 
 const confirmIfAnalysing = () => {
   if (isAnalysing) {
-    const choice = dialog.showMessageBox(mainWindow, {
+    const choice = dialog.showMessageBoxSync(mainWindow, {
       type: 'question',
       buttons: ['OK', 'Cancel'],
       message: 'Analysis in progress - are you sure?',

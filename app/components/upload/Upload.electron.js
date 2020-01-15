@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 
 import styles from './Upload.scss';
-import AnimatedBackgroundCanvas from '../background/AnimatedBackgroundCanvas';
+import AnimatedBackgroundCanvas from '../ui/background/AnimatedBackgroundCanvas';
 import CircularProgress from '../ui/CircularProgress';
-import Logo from '../logo/Logo';
+import Logo from '../ui/logo/Logo';
 import * as UIHelpers from '../../helpers/UIHelpers';
 
 const DISABLE_DESKTOP_BACKGROUND_ANIMATION =
@@ -118,8 +118,8 @@ class Upload extends React.Component<*> {
 }
 
 Upload.propTypes = {
-  analyseFile: PropTypes.func.isRequired,
-  analyseFileCancel: PropTypes.func.isRequired,
+  analyseFile: PropTypes.func,
+  analyseFileCancel: PropTypes.func,
   isAnalysing: PropTypes.bool,
   progress: PropTypes.number,
 };

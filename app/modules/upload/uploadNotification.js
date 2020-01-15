@@ -4,7 +4,9 @@ import { channel } from 'redux-saga';
 import { all, fork, put, take, takeEvery, select } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { push } from 'connected-react-router';
-import moment from 'moment';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+
+import { getCurrentLocale } from 'makeandship-js-common/src/util/date';
 
 import {
   showNotification,
@@ -115,7 +117,11 @@ function* resumableUploadProgressWatcher() {
     const fileName = yield select(getFileName);
     const progress = yield select(getProgress);
     const uploadCompletionTime = yield select(getUploadCompletionTime);
-    const to = uploadCompletionTime && moment().to(uploadCompletionTime);
+    const to =
+      uploadCompletionTime &&
+      formatDistanceToNow(uploadCompletionTime, {
+        locale: getCurrentLocale(),
+      });
     let components = [`${progress}% Uploading ${fileName}`];
     to && components.push(`eta ${to}`);
     yield put(
