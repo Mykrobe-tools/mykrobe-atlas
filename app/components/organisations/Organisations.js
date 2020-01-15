@@ -4,9 +4,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import {
   Container,
-  Nav,
-  NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,

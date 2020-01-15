@@ -17,6 +17,7 @@ const OrganisationMembershipActions = ({
   onJoin,
   onRemove,
   size,
+  children,
 }: React.ElementProps<*>): React.Element<*> => {
   const onJoinClick = e => {
     e.preventDefault();
@@ -55,7 +56,7 @@ const OrganisationMembershipActions = ({
         <React.Fragment>
           <div>
             <OrganisationStatusIcon status={currentUserStatus} /> You are a
-            member{' '}
+            member
           </div>
           <SecondaryButton size={size} onClick={onRemoveClick} icon={'ban'}>
             Leave
@@ -95,6 +96,7 @@ const OrganisationMembershipActions = ({
           </SecondaryButton>
         </React.Fragment>
       )}
+      {children}
     </div>
   );
 };

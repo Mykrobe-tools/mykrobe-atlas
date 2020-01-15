@@ -35,7 +35,7 @@ class EditOrganisation extends React.Component<*> {
   componentWillMount() {
     const { requestOrganisation, organisationId, isNew } = this.props;
     if (!isNew) {
-      requestOrganisation(organisationId);
+      requestOrganisation && requestOrganisation(organisationId);
     }
   }
 
@@ -68,25 +68,9 @@ class EditOrganisation extends React.Component<*> {
       organisation,
       organisationIsFetching,
       organisationError,
-      organisationCurrentUserIsOwner,
-      organisationCurrentUserIsMember,
-      organisationCurrentUserIsUnapprovedMember,
-      organisationCurrentUserIsRejectedMember,
     } = this.props;
     return (
       <div className={styles.container}>
-        <pre>
-          {JSON.stringify(
-            {
-              organisationCurrentUserIsOwner,
-              organisationCurrentUserIsMember,
-              organisationCurrentUserIsUnapprovedMember,
-              organisationCurrentUserIsRejectedMember,
-            },
-            null,
-            2
-          )}
-        </pre>
         <OrganisationHeader {...this.props} />
         <div className={styles.container}>
           <Container fluid>

@@ -10,7 +10,6 @@ import {
   fork,
 } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
-import { push } from 'connected-react-router';
 import { createSelector } from 'reselect';
 import _get from 'lodash.get';
 

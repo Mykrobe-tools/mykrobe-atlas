@@ -6,7 +6,6 @@
   align-items: center;
   justify-content: center;
   > * {
-    margin-right: 0.5rem;
+    margin-left: 0.5rem;
   }
-  composes: global(mb-4);
 }

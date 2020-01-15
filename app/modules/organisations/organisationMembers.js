@@ -127,7 +127,7 @@ export const organisationUserMemberId = (organisation: any, user: any) => {
   }
 };
 
-export const organisationMembers = (organisation: any): Array<*> => {
+export const organisationAllMembers = (organisation: any): Array<*> => {
   if (!organisation) {
     return [];
   }
@@ -193,9 +193,9 @@ export const getOrganisationCurrentUserMemberId = createSelector(
     organisationUserMemberId(organisation, currentUser)
 );
 
-export const getOrganisationMembers = createSelector(
+export const getOrganisationAllMembers = createSelector(
   getOrganisation,
-  organisation => organisationMembers(organisation)
+  organisation => organisationAllMembers(organisation)
 );
 
 // Action creators
@@ -241,36 +241,6 @@ const initialState: State = {
   isFetching: false,
   error: null,
 };
-
-/*
-export const JOIN = `${typePrefix}JOIN`;
-export const JOIN_REQUEST = `${typePrefix}JOIN_REQUEST`;
-export const JOIN_SUCCESS = `${typePrefix}JOIN_SUCCESS`;
-export const JOIN_FAILURE = `${typePrefix}JOIN_FAILURE`;
-
-export const APPROVE_JOIN = `${typePrefix}APPROVE_JOIN`;
-export const APPROVE_JOIN_REQUEST = `${typePrefix}APPROVE_JOIN_REQUEST`;
-export const APPROVE_JOIN_SUCCESS = `${typePrefix}APPROVE_JOIN_SUCCESS`;
-export const APPROVE_JOIN_FAILURE = `${typePrefix}APPROVE_JOIN_FAILURE`;
-
-export const REJECT_JOIN = `${typePrefix}REJECT_JOIN`;
-export const REJECT_JOIN_REQUEST = `${typePrefix}REJECT_JOIN_REQUEST`;
-export const REJECT_JOIN_SUCCESS = `${typePrefix}REJECT_JOIN_SUCCESS`;
-export const REJECT_JOIN_FAILURE = `${typePrefix}REJECT_JOIN_FAILURE`;
-
-export const REMOVE_MEMBER = `${typePrefix}REMOVE_MEMBER`;
-export const REMOVE_MEMBER_REQUEST = `${typePrefix}REMOVE_MEMBER_REQUEST`;
-export const REMOVE_MEMBER_SUCCESS = `${typePrefix}REMOVE_MEMBER_SUCCESS`;
-export const REMOVE_MEMBER_FAILURE = `${typePrefix}REMOVE_MEMBER_FAILURE`;
-
-export const PROMOTE_MEMBER = `${typePrefix}PROMOTE_MEMBER`;
-export const PROMOTE_MEMBER_REQUEST = `${typePrefix}PROMOTE_MEMBER_REQUEST`;
-export const PROMOTE_MEMBER_SUCCESS = `${typePrefix}PROMOTE_MEMBER_SUCCESS`;
-export const PROMOTE_MEMBER_FAILURE = `${typePrefix}PROMOTE_MEMBER_FAILURE`;
-
-export const DEMOTE_MEMBER = `${typePrefix}DEMOTE_MEMBER`;
-
-*/
 
 const reducer = (state?: State = initialState, action?: Object = {}): State =>
   produce(state, draft => {

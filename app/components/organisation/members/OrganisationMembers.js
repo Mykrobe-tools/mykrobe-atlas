@@ -67,17 +67,17 @@ const OrganisationMemberActions = ({
         <i className="fa fa-ellipsis-v" />
       </DropdownToggle>
       <DropdownMenu>
-        {memberOrganisationUserStatus === 'unapproved' ||
-          (memberOrganisationUserStatus === 'rejected' && (
-            <DropdownItem
-              onClick={e => {
-                e.preventDefault();
-                onApprove(id);
-              }}
-            >
-              <i className="fa fa-check-circle" /> Approve
-            </DropdownItem>
-          ))}
+        {(memberOrganisationUserStatus === 'unapproved' ||
+          memberOrganisationUserStatus === 'rejected') && (
+          <DropdownItem
+            onClick={e => {
+              e.preventDefault();
+              onApprove(id);
+            }}
+          >
+            <i className="fa fa-check-circle" /> Approve
+          </DropdownItem>
+        )}
         {memberOrganisationUserStatus === 'unapproved' && (
           <DropdownItem
             onClick={e => {
@@ -141,7 +141,7 @@ class OrganisationMembers extends React.Component<*> {
   componentWillMount() {
     const { requestOrganisation, organisationId, isNew } = this.props;
     if (!isNew) {
-      requestOrganisation(organisationId);
+      requestOrganisation && requestOrganisation(organisationId);
     }
   }
 
@@ -160,7 +160,7 @@ class OrganisationMembers extends React.Component<*> {
     joinOrganisation({ id: organisationId });
   };
 
-  onChangeListOrder = ({ sort, order }: any) => {
+  onChangeListOrder = () => {
     notImplemented();
   };
 
@@ -196,6 +196,11 @@ class OrganisationMembers extends React.Component<*> {
       memberId,
       id: organisationId,
     });
+  };
+
+  onRemoveCurrentUser = () => {
+    const { organisationCurrentUserMemberId } = this.props;
+    this.onRemove(organisationCurrentUserMemberId);
   };
 
   onRemove = (memberId: string) => {
@@ -240,7 +245,7 @@ class OrganisationMembers extends React.Component<*> {
 
   render() {
     const {
-      organisationMembers,
+      organisationAllMembers,
       organisationIsFetching,
       organisationMembersIsFetching,
       organisationCurrentUserIsOwner,
@@ -258,24 +263,24 @@ class OrganisationMembers extends React.Component<*> {
                   size="sm"
                   currentUserStatus={organisationCurrentUserStatus}
                   onJoin={this.onJoin}
-                  onRemove={this.onRemove}
-                />
-                {organisationCurrentUserIsOwner && (
-                  <PrimaryButton
-                    onClick={this.onNewMemberClick}
-                    outline
-                    size="sm"
-                    icon="plus-circle"
-                    marginLeft
-                  >
-                    New Member
-                  </PrimaryButton>
-                )}
+                  onRemove={this.onRemoveCurrentUser}
+                >
+                  {organisationCurrentUserIsOwner && (
+                    <PrimaryButton
+                      onClick={this.onNewMemberClick}
+                      outline
+                      size="sm"
+                      icon="plus-circle"
+                    >
+                      New Member
+                    </PrimaryButton>
+                  )}
+                </OrganisationMembershipActions>
               </div>
             </PageHeader>
             <Table
               headings={headings}
-              data={organisationMembers}
+              data={organisationAllMembers}
               renderRow={this.renderRow}
               onChangeOrder={this.onChangeListOrder}
               isFetching={

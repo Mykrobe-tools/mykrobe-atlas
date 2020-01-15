@@ -38,7 +38,7 @@ import {
   UPDATE_NOTIFICATION,
 } from '../modules/notifications/notifications';
 
-import { joinOrganisation } from '../modules/organisations/organisation';
+import { joinOrganisation } from '../modules/organisations/organisationMembers';
 
 import {
   RESUMABLE_UPLOAD_PROGRESS,

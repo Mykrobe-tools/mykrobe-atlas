@@ -27,7 +27,7 @@ import {
   getOrganisationCurrentUserIsRejectedMember,
   getOrganisationCurrentUserStatus,
   getOrganisationCurrentUserMemberId,
-  getOrganisationMembers,
+  getOrganisationAllMembers,
   getOrganisationMembersIsFetching,
   getOrganisationMembersError,
 } from '../modules/organisations/organisationMembers';
@@ -47,7 +47,7 @@ const withOrganisation = connect(
     ),
     organisationCurrentUserStatus: getOrganisationCurrentUserStatus(state),
     organisationCurrentUserMemberId: getOrganisationCurrentUserMemberId(state),
-    organisationMembers: getOrganisationMembers(state),
+    organisationAllMembers: getOrganisationAllMembers(state),
     organisationMembersIsFetching: getOrganisationMembersIsFetching(state),
     organisationMembersError: getOrganisationMembersError(state),
   }),
@@ -87,7 +87,7 @@ export const withOrganisationPropTypes = {
   organisationCurrentUserIsRejectedMember: PropTypes.bool,
   organisationCurrentUserStatus: PropTypes.any,
   organisationCurrentUserMemberId: PropTypes.any,
-  organisationMembers: PropTypes.array,
+  organisationAllMembers: PropTypes.array,
   organisationMembersIsFetching: PropTypes.bool,
   organisationMembersError: PropTypes.any,
 };

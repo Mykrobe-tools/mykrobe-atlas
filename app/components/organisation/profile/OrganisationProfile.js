@@ -71,7 +71,7 @@ class OrganisationProfile extends React.Component<*> {
   componentWillMount() {
     const { requestOrganisation, organisationId, isNew } = this.props;
     if (!isNew) {
-      requestOrganisation(organisationId);
+      requestOrganisation && requestOrganisation(organisationId);
     }
   }
 
@@ -105,11 +105,6 @@ class OrganisationProfile extends React.Component<*> {
       organisationId,
       organisationIsFetching,
       organisationCurrentUserStatus,
-      organisationCurrentUserIsOwner,
-      organisationCurrentUserIsMember,
-      organisationCurrentUserIsUnapprovedMember,
-      organisationCurrentUserIsRejectedMember,
-      organisationMembers,
     } = this.props;
     if (!organisation || organisationIsFetching) {
       return null;
@@ -118,20 +113,6 @@ class OrganisationProfile extends React.Component<*> {
       <div className={styles.container}>
         <OrganisationHeader {...this.props} />
         <div className={styles.container}>
-          <pre>
-            {JSON.stringify(
-              {
-                organisationCurrentUserIsOwner,
-                organisationCurrentUserIsMember,
-                organisationCurrentUserIsUnapprovedMember,
-                organisationCurrentUserIsRejectedMember,
-                organisationCurrentUserStatus,
-                organisationMembers,
-              },
-              null,
-              2
-            )}
-          </pre>
           <Container fluid>
             <Row className="justify-content-sm-center">
               <Col sm={8}>
@@ -153,11 +134,13 @@ class OrganisationProfile extends React.Component<*> {
                     </div>
                   )}
                 </div>
-                <OrganisationMembershipActions
-                  onJoin={this.onJoin}
-                  onRemove={this.onRemove}
-                  currentUserStatus={organisationCurrentUserStatus}
-                />
+                <div className={styles.organisationMembershipActionsContainer}>
+                  <OrganisationMembershipActions
+                    onJoin={this.onJoin}
+                    onRemove={this.onRemove}
+                    currentUserStatus={organisationCurrentUserStatus}
+                  />
+                </div>
               </Col>
             </Row>
             <Row className="justify-content-sm-center">

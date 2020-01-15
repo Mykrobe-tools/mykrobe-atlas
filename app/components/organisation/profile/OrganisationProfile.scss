@@ -6,7 +6,10 @@
 }
 
 .organisationProfile {
-  composes: global(my-4);
+  composes: container from 'styles/layout.scss';
+  composes: global(pt-4);
+  flex-direction: column;
+  align-items: center;
 }
 
 .name {
@@ -17,14 +20,7 @@
   text-align: center;
 }
 
-.actionsContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  > * {
-    margin-right: 0.5rem;
-  }
+.organisationMembershipActionsContainer {
   composes: global(mb-4);
 }
 

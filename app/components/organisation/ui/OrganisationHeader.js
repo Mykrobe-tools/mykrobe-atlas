@@ -18,10 +18,6 @@ class OrganisationHeader extends React.Component<*> {
       organisation,
       organisationId,
       organisationCurrentUserIsOwner,
-      organisationCurrentUserIsMember,
-      organisationCurrentUserIsUnapprovedMember,
-      organisationCurrentUserIsRejectedMember,
-      organisationCurrentUserMemberId,
     } = this.props;
     const title = isNew
       ? 'New organistaion'
@@ -30,20 +26,6 @@ class OrganisationHeader extends React.Component<*> {
         : 'Organisation';
     return (
       <React.Fragment>
-        <pre>
-          {JSON.stringify(
-            {
-              organisationId,
-              organisationCurrentUserIsOwner,
-              organisationCurrentUserIsMember,
-              organisationCurrentUserIsUnapprovedMember,
-              organisationCurrentUserIsRejectedMember,
-              organisationCurrentUserMemberId,
-            },
-            null,
-            2
-          )}
-        </pre>
         <HeaderContainer title={title} />
         <TabNavigation>
           <TabNavigationLink exact to={`/organisations/${organisationId}`}>
