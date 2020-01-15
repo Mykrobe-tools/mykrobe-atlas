@@ -1,12 +1,8 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import {
   Container,
-  Nav,
-  NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -22,7 +18,6 @@ import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
 
 import OrganisationHeader from '../ui/OrganisationHeader';
 import OrganisationStatusIcon from '../../organisation/ui/OrganisationStatusIcon';
-import HeaderContainer from '../../ui/header/HeaderContainer';
 import Footer from '../../ui/footer/Footer';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
 import { notImplemented } from '../../../util';
@@ -71,8 +66,8 @@ const OrganisationMemberActions = ({
         <i className="fa fa-ellipsis-v" />
       </DropdownToggle>
       <DropdownMenu>
-        {memberOrganisationUserStatus === 'unapproved' && (
-          <React.Fragment>
+        {memberOrganisationUserStatus === 'unapproved' ||
+          (memberOrganisationUserStatus === 'rejected' && (
             <DropdownItem
               onClick={e => {
                 e.preventDefault();
@@ -81,15 +76,16 @@ const OrganisationMemberActions = ({
             >
               <i className="fa fa-check-circle" /> Approve
             </DropdownItem>
-            <DropdownItem
-              onClick={e => {
-                e.preventDefault();
-                onReject(id);
-              }}
-            >
-              <i className="fa fa-times-circle" /> Reject
-            </DropdownItem>
-          </React.Fragment>
+          ))}
+        {memberOrganisationUserStatus === 'unapproved' && (
+          <DropdownItem
+            onClick={e => {
+              e.preventDefault();
+              onReject(id);
+            }}
+          >
+            <i className="fa fa-times-circle" /> Reject
+          </DropdownItem>
         )}
         {memberOrganisationUserStatus === 'owner' && (
           <DropdownItem
@@ -167,10 +163,12 @@ class OrganisationMembers extends React.Component<*> {
 
   onReject = (memberId: string) => {
     const { organisationId, rejectJoinOrganisationRequest } = this.props;
-    rejectJoinOrganisationRequest({
-      memberId,
-      id: organisationId,
-    });
+    if (confirm('Reject request?')) {
+      rejectJoinOrganisationRequest({
+        memberId,
+        id: organisationId,
+      });
+    }
   };
 
   onPromote = (memberId: string) => {
@@ -191,10 +189,12 @@ class OrganisationMembers extends React.Component<*> {
 
   onRemove = (memberId: string) => {
     const { organisationId, removeOrganisationMember } = this.props;
-    removeOrganisationMember({
-      memberId,
-      id: organisationId,
-    });
+    if (confirm('Remove member?')) {
+      removeOrganisationMember({
+        memberId,
+        id: organisationId,
+      });
+    }
   };
 
   renderRow = (member: any) => {

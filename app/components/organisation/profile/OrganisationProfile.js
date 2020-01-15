@@ -168,10 +168,12 @@ class OrganisationProfile extends React.Component<*> {
       organisationId,
       organisationCurrentUserMemberId,
     } = this.props;
-    removeOrganisationMember({
-      memberId: organisationCurrentUserMemberId,
-      id: organisationId,
-    });
+    if (confirm('Leave organisation?')) {
+      removeOrganisationMember({
+        memberId: organisationCurrentUserMemberId,
+        id: organisationId,
+      });
+    }
   };
 
   render() {
