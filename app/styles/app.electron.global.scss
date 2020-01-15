@@ -26,11 +26,12 @@
 
 @import 'bootstrap.styles.global';
 
-// fill window at a minimum, but allow all content to scroll including nav
+// remove overflow; allows to keep static positioned nav with scrolling content filling remainder of window
 
 html {
   display: flex;
-  flex: 1 0 auto;
+  flex: 1;
+  overflow: hidden;
   flex-direction: column;
   height: 100%;
   font-variant-ligatures: common-ligatures;
@@ -40,14 +41,16 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  flex: 1 0 auto;
+  flex: 1;
+  overflow: hidden;
   flex-direction: column;
 }
 
 #app-root,
 #app-root > [data-reactroot] {
   display: flex;
-  flex: 1 0 auto;
+  flex: 1;
+  overflow: hidden;
   flex-direction: column;
 }
 

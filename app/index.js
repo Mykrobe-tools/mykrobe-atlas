@@ -6,7 +6,12 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 
 import store, { history } from './store';
-import './styles/app.global.scss';
+
+if (IS_ELECTRON) {
+  require('./styles/app.electron.global.scss');
+} else {
+  require('./styles/app.global.scss');
+}
 
 // import used moment locales individually, otherwise excluded by webpack config
 import moment from 'moment';

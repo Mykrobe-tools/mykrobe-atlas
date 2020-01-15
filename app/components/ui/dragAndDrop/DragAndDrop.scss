@@ -3,6 +3,7 @@
 .container {
   composes: container from 'styles/layout.scss';
   position: relative;
+  overflow: hidden;
 }
 
 .dragIndicator {
