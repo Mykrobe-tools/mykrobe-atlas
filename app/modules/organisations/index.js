@@ -6,6 +6,9 @@ import { combineReducers } from 'redux';
 
 import organisations, { organisationsSaga } from './organisations';
 import organisation, { organisationSaga } from './organisation';
+import organisationMembers, {
+  organisationMembersSaga,
+} from './organisationMembers';
 import organisationsFilters, {
   syncOrganisationsFiltersSaga,
 } from './organisationsFilters';
@@ -29,13 +32,16 @@ export {
   updateOrganisation,
   deleteOrganisation,
   organisationSaga,
+} from './organisation';
+
+export {
   joinOrganisation,
   approveJoinOrganisationRequest,
   rejectJoinOrganisationRequest,
   removeOrganisationMember,
   promoteOrganisationMember,
   demoteOrganisationOwner,
-} from './organisation';
+} from './organisationMembers';
 
 export {
   setOrganisationsFilters,
@@ -50,6 +56,7 @@ const reducer = combineReducers({
   organisations,
   organisationsFilters,
   organisation,
+  organisationMembers,
 });
 
 export default reducer;
@@ -59,5 +66,6 @@ export function* rootOrganisationsSaga(): Saga {
     fork(organisationsSaga),
     fork(organisationSaga),
     fork(syncOrganisationsFiltersSaga),
+    fork(organisationMembersSaga),
   ]);
 }

@@ -226,7 +226,11 @@ class OrganisationMembers extends React.Component<*> {
   };
 
   render() {
-    const { organisationMembers } = this.props;
+    const {
+      organisationMembers,
+      organisationIsFetching,
+      organisationMembersIsFetching,
+    } = this.props;
     return (
       <div className={styles.container}>
         <OrganisationHeader {...this.props} />
@@ -251,6 +255,9 @@ class OrganisationMembers extends React.Component<*> {
               data={organisationMembers}
               renderRow={this.renderRow}
               onChangeOrder={this.onChangeListOrder}
+              isFetching={
+                organisationIsFetching || organisationMembersIsFetching
+              }
             />
           </Container>
         </div>
