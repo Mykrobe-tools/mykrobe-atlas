@@ -12,7 +12,6 @@ import ResistanceClassContainer from '../class/ResistanceClassContainer';
 import ResistanceEvidenceContainer from '../evidence/ResistanceEvidenceContainer';
 import ResistanceSpeciesContainer from '../species/ResistanceSpeciesContainer';
 
-import styles from './Resistance.scss';
 import Uploading from '../../../ui/Uploading';
 import TabNavigation, {
   TabNavigationLink,
@@ -20,6 +19,8 @@ import TabNavigation, {
 import * as TargetConstants from '../../../../constants/TargetConstants';
 
 import withFileUpload from '../../../../hoc/withFileUpload';
+
+import styles from './Resistance.scss';
 
 class Resistance extends React.Component<*> {
   render() {

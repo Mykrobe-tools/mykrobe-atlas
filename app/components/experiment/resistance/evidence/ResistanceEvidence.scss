@@ -1,9 +1,17 @@
 .container {
   composes: containerCompact from 'styles/layout.scss';
   padding: 18px;
-  overflow-y: auto;
   background-color: white;
   flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+// platform - electron only
+
+:global(html[data-platform='electron']) {
+  .container {
+    overflow-y: scroll;
+  }
 }
 
 .evidence {
