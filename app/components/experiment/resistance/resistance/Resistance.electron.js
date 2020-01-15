@@ -7,7 +7,7 @@ import { withRouter, Route, Redirect, Switch, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styles from './Resistance.scss';
 import * as TargetConstants from '../../../../constants/TargetConstants';
-import Logo from '../../../logo/Logo';
+import Logo from '../../../ui/logo/Logo';
 
 import { analyseFileNew, analyseFileSave } from '../../../../modules/desktop';
 
@@ -149,11 +149,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 Resistance.propTypes = {
-  analyseFileSave: PropTypes.func.isRequired,
-  analyseFileNew: PropTypes.func.isRequired,
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired,
+  analyseFileSave: PropTypes.func,
+  analyseFileNew: PropTypes.func,
+  experiment: PropTypes.object,
+  experimentTransformed: PropTypes.object,
+  match: PropTypes.object,
 };
 
 export default withRouter(

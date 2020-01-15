@@ -1,16 +1,35 @@
 /* @flow */
 
 import * as React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import type { Match } from 'react-router-dom';
 
-import Organisations from './Organisations';
-import EditOrganisation from './EditOrganisation';
+import { NEW_ENTITY_KEY } from 'makeandship-js-common/src/modules/generic';
+
+import OrganisationsContainer from './OrganisationsContainer';
+import OrganisationProfileContainer from '../organisation/profile/OrganisationProfileContainer';
+import EditOrganisationContainer from '../organisation/edit/EditOrganisationContainer';
+import OrganisationMembersContainer from '../organisation/members/OrganisationMembersContainer';
 
 const OrganisationsRoutes = ({ match }: { match: Match }) => (
   <Switch>
-    <Route path={`${match.url}`} exact component={Organisations} />
-    <Route path={`${match.url}/:organisationId`} component={EditOrganisation} />
+    <Route path={`${match.url}`} exact component={OrganisationsContainer} />
+    <Route
+      path={`${match.url}/:organisationId/edit`}
+      component={EditOrganisationContainer}
+    />
+    <Route
+      path={`${match.url}/:organisationId/members`}
+      component={OrganisationMembersContainer}
+    />
+    <Redirect
+      from={`${match.url}/${NEW_ENTITY_KEY}`}
+      to={`${match.url}/${NEW_ENTITY_KEY}/edit`}
+    />
+    <Route
+      path={`${match.url}/:organisationId`}
+      component={OrganisationProfileContainer}
+    />
   </Switch>
 );
 

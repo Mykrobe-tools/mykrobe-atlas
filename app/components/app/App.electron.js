@@ -1,0 +1,186 @@
+/* @flow */
+
+import fs from 'fs';
+
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
+import Dropzone from 'react-dropzone';
+import { withRouter } from 'react-router-dom';
+
+import * as UIHelpers from '../../helpers/UIHelpers'; // eslint-disable-line import/namespace
+import * as APIConstants from '../../constants/APIConstants';
+
+import {
+  analyseFileNew,
+  analyseFile,
+  analyseFileSave,
+  getFileNames,
+} from '../../modules/desktop';
+
+import styles from './App.scss';
+
+import NotificationsContainer from '../notifications/NotificationsContainer';
+import NotificationsStyle from '../notifications/NotificationsStyle';
+import AppDocumentTitle from '../ui/AppDocumentTitle';
+
+type State = {
+  isDragActive: boolean,
+};
+
+class App extends React.Component<*, State> {
+  state = {
+    isDragActive: false,
+  };
+
+  constructor(props) {
+    super(props);
+    const { analyseFile, analyseFileNew, analyseFileSave, push } = props;
+    const ipcRenderer = require('electron').ipcRenderer;
+
+    ipcRenderer.on('open-file', (e, filePaths) => {
+      console.log('App open-file');
+      if (filePaths) {
+        analyseFile(filePaths);
+      }
+    });
+
+    ipcRenderer.on('menu-file-new', () => {
+      analyseFileNew();
+    });
+
+    ipcRenderer.on('menu-about', () => {
+      push('/about');
+    });
+
+    ipcRenderer.on('menu-file-open', () => {
+      const filePaths = UIHelpers.openFileDialog(); // eslint-disable-line import/namespace
+      if (filePaths) {
+        analyseFile(filePaths);
+      }
+    });
+
+    ipcRenderer.on('menu-file-save-as', () => {
+      analyseFileSave();
+    });
+
+    ipcRenderer.on('menu-capture-page', async () => {
+      const filePath = UIHelpers.saveFileDialog('screenshot.png', [
+        { name: 'PNG', extensions: ['png'] },
+      ]); // eslint-disable-line import/namespace
+      if (filePath) {
+        await this.onCapturePage(filePath);
+      }
+    });
+
+    ipcRenderer.on('capture-page', async (e, filePath) => {
+      await this.onCapturePage(filePath);
+    });
+  }
+
+  onCapturePage = async filePath => {
+    const currentWindow = require('electron').remote.getCurrentWindow();
+    if (filePath) {
+      const image = await currentWindow.capturePage();
+      fs.writeFileSync(filePath, image.toPNG());
+      console.log('Saved', filePath);
+    }
+  };
+
+  onDragEnter = e => {
+    const dt = e.dataTransfer;
+    if (
+      !(
+        dt.types &&
+        (dt.types.indexOf
+          ? dt.types.indexOf('Files') !== -1
+          : dt.types.contains('Files'))
+      )
+    ) {
+      this.setState({ isDragActive: false });
+    } else {
+      this.setState({
+        isDragActive: true,
+      });
+    }
+  };
+
+  onDragLeave = () => {
+    this.setState({
+      isDragActive: false,
+    });
+  };
+
+  onDropAccepted = files => {
+    const { analyseFile } = this.props;
+    console.log('onDropAccepted', files);
+    this.setState({
+      isDragActive: false,
+    });
+    if (!files.length) {
+      return;
+    }
+    analyseFile(files);
+  };
+
+  onDropRejected = files => {
+    console.log('onDropRejected', files);
+    this.setState({
+      isDragActive: false,
+    });
+  };
+
+  render() {
+    const { children } = this.props;
+    const { isDragActive } = this.state;
+    return (
+      <Dropzone
+        className={styles.container}
+        onDropAccepted={this.onDropAccepted}
+        onDropRejected={this.onDropRejected}
+        onDragLeave={this.onDragLeave}
+        onDragEnter={this.onDragEnter}
+        disableClick
+        multiple
+        accept={APIConstants.API_SAMPLE_EXTENSIONS_STRING_WITH_DOTS}
+      >
+        <AppDocumentTitle />
+        <div className={styles.contentContainer}>{children}</div>
+        <div className={styles.notificationsContainerElectron}>
+          <NotificationsContainer
+            limit={5}
+            order="desc"
+            notificationsStyle={NotificationsStyle.SEPARATE}
+            dismissed={false}
+            hidden={false}
+          />
+        </div>
+        {isDragActive && <div className={styles.dragIndicator} />}
+      </Dropzone>
+    );
+  }
+}
+
+const withRedux = connect(
+  state => ({
+    fileNames: getFileNames(state),
+  }),
+  {
+    analyseFileSave,
+    analyseFileNew,
+    analyseFile,
+    push,
+  }
+);
+
+App.propTypes = {
+  analyseFileSave: PropTypes.func,
+  analyseFileNew: PropTypes.func,
+  analyseFile: PropTypes.func,
+  push: PropTypes.func,
+  children: PropTypes.node,
+  fileNames: PropTypes.array,
+};
+
+export default withRouter(withRedux(App));

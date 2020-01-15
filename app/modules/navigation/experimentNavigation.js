@@ -22,8 +22,8 @@ function* createWatcher() {
 }
 
 export function* createWorker(action: any): Generator<*, *, *> {
-  const experiment = action.payload;
-  const { id } = experiment;
+  const entity = action.payload;
+  const { id } = entity;
   yield put(push(`/experiments/${id}`));
 }
 
@@ -34,8 +34,8 @@ export function* createWorker(action: any): Generator<*, *, *> {
 // }
 
 // export function* updateWorker(action: any): Generator<*, *, *> {
-//   const experiment = action.payload;
-//   const { id } = experiment;
+//   const entity = action.payload;
+//   const { id } = entity;
 //   yield put(push(`/experiments/${id}`));
 // }
 

@@ -2,9 +2,14 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Container } from 'reactstrap';
+import {
+  Container,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import PageHeader, {
   styles as pageHeaderStyles,
@@ -12,19 +17,13 @@ import PageHeader, {
 import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
 
-import {
-  getOrganisations,
-  getOrganisationIsFetching,
-  requestOrganisations,
-  newOrganisation,
-  getOrganisationsFilters,
-  setOrganisationsFilters,
-} from '../../modules/organisations';
+import OrganisationStatusIcon from '../organisation/ui/OrganisationStatusIcon';
 
-import HeaderContainer from '../header/HeaderContainer';
-import Footer from '../footer/Footer';
+import HeaderContainer from '../ui/header/HeaderContainer';
+import Footer from '../ui/footer/Footer';
+import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
 
-import styles from './Common.scss';
+import styles from './Organisations.scss';
 
 const headings = [
   {
@@ -36,23 +35,30 @@ const headings = [
     sort: 'template',
   },
   {
+    title: 'Members',
+    sort: 'members',
+  },
+  {
+    title: 'Your status',
+  },
+  {
     title: '',
   },
 ];
 
-class Profile extends React.Component<*> {
+class Organisations extends React.Component<*> {
   componentWillMount() {
     const { requestOrganisations } = this.props;
-    requestOrganisations();
+    requestOrganisations && requestOrganisations();
   }
 
-  onNewOrganisation = e => {
+  onNewOrganisation = (e: any) => {
     e && e.preventDefault();
     const { newOrganisation } = this.props;
     newOrganisation();
   };
 
-  onChangeListOrder = ({ sort, order }) => {
+  onChangeListOrder = ({ sort, order }: any) => {
     const { setOrganisationsFilters, organisationsFilters } = this.props;
     setOrganisationsFilters({
       ...organisationsFilters,
@@ -63,27 +69,62 @@ class Profile extends React.Component<*> {
   };
 
   renderRow = (organisation: any) => {
-    const { id, name, template } = organisation;
+    const {
+      id,
+      name,
+      template,
+      currentUserStatus,
+      members,
+      owners,
+    } = organisation;
     return (
       <TdLink key={id} to={`/organisations/${id}`}>
         <td>{name}</td>
         <td>{template}</td>
-        <td />
+        <td>{members.length + owners.length}</td>
+        <td>
+          <OrganisationStatusIcon status={currentUserStatus} />{' '}
+          {currentUserStatus || '–'}
+        </td>
+        <td>
+          <UncontrolledDropdown>
+            <DropdownToggle
+              tag={'a'}
+              href="#"
+              className={styles.dropdownToggle}
+              onClick={e => {
+                e.stopPropagation();
+                e.preventDefault();
+              }}
+            >
+              <i className="fa fa-ellipsis-v" />
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem tag={Link} to={`/organisations/${id}`}>
+                <i className="fa fa-chevron-circle-right" /> View
+              </DropdownItem>
+              <DropdownItem tag={Link} to={`/organisations/${id}/edit`}>
+                <i className="fa fa-pencil" /> Edit
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </td>
       </TdLink>
     );
   };
 
   render() {
-    const { organisations, organisationsFilters } = this.props;
+    const {
+      organisationsWithCurrentUserStatus,
+      organisationsFilters,
+    } = this.props;
     return (
       <div className={styles.container}>
         <HeaderContainer title={'Organisations'} />
         <div className={styles.container}>
           <Container fluid>
             <PageHeader border={false}>
-              <div>
-                <div className={pageHeaderStyles.title}>Organisations</div>
-              </div>
+              <div className={pageHeaderStyles.title}>Organisations</div>
               <div>
                 <PrimaryButton
                   onClick={this.onNewOrganisation}
@@ -98,7 +139,7 @@ class Profile extends React.Component<*> {
             </PageHeader>
             <Table
               headings={headings}
-              data={organisations}
+              data={organisationsWithCurrentUserStatus}
               sort={organisationsFilters.sort || 'id'}
               order={organisationsFilters.order || Table.Order.Descending}
               renderRow={this.renderRow}
@@ -112,35 +153,15 @@ class Profile extends React.Component<*> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    organisations: getOrganisations(state),
-    isFetching: getOrganisationIsFetching(state),
-    organisationsFilters: getOrganisationsFilters(state),
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      requestOrganisations,
-      newOrganisation,
-      setOrganisationsFilters,
-    },
-    dispatch
-  );
-}
-
-Profile.propTypes = {
-  organisations: PropTypes.array.isRequired,
-  requestOrganisations: PropTypes.func.isRequired,
-  newOrganisation: PropTypes.func.isRequired,
+Organisations.propTypes = {
+  ...withCurrentUserPropTypes,
+  organisations: PropTypes.array,
+  organisationsWithCurrentUserStatus: PropTypes.array,
+  requestOrganisations: PropTypes.func,
+  newOrganisation: PropTypes.func,
   isFetching: PropTypes.bool,
   organisationsFilters: PropTypes.any,
   setOrganisationsFilters: PropTypes.func,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Profile);
+export default Organisations;

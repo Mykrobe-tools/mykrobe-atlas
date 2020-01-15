@@ -10,10 +10,11 @@ import {
   DropdownItem,
   UncontrolledTooltip,
 } from 'reactstrap';
-import moment from 'moment';
 import _get from 'lodash.get';
+import * as dateFns from 'date-fns';
 
 import { Sample } from 'mykrobe-atlas-jsonschema/schemas/definitions/experiment/experiment-metadata-sample';
+import { formatDate } from 'makeandship-js-common/src/util/date';
 
 import Table from 'makeandship-js-common/src/components/ui/table';
 
@@ -224,8 +225,8 @@ class ExperimentsTable extends React.Component<*> {
         </td>
         <td>{cityIsolate}</td>
         <td>{countryCodeToName(countryIsolate)}</td>
-        <td>{moment(created).format('L')}</td>
-        <td>{moment(modified).format('L')}</td>
+        <td>{formatDate(dateFns.parseISO(created))}</td>
+        <td>{formatDate(dateFns.parseISO(modified))}</td>
         <td>
           <UncontrolledDropdown>
             <DropdownToggle

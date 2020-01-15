@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 
-import HeaderContainer from '../header/HeaderContainer';
-import Footer from '../footer/Footer';
+import HeaderContainer from '../ui/header/HeaderContainer';
+import Footer from '../ui/footer/Footer';
 import Empty from '../ui/Empty';
 
 import styles from './NotFoundPage.scss';

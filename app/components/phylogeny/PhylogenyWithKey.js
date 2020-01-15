@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import styles from './PhylogenyWithKey.scss';
-import Key from '../header/Key';
+import Key from '../ui/header/Key';
 import Phylogeny from './Phylogeny';
 
 class PhylogenyWithKey extends React.Component<*> {

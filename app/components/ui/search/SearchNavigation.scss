@@ -1,0 +1,38 @@
+@import '~styles/colors.global';
+@import '~styles/use-bootstrap.global';
+
+.container {
+  composes: global(border-bottom);
+  background-color: $color-panel-light;
+}
+
+.containerTransparent {
+}
+
+.rowContainer {
+  composes: global(py-3);
+  align-items: center;
+}
+
+.afterTransparent {
+  composes: global(border-bottom);
+}
+
+.searchContainer {
+  input[name='q'] {
+    background-color: $color-white;
+    padding-left: 1.5rem;
+    /* TODO: find a clean way to override input border radius */
+    border-top-left-radius: 500px !important;
+    border-bottom-left-radius: 500px !important;
+  }
+  button[type='submit'] {
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+
+.title {
+  composes: titleLarge from 'styles/typography.scss';
+}

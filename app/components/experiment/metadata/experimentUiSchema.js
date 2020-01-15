@@ -1,13 +1,13 @@
 /* @flow */
 
 import * as React from 'react';
-import moment from 'moment';
 
 import {
   Select,
   DatePicker,
   DateTimePicker,
 } from 'makeandship-js-common/src/components/ui/form';
+import { formatDate } from 'makeandship-js-common/src/util/date';
 
 import { experimentSchema } from '../../../schemas/experiment';
 
@@ -36,7 +36,7 @@ const datePickerWidget = (props: any) => {
     const { TextWidget } = props.registry.widgets;
     const { value, ...rest } = props;
     const formattedValue = value
-      ? moment(value).format(DatePicker.defaultProps.dateFormat)
+      ? formatDate(value, DatePicker.defaultProps.dateFormat)
       : '';
     return <TextWidget value={formattedValue} {...rest} />;
   } else {
@@ -56,7 +56,7 @@ const dateTimePickerWidget = (props: any) => {
     const { TextWidget } = props.registry.widgets;
     const { value, ...rest } = props;
     const formattedValue = value
-      ? moment(value).format(DateTimePicker.defaultProps.dateFormat)
+      ? formatDate(value, DatePicker.defaultProps.dateFormat)
       : '';
     return <TextWidget value={formattedValue} {...rest} />;
   } else {
@@ -142,7 +142,7 @@ const uiSchema = {
       sputumSmearConversion: selectUiSchema,
       sputumCultureConversion: selectUiSchema,
       whoOutcomeCategory: selectUiSchema,
-      dateOfDeath: datePickerUiSchema,
+      dateOfDeath: dateTimePickerUiSchema,
     },
   },
 };

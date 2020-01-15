@@ -21,7 +21,7 @@ const variations = {
 
 storiesOf('ExperimentMetadataNavigation', module)
   .addDecorator(story => (
-    <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
+    <MemoryRouter initialEntries={['/patient']}>{story()}</MemoryRouter>
   ))
   .add('Default', () => (
     <ExperimentMetadataNavigation {...variations.default} />

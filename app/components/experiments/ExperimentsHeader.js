@@ -22,8 +22,8 @@ class ExperimentsHeader extends React.Component<*> {
 }
 
 ExperimentsHeader.propTypes = {
-  experiments: PropTypes.object.isRequired,
-  requestExperiments: PropTypes.func.isRequired,
+  experiments: PropTypes.object,
+  requestExperiments: PropTypes.func,
 };
 
 export default ExperimentsHeader;
