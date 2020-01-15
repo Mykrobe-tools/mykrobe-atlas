@@ -5,7 +5,7 @@ import {
   organisationUserIsMember,
   organisationUserIsUnapprovedMember,
   organisationUserIsRejectedMember,
-} from './organisation';
+} from './organisationMembers';
 
 const currentUser = {
   id: '1',
@@ -51,7 +51,7 @@ const organisation = {
   id: '1',
 };
 
-describe('organisation module', () => {
+describe('organisationMembers module', () => {
   it('should handle bad input', () => {
     expect(organisationUserIsOwner()).toBeFalsy();
     expect(organisationUserIsOwner(organisation)).toBeFalsy();

@@ -7,7 +7,7 @@ import produce from 'immer';
 
 import { getCurrentUser } from '../../modules/users/currentUser';
 
-import { organisationUserStatus } from './organisation';
+import { organisationUserStatus } from './organisationMembers';
 
 const collectionName = 'organisations';
 

@@ -12,6 +12,9 @@ import {
   requestOrganisation,
   updateOrganisation,
   deleteOrganisation,
+} from '../modules/organisations/organisation';
+
+import {
   joinOrganisation,
   approveJoinOrganisationRequest,
   rejectJoinOrganisationRequest,
@@ -25,7 +28,9 @@ import {
   getOrganisationCurrentUserStatus,
   getOrganisationCurrentUserMemberId,
   getOrganisationMembers,
-} from '../modules/organisations/organisation';
+  getOrganisationMembersIsFetching,
+  getOrganisationMembersError,
+} from '../modules/organisations/organisationMembers';
 
 const withOrganisation = connect(
   state => ({
@@ -43,6 +48,8 @@ const withOrganisation = connect(
     organisationCurrentUserStatus: getOrganisationCurrentUserStatus(state),
     organisationCurrentUserMemberId: getOrganisationCurrentUserMemberId(state),
     organisationMembers: getOrganisationMembers(state),
+    organisationMembersIsFetching: getOrganisationMembersIsFetching(state),
+    organisationMembersError: getOrganisationMembersError(state),
   }),
   {
     newOrganisation,
@@ -81,6 +88,8 @@ export const withOrganisationPropTypes = {
   organisationCurrentUserStatus: PropTypes.any,
   organisationCurrentUserMemberId: PropTypes.any,
   organisationMembers: PropTypes.array,
+  organisationMembersIsFetching: PropTypes.bool,
+  organisationMembersError: PropTypes.any,
 };
 
 export default withOrganisation;

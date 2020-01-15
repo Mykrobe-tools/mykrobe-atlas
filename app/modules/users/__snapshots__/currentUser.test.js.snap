@@ -19,9 +19,7 @@ Object {
         },
         "meta": undefined,
         "parameters": Object {
-          "body": Object {
-            "test": true,
-          },
+          "test": true,
         },
         "types": Array [
           "users/currentUser/CREATE_CURRENT_USER_REQUEST",
@@ -117,9 +115,7 @@ Object {
         },
         "meta": undefined,
         "parameters": Object {
-          "body": Object {
-            "test": true,
-          },
+          "test": true,
         },
         "types": Array [
           "users/currentUser/UPDATE_CURRENT_USER_REQUEST",
