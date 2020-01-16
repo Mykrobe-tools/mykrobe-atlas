@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { storiesOf } from '@storybook/react';
 
-import ConnectedStorybook from '../../util/ConnectedStorybook';
+import ConnectedStorybook from '../../util/storybook/ConnectedStorybook';
 
 import Experiments from './Experiments';
 

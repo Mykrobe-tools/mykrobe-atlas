@@ -95,8 +95,7 @@ class ResumableUpload {
     this.id = id;
   }
 
-  onDrop(e: any) {
-    const files = e.dataTransfer && e.dataTransfer.files;
+  onDrop(files) {
     if (files) {
       this.resumable.addFiles(files);
     }

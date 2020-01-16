@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { withRouter, Route, Redirect, Switch, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import styles from './Resistance.scss';
+
 import * as TargetConstants from '../../../../constants/TargetConstants';
 import Logo from '../../../ui/logo/Logo';
 
@@ -18,6 +18,8 @@ import ResistanceDrugsContainer from '../drugs/ResistanceDrugsContainer';
 import ResistanceClassContainer from '../class/ResistanceClassContainer';
 import ResistanceEvidenceContainer from '../evidence/ResistanceEvidenceContainer';
 import ResistanceSpeciesContainer from '../species/ResistanceSpeciesContainer';
+
+import styles from './Resistance.scss';
 
 class Resistance extends React.Component<*> {
   render() {

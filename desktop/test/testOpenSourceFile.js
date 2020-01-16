@@ -6,7 +6,7 @@ import path from 'path';
 import debug from 'debug';
 const d = debug('mykrobe:desktop-test:testOpenSourceFile');
 
-import extensionForFileName from '../../app/modules/desktop/util/extensionForFileName';
+import { extensionForFileName } from '../../app/util';
 
 import { TIMEOUT, delay, EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH } from './util';
 

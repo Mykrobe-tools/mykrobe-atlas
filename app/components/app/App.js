@@ -3,6 +3,12 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { uploadFileDrop } from '../../modules/upload';
+import withAuth, {
+  withAuthPropTypes,
+} from 'makeandship-js-common/src/hoc/withAuth';
 
 import NotificationsContainer from '../notifications/NotificationsContainer';
 import NotificationsStyle from '../notifications/NotificationsStyle';
@@ -38,9 +44,10 @@ class App extends React.Component<*, State> {
   };
 
   render() {
+    const { isAuthenticated, uploadFileDrop } = this.props;
     const { displayMenu } = this.state;
     return (
-      <DragAndDrop className={styles.container}>
+      <DragAndDrop enabled={isAuthenticated} onDrop={uploadFileDrop}>
         <div className={styles.contentContainer}>{this.props.children}</div>
         <div className={styles.menuContainer}>
           <MenuBg displayMenu={displayMenu} toggleMenu={this.toggleMenu} />
@@ -62,7 +69,16 @@ class App extends React.Component<*, State> {
 }
 
 App.propTypes = {
+  ...withAuthPropTypes,
   history: PropTypes.object,
+  uploadFileDrop: PropTypes.func,
 };
 
-export default withRouter(App);
+const withRedux = connect(
+  null,
+  {
+    uploadFileDrop,
+  }
+);
+
+export default withRedux(withAuth(withRouter(App)));

@@ -37,7 +37,7 @@ import {
 } from '../notifications';
 
 import detectFileSeq from './util/detectFileSeq';
-import extensionForFileName from './util/extensionForFileName';
+import { extensionForFileName } from '../../util';
 
 // TODO: refactor - does this need to be an event emitter?
 const _analyserLocalFileChannel = channel();

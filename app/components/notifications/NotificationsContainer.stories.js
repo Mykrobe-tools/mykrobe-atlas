@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
-import ConnectedStorybook from '../../util/ConnectedStorybook';
+import ConnectedStorybook from '../../util/storybook/ConnectedStorybook';
 
 import NotificationsContainer from './NotificationsContainer';
 import NotificationsStyle from './NotificationsStyle';
