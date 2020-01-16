@@ -23,11 +23,16 @@ class DragAndDrop extends React.Component<*, State> {
   };
 
   onDragOver = (e: any) => {
+    const { enabled } = this.props;
     // nb cannot interrogate files properly during dragOver event - have to wait for drop
     e.preventDefault();
-    const { enabled } = this.props;
     if (!enabled || !this.shouldAcceptDropEvent(e)) {
       return false;
+    }
+    try {
+      e.dataTransfer.dropEffect = 'copy';
+    } catch (e) {
+      // ignore error
     }
     this.setState({
       isDragActive: true,
