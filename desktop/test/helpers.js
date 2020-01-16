@@ -40,6 +40,7 @@ const createTestHelpers = (_app: Application) => {
     fs.ensureDirSync(path.dirname(filePath));
 
     // browserWindow.capturePage() is not reliable
+    // _app.client.saveScreenshot(filePath); does not work
     // so we capture screen within browser process
     // in current Electron version, this is async and there is no sync capture method
     // so we wait 1000ms to give time for async capture to finish

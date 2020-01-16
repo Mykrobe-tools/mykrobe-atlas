@@ -71,12 +71,14 @@ class App extends React.Component<*> {
   }
 
   onCapturePage = async filePath => {
-    const currentWindow = require('electron').remote.getCurrentWindow();
-    if (filePath) {
-      const image = await currentWindow.capturePage();
-      fs.writeFileSync(filePath, image.toPNG());
-      console.log('Saved', filePath);
+    if (!filePath) {
+      return;
     }
+    const currentWindow = require('electron').remote.getCurrentWindow();
+    currentWindow.focus();
+    const imageBuffer = await currentWindow.capturePage();
+    fs.writeFileSync(filePath, imageBuffer.toPNG());
+    console.log('Saved', filePath);
   };
 
   render() {
