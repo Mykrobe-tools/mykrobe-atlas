@@ -1,5 +1,9 @@
 /* @flow */
 
+// load process.env from .env file
+require('dotenv').config();
+const DEBUG = process.env.DEBUG_PRODUCTION === '1';
+
 const merge = require('webpack-merge');
 const webpackConfig = require('./webpack.config');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -165,7 +169,7 @@ module.exports = merge(webpackConfig, {
             ecma: 8,
           },
           compress: {
-            drop_console: true,
+            drop_console: !DEBUG,
             ecma: 5,
             warnings: false,
             // Disabled because of an issue with Uglify breaking seemingly valid code:
