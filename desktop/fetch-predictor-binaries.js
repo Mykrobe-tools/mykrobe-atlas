@@ -88,12 +88,14 @@ export const fetchPredictorBinaries = async () => {
     repo: 'mykrobe',
   });
   // use the first release
+  // TODO: modify - iterate releases until one satisifies the expected download
   const release = releases[0];
   d('Using first GitHub release:', JSON.stringify(release, null, 2));
   const tag = release.tag_name;
   d(`Using release tag ${tag}`);
   const expectedPlatformAssets = getExpectedPlatformAssetsForTag(tag);
   d('expectedPlatformAssets', JSON.stringify(expectedPlatformAssets, null, 2));
+  // TODO: fail if we did not find a release with expected assets
   const downloads = getDownloads({ release, expectedPlatformAssets });
   d('downloads', JSON.stringify(downloads, null, 2));
   try {
