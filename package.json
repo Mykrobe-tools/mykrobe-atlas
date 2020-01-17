@@ -6,7 +6,7 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "build-mykrobe-binaries": "babel-node ./desktop/build-mykrobe-binaries.js",
+    "fetch-predictor-binaries": "babel-node ./desktop/fetch-predictor-binaries.js",
     "check:es": "yarn web-build && yarn es-check es5 ./web/build/**/*.js || (echo '\nOne or more build files contains non-es5 code. This is usually caused by a module in the node_modules folder distributing non-transpiled source code. Check recently added or updated modules.' && false)",
     "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js",
     "desktop-build-renderer": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.production.js",
@@ -185,6 +185,7 @@
     "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "inquirer": "^4.0.0",
+    "isomorphic-fetch": "^2.2.1",
     "jest": "^24.5.0",
     "json-loader": "^0.5.4",
     "mini-css-extract-plugin": "^0.4.0",
