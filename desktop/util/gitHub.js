@@ -1,10 +1,13 @@
 /* @flow */
 
+require('isomorphic-fetch');
+
 // load process.env from .env file
 require('dotenv').config();
 const pkg = require('../../package.json');
 
-require('isomorphic-fetch');
+import debug from 'debug';
+const d = debug('mykrobe:desktop-util');
 
 export const GH_TOKEN = process.env.GH_TOKEN;
 
@@ -19,6 +22,7 @@ export const fetchGitHub = async (url: string): any => {
     accept: 'application/vnd.github.v3+json',
     Authorization: `token ${GH_TOKEN}`,
   };
+  d(`GitHub fetching ${url}`);
   const response = await fetch(url, { headers });
   const json = await response.json();
   return json;
