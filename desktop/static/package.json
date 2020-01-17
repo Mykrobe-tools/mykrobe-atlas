@@ -4,5 +4,6 @@
   "productName": "Mykrobe",
   "version": "0.6.1",
   "main": "./main.js",
-  "description": "Mykrobe"
+  "description": "Mykrobe",
+  "executableVersion": "v1.0.6"
 }

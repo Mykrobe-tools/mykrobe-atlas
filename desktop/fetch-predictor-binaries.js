@@ -6,7 +6,22 @@ import tmp from 'tmp';
 import path from 'path';
 import fs from 'fs-extra';
 
+import debug from 'debug';
+const d = debug('mykrobe:desktop-fetch-predictor-binaries');
+
 import { fetchGitHubReleases } from './util/gitHub';
+import { updateStaticPackageJson } from './util';
+
+export const getPlatformAssetsForTag = (tag: string): Array<*> => [
+  {
+    platform: 'darwin-x64',
+    name: `mykrobe.command_line.osx.${tag}.tar.gz`,
+  },
+  {
+    platform: 'win32-x64',
+    name: `mykrobe.command_line.windows.${tag}.tar.gz`,
+  },
+];
 
 (async () => {
   const releases = await fetchGitHubReleases({
@@ -15,44 +30,52 @@ import { fetchGitHubReleases } from './util/gitHub';
   });
   // use the first release
   const release = releases[0];
-  console.log('release', JSON.stringify(release, null, 2));
+  d('GitHub release:', JSON.stringify(release, null, 2));
   const tag = release.tag_name;
-  console.log(`Release tag ${tag}`);
-  const downloadForPlatforms = {};
-  release.assets.forEach(asset => {
-    if (asset.browser_download_url) {
-      // macOS binary? - mykrobe.command_line.osx.v1.0.6.tar.gz
-      if (
-        asset.browser_download_url.includes(
-          `mykrobe.command_line.osx.${tag}.tar.gz`
-        )
-      ) {
-        downloadForPlatforms['darwin-x64'] = {
+  d(`Using release tag ${tag}`);
+  const platformAssetsForTag = getPlatformAssetsForTag(tag);
+  const downloads = [];
+  platformAssetsForTag.forEach(({ platform, name }) => {
+    release.assets.forEach(asset => {
+      if (asset.name === name) {
+        downloads.push({
+          platform,
           url: asset.browser_download_url,
           name: asset.name,
-        };
-      } else if (
-        asset.browser_download_url.includes(
-          `mykrobe.command_line.windows.${tag}.tar.gz`
-        )
-      ) {
-        downloadForPlatforms['win32-x64'] = {
-          url: asset.browser_download_url,
-          name: asset.name,
-        };
+        });
       }
-    }
+    });
   });
-  console.log(
-    'downloadForPlatforms',
-    JSON.stringify(downloadForPlatforms, null, 2)
-  );
+  d('downloads', JSON.stringify(downloads, null, 2));
   const tmpObj = tmp.dirSync({ prefix: 'mykrobe-' });
-  const tmpDir = tmpObj.name;
-  console.log('tmpDir', tmpDir);
-  const asset = downloadForPlatforms['darwin-x64'];
-  await download(asset.url, tmpDir);
-  // decompresses into sub-folder 'mykrobe_atlas'
-  await decompress(path.join(tmpDir, asset.name), tmpDir);
-  // fs.removeSync(tmpDir);
+  const tmpDir = path.join(tmpObj.name, 'desktop');
+  d('tmpDir', tmpDir);
+  for (let i = 0; i < downloads.length; i++) {
+    const { platform, url, name } = downloads[i];
+    const platformTmpDir = path.join(tmpDir, platform);
+    await download(url, platformTmpDir);
+    // decompresses into sub-folder 'mykrobe_atlas'
+    await decompress(path.join(platformTmpDir, name), platformTmpDir);
+    // remove the archive
+    fs.removeSync(path.join(platformTmpDir, name));
+    // rename sub-folder 'mykrobe_atlas' -> 'bin'
+    fs.renameSync(
+      path.join(platformTmpDir, 'mykrobe_atlas'),
+      path.join(platformTmpDir, 'bin')
+    );
+  }
+  // rename old desktop folder
+  const resourcesBinFolder = path.join(__dirname, 'resources', 'bin');
+  if (fs.existsSync(path.join(resourcesBinFolder, 'desktop'))) {
+    fs.renameSync(
+      path.join(resourcesBinFolder, 'desktop'),
+      path.join(resourcesBinFolder, 'desktop.old')
+    );
+  }
+  // move new desktop folder into place
+  fs.renameSync(tmpDir, path.join(resourcesBinFolder, 'desktop'));
+  // delete tmp folder
+  fs.removeSync(tmpDir);
+  // update executable display version
+  updateStaticPackageJson({ executableVersion: tag });
 })();
