@@ -1,5 +1,11 @@
 /* @flow */
 
+import download from 'progress-download';
+import decompress from 'decompress';
+import tmp from 'tmp';
+import path from 'path';
+import fs from 'fs-extra';
+
 import { fetchGitHubReleases } from './util/gitHub';
 
 (async () => {
@@ -21,13 +27,19 @@ import { fetchGitHubReleases } from './util/gitHub';
           `mykrobe.command_line.osx.${tag}.tar.gz`
         )
       ) {
-        downloadForPlatforms['darwin-x64'] = asset.browser_download_url;
+        downloadForPlatforms['darwin-x64'] = {
+          url: asset.browser_download_url,
+          name: asset.name,
+        };
       } else if (
         asset.browser_download_url.includes(
           `mykrobe.command_line.windows.${tag}.tar.gz`
         )
       ) {
-        downloadForPlatforms['win32-x64'] = asset.browser_download_url;
+        downloadForPlatforms['win32-x64'] = {
+          url: asset.browser_download_url,
+          name: asset.name,
+        };
       }
     }
   });
@@ -35,4 +47,12 @@ import { fetchGitHubReleases } from './util/gitHub';
     'downloadForPlatforms',
     JSON.stringify(downloadForPlatforms, null, 2)
   );
+  const tmpObj = tmp.dirSync({ prefix: 'mykrobe-' });
+  const tmpDir = tmpObj.name;
+  console.log('tmpDir', tmpDir);
+  const asset = downloadForPlatforms['darwin-x64'];
+  await download(asset.url, tmpDir);
+  // decompresses into sub-folder 'mykrobe_atlas'
+  await decompress(path.join(tmpDir, asset.name), tmpDir);
+  // fs.removeSync(tmpDir);
 })();
