@@ -1,7 +1,8 @@
 /* @flow */
 
-import { fetchGitHub } from './util/gitHub';
+import { fetchGitHubReleases } from './util/gitHub';
 
 (async () => {
-  await fetchGitHub();
+  const releases = await fetchGitHubReleases();
+  console.log('releases', JSON.stringify(releases, null, 2));
 })();

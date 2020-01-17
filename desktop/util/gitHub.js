@@ -15,37 +15,23 @@ if (!GH_TOKEN) {
 const gitHubConfig = pkg.build.publish;
 const { owner, repo } = gitHubConfig;
 
-export const fetchGitHub = async () => {
-  const url = `https://api.github.com/repos/${gitHubConfig.owner}/${
-    gitHubConfig.repo
-  }/releases`;
+export const fetchGitHub = async (url: string): any => {
   const headers = {
     accept: 'application/vnd.github.v3+json',
     Authorization: `token ${GH_TOKEN}`,
   };
   console.log(JSON.stringify({ url, headers }));
-  // return new Promise((resolve, reject) => {
-  //   request.get(
-  //     {
-  //       url: url,
-  //       json: true,
-  //       headers,
-  //     },
-  //     (err, res, data) => {
-  //       if (err) {
-  //         reject(err);
-  //       } else if (res.statusCode !== 200) {
-  //         reject('Status:', res.statusCode);
-  //       } else {
-  //         // data is already parsed as JSON:
-  //         resolve(data.html_url);
-  //       }
-  //     }
-  //   );
-  // });
   const response = await fetch(url, { headers });
   const json = await response.json();
   console.log('json', JSON.stringify(json, null, 2));
+  return json;
+};
+
+export const fetchGitHubReleases = async (): any => {
+  const url = `https://api.github.com/repos/${gitHubConfig.owner}/${
+    gitHubConfig.repo
+  }/releases`;
+  return await fetchGitHub(url);
 };
 
 //        return await this.githubRequest(`/repos/${this.info.owner}/${this.info.repo}/releases/${release.id}`, this.token, null, "DELETE")
