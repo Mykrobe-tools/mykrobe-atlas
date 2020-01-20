@@ -12,6 +12,7 @@ import {
   EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
   expectCaseInsensitiveEqual,
   beforeAllSlow,
+  TIMEOUT,
 } from '../../../../desktop/test/util';
 
 import { fetchPredictorBinariesIfNotMatch } from '../../../../desktop/fetchPredictorBinaries';
@@ -23,7 +24,7 @@ const GENERATE_JSON_FIXTURES = true;
 
 const exemplarSamplesExpect = require('../../../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
 
-jest.setTimeout(30 * 60 * 1000); // 30 minutes (can take over 10 minutes in VM)
+jest.setTimeout(TIMEOUT);
 
 describe('AnalyserLocalFile', () => {
   it('should contain a test', done => {

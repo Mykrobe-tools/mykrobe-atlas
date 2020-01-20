@@ -38,7 +38,9 @@ class About extends React.Component<*> {
             <a onClick={launchWebsite}>www.mykrobe.com</a>
           </p>
           <p>
-            App version v{version} &middot; Engine version {executableVersion}
+            Predictor version {executableVersion} &middot; Desktop app version v{
+              version
+            }
           </p>
         </div>
       </div>

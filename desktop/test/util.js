@@ -6,13 +6,13 @@ import fs from 'fs-extra';
 
 export const pkg = require('../../package.json');
 
-export const TIMEOUT = 30 * 60 * 1000; // 30 minutes (can take over 10 minutes in VM)
-
 export const delay = (time: number): Promise<*> =>
   new Promise(resolve => setTimeout(resolve, time));
 
 export const INCLUDE_SLOW_TESTS =
   process.env.INCLUDE_SLOW_TESTS && process.env.INCLUDE_SLOW_TESTS === 'true';
+
+export const TIMEOUT = INCLUDE_SLOW_TESTS ? 30 * 60 * 1000 : 5000; // 30 minutes (can take over 10 minutes in VM)
 
 /* eslint-disable no-unused-vars */
 const NOOP = (...args) => {};

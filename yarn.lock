@@ -15303,9 +15303,10 @@ restore-cursor@^2.0.0:
     onetime "^2.0.0"
     signal-exit "^3.0.2"
 
-resumablejs@23/resumable.js:
-  version "1.1.1"
-  resolved "https://codeload.github.com/23/resumable.js/tar.gz/fc76c50db292a3c29a06ae3d77354cf1fbfa53b1"
+resumablejs@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/resumablejs/-/resumablejs-1.1.0.tgz#3160633688ac35bc2a0f119803c190ec369ef4d2"
+  integrity sha512-gUTWTtJ2aheRb5svHDGHMtQsBkGxTILpZApT11ODoxEe5D75GhYL7Nc/WYgCcJXY+5RVmm2BEsp2qriCkKWRRg==
 
 ret@~0.1.10:
   version "0.1.15"

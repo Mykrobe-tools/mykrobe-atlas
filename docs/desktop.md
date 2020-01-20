@@ -8,15 +8,11 @@
 	$ yarn set-target
 	```
 
-2.	[Build Mykrobe binaries](desktop-mykrobe-binaries.md) – The desktop app requires a local executable version of Atlas
-
 ## Run development version
 
 This will launch a local dev server and instance of the app. This has DevTools enabled and supports hot (live) reloading of modified files.
 
-```
-$ yarn desktop-dev
-```
+	$ yarn desktop-dev
 
 After you see `Compiled successfully` in the terminal window, you may reload the view (Menu: View → Reload) in Electron to see the app.
 
@@ -30,10 +26,8 @@ To debug the main process, open Chrome app and visit [chrome://inspect/#devices]
 
 ### Production build for current platform
 
-```
-$ yarn desktop-package
-$ yarn desktop-dist
-```
+	$ yarn desktop-package
+	$ yarn desktop-dist
 
 After build, you will find files in `desktop/dist` folder.
 
