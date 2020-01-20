@@ -6,7 +6,7 @@
   "private": true,
   "main": "main.js",
   "scripts": {
-    "fetch-predictor-binaries": "babel-node ./desktop/fetch-predictor-binaries.js",
+    "fetch-predictor-binaries": "babel-node ./desktop/fetchPredictorBinaries.js",
     "check:es": "yarn web-build && yarn es-check es5 ./web/build/**/*.js || (echo '\nOne or more build files contains non-es5 code. This is usually caused by a module in the node_modules folder distributing non-transpiled source code. Check recently added or updated modules.' && false)",
     "desktop-build-main": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.electron.js",
     "desktop-build-renderer": "cross-env PLATFORM=electron NODE_ENV=production babel-node ./node_modules/webpack/bin/webpack --config desktop/webpack.config.production.js",

@@ -107,8 +107,6 @@ app.on('ready', async () => {
     log.info('Auto updater is disabled');
   }
 
-  // const packageJson = require('./package.json');
-
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,

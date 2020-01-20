@@ -15,6 +15,7 @@ const builder = require('electron-builder');
 const pkg = require('../package.json');
 
 import archPlatArgs from './util/archPlatArgs';
+import { fetchPredictorBinariesIfNotMatch } from './fetchPredictorBinaries';
 
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -64,18 +65,22 @@ const build = (plat, arch) => {
   return builder.build(options);
 };
 
-let builds = [];
+export const dist = async () => {
+  await fetchPredictorBinariesIfNotMatch();
 
-platforms.forEach(plat => {
-  archs.forEach(arch => {
-    builds.push(build(plat, arch));
-  });
-});
+  let builds = [];
 
-Promise.all(builds)
-  .then(() => {
-    d('done');
-  })
-  .catch(error => {
-    console.error(error);
+  platforms.forEach(plat => {
+    archs.forEach(arch => {
+      builds.push(build(plat, arch));
+    });
   });
+
+  await Promise.all(builds);
+
+  d('done');
+};
+
+(async () => {
+  await dist();
+})();

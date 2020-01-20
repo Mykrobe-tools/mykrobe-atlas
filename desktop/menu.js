@@ -4,7 +4,7 @@ import { Menu, shell } from 'electron';
 import type { BrowserWindow } from 'electron';
 
 import { DEBUG, IS_MAC } from './constants';
-const pkg = require('./static/package.json');
+const { productName } = require('./static/package.json');
 
 export const createMenu = (options: any) => {
   const template = getMenuTemplate(options);
@@ -29,10 +29,10 @@ const getMenuTemplate = ({
   if (IS_MAC) {
     return [
       {
-        label: `${pkg.productName}`,
+        label: `${productName}`,
         submenu: [
           {
-            label: `About ${pkg.productName}`,
+            label: `About ${productName}`,
             click() {
               mainWindow.send('menu-about');
             },
@@ -48,7 +48,7 @@ const getMenuTemplate = ({
             type: 'separator',
           },
           {
-            label: `Hide ${pkg.productName}`,
+            label: `Hide ${productName}`,
             accelerator: 'Command+H',
             selector: 'hide:',
           },
@@ -302,7 +302,7 @@ const getMenuTemplate = ({
       label: 'Help',
       submenu: [
         {
-          label: `About ${pkg.productName}`,
+          label: `About ${productName}`,
           click() {
             mainWindow.send('menu-about');
           },

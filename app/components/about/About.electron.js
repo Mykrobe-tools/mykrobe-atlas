@@ -7,7 +7,10 @@ import Logo from '../ui/logo/Logo';
 
 import { launchWebsite } from '../../helpers/UIHelpers'; // eslint-disable-line import/named
 
-const pkg = require('../../../desktop/static/package.json');
+const {
+  version,
+  executableVersion,
+} = require('../../../desktop/static/package.json');
 
 class About extends React.Component<*> {
   back = (e: any) => {
@@ -35,8 +38,7 @@ class About extends React.Component<*> {
             <a onClick={launchWebsite}>www.mykrobe.com</a>
           </p>
           <p>
-            App version v{pkg.version} &middot; Engine version{' '}
-            {pkg.executableVersion}
+            App version v{version} &middot; Engine version {executableVersion}
           </p>
         </div>
       </div>
