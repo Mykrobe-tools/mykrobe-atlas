@@ -6,13 +6,15 @@ import fs from 'fs-extra';
 import { exec } from 'child_process';
 
 import {
-  ensureMykrobeBinaries,
   ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
   EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
   EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
   expectCaseInsensitiveEqual,
+  beforeAllSlow,
 } from '../../../../desktop/test/util';
+
+import { fetchPredictorBinariesIfNotMatch } from '../../../../desktop/fetchPredictorBinaries';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
 import detectFileSeq from './detectFileSeq';
@@ -29,13 +31,14 @@ describe('AnalyserLocalFile', () => {
   });
 });
 
-if (INCLUDE_SLOW_TESTS) {
-  ensureMykrobeBinaries();
-  ensureExemplarSamples();
-}
-// TODO: this affects where the analyser looks for the mykrobe executable - should use a more explicit flag
+beforeAllSlow(async () => {
+  await fetchPredictorBinariesIfNotMatch();
+  await ensureExemplarSamples();
+});
 
 beforeEach(() => {
+  // TODO: this affects where the analyser looks for the mykrobe executable - should use a more explicit flag
+
   process.env.NODE_ENV = 'development';
 });
 
