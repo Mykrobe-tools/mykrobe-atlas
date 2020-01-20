@@ -1,12 +1,35 @@
-# Mykrobe Desktop
+# Mykrobe Desktop Release
+
+This process will need to be followed on each platform - Mac, Windows.
+
+The build and publish process fetches latest Predictor binaries from, and publishes to the repo specified by `build.publish` in `package.json`, e.g.
+
+```
+"build": {
+	"publish": {
+		"owner": "Mykrobe-tools",
+		"repo": "mykrobe"
+	},
+}
+```
+
+Publishes to the releases page here: https://github.com/Mykrobe-tools/mykrobe/releases
+
+It will use a release tag from the version specified in `package.json`, e.g.
+
+```
+"version": "1.0.7",
+```
+
+Will publish against a release with tag `v1.0.7` or create a new draft if one does not exist.
+
+Using these version tags, the desktop app checks for updates automatically on launch and downloads them silently. The user is notified once a new version is ready to install.
 
 ## Setup
 
-1. Set up [Environment variables](docs/dotenv.md)
+* Set up [Environment variables](docs/dotenv.md)
 
 ## Release a new version
-
-This process will need to be followed on each platform - Mac, Windows. The desktop app checks for updates automatically on launch and downloads them silently. The user is notified once a new version is ready to install.
 
 1. Set the desired target – [About targets](targets.md)
 
@@ -32,7 +55,7 @@ This process will need to be followed on each platform - Mac, Windows. The deskt
 	$ yarn test
 	```
 
-4. If the tests pass, publish a draft release to the repo specified by `build.publish` in `package.json`
+4. If the tests pass, publish a draft release.
 
 	```
 	$ yarn desktop-package
