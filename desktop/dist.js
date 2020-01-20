@@ -2,6 +2,9 @@
 
 // https://github.com/electron-userland/electron-builder
 
+// load process.env from .env file (to set process.env.GH_TOKEN)
+require('dotenv').config();
+
 import path from 'path';
 import produce from 'immer';
 import debug from 'debug';

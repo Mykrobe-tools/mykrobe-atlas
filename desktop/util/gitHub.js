@@ -2,7 +2,7 @@
 
 require('isomorphic-fetch');
 
-// load process.env from .env file
+// load process.env from .env file (to set process.env.GH_TOKEN)
 require('dotenv').config();
 const pkg = require('../../package.json');
 
