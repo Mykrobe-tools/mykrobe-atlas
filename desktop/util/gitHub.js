@@ -15,7 +15,7 @@ if (!GH_TOKEN) {
   throw `GitHub Personal Access Token is not set using env or dotenv "GH_TOKEN"`;
 }
 
-const defaultGitHubConfig = pkg.build.publish;
+export const gitHubPublishConfig = pkg.build.publish;
 
 export const fetchGitHub = async (url: string): any => {
   const headers = {
@@ -29,7 +29,7 @@ export const fetchGitHub = async (url: string): any => {
 };
 
 export const fetchGitHubReleases = async (
-  config: any = defaultGitHubConfig
+  config: any = gitHubPublishConfig
 ): any => {
   const { owner, repo } = config;
   const url = `https://api.github.com/repos/${owner}/${repo}/releases`;

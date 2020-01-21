@@ -5,7 +5,11 @@ import os from 'os';
 import path from 'path';
 import fs from 'fs-extra';
 
-export { fetchGitHubReleases, fetchGitHub } from './gitHub';
+export {
+  fetchGitHubReleases,
+  fetchGitHub,
+  gitHubPublishConfig,
+} from './gitHub';
 
 import debug from 'debug';
 const d = debug('mykrobe:desktop-util');

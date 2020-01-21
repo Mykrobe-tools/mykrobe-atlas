@@ -2,7 +2,7 @@
 
 This process will need to be followed on each platform - Mac, Windows.
 
-The build and publish process fetches latest Predictor binaries from, and publishes to the repo specified by `build.publish` in `package.json`, e.g.
+The build and publish process fetches latest Predictor binaries from, and publishes to, the repo specified by `build.publish` in `package.json`, e.g.
 
 ```
 "build": {
@@ -13,7 +13,7 @@ The build and publish process fetches latest Predictor binaries from, and publis
 }
 ```
 
-Publishes to the releases page here: https://github.com/Mykrobe-tools/mykrobe/releases
+publishes to the releases page here: https://github.com/Mykrobe-tools/mykrobe/releases
 
 It will use a release tag from the version specified in `package.json`, e.g.
 
