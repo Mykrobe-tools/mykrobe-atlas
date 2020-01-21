@@ -2,6 +2,9 @@
 
 // https://github.com/electron-userland/electron-builder
 
+// load process.env from .env file (to set process.env.GH_TOKEN)
+require('dotenv').config();
+
 import path from 'path';
 import produce from 'immer';
 import debug from 'debug';
@@ -12,6 +15,7 @@ const builder = require('electron-builder');
 const pkg = require('../package.json');
 
 import archPlatArgs from './util/archPlatArgs';
+import { fetchPredictorBinariesIfChanged } from './fetchPredictorBinaries';
 
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -61,18 +65,27 @@ const build = (plat, arch) => {
   return builder.build(options);
 };
 
-let builds = [];
+export const dist = async () => {
+  await fetchPredictorBinariesIfChanged();
 
-platforms.forEach(plat => {
-  archs.forEach(arch => {
-    builds.push(build(plat, arch));
-  });
-});
+  let builds = [];
 
-Promise.all(builds)
-  .then(() => {
-    d('done');
-  })
-  .catch(error => {
-    console.error(error);
+  platforms.forEach(plat => {
+    archs.forEach(arch => {
+      builds.push(build(plat, arch));
+    });
   });
+
+  await Promise.all(builds);
+
+  d('Done');
+};
+
+(async () => {
+  try {
+    await dist();
+  } catch (e) {
+    d(e);
+    d('Failed');
+  }
+})();

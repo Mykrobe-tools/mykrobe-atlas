@@ -4,18 +4,15 @@ import os from 'os';
 import path from 'path';
 import fs from 'fs-extra';
 
-import debug from 'debug';
-const d = debug('mykrobe:desktop-test:util');
-
 export const pkg = require('../../package.json');
-
-export const TIMEOUT = 30 * 60 * 1000; // 30 minutes (can take over 10 minutes in VM)
 
 export const delay = (time: number): Promise<*> =>
   new Promise(resolve => setTimeout(resolve, time));
 
 export const INCLUDE_SLOW_TESTS =
   process.env.INCLUDE_SLOW_TESTS && process.env.INCLUDE_SLOW_TESTS === 'true';
+
+export const TIMEOUT = INCLUDE_SLOW_TESTS ? 30 * 60 * 1000 : 5000; // 30 minutes (can take over 10 minutes in VM)
 
 /* eslint-disable no-unused-vars */
 const NOOP = (...args) => {};
@@ -66,23 +63,6 @@ export const ensureExemplarSamples = () => {
   fs.ensureDirSync(EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH);
 };
 
-export const ensureMykrobeBinaries = () => {
-  const binFolder = path.join(
-    __dirname,
-    `../resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
-  );
-  const executableName =
-    plat === 'win32' ? 'mykrobe_atlas.exe' : 'mykrobe_atlas';
-  const executablePath = path.join(binFolder, executableName);
-  d(`Checking for existence of '${executablePath}'`);
-  const exists = fs.existsSync(executablePath);
-
-  // check for existence of binary and bail with error
-  if (!exists) {
-    throw `No executable found at '${executablePath}' - Please run 'yarn build-mykrobe-binaries' before running this test`;
-  }
-};
-
 export const asLowerCase = (o: any) => {
   if (typeof o === 'string') {
     return o.toLowerCase();
@@ -93,6 +73,6 @@ export const asLowerCase = (o: any) => {
   return o;
 };
 
-export const expectCaseInsensitiveEqual = (a, b) => {
+export const expectCaseInsensitiveEqual = (a: string, b: string) => {
   expect(asLowerCase(a)).toEqual(asLowerCase(b));
 };

@@ -19,11 +19,11 @@ import {
   describeSlowTest,
   beforeAllSlow,
   afterAllSlow,
-  ensureMykrobeBinaries,
   ensureExemplarSamples,
   ELECTRON_EXECUTABLE_PATH,
-  INCLUDE_SLOW_TESTS,
 } from './util';
+
+import { fetchPredictorBinariesIfChanged } from '../fetchPredictorBinaries';
 
 import createTestHelpers from './helpers';
 
@@ -47,11 +47,6 @@ if (process.env.DEBUG_PRODUCTION === '1') {
   throw 'process.env.DEBUG_PRODUCTION should be falsy when running index.desktop.e2e.test.js';
 }
 
-if (INCLUDE_SLOW_TESTS) {
-  ensureMykrobeBinaries();
-  ensureExemplarSamples();
-}
-
 // this step is very slow - compiles desktop app and creates distribution images
 // comment out while adjusting only tests
 
@@ -73,6 +68,8 @@ describeSlowTest('Desktop e2e main window', function spec() {
   // these run even if test is excluded: https://github.com/facebook/jest/issues/4166
 
   beforeAllSlow(async () => {
+    await fetchPredictorBinariesIfChanged();
+    await ensureExemplarSamples();
     _app = new Application({
       path: ELECTRON_EXECUTABLE_PATH,
     });

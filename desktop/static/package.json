@@ -2,8 +2,8 @@
   "targetName": "desktop",
   "name": "mykrobe",
   "productName": "Mykrobe",
-  "version": "0.6.1",
+  "version": "1.0.7",
   "main": "./main.js",
   "description": "Mykrobe",
-  "executableVersion": "v0.5.6-0-gbd7923a-dirty"
+  "executableVersion": "v1.0.7"
 }

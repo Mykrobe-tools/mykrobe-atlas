@@ -6,13 +6,16 @@ import fs from 'fs-extra';
 import { exec } from 'child_process';
 
 import {
-  ensureMykrobeBinaries,
   ensureExemplarSamples,
   INCLUDE_SLOW_TESTS,
   EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH,
   EXEMPLAR_SEQUENCE_DATA_ARTEFACT_JSON_FOLDER_PATH,
   expectCaseInsensitiveEqual,
+  beforeAllSlow,
+  TIMEOUT,
 } from '../../../../desktop/test/util';
+
+import { fetchPredictorBinariesIfChanged } from '../../../../desktop/fetchPredictorBinaries';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
 import detectFileSeq from './detectFileSeq';
@@ -21,7 +24,7 @@ const GENERATE_JSON_FIXTURES = true;
 
 const exemplarSamplesExpect = require('../../../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
 
-jest.setTimeout(30 * 60 * 1000); // 30 minutes (can take over 10 minutes in VM)
+jest.setTimeout(TIMEOUT);
 
 describe('AnalyserLocalFile', () => {
   it('should contain a test', done => {
@@ -29,13 +32,14 @@ describe('AnalyserLocalFile', () => {
   });
 });
 
-if (INCLUDE_SLOW_TESTS) {
-  ensureMykrobeBinaries();
-  ensureExemplarSamples();
-}
-// TODO: this affects where the analyser looks for the mykrobe executable - should use a more explicit flag
+beforeAllSlow(async () => {
+  await fetchPredictorBinariesIfChanged();
+  await ensureExemplarSamples();
+});
 
 beforeEach(() => {
+  // TODO: this affects where the analyser looks for the mykrobe executable - should use a more explicit flag
+
   process.env.NODE_ENV = 'development';
 });
 

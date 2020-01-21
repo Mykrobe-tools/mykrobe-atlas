@@ -59,12 +59,3 @@ export const pathToBin = () => {
   console.log('pathToBin', pathToBin);
   return pathToBin;
 };
-
-export const pathToMccortex = () => {
-  const pathToMccortex = path.join(
-    dirToBin(),
-    isWindows ? 'mccortex31.exe' : 'mccortex31'
-  );
-  console.log('pathToMccortex', pathToMccortex);
-  return pathToMccortex;
-};

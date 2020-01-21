@@ -1,6 +1,6 @@
 # Mykrobe Atlas
 
-[Web](docs/web.md) and [Desktop](docs/desktop.md) client for Mykrobe Atlas.
+[Web](docs/web.md) and [Desktop](docs/desktop.md) client for Mykrobe Predictor and Atlas.
 
 ## Install
 
@@ -8,7 +8,6 @@
 
 	```
 	$ brew install yarn
-	$ brew install flow
 	```
 
 - If using `nvm`, set the Node version
@@ -23,7 +22,7 @@
 	$ yarn
 	```
 
-- Set environment varaibles
+- Placeholder [environment variables](docs/dotenv.md)
 
 	```
 	$ cp .env.example .env
@@ -32,6 +31,7 @@
 ## See next
 
 - [Web version](docs/web.md)
+- [Environment variables](docs/dotenv.md)
 - [Desktop version](docs/desktop.md)
 - [Desktop release](docs/desktop-release.md)
 - [Run tests](docs/testing.md)
@@ -39,9 +39,3 @@
 ## Further reading
 
 - [About targets](docs/targets.md)
-- [Coding standards](docs/coding-standards.md)
-- [Dependencies](docs/dependencies.md)
-
-## Licenses
-
-The build process is modified from [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate), MIT © [C. T. Lin](https://github.com/chentsulin)

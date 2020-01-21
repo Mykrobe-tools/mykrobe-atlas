@@ -11,7 +11,7 @@ import { isString } from 'makeandship-js-common/src/util/is';
 import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransformer';
 import * as APIConstants from '../../../constants/APIConstants';
 
-import { pathToBin, pathToMccortex, validateTarget } from './pathToBin';
+import { pathToBin, validateTarget } from './pathToBin';
 import { extensionForFileName } from '../../../util';
 import isAnalyserError from './isAnalyserError';
 
@@ -21,8 +21,6 @@ const DEBUG =
 
 const tmp = require('tmp');
 const app = require('electron').remote.app;
-
-// TODO - refactor into action-based Saga
 
 class AnalyserLocalFile extends EventEmitter {
   jsonBuffer: string;
@@ -138,7 +136,6 @@ class AnalyserLocalFile extends EventEmitter {
     sampleName = sampleName.replace(/\s+/g, '-');
 
     const pathToBinValue = pathToBin();
-    const pathToMccortexValue = pathToMccortex();
 
     // FIXME: if we don't use --force, occasionally get error - some files cached??
 
@@ -153,8 +150,6 @@ class AnalyserLocalFile extends EventEmitter {
       tmpDir,
       '--skeleton_dir',
       skeletonDir,
-      '--mccortex31_path',
-      pathToMccortexValue,
       '--format',
       'json',
       '--guess_sequence_method',
