@@ -17,6 +17,9 @@ const experimentsFilters = {
   q: '',
 };
 
+const setExperimentsFilters = value =>
+  console.log('setExperimentsFilters', value);
+
 const experimentsSearchDescription = 'Search storybook';
 
 const variations = {
@@ -31,17 +34,20 @@ const variations = {
       name: 'JsonApiError',
       message: '0 - Request timeout',
     },
+    setExperimentsFilters,
   },
   empty: {
     experiments,
     experimentsFilters,
     experimentsSearchDescription,
+    setExperimentsFilters,
   },
   pending: {
     experiments,
     experimentsFilters,
     experimentsSearchDescription,
     experimentsIsPending: true,
+    setExperimentsFilters,
   },
 };
 

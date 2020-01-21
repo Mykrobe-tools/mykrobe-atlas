@@ -41,8 +41,8 @@ class ResistanceSpecies extends React.Component<*> {
 }
 
 ResistanceSpecies.propTypes = {
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
+  experiment: PropTypes.object,
+  experimentTransformed: PropTypes.object,
 };
 
 export default ResistanceSpecies;

@@ -10,7 +10,7 @@ import {
 } from 'makeandship-js-common/src/components/ui/form';
 import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
-import HeaderContainer from '../header/HeaderContainer';
+import HeaderContainer from '../ui/header/HeaderContainer';
 import styles from './Common.scss';
 
 const SignupSuccess = () => (

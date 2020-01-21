@@ -64,8 +64,8 @@ class ResistanceEvidence extends React.Component<*> {
 }
 
 ResistanceEvidence.propTypes = {
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
+  experiment: PropTypes.object,
+  experimentTransformed: PropTypes.object,
 };
 
 export default ResistanceEvidence;

@@ -4,6 +4,14 @@
   font-family: 'Minion-Regular', serif;
 }
 
+.fontSizeExtraExtraExtraLarge {
+  font-size: 72px;
+}
+
+.fontSizeExtraExtraLarge {
+  font-size: 48px;
+}
+
 .fontSizeExtraLarge {
   font-size: 36px;
 }
@@ -33,10 +41,19 @@
   font-size: 14px;
 }
 
-.titleExtraLarge {
+.title {
   composes: font;
-  composes: fontSizeExtraLarge;
   color: $color-tint-primary;
+}
+
+.titleLarge {
+  composes: title;
+  composes: fontSizeLarge;
+}
+
+.titleExtraLarge {
+  composes: title;
+  composes: fontSizeExtraLarge;
 }
 
 .subtitle {

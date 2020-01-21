@@ -1,20 +1,20 @@
 /* @flow */
 
 import { put } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
 import { showNotification } from '../notifications';
 
+export const typePrefix = 'organisations/organisation/';
+
 const module = createEntityModule('organisation', {
-  typePrefix: 'organisations/organisation/',
+  typePrefix,
   getState: state => state.organisations.organisation,
   create: {
     operationId: 'organisationsCreate',
     onSuccess: function*() {
       yield put(showNotification('Organisation created'));
-      yield put(push(`/organisations`));
     },
   },
   request: {
@@ -24,43 +24,47 @@ const module = createEntityModule('organisation', {
     operationId: 'organisationsUpdateById',
     onSuccess: function*() {
       yield put(showNotification('Organisation saved'));
-      yield put(push(`/organisations`));
     },
   },
   delete: {
     operationId: 'organisationsDeleteById',
     onSuccess: function*() {
       yield put(showNotification('Organisation deleted'));
-      yield put(push('/organisations'));
     },
   },
 });
 
 const {
   reducer,
-  actionTypes,
+  actionTypes: organisationActionTypes,
   actions: {
-    newEntity,
-    createEntity,
-    requestEntity,
-    updateEntity,
-    deleteEntity,
+    newEntity: newOrganisation,
+    createEntity: createOrganisation,
+    requestEntity: requestOrganisation,
+    updateEntity: updateOrganisation,
+    deleteEntity: deleteOrganisation,
+    setEntity: setOrganisation,
   },
-  selectors: { getEntity, getError, getIsFetching },
-  sagas: { entitySaga },
+  selectors: {
+    getEntity: getOrganisation,
+    getError: getOrganisationError,
+    getIsFetching: getOrganisationIsFetching,
+  },
+  sagas: { entitySaga: organisationSaga },
 } = module;
 
 export {
-  actionTypes as organisationActionTypes,
-  newEntity as newOrganisation,
-  createEntity as createOrganisation,
-  requestEntity as requestOrganisation,
-  updateEntity as updateOrganisation,
-  deleteEntity as deleteOrganisation,
-  getEntity as getOrganisation,
-  getError,
-  getIsFetching,
-  entitySaga as organisationSaga,
+  organisationActionTypes,
+  newOrganisation,
+  createOrganisation,
+  requestOrganisation,
+  updateOrganisation,
+  deleteOrganisation,
+  setOrganisation,
+  getOrganisation,
+  getOrganisationError,
+  getOrganisationIsFetching,
+  organisationSaga,
 };
 
 export default reducer;

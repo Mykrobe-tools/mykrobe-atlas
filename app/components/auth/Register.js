@@ -17,7 +17,7 @@ import withAuth, {
 } from 'makeandship-js-common/src/hoc/withAuth';
 
 import { signupSchema } from '../../schemas/auth';
-import HeaderContainer from '../header/HeaderContainer';
+import HeaderContainer from '../ui/header/HeaderContainer';
 import styles from './Common.scss';
 
 const uiSchema = {

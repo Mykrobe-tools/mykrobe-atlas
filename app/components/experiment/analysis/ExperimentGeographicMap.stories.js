@@ -58,12 +58,14 @@ const variations = {
     setExperimentsHighlighted,
     resetExperimentsHighlighted,
     experiments: [experiment],
+    experimentsWithGeolocation: [experiment],
     experimentsHighlighted: [experiment],
   },
   cluster: {
     setExperimentsHighlighted,
     resetExperimentsHighlighted,
     experiments: [experiment, experiment2, experiment3],
+    experimentsWithGeolocation: [experiment, experiment2, experiment3],
     experimentsHighlighted: [experiment2, experiment3],
   },
 };

@@ -1,0 +1,29 @@
+@import '~styles/colors.global';
+@import '~styles/use-bootstrap.global';
+
+.container {
+  background-color: $color-panel-light;
+  box-shadow: inset 0 -1px 0 0 $border-color;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigationItem {
+  composes: fontSecondary from 'styles/typography.scss';
+  composes: fontSecondarySizeNormal from 'styles/typography.scss';
+  padding: 1.25rem 1rem 1rem 1rem;
+  text-transform: uppercase;
+  color: $color-text;
+  border-bottom: 0.25rem solid transparent;
+  line-height: 1;
+}
+
+.navigationItemActive {
+  composes: navigationItem;
+  color: $color-tint-primary;
+  border-bottom-color: $color-tint-primary;
+}

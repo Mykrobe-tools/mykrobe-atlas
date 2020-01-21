@@ -46,13 +46,21 @@ class NotificationsButton extends React.Component<*> {
             <span>{hasNotifications ? 'Recent' : 'No notifications'}</span>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink tag={ReactRouterNavLink} to="/notifications">
+                <NavLink
+                  tag={ReactRouterNavLink}
+                  to="/notifications"
+                  className="text-nowrap"
+                >
                   <i className="fa fa-chevron-circle-right" /> History
                 </NavLink>
               </NavItem>
               {hasNotifications && (
                 <NavItem>
-                  <NavLink href="#" onClick={this.onClearClick}>
+                  <NavLink
+                    href="#"
+                    onClick={this.onClearClick}
+                    className="text-nowrap"
+                  >
                     <i className="fa fa-times-circle" /> Clear
                   </NavLink>
                 </NavItem>

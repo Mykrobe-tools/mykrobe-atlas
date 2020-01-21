@@ -3,7 +3,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash.get';
-import moment from 'moment';
+import * as dateFns from 'date-fns';
+
+import { formatDate } from 'makeandship-js-common/src/util/date';
 
 import ExperimentsList from '../../ui/ExperimentsList';
 
@@ -19,7 +21,7 @@ class SummaryMetadata extends React.Component<*> {
     const isolateId = _get(metadata, 'sample.isolateId') || 'No isolate Id';
     let collectionDate = _get(metadata, 'sample.collectionDate');
     collectionDate = collectionDate
-      ? moment(collectionDate).format('LLL')
+      ? formatDate(dateFns.parseISO(collectionDate))
       : '–';
     const countryIsolate = _get(metadata, 'sample.countryIsolate') || '–';
     const cityIsolate = _get(metadata, 'sample.cityIsolate') || '–';
@@ -77,8 +79,8 @@ class SummaryMetadata extends React.Component<*> {
 }
 
 SummaryMetadata.propTypes = {
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
+  experiment: PropTypes.object,
+  experimentTransformed: PropTypes.object,
   experimentNearestNeigbours: PropTypes.array,
 };
 

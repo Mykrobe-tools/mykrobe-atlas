@@ -2,19 +2,21 @@
 
 import * as APIConstants from '../constants/APIConstants';
 
-export function openFileDialog() {
+export function openFileDialog(
+  filters: Array<any> = [
+    {
+      name: 'Extensions',
+      extensions: APIConstants.API_SAMPLE_EXTENSIONS_ARRAY,
+    },
+  ]
+) {
   const { dialog, BrowserWindow } = require('electron').remote;
   const browserWindow = BrowserWindow.getFocusedWindow();
 
   const files = dialog.showOpenDialogSync(browserWindow, {
     title: 'Open',
     properties: ['openFile', 'multiSelections'],
-    filters: [
-      {
-        name: 'Extensions',
-        extensions: APIConstants.API_SAMPLE_EXTENSIONS_ARRAY,
-      },
-    ],
+    filters,
   });
 
   if (files && files.length) {
@@ -24,13 +26,22 @@ export function openFileDialog() {
   return false;
 }
 
-export function saveFileDialog(defaultPath: string = 'mykrobe.json') {
+export function saveFileDialog(
+  defaultPath: string = 'mykrobe',
+  filters: Array<any> = [
+    {
+      name: 'JSON',
+      extensions: ['json'],
+    },
+  ]
+) {
   const { dialog, BrowserWindow } = require('electron').remote;
   const browserWindow = BrowserWindow.getFocusedWindow();
 
   const filePath = dialog.showSaveDialogSync(browserWindow, {
     title: 'Save',
     defaultPath,
+    filters,
   });
 
   return filePath || false;
