@@ -22,7 +22,7 @@ class Uploading extends React.Component<*> {
 }
 
 Uploading.propTypes = {
-  sectionName: PropTypes.string.isRequired,
+  sectionName: PropTypes.string,
 };
 
 export default Uploading;

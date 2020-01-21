@@ -8,7 +8,8 @@ import { withRouter, Link } from 'react-router-dom';
 import styles from './ExperimentsList.scss';
 
 const ExperimentsList = ({ experiments }) =>
-  experiments.map(({ id, distance, metadata }) => {
+  experiments &&
+  experiments.map(({ id, distance, metadata }, index) => {
     const isolateId = _get(metadata, 'sample.isolateId') || 'No isolate Id';
     const countryIsolate = _get(metadata, 'sample.countryIsolate');
     // const cityIsolate = _get(metadata, 'sample.cityIsolate') || '–';
@@ -16,7 +17,7 @@ const ExperimentsList = ({ experiments }) =>
     distance && elements.push(`${distance} SNPs`);
     countryIsolate && elements.push(countryIsolate);
     return (
-      <div className={styles.experiment} key={id}>
+      <div className={styles.experiment} key={index}>
         <Link to={`/experiments/${id}/analysis`}>
           <i className="fa fa-chevron-circle-right" /> {elements.join(` · `)}
         </Link>

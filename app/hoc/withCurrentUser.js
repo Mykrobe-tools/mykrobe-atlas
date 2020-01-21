@@ -35,14 +35,14 @@ const withCurrentUser = connect(
 
 export const withCurrentUserPropTypes = {
   currentUser: PropTypes.any,
-  currentUserIsFetching: PropTypes.bool.isRequired,
+  currentUserIsFetching: PropTypes.bool,
   currentUserError: PropTypes.any,
-  createCurrentUserAvatar: PropTypes.func.isRequired,
-  deleteCurrentUser: PropTypes.func.isRequired,
-  deleteCurrentUserAvatar: PropTypes.func.isRequired,
-  requestCurrentUser: PropTypes.func.isRequired,
-  updateCurrentUser: PropTypes.func.isRequired,
-  updateCurrentUserAvatar: PropTypes.func.isRequired,
+  createCurrentUserAvatar: PropTypes.func,
+  deleteCurrentUser: PropTypes.func,
+  deleteCurrentUserAvatar: PropTypes.func,
+  requestCurrentUser: PropTypes.func,
+  updateCurrentUser: PropTypes.func,
+  updateCurrentUserAvatar: PropTypes.func,
 };
 
 export default withCurrentUser;

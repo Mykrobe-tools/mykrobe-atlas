@@ -138,7 +138,15 @@ export const analyseFileSetFilePaths = (payload: string) => ({
 
 // Reducer
 
-const initialState = {
+export type State = {
+  isAnalysing: boolean,
+  filePaths: any,
+  error: Error | null,
+  progress: number,
+  json: any,
+};
+
+const initialState: State = {
   isAnalysing: false,
   filePaths: null,
   error: null,
@@ -319,7 +327,7 @@ function* analyseFileSaveWatcher() {
 
 export function* analyseFileSaveWorker(): Saga {
   const json = yield select(getJson);
-  const filePath = UIHelpers.saveFileDialog('mykrobe.json'); // eslint-disable-line import/namespace
+  const filePath = UIHelpers.saveFileDialog('mykrobe'); // eslint-disable-line import/namespace
   if (filePath) {
     const prettyJson = JSON.stringify(json, null, 2);
     fs.writeFile(filePath, prettyJson, err => {

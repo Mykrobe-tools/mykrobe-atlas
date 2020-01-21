@@ -2,6 +2,12 @@
 
 import { createCollectionModule } from 'makeandship-js-common/src/modules/generic';
 import { getOrganisationsFiltersSaga } from './organisationsFilters';
+import { createSelector } from 'reselect';
+import produce from 'immer';
+
+import { getCurrentUser } from '../../modules/users/currentUser';
+
+import { organisationUserStatus } from './organisationMembers';
 
 const collectionName = 'organisations';
 
@@ -13,19 +19,43 @@ const module = createCollectionModule(collectionName, {
 
 const {
   reducer,
-  actionTypes,
-  actions: { requestCollection },
-  selectors: { getCollection, getError, getIsFetching },
-  sagas: { collectionSaga },
+  actionTypes: organisationsActionTypes,
+  actions: { requestCollection: requestOrganisations },
+  selectors: {
+    getCollection: getOrganisations,
+    getError: getOrganisationsError,
+    getIsFetching: getOrganisationsIsFetching,
+  },
+  sagas: { collectionSaga: organisationsSaga },
 } = module;
 
+// Membership
+
+// selectors
+
+export const getOrganisationsWithCurrentUserStatus = createSelector(
+  getOrganisations,
+  getCurrentUser,
+  (organisations, currentUser) => {
+    return produce(organisations, draft => {
+      draft.forEach(organisation => {
+        const currentUserStatus = organisationUserStatus(
+          organisation,
+          currentUser
+        );
+        organisation.currentUserStatus = currentUserStatus;
+      });
+    });
+  }
+);
+
 export {
-  actionTypes as organisationsActionTypes,
-  requestCollection as requestOrganisations,
-  getCollection as getOrganisations,
-  getError,
-  getIsFetching,
-  collectionSaga as organisationsSaga,
+  organisationsActionTypes,
+  requestOrganisations,
+  getOrganisations,
+  getOrganisationsError,
+  getOrganisationsIsFetching,
+  organisationsSaga,
 };
 
 export default reducer;

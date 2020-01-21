@@ -13,6 +13,7 @@ import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
 import ExperimentsList from '../../ui/ExperimentsList';
+import Empty from '../../ui/Empty';
 
 import MapStyle from './MapStyle';
 
@@ -350,15 +351,32 @@ class ExperimentGeographicMap extends React.Component<*, State> {
   render() {
     const {
       experimentsHighlightedWithGeolocation,
+      experimentsWithGeolocation,
       experimentsWithoutGeolocation,
+      experimentIsolateId,
     } = this.props;
     const { experimentsTooltipLocation } = this.state;
+    const hasExperimentsWithGeolocation = !!(
+      experimentsWithGeolocation && experimentsWithGeolocation.length
+    );
     const hasExperimentsWithoutGeolocation = !!(
       experimentsWithoutGeolocation && experimentsWithoutGeolocation.length
     );
     return (
       <div className={styles.mapContainer}>
-        <div ref={this.setMapRef} className={styles.map} />
+        {hasExperimentsWithGeolocation ? (
+          <div ref={this.setMapRef} className={styles.map} />
+        ) : (
+          <Empty
+            icon={'globe'}
+            title={'No geolocation'}
+            subtitle={
+              experimentsWithoutGeolocation.length > 1
+                ? `No geolocation data for ${experimentIsolateId} or any of its nearest neighbours`
+                : `No geolocation data for ${experimentIsolateId}`
+            }
+          />
+        )}
         {hasExperimentsWithoutGeolocation && (
           <div className={styles.controlsContainerTop}>
             <UncontrolledDropdown>
@@ -376,17 +394,19 @@ class ExperimentGeographicMap extends React.Component<*, State> {
             </UncontrolledDropdown>
           </div>
         )}
-        <div className={styles.controlsContainerBottomLeft}>
-          <IconButton
-            size="sm"
-            icon="search"
-            onClick={this.zoomToMarkers}
-            outline
-            color="mid"
-          >
-            Zoom to fit
-          </IconButton>
-        </div>
+        {hasExperimentsWithGeolocation && (
+          <div className={styles.controlsContainerBottomLeft}>
+            <IconButton
+              size="sm"
+              icon="search"
+              onClick={this.zoomToMarkers}
+              outline
+              color="mid"
+            >
+              Zoom to fit
+            </IconButton>
+          </div>
+        )}
         <ExperimentsTooltip
           experiments={experimentsHighlightedWithGeolocation}
           x={experimentsTooltipLocation.x}

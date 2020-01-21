@@ -8,7 +8,9 @@ import { isString, isArray } from 'makeandship-js-common/src/util/is';
 
 const productName = require('../../../package.json').productName;
 
-const AppDocumentTitle = ({ title }) => {
+const AppDocumentTitle = ({
+  title,
+}: React.ElementProps<*>): React.Element<*> => {
   if (isString(title) && title.length > 0) {
     title = [title];
   } else if (!isArray(title)) {

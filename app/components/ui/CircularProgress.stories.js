@@ -3,9 +3,12 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 
+import FillContainerStorybook from '../../util/FillContainerStorybook';
+
 import CircularProgress from './CircularProgress';
 
 storiesOf('CircularProgress', module)
+  .addDecorator(story => <FillContainerStorybook story={story()} />)
   .add('0%', () => <CircularProgress percentage={0} />)
   .add('10%', () => <CircularProgress percentage={10} />)
   .add('20%', () => <CircularProgress percentage={20} />)

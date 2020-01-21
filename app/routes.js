@@ -4,8 +4,8 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import ExperimentsRoutes from './components/experiments/ExperimentsRoutes';
-import HomePage from './containers/HomePage';
-import App from './containers/App';
+import UploadContainer from './components/upload/UploadContainer';
+import App from './components/app/App';
 import OrganisationsRoutes from './components/organisations/OrganisationsRoutes';
 import AuthRoutes from './components/auth/AuthRoutes';
 import UsersRoutes from './components/users/UsersRoutes';
@@ -17,8 +17,8 @@ import {
   // withUserIsAuthenticatedRedirect,
 } from 'makeandship-js-common/src/modules/auth/withBrowserRedirect';
 
-// const AuthenticatedHome = withUserIsAuthenticatedRedirect(
-//   HomePage,
+// const AuthenticatedUploadContainer = withUserIsAuthenticatedRedirect(
+//   UploadContainer,
 //   '/experiments'
 // );
 const AuthenticatedExperimentsRoutes = withUserIsNotAuthenticatedRedirect(
@@ -37,7 +37,7 @@ const AuthenticatedNotificationsPage = withUserIsNotAuthenticatedRedirect(
 export default (
   <App>
     <Switch>
-      <Route exact path="/" component={HomePage} />
+      <Route exact path="/" component={UploadContainer} />
       <Route path="/experiments" component={AuthenticatedExperimentsRoutes} />
       <Route path="/auth" component={AuthRoutes} />
       <Route path="/users" component={AuthenticatedUsersRoutes} />

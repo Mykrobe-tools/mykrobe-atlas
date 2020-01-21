@@ -3,6 +3,9 @@
 import { Application } from 'spectron';
 import path from 'path';
 
+import debug from 'debug';
+const d = debug('mykrobe:desktop-test:testOpenSourceFile');
+
 import extensionForFileName from '../../app/modules/desktop/util/extensionForFileName';
 
 import { TIMEOUT, delay, EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH } from './util';
@@ -44,8 +47,8 @@ const testOpenSourceFile = async (
   }
 
   if (exemplarSamplesExpectEntry.expect.reject) {
-    console.log('awaiting rejection');
-    console.log(
+    d('awaiting rejection');
+    d(
       'exemplarSamplesExpectEntry.expect',
       JSON.stringify(exemplarSamplesExpectEntry.expect, null, 2)
     );

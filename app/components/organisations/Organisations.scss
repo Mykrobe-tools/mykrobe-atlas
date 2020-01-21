@@ -1,0 +1,15 @@
+@import '~styles/colors.global';
+
+.container {
+  composes: container from 'styles/layout.scss';
+  flex-direction: column;
+}
+
+.clickableCell {
+  cursor: pointer;
+}
+
+.dropdownToggle {
+  composes: global(text-mid);
+  composes: global(px-2);
+}

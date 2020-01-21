@@ -193,7 +193,7 @@ class Notification extends React.Component<*, State> {
 }
 
 Notification.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   category: PropTypes.string,
   content: PropTypes.string,
   actions: PropTypes.array,

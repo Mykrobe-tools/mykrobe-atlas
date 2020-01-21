@@ -130,8 +130,8 @@ class ResistanceDrugs extends React.Component<*> {
 }
 
 ResistanceDrugs.propTypes = {
-  experiment: PropTypes.object.isRequired,
-  experimentTransformed: PropTypes.object.isRequired,
+  experiment: PropTypes.object,
+  experimentTransformed: PropTypes.object,
 };
 
 export default ResistanceDrugs;

@@ -6,7 +6,6 @@ import {
   Container,
   Button,
   ButtonGroup,
-  Col,
   UncontrolledDropdown,
   DropdownMenu,
   DropdownToggle,
@@ -17,18 +16,17 @@ import _get from 'lodash.get';
 
 import Pagination from 'makeandship-js-common/src/components/ui/pagination';
 import Loading from 'makeandship-js-common/src/components/ui/loading';
-import { styles as pageHeaderStyles } from 'makeandship-js-common/src/components/ui/PageHeader';
 import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
 
 import styles from './Experiments.scss';
 import ExperimentsTable from './ExperimentsTable';
 import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
-import HeaderContainer from '../header/HeaderContainer';
-import Footer from '../footer/Footer';
+import HeaderContainer from '../ui/header/HeaderContainer';
+import Footer from '../ui/footer/Footer';
 import { notImplemented } from '../../util';
 
 import UploadButton from '../upload/button/UploadButton';
-import SearchInput from '../ui/SearchInput';
+import SearchNavigation from '../ui/search/SearchNavigation';
 import Empty from '../ui/Empty';
 import ExperimentGeographicMap from '../experiment/analysis/ExperimentGeographicMap';
 
@@ -36,7 +34,6 @@ import { withExperimentsPropTypes } from '../../hoc/withExperiments';
 import { withExperimentsHighlightedPropTypes } from '../../hoc/withExperimentsHighlighted';
 
 type State = {
-  q: ?string,
   selected?: string | Array<string>,
 };
 
@@ -53,18 +50,8 @@ class Experiments extends React.Component<*, State> {
 
   constructor(props: any) {
     super(props);
-    this.state = {
-      q: props.experimentsFilters.q,
-    };
+    this.state = {};
   }
-
-  componentDidUpdate = (prevProps: any) => {
-    if (prevProps.experimentsFilters.q !== this.props.experimentsFilters.q) {
-      this.setState({
-        q: this.props.experimentsFilters.q,
-      });
-    }
-  };
 
   onReset = (e: any) => {
     e.preventDefault();
@@ -72,21 +59,8 @@ class Experiments extends React.Component<*, State> {
     resetExperimentsFilters();
   };
 
-  onChange = (e: any) => {
-    const q = e.target.value;
-    this.setState({
-      q,
-    });
-  };
-
-  onSubmit = (e: any) => {
-    e.preventDefault();
+  onSearchSubmit = (q: any) => {
     const { setExperimentsFilters, experimentsFilters } = this.props;
-    let { q } = this.state;
-    // clear the parameter when empty string
-    if (typeof q === 'string' && q.length === 0) {
-      q = undefined;
-    }
     if (q && CHANGING_QUERY_CLEARS_OTHER_FILTERS) {
       setExperimentsFilters({
         q,
@@ -100,6 +74,14 @@ class Experiments extends React.Component<*, State> {
     }
   };
 
+  onRetrySearch = () => {
+    // TODO: replace with explicit retry action
+    const { setExperimentsFilters, experimentsFilters } = this.props;
+    setExperimentsFilters({
+      ...experimentsFilters,
+    });
+  };
+
   onPageClick = (page: number) => {
     const { setExperimentsFilters, experimentsFilters } = this.props;
     setExperimentsFilters({
@@ -108,7 +90,7 @@ class Experiments extends React.Component<*, State> {
     });
   };
 
-  onViewListClick = e => {
+  onViewListClick = (e: any) => {
     e && e.preventDefault();
     const { setExperimentsFilters, experimentsFilters } = this.props;
     setExperimentsFilters({
@@ -117,7 +99,7 @@ class Experiments extends React.Component<*, State> {
     });
   };
 
-  onViewMapClick = e => {
+  onViewMapClick = (e: any) => {
     e && e.preventDefault();
     const { setExperimentsFilters, experimentsFilters } = this.props;
     setExperimentsFilters({
@@ -156,7 +138,7 @@ class Experiments extends React.Component<*, State> {
     const title = hasTotal
       ? `${total.toLocaleString()} ${pluralize('Result', total)}`
       : 'Experiments';
-    const { q, selected } = this.state;
+    const { selected } = this.state;
     const showCompare = selected && (selected === '*' || selected.length > 1);
     const showMap = _get(experimentsFilters, 'view') === 'map';
     let content;
@@ -285,7 +267,7 @@ class Experiments extends React.Component<*, State> {
           title={`${experimentsSearchDescription} returned an error`}
           subtitle={`Error: ${experimentsError.statusText}`}
         >
-          <Button outline color="mid" onClick={this.onSubmit}>
+          <Button outline color="mid" onClick={this.onRetrySearch}>
             Retry search
           </Button>
         </Empty>
@@ -313,21 +295,12 @@ class Experiments extends React.Component<*, State> {
               : 'Sample Library'
           }
         />
-        <Container className={styles.headerContainer} fluid>
-          <div className={styles.headerContainerInner}>
-            <div className={pageHeaderStyles.title}>{title}</div>
-            <div className={styles.searchContainer}>
-              <Col md={6}>
-                <SearchInput
-                  value={q}
-                  placeholder="Metadata · CAGATC · rpoB_S450L · C32T"
-                  onChange={this.onChange}
-                  onSubmit={this.onSubmit}
-                />
-              </Col>
-            </div>
-          </div>
-        </Container>
+        <SearchNavigation
+          title={title}
+          q={experimentsFilters.q}
+          placeholder="Metadata · CAGATC · rpoB_S450L · C32T"
+          onSubmit={this.onSearchSubmit}
+        />
         <div className={styles.resultsContainer}>
           {content}
           {isFetchingExperiments && <Loading overlay />}

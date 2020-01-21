@@ -7,7 +7,7 @@ import ResistanceProfile from '../resistance/profile/ResistanceProfile';
 import Panel from '../../ui/Panel';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';
-import Footer from '../../footer/Footer';
+import Footer from '../../ui/footer/Footer';
 import AppDocumentTitle from '../../ui/AppDocumentTitle';
 
 import { withExperimentPropTypes } from '../../../hoc/withExperiment';

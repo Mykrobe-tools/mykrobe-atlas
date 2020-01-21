@@ -15,7 +15,7 @@ import {
 import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import { push } from 'connected-react-router';
-import moment from 'moment';
+import * as dateFns from 'date-fns';
 import produce from 'immer';
 
 import {
@@ -84,9 +84,15 @@ export const getUploadCompletionTime = createSelector(getState, state => {
   if (!uploadProgress) {
     return undefined;
   }
-  const secondsSoFar = moment().diff(moment(uploadBeganAt), 'milliseconds');
-  const projectedSecondsTotal = secondsSoFar / uploadProgress;
-  return moment(uploadBeganAt).add(projectedSecondsTotal, 'milliseconds');
+  const millisecondsSoFar = dateFns.differenceInMilliseconds(
+    new Date(),
+    dateFns.parseISO(uploadBeganAt)
+  );
+  const projectedMillisecondsTotal = millisecondsSoFar / uploadProgress;
+  return dateFns.addMilliseconds(
+    dateFns.parseISO(uploadBeganAt),
+    projectedMillisecondsTotal
+  );
 });
 
 export const getIsComputingChecksums = createSelector(
@@ -185,7 +191,7 @@ const reducer = (state?: State = initialState, action?: Object = {}): State =>
       case UPLOAD_FILE:
         Object.assign(draft, {
           isUploading: true,
-          uploadBeganAt: moment().format(),
+          uploadBeganAt: dateFns.formatISO(new Date()),
         });
         return;
       case RESUMABLE_UPLOAD_PROGRESS:
