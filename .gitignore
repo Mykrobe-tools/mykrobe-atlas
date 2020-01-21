@@ -60,3 +60,6 @@ test/__fixtures__/exemplar_seqeuence_data
 
 # Environment
 .env
+
+# OpenAPI spec
+.swagger.json
