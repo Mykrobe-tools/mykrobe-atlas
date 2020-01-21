@@ -2,6 +2,14 @@
 
 The following variables should be set in the build environment or in the `.env` file at the root of the project. The `.env` file is excluded from source control by default and should not be committed.
 
+## Debugging
+
+### DEBUG_PRODUCTION
+
+Set `DEBUG_PRODUCTION=1` to enable the Chrome Debugger and `console` in the production build. Should be disabled for a release.
+
+Default off `DEBUG_PRODUCTION=0`
+
 ## Windows or macOS Desktop app
 
 ### GH_TOKEN

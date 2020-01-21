@@ -15,7 +15,7 @@ import {
   TIMEOUT,
 } from '../../../../desktop/test/util';
 
-import { fetchPredictorBinariesIfNotMatch } from '../../../../desktop/fetchPredictorBinaries';
+import { fetchPredictorBinariesIfChanged } from '../../../../desktop/fetchPredictorBinaries';
 
 import AnalyserLocalFile from './AnalyserLocalFile';
 import detectFileSeq from './detectFileSeq';
@@ -33,7 +33,7 @@ describe('AnalyserLocalFile', () => {
 });
 
 beforeAllSlow(async () => {
-  await fetchPredictorBinariesIfNotMatch();
+  await fetchPredictorBinariesIfChanged();
   await ensureExemplarSamples();
 });
 

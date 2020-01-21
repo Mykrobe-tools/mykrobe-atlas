@@ -133,7 +133,8 @@ export const currentPredictorBinariesMatchReleaseVersion = async () => {
   return true;
 };
 
-export const fetchPredictorBinariesIfNotMatch = async () => {
+export const fetchPredictorBinariesIfChanged = async () => {
+  d(`Fetching Predictor binaries if available version has changed`);
   const currentPredictorBinariesMatch = await currentPredictorBinariesMatchReleaseVersion();
   if (currentPredictorBinariesMatch) {
     d(`All versions match`);
@@ -152,27 +153,27 @@ export const fetchPredictorBinaries = async () => {
   const expectedPlatformAssets = getExpectedPlatformAssetsForTag(tag);
   d('expectedPlatformAssets', JSON.stringify(expectedPlatformAssets, null, 2));
   const downloads = getDownloads({ release, expectedPlatformAssets });
-  try {
-    if (!downloads) {
-      const { owner, repo } = gitHubPublishConfig;
-      throw `Cannot continue - GitHub release does not include expected assets - check https://github.com/${owner}/${repo}/releases/tag/${tag}`;
-    }
-    d('Processing downloads', JSON.stringify(downloads, null, 2));
-    await processDownloads({ tag, downloads });
-    // if successful, update executable display version
-    d('Updating display executable version');
-    updateStaticPackageJson({ executableVersion: tag });
-  } catch (e) {
-    d(e);
-    d('Download and install failed - nothing changed');
+  if (!downloads) {
+    const { owner, repo } = gitHubPublishConfig;
+    throw `Cannot continue - GitHub release does not include expected assets - check https://github.com/${owner}/${repo}/releases/tag/${tag}`;
   }
+  d('Processing downloads', JSON.stringify(downloads, null, 2));
+  await processDownloads({ tag, downloads });
+  // if successful, update executable display version
+  d('Updating display executable version');
+  updateStaticPackageJson({ executableVersion: tag });
 };
 
 (async () => {
-  if (argv.force) {
-    d(`Fetch forced`);
-    await fetchPredictorBinaries();
-  } else {
-    await fetchPredictorBinariesIfNotMatch();
+  try {
+    if (argv.force) {
+      d(`Fetch forced`);
+      await fetchPredictorBinaries();
+    } else {
+      await fetchPredictorBinariesIfChanged();
+    }
+  } catch (e) {
+    d(e);
+    d('Download and install failed - nothing changed');
   }
 })();

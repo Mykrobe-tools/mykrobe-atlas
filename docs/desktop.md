@@ -8,6 +8,12 @@
 	$ yarn set-target
 	```
 
+2. Fetch latest Predictor binaries
+
+	```
+	$ yarn fetch-predictor-binaries
+	```
+
 ## Run development version
 
 This will launch a local dev server and instance of the app. This has DevTools enabled and supports hot (live) reloading of modified files.
@@ -23,6 +29,10 @@ To debug the main process, open Chrome app and visit [chrome://inspect/#devices]
 * `desktop-package` builds and packages a standalone app inside the `desktop/releases` folder. At this stage the app is a folder full of files.
 
 * `desktop-dist [--skip-notarize]` takes the folder(s) created by `desktop-package` and combines into single individual self-contained apps / images / installers for specified platforms, signed and ready for distribution. Add `--skip-notarize` to skip the Mac notiarize step.
+
+### Debug production version
+
+- See [Environment variables](dotenv.md)
 
 ### Production build for current platform
 

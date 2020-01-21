@@ -23,7 +23,7 @@ import {
   ELECTRON_EXECUTABLE_PATH,
 } from './util';
 
-import { fetchPredictorBinariesIfNotMatch } from '../fetchPredictorBinaries';
+import { fetchPredictorBinariesIfChanged } from '../fetchPredictorBinaries';
 
 import createTestHelpers from './helpers';
 
@@ -68,7 +68,7 @@ describeSlowTest('Desktop e2e main window', function spec() {
   // these run even if test is excluded: https://github.com/facebook/jest/issues/4166
 
   beforeAllSlow(async () => {
-    await fetchPredictorBinariesIfNotMatch();
+    await fetchPredictorBinariesIfChanged();
     await ensureExemplarSamples();
     _app = new Application({
       path: ELECTRON_EXECUTABLE_PATH,
