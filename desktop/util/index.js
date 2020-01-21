@@ -19,7 +19,7 @@ const pkg = require('../../package.json');
 export const arch = os.arch();
 export const plat = os.platform();
 
-export const executeCommand = (command: string) => {
+export const executeCommand = async (command: string) => {
   d(command);
   execSync(command, { stdio: [0, 1, 2] });
 };

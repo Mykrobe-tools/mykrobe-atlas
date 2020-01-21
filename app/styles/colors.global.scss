@@ -1,13 +1,11 @@
 // override defaults before importing
 
-$color-tint-primary: #0d7da0 !default;
-$color-tint-secondary: #0d7da0 !default;
+$color-cyan: #0d7da0;
+
+$color-tint-primary: $color-cyan;
+$color-tint-secondary: $color-cyan;
 $color-tint-supporting: #ffab2e;
 
-$color-blue: #71c7e6;
-$color-blue-text: darken($color-blue, 5%);
-$color-light-green: #86c9b9;
-$color-dark-green: #3b9da7;
 $color-buff: #f7f6f1;
 $color-buff-dark: #efede4;
 $color-grey-panel: #f4f4f4;
@@ -27,29 +25,19 @@ $gray-800: #3b3a35 !default;
 $gray-900: #262520 !default;
 
 $color-app-red: #f30;
-$color-app-green: #54b100;
-$color-app-blue: #0d7da0;
 $color-app-amber: #f90;
+$color-app-green: #54b100;
 
 $color-panel-light: #fbfaf8;
 
 $color-rule: $gray-300;
 $color-placeholder-text: $color-grey-mid;
-$color-blue-hover: darken($color-blue, 5%);
-$color-blue-hover-text: darken($color-blue, 15%);
-$color-dark-green-hover: darken($color-dark-green, 5%);
-$color-light-green-hover: darken($color-light-green, 5%);
-$color-light-green-hover-text: darken($color-light-green, 15%);
 $color-background: $color-buff;
 $color-text: $color-grey-dark;
-
-/* colour types */
 
 $color-susceptible: $color-app-green;
 $color-resistant: $color-app-red;
 $color-inconclusive: $color-grey-mid;
 $color-transparent: rgba(255, 255, 255, 0);
-
-@import 'target/current';
 
 @import '~makeandship-js-common/src/styles/colors.global';

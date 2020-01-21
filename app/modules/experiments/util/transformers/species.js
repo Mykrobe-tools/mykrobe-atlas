@@ -1,7 +1,5 @@
 /* @flow */
 
-import * as TargetConstants from '../../../../constants/TargetConstants';
-
 const speciesTransformer = (
   sourceModel: Object
 ): {
@@ -13,10 +11,7 @@ const speciesTransformer = (
 } => {
   const species = Object.keys(sourceModel.phylogenetics.species);
 
-  let lineage = [];
-  if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
-    lineage = Object.keys(sourceModel.phylogenetics.lineage);
-  }
+  let lineage = Object.keys(sourceModel.phylogenetics.lineage);
 
   let speciesAndLineageString = '';
 
@@ -28,12 +23,8 @@ const speciesTransformer = (
   const lineageString =
     lineage && lineage.length ? lineage.join(' / ').replace(/_/g, ' ') : '';
 
-  if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
-    const lineageSuffix = lineageString ? ` (lineage: ${lineageString})` : '';
-    speciesAndLineageString = `${speciesString}${lineageSuffix}`;
-  } else {
-    speciesAndLineageString = speciesString;
-  }
+  const lineageSuffix = lineageString ? ` (lineage: ${lineageString})` : '';
+  speciesAndLineageString = `${speciesString}${lineageSuffix}`;
 
   return {
     lineage,

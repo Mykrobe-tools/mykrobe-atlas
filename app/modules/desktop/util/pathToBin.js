@@ -3,8 +3,6 @@
 import path from 'path';
 import os from 'os';
 
-import * as TargetConstants from '../../../constants/TargetConstants';
-
 const app = require('electron').remote.app;
 const platform = os.platform(); // eslint-disable-line global-require
 const arch = os.arch();
@@ -18,20 +16,6 @@ export const rootDir = () => {
   return rootDir;
 };
 
-export const validateTarget = () => {
-  const UnsupportedError = new Error({
-    message: 'Unsupported configuration',
-    config: TargetConstants,
-  });
-
-  if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
-    // supported
-  } else {
-    // unsupported configuration
-    throw UnsupportedError;
-  }
-};
-
 export const dirToBin = () => {
   const rootDirValue = rootDir();
 
@@ -40,9 +24,7 @@ export const dirToBin = () => {
   if (process.env.NODE_ENV === 'development') {
     dirToBin = path.join(
       rootDirValue,
-      `desktop/resources/bin/${
-        TargetConstants.TARGET_NAME
-      }/${platform}-${arch}/bin`
+      `desktop/resources/bin/desktop/${platform}-${arch}/bin`
     );
   } else {
     dirToBin = path.join(rootDirValue, '../bin');

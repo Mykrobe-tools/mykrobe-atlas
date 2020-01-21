@@ -36,6 +36,3 @@
 - [Desktop release](docs/desktop-release.md)
 - [Run tests](docs/testing.md)
 
-## Further reading
-
-- [About targets](docs/targets.md)
