@@ -62,4 +62,4 @@ test/__fixtures__/exemplar_seqeuence_data
 .env
 
 # OpenAPI spec
-.swagger.json
+swagger.json
