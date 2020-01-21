@@ -5,8 +5,6 @@ import { Application } from 'spectron';
 import debug from 'debug';
 const d = debug('mykrobe:desktop-test:testDisplayResults');
 
-import * as TargetConstants from '../../app/constants/TargetConstants';
-
 import { delay, expectCaseInsensitiveEqual } from './util';
 
 import createTestHelpers from './helpers';
@@ -26,50 +24,41 @@ const testOpenSourceFile = async (
 
   // drugs or class
 
-  if (TargetConstants.SPECIES_TB === TargetConstants.SPECIES) {
-    await client.click('[data-tid="button-resistance-drugs"]');
-    expect(
-      await client.waitForVisible('[data-tid="component-resistance-drugs"]')
-    ).toBe(true);
-    await delay(500);
-    await saveScreenshot(`${source}__resistance-drugs.png`);
-    if (exemplarSamplesExpectEntry.expect.drugs) {
-      const firstLineDrugs = await textForSelector(
-        '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
+  await client.click('[data-tid="button-resistance-drugs"]');
+  expect(
+    await client.waitForVisible('[data-tid="component-resistance-drugs"]')
+  ).toBe(true);
+  await delay(500);
+  await saveScreenshot(`${source}__resistance-drugs.png`);
+  if (exemplarSamplesExpectEntry.expect.drugs) {
+    const firstLineDrugs = await textForSelector(
+      '[data-tid="panel-first-line-drugs"] [data-tid="drug"]'
+    );
+    expectCaseInsensitiveEqual(
+      firstLineDrugs,
+      exemplarSamplesExpectEntry.expect.drugs.firstLineDrugs
+    );
+    d('firstLineDrugs', JSON.stringify(firstLineDrugs, null, 2));
+    const secondLineDrugs = await textForSelector(
+      '[data-tid="panel-second-line-drugs"] [data-tid="drug"]'
+    );
+    expectCaseInsensitiveEqual(
+      secondLineDrugs,
+      exemplarSamplesExpectEntry.expect.drugs.secondLineDrugs
+    );
+    d('secondLineDrugs', JSON.stringify(secondLineDrugs, null, 2));
+    if (exemplarSamplesExpectEntry.expect.drugs.resistance) {
+      const resistance = await textForSelector(
+        '[data-tid="panel-resistance"] [data-tid="resistance"]'
       );
       expectCaseInsensitiveEqual(
-        firstLineDrugs,
-        exemplarSamplesExpectEntry.expect.drugs.firstLineDrugs
+        resistance,
+        exemplarSamplesExpectEntry.expect.drugs.resistance
       );
-      d('firstLineDrugs', JSON.stringify(firstLineDrugs, null, 2));
-      const secondLineDrugs = await textForSelector(
-        '[data-tid="panel-second-line-drugs"] [data-tid="drug"]'
-      );
-      expectCaseInsensitiveEqual(
-        secondLineDrugs,
-        exemplarSamplesExpectEntry.expect.drugs.secondLineDrugs
-      );
-      d('secondLineDrugs', JSON.stringify(secondLineDrugs, null, 2));
-      if (exemplarSamplesExpectEntry.expect.drugs.resistance) {
-        const resistance = await textForSelector(
-          '[data-tid="panel-resistance"] [data-tid="resistance"]'
-        );
-        expectCaseInsensitiveEqual(
-          resistance,
-          exemplarSamplesExpectEntry.expect.drugs.resistance
-        );
-        d('resistance', JSON.stringify(resistance, null, 2));
-      }
-    } else {
-      // TODO: verify that nothing is shown
+      d('resistance', JSON.stringify(resistance, null, 2));
     }
   } else {
-    // TODO: non-TB, presumably Staph
-    await client.click('[data-tid="button-resistance-class"]');
-    expect(
-      await client.waitForVisible('[data-tid="component-resistance-class"]')
-    ).toBe(true);
-    await saveScreenshot(`${source}__resistance-class.png`);
+    // TODO: verify that nothing is shown
   }
 
   // evidence

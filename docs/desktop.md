@@ -2,17 +2,9 @@
 
 ## Setup
 
-1. Set the desired target – [About targets](targets.md)
+1. Fetch latest Predictor binaries
 
-	```
-	$ yarn set-target
-	```
-
-2. Fetch latest Predictor binaries
-
-	```
 	$ yarn fetch-predictor-binaries
-	```
 
 ## Run development version
 

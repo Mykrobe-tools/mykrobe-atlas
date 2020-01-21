@@ -11,7 +11,7 @@ import { isString } from 'makeandship-js-common/src/util/is';
 import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransformer';
 import * as APIConstants from '../../../constants/APIConstants';
 
-import { pathToBin, validateTarget } from './pathToBin';
+import { pathToBin } from './pathToBin';
 import { extensionForFileName } from '../../../util';
 import isAnalyserError from './isAnalyserError';
 
@@ -121,8 +121,6 @@ class AnalyserLocalFile extends EventEmitter {
   };
 
   analyseBinaryFile = (filePaths: Array<string>): AnalyserLocalFile => {
-    validateTarget();
-
     this.tmpObj = tmp.dirSync({ prefix: 'mykrobe-' });
 
     const skeletonDir = path.join(this.tmpObj.name, 'skeleton');

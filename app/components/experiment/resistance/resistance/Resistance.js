@@ -16,7 +16,6 @@ import Uploading from '../../../ui/Uploading';
 import TabNavigation, {
   TabNavigationLink,
 } from '../../../ui/navigation/TabNavigation';
-import * as TargetConstants from '../../../../constants/TargetConstants';
 
 import withFileUpload from '../../../../hoc/withFileUpload';
 
@@ -32,33 +31,18 @@ class Resistance extends React.Component<*> {
     } else {
       content = (
         <div className={styles.content}>
-          {TargetConstants.SPECIES_TB === TargetConstants.SPECIES ? (
-            <TabNavigation>
-              <TabNavigationLink to={`${match.url}/all`}>All</TabNavigationLink>
-              <TabNavigationLink to={`${match.url}/drugs`}>
-                Drugs
-              </TabNavigationLink>
-              <TabNavigationLink to={`${match.url}/evidence`}>
-                Evidence
-              </TabNavigationLink>
-              <TabNavigationLink to={`${match.url}/species`}>
-                Species
-              </TabNavigationLink>
-            </TabNavigation>
-          ) : (
-            <TabNavigation>
-              <TabNavigationLink to={`${match.url}/all`}>All</TabNavigationLink>
-              <TabNavigationLink to={`${match.url}/class`}>
-                Class
-              </TabNavigationLink>
-              <TabNavigationLink to={`${match.url}/evidence`}>
-                Evidence
-              </TabNavigationLink>
-              <TabNavigationLink to={`${match.url}/species`}>
-                Species
-              </TabNavigationLink>
-            </TabNavigation>
-          )}
+          <TabNavigation>
+            <TabNavigationLink to={`${match.url}/all`}>All</TabNavigationLink>
+            <TabNavigationLink to={`${match.url}/drugs`}>
+              Drugs
+            </TabNavigationLink>
+            <TabNavigationLink to={`${match.url}/evidence`}>
+              Evidence
+            </TabNavigationLink>
+            <TabNavigationLink to={`${match.url}/species`}>
+              Species
+            </TabNavigationLink>
+          </TabNavigation>
           <Switch>
             <Route
               exact

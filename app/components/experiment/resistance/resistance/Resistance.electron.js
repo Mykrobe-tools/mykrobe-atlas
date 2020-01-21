@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import { withRouter, Route, Redirect, Switch, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import * as TargetConstants from '../../../../constants/TargetConstants';
 import Logo from '../../../ui/logo/Logo';
 
 import { analyseFileNew, analyseFileSave } from '../../../../modules/desktop';
@@ -46,25 +45,14 @@ class Resistance extends React.Component<*> {
             >
               All
             </NavLink>
-            {TargetConstants.SPECIES_TB === TargetConstants.SPECIES ? (
-              <NavLink
-                to={`${path}/drugs`}
-                className={styles.navigationItem}
-                activeClassName={styles.navigationItemActive}
-                data-tid="button-resistance-drugs"
-              >
-                Drugs
-              </NavLink>
-            ) : (
-              <NavLink
-                to={`${path}/class`}
-                className={styles.navigationItem}
-                activeClassName={styles.navigationItemActive}
-                data-tid="button-resistance-class"
-              >
-                Class
-              </NavLink>
-            )}
+            <NavLink
+              to={`${path}/drugs`}
+              className={styles.navigationItem}
+              activeClassName={styles.navigationItemActive}
+              data-tid="button-resistance-drugs"
+            >
+              Drugs
+            </NavLink>
             <NavLink
               to={`${path}/evidence`}
               className={styles.navigationItem}
