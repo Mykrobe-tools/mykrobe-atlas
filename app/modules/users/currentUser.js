@@ -116,6 +116,7 @@ function* authSignInWatcher() {
 }
 
 function* authSignInWorker() {
+  yield put(showNotification('You are logged in'));
   yield put(requestEntity());
 }
 
@@ -127,6 +128,7 @@ function* authSignOutWatcher() {
 }
 
 function* authSignOutWorker() {
+  yield put(showNotification('You are signed out'));
   yield put(resetEntity());
 }
 
