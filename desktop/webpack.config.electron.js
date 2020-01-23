@@ -5,6 +5,10 @@ import merge from 'webpack-merge';
 import baseConfig from '../webpack.config.production';
 import path from 'path';
 
+// Specifically define used portions of package.json
+// rather than inadvertently bundling the whole file in the client
+const { version, productName } = require('../package.json');
+
 // we need to overwrite the existing entry just for this single file
 
 baseConfig.entry = {
@@ -28,6 +32,7 @@ export default merge(baseConfig, {
 
   plugins: [
     new webpack.DefinePlugin({
+      PACKAGE_JSON: JSON.stringify({ version, productName }),
       IS_ELECTRON: JSON.stringify(true),
     }),
   ],

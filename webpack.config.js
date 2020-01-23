@@ -7,6 +7,10 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 const dirNode = 'node_modules';
 const dirApp = path.join(__dirname, 'app');
 
+// Specifically define used portions of package.json
+// rather than inadvertently bundling the whole file in the client
+const { version, productName } = require('./package.json');
+
 module.exports = {
   entry: {
     bundle: [
@@ -33,6 +37,10 @@ module.exports = {
       allowAsyncCycles: false,
       // set the current working directory for displaying module paths
       cwd: process.cwd(),
+    }),
+    new webpack.DefinePlugin({
+      PACKAGE_JSON: JSON.stringify({ version, productName }),
+      IS_ELECTRON: JSON.stringify(false),
     }),
   ],
   module: {

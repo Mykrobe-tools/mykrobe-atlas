@@ -6,11 +6,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const pkg = require('../package.json');
-const webpackConfig = require('../webpack.config.development');
+const baseConfig = require('../webpack.config.development');
 
 const appHtmlTitle = pkg.productName;
 
-module.exports = merge(webpackConfig, {
+module.exports = merge(baseConfig, {
   target: 'electron-renderer',
   plugins: [
     new HtmlWebpackPlugin({
