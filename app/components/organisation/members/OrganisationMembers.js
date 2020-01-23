@@ -245,6 +245,7 @@ class OrganisationMembers extends React.Component<*> {
 
   render() {
     const {
+      organisation,
       organisationAllMembers,
       organisationIsFetching,
       organisationMembersIsFetching,
@@ -284,7 +285,9 @@ class OrganisationMembers extends React.Component<*> {
               renderRow={this.renderRow}
               onChangeOrder={this.onChangeListOrder}
               isFetching={
-                organisationIsFetching || organisationMembersIsFetching
+                !organisation ||
+                organisationIsFetching ||
+                organisationMembersIsFetching
               }
             />
           </Container>

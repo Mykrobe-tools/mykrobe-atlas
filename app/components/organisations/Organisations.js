@@ -77,6 +77,7 @@ class Organisations extends React.Component<*> {
       members,
       owners,
     } = organisation;
+    const showActions = currentUserStatus === 'owner';
     return (
       <TdLink key={id} to={`/organisations/${id}`}>
         <td>{name}</td>
@@ -87,27 +88,29 @@ class Organisations extends React.Component<*> {
           {currentUserStatus || '–'}
         </td>
         <td>
-          <UncontrolledDropdown>
-            <DropdownToggle
-              tag={'a'}
-              href="#"
-              className={styles.dropdownToggle}
-              onClick={e => {
-                e.stopPropagation();
-                e.preventDefault();
-              }}
-            >
-              <i className="fa fa-ellipsis-v" />
-            </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem tag={Link} to={`/organisations/${id}`}>
-                <i className="fa fa-chevron-circle-right" /> View
-              </DropdownItem>
-              <DropdownItem tag={Link} to={`/organisations/${id}/edit`}>
-                <i className="fa fa-pencil" /> Edit
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
+          {showActions && (
+            <UncontrolledDropdown>
+              <DropdownToggle
+                tag={'a'}
+                href="#"
+                className={styles.dropdownToggle}
+                onClick={e => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                }}
+              >
+                <i className="fa fa-ellipsis-v" />
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem tag={Link} to={`/organisations/${id}`}>
+                  <i className="fa fa-chevron-circle-right" /> View
+                </DropdownItem>
+                <DropdownItem tag={Link} to={`/organisations/${id}/edit`}>
+                  <i className="fa fa-pencil" /> Edit
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          )}
         </td>
       </TdLink>
     );

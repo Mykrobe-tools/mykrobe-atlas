@@ -110,7 +110,7 @@ class Header extends React.Component<*> {
                 data-tid="button-sign-up"
                 onClick={this.register}
               >
-                Sign up
+                Register
               </Button>
             </div>
           )}

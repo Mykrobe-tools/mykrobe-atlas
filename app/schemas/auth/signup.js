@@ -1,7 +1,7 @@
 /* @flow */
 
 export default {
-  title: 'Sign up',
+  title: 'Register',
   type: 'object',
   properties: {
     username: {

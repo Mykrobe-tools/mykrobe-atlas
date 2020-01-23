@@ -56,7 +56,7 @@ class Login extends React.Component<*> {
                   Log in
                 </SubmitButton>
                 <LinkButton to="/auth/register" marginRight>
-                  Sign up
+                  Register
                 </LinkButton>
                 <LinkButton to="/auth/forgot">Forgot password</LinkButton>
               </div>

@@ -8,6 +8,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
+import Loading from 'makeandship-js-common/src/components/ui/loading';
 
 import Footer from '../../ui/footer/Footer';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
@@ -106,47 +107,50 @@ class OrganisationProfile extends React.Component<*> {
       organisationIsFetching,
       organisationCurrentUserStatus,
     } = this.props;
-    if (!organisation || organisationIsFetching) {
-      return null;
-    }
     return (
       <div className={styles.container}>
         <OrganisationHeader {...this.props} />
         <div className={styles.container}>
-          <Container fluid>
-            <Row className="justify-content-sm-center">
-              <Col sm={8}>
-                <div className={styles.organisationProfile}>
-                  <h1 className={styles.name}>{organisation.name}</h1>
-                  <p className={styles.description}>
-                    {organisation.description}
-                  </p>
-                  {organisationCurrentUserStatus === 'owner' && (
-                    <div className={`${styles.actionsContainer} mb-3`}>
-                      <IconButton
-                        outline
-                        icon={'pencil'}
-                        tag={Link}
-                        to={`/organisations/${organisationId}/edit`}
-                      >
-                        Edit
-                      </IconButton>
-                    </div>
-                  )}
-                </div>
-                <div className={styles.organisationMembershipActionsContainer}>
-                  <OrganisationMembershipActions
-                    onJoin={this.onJoin}
-                    onRemove={this.onRemove}
-                    currentUserStatus={organisationCurrentUserStatus}
-                  />
-                </div>
-              </Col>
-            </Row>
-            <Row className="justify-content-sm-center">
-              <OrganisationProfileStats stats={organisation.stats} />
-            </Row>
-          </Container>
+          {!organisation || organisationIsFetching ? (
+            <Loading />
+          ) : (
+            <Container fluid>
+              <Row className="justify-content-sm-center">
+                <Col sm={8}>
+                  <div className={styles.organisationProfile}>
+                    <h1 className={styles.name}>{organisation.name}</h1>
+                    <p className={styles.description}>
+                      {organisation.description}
+                    </p>
+                    {organisationCurrentUserStatus === 'owner' && (
+                      <div className={`${styles.actionsContainer} mb-3`}>
+                        <IconButton
+                          outline
+                          icon={'pencil'}
+                          tag={Link}
+                          to={`/organisations/${organisationId}/edit`}
+                        >
+                          Edit
+                        </IconButton>
+                      </div>
+                    )}
+                  </div>
+                  <div
+                    className={styles.organisationMembershipActionsContainer}
+                  >
+                    <OrganisationMembershipActions
+                      onJoin={this.onJoin}
+                      onRemove={this.onRemove}
+                      currentUserStatus={organisationCurrentUserStatus}
+                    />
+                  </div>
+                </Col>
+              </Row>
+              <Row className="justify-content-sm-center">
+                <OrganisationProfileStats stats={organisation.stats} />
+              </Row>
+            </Container>
+          )}
         </div>
         <Footer />
       </div>
