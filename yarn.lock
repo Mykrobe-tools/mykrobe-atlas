@@ -11470,9 +11470,9 @@ make-dir@^2.0.0, make-dir@^2.1.0:
     pify "^4.0.1"
     semver "^5.6.0"
 
-"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#v0.0.121":
-  version "0.0.121"
-  resolved "https://bitbucket.org/makeandship/makeandship-js-common#62021e1c80d20adda573f3a9288ce8bb574e212b"
+"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#v0.0.122":
+  version "0.0.122"
+  resolved "https://bitbucket.org/makeandship/makeandship-js-common#a200caf74582c569936e814568e66b6b20cd8ca6"
   dependencies:
     ajv "^6.7.0"
     base-64 "^0.1.0"
