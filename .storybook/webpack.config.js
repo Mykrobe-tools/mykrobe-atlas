@@ -40,6 +40,11 @@ module.exports = async ({ config, mode }) => {
     ...customConfig.resolve.modules,
   ];
   config.module.rules = [...config.module.rules, ...customConfigFilteredRules];
-  config.plugins = [...config.plugins];
+  config.plugins = [
+    ...config.plugins,
+    new webpack.DefinePlugin({
+      IS_ELECTRON: JSON.stringify(false),
+    }),
+  ];
   return config;
 };

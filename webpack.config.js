@@ -40,7 +40,6 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       PACKAGE_JSON: JSON.stringify({ version, productName }),
-      IS_ELECTRON: JSON.stringify(false),
     }),
   ],
   module: {
