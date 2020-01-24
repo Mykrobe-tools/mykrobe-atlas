@@ -15,7 +15,7 @@ const builder = require('electron-builder');
 const pkg = require('../package.json');
 
 import archPlatArgs from './util/archPlatArgs';
-import { fetchPredictorBinariesIfChanged } from './fetchPredictorBinaries';
+import { fetchPredictorBinariesIfChanged } from './util';
 
 const argv = require('minimist')(process.argv.slice(2));
 

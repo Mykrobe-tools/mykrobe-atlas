@@ -1,7 +1,7 @@
 {
   "name": "mykrobe-atlas",
   "productName": "Mykrobe",
-  "version": "1.0.7",
+  "version": "0.8.0",
   "description": "Mykrobe",
   "private": true,
   "main": "main.js",

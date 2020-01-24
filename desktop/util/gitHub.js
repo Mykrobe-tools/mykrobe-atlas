@@ -7,7 +7,7 @@ require('dotenv').config();
 const pkg = require('../../package.json');
 
 import debug from 'debug';
-const d = debug('mykrobe:desktop-util');
+const d = debug('mykrobe:desktop-util:github');
 
 export const GH_TOKEN = process.env.GH_TOKEN;
 
