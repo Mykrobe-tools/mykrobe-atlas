@@ -4,7 +4,7 @@ import { Application } from 'spectron';
 import path from 'path';
 
 import debug from 'debug';
-const d = debug('mykrobe:desktop-test:testOpenSourceFile');
+const d = debug('mykrobe:desktop-test:test-open-source-file');
 
 import { extensionForFileName } from '../../app/util';
 

@@ -3,7 +3,7 @@
 import { Application } from 'spectron';
 
 import debug from 'debug';
-const d = debug('mykrobe:desktop-test:testDisplayResults');
+const d = debug('mykrobe:desktop-test:test-display-results');
 
 import { delay, expectCaseInsensitiveEqual } from './util';
 

@@ -283,6 +283,10 @@
       "<rootDir>/desktop/static",
       "<rootDir>/desktop/dist",
       "<rootDir>/desktop/release"
-    ]
+    ],
+    "globals": {
+      "IS_ELECTRON": false
+    }
+
   }
 }
