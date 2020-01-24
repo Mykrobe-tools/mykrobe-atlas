@@ -6,7 +6,7 @@ import DocumentTitle from 'react-document-title';
 
 import { isString, isArray } from 'makeandship-js-common/src/util/is';
 
-const { productName } = require('../../../package.json');
+const { productName } = PACKAGE_JSON;
 
 const AppDocumentTitle = ({
   title,

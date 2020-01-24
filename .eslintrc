@@ -32,6 +32,7 @@
   },
   "globals": {
     "IS_ELECTRON": true,
+    "PACKAGE_JSON": true,
     "EventSourcePolyfill": true
   }
 }
