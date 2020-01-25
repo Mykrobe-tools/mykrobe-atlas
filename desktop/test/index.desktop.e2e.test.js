@@ -11,7 +11,7 @@ const d = debug('mykrobe:desktop-test');
 
 const exemplarSamplesExpect = require('../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
 
-import { executeCommand } from '../util';
+import { executeCommand, fetchPredictorBinariesIfChanged } from '../util';
 
 import {
   TIMEOUT,
@@ -22,8 +22,6 @@ import {
   ensureExemplarSamples,
   ELECTRON_EXECUTABLE_PATH,
 } from './util';
-
-import { fetchPredictorBinariesIfChanged } from '../fetchPredictorBinaries';
 
 import createTestHelpers from './helpers';
 

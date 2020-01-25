@@ -1,7 +1,7 @@
 /* @flow */
 
 import debug from 'debug';
-const d = debug('mykrobe:scripts-generate-icons');
+const d = debug('mykrobe:scripts:generate-icons');
 
 const path = require('path');
 

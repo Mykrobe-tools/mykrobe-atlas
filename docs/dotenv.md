@@ -38,7 +38,7 @@ Required if you want to create a release build of the desktop app for macOS. Use
 * This is the `ProviderShortname` which can be found by running the following with the credentials referenced above;
 
 	```
-	$ xcrun altool --list-providers -u 'demo@example.comm' -p @keychain:"Application Loader: demo@example.com"
+	$ xcrun altool --list-providers -u 'demo@example.comm' -p "@keychain:Application Loader: demo@example.com"
 	```
 
 * e.g. `MAC_NOTARIZE_ASC_PROVIDER=ABC123`

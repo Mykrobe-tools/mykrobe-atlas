@@ -1,7 +1,7 @@
 {
   "name": "mykrobe-atlas",
   "productName": "Mykrobe",
-  "version": "1.0.7",
+  "version": "0.8.0",
   "description": "Mykrobe",
   "private": true,
   "main": "main.js",
@@ -196,8 +196,6 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
     "prettier": "^1.13.0",
-    "progress": "^2.0.3",
-    "progress-download": "^1.0.4",
     "prop-types": "^15.6.0",
     "react-test-renderer": "^16.2.0",
     "redux-logger": "^3.0.6",
@@ -283,6 +281,10 @@
       "<rootDir>/desktop/static",
       "<rootDir>/desktop/dist",
       "<rootDir>/desktop/release"
-    ]
+    ],
+    "globals": {
+      "IS_ELECTRON": false
+    }
+
   }
 }
