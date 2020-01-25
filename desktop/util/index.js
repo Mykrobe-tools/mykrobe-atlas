@@ -1,6 +1,5 @@
 /* @flow */
 
-import { execSync } from 'child_process';
 import os from 'os';
 
 export {
@@ -17,13 +16,7 @@ export {
   fetchPredictorBinariesIfChanged,
 } from './predictorBinaries';
 
-import debug from 'debug';
-const d = debug('mykrobe:desktop-util');
+export { executeCommand } from './executeCommand';
 
 export const arch = os.arch();
 export const plat = os.platform();
-
-export const executeCommand = async (command: string) => {
-  d(command);
-  execSync(command, { stdio: [0, 1, 2] });
-};

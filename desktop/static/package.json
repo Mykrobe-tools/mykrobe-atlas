@@ -5,5 +5,5 @@
   "version": "0.8.0",
   "main": "./main.js",
   "description": "Mykrobe",
-  "executableVersion": "v0.8.0"
+  "executableVersion": "v0.8.0-draft"
 }

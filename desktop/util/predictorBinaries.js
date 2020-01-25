@@ -1,6 +1,5 @@
 /* @flow */
 
-import download from 'progress-download';
 import decompress from 'decompress';
 import tmp from 'tmp';
 import path from 'path';
@@ -13,7 +12,8 @@ const argv = require('minimist')(process.argv.slice(2));
 d('argv', JSON.stringify(argv, null, 2));
 
 import { updateStaticPackageJson } from './staticPackageJson';
-import { fetchGitHubReleases, gitHubPublishConfig } from './gitHub';
+import { executeCommand } from './executeCommand';
+import { GH_TOKEN, fetchGitHubReleases, gitHubPublishConfig } from './gitHub';
 
 export const RESOURCES_BIN_FOLDER = path.join(__dirname, '../resources/bin');
 export const RESOURCES_DESKTOP_FOLDER = path.join(
@@ -46,7 +46,8 @@ export const getDownloads = ({
       if (asset.name === name) {
         downloads.push({
           platform,
-          url: asset.browser_download_url,
+          url: asset.url,
+          browser_download_url: asset.browser_download_url,
           name: asset.name,
         });
       }
@@ -66,13 +67,20 @@ export const processDownloads = async ({ tag, downloads }: any) => {
   for (let i = 0; i < downloads.length; i++) {
     const { platform, url, name } = downloads[i];
     const platformTmpDir = path.join(tmpDir, platform);
-    d(`Downloading ${url}`);
-    await download(url, platformTmpDir);
+    fs.ensureDirSync(platformTmpDir);
+    // https://developer.github.com/v3/repos/releases/#get-a-single-release-asset
+    // insert token as username
+    const urlWithToken = `https://${GH_TOKEN}:@${url.substr(8)}`;
+    d(`Downloading ${urlWithToken}`);
+    const downloadFilename = path.join(platformTmpDir, name);
+    // -L = follow redirect
+    const command = `curl -L -H "Accept: application/octet-stream" -o "${downloadFilename}" ${urlWithToken}`;
+    await executeCommand(command);
     // decompresses into sub-folder 'mykrobe_atlas'
     d(`Decompressing ${name}`);
-    await decompress(path.join(platformTmpDir, name), platformTmpDir);
+    await decompress(downloadFilename, platformTmpDir);
     // remove the archive
-    fs.removeSync(path.join(platformTmpDir, name));
+    fs.removeSync(downloadFilename);
     // rename sub-folder 'mykrobe_atlas' -> 'bin'
     fs.renameSync(
       path.join(platformTmpDir, 'mykrobe_atlas'),
