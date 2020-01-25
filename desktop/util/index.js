@@ -12,6 +12,7 @@ export {
 export { updateStaticPackageJson } from './staticPackageJson';
 
 export {
+  fetchLatestRelease,
   fetchPredictorBinaries,
   fetchPredictorBinariesIfChanged,
 } from './predictorBinaries';

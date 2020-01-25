@@ -15,7 +15,7 @@ const builder = require('electron-builder');
 const pkg = require('../package.json');
 
 import archPlatArgs from './util/archPlatArgs';
-import { fetchPredictorBinariesIfChanged } from './util';
+import { fetchPredictorBinariesIfChanged, fetchLatestRelease } from './util';
 
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -23,7 +23,8 @@ d('argv', JSON.stringify(argv, null, 2));
 
 const { platforms, archs } = archPlatArgs();
 
-const build = (plat, arch) => {
+export const build = async ({ plat, arch, releaseType, publish }) => {
+  d('build', JSON.stringify({ plat, arch, releaseType, publish }, null, 2));
   // there is no darwin ia32 electron
   if (plat === 'darwin' && arch === 'ia32') {
     return;
@@ -40,13 +41,15 @@ const build = (plat, arch) => {
       from: sourceDir,
       to: 'bin',
     };
+
+    draft.publish.releaseType = releaseType;
   });
 
   // specify platform and arch
 
   const options = produce({ config }, draft => {
     draft[arch] = true;
-    draft.publish = argv.publish ? 'always' : 'never';
+    draft.publish = publish;
     switch (plat) {
       case 'darwin':
         draft.mac = [];
@@ -62,21 +65,29 @@ const build = (plat, arch) => {
 
   d('options', JSON.stringify(options, null, 2));
 
-  return builder.build(options);
+  await builder.build(options);
 };
 
 export const dist = async () => {
   await fetchPredictorBinariesIfChanged();
 
-  let builds = [];
+  const release = await fetchLatestRelease();
+  const releaseType = release.draft
+    ? 'draft'
+    : release.prerelease
+      ? 'prerelease'
+      : 'release';
 
-  platforms.forEach(plat => {
-    archs.forEach(arch => {
-      builds.push(build(plat, arch));
-    });
-  });
+  const publish = argv.publish ? 'always' : 'never';
+  // TODO: preflight validate env vars if publish===true
 
-  await Promise.all(builds);
+  for (let i = 0; i < platforms.length; i++) {
+    const plat = platforms[i];
+    for (let j = 0; j < archs.length; j++) {
+      const arch = archs[j];
+      await build({ plat, arch, releaseType, publish });
+    }
+  }
 
   d('Done');
 };
