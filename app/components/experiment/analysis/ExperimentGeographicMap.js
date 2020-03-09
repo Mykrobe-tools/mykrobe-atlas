@@ -91,7 +91,7 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     const options = {
       center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
       minZoom: 2,
-      maxZoom: 5,
+      maxZoom: 10, // roughly allow you to see a city, without implying that samples came from a specific point within it
       zoom: 3,
       backgroundColor: '#e2e1dc',
       styles: MapStyle,
