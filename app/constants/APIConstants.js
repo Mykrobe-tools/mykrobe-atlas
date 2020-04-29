@@ -2,9 +2,20 @@
 
 // Note: for Electron app, these are also defined in both `extend-info.plist` and `package.json`
 
+const API_SAMPLE_EXTENSIONS_ARRAY_BASE = [
+  'bai',
+  'bam',
+  'fa',
+  'fasta',
+  'fastq',
+  'fna',
+  'fq',
+  'gz',
+];
+
 export const API_SAMPLE_EXTENSIONS_ARRAY = IS_ELECTRON
-  ? ['json', 'bam', 'gz', 'fastq']
-  : ['bam', 'gz', 'fastq'];
+  ? [...API_SAMPLE_EXTENSIONS_ARRAY_BASE, 'json']
+  : API_SAMPLE_EXTENSIONS_ARRAY_BASE;
 
 const withDots: Array<string> = API_SAMPLE_EXTENSIONS_ARRAY.map(
   (extension: string) => `.${extension}`
