@@ -8,6 +8,7 @@ require('dotenv').config();
 import path from 'path';
 import produce from 'immer';
 import debug from 'debug';
+const glob = require('glob');
 
 const d = debug('mykrobe:desktop-dist');
 
@@ -36,11 +37,31 @@ export const build = async ({ plat, arch, releaseType, publish }) => {
       __dirname,
       `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
     );
+    const outputDir = path.join(
+      __dirname,
+      '..',
+      pkg.build.directories.output,
+      `mac`,
+      `${pkg.productName}.app`
+    );
+    const outputDirBin = path.join(outputDir, `Contents/Resources/bin`);
 
     draft.extraResources = {
       from: sourceDir,
       to: 'bin',
     };
+
+    // FIXME: .so files are not signed automatically - https://github.com/electron/electron-osx-sign/issues/226
+    // have to be full path e.g. /Applications/MAMP/htdocs/mykrobe-atlas/desktop/dist/mac/Mykrobe.app/Contents/Resources/bin/_sha1.cpython-37m-darwin.so
+
+    const additionalFilesToSign = glob.sync(path.join(sourceDir, '/**/*.so'));
+
+    const binaries = additionalFilesToSign.map(sourceFilePath => {
+      const filePathRelative = sourceFilePath.substr(sourceDir.length);
+      return path.join(outputDirBin, filePathRelative);
+    });
+
+    draft.mac.binaries = binaries;
 
     draft.publish.releaseType = releaseType;
   });
@@ -75,8 +96,8 @@ export const dist = async () => {
   const releaseType = release.draft
     ? 'draft'
     : release.prerelease
-      ? 'prerelease'
-      : 'release';
+    ? 'prerelease'
+    : 'release';
 
   const publish = argv.publish ? 'always' : 'never';
   // TODO: preflight validate env vars if publish===true
