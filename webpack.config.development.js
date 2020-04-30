@@ -82,7 +82,7 @@ module.exports = merge(webpackConfig, {
           },
           {
             loader: 'sass-loader',
-            options: { precision: 8 },
+            options: { sassOptions: { precision: 8 } },
           },
         ],
       },
@@ -108,7 +108,7 @@ module.exports = merge(webpackConfig, {
           },
           {
             loader: 'sass-loader',
-            options: { precision: 8 },
+            options: { sassOptions: { precision: 8 } },
           },
         ],
       },

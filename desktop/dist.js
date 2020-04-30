@@ -36,11 +36,22 @@ export const build = async ({ plat, arch, releaseType, publish }) => {
       __dirname,
       `resources/bin/${pkg.targetName}/${plat}-${arch}/bin`
     );
+    const outputDir = path.join(
+      __dirname,
+      '..',
+      pkg.build.directories.output,
+      `mac`,
+      `${pkg.productName}.app`
+    );
+    const outputDirBin = path.join(outputDir, `Contents/Resources/bin`);
 
     draft.extraResources = {
       from: sourceDir,
       to: 'bin',
     };
+
+    // have to be full path e.g. /Applications/MAMP/htdocs/mykrobe-atlas/desktop/dist/mac/Mykrobe.app/Contents/Resources/bin/_sha1.cpython-37m-darwin.so
+    draft.mac.binaries = [`${outputDirBin}/_sha1.cpython-37m-darwin.so`];
 
     draft.publish.releaseType = releaseType;
   });
@@ -75,8 +86,8 @@ export const dist = async () => {
   const releaseType = release.draft
     ? 'draft'
     : release.prerelease
-      ? 'prerelease'
-      : 'release';
+    ? 'prerelease'
+    : 'release';
 
   const publish = argv.publish ? 'always' : 'never';
   // TODO: preflight validate env vars if publish===true
