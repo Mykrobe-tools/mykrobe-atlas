@@ -179,6 +179,7 @@
     "express-http-proxy": "^1.1.0",
     "file-loader": "^2.0.0",
     "flow-typed": "^2.3.0",
+    "glob": "^7.1.6",
     "html-webpack-plugin": "^3.0.7",
     "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
@@ -260,9 +261,6 @@
     "whatwg-fetch": "^2.0.4",
     "zxcvbn": "^4.4.2"
   },
-  "devEngines": {
-    "node": "6.x"
-  },
   "targetName": "desktop",
   "jest": {
     "verbose": true,
@@ -283,6 +281,5 @@
     "globals": {
       "IS_ELECTRON": false
     }
-
   }
 }
