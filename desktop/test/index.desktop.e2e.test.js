@@ -9,7 +9,15 @@ import { Application } from 'spectron';
 import debug from 'debug';
 const d = debug('mykrobe:desktop-test');
 
-const exemplarSamplesExpect = require('../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
+const path = require('path');
+
+// const exemplarSamplesExpect = jest.requireActual(
+//   `../../test/__fixtures__/exemplar_seqeuence_data.expect.jsons.json`
+// );
+
+const exemplarSamplesExpect = jest.requireActual(
+  `../../test/__fixtures__/exemplar_seqeuence_data.expect.json`
+);
 
 import { executeCommand, fetchPredictorBinariesIfChanged } from '../util';
 
@@ -48,17 +56,17 @@ if (process.env.DEBUG_PRODUCTION === '1') {
 // this step is very slow - compiles desktop app and creates distribution images
 // comment out while adjusting only tests
 
-describe('Desktop e2e package', () => {
-  it('should package app', async () => {
-    executeCommand('yarn desktop-package');
-  });
-});
+// describe('Desktop e2e package', () => {
+//   it('should package app', async () => {
+//     executeCommand('yarn desktop-package');
+//   });
+// });
 
-describeSlowTest('Desktop e2e dist', () => {
-  it('should create distribution app', async () => {
-    executeCommand('yarn desktop-dist --skip-notarize');
-  });
-});
+// describeSlowTest('Desktop e2e dist', () => {
+//   it('should create distribution app', async () => {
+//     executeCommand('yarn desktop-dist --skip-notarize');
+//   });
+// });
 
 let _app: Application;
 
@@ -70,6 +78,9 @@ describeSlowTest('Desktop e2e main window', function spec() {
     await ensureExemplarSamples();
     _app = new Application({
       path: ELECTRON_EXECUTABLE_PATH,
+      args: ['--offscreen-rendering'],
+      webdriverLogPath: path.join(__dirname, './logs/webdriver'),
+      chromeDriverLogPath: path.join(__dirname, './logs/chromedriver.log'),
     });
     await _app.start();
   });

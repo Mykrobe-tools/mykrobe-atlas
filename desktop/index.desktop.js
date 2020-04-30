@@ -44,6 +44,16 @@ if (DEBUG) {
   log.transports.console.level = 'info';
 }
 
+// offscreen rendering - enabled by passing --offscreen-rendering
+
+const argv = require('minimist')(process.argv.slice(2));
+const OFFSCREEN_RENDERING_ENABLED = argv['offscreen-rendering'] === 'true';
+if (OFFSCREEN_RENDERING_ENABLED) {
+  app.disableHardwareAcceleration();
+}
+
+console.log({ argv });
+
 // quit on closing windows
 app.on('window-all-closed', () => {
   quittingProgramatically = true;
@@ -115,8 +125,13 @@ app.on('ready', async () => {
     minHeight: 600,
     webPreferences: {
       nodeIntegration: true,
+      offscreen: OFFSCREEN_RENDERING_ENABLED,
     },
   });
+
+  if (OFFSCREEN_RENDERING_ENABLED) {
+    mainWindow.webContents.setFrameRate(30);
+  }
 
   menu = createMenu({ mainWindow, onMenuQuit, onMenuFileNew, onMenuFileOpen });
 
