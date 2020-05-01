@@ -67,7 +67,8 @@ class Header extends React.Component<*> {
                   <DropdownItem disabled>
                     {currentUser ? (
                       <span>
-                        Signed in as<br />
+                        Signed in as
+                        <br />
                         <strong>{currentUser.email}</strong>
                       </span>
                     ) : (

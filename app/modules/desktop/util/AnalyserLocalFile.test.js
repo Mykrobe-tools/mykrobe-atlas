@@ -22,7 +22,9 @@ import detectFileSeq from './detectFileSeq';
 
 const GENERATE_JSON_FIXTURES = true;
 
-const exemplarSamplesExpect = require('../../../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
+const exemplarSamplesExpect = jest.requireActual(
+  '../../../../test/__fixtures__/exemplar_seqeuence_data.expect.json'
+);
 
 jest.setTimeout(TIMEOUT);
 

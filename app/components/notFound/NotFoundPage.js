@@ -16,7 +16,8 @@ class NotFoundPage extends React.Component<*> {
         <Empty
           title={'Not Found'}
           subtitle={'The requested URL has no match'}
-        />;
+        />
+        ;
         <Footer />
       </div>
     );

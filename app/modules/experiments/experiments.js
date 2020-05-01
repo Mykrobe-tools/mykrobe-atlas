@@ -42,8 +42,8 @@ export const getSearchDescription = createSelector(
     bigsi
       ? descriptionForBigsi(bigsi)
       : searchQuery
-        ? `Search for "${searchQuery}"`
-        : 'Search'
+      ? `Search for "${searchQuery}"`
+      : 'Search'
 );
 
 const module = createCollectionModule('experiments', {

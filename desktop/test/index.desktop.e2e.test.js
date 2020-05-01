@@ -9,7 +9,15 @@ import { Application } from 'spectron';
 import debug from 'debug';
 const d = debug('mykrobe:desktop-test');
 
-const exemplarSamplesExpect = require('../../test/__fixtures__/exemplar_seqeuence_data.expect.json');
+const path = require('path');
+
+// const exemplarSamplesExpect = jest.requireActual(
+//   `../../test/__fixtures__/exemplar_seqeuence_data.expect.jsons.json`
+// );
+
+const exemplarSamplesExpect = jest.requireActual(
+  `../../test/__fixtures__/exemplar_seqeuence_data.expect.json`
+);
 
 import { executeCommand, fetchPredictorBinariesIfChanged } from '../util';
 
@@ -68,9 +76,13 @@ describeSlowTest('Desktop e2e main window', function spec() {
   beforeAllSlow(async () => {
     await fetchPredictorBinariesIfChanged();
     await ensureExemplarSamples();
-    _app = new Application({
+    const options = {
       path: ELECTRON_EXECUTABLE_PATH,
-    });
+      webdriverLogPath: path.join(__dirname, './logs/webdriver'),
+      chromeDriverLogPath: path.join(__dirname, './logs/chromedriver.log'),
+    };
+    d(`Creating Application with options`, options);
+    _app = new Application(options);
     await _app.start();
   });
 

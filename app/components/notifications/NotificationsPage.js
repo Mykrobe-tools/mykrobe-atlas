@@ -62,11 +62,8 @@ NotificationsPage.propTypes = {
   clearAllNotifications: PropTypes.func,
 };
 
-const withRedux = connect(
-  null,
-  {
-    clearAllNotifications,
-  }
-);
+const withRedux = connect(null, {
+  clearAllNotifications,
+});
 
 export default withRedux(NotificationsPage);

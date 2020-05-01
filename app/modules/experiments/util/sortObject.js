@@ -6,7 +6,7 @@ const sortObject = (o: Object) => {
   let a = [];
 
   for (key in o) {
-    if (o.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(o, key)) {
       a.push(key);
     }
   }

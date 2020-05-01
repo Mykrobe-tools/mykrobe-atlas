@@ -110,15 +110,12 @@ UploadButton.propTypes = {
   outline: PropTypes.bool,
 };
 
-const withRedux = connect(
-  null,
-  {
-    uploadFileAssignBrowse,
-    uploadDropbox,
-    uploadGoogleDrive,
-    uploadBox,
-    uploadOneDrive,
-  }
-);
+const withRedux = connect(null, {
+  uploadFileAssignBrowse,
+  uploadDropbox,
+  uploadGoogleDrive,
+  uploadBox,
+  uploadOneDrive,
+});
 
 export default withRedux(UploadButton);

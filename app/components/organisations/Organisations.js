@@ -47,10 +47,10 @@ const headings = [
 ];
 
 class Organisations extends React.Component<*> {
-  componentWillMount() {
+  componentDidMount = () => {
     const { requestOrganisations } = this.props;
     requestOrganisations && requestOrganisations();
-  }
+  };
 
   onNewOrganisation = (e: any) => {
     e && e.preventDefault();

@@ -10,7 +10,9 @@ const API_URL = ensureEnv(env.API_URL);
 import reducer, { requestExperiments } from './experiments';
 
 const createMockStore = configureMockStore([thunk]);
-const data = require('../../../test/__fixtures__/api/experiments.json');
+const data = jest.requireActual(
+  '../../../test/__fixtures__/api/experiments.json'
+);
 
 describe('experiments module', () => {
   const store = createMockStore([]);

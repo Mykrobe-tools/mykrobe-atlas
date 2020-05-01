@@ -22,8 +22,8 @@ class OrganisationHeader extends React.Component<*> {
     const title = isNew
       ? 'New organistaion'
       : organisation
-        ? organisation.name
-        : 'Organisation';
+      ? organisation.name
+      : 'Organisation';
     return (
       <React.Fragment>
         <HeaderContainer title={title} />

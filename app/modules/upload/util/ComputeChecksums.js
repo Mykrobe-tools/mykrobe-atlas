@@ -42,10 +42,10 @@ class ResumableUpload {
     const func = resumableFile.file.slice
       ? 'slice'
       : resumableFile.file.mozSlice
-        ? 'mozSlice'
-        : resumableFile.file.webkitSlice
-          ? 'webkitSlice'
-          : 'slice';
+      ? 'mozSlice'
+      : resumableFile.file.webkitSlice
+      ? 'webkitSlice'
+      : 'slice';
     let startByte;
     let endByte;
     let bytes;
