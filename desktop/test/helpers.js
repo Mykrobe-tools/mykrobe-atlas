@@ -45,8 +45,9 @@ const createTestHelpers = (_app: Application) => {
     // in current Electron version, this is async and there is no sync capture method
     // so we wait 1000ms to give time for async capture to finish
     // TODO: find a guaranteed method of screen capture completion
-    const { webContents } = _app;
-    webContents.send('capture-page', filePath);
+    // const { webContents } = _app;
+    // webContents.send('capture-page', filePath);
+    await _app.client.saveScreenshot(`${filePath}`);
     await delay(1000);
   };
 

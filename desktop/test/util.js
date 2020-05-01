@@ -36,6 +36,15 @@ export const ELECTRON_EXECUTABLE_PATH =
         `Contents/MacOS/${pkg.productName}`
       );
 
+export const PRE_DIST_ELECTRON_EXECUTABLE_PATH_MAC = path.join(
+  __dirname,
+  '../release',
+  `${plat}-${arch}`,
+  `${pkg.productName}-${plat}-${arch}`,
+  `${pkg.productName}.app`,
+  `Contents/MacOS/${pkg.productName}`
+);
+
 export const EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH = path.join(
   __dirname,
   '../../test/__fixtures__/exemplar_seqeuence_data'

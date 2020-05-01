@@ -16,6 +16,8 @@ After you see `Compiled successfully` in the terminal window, you may reload the
 
 To debug the main process, open Chrome app and visit [chrome://inspect/#devices](chrome://inspect/#devices). Ensure that you have `localhost:5858` included in the 'Discover network targets'.
 
+Main process log file on macOS is `~/Library/Logs/Mykrobe/log.log`
+
 ## Run production version
 
 * `desktop-package` builds and packages a standalone app inside the `desktop/releases` folder. At this stage the app is a folder full of files.

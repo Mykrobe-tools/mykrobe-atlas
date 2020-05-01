@@ -11,7 +11,6 @@ const testOpenWindow = async (app: Application) => {
   const { client, browserWindow } = app;
 
   await client.waitUntilWindowLoaded();
-  await delay(500);
 
   const title = await browserWindow.getTitle();
   expect(title).toBe(pkg.productName);
@@ -36,6 +35,9 @@ const testOpenWindow = async (app: Application) => {
   // make large enough to see 'evidence' tab in screen grab
   await browserWindow.setContentSize(1024, 1024);
   await browserWindow.center();
+
+  // allow size change to propagate before other tests start
+  await delay(1000);
 };
 
 export default testOpenWindow;
