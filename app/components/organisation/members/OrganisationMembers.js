@@ -14,7 +14,8 @@ import PageHeader, {
   styles as pageHeaderStyles,
 } from 'makeandship-js-common/src/components/ui/PageHeader';
 import { PrimaryButton } from 'makeandship-js-common/src/components/ui/buttons';
-import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
+import Table from 'makeandship-js-common/src/components/ui/table';
+import TrLink from 'makeandship-js-common/src/components/ui/table/TrLink';
 
 import OrganisationHeader from '../ui/OrganisationHeader';
 import OrganisationMembershipActions from '../ui/OrganisationMembershipActions';
@@ -217,7 +218,7 @@ class OrganisationMembers extends React.Component<*> {
     const { organisationId, organisationCurrentUserIsOwner } = this.props;
     const { id, firstname, lastname, email, organisationUserStatus } = member;
     return (
-      <TdLink key={id} to={`/organisations/${organisationId}/members/${id}`}>
+      <TrLink key={id} to={`/organisations/${organisationId}/members/${id}`}>
         <td>{email}</td>
         <td>{lastname}</td>
         <td>{firstname}</td>
@@ -239,7 +240,7 @@ class OrganisationMembers extends React.Component<*> {
             />
           )}
         </td>
-      </TdLink>
+      </TrLink>
     );
   };
 

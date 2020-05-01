@@ -15,7 +15,8 @@ import PageHeader, {
   styles as pageHeaderStyles,
 } from 'makeandship-js-common/src/components/ui/PageHeader';
 import { PrimaryButton } from 'makeandship-js-common/src/components/ui/buttons';
-import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
+import Table from 'makeandship-js-common/src/components/ui/table';
+import TrLink from 'makeandship-js-common/src/components/ui/table/TrLink';
 
 import OrganisationStatusIcon from '../organisation/ui/OrganisationStatusIcon';
 
@@ -79,7 +80,7 @@ class Organisations extends React.Component<*> {
     } = organisation;
     const showActions = currentUserStatus === 'owner';
     return (
-      <TdLink key={id} to={`/organisations/${id}`}>
+      <TrLink key={id} to={`/organisations/${id}`}>
         <td>{name}</td>
         <td>{template}</td>
         <td>{members.length + owners.length}</td>
@@ -112,7 +113,7 @@ class Organisations extends React.Component<*> {
             </UncontrolledDropdown>
           )}
         </td>
-      </TdLink>
+      </TrLink>
     );
   };
 
