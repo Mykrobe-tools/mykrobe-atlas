@@ -138,12 +138,12 @@ const OrganisationMemberActions = ({
 };
 
 class OrganisationMembers extends React.Component<*> {
-  componentWillMount() {
+  componentDidMount = () => {
     const { requestOrganisation, organisationId, isNew } = this.props;
     if (!isNew) {
       requestOrganisation && requestOrganisation(organisationId);
     }
-  }
+  };
 
   onNewMemberClick = (e: any) => {
     e.preventDefault();

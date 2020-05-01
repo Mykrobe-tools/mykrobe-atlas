@@ -69,12 +69,12 @@ export const OrganisationProfileStats = ({
     : null;
 
 class OrganisationProfile extends React.Component<*> {
-  componentWillMount() {
+  componentDidMount = () => {
     const { requestOrganisation, organisationId, isNew } = this.props;
     if (!isNew) {
       requestOrganisation && requestOrganisation(organisationId);
     }
-  }
+  };
 
   onJoinClick = (e: any) => {
     e.preventDefault();

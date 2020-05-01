@@ -74,11 +74,8 @@ App.propTypes = {
   uploadFileDrop: PropTypes.func,
 };
 
-const withRedux = connect(
-  null,
-  {
-    uploadFileDrop,
-  }
-);
+const withRedux = connect(null, {
+  uploadFileDrop,
+});
 
 export default withRedux(withAuth(withRouter(App)));

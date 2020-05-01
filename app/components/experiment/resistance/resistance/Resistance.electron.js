@@ -147,8 +147,5 @@ Resistance.propTypes = {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(withExperiment(Resistance))
+  connect(mapStateToProps, mapDispatchToProps)(withExperiment(Resistance))
 );

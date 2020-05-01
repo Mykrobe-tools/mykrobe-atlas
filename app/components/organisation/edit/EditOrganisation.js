@@ -32,12 +32,12 @@ const uiSchema = {
 };
 
 class EditOrganisation extends React.Component<*> {
-  componentWillMount() {
+  componentDidMount = () => {
     const { requestOrganisation, organisationId, isNew } = this.props;
     if (!isNew) {
       requestOrganisation && requestOrganisation(organisationId);
     }
-  }
+  };
 
   onSubmit = (formData: OrganisationType) => {
     const { createOrganisation, updateOrganisation, isNew } = this.props;
