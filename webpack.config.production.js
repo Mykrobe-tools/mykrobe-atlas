@@ -6,7 +6,6 @@ const DEBUG = process.env.DEBUG_PRODUCTION === '1';
 
 const path = require('path');
 const merge = require('webpack-merge');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpackConfig = require('./webpack.config');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -25,13 +24,6 @@ module.exports = merge(webpackConfig, {
 
   // Don't attempt to continue if there are any errors.
   bail: true,
-
-  output: {
-    path: path.join(__dirname, 'build'),
-    publicPath: '/',
-    filename: 'static/js/[name].[hash].js',
-    chunkFilename: 'static/js/[name].[hash].chunk.js',
-  },
 
   module: {
     rules: [
@@ -114,7 +106,6 @@ module.exports = merge(webpackConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: 'static/media/[name].[hash].[ext]',
             esModule: false,
           },
         },
@@ -126,7 +117,6 @@ module.exports = merge(webpackConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: 'static/media/[name].[hash].[ext]',
             mimetype: 'application/font-woff',
             esModule: false,
           },
@@ -139,7 +129,6 @@ module.exports = merge(webpackConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: 'static/media/[name].[hash].[ext]',
             mimetype: 'application/font-woff',
             esModule: false,
           },
@@ -152,7 +141,6 @@ module.exports = merge(webpackConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: 'static/media/[name].[hash].[ext]',
             mimetype: 'application/octet-stream',
             esModule: false,
           },
@@ -165,7 +153,6 @@ module.exports = merge(webpackConfig, {
           loader: 'file-loader',
           options: {
             limit: 10000,
-            name: 'static/media/[name].[hash].[ext]',
           },
         },
       },
@@ -176,7 +163,6 @@ module.exports = merge(webpackConfig, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: 'static/media/[name].[hash].[ext]',
             mimetype: 'image/svg+xml',
             esModule: false,
           },
@@ -231,7 +217,6 @@ module.exports = merge(webpackConfig, {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].[hash].css',
       chunkFilename: '[name].[hash].chunk.css',

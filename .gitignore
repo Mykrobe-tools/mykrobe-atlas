@@ -63,3 +63,8 @@ test/__fixtures__/exemplar_seqeuence_data
 
 # OpenAPI spec
 swagger.json
+
+# /webpack-bundle-analyzer
+webpack.bundle-analyzer-report.html
+report.html
+stats.json

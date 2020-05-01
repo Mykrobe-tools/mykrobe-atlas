@@ -40,7 +40,7 @@
     "web-build-server": "babel-node web/build/simple-server.js",
     "web-build-server-compile": "rm -rf web/dist && babel web/build --out-dir web/dist",
     "web-build-server-start": "node web/dist/simple-server.js",
-    "web-build-simple-server": "concurrently -k -r \"yarn web-build-server\" \"yarn web-open\"",
+    "web-build-simple-server": "concurrently -r \"yarn web-build-server\" \"yarn web-open\"",
     "web-build": "cross-env NODE_ENV=production webpack --config ./web/webpack.config.production.js",
     "web-dev-server": "cross-env NODE_ENV=development webpack-dev-server --hot --port 3000 --inline --history-api-fallback --progress --config ./web/webpack.config.development.js",
     "web-dev": "yarn web-dev-server",
