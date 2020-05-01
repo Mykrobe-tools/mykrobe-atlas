@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Uploading.scss';
+import styles from './Uploading.module.scss';
 
 class Uploading extends React.Component<*> {
   render() {

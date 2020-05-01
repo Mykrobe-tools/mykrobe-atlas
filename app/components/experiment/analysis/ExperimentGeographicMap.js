@@ -9,7 +9,7 @@ import MarkerClusterer from '@google/markerclustererplus';
 import memoizeOne from 'memoize-one';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
 
-import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
+import { IconButton } from 'makeandship-js-common/src/components/ui/buttons';
 
 import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
 import ExperimentsList from '../../ui/ExperimentsList';
@@ -21,7 +21,7 @@ import { withExperimentsHighlightedPropTypes } from '../../../hoc/withExperiment
 
 import * as Colors from '../../../constants/Colors';
 
-import styles from './ExperimentGeographicMap.scss';
+import styles from './ExperimentGeographicMap.module.scss';
 
 export const DEFAULT_LAT = 51.5074;
 export const DEFAULT_LNG = 0.1278;
@@ -133,13 +133,13 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     });
   };
 
-  onMarkerClusterMouseOver = markerCluster => {
+  onMarkerClusterMouseOver = (markerCluster) => {
     const { setExperimentsHighlighted } = this.props;
     const experimentsTooltipLocation = this.screenPositionFromLatLng(
       markerCluster.getCenter()
     );
     const markers = markerCluster.getMarkers();
-    const experiments = markers.map(marker => marker.get('experiment'));
+    const experiments = markers.map((marker) => marker.get('experiment'));
     setExperimentsHighlighted(experiments);
     this.setState({
       experimentsTooltipLocation,
@@ -148,7 +148,7 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     });
   };
 
-  onMarkerMouseOver = marker => {
+  onMarkerMouseOver = (marker) => {
     const { setExperimentsHighlighted } = this.props;
     const experimentsTooltipLocation = this.screenPositionFromLatLng(
       marker.getPosition()
@@ -284,7 +284,7 @@ class ExperimentGeographicMap extends React.Component<*, State> {
     this._map.fitBounds(bounds);
   };
 
-  screenPositionFromLatLng = latLng => {
+  screenPositionFromLatLng = (latLng) => {
     if (!this._mapDiv) {
       return { x: 0, y: 0 };
     }

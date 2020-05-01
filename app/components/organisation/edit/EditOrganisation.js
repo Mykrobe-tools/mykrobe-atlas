@@ -15,7 +15,7 @@ import {
   SubmitButton,
   CancelButton,
   DestructiveButton,
-} from 'makeandship-js-common/src/components/ui/Buttons';
+} from 'makeandship-js-common/src/components/ui/buttons';
 
 import type { OrganisationType } from '../../../types/OrganisationTypes';
 import OrganisationHeader from '../ui/OrganisationHeader';
@@ -23,7 +23,7 @@ import Footer from '../../ui/footer/Footer';
 import { organisationSchema } from '../../../schemas/organisations';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
 
-import styles from '../../organisations/Common.scss';
+import styles from '../../organisations/Common.module.scss';
 
 const uiSchema = {
   template: {

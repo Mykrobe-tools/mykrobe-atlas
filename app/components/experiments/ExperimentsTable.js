@@ -18,11 +18,11 @@ import { formatDate } from 'makeandship-js-common/src/util/date';
 
 import Table from 'makeandship-js-common/src/components/ui/table';
 
-import styles from './ExperimentsTable.scss';
+import styles from './ExperimentsTable.module.scss';
 
 import susceptibilityTransformer from '../../modules/experiments/util/transformers/susceptibility';
 
-export const countryCodeToName = countryCode => {
+export const countryCodeToName = (countryCode) => {
   const index = Sample.properties.countryIsolate.enum.indexOf(countryCode);
   if (index === -1) {
     return countryCode;
@@ -71,7 +71,9 @@ class ExperimentsTable extends React.Component<*> {
         typeof selected === 'object' ? selected.concat(id) : [id];
       setSelected(newSelected);
     } else {
-      const newSelected = selected.filter(experimentId => experimentId !== id);
+      const newSelected = selected.filter(
+        (experimentId) => experimentId !== id
+      );
       setSelected(newSelected.length > 0 ? newSelected : undefined);
     }
   };
@@ -152,7 +154,7 @@ class ExperimentsTable extends React.Component<*> {
       );
       const elements = [];
       const keys = Object.keys(transformed.susceptibility);
-      keys.forEach(key => {
+      keys.forEach((key) => {
         const entry = transformed.susceptibility[key];
         const initial = key.substr(0, 1).toUpperCase();
         const elementId = `${key}${id}`;
@@ -199,7 +201,7 @@ class ExperimentsTable extends React.Component<*> {
                 type="checkbox"
                 checked={isSelected}
                 disabled={allSelected}
-                onChange={e => this.onRowCheckChanged(id, e)}
+                onChange={(e) => this.onRowCheckChanged(id, e)}
               />
               <span />
             </label>

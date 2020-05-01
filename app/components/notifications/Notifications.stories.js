@@ -13,19 +13,19 @@ const variations = {
         category: 'MESSAGE',
         content:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultrices, leo vel hendrerit hendrerit, tellus nisi porttitor ipsum, a iaculis nibh orci et libero. ',
-        onClose: id => {
+        onClose: (id) => {
           console.log('Close', id);
         },
         actions: [
           {
             title: 'View',
-            onClick: id => {
+            onClick: (id) => {
               console.log('View', id);
             },
           },
           {
             title: 'Cancel',
-            onClick: id => {
+            onClick: (id) => {
               console.log('Cancel', id);
             },
           },

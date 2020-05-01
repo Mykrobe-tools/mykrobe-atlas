@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { shouldAcceptDropEventForExtensions } from './util';
 import * as APIConstants from '../../../constants/APIConstants';
 
-import styles from './DragAndDrop.scss';
+import styles from './DragAndDrop.module.scss';
 
 type State = {
   isDragActive: boolean,

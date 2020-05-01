@@ -44,21 +44,21 @@ const _analyserLocalFileChannel = channel();
 const _analyserLocalFile = new AnalyserLocalFile();
 
 _analyserLocalFile
-  .on('progress', progress => {
+  .on('progress', (progress) => {
     _analyserLocalFileChannel.put(analyseFileProgress(progress));
     UIHelpers.setProgress(progress);
   })
   .on('done', ({ json }) => {
     _analyserLocalFileChannel.put(analyseFileSuccess(json));
   })
-  .on('error', error => {
+  .on('error', (error) => {
     _analyserLocalFileChannel.put(analyseFileError(error.description));
   });
 
 // watch, pass into the main channel
 
 function* analyserLocalFileChannelWatcher() {
-  yield takeEvery(_analyserLocalFileChannel, function*(action: any) {
+  yield takeEvery(_analyserLocalFileChannel, function* (action: any) {
     yield put(action);
   });
 }
@@ -80,22 +80,25 @@ export const getState = (state: any) => state.desktop.localAtlas;
 
 export const getIsAnalysing = createSelector(
   getState,
-  state => state.isAnalysing
+  (state) => state.isAnalysing
 );
 
-export const getProgress = createSelector(getState, state => state.progress);
+export const getProgress = createSelector(getState, (state) => state.progress);
 
-export const getFilePaths = createSelector(getState, state => state.filePaths);
+export const getFilePaths = createSelector(
+  getState,
+  (state) => state.filePaths
+);
 
 export const getFileNames = createSelector(
   getFilePaths,
-  filePaths =>
-    filePaths && filePaths.map(filePath => parsePath(filePath).basename)
+  (filePaths) =>
+    filePaths && filePaths.map((filePath) => parsePath(filePath).basename)
 );
 
-export const getJson = createSelector(getState, state => state.json);
+export const getJson = createSelector(getState, (state) => state.json);
 
-export const getError = createSelector(getState, state => state.error);
+export const getError = createSelector(getState, (state) => state.error);
 
 // Action creators
 
@@ -154,15 +157,15 @@ const initialState: State = {
   json: null,
 };
 
-const normalizeFilePaths = files => {
+const normalizeFilePaths = (files) => {
   if (isString(files)) {
     files = [files];
   }
-  return files.map(file => (isString(file) ? file : file.path));
+  return files.map((file) => (isString(file) ? file : file.path));
 };
 
 const reducer = (state?: State = initialState, action?: Object = {}): State =>
-  produce(state, draft => {
+  produce(state, (draft) => {
     switch (action.type) {
       case ANALYSE_FILE:
         Object.assign(draft, {
@@ -330,7 +333,7 @@ export function* analyseFileSaveWorker(): Saga {
   const filePath = UIHelpers.saveFileDialog('mykrobe'); // eslint-disable-line import/namespace
   if (filePath) {
     const prettyJson = JSON.stringify(json, null, 2);
-    fs.writeFile(filePath, prettyJson, err => {
+    fs.writeFile(filePath, prettyJson, (err) => {
       if (err) {
         console.error(err);
       } else {

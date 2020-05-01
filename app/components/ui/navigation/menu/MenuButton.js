@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './MenuButton.scss';
+import styles from './MenuButton.module.scss';
 
 class MenuButton extends React.Component<*> {
   onMenuToggleClick = (e: Event) => {

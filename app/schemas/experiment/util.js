@@ -43,7 +43,7 @@ export const completenessForSchemaAndData = (schema: any, data: any) => {
   let complete = 0;
   const keys = keysForSchema(schema);
   const total = keys.length;
-  keys.forEach(key => {
+  keys.forEach((key) => {
     const value = _get(data, key);
     if (value) {
       complete++;

@@ -7,8 +7,8 @@ import { queryStringKeyExtractor } from 'makeandship-js-common/src/modules/gener
 
 // use the query to identify each notification
 
-export const notificationIdForBigsi = bigsi => {
-  const cleaned = produce(bigsi, draft => {
+export const notificationIdForBigsi = (bigsi) => {
+  const cleaned = produce(bigsi, (draft) => {
     // strip the 'search_id' provided in server sent events
     delete draft.search_id;
     // strip the 'threshold' which seems to change for the same query
@@ -24,7 +24,7 @@ export const mapTypeToSearch = {
   'dna-variant': 'DNA variant search',
 };
 
-export const descriptionForBigsi = bigsi => {
+export const descriptionForBigsi = (bigsi) => {
   const query = _get(bigsi, 'query.seq');
   const type = _get(bigsi, 'type');
   const search = mapTypeToSearch[type] || 'Search';

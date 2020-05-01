@@ -15,7 +15,7 @@ import {
 import ChoicesFilters from 'makeandship-js-common/src/components/choicesFilters';
 
 const withRedux = connect(
-  state => ({
+  (state) => ({
     isFetching: getIsFetchingExperimentsChoices(state),
     choices: getExperimentsChoices(state),
     filters: getExperimentsFilters(state),

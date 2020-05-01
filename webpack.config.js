@@ -49,11 +49,6 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules\/(?!(makeandship-js-common|makeandship-api-common|mykrobe-atlas-jsonschema|swagger-client))/,
       },
-      // IMAGES
-      {
-        test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: 'url-loader',
-      },
     ],
   },
   stats: 'errors-only',

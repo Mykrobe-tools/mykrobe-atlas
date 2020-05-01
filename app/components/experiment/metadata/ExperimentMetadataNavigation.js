@@ -12,7 +12,7 @@ import TabNavigation, {
 import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
 import { withExperimentPropTypes } from '../../../hoc/withExperiment';
 
-import styles from './ExperimentMetadataNavigation.scss';
+import styles from './ExperimentMetadataNavigation.module.scss';
 
 class ExperimentMetadataNavigation extends React.Component<*> {
   render() {

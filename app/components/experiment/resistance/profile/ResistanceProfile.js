@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './ResistanceProfile.scss';
+import styles from './ResistanceProfile.module.scss';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
 
 class ResistanceProfile extends React.Component<*> {
@@ -51,7 +51,7 @@ class ResistanceProfile extends React.Component<*> {
         <div className={titleStyle}>
           <i className={`fa ${icon}`} /> {title}
         </div>
-        {elements.map(element => {
+        {elements.map((element) => {
           return (
             <div key={`ELEMENT_${element}`} data-tid="drug">
               {element}

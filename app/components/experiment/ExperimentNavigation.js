@@ -7,7 +7,7 @@ import HeaderContainer from '../ui/header/HeaderContainer';
 import TabNavigation, {
   TabNavigationLink,
 } from '../ui/navigation/TabNavigation';
-import styles from './ExperimentNavigation.scss';
+import styles from './ExperimentNavigation.module.scss';
 
 class ExperimentNavigation extends React.Component<*> {
   render() {

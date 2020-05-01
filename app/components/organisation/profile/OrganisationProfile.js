@@ -7,13 +7,13 @@ import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
+import { IconButton } from 'makeandship-js-common/src/components/ui/buttons';
 import Loading from 'makeandship-js-common/src/components/ui/loading';
 
 import Footer from '../../ui/footer/Footer';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
 
-import styles from './OrganisationProfile.scss';
+import styles from './OrganisationProfile.module.scss';
 
 import OrganisationMembershipActions from '../ui/OrganisationMembershipActions';
 import OrganisationHeader from '../ui/OrganisationHeader';

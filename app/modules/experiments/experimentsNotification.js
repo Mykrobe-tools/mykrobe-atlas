@@ -30,7 +30,7 @@ import { notificationIdForBigsi, descriptionForBigsi } from './util/bigsi';
 // in progress
 
 function* pendingSearchWatcher() {
-  yield takeEvery(experimentsActionTypes.REQUEST_SUCCESS, function*() {
+  yield takeEvery(experimentsActionTypes.REQUEST_SUCCESS, function* () {
     const isPending = yield select(getExperimentsIsPending);
     if (isPending) {
       const currentBigsi = yield select(getBigsi);
@@ -54,7 +54,7 @@ function* pendingSearchWatcher() {
 function* searchStartedWatcher() {
   yield takeEvery(
     [PROTEIN_VARIANT_SEARCH_STARTED, SEQUENCE_SEARCH_STARTED],
-    function*(action) {
+    function* (action) {
       // refresh if this matches the current search
       const startedBigsi = _get(action.payload, 'search.bigsi');
       const notificationId = notificationIdForBigsi(startedBigsi);
@@ -77,7 +77,7 @@ function* searchStartedWatcher() {
 function* searchCompleteWatcher() {
   yield takeEvery(
     [PROTEIN_VARIANT_SEARCH_COMPLETE, SEQUENCE_SEARCH_COMPLETE],
-    function*(action) {
+    function* (action) {
       // refresh if this matches the current search
       const completeBigsi = _get(action.payload, 'search.bigsi');
       const currentBigsi = yield select(getBigsi);

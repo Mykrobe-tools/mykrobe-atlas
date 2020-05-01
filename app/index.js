@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'connected-react-router';
 
 import store, { history } from './store';
 
-import './styles/app.global.scss';
+import './styles/app.scss';
 
 // import used moment locales individually, otherwise excluded by webpack config
 import moment from 'moment';

@@ -17,7 +17,7 @@ import {
 } from '../modules/users';
 
 const withCurrentUser = connect(
-  state => ({
+  (state) => ({
     currentUser: getCurrentUser(state),
     currentUserIsFetching:
       getCurrentUserIsFetching(state) || getCurrentUserAvatarIsFetching(state),

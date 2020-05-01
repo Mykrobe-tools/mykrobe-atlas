@@ -6,7 +6,7 @@ import { Container } from 'reactstrap';
 
 import Footer from '../../ui/footer/Footer';
 
-import styles from './EditMetadata.scss';
+import styles from './EditMetadata.module.scss';
 
 import { EXPERIMENT_METADATA_FORM_ID } from '../../../modules/experiments';
 
@@ -17,7 +17,7 @@ import {
 import {
   SubmitButton,
   CancelButton,
-} from 'makeandship-js-common/src/components/ui/Buttons';
+} from 'makeandship-js-common/src/components/ui/buttons';
 
 import AppDocumentTitle from '../../ui/AppDocumentTitle';
 
@@ -41,7 +41,7 @@ class EditMetadata extends React.Component<*> {
     });
   };
 
-  onCancelClick = e => {
+  onCancelClick = (e) => {
     e && e.preventDefault();
     const { history } = this.props;
     history.goBack();

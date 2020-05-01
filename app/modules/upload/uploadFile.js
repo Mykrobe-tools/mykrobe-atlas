@@ -71,15 +71,15 @@ export const getState = (state: any) => state.upload.uploadFile;
 
 export const getIsUploading = createSelector(
   getState,
-  state => state.isUploading
+  (state) => state.isUploading
 );
 
 export const getUploadProgress = createSelector(
   getState,
-  state => state.uploadProgress
+  (state) => state.uploadProgress
 );
 
-export const getUploadCompletionTime = createSelector(getState, state => {
+export const getUploadCompletionTime = createSelector(getState, (state) => {
   const { uploadBeganAt, uploadProgress } = state;
   if (!uploadProgress) {
     return undefined;
@@ -97,12 +97,12 @@ export const getUploadCompletionTime = createSelector(getState, state => {
 
 export const getIsComputingChecksums = createSelector(
   getState,
-  state => state.isComputingChecksums
+  (state) => state.isComputingChecksums
 );
 
 export const getChecksumProgress = createSelector(
   getState,
-  state => state.checksumProgress
+  (state) => state.checksumProgress
 );
 
 export const getIsBusy = createSelector(
@@ -118,11 +118,11 @@ export const getProgress = createSelector(
     Math.round(100 * (checksumProgress * 0.1 + uploadProgress * 0.9))
 );
 
-export const getFileName = createSelector(getState, state => state.fileName);
+export const getFileName = createSelector(getState, (state) => state.fileName);
 
 export const getExperimentId = createSelector(
   getState,
-  state => state.experimentId
+  (state) => state.experimentId
 );
 
 // Actions
@@ -166,7 +166,7 @@ const initialState = {
 };
 
 const reducer = (state?: State = initialState, action?: Object = {}): State =>
-  produce(state, draft => {
+  produce(state, (draft) => {
     switch (action.type) {
       case UPLOAD_FILE_CANCEL_SUCCESS:
         return initialState;
@@ -221,13 +221,13 @@ export default reducer;
 // we keep a ref to the dropzone so we can
 
 function* uploadFileDropWatcher() {
-  yield takeEvery(UPLOAD_FILE_DROP, function*(action: any) {
+  yield takeEvery(UPLOAD_FILE_DROP, function* (action: any) {
     yield apply(_uploadFile, 'onDrop', [action.payload]);
   });
 }
 
 function* uploadFileAssignBrowseWatcher() {
-  yield takeEvery(UPLOAD_FILE_ASSIGN_BROWSE, function*(action: any) {
+  yield takeEvery(UPLOAD_FILE_ASSIGN_BROWSE, function* (action: any) {
     yield apply(_uploadFile, 'assignBrowse', [action.payload]);
   });
 }
@@ -301,7 +301,7 @@ export function* computeChecksumsWorker(action: any): Saga {
 // watch, pass into the main channel
 
 function* computeChecksumsChannelWatcher() {
-  yield takeEvery(_computeChecksumChannel, function*(action: any) {
+  yield takeEvery(_computeChecksumChannel, function* (action: any) {
     yield put(action);
   });
 }
@@ -335,7 +335,7 @@ function* uploadFileCancelWatcher() {
       authActionTypes.LOGOUT_SUCCESS,
       authActionTypes.SESSION_EXPIRED_SUCCESS,
     ],
-    function*() {
+    function* () {
       const experimentId = yield select(getExperimentId);
       yield apply(_uploadFile, 'cancel');
       yield apply(_computeChecksums, 'cancel');

@@ -17,7 +17,7 @@ const experimentsFilters = {
   q: '',
 };
 
-const setExperimentsFilters = value =>
+const setExperimentsFilters = (value) =>
   console.log('setExperimentsFilters', value);
 
 const experimentsSearchDescription = 'Search storybook';
@@ -52,10 +52,10 @@ const variations = {
 };
 
 storiesOf('Experiments', module)
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
-  .addDecorator(story => <ConnectedStorybook story={story()} />)
+  .addDecorator((story) => <ConnectedStorybook story={story()} />)
   .add('Empty', () => <Experiments {...variations.empty} />)
   .add('Pending', () => <Experiments {...variations.pending} />)
   .add('Error', () => <Experiments {...variations.error} />);

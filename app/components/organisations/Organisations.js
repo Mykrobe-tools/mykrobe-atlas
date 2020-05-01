@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import PageHeader, {
   styles as pageHeaderStyles,
 } from 'makeandship-js-common/src/components/ui/PageHeader';
-import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
+import { PrimaryButton } from 'makeandship-js-common/src/components/ui/buttons';
 import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
 
 import OrganisationStatusIcon from '../organisation/ui/OrganisationStatusIcon';
@@ -23,7 +23,7 @@ import HeaderContainer from '../ui/header/HeaderContainer';
 import Footer from '../ui/footer/Footer';
 import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
 
-import styles from './Organisations.scss';
+import styles from './Organisations.module.scss';
 
 const headings = [
   {
@@ -94,7 +94,7 @@ class Organisations extends React.Component<*> {
                 tag={'a'}
                 href="#"
                 className={styles.dropdownToggle}
-                onClick={e => {
+                onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
                 }}

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
-import styles from './TabNavigation.scss';
+import styles from './TabNavigation.module.scss';
 
 export const TabNavigationLink = (
   props: React.ElementProps<*>

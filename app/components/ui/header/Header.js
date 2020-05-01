@@ -14,7 +14,7 @@ import {
 
 import NotificationsButton from '../../notifications/NotificationsButton';
 import AppDocumentTitle from '../AppDocumentTitle';
-import styles from './Header.scss';
+import styles from './Header.module.scss';
 
 import { withAuthPropTypes } from 'makeandship-js-common/src/hoc/withAuth';
 import { withCurrentUserPropTypes } from '../../../hoc/withCurrentUser';

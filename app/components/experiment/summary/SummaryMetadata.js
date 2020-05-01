@@ -9,7 +9,7 @@ import { formatDate } from 'makeandship-js-common/src/util/date';
 
 import ExperimentsList from '../../ui/ExperimentsList';
 
-import styles from './SummaryMetadata.scss';
+import styles from './SummaryMetadata.module.scss';
 
 class SummaryMetadata extends React.Component<*> {
   render() {

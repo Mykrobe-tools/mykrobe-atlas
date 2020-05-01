@@ -1,0 +1,56 @@
+@import '~styles/colors';
+@import '~styles/use-bootstrap';
+
+.tooltip {
+  position: fixed;
+  z-index: 3;
+}
+
+.tooltipWrapper {
+  transform: translate(-50%, -100%);
+  padding-bottom: $popover-arrow-width;
+}
+
+.tooltipContainer {
+  position: relative;
+  max-width: $popover-max-width;
+  @include reset-text();
+  background-color: $popover-bg;
+  border: $popover-border-width solid $popover-border-color;
+  @include border-radius($popover-border-radius);
+  @include box-shadow($popover-box-shadow);
+}
+
+.tooltipContent {
+  max-height: 320px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: $popover-body-padding-y $popover-body-padding-x;
+  color: $popover-body-color;
+}
+
+.tooltipContainer::after,
+.tooltipContainer::before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: ' ';
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.tooltipContainer::after {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #fff;
+  border-width: ($popover-arrow-width / 2);
+  margin-left: -($popover-arrow-width / 2);
+}
+
+.tooltipContainer::before {
+  border-color: rgba($popover-border-color, 0);
+  border-top-color: $popover-border-color;
+  border-width: (1rem/16 + ($popover-arrow-width / 2));
+  margin-left: -(1rem/16 + ($popover-arrow-width / 2));
+}

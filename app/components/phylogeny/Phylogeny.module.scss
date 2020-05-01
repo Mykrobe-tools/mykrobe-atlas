@@ -1,0 +1,57 @@
+@import '~styles/colors';
+@import '~styles/use-bootstrap';
+
+.container {
+  composes: container from '~styles/layout.scss';
+  background-color: white;
+}
+
+.contentContainer {
+  composes: container from '~styles/layout.scss';
+  position: relative;
+}
+
+.controlsContainerTop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
+.controlsContainerBottomLeft {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.zoomControl {
+  composes: overlayControl from '~styles/controls.scss';
+  padding: 0 12px;
+}
+
+.zoomControlText {
+  composes: overlayControlText from '~styles/controls.scss';
+}
+
+// .demoTreeTypeSelected {
+//   cursor: pointer;
+//   color: $color-grey-mid;
+// }
+
+// .demoTreeType {
+//   cursor: pointer;
+//   color: $color-grey-light;
+// }
+
+.dropdownContent {
+  max-height: 320px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: $popover-body-padding-y $popover-body-padding-x;
+  color: $popover-body-color;
+}

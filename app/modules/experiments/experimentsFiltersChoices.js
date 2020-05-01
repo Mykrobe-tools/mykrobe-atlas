@@ -12,7 +12,7 @@ import { requestExperiments } from './experiments';
 function* experimentsFiltersChoicesWater() {
   yield takeEvery(
     [experimentsFiltersActionTypes.SET, experimentsFiltersActionTypes.RESET],
-    function*() {
+    function* () {
       yield put(requestExperiments());
       yield put(requestExperimentsChoices());
     }

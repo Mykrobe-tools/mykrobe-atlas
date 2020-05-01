@@ -1,0 +1,54 @@
+@import '~styles/colors';
+
+.container {
+  background-color: $color-background;
+}
+
+.contentWrap {
+  display: flex;
+  flex: 1;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+  min-height: 84px;
+}
+
+.account {
+  composes: fontSizeSmall from '~styles/typography.scss';
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  color: $color-grey-dark;
+  margin-left: auto;
+}
+
+.authLink + .authLink::before {
+  content: '\a0\a0\b7\a0\a0';
+}
+
+.authLink {
+  color: $color-grey-dark;
+}
+
+.registerLink {
+  composes: global(ml-3);
+}
+
+.title {
+  composes: fontSizeLarge from '~styles/typography.scss';
+  composes: containerAbsolute from '~styles/layout.scss';
+  line-height: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.currentUserDropdownToggle {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}

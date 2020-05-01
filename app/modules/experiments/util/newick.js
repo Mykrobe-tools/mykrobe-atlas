@@ -3,7 +3,7 @@
 import memoizeOne from 'memoize-one';
 
 export const getNewickTokens = memoizeOne(
-  newick => newick && newick.split(/\s*(;|\(|\)|,|:)\s*/)
+  (newick) => newick && newick.split(/\s*(;|\(|\)|,|:)\s*/)
 );
 
 export const newickContainsNodeId = (newick, nodeId) => {

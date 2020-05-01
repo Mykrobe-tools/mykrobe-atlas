@@ -61,7 +61,7 @@ class ResumableUpload {
     }
     bytes = resumableFile.file[func](startByte, endByte);
 
-    fileReader.onloadend = e => {
+    fileReader.onloadend = (e) => {
       if (this.isCancelled) {
         return;
       }

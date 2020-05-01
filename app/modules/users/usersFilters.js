@@ -5,7 +5,7 @@ import { createSyncFiltersWithReactRouterRedux } from 'makeandship-js-common/src
 
 const module = createFiltersModule('usersFilters', {
   typePrefix: 'users/usersFilters/',
-  getState: state => state.users.usersFilters,
+  getState: (state) => state.users.usersFilters,
 });
 
 const {

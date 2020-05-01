@@ -38,13 +38,13 @@ store.dispatch(
     actions: [
       {
         title: 'View',
-        onClick: id => {
+        onClick: (id) => {
           console.log('View', id);
         },
       },
       {
         title: 'Cancel',
-        onClick: id => {
+        onClick: (id) => {
           console.log('Cancel', id);
         },
       },
@@ -53,8 +53,8 @@ store.dispatch(
 );
 
 storiesOf('NotificationsContainer', module)
-  .addDecorator(story => <ConnectedStorybook story={story()} />)
-  .addDecorator(story => (
+  .addDecorator((story) => <ConnectedStorybook story={story()} />)
+  .addDecorator((story) => (
     <div
       style={{
         position: 'absolute',

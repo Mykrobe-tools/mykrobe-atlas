@@ -16,7 +16,7 @@ import store from '../../../store';
 store.dispatch(requestExperiment('5b55e8c0c23a300010bac216'));
 
 storiesOf('EditMetadata', module)
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <MemoryRouter
       initialEntries={[
         '/experiments/5b55e8c0c23a300010bac216/metadata/patient',
@@ -25,5 +25,5 @@ storiesOf('EditMetadata', module)
       {story()}
     </MemoryRouter>
   ))
-  .addDecorator(story => <ConnectedStorybook story={story()} />)
+  .addDecorator((story) => <ConnectedStorybook story={story()} />)
   .add('Default', () => <EditMetadata />);

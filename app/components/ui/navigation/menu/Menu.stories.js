@@ -7,7 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import Menu from './Menu';
 
 storiesOf('Menu', module)
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <MemoryRouter initialEntries={['/lorem']}>{story()}</MemoryRouter>
   ))
   .add('Hidden', () => <Menu />)

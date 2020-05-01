@@ -36,8 +36,8 @@ const variations = {
 };
 
 storiesOf('Organisations', module)
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
-  .addDecorator(story => <ConnectedStorybook story={story()} />)
+  .addDecorator((story) => <ConnectedStorybook story={story()} />)
   .add('Default', () => <Organisations {...variations.default} />);

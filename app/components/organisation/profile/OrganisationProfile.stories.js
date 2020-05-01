@@ -62,10 +62,10 @@ const variations = {
 };
 
 storiesOf('OrganisationProfile', module)
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
-  .addDecorator(story => <ConnectedStorybook story={story()} />)
+  .addDecorator((story) => <ConnectedStorybook story={story()} />)
   .add('Default', () => <OrganisationProfile {...variations.default} />)
   .add('Owner', () => <OrganisationProfile {...variations.owner} />)
   .add('Member', () => <OrganisationProfile {...variations.member} />)

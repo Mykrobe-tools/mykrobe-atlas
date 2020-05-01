@@ -24,13 +24,10 @@ describe('experiments module', () => {
   });
 
   it('should handle "requestExperiments" action', async () => {
-    nock(API_URL)
-      .get('/experiments/search')
-      .query(true)
-      .reply(200, data);
+    nock(API_URL).get('/experiments/search').query(true).reply(200, data);
     store.dispatch(requestExperiments());
     const dispatchedActions = store.getActions();
-    dispatchedActions.forEach(dispatchedAction => {
+    dispatchedActions.forEach((dispatchedAction) => {
       mockState = reducer(mockState, dispatchedAction);
     });
     expect(dispatchedActions).toMatchSnapshot();

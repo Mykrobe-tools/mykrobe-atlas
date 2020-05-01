@@ -13,7 +13,7 @@ import AppDocumentTitle from '../../ui/AppDocumentTitle';
 import { withExperimentPropTypes } from '../../../hoc/withExperiment';
 import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
 
-import styles from './Summary.scss';
+import styles from './Summary.module.scss';
 
 class Summary extends React.Component<*> {
   render() {

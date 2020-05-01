@@ -137,7 +137,7 @@ function* startWorker() {
   if (!_eventSource) {
     return;
   }
-  _eventSource.onmessage = e => {
+  _eventSource.onmessage = (e) => {
     try {
       const json = JSON.parse(e.data);
       _eventSourceChannel.put(event(json));
@@ -145,7 +145,7 @@ function* startWorker() {
       console.log(`Couldn't parse event data`, e.data);
     }
   };
-  _eventSource.onerror = e => {
+  _eventSource.onerror = (e) => {
     console.log('EventSource failed.', e);
     _eventSourceChannel.put(error(e));
   };

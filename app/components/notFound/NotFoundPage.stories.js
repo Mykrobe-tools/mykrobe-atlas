@@ -13,8 +13,8 @@ const variations = {
 };
 
 storiesOf('NotFoundPage', module)
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
-  .addDecorator(story => <ConnectedStorybook story={story()} />)
+  .addDecorator((story) => <ConnectedStorybook story={story()} />)
   .add('NotFoundPage', () => <NotFoundPage {...variations.default} />);

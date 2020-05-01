@@ -11,9 +11,9 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
-import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
+import { IconButton } from 'makeandship-js-common/src/components/ui/buttons';
 
-import styles from './Phylogeny.scss';
+import styles from './Phylogeny.module.scss';
 
 import * as Colors from '../../constants/Colors';
 
@@ -47,11 +47,11 @@ class Phylogeny extends React.Component<*, State> {
     treeType: 'circular',
   };
 
-  nodeIsInSamplesToHighlight = node => {
+  nodeIsInSamplesToHighlight = (node) => {
     return this.getSampleIds().includes(node.id);
   };
 
-  onNodeMouseOver = node => {
+  onNodeMouseOver = (node) => {
     const { setExperimentsHighlighted } = this.props;
     if (this.nodeIsInSamplesToHighlight(node)) {
       setExperimentsHighlighted([this.getSampleWithId(node.id)]);
@@ -130,7 +130,7 @@ class Phylogeny extends React.Component<*, State> {
     // }
   };
 
-  screenPositionForNodeId = nodeId => {
+  screenPositionForNodeId = (nodeId) => {
     if (!this._phyloCanvas || !this._container) {
       return { x: 0, y: 0 };
     }
@@ -159,7 +159,7 @@ class Phylogeny extends React.Component<*, State> {
     this._phyloCanvasTooltip = ref;
   };
 
-  onZoomSamplesClick = e => {
+  onZoomSamplesClick = (e) => {
     e.preventDefault();
     this.zoomSamples();
   };
@@ -280,7 +280,7 @@ class Phylogeny extends React.Component<*, State> {
           )}
 
           {experimentsHighlightedInTree &&
-            experimentsHighlightedInTree.map(experiment => {
+            experimentsHighlightedInTree.map((experiment) => {
               const isolateId = _get(experiment, 'metadata.sample.isolateId');
               const experimentsTooltipLocation = this.screenPositionForNodeId(
                 isolateId
@@ -307,7 +307,7 @@ class Phylogeny extends React.Component<*, State> {
 
   getSampleWithId = (nodeId: string): ?SampleType => {
     const { experiments } = this.props;
-    return experiments.find(experiment => {
+    return experiments.find((experiment) => {
       const isolateId = _get(experiment, 'metadata.sample.isolateId');
       return isolateId === nodeId;
     });
@@ -316,11 +316,11 @@ class Phylogeny extends React.Component<*, State> {
   getSampleIds = (): Array<string> => {
     const { experiments } = this.props;
     const isolateIds = experiments
-      .map(experiment => {
+      .map((experiment) => {
         const isolateId = _get(experiment, 'metadata.sample.isolateId');
         return isolateId;
       })
-      .filter(isolateId => !!isolateId);
+      .filter((isolateId) => !!isolateId);
     return isolateIds;
   };
 

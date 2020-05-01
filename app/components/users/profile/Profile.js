@@ -12,13 +12,13 @@ import {
 import {
   SubmitButton,
   DestructiveButton,
-} from 'makeandship-js-common/src/components/ui/Buttons';
+} from 'makeandship-js-common/src/components/ui/buttons';
 
 import HeaderContainer from '../../ui/header/HeaderContainer';
 import Footer from '../../ui/footer/Footer';
 
 import { profileSchema } from '../../../schemas/users';
-import styles from './Profile.scss';
+import styles from './Profile.module.scss';
 
 const uiSchema = {
   username: {
@@ -38,7 +38,7 @@ class Profile extends React.Component<*> {
     requestCurrentUser();
   }
 
-  onDeleteClick = e => {
+  onDeleteClick = (e) => {
     const { deleteCurrentUser } = this.props;
     e && e.preventDefault();
     if (!confirm(`Delete account? This cannot be undone.`)) {
@@ -47,13 +47,13 @@ class Profile extends React.Component<*> {
     deleteCurrentUser();
   };
 
-  onCancelClick = e => {
+  onCancelClick = (e) => {
     e && e.preventDefault();
     const { goBack } = this.props;
     goBack();
   };
 
-  onSubmit = formData => {
+  onSubmit = (formData) => {
     const { updateCurrentUser } = this.props;
     updateCurrentUser(formData);
   };

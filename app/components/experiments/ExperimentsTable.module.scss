@@ -1,0 +1,22 @@
+@import '~styles/colors';
+
+.checkboxContainer {
+  composes: global(form-group);
+  margin: 0;
+}
+
+.dropdownToggle {
+  composes: global(text-mid);
+  composes: global(px-2);
+}
+
+.resistanceProfile {
+  white-space: nowrap;
+}
+
+.resistant {
+}
+
+.susceptible {
+  opacity: 0.2;
+}

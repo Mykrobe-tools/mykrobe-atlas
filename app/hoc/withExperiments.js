@@ -25,7 +25,7 @@ import {
 } from '../modules/experiments';
 
 const withExperiments = connect(
-  state => ({
+  (state) => ({
     experiments: getExperiments(state),
     experimentsChoices: getExperimentsChoices(state),
     isFetchingExperiments: getIsFetchingExperiments(state),

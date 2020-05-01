@@ -15,7 +15,7 @@ import {
 import Organisations from './Organisations';
 
 const withRedux = connect(
-  state => ({
+  (state) => ({
     organisations: getOrganisations(state),
     organisationsWithCurrentUserStatus: getOrganisationsWithCurrentUserStatus(
       state

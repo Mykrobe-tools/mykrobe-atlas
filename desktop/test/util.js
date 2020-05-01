@@ -7,7 +7,7 @@ import fs from 'fs-extra';
 export const pkg = require('../../package.json');
 
 export const delay = (time: number): Promise<*> =>
-  new Promise(resolve => setTimeout(resolve, time));
+  new Promise((resolve) => setTimeout(resolve, time));
 
 export const INCLUDE_SLOW_TESTS =
   process.env.INCLUDE_SLOW_TESTS && process.env.INCLUDE_SLOW_TESTS === 'true';
@@ -77,7 +77,7 @@ export const asLowerCase = (o: any) => {
     return o.toLowerCase();
   }
   if (Array.isArray(o)) {
-    return o.map(value => asLowerCase(value));
+    return o.map((value) => asLowerCase(value));
   }
   return o;
 };

@@ -9,10 +9,10 @@ import { showNotification } from '../notifications';
 
 const module = createEntityModule('user', {
   typePrefix: 'users/user/',
-  getState: state => state.users.user,
+  getState: (state) => state.users.user,
   create: {
     operationId: 'usersCreate',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(showNotification('User created'));
       yield put(push('/users'));
     },
@@ -22,14 +22,14 @@ const module = createEntityModule('user', {
   },
   update: {
     operationId: 'usersUpdateById',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(showNotification('User updated'));
       yield put(push('/users'));
     },
   },
   delete: {
     operationId: 'usersDeleteById',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(showNotification('User deleted'));
       yield put(push('/users'));
     },

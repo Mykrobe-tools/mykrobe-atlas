@@ -1,0 +1,31 @@
+@import '~styles/colors';
+
+.container {
+  display: flex;
+  flex: 1;
+}
+
+.svgContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.wellWhite {
+  stroke: white;
+  fill: none;
+}
+
+.well {
+  stroke: $gray-200;
+  fill: none;
+}
+
+.fill {
+  stroke: $color-grey-mid;
+  transition: stroke-dashoffset 2s linear;
+}
+
+.fillWellWhite {
+  composes: fill;
+  stroke: $color-grey-light;
+}

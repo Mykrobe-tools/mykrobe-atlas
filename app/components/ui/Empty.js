@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Empty.scss';
+import styles from './Empty.module.scss';
 
 class Empty extends React.Component<*> {
   render() {

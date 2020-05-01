@@ -13,12 +13,12 @@ import {
   NotificationCategories,
 } from '../../modules/notifications';
 
-import styles from './NotificationsButton.scss';
+import styles from './NotificationsButton.module.scss';
 import NotificationsContainer from './NotificationsContainer';
 import NotificationsStyle from './NotificationsStyle';
 
 class NotificationsButton extends React.Component<*> {
-  onClearClick = e => {
+  onClearClick = (e) => {
     const { dismissAllNotifications } = this.props;
     e.preventDefault();
     dismissAllNotifications();
@@ -87,7 +87,7 @@ class NotificationsButton extends React.Component<*> {
 }
 
 const withRedux = connect(
-  state => ({
+  (state) => ({
     notifications: getFilteredNotifications(state, {
       categories: [
         NotificationCategories.ERROR,

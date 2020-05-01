@@ -11,14 +11,14 @@ export const REQUEST_EXPERIMENT_METADATA_TEMPLATE_SUCCESS = `${typePrefix}REQUES
 
 // Selectors
 
-export const getState = state => state.experiments.experimentMetadataTemplate;
+export const getState = (state) => state.experiments.experimentMetadataTemplate;
 export const getExperimentMetadataTemplate = createSelector(
   getState,
-  state => state.data
+  (state) => state.data
 );
 export const getIsFetching = createSelector(
   getState,
-  state => state.isFetching
+  (state) => state.isFetching
 );
 
 // Reducer
@@ -29,7 +29,7 @@ const initialState = {
 };
 
 const reducer = (state?: State = initialState, action?: Object = {}): State =>
-  produce(state, draft => {
+  produce(state, (draft) => {
     switch (action.type) {
       case REQUEST_EXPERIMENT_METADATA_TEMPLATE:
         Object.assign(draft, {
@@ -59,7 +59,7 @@ export const requestExperimentMetadataTemplate = () => ({
 // Side effects
 
 function* requestMetadataTemplateWatcher() {
-  yield takeEvery(REQUEST_EXPERIMENT_METADATA_TEMPLATE, function*() {
+  yield takeEvery(REQUEST_EXPERIMENT_METADATA_TEMPLATE, function* () {
     const testData = require('./__fixtures__/template.json');
     const template = testData['MODS'];
     // const template =

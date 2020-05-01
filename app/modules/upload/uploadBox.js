@@ -33,7 +33,7 @@ const isBoxReady = () => {
 
 const loadBox = async () => {
   return new Promise((resolve, reject) => {
-    loadScript(BOX_SDK_URL, error => {
+    loadScript(BOX_SDK_URL, (error) => {
       if (error) {
         reject(error);
       }
@@ -43,9 +43,9 @@ const loadBox = async () => {
 };
 
 const boxChoose = async () => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const boxSelect = new window.BoxSelect(options);
-    boxSelect.success(files => {
+    boxSelect.success((files) => {
       resolve(files);
     });
     boxSelect.cancel(() => {

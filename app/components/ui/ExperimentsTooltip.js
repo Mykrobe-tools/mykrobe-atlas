@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 
 import ExperimentsList from './ExperimentsList';
 
-import styles from './ExperimentsTooltip.scss';
+import styles from './ExperimentsTooltip.module.scss';
 
 class ExperimentsTooltip extends React.PureComponent<*> {
-  onRef = ref => {
+  onRef = (ref) => {
     this._ref = ref;
   };
 
@@ -20,7 +20,7 @@ class ExperimentsTooltip extends React.PureComponent<*> {
     document.removeEventListener('mousedown', this.handleClickOutside);
   };
 
-  handleClickOutside = event => {
+  handleClickOutside = (event) => {
     const { onClickOutside } = this.props;
     if (!onClickOutside) {
       return;

@@ -15,7 +15,7 @@ import {
   getExperimentId,
 } from '../modules/upload';
 
-const getRouteExperimentId = props =>
+const getRouteExperimentId = (props) =>
   props.match && props.match.params.experimentId;
 
 const withFileUploadWithoutRouter = connect((state, ownProps) => ({
@@ -47,7 +47,7 @@ export const withFileUploadPropTypes = {
   match: PropTypes.object,
 };
 
-const withFileUpload = component =>
+const withFileUpload = (component) =>
   withRouter(withFileUploadWithoutRouter(component));
 
 export default withFileUpload;

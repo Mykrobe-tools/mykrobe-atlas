@@ -8,7 +8,7 @@ import ExperimentRoutes from './ExperimentRoutes';
 
 import withExperiment from '../../hoc/withExperiment';
 
-import styles from './ExperimentContainer.scss';
+import styles from './ExperimentContainer.module.scss';
 
 class ExperimentContainer extends React.Component<*> {
   // TODO: move these into a saga side effect that watches LOCATION_CHANGE

@@ -48,5 +48,5 @@ const sagas = [
 ];
 
 export function* rootSaga(): Saga {
-  yield all(sagas.map(restartSagaOnError).map(saga => call(saga)));
+  yield all(sagas.map(restartSagaOnError).map((saga) => call(saga)));
 }

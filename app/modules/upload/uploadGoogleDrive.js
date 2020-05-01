@@ -28,7 +28,7 @@ const isGoogleDriveReady = () => {
 
 const loadGoogleDrive = async () => {
   return new Promise((resolve, reject) => {
-    loadScript(GOOGLE_SDK_URL, error => {
+    loadScript(GOOGLE_SDK_URL, (error) => {
       if (error) {
         reject(error);
       }
@@ -42,14 +42,14 @@ const loadGoogleDrive = async () => {
 };
 
 const authoriseApp = async () => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     window.gapi.auth.authorize(
       {
         client_id: process.env.GOOGLE_DRIVE_CLIENT_ID,
         scope: SCOPE,
         immediate: false,
       },
-      result => {
+      (result) => {
         resolve(result);
       }
     );
@@ -57,12 +57,12 @@ const authoriseApp = async () => {
 };
 
 const googleDriveChoose = async (oauthToken: string) => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const picker = new window.google.picker.PickerBuilder();
     picker.addView(window.google.picker.ViewId.DOCS);
     picker.setOAuthToken(oauthToken);
     picker.setDeveloperKey(process.env.GOOGLE_DRIVE_DEVELOPER_KEY);
-    picker.setCallback(data => {
+    picker.setCallback((data) => {
       const action = data[window.google.picker.Response.ACTION];
       if (action === window.google.picker.Action.PICKED) {
         resolve(data);
@@ -77,9 +77,9 @@ const googleDriveChoose = async (oauthToken: string) => {
   });
 };
 
-const executeRequest = async request => {
-  return new Promise(resolve => {
-    request.execute(response => {
+const executeRequest = async (request) => {
+  return new Promise((resolve) => {
+    request.execute((response) => {
       resolve(response);
     });
   });

@@ -6,7 +6,7 @@ import { storiesOf } from '@storybook/react';
 
 import ExperimentGeographicMap from './ExperimentGeographicMap';
 
-const setExperimentsHighlighted = experiments => {
+const setExperimentsHighlighted = (experiments) => {
   console.log('setExperimentsHighlighted', experiments);
 };
 
@@ -71,7 +71,7 @@ const variations = {
 };
 
 storiesOf('ExperimentGeographicMap', module)
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
   .add('Default', () => (

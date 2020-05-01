@@ -37,8 +37,8 @@ export const getOrganisationsWithCurrentUserStatus = createSelector(
   getOrganisations,
   getCurrentUser,
   (organisations, currentUser) => {
-    return produce(organisations, draft => {
-      draft.forEach(organisation => {
+    return produce(organisations, (draft) => {
+      draft.forEach((organisation) => {
         const currentUserStatus = organisationUserStatus(
           organisation,
           currentUser
