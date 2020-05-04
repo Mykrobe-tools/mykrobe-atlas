@@ -10,7 +10,7 @@ import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
 const module = createEntityModule('experimentsTree', {
   typePrefix: 'experiments/experimentsTree/',
-  getState: state => state.experiments.experimentsTree,
+  getState: (state) => state.experiments.experimentsTree,
   request: {
     operationId: 'experimentsTree',
   },
@@ -25,7 +25,7 @@ const {
 
 export const getExperimentsTreeNewick = createSelector(
   getExperimentsTree,
-  experimentsTree => _get(experimentsTree, 'tree')
+  (experimentsTree) => _get(experimentsTree, 'tree')
 );
 
 export {

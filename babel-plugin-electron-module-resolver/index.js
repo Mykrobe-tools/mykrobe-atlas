@@ -110,7 +110,7 @@ const callExpression = (path, state) => {
   }
 };
 
-module.exports = function() {
+module.exports = function () {
   return {
     visitor: {
       ImportDeclaration: importDeclaration,

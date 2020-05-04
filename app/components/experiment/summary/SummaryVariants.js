@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './SummaryVariants.scss';
+import styles from './SummaryVariants.module.scss';
 
 class SummaryVariants extends React.Component<*> {
   render() {
@@ -12,7 +12,7 @@ class SummaryVariants extends React.Component<*> {
     }
     return (
       <div className={styles.container}>
-        {Object.keys(experimentTransformed.evidence).map(drug => {
+        {Object.keys(experimentTransformed.evidence).map((drug) => {
           const evidenceDrug = experimentTransformed.evidence[drug];
           if (!evidenceDrug) {
             return null;

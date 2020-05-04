@@ -38,7 +38,7 @@ const loadDropbox = async () => {
           'data-app-key': process.env.DROPBOX_APP_KEY,
         },
       },
-      error => {
+      (error) => {
         if (error) {
           reject(error);
         }
@@ -49,10 +49,10 @@ const loadDropbox = async () => {
 };
 
 const dropboxChoose = async () => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     try {
       window.Dropbox.choose({
-        success: files => {
+        success: (files) => {
           resolve(files);
         },
         cancel: () => {

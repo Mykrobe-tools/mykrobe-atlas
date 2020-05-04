@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const _ = require('lodash');
+const { version, productName } = require('../package.json');
 
 const debug = require('debug');
 const d = debug('mykrobe:storybook-config');
@@ -8,8 +9,8 @@ const d = debug('mykrobe:storybook-config');
 
 const filteredRulesBlacklist = ['url-loader', 'file-loader'];
 
-const filteredRules = rules =>
-  rules.filter(rule => {
+const filteredRules = (rules) =>
+  rules.filter((rule) => {
     if (_.isString(rule.loader)) {
       return !filteredRulesBlacklist.includes(rule.loader);
     } else if (_.isString(rule.use)) {
@@ -43,6 +44,7 @@ module.exports = async ({ config, mode }) => {
   config.plugins = [
     ...config.plugins,
     new webpack.DefinePlugin({
+      PACKAGE_JSON: JSON.stringify({ version, productName }),
       IS_ELECTRON: JSON.stringify(false),
     }),
   ];

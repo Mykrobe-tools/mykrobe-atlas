@@ -31,7 +31,7 @@ export const build = async ({ plat, arch, releaseType, publish }) => {
     return;
   }
 
-  const config = produce(pkg.build, draft => {
+  const config = produce(pkg.build, (draft) => {
     // include the bin folder
     const sourceDir = path.join(
       __dirname,
@@ -56,7 +56,7 @@ export const build = async ({ plat, arch, releaseType, publish }) => {
 
     const additionalFilesToSign = glob.sync(path.join(sourceDir, '/**/*.so'));
 
-    const binaries = additionalFilesToSign.map(sourceFilePath => {
+    const binaries = additionalFilesToSign.map((sourceFilePath) => {
       const filePathRelative = sourceFilePath.substr(sourceDir.length);
       return path.join(outputDirBin, filePathRelative);
     });
@@ -68,7 +68,7 @@ export const build = async ({ plat, arch, releaseType, publish }) => {
 
   // specify platform and arch
 
-  const options = produce({ config }, draft => {
+  const options = produce({ config }, (draft) => {
     draft[arch] = true;
     draft.publish = publish;
     switch (plat) {

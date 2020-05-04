@@ -20,7 +20,7 @@ export const getState = (state: any) =>
 
 export const getExperimentsHighlighted = createSelector(
   getState,
-  experimentsHighlighted => experimentsHighlighted
+  (experimentsHighlighted) => experimentsHighlighted
 );
 
 // highlighted with and without tree node
@@ -41,12 +41,12 @@ export const getExperimentsHighlightedNotInTree = createSelector(
 
 export const getExperimentsHighlightedWithGeolocation = createSelector(
   getExperimentsHighlighted,
-  experiments => experimentsWithGeolocation(experiments, true)
+  (experiments) => experimentsWithGeolocation(experiments, true)
 );
 
 export const getExperimentsHighlightedWithoutGeolocation = createSelector(
   getExperimentsHighlighted,
-  experiments => experimentsWithGeolocation(experiments, false)
+  (experiments) => experimentsWithGeolocation(experiments, false)
 );
 
 // Action creators

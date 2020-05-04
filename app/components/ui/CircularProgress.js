@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './CircularProgress.scss';
+import styles from './CircularProgress.module.scss';
 
 class CircularProgress extends React.Component<*> {
   render() {

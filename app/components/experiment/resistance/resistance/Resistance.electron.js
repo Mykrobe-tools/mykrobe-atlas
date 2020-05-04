@@ -18,7 +18,7 @@ import ResistanceClassContainer from '../class/ResistanceClassContainer';
 import ResistanceEvidenceContainer from '../evidence/ResistanceEvidenceContainer';
 import ResistanceSpeciesContainer from '../species/ResistanceSpeciesContainer';
 
-import styles from './Resistance.scss';
+import styles from './Resistance.electron.module.scss';
 
 class Resistance extends React.Component<*> {
   render() {

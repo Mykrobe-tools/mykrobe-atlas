@@ -50,7 +50,7 @@ export const getState = (state: any): State =>
 
 export const getNotifications = createSelector(
   getState,
-  notifications => notifications
+  (notifications) => notifications
 );
 
 export const getFilteredNotifications = (
@@ -78,7 +78,7 @@ export const getFilteredNotifications = (
   const notifications = getNotifications(state);
 
   const filteredNotifications = [];
-  Object.keys(notifications).map(id => {
+  Object.keys(notifications).map((id) => {
     const notification = notifications[id];
     let keep = true;
     if (notification.dismissed && !dismissed) {
@@ -184,7 +184,7 @@ export const updateNotification = (id: string, attributes: any) => ({
 const initialState: State = {};
 
 const reducer = (state?: State = initialState, action?: Object = {}): State =>
-  produce(state, draft => {
+  produce(state, (draft) => {
     switch (action.type) {
       case SHOW_NOTIFICATION:
       case JS_COMMON_SHOW_NOTIFICATION:
@@ -202,7 +202,7 @@ const reducer = (state?: State = initialState, action?: Object = {}): State =>
         draft[action.payload].hidden = true;
         return;
       case HIDE_ALL_NOTIFICATIONS: {
-        Object.keys(draft).map(id => {
+        Object.keys(draft).map((id) => {
           draft[id].hidden = true;
         });
         return;
@@ -214,7 +214,7 @@ const reducer = (state?: State = initialState, action?: Object = {}): State =>
         });
         return;
       case DISMISS_ALL_NOTIFICATIONS:
-        Object.keys(draft).map(id => {
+        Object.keys(draft).map((id) => {
           draft[id].hidden = true;
           draft[id].dismissed = true;
         });

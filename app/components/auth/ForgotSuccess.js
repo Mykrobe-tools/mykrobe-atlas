@@ -8,10 +8,10 @@ import {
   FormHeader,
   FormFooter,
 } from 'makeandship-js-common/src/components/ui/form';
-import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
+import { PrimaryButton } from 'makeandship-js-common/src/components/ui/buttons';
 
 import HeaderContainer from '../ui/header/HeaderContainer';
-import styles from './Common.scss';
+import styles from './Common.module.scss';
 
 const ForgotSuccess = () => (
   <div className={styles.container}>

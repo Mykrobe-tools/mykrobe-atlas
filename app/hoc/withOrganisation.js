@@ -33,7 +33,7 @@ import {
 } from '../modules/organisations/organisationMembers';
 
 const withOrganisation = connect(
-  state => ({
+  (state) => ({
     organisation: getOrganisation(state),
     organisationIsFetching: getOrganisationIsFetching(state),
     organisationError: getOrganisationError(state),

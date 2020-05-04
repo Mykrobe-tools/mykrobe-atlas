@@ -51,23 +51,23 @@ export const getState = (state: any) => state.organisations.organisationMembers;
 
 export const getOrganisationMembersIsFetching = createSelector(
   getState,
-  state => state.isFetching
+  (state) => state.isFetching
 );
 
 export const getOrganisationMembersError = createSelector(
   getState,
-  state => state.error
+  (state) => state.error
 );
 
 export const organisationUserIsOwner = (organisation: any, user: any) =>
   organisation &&
   user &&
-  !!organisation.owners.find(element => element.userId === user.id);
+  !!organisation.owners.find((element) => element.userId === user.id);
 
 export const organisationUserIsMember = (organisation: any, user: any) =>
   organisation &&
   user &&
-  !!organisation.members.find(element => element.userId === user.id);
+  !!organisation.members.find((element) => element.userId === user.id);
 
 export const organisationUserIsUnapprovedMember = (
   organisation: any,
@@ -75,7 +75,9 @@ export const organisationUserIsUnapprovedMember = (
 ) =>
   organisation &&
   user &&
-  !!organisation.unapprovedMembers.find(element => element.userId === user.id);
+  !!organisation.unapprovedMembers.find(
+    (element) => element.userId === user.id
+  );
 
 export const organisationUserIsRejectedMember = (
   organisation: any,
@@ -83,7 +85,7 @@ export const organisationUserIsRejectedMember = (
 ) =>
   organisation &&
   user &&
-  !!organisation.rejectedMembers.find(element => element.userId === user.id);
+  !!organisation.rejectedMembers.find((element) => element.userId === user.id);
 
 export const organisationUserStatus = (organisation: any, user: any) => {
   let userStatus;
@@ -103,24 +105,26 @@ export const organisationUserMemberId = (organisation: any, user: any) => {
   if (!organisation || !user) {
     return;
   }
-  const owner = organisation.owners.find(element => element.userId === user.id);
+  const owner = organisation.owners.find(
+    (element) => element.userId === user.id
+  );
   if (owner) {
     return owner.id;
   }
   const member = organisation.members.find(
-    element => element.userId === user.id
+    (element) => element.userId === user.id
   );
   if (member) {
     return member.id;
   }
   const unapprovedMember = organisation.unapprovedMembers.find(
-    element => element.userId === user.id
+    (element) => element.userId === user.id
   );
   if (unapprovedMember) {
     return unapprovedMember.id;
   }
   const rejectedMember = organisation.rejectedMembers.find(
-    element => element.userId === user.id
+    (element) => element.userId === user.id
   );
   if (rejectedMember) {
     return rejectedMember.id;
@@ -137,8 +141,8 @@ export const organisationAllMembers = (organisation: any): Array<*> => {
     ...organisation.unapprovedMembers,
     ...organisation.rejectedMembers,
   ];
-  return produce(members, draft => {
-    draft.forEach(member => {
+  return produce(members, (draft) => {
+    draft.forEach((member) => {
       // create user with id of userId, since id in this context is the actual memberId
       const memberAsUser = {
         id: member.userId,
@@ -195,7 +199,7 @@ export const getOrganisationCurrentUserMemberId = createSelector(
 
 export const getOrganisationAllMembers = createSelector(
   getOrganisation,
-  organisation => organisationAllMembers(organisation)
+  (organisation) => organisationAllMembers(organisation)
 );
 
 // Action creators
@@ -243,7 +247,7 @@ const initialState: State = {
 };
 
 const reducer = (state?: State = initialState, action?: Object = {}): State =>
-  produce(state, draft => {
+  produce(state, (draft) => {
     switch (action.type) {
       case JOIN:
       case APPROVE_JOIN:
@@ -287,7 +291,7 @@ export default reducer;
 // Side effects
 
 export function* joinOrganisationWatcher(): Saga {
-  yield takeLatest(JOIN, function*(action) {
+  yield takeLatest(JOIN, function* (action) {
     yield put(
       callSwaggerApi({
         operationId: 'joinOrganisation',
@@ -299,7 +303,7 @@ export function* joinOrganisationWatcher(): Saga {
 }
 
 export function* approveJoinOrganisationRequestWatcher(): Saga {
-  yield takeLatest(APPROVE_JOIN, function*(action) {
+  yield takeLatest(APPROVE_JOIN, function* (action) {
     yield put(
       callSwaggerApi({
         operationId: 'approveJoinOrganisationRequest',
@@ -315,7 +319,7 @@ export function* approveJoinOrganisationRequestWatcher(): Saga {
 }
 
 export function* rejectJoinOrganisationRequestWatcher(): Saga {
-  yield takeLatest(REJECT_JOIN, function*(action) {
+  yield takeLatest(REJECT_JOIN, function* (action) {
     yield put(
       callSwaggerApi({
         operationId: 'rejectJoinOrganisationRequest',
@@ -327,7 +331,7 @@ export function* rejectJoinOrganisationRequestWatcher(): Saga {
 }
 
 export function* removeOrganisationMemberWatcher(): Saga {
-  yield takeLatest(REMOVE_MEMBER, function*(action) {
+  yield takeLatest(REMOVE_MEMBER, function* (action) {
     yield put(
       callSwaggerApi({
         operationId: 'removeOrganisationMember',
@@ -343,7 +347,7 @@ export function* removeOrganisationMemberWatcher(): Saga {
 }
 
 export function* promoteOrganisationMemberWatcher(): Saga {
-  yield takeLatest(PROMOTE_MEMBER, function*(action) {
+  yield takeLatest(PROMOTE_MEMBER, function* (action) {
     yield put(
       callSwaggerApi({
         operationId: 'promoteOrganisationMember',
@@ -359,7 +363,7 @@ export function* promoteOrganisationMemberWatcher(): Saga {
 }
 
 export function* demoteOrganisationOwnerWatcher(): Saga {
-  yield takeLatest(DEMOTE_MEMBER, function*(action) {
+  yield takeLatest(DEMOTE_MEMBER, function* (action) {
     yield put(
       callSwaggerApi({
         operationId: 'demoteOrganisationOwner',
@@ -385,29 +389,29 @@ export function* successWatcher(): Saga {
       PROMOTE_MEMBER_SUCCESS,
       DEMOTE_MEMBER_SUCCESS,
     ],
-    function*(action) {
+    function* (action) {
       const entity = action.payload;
       const { id } = entity;
       yield put(requestOrganisation(id));
     }
   );
   // show notification
-  yield takeLatest(JOIN_SUCCESS, function*() {
+  yield takeLatest(JOIN_SUCCESS, function* () {
     yield put(showNotification('Request awaiting approval'));
   });
-  yield takeLatest(APPROVE_JOIN_SUCCESS, function*() {
+  yield takeLatest(APPROVE_JOIN_SUCCESS, function* () {
     yield put(showNotification('Request approved'));
   });
-  yield takeLatest(REJECT_JOIN_SUCCESS, function*() {
+  yield takeLatest(REJECT_JOIN_SUCCESS, function* () {
     yield put(showNotification('Request rejected'));
   });
-  yield takeLatest(REMOVE_MEMBER_SUCCESS, function*() {
+  yield takeLatest(REMOVE_MEMBER_SUCCESS, function* () {
     yield put(showNotification('Member removed'));
   });
-  yield takeLatest(PROMOTE_MEMBER_SUCCESS, function*() {
+  yield takeLatest(PROMOTE_MEMBER_SUCCESS, function* () {
     yield put(showNotification('Promoted to owner'));
   });
-  yield takeLatest(DEMOTE_MEMBER_SUCCESS, function*() {
+  yield takeLatest(DEMOTE_MEMBER_SUCCESS, function* () {
     yield put(showNotification('Demoted to member'));
   });
 }
@@ -423,5 +427,5 @@ const sagas = [
 ];
 
 export function* organisationMembersSaga(): Saga {
-  yield all(sagas.map(saga => fork(saga)));
+  yield all(sagas.map((saga) => fork(saga)));
 }

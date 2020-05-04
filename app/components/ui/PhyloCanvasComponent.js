@@ -3,7 +3,7 @@
 import { Tree, Branch, utils } from 'phylocanvas';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './PhyloCanvasComponent.scss';
+import styles from './PhyloCanvasComponent.module.scss';
 import * as Colors from '../../constants/Colors';
 
 const { events, canvas } = utils;
@@ -115,7 +115,7 @@ class PhyloCanvasComponent extends React.Component<*> {
     ids: Array<string>,
     color: string = Colors.COLOR_HIGHLIGHT_EXPERIMENT
   ) {
-    ids.forEach(id => {
+    ids.forEach((id) => {
       this.highlightNodeWithId(id, color);
     });
     return this;

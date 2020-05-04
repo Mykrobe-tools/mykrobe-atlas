@@ -7,7 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import TabNavigation, { TabNavigationLink } from './TabNavigation';
 
 storiesOf('TabNavigation', module)
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <MemoryRouter initialEntries={['/lorem']}>{story()}</MemoryRouter>
   ))
   .add('Default', () => (

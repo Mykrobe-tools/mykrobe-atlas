@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import styles from './OrganisationStatusIcon.scss';
+import styles from './OrganisationStatusIcon.module.scss';
 
 const OrganisationStatusIcon = ({ status }: React.ElementProps<*>): any => {
   if (status === 'owner') {

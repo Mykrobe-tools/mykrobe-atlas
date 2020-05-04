@@ -1,8 +1,8 @@
-@import '~styles/colors.global';
+@import '~styles/colors';
 
 .button {
-  composes: fontSecondary from 'styles/typography.scss';
-  composes: fontSecondarySizeNormal from 'styles/typography.scss';
+  composes: fontSecondary from '~styles/typography.scss';
+  composes: fontSecondarySizeNormal from '~styles/typography.scss';
   text-transform: uppercase;
   height: 36px;
   padding: 0 18px;
@@ -65,7 +65,7 @@
 }
 
 .overlayControlText {
-  composes: fontSecondary from 'styles/typography.scss';
-  composes: fontSecondarySizeSmall from 'styles/typography.scss';
+  composes: fontSecondary from '~styles/typography.scss';
+  composes: fontSecondarySizeSmall from '~styles/typography.scss';
   margin-left: 4px;
 }

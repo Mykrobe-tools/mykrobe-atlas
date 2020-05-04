@@ -14,7 +14,7 @@ import {
 } from '../modules/experiments';
 
 const withExperimentsHighlighted = connect(
-  state => ({
+  (state) => ({
     experimentsHighlighted: getExperimentsHighlighted(state),
     experimentsHighlightedInTree: getExperimentsHighlightedInTree(state),
     experimentsHighlightedNotInTree: getExperimentsHighlightedNotInTree(state),

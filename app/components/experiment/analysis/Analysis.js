@@ -14,7 +14,7 @@ import { withExperimentPropTypes } from '../../../hoc/withExperiment';
 import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
 import { withExperimentsHighlightedPropTypes } from '../../../hoc/withExperimentsHighlighted';
 
-import styles from './Analysis.scss';
+import styles from './Analysis.module.scss';
 
 const EXPERIMENTAL_RENDER_TREE_NEIGHBOURS = false;
 

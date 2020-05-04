@@ -7,7 +7,7 @@ import { Button } from 'reactstrap';
 
 import { isNumeric } from 'makeandship-js-common/src/util/is';
 
-import styles from './Notification.scss';
+import styles from './Notification.module.scss';
 import NotificationsStyle from './NotificationsStyle';
 
 type State = {
@@ -166,7 +166,7 @@ class Notification extends React.Component<*, State> {
                   size="sm"
                   className="ml-2"
                   key={`${index}`}
-                  onClick={e => {
+                  onClick={(e) => {
                     e.preventDefault();
                     action.onClick(id);
                   }}

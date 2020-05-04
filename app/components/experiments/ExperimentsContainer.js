@@ -24,7 +24,7 @@ class ExperimentsContainer extends React.Component<*> {
     });
   };
 
-  setPage = page => {
+  setPage = (page) => {
     const { setExperimentsFilters, experimentsFilters } = this.props;
     setExperimentsFilters({
       ...experimentsFilters,

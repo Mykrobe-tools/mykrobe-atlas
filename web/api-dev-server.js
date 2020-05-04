@@ -14,7 +14,7 @@ const uploadDirectory = path.resolve(__dirname, 'tmp');
 resumable.setUploadDirectory(uploadDirectory);
 
 // empty upload temp directory
-del([`${uploadDirectory}/*`], { force: true }).then(paths => {
+del([`${uploadDirectory}/*`], { force: true }).then((paths) => {
   if (paths.length > 0) {
     console.log('Temp files removed:\n', paths.join('\n'));
   }
@@ -86,11 +86,9 @@ app.get('/api/:endpoint', (req, res) => {
 app.use(
   '/treeplace',
   proxy('13.69.243.89:8000', {
-    forwardPath: req => {
+    forwardPath: (req) => {
       // eslint-disable-line
-      return `/treeplace${require('url')
-        .parse(req.url)
-        .path.substr(1)}`;
+      return `/treeplace${require('url').parse(req.url).path.substr(1)}`;
     },
   })
 );
@@ -103,7 +101,7 @@ app.use(
 );
 
 // Start dev API server
-const server = app.listen(port, err => {
+const server = app.listen(port, (err) => {
   if (err) {
     console.error(err);
     return;

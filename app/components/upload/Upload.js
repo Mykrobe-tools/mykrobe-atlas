@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-import styles from './Upload.scss';
+import styles from './Upload.module.scss';
 import AnimatedBackgroundCanvas from '../ui/background/AnimatedBackgroundCanvas';
 import Logo from '../ui/logo/Logo';
 import HeaderContainer from '../ui/header/HeaderContainer';

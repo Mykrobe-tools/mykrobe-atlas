@@ -69,7 +69,7 @@ class ResumableUpload {
         payload: message,
       });
     });
-    this.resumable.on('fileAdded', file => {
+    this.resumable.on('fileAdded', (file) => {
       this.actionChannel.put({
         type: RESUMABLE_UPLOAD_FILE_ADDED,
         payload: file,
@@ -82,7 +82,7 @@ class ResumableUpload {
         payload: uploadProgress,
       });
     });
-    this.resumable.on('fileSuccess', file => {
+    this.resumable.on('fileSuccess', (file) => {
       this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE, payload: file });
     });
   }

@@ -13,7 +13,7 @@ import withAuth, {
 import NotificationsContainer from '../notifications/NotificationsContainer';
 import NotificationsStyle from '../notifications/NotificationsStyle';
 
-import styles from './App.scss';
+import styles from './App.module.scss';
 import MenuButton from '../ui/navigation/menu/MenuButton';
 import Menu from '../ui/navigation/menu/Menu';
 import MenuBg from '../ui/navigation/menu/MenuBg';

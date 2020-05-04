@@ -17,7 +17,7 @@ import {
   getFileNames,
 } from '../../modules/desktop';
 
-import styles from './App.scss';
+import styles from './App.module.scss';
 
 import NotificationsContainer from '../notifications/NotificationsContainer';
 import NotificationsStyle from '../notifications/NotificationsStyle';
@@ -70,7 +70,7 @@ class App extends React.Component<*> {
     });
   }
 
-  onCapturePage = async filePath => {
+  onCapturePage = async (filePath) => {
     if (!filePath) {
       return;
     }
@@ -102,7 +102,7 @@ class App extends React.Component<*> {
 }
 
 const withRedux = connect(
-  state => ({
+  (state) => ({
     fileNames: getFileNames(state),
   }),
   {

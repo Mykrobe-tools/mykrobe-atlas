@@ -1,0 +1,12 @@
+@import '~styles/colors';
+
+.container {
+  composes: container from '~styles/layout.scss';
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

@@ -29,7 +29,7 @@ const exemplarSamplesExpect = jest.requireActual(
 jest.setTimeout(TIMEOUT);
 
 describe('AnalyserLocalFile', () => {
-  it('should contain a test', done => {
+  it('should contain a test', (done) => {
     done();
   });
 });
@@ -56,7 +56,7 @@ const pathToProcessMock = path.join(
 );
 
 describe('AnalyserLocalFile', () => {
-  it(`should handle exit with code 123`, async done => {
+  it(`should handle exit with code 123`, async (done) => {
     const command = `babel-node "${pathToProcessMock}" --exitWithCode 123`;
     console.log('command', command);
     const child = exec(command);
@@ -64,11 +64,11 @@ describe('AnalyserLocalFile', () => {
     analyser
       .setChildProcess(child)
       .monitorChildProcess()
-      .on('done', result => {
+      .on('done', (result) => {
         console.log('result', result);
         throw 'Analyser should not emit done';
       })
-      .on('error', error => {
+      .on('error', (error) => {
         console.error(error);
         expect(error.description).toEqual(
           'Process exit unexpectedly with code 123'
@@ -77,7 +77,7 @@ describe('AnalyserLocalFile', () => {
       });
   });
 
-  it(`should handle progress`, async done => {
+  it(`should handle progress`, async (done) => {
     const json = { progress: 'true' };
     const jsonString = JSON.stringify({ progress: 'true' });
     const command = `babel-node "${pathToProcessMock}" --progress --emit '${jsonString}'`;
@@ -87,22 +87,22 @@ describe('AnalyserLocalFile', () => {
     analyser
       .setChildProcess(child)
       .monitorChildProcess()
-      .on('progress', progress => {
+      .on('progress', (progress) => {
         console.log('progress', progress);
       })
-      .on('done', result => {
+      .on('done', (result) => {
         console.log('result', result);
         console.log('json', json);
         expect(result.json).toEqual(json);
         done();
       })
-      .on('error', error => {
+      .on('error', (error) => {
         console.error('error', error);
         throw 'Analyser should not emit error';
       });
   });
 
-  it(`should handle noisy JSON`, async done => {
+  it(`should handle noisy JSON`, async (done) => {
     const json = { progress: 'true' };
     const noise = 'ABCxyz123';
     const jsonString = JSON.stringify({ progress: 'true' });
@@ -113,13 +113,13 @@ describe('AnalyserLocalFile', () => {
     analyser
       .setChildProcess(child)
       .monitorChildProcess()
-      .on('done', result => {
+      .on('done', (result) => {
         console.log('result', result);
         console.log('json', json);
         expect(result.json).toEqual(json);
         done();
       })
-      .on('error', error => {
+      .on('error', (error) => {
         console.error('error', error);
         throw 'Analyser should not emit error';
       });
@@ -145,17 +145,19 @@ describe('AnalyserLocalFile', () => {
       if (result) {
         filePaths = filePaths.concat(result);
       }
-      const fileNames = filePaths.map(filePath => parsePath(filePath).basename);
+      const fileNames = filePaths.map(
+        (filePath) => parsePath(filePath).basename
+      );
       it(`should analyse source file ${source} - analysing (${fileNames.join(
         ', '
-      )})`, async done => {
+      )})`, async (done) => {
         const analyser = new AnalyserLocalFile();
         analyser
           .analyseFile(filePaths)
-          .on('progress', progress => {
+          .on('progress', (progress) => {
             console.log('progress', progress);
           })
-          .on('done', result => {
+          .on('done', (result) => {
             const { json, transformed } = result;
             if (GENERATE_JSON_FIXTURES) {
               if (!isJson) {
@@ -198,7 +200,7 @@ describe('AnalyserLocalFile', () => {
             }
             done();
           })
-          .on('error', error => {
+          .on('error', (error) => {
             console.error(error);
             // check if this was expected to be rejected
             let expectedReject = false;

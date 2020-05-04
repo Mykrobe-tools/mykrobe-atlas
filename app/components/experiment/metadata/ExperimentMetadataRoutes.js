@@ -6,15 +6,15 @@ import urljoin from 'url-join';
 
 import EditMetadataContainer from './EditMetadataContainer';
 
-const EditPatientMetadata = props => (
+const EditPatientMetadata = (props) => (
   <EditMetadataContainer {...props} title="Patient" subsections={['patient']} />
 );
 
-const EditSampleMetadata = props => (
+const EditSampleMetadata = (props) => (
   <EditMetadataContainer {...props} title="Sample" subsections={['sample']} />
 );
 
-const EditGenotypingMetadata = props => (
+const EditGenotypingMetadata = (props) => (
   <EditMetadataContainer
     {...props}
     title="Genotyping"
@@ -22,7 +22,7 @@ const EditGenotypingMetadata = props => (
   />
 );
 
-const EditPhenotypingMetadata = props => (
+const EditPhenotypingMetadata = (props) => (
   <EditMetadataContainer
     {...props}
     title="Phenotyping"
@@ -30,7 +30,7 @@ const EditPhenotypingMetadata = props => (
   />
 );
 
-const EditTreatmentMetadata = props => (
+const EditTreatmentMetadata = (props) => (
   <EditMetadataContainer
     {...props}
     title="Treatment"
@@ -38,7 +38,7 @@ const EditTreatmentMetadata = props => (
   />
 );
 
-const EditOutcomeMetadata = props => (
+const EditOutcomeMetadata = (props) => (
   <EditMetadataContainer {...props} title="Outcome" subsections={['outcome']} />
 );
 

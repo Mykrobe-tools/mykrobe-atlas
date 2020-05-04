@@ -32,7 +32,7 @@ import {
 } from '../modules/experiments';
 
 const withExperiment = connect(
-  state => ({
+  (state) => ({
     experiment: getExperiment(state),
     experimentTransformed: getExperimentTransformed(state),
     experimentNearestNeigbours: getExperimentNearestNeigbours(state),

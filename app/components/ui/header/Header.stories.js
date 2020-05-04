@@ -23,9 +23,9 @@ const variations = {
 };
 
 storiesOf('Header', module)
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <MemoryRouter initialEntries={['/lorem']}>{story()}</MemoryRouter>
   ))
-  .addDecorator(story => <ConnectedStorybook story={story()} />)
+  .addDecorator((story) => <ConnectedStorybook story={story()} />)
   .add('Default', () => <Header {...variations.default} />)
   .add('User', () => <Header {...variations.currentUser} />);

@@ -11,7 +11,7 @@ export const experimentsInTree = (
 ) => {
   return (
     experiments &&
-    experiments.filter(experiment => {
+    experiments.filter((experiment) => {
       const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
       const contains = newickContainsNodeId(experimentsTree, isolateId);
       if (contains) {
@@ -28,7 +28,7 @@ export const experimentsWithGeolocation = (
 ) => {
   return (
     experiments &&
-    experiments.filter(experiment => {
+    experiments.filter((experiment) => {
       const longitudeIsolate = _get(
         experiment,
         'metadata.sample.longitudeIsolate'

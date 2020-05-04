@@ -14,8 +14,9 @@ import { Link } from 'react-router-dom';
 import PageHeader, {
   styles as pageHeaderStyles,
 } from 'makeandship-js-common/src/components/ui/PageHeader';
-import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
-import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
+import { PrimaryButton } from 'makeandship-js-common/src/components/ui/buttons';
+import Table from 'makeandship-js-common/src/components/ui/table';
+import TrLink from 'makeandship-js-common/src/components/ui/table/TrLink';
 
 import OrganisationStatusIcon from '../organisation/ui/OrganisationStatusIcon';
 
@@ -23,7 +24,7 @@ import HeaderContainer from '../ui/header/HeaderContainer';
 import Footer from '../ui/footer/Footer';
 import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
 
-import styles from './Organisations.scss';
+import styles from './Organisations.module.scss';
 
 const headings = [
   {
@@ -79,7 +80,7 @@ class Organisations extends React.Component<*> {
     } = organisation;
     const showActions = currentUserStatus === 'owner';
     return (
-      <TdLink key={id} to={`/organisations/${id}`}>
+      <TrLink key={id} to={`/organisations/${id}`}>
         <td>{name}</td>
         <td>{template}</td>
         <td>{members.length + owners.length}</td>
@@ -94,7 +95,7 @@ class Organisations extends React.Component<*> {
                 tag={'a'}
                 href="#"
                 className={styles.dropdownToggle}
-                onClick={e => {
+                onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
                 }}
@@ -112,7 +113,7 @@ class Organisations extends React.Component<*> {
             </UncontrolledDropdown>
           )}
         </td>
-      </TdLink>
+      </TrLink>
     );
   };
 

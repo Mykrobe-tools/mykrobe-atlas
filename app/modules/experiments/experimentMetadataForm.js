@@ -13,11 +13,11 @@ export const EXPERIMENT_METADATA_FORM_ID = 'experiments/experiment/metadata';
 
 // Selectors
 
-export const getExperimentMetadataFormData = state => {
+export const getExperimentMetadataFormData = (state) => {
   return getFormData(state, EXPERIMENT_METADATA_FORM_ID);
 };
 
 export const getExperimentMetadataFormCompletion = createSelector(
   getExperimentMetadataFormData,
-  formData => completenessForSchemaAndData(experimentMetadataSchema, formData)
+  (formData) => completenessForSchemaAndData(experimentMetadataSchema, formData)
 );

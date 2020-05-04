@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import styles from './Key.scss';
+import styles from './Key.module.scss';
 import { connect } from 'react-redux';
 import type { SampleType } from '../../../types/SampleType';
 

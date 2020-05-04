@@ -52,7 +52,7 @@ UploadContainer.propTypes = {
 };
 
 const withRedux = connect(
-  state => ({
+  (state) => ({
     isAnalysing: getIsAnalysing(state),
     progress: getProgress(state),
   }),

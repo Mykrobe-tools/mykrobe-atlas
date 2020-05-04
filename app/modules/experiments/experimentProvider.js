@@ -8,11 +8,11 @@ import { showNotification } from '../notifications';
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experimentProvider/',
-  getState: state => state.experiments.experimentProvider,
+  getState: (state) => state.experiments.experimentProvider,
   initialData: {},
   update: {
     operationId: 'experimentProviderUpload',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(showNotification('Sample received'));
     },
   },

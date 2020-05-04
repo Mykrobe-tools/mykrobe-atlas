@@ -16,9 +16,9 @@ import _get from 'lodash.get';
 
 import Pagination from 'makeandship-js-common/src/components/ui/pagination';
 import Loading from 'makeandship-js-common/src/components/ui/loading';
-import { IconButton } from 'makeandship-js-common/src/components/ui/Buttons';
+import { IconButton } from 'makeandship-js-common/src/components/ui/buttons';
 
-import styles from './Experiments.scss';
+import styles from './Experiments.module.scss';
 import ExperimentsTable from './ExperimentsTable';
 import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
 import HeaderContainer from '../ui/header/HeaderContainer';

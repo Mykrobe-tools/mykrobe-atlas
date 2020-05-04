@@ -42,7 +42,7 @@ export const getDownloads = ({
 }: any): Array<*> => {
   const downloads = [];
   expectedPlatformAssets.forEach(({ platform, name }) => {
-    release.assets.forEach(asset => {
+    release.assets.forEach((asset) => {
       if (asset.name === name) {
         downloads.push({
           platform,

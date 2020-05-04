@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 
 import SearchNavigation from './SearchNavigation';
 
-const onSubmit = q => console.log('onSubmit', q);
+const onSubmit = (q) => console.log('onSubmit', q);
 
 const variations = {
   default: {

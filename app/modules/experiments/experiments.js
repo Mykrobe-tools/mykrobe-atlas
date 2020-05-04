@@ -15,24 +15,24 @@ import {
 
 export const getState = (state: any) => state.experiments.experiments;
 
-export const getStatus = createSelector(getState, state =>
+export const getStatus = createSelector(getState, (state) =>
   _get(state, 'data.status')
 );
 
-export const getResults = createSelector(getState, state =>
+export const getResults = createSelector(getState, (state) =>
   _get(state, 'data.results')
 );
 
 export const getIsPending = createSelector(
   getStatus,
-  status => status === 'pending'
+  (status) => status === 'pending'
 );
 
-export const getBigsi = createSelector(getState, state =>
+export const getBigsi = createSelector(getState, (state) =>
   _get(state, 'data.bigsi')
 );
 
-export const getSearchQuery = createSelector(getState, state =>
+export const getSearchQuery = createSelector(getState, (state) =>
   _get(state, 'data.search.q')
 );
 
@@ -84,12 +84,12 @@ export const getExperimentsNotInTree = createSelector(
 
 export const getExperimentsWithGeolocation = createSelector(
   getResults,
-  experiments => experimentsWithGeolocation(experiments, true)
+  (experiments) => experimentsWithGeolocation(experiments, true)
 );
 
 export const getExperimentsWithoutGeolocation = createSelector(
   getResults,
-  experiments => experimentsWithGeolocation(experiments, false)
+  (experiments) => experimentsWithGeolocation(experiments, false)
 );
 
 export {

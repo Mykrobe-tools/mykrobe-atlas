@@ -75,13 +75,13 @@ class AnalyserLocalFile extends EventEmitter {
     const transformer = new AnalyserJsonTransformer();
     transformer
       .transform(jsonString)
-      .then(result => {
+      .then((result) => {
         // const { json, transformed } = result;
         // console.log('json', json);
         // console.log('transformed', transformed);
         this.emit('done', result);
       })
-      .catch(err => {
+      .catch((err) => {
         this.failWithError(err);
       });
   }
@@ -109,7 +109,7 @@ class AnalyserLocalFile extends EventEmitter {
         this.doneWithJsonString(dataString);
       };
 
-      reader.onerror = e => {
+      reader.onerror = (e) => {
         this.failWithError(
           `FileReader failed with error code ${e.target.error.code}`
         );
@@ -186,7 +186,7 @@ class AnalyserLocalFile extends EventEmitter {
       return this;
     }
 
-    this.child.on('error', err => {
+    this.child.on('error', (err) => {
       console.log('Failed to start child process.', err);
       this.failWithError(err);
     });
@@ -206,7 +206,7 @@ class AnalyserLocalFile extends EventEmitter {
       .createInterface({
         input: this.child.stdout,
       })
-      .on('line', line => {
+      .on('line', (line) => {
         if (this.didReceiveError) {
           return;
         }
@@ -250,7 +250,7 @@ class AnalyserLocalFile extends EventEmitter {
       .createInterface({
         input: this.child.stderr,
       })
-      .on('line', line => {
+      .on('line', (line) => {
         if (isAnalyserError(line)) {
           this.onReadLineError(line);
         } else {
@@ -261,7 +261,7 @@ class AnalyserLocalFile extends EventEmitter {
         console.log('readline stderr close');
       });
 
-    this.child.on('exit', code => {
+    this.child.on('exit', (code) => {
       console.log('Processing exited with code: ' + code);
       // 0 = exited normally, null = cancelled
       if (code === 0 || code === null) {

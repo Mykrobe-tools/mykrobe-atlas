@@ -22,7 +22,7 @@ export class CanvasLozenge {
     };
   }
 
-  setProps = props => {
+  setProps = (props) => {
     this.props = {
       ...this.props,
       ...props,
@@ -53,7 +53,7 @@ export class CanvasLozenge {
     };
   };
 
-  renderInContext = context => {
+  renderInContext = (context) => {
     const { color } = this.props;
     const { x, y, rotation, scale, opacity } = this.state;
     const width = scale * LozengeDimensions.width;

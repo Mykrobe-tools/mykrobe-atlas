@@ -10,10 +10,10 @@ export const typePrefix = 'organisations/organisation/';
 
 const module = createEntityModule('organisation', {
   typePrefix,
-  getState: state => state.organisations.organisation,
+  getState: (state) => state.organisations.organisation,
   create: {
     operationId: 'organisationsCreate',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(showNotification('Organisation created'));
     },
   },
@@ -22,13 +22,13 @@ const module = createEntityModule('organisation', {
   },
   update: {
     operationId: 'organisationsUpdateById',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(showNotification('Organisation saved'));
     },
   },
   delete: {
     operationId: 'organisationsDeleteById',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(showNotification('Organisation deleted'));
     },
   },

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import _get from 'lodash.get';
 import { withRouter, Link } from 'react-router-dom';
 
-import styles from './ExperimentsList.scss';
+import styles from './ExperimentsList.module.scss';
 
 const ExperimentsList = ({ experiments }) =>
   experiments &&

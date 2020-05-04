@@ -27,7 +27,7 @@ const variations = {
 };
 
 storiesOf('OrganisationMembershipActions', module)
-  .addDecorator(story => <Nav>{story()}</Nav>)
+  .addDecorator((story) => <Nav>{story()}</Nav>)
   .add('Default', () => (
     <OrganisationMembershipActions {...variations.default} />
   ))

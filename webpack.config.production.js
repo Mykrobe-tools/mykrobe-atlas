@@ -4,25 +4,32 @@
 require('dotenv').config();
 const DEBUG = process.env.DEBUG_PRODUCTION === '1';
 
+const path = require('path');
 const merge = require('webpack-merge');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpackConfig = require('./webpack.config');
 const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const cssRegex = /\.global\.css$/;
-const cssModuleRegex = /^((?!\.global).)*\.css$/;
-const sassRegex = /\.global\.(scss|sass)$/;
-const sassModuleRegex = /^((?!\.global).)*\.(scss|sass)$/;
+// portions taken from https://github.com/facebook/create-react-app/packages/react-scripts/config/webpack.config.prod.js
+
+const cssRegex = /\.css$/;
+const cssModuleRegex = /\.module\.css$/;
+const sassRegex = /\.(scss|sass)$/;
+const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 module.exports = merge(webpackConfig, {
   mode: 'production',
 
+  // Don't attempt to continue if there are any errors.
+  bail: true,
+
   module: {
     rules: [
-      // Extract all .global.css to style.css as is
       {
         test: cssRegex,
+        exclude: cssModuleRegex,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -36,7 +43,6 @@ module.exports = merge(webpackConfig, {
           },
         ],
       },
-      // Pipe other styles through css modules and append to style.css
       {
         test: cssModuleRegex,
         use: [
@@ -53,9 +59,9 @@ module.exports = merge(webpackConfig, {
           },
         ],
       },
-      // Add SASS support  - compile all .global.scss files and pipe it to style.css
       {
         test: sassRegex,
+        exclude: sassModuleRegex,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -73,7 +79,6 @@ module.exports = merge(webpackConfig, {
           },
         ],
       },
-      // Add SASS support  - compile all other .scss files and pipe it to style.css
       {
         test: sassModuleRegex,
         use: [
@@ -94,6 +99,17 @@ module.exports = merge(webpackConfig, {
           },
         ],
       },
+      // IMAGES
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            esModule: false,
+          },
+        },
+      },
       // WOFF Font
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -102,6 +118,7 @@ module.exports = merge(webpackConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
+            esModule: false,
           },
         },
       },
@@ -113,6 +130,7 @@ module.exports = merge(webpackConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
+            esModule: false,
           },
         },
       },
@@ -124,13 +142,19 @@ module.exports = merge(webpackConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/octet-stream',
+            esModule: false,
           },
         },
       },
       // EOT Font
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        use: 'file-loader',
+        use: {
+          loader: 'file-loader',
+          options: {
+            limit: 10000,
+          },
+        },
       },
       // SVG Font
       {
@@ -140,23 +164,14 @@ module.exports = merge(webpackConfig, {
           options: {
             limit: 10000,
             mimetype: 'image/svg+xml',
+            esModule: false,
           },
         },
       },
-      // Common Image Formats
-      {
-        test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-        use: 'url-loader',
-      },
     ],
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[name].[hash].chunk.css',
-    }),
-  ],
   optimization: {
+    minimize: true,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -201,4 +216,18 @@ module.exports = merge(webpackConfig, {
       new OptimizeCSSAssetsPlugin(),
     ],
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',
+      chunkFilename: '[name].[hash].chunk.css',
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: false,
+      reportFilename: path.join(
+        __dirname,
+        'webpack.bundle-analyzer-report.html'
+      ),
+    }),
+  ],
 });

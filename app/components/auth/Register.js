@@ -10,7 +10,7 @@ import {
 import {
   SubmitButton,
   LinkButton,
-} from 'makeandship-js-common/src/components/ui/Buttons';
+} from 'makeandship-js-common/src/components/ui/buttons';
 
 import withAuth, {
   withAuthPropTypes,
@@ -18,7 +18,7 @@ import withAuth, {
 
 import { signupSchema } from '../../schemas/auth';
 import HeaderContainer from '../ui/header/HeaderContainer';
-import styles from './Common.scss';
+import styles from './Common.module.scss';
 
 const uiSchema = {
   username: {

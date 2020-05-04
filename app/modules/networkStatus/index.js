@@ -41,5 +41,5 @@ const sagas = [
 ];
 
 export function* networkStatusSaga(): Saga {
-  yield all(sagas.map(saga => fork(saga)));
+  yield all(sagas.map((saga) => fork(saga)));
 }

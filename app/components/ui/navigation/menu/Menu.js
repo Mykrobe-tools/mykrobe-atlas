@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import styles from './Menu.scss';
+import styles from './Menu.module.scss';
 import Logo from '../../logo/Logo';
 
 class Menu extends React.Component<*> {

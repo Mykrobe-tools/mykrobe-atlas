@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 import {
   PrimaryButton,
   SecondaryButton,
-} from 'makeandship-js-common/src/components/ui/Buttons';
+} from 'makeandship-js-common/src/components/ui/buttons';
 
-import styles from './OrganisationMembershipActions.scss';
+import styles from './OrganisationMembershipActions.module.scss';
 
 import OrganisationStatusIcon from '../ui/OrganisationStatusIcon';
 
@@ -19,12 +19,12 @@ const OrganisationMembershipActions = ({
   size,
   children,
 }: React.ElementProps<*>): React.Element<*> => {
-  const onJoinClick = e => {
+  const onJoinClick = (e) => {
     e.preventDefault();
     onJoin();
   };
 
-  const onRemoveClick = e => {
+  const onRemoveClick = (e) => {
     e.preventDefault();
     onRemove();
   };

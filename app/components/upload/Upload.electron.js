@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 
-import styles from './Upload.scss';
+import styles from './Upload.module.scss';
 import AnimatedBackgroundCanvas from '../ui/background/AnimatedBackgroundCanvas';
 import CircularProgress from '../ui/CircularProgress';
 import Logo from '../ui/logo/Logo';

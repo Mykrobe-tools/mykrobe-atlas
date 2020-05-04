@@ -5,10 +5,10 @@ const merge = require('webpack-merge');
 
 const webpackConfig = require('./webpack.config');
 
-const cssRegex = /\.global\.css$/;
-const cssModuleRegex = /^((?!\.global).)*\.css$/;
-const sassRegex = /\.global\.(scss|sass)$/;
-const sassModuleRegex = /^((?!\.global).)*\.(scss|sass)$/;
+const cssRegex = /\.css$/;
+const cssModuleRegex = /\.module\.css$/;
+const sassRegex = /\.(scss|sass)$/;
+const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // devtool: https://webpack.js.org/configuration/devtool/#development
 
@@ -27,6 +27,7 @@ module.exports = merge(webpackConfig, {
     rules: [
       {
         test: cssRegex,
+        exclude: cssModuleRegex,
         use: [
           {
             loader: 'style-loader',
@@ -51,8 +52,9 @@ module.exports = merge(webpackConfig, {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              },
               sourceMap: true,
               importLoaders: 1,
             },
@@ -62,10 +64,9 @@ module.exports = merge(webpackConfig, {
           },
         ],
       },
-
-      // SASS support - compile all .global.scss files and pipe it to style.css
       {
         test: sassRegex,
+        exclude: sassModuleRegex,
         use: [
           {
             loader: 'style-loader',
@@ -86,8 +87,6 @@ module.exports = merge(webpackConfig, {
           },
         ],
       },
-
-      // SASS support - compile all other .scss files and pipe it to style.css
       {
         test: sassModuleRegex,
         use: [
@@ -97,8 +96,9 @@ module.exports = merge(webpackConfig, {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              },
               sourceMap: true,
               importLoaders: 2,
             },
@@ -112,7 +112,17 @@ module.exports = merge(webpackConfig, {
           },
         ],
       },
-
+      // IMAGES
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            esModule: false,
+          },
+        },
+      },
       // WOFF Font
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -121,10 +131,10 @@ module.exports = merge(webpackConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
+            esModule: false,
           },
         },
       },
-
       // WOFF2 Font
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
@@ -133,10 +143,10 @@ module.exports = merge(webpackConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/font-woff',
+            esModule: false,
           },
         },
       },
-
       // TTF Font
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
@@ -145,16 +155,20 @@ module.exports = merge(webpackConfig, {
           options: {
             limit: 10000,
             mimetype: 'application/octet-stream',
+            esModule: false,
           },
         },
       },
-
       // EOT Font
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        use: 'file-loader',
+        use: {
+          loader: 'file-loader',
+          options: {
+            limit: 10000,
+          },
+        },
       },
-
       // SVG Font
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
@@ -163,6 +177,7 @@ module.exports = merge(webpackConfig, {
           options: {
             limit: 10000,
             mimetype: 'image/svg+xml',
+            esModule: false,
           },
         },
       },

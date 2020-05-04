@@ -30,30 +30,30 @@ class UploadButton extends React.Component<*> {
     uploadFileAssignBrowse(this._uploadButton);
   };
 
-  onComputerClick = e => {
+  onComputerClick = (e) => {
     e && e.preventDefault();
     this._uploadButton && this._uploadButton.click();
   };
 
-  onDropboxClick = e => {
+  onDropboxClick = (e) => {
     const { uploadDropbox } = this.props;
     e && e.preventDefault();
     uploadDropbox();
   };
 
-  onGoogleDriveClick = e => {
+  onGoogleDriveClick = (e) => {
     const { uploadGoogleDrive } = this.props;
     e && e.preventDefault();
     uploadGoogleDrive();
   };
 
-  onBoxClick = e => {
+  onBoxClick = (e) => {
     const { uploadBox } = this.props;
     e && e.preventDefault();
     uploadBox();
   };
 
-  onOneDriveClick = e => {
+  onOneDriveClick = (e) => {
     const { uploadOneDrive } = this.props;
     e && e.preventDefault();
     uploadOneDrive();

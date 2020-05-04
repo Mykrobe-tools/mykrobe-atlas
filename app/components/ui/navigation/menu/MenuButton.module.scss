@@ -1,0 +1,60 @@
+@import '~styles/colors';
+
+.container {
+  position: absolute;
+  top: 33px;
+  left: 30px;
+}
+
+.menuToggle {
+  display: block;
+  width: 30px;
+  height: 17px;
+  color: $color-grey-mid;
+  pointer-events: auto;
+}
+
+.menuIcon,
+.menuIcon::before,
+.menuIcon::after {
+  display: block;
+  background: $color-grey-dark;
+  position: relative;
+  width: 30px;
+  height: 2px;
+  opacity: 1;
+  transition: 0.3s ease-in-out;
+  transform-origin: left center;
+}
+
+.menuIcon::before,
+.menuIcon::after {
+  content: ' ';
+}
+
+.menuIconOpen {
+  composes: menuIcon;
+}
+
+.menuIconOpen::before {
+  transform: translate(0, 7px);
+}
+
+.menuIconOpen::after {
+  transform: translate(0, 12px);
+}
+
+.menuIconClose {
+  composes: menuIcon;
+  transform: rotate(45deg);
+}
+
+.menuIconClose::before {
+  opacity: 0;
+  width: 0;
+  transform: rotate(-45deg) translate(0, 7px);
+}
+
+.menuIconClose::after {
+  transform: rotate(-90deg) translate(-13px, 14px);
+}

@@ -32,7 +32,7 @@ import {
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experiment/',
-  getState: state => state.experiments.experiment,
+  getState: (state) => state.experiments.experiment,
   initialData: {},
   create: {
     operationId: 'experimentsCreate',
@@ -42,13 +42,13 @@ const module = createEntityModule('experiment', {
   },
   update: {
     operationId: 'experimentsUpdateById',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(showNotification('Experiment saved'));
     },
   },
   delete: {
     operationId: 'experimentsDeleteById',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(showNotification('Experiment deleted'));
     },
   },
@@ -73,7 +73,7 @@ const {
 
 export const getExperimentMetadata = createSelector(
   getExperiment,
-  experiment => experiment.metadata
+  (experiment) => experiment.metadata
 );
 
 export const getExperimentOwnerIsCurrentUser = createSelector(
@@ -91,12 +91,12 @@ export const getExperimentOwnerIsCurrentUser = createSelector(
 
 export const getExperimentIsolateId = createSelector(
   getExperimentMetadata,
-  metadata => _get(metadata, 'sample.isolateId') || '–'
+  (metadata) => _get(metadata, 'sample.isolateId') || '–'
 );
 
 export const getExperimentTransformed = createSelector(
   getExperiment,
-  experiment => {
+  (experiment) => {
     const transformer = new AnalyserJsonTransformer();
     const transformed = transformer.transformModel(experiment);
     return transformed;
@@ -121,26 +121,26 @@ export const getExperimentNotInTree = createSelector(
 
 export const getExperimentTreeNearestNeigbours = createSelector(
   getExperiment,
-  experiment => _get(experiment, 'results.distance-tree-distance.experiments')
+  (experiment) => _get(experiment, 'results.distance-tree-distance.experiments')
 );
 
 // nearest neighbours
 
 export const getExperimentNearestNeigbours = createSelector(
   getExperiment,
-  experiment =>
+  (experiment) =>
     _get(experiment, 'results.distance-nearest-neighbour.experiments')
 );
 
 export const getExperimentHasNearestNeigbours = createSelector(
   getExperimentNearestNeigbours,
-  experimentNearestNeigbours =>
+  (experimentNearestNeigbours) =>
     experimentNearestNeigbours && experimentNearestNeigbours.length > 0
 );
 
 export const getExperimentMetadataCompletion = createSelector(
   getExperiment,
-  experiment =>
+  (experiment) =>
     completenessForSchemaAndData(experimentMetadataSchema, experiment)
 );
 
@@ -174,12 +174,12 @@ export const getExperimentAndNearestNeigboursNotInTree = createSelector(
 
 export const getExperimentAndNearestNeigboursWithGeolocation = createSelector(
   getExperimentAndNearestNeigbours,
-  experiments => experimentsWithGeolocation(experiments, true)
+  (experiments) => experimentsWithGeolocation(experiments, true)
 );
 
 export const getExperimentAndNearestNeigboursWithoutGeolocation = createSelector(
   getExperimentAndNearestNeigbours,
-  experiments => experimentsWithGeolocation(experiments, false)
+  (experiments) => experimentsWithGeolocation(experiments, false)
 );
 
 export {
@@ -222,7 +222,7 @@ export function* createExperimentId(): Saga {
 // reload experiment if it's the one we are currently viewing
 
 function* analysisCompleteWatcher() {
-  yield takeEvery(ANALYSIS_COMPLETE, function*(action) {
+  yield takeEvery(ANALYSIS_COMPLETE, function* (action) {
     const experimentId = action.payload.id;
     const experiment = yield select(getExperiment);
     if (experiment.id === experimentId) {

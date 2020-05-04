@@ -27,7 +27,7 @@ const isOneDriveReady = () => {
 
 const loadOneDrive = async () => {
   return new Promise((resolve, reject) => {
-    loadScript(ONEDRIVE_SDK_URL, error => {
+    loadScript(ONEDRIVE_SDK_URL, (error) => {
       if (error) {
         reject(error);
       }
@@ -37,13 +37,13 @@ const loadOneDrive = async () => {
 };
 
 const oneDriveChoose = async () => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     window.OneDrive.open({
       clientId: process.env.ONEDRIVE_CLIENT_ID,
       action: 'download',
       multiSelect: false,
       openInNewWindow: true,
-      success: files => {
+      success: (files) => {
         resolve(files);
       },
       cancel: () => {

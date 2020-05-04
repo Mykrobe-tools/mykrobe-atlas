@@ -6,7 +6,7 @@ import HeaderContainer from '../ui/header/HeaderContainer';
 import Footer from '../ui/footer/Footer';
 import Empty from '../ui/Empty';
 
-import styles from './NotFoundPage.scss';
+import styles from './NotFoundPage.module.scss';
 
 class NotFoundPage extends React.Component<*> {
   render() {

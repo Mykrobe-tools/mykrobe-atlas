@@ -3,7 +3,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './ResistanceDrugs.scss';
+import styles from './ResistanceDrugs.module.scss';
 import Panel from '../../../ui/Panel';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
 import AppDocumentTitle from '../../../ui/AppDocumentTitle';

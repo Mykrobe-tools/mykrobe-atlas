@@ -17,7 +17,7 @@ let autoUpdater;
 if (process.env.NODE_ENV === 'production') {
   // don't throw error ui dialog, e.g. auto-update transport error Error: net::ERR_HTTP_RESPONSE_CODE_FAILURE
   // see https://github.com/electron-userland/electron-builder/issues/4442
-  process.on('uncaughtException', error => {
+  process.on('uncaughtException', (error) => {
     // Handle the error
     log.error('uncaughtException', error);
   });
@@ -53,7 +53,7 @@ app.on('window-all-closed', () => {
 // TODO: this is not yet working - perhaps need to set file associations in mac info.plist
 
 app.on('will-finish-launching', () => {
-  app.on('open-file', function(event, path) {
+  app.on('open-file', function (event, path) {
     event.preventDefault();
     filepath = path;
     if (ready) {
@@ -89,11 +89,11 @@ app.on('ready', async () => {
         REDUX_DEVTOOLS,
       } = require('electron-devtools-installer');
       installExtension(REACT_DEVELOPER_TOOLS)
-        .then(name => log.info(`Added Extension:  ${name}`))
-        .catch(err => log.error('An error occurred: ', err));
+        .then((name) => log.info(`Added Extension:  ${name}`))
+        .catch((err) => log.error('An error occurred: ', err));
       installExtension(REDUX_DEVTOOLS)
-        .then(name => log.info(`Added Extension:  ${name}`))
-        .catch(err => log.error('An error occurred: ', err));
+        .then((name) => log.info(`Added Extension:  ${name}`))
+        .catch((err) => log.error('An error occurred: ', err));
     };
 
     await installExtensions();
@@ -170,7 +170,7 @@ const confirmIfAnalysing = () => {
   return true;
 };
 
-const onWindowClose = e => {
+const onWindowClose = (e) => {
   // this is also triggered as a result of app.quit()
   if (!quittingProgramatically) {
     if (!confirmIfAnalysing()) {
@@ -204,16 +204,16 @@ function setupAutoUpdater() {
   autoUpdater.on('checking-for-update', () => {
     log.info('Checking for update...');
   });
-  autoUpdater.on('update-available', info => {
+  autoUpdater.on('update-available', (info) => {
     log.info('Update available.', info);
   });
-  autoUpdater.on('update-not-available', info => {
+  autoUpdater.on('update-not-available', (info) => {
     log.info('Update not available.', info);
   });
-  autoUpdater.on('error', err => {
+  autoUpdater.on('error', (err) => {
     log.error('Error in auto-updater.', err);
   });
-  autoUpdater.on('download-progress', progressObj => {
+  autoUpdater.on('download-progress', (progressObj) => {
     let log_message = 'Download speed: ' + progressObj.bytesPerSecond;
     log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
     log_message =
@@ -225,7 +225,7 @@ function setupAutoUpdater() {
       ')';
     log.info(log_message);
   });
-  autoUpdater.on('update-downloaded', info => {
+  autoUpdater.on('update-downloaded', (info) => {
     log.info('Update downloaded', info);
     // Wait 5 seconds, then quit and install
     // In your application, you don't need to wait 5 seconds.

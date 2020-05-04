@@ -8,19 +8,19 @@ import { Container } from 'reactstrap';
 import PageHeader, {
   styles as pageHeaderStyles,
 } from 'makeandship-js-common/src/components/ui/PageHeader';
-import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
+import { PrimaryButton } from 'makeandship-js-common/src/components/ui/buttons';
 
 import { clearAllNotifications } from '../../modules/notifications';
 
 import HeaderContainer from '../ui/header/HeaderContainer';
 import Footer from '../ui/footer/Footer';
 
-import styles from './NotificationsPage.scss';
+import styles from './NotificationsPage.module.scss';
 import NotificationsContainer from './NotificationsContainer';
 import NotificationsStyle from './NotificationsStyle';
 
 class NotificationsPage extends React.Component<*> {
-  onClearClick = e => {
+  onClearClick = (e) => {
     const { clearAllNotifications } = this.props;
     e.preventDefault();
     clearAllNotifications();

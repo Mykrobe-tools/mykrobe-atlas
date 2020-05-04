@@ -6,7 +6,7 @@ import { Container, Row, Col } from 'reactstrap';
 
 import SearchInput from './SearchInput';
 
-import styles from './SearchNavigation.scss';
+import styles from './SearchNavigation.module.scss';
 
 const SearchNavigation = ({
   q,

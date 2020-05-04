@@ -32,7 +32,7 @@ export const logoutCancel = () => ({
 // Side effects
 
 export function* logoutWatcher(): Saga {
-  yield takeEvery(LOGOUT, function*() {
+  yield takeEvery(LOGOUT, function* () {
     if (!confirm(`Sign out - are you sure?`)) {
       yield put(logoutCancel());
       return;
@@ -43,29 +43,29 @@ export function* logoutWatcher(): Saga {
 
 const module = createEntityModule('currentUser', {
   typePrefix,
-  getState: state => state.users.currentUser,
+  getState: (state) => state.users.currentUser,
   create: {
     operationId: 'usersCreate',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(push('/auth/registersuccess'));
     },
   },
   request: {
     operationId: 'currentUserGet',
-    onFailure: function*() {
+    onFailure: function* () {
       yield put(authLogout());
       yield put(showNotification('Please sign in again'));
     },
   },
   update: {
     operationId: 'currentUserUpdate',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(showNotification('Profile updated'));
     },
   },
   delete: {
     operationId: 'currentUserDelete',
-    onSuccess: function*() {
+    onSuccess: function* () {
       yield put(authLogout());
       yield put(showNotification('Account deleted'));
     },
@@ -95,7 +95,7 @@ const {
 
 export const getCurrentUserRole = createSelector(
   getEntity,
-  currentUser => currentUser.role
+  (currentUser) => currentUser.role
 );
 
 // watch other actions where we want to fetch the current user

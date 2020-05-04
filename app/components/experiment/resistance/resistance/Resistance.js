@@ -19,7 +19,7 @@ import TabNavigation, {
 
 import withFileUpload from '../../../../hoc/withFileUpload';
 
-import styles from './Resistance.scss';
+import styles from './Resistance.module.scss';
 
 class Resistance extends React.Component<*> {
   render() {

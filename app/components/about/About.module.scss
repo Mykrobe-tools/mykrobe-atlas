@@ -1,0 +1,31 @@
+@import '~styles/colors';
+
+.container {
+  composes: container from '~styles/layout.scss';
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  position: relative;
+  padding: 20px 30px;
+  align-items: center;
+  background-color: $color-background;
+}
+
+.actions {
+  display: flex;
+  margin-left: auto;
+}
+
+.close {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.content {
+  composes: container from '~styles/layout.scss';
+  background-color: white;
+  padding: 20px 30px;
+  flex-direction: column;
+}

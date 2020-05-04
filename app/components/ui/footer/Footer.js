@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
-import styles from './Footer.scss';
+import styles from './Footer.module.scss';
 
 class Footer extends React.Component<*> {
   render() {

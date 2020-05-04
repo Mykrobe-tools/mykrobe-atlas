@@ -8,7 +8,7 @@ import AppDocumentTitle from '../../../ui/AppDocumentTitle';
 import ResistanceEmpty from '../empty/ResistanceEmpty';
 import Phylogeny from '../../../phylogeny/Phylogeny';
 
-import styles from './ResistanceAll.scss';
+import styles from './ResistanceAll.module.scss';
 
 import { withExperimentPropTypes } from '../../../../hoc/withExperiment';
 import { withExperimentsHighlightedPropTypes } from '../../../../hoc/withExperimentsHighlighted';

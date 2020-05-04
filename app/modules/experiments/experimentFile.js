@@ -4,7 +4,7 @@ import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experimentFile/',
-  getState: state => state.experiments.experimentFile,
+  getState: (state) => state.experiments.experimentFile,
   initialData: {},
   update: {
     operationId: 'experimentUploadFile',

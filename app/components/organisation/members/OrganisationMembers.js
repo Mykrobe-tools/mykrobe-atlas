@@ -13,8 +13,9 @@ import { Link } from 'react-router-dom';
 import PageHeader, {
   styles as pageHeaderStyles,
 } from 'makeandship-js-common/src/components/ui/PageHeader';
-import { PrimaryButton } from 'makeandship-js-common/src/components/ui/Buttons';
-import Table, { TdLink } from 'makeandship-js-common/src/components/ui/table';
+import { PrimaryButton } from 'makeandship-js-common/src/components/ui/buttons';
+import Table from 'makeandship-js-common/src/components/ui/table';
+import TrLink from 'makeandship-js-common/src/components/ui/table/TrLink';
 
 import OrganisationHeader from '../ui/OrganisationHeader';
 import OrganisationMembershipActions from '../ui/OrganisationMembershipActions';
@@ -23,7 +24,7 @@ import Footer from '../../ui/footer/Footer';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
 import { notImplemented } from '../../../util';
 
-import styles from './OrganisationMembers.scss';
+import styles from './OrganisationMembers.module.scss';
 
 const headings = [
   {
@@ -59,7 +60,7 @@ const OrganisationMemberActions = ({
         tag={'a'}
         href="#"
         className={styles.dropdownToggle}
-        onClick={e => {
+        onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
         }}
@@ -70,7 +71,7 @@ const OrganisationMemberActions = ({
         {(memberOrganisationUserStatus === 'unapproved' ||
           memberOrganisationUserStatus === 'rejected') && (
           <DropdownItem
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               onApprove(id);
             }}
@@ -80,7 +81,7 @@ const OrganisationMemberActions = ({
         )}
         {memberOrganisationUserStatus === 'unapproved' && (
           <DropdownItem
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               onReject(id);
             }}
@@ -90,7 +91,7 @@ const OrganisationMemberActions = ({
         )}
         {memberOrganisationUserStatus === 'owner' && (
           <DropdownItem
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               onDemote(id);
             }}
@@ -100,7 +101,7 @@ const OrganisationMemberActions = ({
         )}
         {memberOrganisationUserStatus === 'member' && (
           <DropdownItem
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               onPromote(id);
             }}
@@ -110,7 +111,7 @@ const OrganisationMemberActions = ({
         )}
         {memberOrganisationUserStatus === 'member' && (
           <DropdownItem
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               onRemove(id);
             }}
@@ -217,7 +218,7 @@ class OrganisationMembers extends React.Component<*> {
     const { organisationId, organisationCurrentUserIsOwner } = this.props;
     const { id, firstname, lastname, email, organisationUserStatus } = member;
     return (
-      <TdLink key={id} to={`/organisations/${organisationId}/members/${id}`}>
+      <TrLink key={id} to={`/organisations/${organisationId}/members/${id}`}>
         <td>{email}</td>
         <td>{lastname}</td>
         <td>{firstname}</td>
@@ -239,7 +240,7 @@ class OrganisationMembers extends React.Component<*> {
             />
           )}
         </td>
-      </TdLink>
+      </TrLink>
     );
   };
 

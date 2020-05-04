@@ -15,10 +15,10 @@ import { getFileNames } from '../modules/desktop';
 
 export const getDesktopExperimentIsolateId = createSelector(
   getFileNames,
-  fileNames => (fileNames && fileNames.length ? fileNames.join(', ') : '–')
+  (fileNames) => (fileNames && fileNames.length ? fileNames.join(', ') : '–')
 );
 
-const withExperiment = connect(state => ({
+const withExperiment = connect((state) => ({
   experiment: getExperiment(state),
   experimentTransformed: getExperimentTransformed(state),
   experimentIsolateId: getDesktopExperimentIsolateId(state),

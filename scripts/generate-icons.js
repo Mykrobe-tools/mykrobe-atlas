@@ -7,7 +7,7 @@ const path = require('path');
 
 import { executeCommand } from '../desktop/util';
 
-export const generateIconsMac = async iconPath => {
+export const generateIconsMac = async (iconPath) => {
   d('generateIconsMac');
   const sizes = [16, 32, 128, 256, 512];
   for (let i = 0; i < sizes.length; i++) {
@@ -39,7 +39,7 @@ export const generateIconsMac = async iconPath => {
   await executeCommand(command);
 };
 
-export const generateIconsWindows = async iconPath => {
+export const generateIconsWindows = async (iconPath) => {
   const pngPath = path.join(iconPath, 'icon.iconset', 'icon_512x512@2x.png');
   const icoPath = path.join(iconPath, 'icon.ico');
   const command = `/usr/local/bin/convert "${pngPath}" -define icon:auto-resize=256,128,96,64,48,32,16 "${icoPath}"`;

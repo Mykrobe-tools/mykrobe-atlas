@@ -42,7 +42,7 @@ jest.setTimeout(TIMEOUT);
 d('ELECTRON_EXECUTABLE_PATH', ELECTRON_EXECUTABLE_PATH);
 
 describe('Desktop e2e', () => {
-  it('should contain a test', done => {
+  it('should contain a test', (done) => {
     done();
   });
 });

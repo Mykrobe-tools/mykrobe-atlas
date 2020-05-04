@@ -22,7 +22,7 @@ export const _warn = (e: any) => {
 };
 
 function* addWarningWatcher() {
-  yield takeEvery([UPLOAD_FILE_DROP, UPLOAD_FILE], function*() {
+  yield takeEvery([UPLOAD_FILE_DROP, UPLOAD_FILE], function* () {
     yield apply(window, 'addEventListener', ['beforeunload', _warn]);
   });
 }
@@ -30,7 +30,7 @@ function* addWarningWatcher() {
 function* removeWarningWatcher() {
   yield takeEvery(
     [UPLOAD_FILE_CANCEL, RESUMABLE_UPLOAD_DONE, RESUMABLE_UPLOAD_ERROR],
-    function*() {
+    function* () {
       yield apply(window, 'removeEventListener', ['beforeunload', _warn]);
     }
   );

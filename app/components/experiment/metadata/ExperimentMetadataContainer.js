@@ -9,7 +9,7 @@ import withExperiment, {
   withExperimentPropTypes,
 } from '../../../hoc/withExperiment';
 
-import styles from './ExperimentMetadataContainer.scss';
+import styles from './ExperimentMetadataContainer.module.scss';
 
 class ExperimentMetadataContainer extends React.Component<*> {
   render() {

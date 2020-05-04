@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import styles from './AnimatedBackgroundCanvas.scss';
+import styles from './AnimatedBackgroundCanvas.module.scss';
 import { CanvasLozenge } from './CanvasLozenge';
 import { LOZENGE_COLORS, LOZENGES_PER_COLOR } from './constants';
 
@@ -79,7 +79,7 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
       width,
       height,
     });
-    this._lozenges.forEach(lozenge => {
+    this._lozenges.forEach((lozenge) => {
       lozenge.setProps({
         containerWidth: width,
         containerHeight: height,
@@ -111,7 +111,7 @@ class AnimatedBackgroundCanvas extends React.Component<*, State> {
       this._context.fillStyle = '#f7f6f1';
       this._context.fillRect(0, 0, width, height);
       this._context.globalCompositeOperation = 'multiply';
-      this._lozenges.forEach(lozenge => {
+      this._lozenges.forEach((lozenge) => {
         lozenge.onEnterFrame();
         lozenge.renderInContext(this._context);
       });

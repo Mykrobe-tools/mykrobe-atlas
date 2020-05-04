@@ -7,7 +7,7 @@ import FillContainerStorybook from '../../../util/storybook/FillContainerStorybo
 
 import DragAndDrop from './DragAndDrop';
 
-const onDrop = e => console.log('onDrop', e);
+const onDrop = (e) => console.log('onDrop', e);
 
 const variations = {
   default: {
@@ -24,7 +24,7 @@ const variations = {
 };
 
 storiesOf('DragAndDrop', module)
-  .addDecorator(story => <FillContainerStorybook story={story()} />)
+  .addDecorator((story) => <FillContainerStorybook story={story()} />)
   .add('Default', () => <DragAndDrop {...variations.default} />)
   .add('Disabled', () => <DragAndDrop {...variations.disabled} />)
   .add('JSON only', () => <DragAndDrop {...variations.jsonOnly} />);

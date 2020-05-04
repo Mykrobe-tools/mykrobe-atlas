@@ -52,7 +52,7 @@ export function* interactionChannelWatcher(): Saga {
 }
 
 function* fileAddedWatcher() {
-  yield takeEvery(SET_FILE_NAME, function*() {
+  yield takeEvery(SET_FILE_NAME, function* () {
     const experimentId = yield select(getExperimentId);
     const fileName = yield select(getFileName);
     yield put(
@@ -91,7 +91,7 @@ function* fileAddedWatcher() {
 // checksumming
 
 function* computeChecksumsProgressWatcher() {
-  yield takeEvery(COMPUTE_CHECKSUMS_PROGRESS, function*() {
+  yield takeEvery(COMPUTE_CHECKSUMS_PROGRESS, function* () {
     const experimentId = yield select(getExperimentId);
     const fileName = yield select(getFileName);
     const progress = yield select(getProgress);
@@ -108,7 +108,7 @@ function* computeChecksumsProgressWatcher() {
 // upload events
 
 function* resumableUploadProgressWatcher() {
-  yield takeEvery(RESUMABLE_UPLOAD_PROGRESS, function*() {
+  yield takeEvery(RESUMABLE_UPLOAD_PROGRESS, function* () {
     const isUploading = yield select(getIsUploading);
     if (!isUploading) {
       return;
@@ -135,7 +135,7 @@ function* resumableUploadProgressWatcher() {
 }
 
 function* resumableUploadDoneWatcher() {
-  yield takeEvery(RESUMABLE_UPLOAD_DONE, function*() {
+  yield takeEvery(RESUMABLE_UPLOAD_DONE, function* () {
     const experimentId = yield select(getExperimentId);
     const fileName = yield select(getFileName);
     yield put(
@@ -157,7 +157,7 @@ function* resumableUploadDoneWatcher() {
 }
 
 function* resumableUploadErrorWatcher() {
-  yield takeEvery(RESUMABLE_UPLOAD_ERROR, function*(action: any) {
+  yield takeEvery(RESUMABLE_UPLOAD_ERROR, function* (action: any) {
     const experimentId = yield select(getExperimentId);
     yield put(
       updateNotification(experimentId, {
@@ -169,7 +169,7 @@ function* resumableUploadErrorWatcher() {
 }
 
 function* uploadFileCancelWatcher() {
-  yield takeEvery(UPLOAD_FILE_CANCEL, function*() {
+  yield takeEvery(UPLOAD_FILE_CANCEL, function* () {
     const experimentId = yield select(getExperimentId);
     yield put(
       updateNotification(experimentId, {
@@ -186,7 +186,7 @@ function* uploadFileCancelWatcher() {
 // third party uploads
 
 function* thirdPartyUploadProgressWatcher() {
-  yield takeEvery(UPLOAD_THIRD_PARTY_PROGRESS, function*(action) {
+  yield takeEvery(UPLOAD_THIRD_PARTY_PROGRESS, function* (action) {
     const {
       payload: { id: experimentId, file: fileName, provider, size, totalSize },
     } = action;
@@ -202,7 +202,7 @@ function* thirdPartyUploadProgressWatcher() {
 }
 
 function* thirdPartyUploadDoneWatcher() {
-  yield takeEvery(UPLOAD_THIRD_PARTY_DONE, function*(action) {
+  yield takeEvery(UPLOAD_THIRD_PARTY_DONE, function* (action) {
     const {
       payload: { id: experimentId, file: fileName, provider },
     } = action;
@@ -227,7 +227,7 @@ function* thirdPartyUploadDoneWatcher() {
 // analysis events - not just for current upload
 
 function* analysisStartedWatcher() {
-  yield takeEvery(ANALYSIS_STARTED, function*(action: any) {
+  yield takeEvery(ANALYSIS_STARTED, function* (action: any) {
     const experimentId = action.payload.id;
     const fileName = action.payload.file;
     yield put(
@@ -241,7 +241,7 @@ function* analysisStartedWatcher() {
 }
 
 function* analysisCompleteWatcher() {
-  yield takeEvery(ANALYSIS_COMPLETE, function*(action: any) {
+  yield takeEvery(ANALYSIS_COMPLETE, function* (action: any) {
     const experimentId = action.payload.id;
     const fileName = action.payload.file;
     yield put(

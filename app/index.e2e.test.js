@@ -18,13 +18,13 @@ let driver: webdriver$WebDriver, child, server: any;
 
 const By = webdriver.By; // useful Locator utility to describe a query for a WebElement
 const until = webdriver.until; // useful utility to wait for something to happen
-const waitForElement = selector =>
+const waitForElement = (selector) =>
   driver.wait(until.elementLocated(By.css(selector)));
-const findElement = selector => driver.findElement(By.css(selector));
-const clickElement = selector => findElement(selector).click();
+const findElement = (selector) => driver.findElement(By.css(selector));
+const clickElement = (selector) => findElement(selector).click();
 
 describe('Web e2e', () => {
-  it('should contain a test', done => {
+  it('should contain a test', (done) => {
     done();
   });
 });
@@ -47,7 +47,7 @@ describeSlowTest('Web e2e main window', function spec() {
     driver = new webdriver.Builder().forBrowser('safari').build();
   });
 
-  afterAllSlow(async done => {
+  afterAllSlow(async (done) => {
     server && server.close();
     await driver.quit();
     done();
