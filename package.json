@@ -54,6 +54,7 @@
       "repo": "mykrobe"
     },
     "mac": {
+      "minimumSystemVersion": "10.13",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
       "entitlements": "./desktop/resources/plist/entitlements.mac.plist",
