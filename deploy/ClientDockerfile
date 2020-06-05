@@ -62,6 +62,11 @@ WORKDIR /app
 COPY package.json /app
 COPY yarn.lock /app
 
+# web dependencies
+RUN mkdir /app/web
+COPY web/package.json /app/web
+COPY web/yarn.lock /app/web
+
 # install app dependencies including devDependencies as building
 RUN cat /root/.ssh/atlas-jsonschema-readonly > /etc/ssh/id_rsa && \
     chmod 600 /etc/ssh/id_rsa && \
@@ -69,6 +74,10 @@ RUN cat /root/.ssh/atlas-jsonschema-readonly > /etc/ssh/id_rsa && \
     ssh-add /etc/ssh/id_rsa && \
     cd /app && \
     yarn install
+
+# install web dependencies
+#RUN cd /app/web
+#RUN yarn install
 
 # copy the code
 ADD . /app
@@ -82,8 +91,15 @@ RUN rm /etc/ssh/id_rsa
 EXPOSE 3000
 
 # Rebuild
+RUN cd /app
+RUN npm rebuild node-sass 
+RUN yarn global add babel-cli
 RUN yarn web-build
+RUN yarn web-build-server-compile
 RUN cp -r web/build/static web/dist/
 
+# dependencies for the web server	
+RUN cd /app/web && yarn install
+
 # run up the server
-CMD NODE_ENV=$NODE_ENV yarn web-build-simple-server
+CMD NODE_ENV=$NODE_ENV yarn web-build-server-start
