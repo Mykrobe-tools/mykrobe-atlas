@@ -76,8 +76,8 @@ RUN cat /root/.ssh/atlas-jsonschema-readonly > /etc/ssh/id_rsa && \
     yarn install
 
 # install web dependencies
-#RUN cd /app/web
-#RUN yarn install
+RUN cd /app/web
+RUN yarn install
 
 # copy the code
 ADD . /app
@@ -92,14 +92,10 @@ EXPOSE 3000
 
 # Rebuild
 RUN cd /app
-RUN npm rebuild node-sass 
 RUN yarn global add babel-cli
 RUN yarn web-build
 RUN yarn web-build-server-compile
 RUN cp -r web/build/static web/dist/
-
-# dependencies for the web server	
-RUN cd /app/web && yarn install
 
 # run up the server
 CMD NODE_ENV=$NODE_ENV yarn web-build-server-start

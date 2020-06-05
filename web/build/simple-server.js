@@ -1,7 +1,7 @@
 /* @flow */
 
-import express from 'express';
-import path from 'path';
+const express = require('express');
+const path = require('path');
 
 const app = express();
 const host = process.env.HOST || 'localhost';
@@ -34,4 +34,4 @@ process.on('SIGTERM', () => {
   });
 });
 
-export default server;
+module.exports = server;
