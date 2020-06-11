@@ -67,6 +67,15 @@ steps:
       - 'AUTH_KEYCLOAK_URL=$_AUTH_KEYCLOAK_URL'
       - 'AUTH_KEYCLOAK_REALM=$_AUTH_KEYCLOAK_REALM'
       - 'AUTH_KEYCLOAK_CLIENT_ID=$_AUTH_KEYCLOAK_CLIENT_ID'
+  - name: node:$_NODE_VERSION
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        yarn web-build-server-compile
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
