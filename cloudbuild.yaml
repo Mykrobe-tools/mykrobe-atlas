@@ -27,6 +27,22 @@ steps:
       EOF
       ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts
       ssh-keyscan github.com >> /root/.ssh/known_hosts
+    volumes:
+    - name: 'ssh'
+      path: /root/.ssh
+  - name: node:$_NODE_VERSION
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      yarn
+      cd web && yarn
+      cd .. && yarn web-build
+      yarn web-build
+      yarn web-build-server-compile
+      cp -r web/build/static web/dist/
+      rm -rf node_modules
+      cd web && yarn
     env:
     - 'NODE_ENV=$_NODE_ENV'
     - 'HOST=$_HOST'
@@ -46,22 +62,6 @@ steps:
     - 'AUTH_KEYCLOAK_URL=$_AUTH_KEYCLOAK_URL'
     - 'AUTH_KEYCLOAK_REALM=$_AUTH_KEYCLOAK_REALM'
     - 'AUTH_KEYCLOAK_CLIENT_ID=$_AUTH_KEYCLOAK_CLIENT_ID'
-    volumes:
-    - name: 'ssh'
-      path: /root/.ssh
-  - name: node:$_NODE_VERSION
-    entrypoint: 'bash'
-    args:
-    - '-c'
-    - |
-      yarn
-      cd web && yarn
-      cd .. && yarn web-build
-      yarn web-build
-      yarn web-build-server-compile
-      cp -r web/build/static web/dist/
-      rm -rf node_modules
-      cd web && yarn
     volumes:
     - name: 'ssh'
       path: /root/.ssh
@@ -85,7 +85,7 @@ substitutions:
   _IMAGE_REPOSITORY: eu.gcr.io/atlas-275810/mykrobe-atlas
   _BITBUCKET_SECRET: ms-bitbucket-readonly
   _GITHUB_SECRET: atlas-jsonschema-readonly
-  _BUILD_VERSION: v0.0.2
+  _BUILD_VERSION: v0.0.3
   _NODE_ENV: production
   _HOST: "0.0.0.0"
   _PORT: "3000"
