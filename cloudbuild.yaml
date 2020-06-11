@@ -1,0 +1,104 @@
+# Access the id_github file from Secret Manager
+steps:
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: 'bash'
+    args: [ '-c', 'gcloud secrets versions access latest --secret=$_GITHUB_SECRET > /root/.ssh/id_github' ]
+    volumes:
+    - name: 'ssh'
+      path: /root/.ssh
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: 'bash'
+    args: [ '-c', 'gcloud secrets versions access latest --secret=$_BITBUCKET_SECRET > /root/.ssh/id_bitbucket' ]
+    volumes:
+    - name: 'ssh'
+      path: /root/.ssh
+    
+# Set up git with key and domain
+  - name: gcr.io/cloud-builders/git
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      chmod 600 /root/.ssh/id_github
+      chmod 600 /root/.ssh/id_bitbucket
+      cat <<EOF >/root/.ssh/config
+      IdentityFile /root/.ssh/id_bitbucket
+      IdentityFile /root/.ssh/id_github
+      EOF
+      ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts
+      ssh-keyscan github.com >> /root/.ssh/known_hosts
+    env:
+    - 'NODE_ENV=$_NODE_ENV'
+    - 'HOST=$_HOST'
+    - 'PORT=$_PORT'
+    - 'DEBUG_PRODUCTION=$_DEBUG_PRODUCTION'
+    - 'API_DEBUG=$_API_DEBUG'
+    - 'ATLAS_APP=$_ATLAS_APP'
+    - 'API_URL=$_API_URL'
+    - 'AUTH_COOKIE_NAME=$_AUTH_COOKIE_NAME'
+    - 'API_SWAGGER_URL=$_API_SWAGGER_URL'
+    - 'GOOGLE_MAPS_API_KEY=$_GOOGLE_MAPS_API_KEY'
+    - 'BOX_CLIENT_ID=$_BOX_CLIENT_ID'
+    - 'DROPBOX_APP_KEY=$_DROPBOX_APP_KEY'
+    - 'GOOGLE_DRIVE_CLIENT_ID=$_GOOGLE_DRIVE_CLIENT_ID'
+    - 'GOOGLE_DRIVE_DEVELOPER_KEY=$_GOOGLE_DRIVE_DEVELOPER_KEY'
+    - 'ONEDRIVE_CLIENT_ID=$_ONEDRIVE_CLIENT_ID'
+    - 'AUTH_KEYCLOAK_URL=$_AUTH_KEYCLOAK_URL'
+    - 'AUTH_KEYCLOAK_REALM=$_AUTH_KEYCLOAK_REALM'
+    - 'AUTH_KEYCLOAK_CLIENT_ID=$_AUTH_KEYCLOAK_CLIENT_ID'
+    volumes:
+    - name: 'ssh'
+      path: /root/.ssh
+  - name: node:$_NODE_VERSION
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      yarn
+      cd web && yarn
+      cd .. && yarn web-build
+      yarn web-build
+      yarn web-build-server-compile
+      cp -r web/build/static web/dist/
+    volumes:
+    - name: 'ssh'
+      path: /root/.ssh
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        '$_IMAGE_REPOSITORY:$_BUILD_VERSION',
+        '-f',
+        'deploy/ClientDockerfile',
+        '.',
+      ]
+    volumes:
+    - name: 'ssh'
+      path: /root/.ssh
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_IMAGE_REPOSITORY:$_BUILD_VERSION']
+substitutions:
+  _NODE_VERSION: 12.16.2
+  _IMAGE_REPOSITORY: eu.gcr.io/atlas-275810/mykrobe-atlas
+  _BITBUCKET_SECRET: ms-bitbucket-readonly
+  _GITHUB_SECRET: atlas-jsonschema-readonly
+  _BUILD_VERSION: v0.0.1
+  _NODE_ENV: production
+  _HOST: 0.0.0.0
+  _PORT: 3000
+  _DEBUG_PRODUCTION: 1
+  _API_DEBUG: 1
+  _ATLAS_APP:
+  _API_URL: https://api-dev.mykro.be
+  _AUTH_COOKIE_NAME: dev.mykro.be
+  _API_SWAGGER_URL: https://api-dev.mykro.be/swagger.json
+  _GOOGLE_MAPS_API_KEY: AIzaSyAe_EWm97fTPHqzfRrhu2DVwO_iseBQkAc
+  _BOX_CLIENT_ID: uudga67zohcl0ttwzd38lc3orwumrppo
+  _DROPBOX_APP_KEY: sqvzeehijk0hx50
+  _GOOGLE_DRIVE_CLIENT_ID: 780918371602-rqgivkfba07ko1vvu5h868eomc3edq6f.apps.googleusercontent.com
+  _GOOGLE_DRIVE_DEVELOPER_KEY: AIzaSyAGWxdeXCK_1_AGRWZlkoaH6gQCjfC-3pI
+  _ONEDRIVE_CLIENT_ID: e39a152d-61a5-4dbc-981c-95a0d0f23d9f
+  _AUTH_KEYCLOAK_URL: https://accounts-dev.mykro.be/auth
+  _AUTH_KEYCLOAK_REALM: react-web-client
+  _AUTH_KEYCLOAK_CLIENT_ID: atlas
