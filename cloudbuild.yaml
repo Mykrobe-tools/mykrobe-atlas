@@ -85,10 +85,10 @@ substitutions:
   _GITHUB_SECRET: atlas-jsonschema-readonly
   _BUILD_VERSION: v0.0.1
   _NODE_ENV: production
-  _HOST: 0.0.0.0
-  _PORT: 3000
-  _DEBUG_PRODUCTION: 1
-  _API_DEBUG: 1
+  _HOST: "0.0.0.0"
+  _PORT: "3000"
+  _DEBUG_PRODUCTION: "1"
+  _API_DEBUG: "1"
   _ATLAS_APP:
   _API_URL: https://api-dev.mykro.be
   _AUTH_COOKIE_NAME: dev.mykro.be
