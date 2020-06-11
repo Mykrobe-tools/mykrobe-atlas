@@ -96,7 +96,7 @@ substitutions:
   _IMAGE_REPOSITORY: eu.gcr.io/atlas-275810/mykrobe-atlas
   _BITBUCKET_SECRET: ms-bitbucket-readonly
   _GITHUB_SECRET: atlas-jsonschema-readonly
-  _BUILD_VERSION: v0.0.6
+  _BUILD_VERSION: v0.0.7
   _ATLAS_APP:
   _API_URL: https://api-dev.mykro.be
   _AUTH_COOKIE_NAME: dev.mykro.be
