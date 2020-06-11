@@ -85,7 +85,7 @@ substitutions:
   _IMAGE_REPOSITORY: eu.gcr.io/atlas-275810/mykrobe-atlas
   _BITBUCKET_SECRET: ms-bitbucket-readonly
   _GITHUB_SECRET: atlas-jsonschema-readonly
-  _BUILD_VERSION: v0.0.3
+  _BUILD_VERSION: v0.0.4
   _NODE_ENV: production
   _HOST: "0.0.0.0"
   _PORT: "3000"
