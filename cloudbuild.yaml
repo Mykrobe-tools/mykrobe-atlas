@@ -38,7 +38,6 @@ steps:
       yarn
       cd web && yarn
       cd .. && yarn web-build
-      yarn web-build
       yarn web-build-server-compile
       cp -r web/build/static web/dist/
     env:
