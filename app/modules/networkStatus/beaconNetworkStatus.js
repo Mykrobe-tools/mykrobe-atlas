@@ -1,12 +1,11 @@
 /* @flow */
 
 import { createBeaconNetworkStatusModule } from 'makeandship-js-common/src/modules/networkStatus/beaconNetworkStatusModule';
-import { ensureEnv, env } from 'makeandship-js-common/src/util';
 
 const beaconNetworkStatusModule = createBeaconNetworkStatusModule('beacon', {
   typePrefix: 'networkStatus/beaconNetworkStatus/',
   getState: (state: any) => state.networkStatus.beaconNetworkStatus,
-  url: `${ensureEnv(env.API_URL)}/health-check`,
+  url: `${window.env.REACT_APP_API_URL}/health-check`,
 });
 
 const {

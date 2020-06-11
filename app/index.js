@@ -27,29 +27,7 @@ if (!element) {
   throw new Error(`Fatal - div with id 'app-root' not found`);
 }
 
-console.log('process.env.NODE_ENV', JSON.stringify(process.env.NODE_ENV));
-console.log(
-  'process.env.DEBUG_PRODUCTION',
-  JSON.stringify(process.env.DEBUG_PRODUCTION)
-);
-console.log(
-  'process.env.DISABLE_DESKTOP_UPDATER',
-  JSON.stringify(process.env.DISABLE_DESKTOP_UPDATER)
-);
-console.log(
-  'process.env.DISABLE_DESKTOP_BACKGROUND_ANIMATION',
-  JSON.stringify(process.env.DISABLE_DESKTOP_BACKGROUND_ANIMATION)
-);
-console.log('process.env.API_DEBUG', JSON.stringify(process.env.API_DEBUG));
-console.log('process.env.API_URL', JSON.stringify(process.env.API_URL));
-console.log(
-  'process.env.API_SWAGGER_URL',
-  JSON.stringify(process.env.API_SWAGGER_URL)
-);
-console.log(
-  'process.env.AUTH_COOKIE_NAME',
-  JSON.stringify(process.env.AUTH_COOKIE_NAME)
-);
+console.log('window.env', JSON.stringify(window.env));
 
 const renderRoot = () => {
   const routes = require('./routes').default;

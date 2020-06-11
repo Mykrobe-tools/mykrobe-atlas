@@ -119,11 +119,13 @@ function* startWorker() {
 
   // TODO construct this with Swagger operation id
   try {
-    const API_URL = ensureEnv(env.API_URL);
-    _eventSource = new EventSourcePolyfill(`${API_URL}/user/events`, {
-      headers: options.headers,
-      heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
-    });
+    _eventSource = new EventSourcePolyfill(
+      `${window.env.REACT_APP_API_URL}/user/events`,
+      {
+        headers: options.headers,
+        heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
+      }
+    );
   } catch (error) {
     console.log(`Couldn't start event source`, error);
   }
