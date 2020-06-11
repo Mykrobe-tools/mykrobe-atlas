@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.4.2",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "forever": "^3.0.0"
   }
 }
