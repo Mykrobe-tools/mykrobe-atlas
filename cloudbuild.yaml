@@ -41,7 +41,6 @@ steps:
       yarn web-build
       yarn web-build-server-compile
       cp -r web/build/static web/dist/
-      rm -rf node_modules
       cd web && yarn
     env:
     - 'NODE_ENV=$_NODE_ENV'
