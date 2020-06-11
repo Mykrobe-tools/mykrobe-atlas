@@ -44,6 +44,14 @@ steps:
       - '-c'
       - |
         yarn
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
+  - name: node:$_NODE_VERSION
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
         yarn web-build
     env:
       - 'ATLAS_APP=$_ATLAS_APP'
@@ -59,9 +67,6 @@ steps:
       - 'AUTH_KEYCLOAK_URL=$_AUTH_KEYCLOAK_URL'
       - 'AUTH_KEYCLOAK_REALM=$_AUTH_KEYCLOAK_REALM'
       - 'AUTH_KEYCLOAK_CLIENT_ID=$_AUTH_KEYCLOAK_CLIENT_ID'
-    volumes:
-      - name: 'ssh'
-        path: /root/.ssh
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
