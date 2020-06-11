@@ -80,7 +80,7 @@ substitutions:
   _IMAGE_REPOSITORY: eu.gcr.io/atlas-275810/mykrobe-atlas
   _BITBUCKET_SECRET: ms-bitbucket-readonly
   _GITHUB_SECRET: atlas-jsonschema-readonly
-  _BUILD_VERSION: v0.0.5
+  _BUILD_VERSION: v0.0.6
   _ATLAS_APP:
   _API_URL: https://api-dev.mykro.be
   _AUTH_COOKIE_NAME: dev.mykro.be
@@ -92,5 +92,5 @@ substitutions:
   _GOOGLE_DRIVE_DEVELOPER_KEY: AIzaSyAGWxdeXCK_1_AGRWZlkoaH6gQCjfC-3pI
   _ONEDRIVE_CLIENT_ID: e39a152d-61a5-4dbc-981c-95a0d0f23d9f
   _AUTH_KEYCLOAK_URL: https://accounts-dev.mykro.be/auth
-  _AUTH_KEYCLOAK_REALM: react-web-client
-  _AUTH_KEYCLOAK_CLIENT_ID: atlas
+  _AUTH_KEYCLOAK_REALM: atlas
+  _AUTH_KEYCLOAK_CLIENT_ID: react-web-client
