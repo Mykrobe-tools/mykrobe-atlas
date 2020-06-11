@@ -72,7 +72,7 @@ steps:
     args:
       - '-c'
       - |
-        yarn web-build-server-compile
+        cd web/build/ && yarn
     volumes:
       - name: 'ssh'
         path: /root/.ssh
