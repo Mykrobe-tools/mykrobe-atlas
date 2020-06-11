@@ -44,10 +44,6 @@ steps:
       rm -rf node_modules
       cd web && yarn
     env:
-    - 'HOST=$_HOST'
-    - 'PORT=$_PORT'
-    - 'DEBUG_PRODUCTION=$_DEBUG_PRODUCTION'
-    - 'API_DEBUG=$_API_DEBUG'
     - 'ATLAS_APP=$_ATLAS_APP'
     - 'API_URL=$_API_URL'
     - 'AUTH_COOKIE_NAME=$_AUTH_COOKIE_NAME'
@@ -84,12 +80,7 @@ substitutions:
   _IMAGE_REPOSITORY: eu.gcr.io/atlas-275810/mykrobe-atlas
   _BITBUCKET_SECRET: ms-bitbucket-readonly
   _GITHUB_SECRET: atlas-jsonschema-readonly
-  _BUILD_VERSION: v0.0.4
-  _NODE_ENV: production
-  _HOST: "0.0.0.0"
-  _PORT: "3000"
-  _DEBUG_PRODUCTION: "1"
-  _API_DEBUG: "1"
+  _BUILD_VERSION: v0.0.5
   _ATLAS_APP:
   _API_URL: https://api-dev.mykro.be
   _AUTH_COOKIE_NAME: dev.mykro.be
