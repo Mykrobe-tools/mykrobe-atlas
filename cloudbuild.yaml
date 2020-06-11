@@ -41,9 +41,9 @@ steps:
       yarn web-build
       yarn web-build-server-compile
       cp -r web/build/static web/dist/
+      rm -rf node_modules
       cd web && yarn
     env:
-    - 'NODE_ENV=$_NODE_ENV'
     - 'HOST=$_HOST'
     - 'PORT=$_PORT'
     - 'DEBUG_PRODUCTION=$_DEBUG_PRODUCTION'
