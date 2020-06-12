@@ -2,8 +2,6 @@
 
 import Resumablejs from 'resumablejs';
 
-import { ensureEnv, env } from 'makeandship-js-common/src/util';
-
 export const typePrefix = 'upload/uploadFileResumable/';
 
 export const RESUMABLE_UPLOAD_FILE_ADDED = `${typePrefix}RESUMABLE_UPLOAD_FILE_ADDED`;

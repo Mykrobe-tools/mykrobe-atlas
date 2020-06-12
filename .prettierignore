@@ -6,6 +6,7 @@ flow-typed
 web/build
 web/demo
 app/build
+app/static
 desktop/dist
 desktop/mykrobe-binaries
 desktop/release
