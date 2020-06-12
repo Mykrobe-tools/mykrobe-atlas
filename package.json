@@ -222,7 +222,7 @@
     "bootstrap": "^4.1.0",
     "date-fns": "^2.8.1",
     "es-check": "^2.1.0",
-    "event-source-polyfill": "^1.0.12",
+    "event-source-polyfill": "^1.0.15",
     "fbjs-scripts": "^0.8.3",
     "fs-extra": "^6.0.1",
     "fuse.js": "^2.6.1",

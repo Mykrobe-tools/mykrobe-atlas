@@ -11,10 +11,8 @@ import {
   take,
 } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
-import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
-const EventSource = NativeEventSource || EventSourcePolyfill;
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
-import { buildOptionsWithToken } from 'makeandship-js-common/src/modules/api/util';
 import {
   getAccessToken,
   getIsAuthenticated,
@@ -115,19 +113,25 @@ function* startWorker() {
     return;
   }
 
+  const options = {
+    heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
+  };
+
   const accessToken = yield select(getAccessToken);
-  const options = buildOptionsWithToken({}, accessToken);
+  if (accessToken) {
+    if (!options.headers) {
+      options.headers = {};
+    }
+    options.headers['Authorization'] = `Bearer ${accessToken}`;
+  }
 
   console.log({ options });
 
   // TODO construct this with Swagger operation id
   try {
-    _eventSource = new EventSource(
+    _eventSource = new EventSourcePolyfill(
       `${window.env.REACT_APP_API_URL}/user/events`,
-      {
-        headers: options.headers,
-        heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
-      }
+      options
     );
   } catch (error) {
     console.log(`Couldn't start event source`, error);
