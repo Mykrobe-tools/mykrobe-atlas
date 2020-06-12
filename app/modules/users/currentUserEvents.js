@@ -11,13 +11,14 @@ import {
   take,
 } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+const EventSource = NativeEventSource || EventSourcePolyfill;
 
 import { buildOptionsWithToken } from 'makeandship-js-common/src/modules/api/util';
 import {
   getAccessToken,
   getIsAuthenticated,
 } from 'makeandship-js-common/src/modules/auth';
-import { ensureEnv, env } from 'makeandship-js-common/src/util';
 import { waitForChange } from 'makeandship-js-common/src/modules/util';
 
 export const typePrefix = 'users/currentUserEvents/';
@@ -117,9 +118,11 @@ function* startWorker() {
   const accessToken = yield select(getAccessToken);
   const options = buildOptionsWithToken({}, accessToken);
 
+  console.log({ options });
+
   // TODO construct this with Swagger operation id
   try {
-    _eventSource = new EventSourcePolyfill(
+    _eventSource = new EventSource(
       `${window.env.REACT_APP_API_URL}/user/events`,
       {
         headers: options.headers,
