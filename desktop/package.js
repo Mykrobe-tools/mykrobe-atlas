@@ -2,6 +2,7 @@
 
 import { exec, execSync } from 'child_process';
 import debug from 'debug';
+import fs from 'fs-extra';
 
 const d = debug('mykrobe:desktop-package');
 
@@ -11,7 +12,7 @@ const argv = require('minimist')(process.argv.slice(2));
 const pkg = require('../package.json');
 const path = require('path');
 
-import { updateStaticPackageJson } from './util';
+import { updateBuildPackageJson } from './util';
 
 import archPlatArgs from './util/archPlatArgs';
 
@@ -19,12 +20,17 @@ const { platforms, archs } = archPlatArgs();
 
 const icon = path.join(__dirname, `resources/icon/${pkg.targetName}/icon`);
 
+// clean build folder
+const buildDir = path.join(__dirname, 'build');
+fs.removeSync(buildDir);
+fs.ensureDirSync(buildDir);
+
 // copy the version number from the main package.json
-updateStaticPackageJson();
+updateBuildPackageJson();
 
 // do not sign app here - signing is handled by dist.js
 const DEFAULT_OPTS = {
-  dir: path.join(__dirname, 'static'),
+  dir: buildDir,
   name: pkg.productName,
   icon: icon,
   version: '',

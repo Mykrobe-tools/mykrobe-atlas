@@ -14,12 +14,13 @@ const config = merge(baseConfig, {
   target: 'electron-renderer',
 
   output: {
-    path: path.resolve(__dirname, 'static'),
+    path: path.resolve(__dirname, 'build'),
+    publicPath: './',
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'index.template.html'),
+      template: path.join(__dirname, 'index.template.ejs'),
       title: appHtmlTitle,
     }),
     new webpack.DefinePlugin({

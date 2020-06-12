@@ -11,13 +11,12 @@ import {
   take,
 } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
-import { buildOptionsWithToken } from 'makeandship-js-common/src/modules/api/util';
 import {
   getAccessToken,
   getIsAuthenticated,
 } from 'makeandship-js-common/src/modules/auth';
-import { ensureEnv, env } from 'makeandship-js-common/src/util';
 import { waitForChange } from 'makeandship-js-common/src/modules/util';
 
 export const typePrefix = 'users/currentUserEvents/';
@@ -114,16 +113,24 @@ function* startWorker() {
     return;
   }
 
+  const options = {
+    heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
+  };
+
   const accessToken = yield select(getAccessToken);
-  const options = buildOptionsWithToken({}, accessToken);
+  if (accessToken) {
+    if (!options.headers) {
+      options.headers = {};
+    }
+    options.headers['Authorization'] = `Bearer ${accessToken}`;
+  }
 
   // TODO construct this with Swagger operation id
   try {
-    const API_URL = ensureEnv(env.API_URL);
-    _eventSource = new EventSourcePolyfill(`${API_URL}/user/events`, {
-      headers: options.headers,
-      heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
-    });
+    _eventSource = new EventSourcePolyfill(
+      `${window.env.REACT_APP_API_URL}/user/events`,
+      options
+    );
   } catch (error) {
     console.log(`Couldn't start event source`, error);
   }

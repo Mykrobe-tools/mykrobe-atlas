@@ -32,24 +32,23 @@ node_modules.win
 .DS_Store
 
 # Desktop build
-desktop/dist/*
-desktop/release/*
-desktop/mykrobe-binaries/*
+desktop/dist
+desktop/release
+desktop/mykrobe-binaries
 main.js
 main.js.map
-desktop/static/*
-!desktop/static/bin/*
-!desktop/static/package.json
+desktop/build
+!desktop/build/bin
 
 # Web build
-web/build/static/*
+web/build
 
 # Visual Studio
 .vscode
 jsconfig.json
 
 # Mykrobe
-desktop/static/bin/**/*.ctx
+desktop/build/bin/**/*.ctx
 tmp
 
 # mock api file uploads

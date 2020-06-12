@@ -11,7 +11,7 @@ const d = debug('mykrobe:desktop-util:fetch-predictor-binaries');
 const argv = require('minimist')(process.argv.slice(2));
 d('argv', JSON.stringify(argv, null, 2));
 
-import { updateStaticPackageJson } from './staticPackageJson';
+import { updateBuildPackageJson } from './buildPackageJson';
 import { executeCommand } from './executeCommand';
 import { GH_TOKEN, fetchGitHubReleases, gitHubPublishConfig } from './gitHub';
 
@@ -166,5 +166,5 @@ export const fetchPredictorBinaries = async () => {
   await processDownloads({ tag, downloads });
   // if successful, update executable display version
   d('Updating display executable version');
-  updateStaticPackageJson({ executableVersion: tag });
+  updateBuildPackageJson({ executableVersion: tag });
 };

@@ -4,7 +4,7 @@
 <PROJECT_ROOT>/desktop/dist/.*
 <PROJECT_ROOT>/desktop/release/.*
 <PROJECT_ROOT>/desktop/mykrobe-binaries/.*
-<PROJECT_ROOT>/desktop/static/.*
+<PROJECT_ROOT>/desktop/build/.*
 <PROJECT_ROOT>/test/.*
 
 [include]
