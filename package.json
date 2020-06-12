@@ -37,10 +37,7 @@
     "test:watch": "yarn test:fast --watch",
     "test": "cross-env INCLUDE_SLOW_TESTS=true DEBUG=mykrobe*,electron* jest --no-cache --bail --runInBand",
     "web-api-server": "babel-node web/api-dev-server.js",
-    "web-build-server": "babel-node web/build/simple-server.js",
-    "web-build-server-compile": "rm -rf web/dist && babel web/build --out-dir web/dist",
-    "web-build-server-start": "node web/dist/simple-server.js",
-    "web-build-simple-server": "concurrently -r \"yarn web-build-server\" \"yarn web-open\"",
+    "web-build-server": "babel-node web/web-server-example.js",
     "web-build": "cross-env NODE_ENV=production webpack --config ./web/webpack.config.production.js",
     "web-dev-server": "cross-env NODE_ENV=development webpack-dev-server --hot --port 3000 --inline --history-api-fallback --progress --config ./web/webpack.config.development.js",
     "web-dev": "yarn web-dev-server",
@@ -238,7 +235,7 @@
     "lodash.isequal": "^4.5.0",
     "lodash.memoize": "^4.1.2",
     "lodash.orderby": "^4.6.0",
-    "makeandship-js-common": "https://bitbucket.org/makeandship/makeandship-js-common#feature/297-remove-explicit-use-of-env-vars",
+    "makeandship-js-common": "https://bitbucket.org/makeandship/makeandship-js-common#v0.1.6",
     "memoize-one": "^5.0.4",
     "moment": "^2.22.0",
     "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.19",
@@ -285,6 +282,9 @@
     ],
     "globals": {
       "IS_ELECTRON": false
-    }
+    },
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ]
   }
 }

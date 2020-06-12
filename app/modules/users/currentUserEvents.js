@@ -125,8 +125,6 @@ function* startWorker() {
     options.headers['Authorization'] = `Bearer ${accessToken}`;
   }
 
-  console.log({ options });
-
   // TODO construct this with Swagger operation id
   try {
     _eventSource = new EventSourcePolyfill(
