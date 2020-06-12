@@ -11,10 +11,8 @@ import {
   DecoratedForm,
   FormFooter,
 } from 'makeandship-js-common/src/components/ui/form';
-import {
-  SubmitButton,
-  LinkButton,
-} from 'makeandship-js-common/src/components/ui/buttons';
+import { SubmitButton } from 'makeandship-js-common/src/components/ui/buttons';
+import LinkButton from 'makeandship-js-common/src/components/ui/buttons/LinkButton';
 
 import { loginSchema } from '../../schemas/auth';
 import HeaderContainer from '../ui/header/HeaderContainer';
