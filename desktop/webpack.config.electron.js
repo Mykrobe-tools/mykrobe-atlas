@@ -22,7 +22,7 @@ export default merge(baseConfig, {
 
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'static'),
+    path: path.resolve(__dirname, 'build'),
   },
 
   node: {

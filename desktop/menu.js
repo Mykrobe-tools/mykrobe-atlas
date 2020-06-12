@@ -4,7 +4,7 @@ import { Menu, shell } from 'electron';
 import type { BrowserWindow } from 'electron';
 
 import { DEBUG, IS_MAC } from './constants';
-const { productName } = require('./static/package.json');
+const { productName } = require('./build/package.json');
 
 export const createMenu = (options: any) => {
   const template = getMenuTemplate(options);

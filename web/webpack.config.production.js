@@ -11,7 +11,7 @@ const pluginConfig = require('./webpack.plugin.config');
 
 module.exports = merge(webpackConfig, {
   output: {
-    path: path.resolve(__dirname, 'build/static'),
+    path: path.resolve(__dirname, 'build'),
     publicPath: '/',
   },
 

@@ -14,7 +14,8 @@ const config = merge(baseConfig, {
   target: 'electron-renderer',
 
   output: {
-    path: path.resolve(__dirname, 'static'),
+    path: path.resolve(__dirname, 'build'),
+    publicPath: './',
   },
 
   plugins: [

@@ -21,7 +21,7 @@
     "desktop-package:win": "yarn desktop-package --win --x64",
     "desktop-package": "cross-env DEBUG=mykrobe*,electron* PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js",
     "desktop-start-hot": "cross-env HOT=1 PLATFORM=electron NODE_ENV=development electron --inspect=5858 --require @babel/register ./desktop/index.desktop",
-    "desktop-start": "cross-env PLATFORM=electron NODE_ENV=production electron ./desktop/static/",
+    "desktop-start": "cross-env PLATFORM=electron NODE_ENV=production electron ./desktop/build/",
     "flow": "flow",
     "generate-icons": "cross-env DEBUG=mykrobe* babel-node scripts/generate-icons.js",
     "lint:eslint": "eslint ./",
@@ -120,7 +120,7 @@
     "directories": {
       "buildResources": "./desktop/resources/build",
       "output": "./desktop/dist",
-      "app": "./desktop/static"
+      "app": "./desktop/build"
     },
     "afterSign": "./desktop/notarize.js"
   },
@@ -279,7 +279,7 @@
     },
     "modulePathIgnorePatterns": [
       "<rootDir>/node_modules",
-      "<rootDir>/desktop/static",
+      "<rootDir>/desktop/build",
       "<rootDir>/desktop/dist",
       "<rootDir>/desktop/release"
     ],
