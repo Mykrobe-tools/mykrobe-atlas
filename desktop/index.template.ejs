@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-platform="electron">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,9 +7,10 @@
       <%= htmlWebpackPlugin.options.title %>
     </title>
     <script>
-      window.env = <%= htmlWebpackPlugin.options.env %>;
+      window.env = {};
     </script>
   </head>
+
   <body>
     <div id="app-root"></div>
     <div id="modal-root"></div>

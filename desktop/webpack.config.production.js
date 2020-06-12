@@ -19,7 +19,7 @@ const config = merge(baseConfig, {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'index.template.html'),
+      template: path.join(__dirname, 'index.template.ejs'),
       title: appHtmlTitle,
     }),
     new webpack.DefinePlugin({

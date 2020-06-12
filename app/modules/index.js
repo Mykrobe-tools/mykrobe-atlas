@@ -15,8 +15,8 @@ import api, {
   setConfig as setApiConfig,
 } from 'makeandship-js-common/src/modules/api';
 import form from 'makeandship-js-common/src/modules/form';
-import networkStatus, { networkStatusSaga } from './networkStatus';
 
+import networkStatus, { networkStatusSaga } from './networkStatus';
 import experiments, { rootExperimentsSaga } from './experiments';
 import organisations, { rootOrganisationsSaga } from './organisations';
 import users, { rootUsersSaga } from './users';
