@@ -10,16 +10,24 @@ import {
   authReducer as auth,
   rootAuthSaga,
 } from 'makeandship-js-common/src/modules/auth';
-import api, { rootApiSaga } from 'makeandship-js-common/src/modules/api';
+import api, {
+  rootApiSaga,
+  setConfig as setApiConfig,
+} from 'makeandship-js-common/src/modules/api';
 import form from 'makeandship-js-common/src/modules/form';
-import networkStatus, { networkStatusSaga } from './networkStatus';
 
+import networkStatus, { networkStatusSaga } from './networkStatus';
 import experiments, { rootExperimentsSaga } from './experiments';
 import organisations, { rootOrganisationsSaga } from './organisations';
 import users, { rootUsersSaga } from './users';
 import upload, { rootUploadSaga } from './upload';
 import notifications, { rootNotificationsSaga } from './notifications';
 import { rootNavigationSaga } from './navigation';
+
+setApiConfig({
+  apiUrl: window.env.REACT_APP_API_URL,
+  apiSpecUrl: window.env.REACT_APP_API_SPEC_URL,
+});
 
 export const rootReducer = (history: any) =>
   combineReducers({

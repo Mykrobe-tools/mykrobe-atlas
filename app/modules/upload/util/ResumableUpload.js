@@ -2,8 +2,6 @@
 
 import Resumablejs from 'resumablejs';
 
-import { ensureEnv, env } from 'makeandship-js-common/src/util';
-
 export const typePrefix = 'upload/uploadFileResumable/';
 
 export const RESUMABLE_UPLOAD_FILE_ADDED = `${typePrefix}RESUMABLE_UPLOAD_FILE_ADDED`;
@@ -29,7 +27,6 @@ class ResumableUpload {
   };
 
   constructor(actionChannel: any, acceptedExtensions: Array<string>) {
-    const API_URL = ensureEnv(env.API_URL);
     this.actionChannel = actionChannel;
     this.acceptedExtensions = acceptedExtensions;
     this.resumable = new Resumablejs({
@@ -38,10 +35,10 @@ class ResumableUpload {
       uploadMethod: 'PUT',
       headers: this.headers,
       target: () => {
-        return `${API_URL}/experiments/${this.id}/file`;
+        return `${window.env.REACT_APP_API_URL}/experiments/${this.id}/file`;
       },
       testTarget: () => {
-        return `${API_URL}/experiments/${this.id}/upload-status`;
+        return `${window.env.REACT_APP_API_URL}/experiments/${this.id}/upload-status`;
       },
       fileType: this.acceptedExtensions,
       query: (resumableFile, resumableObj) => {

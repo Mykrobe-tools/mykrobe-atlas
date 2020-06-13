@@ -14,7 +14,7 @@ module.exports = merge(baseConfig, {
   target: 'electron-renderer',
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'index.template.html'),
+      template: path.join(__dirname, 'index.template.ejs'),
       title: appHtmlTitle,
     }),
     new webpack.DefinePlugin({

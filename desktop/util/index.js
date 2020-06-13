@@ -8,7 +8,7 @@ export {
   gitHubPublishConfig,
 } from './gitHub';
 
-export { updateStaticPackageJson } from './staticPackageJson';
+export { updateBuildPackageJson } from './buildPackageJson';
 
 export {
   fetchLatestRelease,

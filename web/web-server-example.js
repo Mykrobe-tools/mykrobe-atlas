@@ -1,16 +1,31 @@
 /* @flow */
 
+const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const ejs = require('ejs');
 
 const app = express();
+
 const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || 3000;
 
+// Allow CORS
 app.use(cors());
 app.options('*', cors());
+
+const clientBuildPath = path.join(__dirname, './build');
+
+const dotenvFile = path.join(__dirname, '../.env');
+
+if (fs.existsSync(dotenvFile)) {
+  require('dotenv-expand')(
+    require('dotenv').config({
+      path: dotenvFile,
+    })
+  );
+}
 
 const REACT_APP_ENV = {
   REACT_APP_API_URL: process.env.REACT_APP_API_URL,
@@ -31,7 +46,7 @@ const REACT_APP_ENV = {
 };
 
 // static assets
-app.use('/static', express.static(path.resolve(__dirname, 'static')));
+app.use('/static', express.static(path.join(clientBuildPath, 'static')));
 
 // serve index.ejs template for all unmatched routes
 app.get('*', async (req, res, next) => {
@@ -60,5 +75,3 @@ process.on('SIGTERM', () => {
     process.exit(0);
   });
 });
-
-module.exports = server;

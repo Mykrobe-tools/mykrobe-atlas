@@ -39,7 +39,7 @@ const loadOneDrive = async () => {
 const oneDriveChoose = async () => {
   return new Promise((resolve) => {
     window.OneDrive.open({
-      clientId: process.env.ONEDRIVE_CLIENT_ID,
+      clientId: window.env.REACT_APP_ONEDRIVE_CLIENT_ID,
       action: 'download',
       multiSelect: false,
       openInNewWindow: true,

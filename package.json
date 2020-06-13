@@ -21,7 +21,7 @@
     "desktop-package:win": "yarn desktop-package --win --x64",
     "desktop-package": "cross-env DEBUG=mykrobe*,electron* PLATFORM=electron NODE_ENV=production babel-node ./desktop/package.js",
     "desktop-start-hot": "cross-env HOT=1 PLATFORM=electron NODE_ENV=development electron --inspect=5858 --require @babel/register ./desktop/index.desktop",
-    "desktop-start": "cross-env PLATFORM=electron NODE_ENV=production electron ./desktop/static/",
+    "desktop-start": "cross-env PLATFORM=electron NODE_ENV=production electron ./desktop/build/",
     "flow": "flow",
     "generate-icons": "cross-env DEBUG=mykrobe* babel-node scripts/generate-icons.js",
     "lint:eslint": "eslint ./",
@@ -37,10 +37,7 @@
     "test:watch": "yarn test:fast --watch",
     "test": "cross-env INCLUDE_SLOW_TESTS=true DEBUG=mykrobe*,electron* jest --no-cache --bail --runInBand",
     "web-api-server": "babel-node web/api-dev-server.js",
-    "web-build-server": "babel-node web/build/simple-server.js",
-    "web-build-server-compile": "rm -rf web/dist && babel web/build --out-dir web/dist",
-    "web-build-server-start": "node web/dist/simple-server.js",
-    "web-build-simple-server": "concurrently -r \"yarn web-build-server\" \"yarn web-open\"",
+    "web-build-server": "babel-node web/web-server-example.js",
     "web-build": "cross-env NODE_ENV=production webpack --config ./web/webpack.config.production.js",
     "web-dev-server": "cross-env NODE_ENV=development webpack-dev-server --hot --port 3000 --inline --history-api-fallback --progress --config ./web/webpack.config.development.js",
     "web-dev": "yarn web-dev-server",
@@ -120,7 +117,7 @@
     "directories": {
       "buildResources": "./desktop/resources/build",
       "output": "./desktop/dist",
-      "app": "./desktop/static"
+      "app": "./desktop/build"
     },
     "afterSign": "./desktop/notarize.js"
   },
@@ -222,7 +219,7 @@
     "bootstrap": "^4.1.0",
     "date-fns": "^2.8.1",
     "es-check": "^2.1.0",
-    "event-source-polyfill": "^1.0.12",
+    "event-source-polyfill": "^1.0.15",
     "fbjs-scripts": "^0.8.3",
     "fs-extra": "^6.0.1",
     "fuse.js": "^2.6.1",
@@ -238,25 +235,25 @@
     "lodash.isequal": "^4.5.0",
     "lodash.memoize": "^4.1.2",
     "lodash.orderby": "^4.6.0",
-    "makeandship-js-common": "https://bitbucket.org/makeandship/makeandship-js-common#v0.1.5",
+    "makeandship-js-common": "https://bitbucket.org/makeandship/makeandship-js-common#v0.1.6",
     "memoize-one": "^5.0.4",
     "moment": "^2.22.0",
     "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.19",
     "parse-filepath": "^1.0.2",
     "phylocanvas": "^2.6.1",
     "pluralize": "^7.0.0",
-    "react": "^16.8.0",
+    "react": "^16.9.0",
     "react-autosuggest": "^9.3.2",
     "react-datepicker": "^2.10.1",
     "react-document-title": "^2.0.3",
-    "react-dom": "^16.8.0",
-    "react-redux": "^6.0.0",
+    "react-dom": "^16.9.0",
+    "react-redux": "^7.2.0",
     "react-router-dom": "^5.0.0",
     "react-transition-group": "^2.4.0",
     "reactstrap": "^7.1.0",
     "redux": "^4.0.0",
     "redux-auth-wrapper": "^2.1.0",
-    "redux-saga": "^0.16.0",
+    "redux-saga": "^1.1.3",
     "redux-thunk": "^2.2.0",
     "reselect": "^4.0.0",
     "resumablejs": "^1.1.0",
@@ -279,12 +276,15 @@
     },
     "modulePathIgnorePatterns": [
       "<rootDir>/node_modules",
-      "<rootDir>/desktop/static",
+      "<rootDir>/desktop/build",
       "<rootDir>/desktop/dist",
       "<rootDir>/desktop/release"
     ],
     "globals": {
       "IS_ELECTRON": false
-    }
+    },
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ]
   }
 }

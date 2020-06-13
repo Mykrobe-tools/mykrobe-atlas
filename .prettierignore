@@ -3,12 +3,12 @@ __mocks__
 __fixtures__
 flow-typed
 .vscode
-web/build
 web/demo
+app/build
 app/static
 desktop/dist
 desktop/mykrobe-binaries
 desktop/release
 desktop/resources
-desktop/static
+desktop/build
 decls

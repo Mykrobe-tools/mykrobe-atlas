@@ -25,13 +25,22 @@ module.exports = merge(webpackConfig, {
   // Don't attempt to continue if there are any errors.
   bail: true,
 
+  output: {
+    filename: 'static/js/[name].[hash].js',
+  },
+
   module: {
     rules: [
       {
         test: cssRegex,
         exclude: cssModuleRegex,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../../',
+            },
+          },
           {
             loader: 'css-loader',
             options: {
@@ -46,7 +55,12 @@ module.exports = merge(webpackConfig, {
       {
         test: cssModuleRegex,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../../',
+            },
+          },
           {
             loader: 'css-loader',
             options: {
@@ -63,7 +77,12 @@ module.exports = merge(webpackConfig, {
         test: sassRegex,
         exclude: sassModuleRegex,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../../',
+            },
+          },
           {
             loader: 'css-loader',
             options: {
@@ -82,7 +101,12 @@ module.exports = merge(webpackConfig, {
       {
         test: sassModuleRegex,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../../',
+            },
+          },
           {
             loader: 'css-loader',
             options: {
@@ -107,6 +131,7 @@ module.exports = merge(webpackConfig, {
           options: {
             limit: 10000,
             esModule: false,
+            name: 'static/media/[name].[hash].[ext]',
           },
         },
       },
@@ -119,6 +144,7 @@ module.exports = merge(webpackConfig, {
             limit: 10000,
             mimetype: 'application/font-woff',
             esModule: false,
+            name: 'static/media/[name].[hash].[ext]',
           },
         },
       },
@@ -131,6 +157,7 @@ module.exports = merge(webpackConfig, {
             limit: 10000,
             mimetype: 'application/font-woff',
             esModule: false,
+            name: 'static/media/[name].[hash].[ext]',
           },
         },
       },
@@ -143,6 +170,7 @@ module.exports = merge(webpackConfig, {
             limit: 10000,
             mimetype: 'application/octet-stream',
             esModule: false,
+            name: 'static/media/[name].[hash].[ext]',
           },
         },
       },
@@ -153,6 +181,7 @@ module.exports = merge(webpackConfig, {
           loader: 'file-loader',
           options: {
             limit: 10000,
+            name: 'static/media/[name].[hash].[ext]',
           },
         },
       },
@@ -165,6 +194,7 @@ module.exports = merge(webpackConfig, {
             limit: 10000,
             mimetype: 'image/svg+xml',
             esModule: false,
+            name: 'static/media/[name].[hash].[ext]',
           },
         },
       },
@@ -218,8 +248,7 @@ module.exports = merge(webpackConfig, {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[name].[hash].chunk.css',
+      filename: 'static/css/[name].[hash].css',
     }),
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
