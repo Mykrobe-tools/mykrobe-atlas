@@ -10,7 +10,7 @@ WORKDIR /home/node/app
 RUN mkdir /home/node/.npm-global
 
 # push this app to the deployment directory
-ADD build /home/node/app/web
+ADD web/build /home/node/app/web
 
 RUN chown -R node:node /home/node/.npm-global
 RUN chown -R node:node /home/node/app
