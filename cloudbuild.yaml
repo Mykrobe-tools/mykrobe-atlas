@@ -72,7 +72,25 @@ steps:
     args:
       - '-c'
       - |
+        cd web/build/ && ls -la
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
+  - name: node:$_NODE_VERSION
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
         cd web/build/ && yarn
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
+  - name: node:$_NODE_VERSION
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd web/build/ && ls -la
     volumes:
       - name: 'ssh'
         path: /root/.ssh
