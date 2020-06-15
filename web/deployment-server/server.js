@@ -36,7 +36,7 @@ app.use('/static', express.static(path.resolve(__dirname, 'static')));
 // serve index.ejs template for all unmatched routes
 app.get('*', async (req, res, next) => {
   if (req.accepts('html')) {
-    const indexTemplate = path.join(clientBuildPath, 'index.ejs');
+    const indexTemplate = path.join(__dirname, 'index.ejs');
     const str = await ejs.renderFile(indexTemplate, {
       REACT_APP_ENV: JSON.stringify(REACT_APP_ENV),
     });
