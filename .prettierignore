@@ -3,7 +3,6 @@ __mocks__
 __fixtures__
 flow-typed
 .vscode
-web/build
 web/demo
 app/build
 app/static
