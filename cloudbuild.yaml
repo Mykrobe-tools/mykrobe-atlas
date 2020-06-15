@@ -72,10 +72,16 @@ steps:
     args:
       - '-c'
       - |
-        cd web/build/ && ls -la
+        cp web/deployment-server/* web/build/
     volumes:
       - name: 'ssh'
         path: /root/.ssh
+  - name: node:$_NODE_VERSION
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd web/build/ && ls -la
   - name: node:$_NODE_VERSION
     entrypoint: 'bash'
     args:
