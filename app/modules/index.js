@@ -27,7 +27,6 @@ import jsendResponseTransformer from 'makeandship-js-common/src/modules/transfor
 import { createAxiosAuthInterceptor } from 'makeandship-js-common/src/modules/auth/interceptors/axiosAuthInterceptor';
 import { makeKeycloakProvider } from 'makeandship-js-common/src/modules/auth/providers/keycloakProvider';
 
-import networkStatus, { networkStatusSaga } from './networkStatus';
 import experiments, { rootExperimentsSaga } from './experiments';
 import organisations, { rootOrganisationsSaga } from './organisations';
 import users, { rootUsersSaga } from './users';
@@ -77,7 +76,6 @@ export const rootReducer = (history: any) =>
     notifications,
     organisations,
     upload,
-    networkStatus,
   });
 
 const sagas = [
@@ -89,7 +87,6 @@ const sagas = [
   rootNotificationsSaga,
   rootUploadSaga,
   rootNavigationSaga,
-  networkStatusSaga,
 ];
 
 export function* rootSaga(): Saga {
