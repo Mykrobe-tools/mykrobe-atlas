@@ -916,9 +916,9 @@
     source-map-support "^0.5.16"
 
 "@babel/runtime-corejs2@^7.4.5":
-  version "7.10.2"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.10.2.tgz#532f20b839684615f97e9f700f630e995efed426"
-  integrity sha512-ZLwsFnNm3WpIARU1aLFtufjMHsmEnc8TjtrfAjmbgMbeoyR+LuQoyESoNdTfeDhL6IdY12SpeycXMgSgl8XGXA==
+  version "7.10.3"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.10.3.tgz#81bc99a96bfcb6db3f0dcf73fdc577cc554d341b"
+  integrity sha512-enKvnR/kKFbZFgXYo165wtSA5OeiTlgsnU4jV3vpKRhfWUJjLS6dfVcjIPeRcgJbgEgdgu0I+UyBWqu6c0GumQ==
   dependencies:
     core-js "^2.6.5"
     regenerator-runtime "^0.13.4"
@@ -938,7 +938,14 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.4.4", "@babel/runtime@^7.6.3":
+"@babel/runtime@^7.4.4":
+  version "7.10.3"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.3.tgz#670d002655a7c366540c67f6fd3342cd09500364"
+  integrity sha512-RzGO0RLSdokm9Ipe/YD+7ww8X2Ro79qiXZF3HU9ljrM+qnJmH1Vqth+hbiQZy761LnMJTMitHDuKVYTk3k4dLw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.6.3":
   version "7.10.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.2.tgz#d103f21f2602497d38348a32e008637d506db839"
   integrity sha512-6sF3uQw2ivImfVIl62RZ7MXhO2tap69WeWK57vAaimT6AZbE4FbqjdEJIN1UqoD6wI6B+1n9UiagafH1sxjOtg==
@@ -10756,8 +10763,8 @@ make-dir@^3.0.0, make-dir@^3.0.2:
     semver "^6.0.0"
 
 "makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#feature/301-configurable-fetcher":
-  version "0.1.6"
-  resolved "https://bitbucket.org/makeandship/makeandship-js-common#53a4adb0a95eb38f849c779935fffe3fe2c69a9c"
+  version "0.2.0"
+  resolved "https://bitbucket.org/makeandship/makeandship-js-common#46002c1af73a598901a8c49edc1170704982c9d8"
   dependencies:
     ajv "^6.7.0"
     base-64 "^0.1.0"
