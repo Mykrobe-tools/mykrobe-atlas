@@ -14,7 +14,6 @@ const { version, productName } = require('./package.json');
 module.exports = {
   entry: {
     bundle: [
-      'whatwg-fetch',
       'url-search-params-polyfill',
       'event-source-polyfill',
       path.join(dirApp, 'index'),

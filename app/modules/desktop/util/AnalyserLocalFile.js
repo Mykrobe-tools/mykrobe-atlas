@@ -6,7 +6,7 @@ import { spawn } from 'child_process';
 import readline from 'readline';
 import fs from 'fs-extra';
 
-import { isString } from 'makeandship-js-common/src/util/is';
+import { isString } from 'makeandship-js-common/src/utils/is';
 
 import AnalyserJsonTransformer from '../../experiments/util/AnalyserJsonTransformer';
 import * as APIConstants from '../../../constants/APIConstants';

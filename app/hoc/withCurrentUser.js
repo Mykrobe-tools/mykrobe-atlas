@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
+  logoutConfirm,
   createCurrentUserAvatar,
   deleteCurrentUser,
   deleteCurrentUserAvatar,
@@ -24,6 +25,7 @@ const withCurrentUser = connect(
     currentUserError: getCurrentUserError(state),
   }),
   {
+    logoutConfirm,
     createCurrentUserAvatar,
     deleteCurrentUser,
     deleteCurrentUserAvatar,

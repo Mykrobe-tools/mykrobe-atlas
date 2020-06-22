@@ -6,7 +6,7 @@ import type { Saga } from 'redux-saga';
 import { push } from 'connected-react-router';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-import { getCurrentLocale } from 'makeandship-js-common/src/util/date';
+import { getCurrentLocale } from 'makeandship-js-common/src/utils/date';
 
 import {
   showNotification,

@@ -11,17 +11,6 @@ import {
 } from '../modules/networkStatus';
 
 import {
-  login,
-  logout,
-  navigateLogin,
-  navigateLogout,
-  navigateRegister,
-  checkToken,
-  setLocalData,
-  clearLocalData,
-} from 'makeandship-js-common/src/modules/auth';
-
-import {
   deleteCurrentUser,
   requestCurrentUser,
   requestUser,
@@ -52,14 +41,6 @@ import {
 
 export const actionCreators = {
   joinOrganisation,
-  login,
-  logout,
-  navigateLogin,
-  navigateLogout,
-  navigateRegister,
-  checkToken,
-  setLocalData,
-  clearLocalData,
   deleteCurrentUser,
   requestCurrentUser,
   requestUser,

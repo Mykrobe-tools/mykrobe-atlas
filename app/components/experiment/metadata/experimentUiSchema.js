@@ -7,7 +7,7 @@ import {
   DatePicker,
   DateTimePicker,
 } from 'makeandship-js-common/src/components/ui/form';
-import { formatDate } from 'makeandship-js-common/src/util/date';
+import { formatDate } from 'makeandship-js-common/src/utils/date';
 
 import { experimentSchema } from '../../../schemas/experiment';
 

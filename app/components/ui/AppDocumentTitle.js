@@ -4,7 +4,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
 
-import { isString, isArray } from 'makeandship-js-common/src/util/is';
+import { isString, isArray } from 'makeandship-js-common/src/utils/is';
 
 const { productName } = PACKAGE_JSON;
 

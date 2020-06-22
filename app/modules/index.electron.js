@@ -5,7 +5,7 @@ import { connectRouter } from 'connected-react-router';
 import { all, call } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 
-import { restartSagaOnError } from 'makeandship-js-common/src/modules/util';
+import { restartSagaOnError } from 'makeandship-js-common/src/modules/utils';
 import form from 'makeandship-js-common/src/modules/form';
 
 import notifications, { rootNotificationsSaga } from './notifications';

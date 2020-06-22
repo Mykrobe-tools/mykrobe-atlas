@@ -14,7 +14,7 @@ import _get from 'lodash.get';
 import * as dateFns from 'date-fns';
 
 import { Sample } from 'mykrobe-atlas-jsonschema/schemas/definitions/experiment/experiment-metadata-sample';
-import { formatDate } from 'makeandship-js-common/src/util/date';
+import { formatDate } from 'makeandship-js-common/src/utils/date';
 
 import Table from 'makeandship-js-common/src/components/ui/table';
 

@@ -5,7 +5,7 @@ import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import produce from 'immer';
 
-import { callSwaggerApi } from 'makeandship-js-common/src/modules/api/swaggerApi';
+import { swaggerApiActions } from 'makeandship-js-common/src/modules/api';
 
 import { showNotification } from '../notifications';
 import { getCurrentUser } from '../../modules/users/currentUser';
@@ -293,7 +293,7 @@ export default reducer;
 export function* joinOrganisationWatcher(): Saga {
   yield takeLatest(JOIN, function* (action) {
     yield put(
-      callSwaggerApi({
+      swaggerApiActions.callSwaggerApi({
         operationId: 'joinOrganisation',
         parameters: action.payload,
         types: [JOIN_REQUEST, JOIN_SUCCESS, JOIN_FAILURE],
@@ -305,7 +305,7 @@ export function* joinOrganisationWatcher(): Saga {
 export function* approveJoinOrganisationRequestWatcher(): Saga {
   yield takeLatest(APPROVE_JOIN, function* (action) {
     yield put(
-      callSwaggerApi({
+      swaggerApiActions.callSwaggerApi({
         operationId: 'approveJoinOrganisationRequest',
         parameters: action.payload,
         types: [
@@ -321,7 +321,7 @@ export function* approveJoinOrganisationRequestWatcher(): Saga {
 export function* rejectJoinOrganisationRequestWatcher(): Saga {
   yield takeLatest(REJECT_JOIN, function* (action) {
     yield put(
-      callSwaggerApi({
+      swaggerApiActions.callSwaggerApi({
         operationId: 'rejectJoinOrganisationRequest',
         parameters: action.payload,
         types: [REJECT_JOIN_REQUEST, REJECT_JOIN_SUCCESS, REJECT_JOIN_FAILURE],
@@ -333,7 +333,7 @@ export function* rejectJoinOrganisationRequestWatcher(): Saga {
 export function* removeOrganisationMemberWatcher(): Saga {
   yield takeLatest(REMOVE_MEMBER, function* (action) {
     yield put(
-      callSwaggerApi({
+      swaggerApiActions.callSwaggerApi({
         operationId: 'removeOrganisationMember',
         parameters: action.payload,
         types: [
@@ -349,7 +349,7 @@ export function* removeOrganisationMemberWatcher(): Saga {
 export function* promoteOrganisationMemberWatcher(): Saga {
   yield takeLatest(PROMOTE_MEMBER, function* (action) {
     yield put(
-      callSwaggerApi({
+      swaggerApiActions.callSwaggerApi({
         operationId: 'promoteOrganisationMember',
         parameters: action.payload,
         types: [
@@ -365,7 +365,7 @@ export function* promoteOrganisationMemberWatcher(): Saga {
 export function* demoteOrganisationOwnerWatcher(): Saga {
   yield takeLatest(DEMOTE_MEMBER, function* (action) {
     yield put(
-      callSwaggerApi({
+      swaggerApiActions.callSwaggerApi({
         operationId: 'demoteOrganisationOwner',
         parameters: action.payload,
         types: [

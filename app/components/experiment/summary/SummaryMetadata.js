@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import _get from 'lodash.get';
 import * as dateFns from 'date-fns';
 
-import { formatDate } from 'makeandship-js-common/src/util/date';
+import { formatDate } from 'makeandship-js-common/src/utils/date';
 
 import ExperimentsList from '../../ui/ExperimentsList';
 
