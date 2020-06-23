@@ -10764,7 +10764,7 @@ make-dir@^3.0.0, make-dir@^3.0.2:
 
 "makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#feature/301-configurable-fetcher":
   version "0.2.0"
-  resolved "https://bitbucket.org/makeandship/makeandship-js-common#46002c1af73a598901a8c49edc1170704982c9d8"
+  resolved "https://bitbucket.org/makeandship/makeandship-js-common#c8a6b0f933687782eec859f643139c4ffab8febe"
   dependencies:
     ajv "^6.7.0"
     base-64 "^0.1.0"

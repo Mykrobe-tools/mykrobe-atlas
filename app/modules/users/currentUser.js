@@ -8,6 +8,7 @@ import { createSelector } from 'reselect';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
 import { actions as authActions } from 'makeandship-js-common/src/modules/auth';
 import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth/selectors';
+import { waitForChange } from 'makeandship-js-common/src/modules/utils';
 
 import { showNotification } from '../notifications';
 
@@ -109,17 +110,15 @@ export const getCurrentUserRole = createSelector(
 // watch other actions where we want to fetch the current user
 
 function* authInitialiseWatcher() {
-  yield takeEvery(authActions.setIsAuthenticated, authInitialiseWorker);
-}
-
-function* authInitialiseWorker() {
-  const isAuthenticated = yield select(getIsAuthenticated);
-  if (isAuthenticated) {
-    yield put(showNotification('You are logged in'));
-    yield put(requestEntity());
-  } else {
-    yield put(showNotification('You are signed out'));
-    yield put(resetEntity());
+  while (true) {
+    const isAuthenticated = yield waitForChange(getIsAuthenticated);
+    if (isAuthenticated) {
+      yield put(showNotification('You are logged in'));
+      yield put(requestEntity());
+    } else {
+      yield put(showNotification('You are signed out'));
+      yield put(resetEntity());
+    }
   }
 }
 

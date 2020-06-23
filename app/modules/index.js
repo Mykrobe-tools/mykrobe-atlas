@@ -2,7 +2,14 @@
 
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
-import { all, call, put, fork, takeEvery } from 'redux-saga/effects';
+import {
+  all,
+  call,
+  put,
+  fork,
+  takeEvery,
+  takeLeading,
+} from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import axios from 'axios';
 import Keycloak from 'keycloak-js';
@@ -31,12 +38,12 @@ import experiments, { rootExperimentsSaga } from './experiments';
 import organisations, { rootOrganisationsSaga } from './organisations';
 import users, { rootUsersSaga } from './users';
 import upload, { rootUploadSaga } from './upload';
-import notifications, { rootNotificationsSaga } from './notifications';
-import { rootNavigationSaga } from './navigation';
-import {
+import notifications, {
+  rootNotificationsSaga,
   showNotification,
   NotificationCategories,
-} from 'makeandship-js-common/src/modules/notifications/notifications';
+} from './notifications';
+import { rootNavigationSaga } from './navigation';
 
 const axiosInstance = axios.create({
   baseURL: window.env.REACT_APP_API_URL,
@@ -95,6 +102,9 @@ export function* rootSaga(): Saga {
   } else {
     yield all(sagas.map((saga) => fork(saga)));
   }
+  yield takeLeading(authActions.updateTokenError, function* () {
+    yield call(provider.login);
+  });
   yield put(
     authActions.initialise({
       onLoad: 'check-sso',
