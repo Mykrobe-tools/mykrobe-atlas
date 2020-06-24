@@ -249,7 +249,6 @@
     "lodash.trim": "^4.5.1",
     "makeandship-js-common": "https://bitbucket.org/makeandship/makeandship-js-common#v0.2.1",
     "memoize-one": "^5.0.4",
-    "moment": "^2.22.0",
     "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.19",
     "nhs-number-validator": "^1.1.1",
     "parse-filepath": "^1.0.2",

@@ -23,8 +23,6 @@ module.exports = {
     modules: [dirApp, dirNode],
   },
   plugins: [
-    // Don't bundle moment locales - instead, add a require to each specific locale e.g. require('moment/locale/en');
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new CircularDependencyPlugin({
       // exclude detection of files based on a RegExp
       exclude: /a\.js|node_modules/,
