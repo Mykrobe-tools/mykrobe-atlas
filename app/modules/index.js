@@ -32,7 +32,7 @@ import form from 'makeandship-js-common/src/modules/form';
 import { createAxiosFetcher } from 'makeandship-js-common/src/modules/fetchers/axiosFetcher';
 import jsendResponseTransformer from 'makeandship-js-common/src/modules/transformers/jsendResponseTransformer';
 import { createAxiosAuthInterceptor } from 'makeandship-js-common/src/modules/auth/interceptors/axiosAuthInterceptor';
-import { makeKeycloakProvider } from 'makeandship-js-common/src/modules/auth/providers/keycloakProvider';
+import { createKeycloakProvider } from 'makeandship-js-common/src/modules/auth/providers/keycloakProvider';
 
 import experiments, { rootExperimentsSaga } from './experiments';
 import organisations, { rootOrganisationsSaga } from './organisations';
@@ -56,7 +56,7 @@ const keycloakInstance = new Keycloak({
   clientId: window.env.REACT_APP_KEYCLOAK_CLIENT_ID,
 });
 
-const provider = makeKeycloakProvider(keycloakInstance);
+const provider = createKeycloakProvider(keycloakInstance);
 const authInterceptor = createAxiosAuthInterceptor(provider);
 axiosInstance.interceptors.request.use(authInterceptor);
 
