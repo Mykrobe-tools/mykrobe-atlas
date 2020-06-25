@@ -7,9 +7,10 @@ import {
   DatePicker,
   DateTimePicker,
 } from 'makeandship-js-common/src/components/ui/form';
-import { formatDate } from 'makeandship-js-common/src/util/date';
+import { formatDate } from 'makeandship-js-common/src/utils/date';
 
 import { experimentSchema } from '../../../schemas/experiment';
+import { isString } from 'makeandship-js-common/src/utils/is';
 
 const radioWidget = (props: any) => {
   if (props.readonly) {
@@ -35,9 +36,13 @@ const datePickerWidget = (props: any) => {
   if (props.readonly) {
     const { TextWidget } = props.registry.widgets;
     const { value, ...rest } = props;
-    const formattedValue = value
-      ? formatDate(value, DatePicker.defaultProps.dateFormat)
-      : '';
+    let formattedValue = '';
+    if (value) {
+      const valueAsDate = isString(value) ? new Date(value) : value;
+      formattedValue = value
+        ? formatDate(valueAsDate, DatePicker.defaultProps.dateFormat)
+        : '';
+    }
     return <TextWidget value={formattedValue} {...rest} />;
   } else {
     return <DatePicker {...props} />;
@@ -55,9 +60,13 @@ const dateTimePickerWidget = (props: any) => {
   if (props.readonly) {
     const { TextWidget } = props.registry.widgets;
     const { value, ...rest } = props;
-    const formattedValue = value
-      ? formatDate(value, DatePicker.defaultProps.dateFormat)
-      : '';
+    let formattedValue = '';
+    if (value) {
+      const valueAsDate = isString(value) ? new Date(value) : value;
+      formattedValue = value
+        ? formatDate(valueAsDate, DateTimePicker.defaultProps.dateFormat)
+        : '';
+    }
     return <TextWidget value={formattedValue} {...rest} />;
   } else {
     return <DateTimePicker inline={false} {...props} />;

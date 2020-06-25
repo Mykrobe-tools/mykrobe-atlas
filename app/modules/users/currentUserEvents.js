@@ -9,15 +9,16 @@ import {
   select,
   put,
   take,
+  apply,
+  call,
 } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
-import {
-  getAccessToken,
-  getIsAuthenticated,
-} from 'makeandship-js-common/src/modules/auth';
-import { waitForChange } from 'makeandship-js-common/src/modules/util';
+import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth/selectors';
+import { getConfig } from 'makeandship-js-common/src/modules/auth/config';
+
+import { waitForChange } from 'makeandship-js-common/src/modules/utils';
 
 export const typePrefix = 'users/currentUserEvents/';
 
@@ -116,13 +117,14 @@ function* startWorker() {
   const options = {
     heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
   };
-
-  const accessToken = yield select(getAccessToken);
-  if (accessToken) {
+  const config = yield call(getConfig);
+  yield call(config.provider.updateToken);
+  const token = yield call(config.provider.getToken);
+  if (token) {
     if (!options.headers) {
       options.headers = {};
     }
-    options.headers['Authorization'] = `Bearer ${accessToken}`;
+    options.headers['Authorization'] = `Bearer ${token}`;
   }
 
   // TODO construct this with Swagger operation id

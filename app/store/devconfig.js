@@ -1,25 +1,16 @@
 /* @flow */
 
 import {
+  login,
+  register,
+  logout,
+  updateToken,
+} from 'makeandship-js-common/src/modules/auth/actions';
+
+import {
   deviceNetworkOffline,
   deviceNetworkOnline,
 } from 'makeandship-js-common/src/modules/networkStatus/deviceNetworkStatus';
-
-import {
-  beaconNetworkStatusActionTypes,
-  beaconNetworkStatusActions,
-} from '../modules/networkStatus';
-
-import {
-  login,
-  logout,
-  navigateLogin,
-  navigateLogout,
-  navigateRegister,
-  checkToken,
-  setLocalData,
-  clearLocalData,
-} from 'makeandship-js-common/src/modules/auth';
 
 import {
   deleteCurrentUser,
@@ -51,15 +42,11 @@ import {
 } from '../modules/users/currentUserEvents';
 
 export const actionCreators = {
-  joinOrganisation,
   login,
+  register,
   logout,
-  navigateLogin,
-  navigateLogout,
-  navigateRegister,
-  checkToken,
-  setLocalData,
-  clearLocalData,
+  updateToken,
+  joinOrganisation,
   deleteCurrentUser,
   requestCurrentUser,
   requestUser,
@@ -69,8 +56,6 @@ export const actionCreators = {
   showNotification,
   deviceNetworkOffline,
   deviceNetworkOnline,
-  beaconNetworkOffline: beaconNetworkStatusActions.beaconNetworkOffline,
-  beaconNetworkOnline: beaconNetworkStatusActions.beaconNetworkOnline,
 };
 
 export const actionsBlacklist = [
@@ -79,7 +64,4 @@ export const actionsBlacklist = [
   UPDATE_NOTIFICATION,
   EVENT,
   UPLOAD_THIRD_PARTY_PROGRESS,
-  beaconNetworkStatusActionTypes.CHECK,
-  beaconNetworkStatusActionTypes.CHECK_SUCCESS,
-  beaconNetworkStatusActionTypes.CHECK_COUNT_DOWN_SECONDS,
 ];

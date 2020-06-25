@@ -6,38 +6,47 @@ import { push } from 'connected-react-router';
 import { createSelector } from 'reselect';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
-import {
-  getIsAuthenticated,
-  logout as authLogout,
-  authActionTypes,
-} from 'makeandship-js-common/src/modules/auth';
+import { actions as authActions } from 'makeandship-js-common/src/modules/auth';
+import { getIsAuthenticated } from 'makeandship-js-common/src/modules/auth/selectors';
+import { waitForChange } from 'makeandship-js-common/src/modules/utils';
 
 import { showNotification } from '../notifications';
 
 const typePrefix = 'users/currentUser/';
 
-export const LOGOUT = `${typePrefix}LOGOUT`;
+export const LOGOUT_CONFIRM = `${typePrefix}LOGOUT_CONFIRM`;
 export const LOGOUT_CANCEL = `${typePrefix}LOGOUT_CANCEL`;
 
 // Actions
 
-export const logout = () => ({
-  type: LOGOUT,
+export const logoutConfirm = () => ({
+  type: LOGOUT_CONFIRM,
 });
 
 export const logoutCancel = () => ({
   type: LOGOUT_CANCEL,
 });
 
+const getRootUrl = () => {
+  return window.location.origin
+    ? window.location.origin + '/'
+    : window.location.protocol + '/' + window.location.host + '/';
+};
+
+export const logout = () =>
+  authActions.logout({
+    redirectUri: getRootUrl(),
+  });
+
 // Side effects
 
-export function* logoutWatcher(): Saga {
-  yield takeEvery(LOGOUT, function* () {
+export function* logoutConfirmWatcher(): Saga {
+  yield takeEvery(LOGOUT_CONFIRM, function* () {
     if (!confirm(`Sign out - are you sure?`)) {
       yield put(logoutCancel());
       return;
     }
-    yield put(authLogout());
+    yield put(logout());
   });
 }
 
@@ -53,7 +62,7 @@ const module = createEntityModule('currentUser', {
   request: {
     operationId: 'currentUserGet',
     onFailure: function* () {
-      yield put(authLogout());
+      yield put(logout());
       yield put(showNotification('Please sign in again'));
     },
   },
@@ -66,7 +75,7 @@ const module = createEntityModule('currentUser', {
   delete: {
     operationId: 'currentUserDelete',
     onSuccess: function* () {
-      yield put(authLogout());
+      yield put(logout());
       yield put(showNotification('Account deleted'));
     },
   },
@@ -101,35 +110,16 @@ export const getCurrentUserRole = createSelector(
 // watch other actions where we want to fetch the current user
 
 function* authInitialiseWatcher() {
-  yield takeEvery(authActionTypes.INITIALISE_SUCCESS, authInitialiseWorker);
-}
-
-function* authInitialiseWorker() {
-  const isAuthenticated = yield select(getIsAuthenticated);
-  if (isAuthenticated) {
-    yield put(requestEntity());
+  while (true) {
+    const isAuthenticated = yield waitForChange(getIsAuthenticated);
+    if (isAuthenticated) {
+      yield put(showNotification('You are logged in'));
+      yield put(requestEntity());
+    } else {
+      yield put(showNotification('You are signed out'));
+      yield put(resetEntity());
+    }
   }
-}
-
-function* authSignInWatcher() {
-  yield takeEvery(authActionTypes.LOGIN_SUCCESS, authSignInWorker);
-}
-
-function* authSignInWorker() {
-  yield put(showNotification('You are logged in'));
-  yield put(requestEntity());
-}
-
-function* authSignOutWatcher() {
-  yield takeEvery(
-    [authActionTypes.LOGOUT_SUCCESS, authActionTypes.SESSION_EXPIRED_SUCCESS],
-    authSignOutWorker
-  );
-}
-
-function* authSignOutWorker() {
-  yield put(showNotification('You are signed out'));
-  yield put(resetEntity());
 }
 
 // TODO: create sagas etc. to update current user profile and avatar together
@@ -138,9 +128,7 @@ function* currentUserSaga(): Saga {
   yield all([
     fork(entitySaga),
     fork(authInitialiseWatcher),
-    fork(authSignInWatcher),
-    fork(authSignOutWatcher),
-    fork(logoutWatcher),
+    fork(logoutConfirmWatcher),
   ]);
 }
 

@@ -20,26 +20,31 @@ import { withAuthPropTypes } from 'makeandship-js-common/src/hoc/withAuth';
 import { withCurrentUserPropTypes } from '../../../hoc/withCurrentUser';
 
 class Header extends React.Component<*> {
-  login = (e: any) => {
-    const { navigateLogin } = this.props;
+  onLogin = (e: any) => {
+    const { login } = this.props;
     e && e.preventDefault();
-    navigateLogin();
+    login();
   };
 
-  register = (e: any) => {
-    const { navigateRegister } = this.props;
+  onRegister = (e: any) => {
+    const { register } = this.props;
     e && e.preventDefault();
-    navigateRegister();
+    register();
   };
 
-  profile = (e: any) => {
-    const { navigateProfile } = this.props;
+  onProfile = (e: any) => {
+    const { profile } = this.props;
     e && e.preventDefault();
-    navigateProfile();
+    profile();
   };
 
   render() {
-    const { logout, currentUser, currentUserIsFetching, title } = this.props;
+    const {
+      logoutConfirm,
+      currentUser,
+      currentUserIsFetching,
+      title,
+    } = this.props;
     const hasTitle = title && title.length > 0;
     const showLoggedIn = currentUserIsFetching || currentUser;
     const displayUserName = currentUser
@@ -80,13 +85,13 @@ class Header extends React.Component<*> {
                     tag={ReactRouterNavLink}
                     to="/users/profile"
                     data-tid="navbar-link-profile"
-                    onClick={this.profile}
+                    onClick={this.onProfile}
                   >
                     Your Profile
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem
-                    onClick={logout}
+                    onClick={logoutConfirm}
                     data-tid="navbar-link-sign-out"
                   >
                     Sign out
@@ -100,7 +105,7 @@ class Header extends React.Component<*> {
                 to="/auth/login"
                 className={styles.authLink}
                 data-tid="button-log-in"
-                onClick={this.login}
+                onClick={this.onLogin}
               >
                 <i className="fa fa-user" /> Log in
               </Link>
@@ -109,7 +114,7 @@ class Header extends React.Component<*> {
                 to="/auth/register"
                 className={styles.registerLink}
                 data-tid="button-sign-up"
-                onClick={this.register}
+                onClick={this.onRegister}
               >
                 Register
               </Button>

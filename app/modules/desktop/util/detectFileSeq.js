@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-import { isString, isArray } from 'makeandship-js-common/src/util/is';
+import { isString, isArray } from 'makeandship-js-common/src/utils/is';
 
 import { API_SAMPLE_EXTENSIONS_ARRAY } from '../../../constants/APIConstants';
 

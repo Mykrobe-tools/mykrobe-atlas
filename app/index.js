@@ -9,18 +9,6 @@ import store, { history } from './store';
 
 import './styles/app.scss';
 
-// import used moment locales individually, otherwise excluded by webpack config
-import moment from 'moment';
-require('moment/locale/en-gb');
-
-// set the default locale, primarily for correct date formatting
-try {
-  const locale = window.navigator.language;
-  locale && moment.locale(locale.toLowerCase());
-} catch (e) {
-  console.error(e);
-}
-
 let element = document.getElementById('app-root');
 
 if (!element) {

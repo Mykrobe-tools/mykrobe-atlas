@@ -22,8 +22,8 @@ export const MAX_FILES = 2;
 const app = require('electron').remote.app;
 const fs = require('fs');
 
-import { isString } from 'makeandship-js-common/src/util/is';
-import { waitForChange } from 'makeandship-js-common/src/modules/util';
+import { isString } from 'makeandship-js-common/src/utils/is';
+import { waitForChange } from 'makeandship-js-common/src/modules/utils';
 
 import { experimentActionTypes } from '../../modules/experiments/experiment';
 

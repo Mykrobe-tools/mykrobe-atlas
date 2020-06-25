@@ -6,7 +6,6 @@ import {
   fork,
   put,
   take,
-  race,
   takeEvery,
   select,
   call,
@@ -18,12 +17,7 @@ import { push } from 'connected-react-router';
 import * as dateFns from 'date-fns';
 import produce from 'immer';
 
-import {
-  getAccessToken,
-  checkToken,
-  authActionTypes,
-} from 'makeandship-js-common/src/modules/auth';
-import { waitForChange } from 'makeandship-js-common/src/modules/util';
+import { getConfig } from 'makeandship-js-common/src/modules/auth/config';
 
 import * as APIConstants from '../../constants/APIConstants';
 import {
@@ -232,21 +226,6 @@ function* uploadFileAssignBrowseWatcher() {
   });
 }
 
-// set the access token on resumablejs when it changes
-
-export function* accessTokenWatcher(): Saga {
-  yield fork(accessTokenWorker);
-  while (true) {
-    yield waitForChange(getAccessToken);
-    yield fork(accessTokenWorker);
-  }
-}
-
-export function* accessTokenWorker(): Saga {
-  const accessToken = yield select(getAccessToken);
-  yield apply(_uploadFile, 'setAccessToken', [accessToken]);
-}
-
 // take emitted events, put actions into channel
 // then send those into the main channel
 
@@ -313,15 +292,11 @@ function* uploadFileWatcher() {
 }
 
 export function* uploadFileWorker(): Saga {
-  // this will request a fresh token if necessary
-  yield put(checkToken());
-  const { failure } = yield race({
-    checked: take(authActionTypes.CHECK_TOKEN_SUCCESS),
-    success: take(authActionTypes.REFRESH_TOKEN_SUCCESS),
-    failure: take(authActionTypes.REFRESH_TOKEN_FAIL),
-  });
-  if (failure) {
-    return;
+  const config = yield call(getConfig);
+  yield call(config.provider.updateToken);
+  const token = yield call(config.provider.getToken);
+  if (token) {
+    yield apply(_uploadFile, 'setAccessToken', [token]);
   }
   yield apply(_uploadFile, 'startUpload');
 }
@@ -329,22 +304,15 @@ export function* uploadFileWorker(): Saga {
 // upload events
 
 function* uploadFileCancelWatcher() {
-  yield takeEvery(
-    [
-      UPLOAD_FILE_CANCEL,
-      authActionTypes.LOGOUT_SUCCESS,
-      authActionTypes.SESSION_EXPIRED_SUCCESS,
-    ],
-    function* () {
-      const experimentId = yield select(getExperimentId);
-      yield apply(_uploadFile, 'cancel');
-      yield apply(_computeChecksums, 'cancel');
-      if (experimentId) {
-        yield put(deleteExperiment(experimentId));
-      }
-      yield put({ type: UPLOAD_FILE_CANCEL_SUCCESS });
+  yield takeEvery([UPLOAD_FILE_CANCEL], function* () {
+    const experimentId = yield select(getExperimentId);
+    yield apply(_uploadFile, 'cancel');
+    yield apply(_computeChecksums, 'cancel');
+    if (experimentId) {
+      yield put(deleteExperiment(experimentId));
     }
-  );
+    yield put({ type: UPLOAD_FILE_CANCEL_SUCCESS });
+  });
 }
 
 export function* uploadFileSaga(): Saga {
@@ -353,7 +321,6 @@ export function* uploadFileSaga(): Saga {
     fork(fileAddedWatcher),
     fork(computeChecksumsWatcher),
     fork(computeChecksumsChannelWatcher),
-    fork(accessTokenWatcher),
     fork(uploadFileWatcher),
     fork(uploadFileAssignBrowseWatcher),
     fork(uploadFileCancelWatcher),

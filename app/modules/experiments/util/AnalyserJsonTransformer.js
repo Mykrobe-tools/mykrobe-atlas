@@ -1,6 +1,6 @@
 /* @flow */
 
-import { isArray } from 'makeandship-js-common/src/util/is';
+import { isArray } from 'makeandship-js-common/src/utils/is';
 
 import susceptibilityTransformer from './transformers/susceptibility';
 import speciesTransformer from './transformers/species';
