@@ -29,6 +29,12 @@ Using these version tags, the desktop app checks for updates automatically on la
 
 * Set up [Environment variables](docs/dotenv.md)
 
+* Install Wine to build Windows
+
+	```
+	$ brew cask install wine-stable
+	```
+
 ## Release a new version
 
 1. Update the version and commit - this sets both the version in the app and the git tag following the format `v0.0.0` where the draft release will be published. Commit hooks are explicitly skipped as at time of writing they may fail when invoked by this command depending on node versions.
@@ -49,18 +55,16 @@ Using these version tags, the desktop app checks for updates automatically on la
 	$ yarn test
 	```
 
-3. If the tests pass, publish a draft release.
+3. If the tests pass, publish a draft release for all configured platforms.
 
 	```
-	$ yarn desktop-package
-	$ yarn desktop-dist --publish
+	$ yarn desktop-package --all
+	$ yarn desktop-dist --all --publish
 	```
 
 	> If you see an error similar to `skipped publishing file=<file> reason=existing type not compatible with publishing type tag=<tag> version=<tag> existingType=release publishingType=draft`, check that the GitHub release you are publishing too is in 'draft' mode and not 'published'
 
-4. Repeat steps 2–4 for each platform
-
-5. Publish the release using GitHub - make sure that 'This is a pre-release' is unchecked or this release will be overlooked by the auto-updater.
+4. Publish the release using GitHub - make sure that 'This is a pre-release' is unchecked or this release will be overlooked by the auto-updater.
 
 ## See next
 
