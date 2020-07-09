@@ -7,10 +7,9 @@ import {
   updateToken,
 } from 'makeandship-js-common/src/modules/auth/actions';
 
-import {
-  deviceNetworkOffline,
-  deviceNetworkOnline,
-} from 'makeandship-js-common/src/modules/networkStatus/deviceNetworkStatus';
+import { actions as deviceNetworkStatusActions } from 'makeandship-js-common/src/modules/networkStatus/deviceNetworkStatus';
+
+import { actions as urlNetworkStatusActions } from '../modules/networkStatus/urlNetworkStatus';
 
 import {
   deleteCurrentUser,
@@ -54,8 +53,10 @@ export const actionCreators = {
   setFormData,
   clearFormData,
   showNotification,
-  deviceNetworkOffline,
-  deviceNetworkOnline,
+  deviceNetworkOffline: deviceNetworkStatusActions.deviceNetworkOffline,
+  deviceNetworkOnline: deviceNetworkStatusActions.deviceNetworkOnline,
+  urlNetworkOffline: urlNetworkStatusActions.networkOffline,
+  urlNetworkOnline: urlNetworkStatusActions.networkOnline,
 };
 
 export const actionsBlacklist = [
@@ -64,4 +65,7 @@ export const actionsBlacklist = [
   UPDATE_NOTIFICATION,
   EVENT,
   UPLOAD_THIRD_PARTY_PROGRESS,
+  urlNetworkStatusActions.check.toString(),
+  urlNetworkStatusActions.checkSuccess.toString(),
+  urlNetworkStatusActions.setCountDownSeconds.toString(),
 ];

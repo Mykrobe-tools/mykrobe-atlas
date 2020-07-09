@@ -44,6 +44,7 @@ import notifications, {
   NotificationCategories,
 } from './notifications';
 import { rootNavigationSaga } from './navigation';
+import networkStatus, { networkStatusSaga } from './networkStatus';
 
 const axiosInstance = axios.create({
   baseURL: window.env.REACT_APP_API_URL,
@@ -83,6 +84,7 @@ export const rootReducer = (history: any) =>
     notifications,
     organisations,
     upload,
+    networkStatus
   });
 
 const sagas = [
@@ -94,6 +96,7 @@ const sagas = [
   rootNotificationsSaga,
   rootUploadSaga,
   rootNavigationSaga,
+  networkStatusSaga
 ];
 
 export function* rootSaga(): Saga {
