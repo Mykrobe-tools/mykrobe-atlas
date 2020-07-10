@@ -10752,9 +10752,9 @@ make-dir@^3.0.0, make-dir@^3.0.2:
   dependencies:
     semver "^6.0.0"
 
-"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#v0.2.1":
-  version "0.2.1"
-  resolved "https://bitbucket.org/makeandship/makeandship-js-common#c107b83682b2d7e239358b753174a550ca04da87"
+"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#v0.2.3":
+  version "0.2.3"
+  resolved "https://bitbucket.org/makeandship/makeandship-js-common#859f85d3f63fc65919b5bc2fdcdd4f8c4a1dc0a6"
   dependencies:
     ajv "^6.7.0"
     react-jsonschema-form "^1.8.0"
