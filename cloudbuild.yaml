@@ -1,31 +1,31 @@
 # Access the id_github file from Secret Manager
 steps:
   - name: gcr.io/cloud-builders/gcloud
-    entrypoint: 'bash'
+    entrypoint: "bash"
     args:
       [
-        '-c',
-        'gcloud secrets versions access latest --secret=$_GITHUB_SECRET > /root/.ssh/id_github',
+        "-c",
+        "gcloud secrets versions access latest --secret=$_GITHUB_SECRET > /root/.ssh/id_github",
       ]
     volumes:
-      - name: 'ssh'
+      - name: "ssh"
         path: /root/.ssh
   - name: gcr.io/cloud-builders/gcloud
-    entrypoint: 'bash'
+    entrypoint: "bash"
     args:
       [
-        '-c',
-        'gcloud secrets versions access latest --secret=$_BITBUCKET_SECRET > /root/.ssh/id_bitbucket',
+        "-c",
+        "gcloud secrets versions access latest --secret=$_BITBUCKET_SECRET > /root/.ssh/id_bitbucket",
       ]
     volumes:
-      - name: 'ssh'
+      - name: "ssh"
         path: /root/.ssh
 
   # Set up git with key and domain
   - name: gcr.io/cloud-builders/git
-    entrypoint: 'bash'
+    entrypoint: "bash"
     args:
-      - '-c'
+      - "-c"
       - |
         chmod 600 /root/.ssh/id_github
         chmod 600 /root/.ssh/id_bitbucket
@@ -36,59 +36,72 @@ steps:
         ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts
         ssh-keyscan github.com >> /root/.ssh/known_hosts
     volumes:
-      - name: 'ssh'
+      - name: "ssh"
         path: /root/.ssh
   - name: node:$_NODE_VERSION
-    entrypoint: 'bash'
+    entrypoint: "bash"
     args:
-      - '-c'
+      - "-c"
       - |
         yarn
     volumes:
-      - name: 'ssh'
+      - name: "ssh"
         path: /root/.ssh
   - name: node:$_NODE_VERSION
-    entrypoint: 'bash'
+    entrypoint: "bash"
     args:
-      - '-c'
+      - "-c"
       - |
         yarn web-build
   - name: node:$_NODE_VERSION
-    entrypoint: 'bash'
+    entrypoint: "bash"
     args:
-      - '-c'
+      - "-c"
       - |
         cp web/deployment-server/* web/build/
     volumes:
-      - name: 'ssh'
+      - name: "ssh"
         path: /root/.ssh
   - name: node:$_NODE_VERSION
-    entrypoint: 'bash'
+    entrypoint: "bash"
     args:
-      - '-c'
+      - "-c"
       - |
         cd web/build/ && yarn
     volumes:
-      - name: 'ssh'
+      - name: "ssh"
         path: /root/.ssh
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: "gcr.io/cloud-builders/docker"
     args:
       [
-        'build',
-        '-t',
-        '$_IMAGE_REPOSITORY:$_BUILD_VERSION',
-        '-f',
-        'web/Dockerfile',
-        '.',
+        "build",
+        "-t",
+        "$_IMAGE_REPOSITORY:$SHORT_SHA",
+        "-f",
+        "web/Dockerfile",
+        ".",
       ]
     volumes:
-      - name: 'ssh'
+      - name: "ssh"
         path: /root/.ssh
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '$_IMAGE_REPOSITORY:$_BUILD_VERSION']
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "$_IMAGE_REPOSITORY:$SHORT_SHA"]
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: "bash"
+    args:
+      [
+        "-c",
+        "gcloud secrets versions access latest --secret=ehk-token --format='get(payload.data)' | tr '_-' '/+' | base64 -d > /workspace/ehk-token.txt",
+      ]
+  - name: gcr.io/cloud-builders/curl
+    entrypoint: /bin/bash
+    args:
+      ["-c", "echo '$_IMAGE_REPOSITORY:$SHORT_SHA' > /workspace/version.txt"]
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: "bash"
+    args: ["cloudbuild-deploy.sh"]
 substitutions:
   _NODE_VERSION: 12.16.2
   _IMAGE_REPOSITORY: eu.gcr.io/atlas-275810/mykrobe-atlas
   _BITBUCKET_SECRET: ms-bitbucket-readonly
   _GITHUB_SECRET: atlas-jsonschema-readonly
-  _BUILD_VERSION: v0.0.8
