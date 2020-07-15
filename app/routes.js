@@ -13,23 +13,6 @@ import NotFoundPage from './components/notFound/NotFoundPage';
 
 import ProtectedContainer from './components/auth/ProtectedContainer';
 
-// const AuthenticatedUploadContainer = withUserIsAuthenticatedRedirect(
-//   UploadContainer,
-//   '/experiments'
-// );
-// const AuthenticatedExperimentsRoutes = withUserIsNotAuthenticatedRedirect(
-//   ExperimentsRoutes
-// );
-// const AuthenticatedOrganisationsRoutes = withUserIsNotAuthenticatedRedirect(
-//   OrganisationsRoutes
-// );
-// const AuthenticatedUsersRoutes = withUserIsNotAuthenticatedRedirect(
-//   UsersRoutes
-// );
-// const AuthenticatedNotificationsPage = withUserIsNotAuthenticatedRedirect(
-//   NotificationsPage
-// );
-
 export default (
   <App>
     <Switch>

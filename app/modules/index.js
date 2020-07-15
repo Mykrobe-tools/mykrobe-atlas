@@ -7,6 +7,7 @@ import {
   call,
   put,
   fork,
+  take,
   takeEvery,
   takeLeading,
 } from 'redux-saga/effects';
@@ -87,32 +88,45 @@ export const rootReducer = (history: any) =>
     networkStatus,
   });
 
-const sagas = [
-  rootApiSaga,
+const sagasPreAuth = [
   authSaga,
-  rootExperimentsSaga,
-  rootOrganisationsSaga,
-  rootUsersSaga,
+  rootApiSaga,
   rootNotificationsSaga,
-  rootUploadSaga,
   rootNavigationSaga,
+  rootUsersSaga,
+  rootUploadSaga,
+  rootOrganisationsSaga,
   networkStatusSaga,
 ];
 
-export function* rootSaga(): Saga {
+const sagasPostAuth = [rootExperimentsSaga];
+
+export function* startSagas(sagas: Array<Saga>): Saga {
   if (process.env.NODE_ENV !== 'development') {
     yield all(sagas.map(restartSagaOnError).map((saga) => call(saga)));
   } else {
     yield all(sagas.map((saga) => fork(saga)));
   }
+}
+
+export function* rootSaga(): Saga {
+  // if auth token refresh fails, invoke login
   yield takeLeading(authActions.updateTokenError, function* () {
     yield call(provider.login);
   });
+  // start the pre-auth sagas
+  yield fork(startSagas, sagasPreAuth);
+  // initialise auth with options
   yield put(
     authActions.initialise({
       onLoad: 'check-sso',
     })
   );
+  // wait for auth intialisation
+  yield take(authActions.initialiseSuccess);
+  // start the post-auth sagas
+  yield fork(startSagas, sagasPostAuth);
+  // display api errors as notifications
   yield takeEvery(jsonApiActions.error, function* (action) {
     const content = action.payload?.message;
     if (content) {
