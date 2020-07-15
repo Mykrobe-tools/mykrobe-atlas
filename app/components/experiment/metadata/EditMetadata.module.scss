@@ -1,6 +1,8 @@
 @import '~styles/colors';
+@import '~styles/use-bootstrap';
 
 .container {
   composes: container from '~styles/layout.scss';
+  composes: global(pt-3);
   flex-direction: column;
 }
