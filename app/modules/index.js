@@ -93,18 +93,15 @@ const sagasPreAuth = [
   rootApiSaga,
   rootNotificationsSaga,
   rootNavigationSaga,
+  rootUsersSaga,
+  rootUploadSaga,
+  rootOrganisationsSaga,
   networkStatusSaga,
 ];
 
-const sagasPostAuth = [
-  rootExperimentsSaga,
-  rootOrganisationsSaga,
-  rootUsersSaga,
-  rootUploadSaga,
-];
+const sagasPostAuth = [rootExperimentsSaga];
 
 export function* startSagas(sagas: Array<Saga>): Saga {
-  console.log('startSagas', sagas);
   if (process.env.NODE_ENV !== 'development') {
     yield all(sagas.map(restartSagaOnError).map((saga) => call(saga)));
   } else {
