@@ -1,6 +1,6 @@
 /* @flow */
 
-import { all, fork, put, takeEvery, select } from 'redux-saga/effects';
+import { all, fork, put, takeEvery } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import { push } from 'connected-react-router';
 import { createSelector } from 'reselect';

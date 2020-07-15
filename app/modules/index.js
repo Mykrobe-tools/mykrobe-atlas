@@ -84,7 +84,7 @@ export const rootReducer = (history: any) =>
     notifications,
     organisations,
     upload,
-    networkStatus
+    networkStatus,
   });
 
 const sagas = [
@@ -96,7 +96,7 @@ const sagas = [
   rootNotificationsSaga,
   rootUploadSaga,
   rootNavigationSaga,
-  networkStatusSaga
+  networkStatusSaga,
 ];
 
 export function* rootSaga(): Saga {

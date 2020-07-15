@@ -10,10 +10,7 @@ import styles from './EditMetadata.module.scss';
 
 import { EXPERIMENT_METADATA_FORM_ID } from '../../../modules/experiments';
 
-import {
-  DecoratedForm,
-  FormFooter,
-} from 'makeandship-js-common/src/components/ui/form';
+import Form, { FormFooter } from 'makeandship-js-common/src/components/ui/form';
 import {
   SubmitButton,
   CancelButton,
@@ -26,10 +23,6 @@ import experimentUiSchema from './experimentUiSchema';
 
 import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
 import { withExperimentPropTypes } from '../../../hoc/withExperiment';
-
-// TODO: remove once tested
-
-const USE_UNIQUE_FORM_ID = false;
 
 class EditMetadata extends React.Component<*> {
   onSubmit = (formData: any) => {
@@ -45,15 +38,6 @@ class EditMetadata extends React.Component<*> {
     e && e.preventDefault();
     const { history } = this.props;
     history.goBack();
-  };
-
-  formKey = () => {
-    const { subsections } = this.props;
-    if (!USE_UNIQUE_FORM_ID || !subsections) {
-      return EXPERIMENT_METADATA_FORM_ID;
-    }
-    const additional = subsections.join('-');
-    return `${EXPERIMENT_METADATA_FORM_ID}/${additional}`;
   };
 
   render() {
@@ -80,9 +64,9 @@ class EditMetadata extends React.Component<*> {
         <AppDocumentTitle title={[experimentIsolateId, 'Metadata', title]} />
         <div className={styles.container}>
           <Container fluid>
-            <DecoratedForm
+            <Form
               title={title}
-              formKey={this.formKey()}
+              formKey={EXPERIMENT_METADATA_FORM_ID}
               schema={schema}
               uiSchema={uiSchema}
               onSubmit={this.onSubmit}
@@ -98,7 +82,7 @@ class EditMetadata extends React.Component<*> {
                   </div>
                 )}
               </FormFooter>
-            </DecoratedForm>
+            </Form>
           </Container>
         </div>
         <Footer />

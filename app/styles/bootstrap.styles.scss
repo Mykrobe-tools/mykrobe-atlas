@@ -103,3 +103,10 @@ a {
   border-radius: 0.3em;
   overflow: hidden;
 }
+
+// form
+
+legend {
+  @extend .h3;
+  color: $color-tint-primary;
+}
