@@ -18,7 +18,6 @@ import {
 
 import AppDocumentTitle from '../../ui/AppDocumentTitle';
 
-import { filteredSchemaWithSubsections } from '../../../schemas/experiment';
 import experimentUiSchema from './experimentUiSchema';
 
 import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
@@ -46,11 +45,10 @@ class EditMetadata extends React.Component<*> {
       error,
       title,
       experimentOwnerIsCurrentUser,
-      subsections,
+      schema,
       experimentIsolateId,
       experimentMetadata,
     } = this.props;
-    const schema = filteredSchemaWithSubsections(subsections);
     let uiSchema = experimentUiSchema;
     const readonly = !experimentOwnerIsCurrentUser;
     if (readonly) {
@@ -95,7 +93,7 @@ EditMetadata.propTypes = {
   ...withFileUploadPropTypes,
   ...withExperimentPropTypes,
   title: PropTypes.string,
-  subsections: PropTypes.arrayOf(PropTypes.string),
+  schema: PropTypes.any,
 };
 
 export default EditMetadata;
