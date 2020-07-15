@@ -59,9 +59,6 @@ class ExperimentMetadataNavigation extends React.Component<*> {
           )}
         </Container>
         <TabNavigation>
-          <TabNavigationLink to={`${match.url}/patient`}>
-            Patient
-          </TabNavigationLink>
           <TabNavigationLink to={`${match.url}/sample`}>
             Sample
           </TabNavigationLink>
@@ -73,6 +70,9 @@ class ExperimentMetadataNavigation extends React.Component<*> {
           </TabNavigationLink>
           <TabNavigationLink to={`${match.url}/treatment`}>
             Treatment
+          </TabNavigationLink>
+          <TabNavigationLink to={`${match.url}/patient`}>
+            Patient
           </TabNavigationLink>
           <TabNavigationLink to={`${match.url}/outcome`}>
             Outcome
