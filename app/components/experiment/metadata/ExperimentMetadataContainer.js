@@ -17,6 +17,7 @@ import { experimentSchema } from '../../../schemas/experiment';
 import styles from './ExperimentMetadataContainer.module.scss';
 import { Container } from 'reactstrap';
 import Empty from '../../ui/Empty';
+import Footer from '../../ui/footer/Footer';
 
 const hideKeyPaths = ['file', 'metadata'];
 
@@ -56,7 +57,7 @@ const ExperimentMetadataContainer = ({
           <ExperimentMetadataRoutes />
         </React.Fragment>
       ) : (
-        <Container fluid className={'py-3'}>
+        <Container fluid className={`${styles.container} py-3`}>
           <JsonSchemaDisplay
             schema={experimentSchema}
             data={data}
@@ -67,6 +68,7 @@ const ExperimentMetadataContainer = ({
           />
         </Container>
       )}
+      <Footer />
     </div>
   );
 };
