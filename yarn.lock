@@ -10752,9 +10752,9 @@ make-dir@^3.0.0, make-dir@^3.0.2:
   dependencies:
     semver "^6.0.0"
 
-"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#feature/316-display-component-for-json-schema-data":
-  version "0.2.3"
-  resolved "https://bitbucket.org/makeandship/makeandship-js-common#5d7b859ea273d075905a2531971f3258875067b7"
+"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#v0.2.4":
+  version "0.2.4"
+  resolved "https://bitbucket.org/makeandship/makeandship-js-common#a128523b9ad70d138f265cc52b9d08887bf9dde2"
   dependencies:
     ajv "^6.7.0"
     react-jsonschema-form "^1.8.0"
