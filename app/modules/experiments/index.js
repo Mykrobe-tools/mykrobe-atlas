@@ -66,6 +66,7 @@ export {
   getExperimentIsolateId,
   getExperimentMetadata,
   getExperimentMetadataCompletion,
+  getExperimentMetadataLiveCompletion,
   getExperimentNearestNeigbours,
   getExperimentOwnerIsCurrentUser,
   getExperimentTransformed,

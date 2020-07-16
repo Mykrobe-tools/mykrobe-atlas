@@ -16,8 +16,6 @@ import {
   CancelButton,
 } from 'makeandship-js-common/src/components/ui/buttons';
 
-import AppDocumentTitle from '../../ui/AppDocumentTitle';
-
 import experimentUiSchema from './experimentUiSchema';
 
 import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
@@ -46,20 +44,13 @@ class EditMetadata extends React.Component<*> {
       title,
       experimentOwnerIsCurrentUser,
       schema,
-      experimentIsolateId,
       experimentMetadata,
     } = this.props;
     let uiSchema = experimentUiSchema;
     const readonly = !experimentOwnerIsCurrentUser;
-    if (readonly) {
-      uiSchema = {
-        'ui:readonly': true,
-        ...experimentUiSchema,
-      };
-    }
+    const formData = { metadata: experimentMetadata };
     return (
       <div className={styles.container}>
-        <AppDocumentTitle title={[experimentIsolateId, 'Metadata', title]} />
         <div className={styles.container}>
           <Container fluid>
             <Form
@@ -70,7 +61,7 @@ class EditMetadata extends React.Component<*> {
               onSubmit={this.onSubmit}
               isFetching={isFetching}
               error={error}
-              formData={{ metadata: experimentMetadata }}
+              formData={formData}
             >
               <FormFooter>
                 {!readonly && (

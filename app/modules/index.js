@@ -88,18 +88,17 @@ export const rootReducer = (history: any) =>
     networkStatus,
   });
 
-const sagasPreAuth = [
+const sagas = [
   authSaga,
   rootApiSaga,
   rootNotificationsSaga,
-  rootNavigationSaga,
   rootUsersSaga,
   rootUploadSaga,
   rootOrganisationsSaga,
   networkStatusSaga,
+  rootNavigationSaga,
+  rootExperimentsSaga,
 ];
-
-const sagasPostAuth = [rootExperimentsSaga];
 
 export function* startSagas(sagas: Array<Saga>): Saga {
   if (process.env.NODE_ENV !== 'development') {
@@ -114,18 +113,6 @@ export function* rootSaga(): Saga {
   yield takeLeading(authActions.updateTokenError, function* () {
     yield call(provider.login);
   });
-  // start the pre-auth sagas
-  yield fork(startSagas, sagasPreAuth);
-  // initialise auth with options
-  yield put(
-    authActions.initialise({
-      onLoad: 'check-sso',
-    })
-  );
-  // wait for auth intialisation
-  yield take(authActions.initialiseSuccess);
-  // start the post-auth sagas
-  yield fork(startSagas, sagasPostAuth);
   // display api errors as notifications
   yield takeEvery(jsonApiActions.error, function* (action) {
     const content = action.payload?.message;
@@ -138,4 +125,14 @@ export function* rootSaga(): Saga {
       );
     }
   });
+  // start the  sagas
+  yield fork(startSagas, sagas);
+  // initialise auth with options
+  yield put(
+    authActions.initialise({
+      onLoad: 'check-sso',
+    })
+  );
+  // wait for auth intialisation
+  yield take(authActions.initialiseSuccess);
 }

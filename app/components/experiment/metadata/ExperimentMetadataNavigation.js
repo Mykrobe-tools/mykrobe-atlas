@@ -20,9 +20,9 @@ class ExperimentMetadataNavigation extends React.Component<*> {
       match,
       isBusyWithCurrentRoute,
       experimentOwnerIsCurrentUser,
-      completion,
+      experimentMetadataLiveCompletion,
     } = this.props;
-    const { complete, total } = completion;
+    const { complete, total } = experimentMetadataLiveCompletion;
     const percent = Math.round((100 * complete) / total);
     return (
       <div className={styles.container}>
