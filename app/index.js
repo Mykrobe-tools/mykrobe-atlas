@@ -15,6 +15,12 @@ if (!element) {
   throw new Error(`Fatal - div with id 'app-root' not found`);
 }
 
+console.log('process.env.NODE_ENV', JSON.stringify(process.env.NODE_ENV));
+console.log(
+  'process.env.DEBUG_PRODUCTION',
+  JSON.stringify(process.env.DEBUG_PRODUCTION)
+);
+
 console.log('window.env', JSON.stringify(window.env));
 
 const renderRoot = () => {

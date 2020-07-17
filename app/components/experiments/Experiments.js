@@ -272,7 +272,7 @@ class Experiments extends React.Component<*, State> {
           </Button>
         </Empty>
       );
-    } else {
+    } else if (hasTotal) {
       content = (
         <Empty
           title={`${experimentsSearchDescription} returned no results`}
@@ -285,6 +285,8 @@ class Experiments extends React.Component<*, State> {
           </Button>
         </Empty>
       );
+    } else {
+      // no total, so search hasn't returned data yet
     }
     return (
       <div className={styles.container}>
