@@ -2,9 +2,9 @@
 
 import _memoize from 'lodash.memoize';
 
-import experimentSchema from './experiment';
+import experimentSchema from 'mykrobe-atlas-jsonschema/schemas/experiment';
 
-export { default as experimentSchema } from './experiment';
+export { experimentSchema };
 export { keysForSchema, completenessForSchemaAndData } from './util';
 
 // filter the schema to only include the passed subsections
@@ -49,4 +49,5 @@ const metadataKeys = Object.keys(
   experimentSchema.definitions.Metadata.properties
 );
 const experimentMetadataSchema = filteredSchemaWithSubsections(metadataKeys);
+
 export { experimentMetadataSchema };

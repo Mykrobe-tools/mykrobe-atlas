@@ -29,6 +29,7 @@ import {
   experimentMetadataSchema,
   completenessForSchemaAndData,
 } from '../../schemas/experiment';
+import { getExperimentMetadataFormCompletion } from './experimentMetadataForm';
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experiment/',
@@ -142,6 +143,18 @@ export const getExperimentMetadataCompletion = createSelector(
   getExperiment,
   (experiment) =>
     completenessForSchemaAndData(experimentMetadataSchema, experiment)
+);
+
+export const getExperimentMetadataLiveCompletion = createSelector(
+  getExperimentMetadataFormCompletion,
+  getExperimentMetadataCompletion,
+  (experimentMetadataFormCompletion, experimentMetadataCompletion) => {
+    // there is no form data and completion if it is unmodified, so fall back to pristine data
+    const completion = experimentMetadataFormCompletion.complete
+      ? experimentMetadataFormCompletion
+      : experimentMetadataCompletion;
+    return completion;
+  }
 );
 
 export const getExperimentAndNearestNeigbours = createSelector(

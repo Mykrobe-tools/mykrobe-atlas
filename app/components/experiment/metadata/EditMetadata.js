@@ -4,8 +4,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
 
-import Footer from '../../ui/footer/Footer';
-
 import styles from './EditMetadata.module.scss';
 
 import { EXPERIMENT_METADATA_FORM_ID } from '../../../modules/experiments';
@@ -15,8 +13,6 @@ import {
   SubmitButton,
   CancelButton,
 } from 'makeandship-js-common/src/components/ui/buttons';
-
-import AppDocumentTitle from '../../ui/AppDocumentTitle';
 
 import experimentUiSchema from './experimentUiSchema';
 
@@ -46,44 +42,34 @@ class EditMetadata extends React.Component<*> {
       title,
       experimentOwnerIsCurrentUser,
       schema,
-      experimentIsolateId,
       experimentMetadata,
     } = this.props;
     let uiSchema = experimentUiSchema;
     const readonly = !experimentOwnerIsCurrentUser;
-    if (readonly) {
-      uiSchema = {
-        'ui:readonly': true,
-        ...experimentUiSchema,
-      };
-    }
+    const formData = { metadata: experimentMetadata };
     return (
       <div className={styles.container}>
-        <AppDocumentTitle title={[experimentIsolateId, 'Metadata', title]} />
-        <div className={styles.container}>
-          <Container fluid>
-            <Form
-              title={title}
-              formKey={EXPERIMENT_METADATA_FORM_ID}
-              schema={schema}
-              uiSchema={uiSchema}
-              onSubmit={this.onSubmit}
-              isFetching={isFetching}
-              error={error}
-              formData={{ metadata: experimentMetadata }}
-            >
-              <FormFooter>
-                {!readonly && (
-                  <div>
-                    <SubmitButton marginRight>Save metadata</SubmitButton>
-                    <CancelButton onClick={this.onCancelClick} />
-                  </div>
-                )}
-              </FormFooter>
-            </Form>
-          </Container>
-        </div>
-        <Footer />
+        <Container fluid>
+          <Form
+            title={title}
+            formKey={EXPERIMENT_METADATA_FORM_ID}
+            schema={schema}
+            uiSchema={uiSchema}
+            onSubmit={this.onSubmit}
+            isFetching={isFetching}
+            error={error}
+            formData={formData}
+          >
+            <FormFooter>
+              {!readonly && (
+                <div>
+                  <SubmitButton marginRight>Save metadata</SubmitButton>
+                  <CancelButton onClick={this.onCancelClick} />
+                </div>
+              )}
+            </FormFooter>
+          </Form>
+        </Container>
       </div>
     );
   }

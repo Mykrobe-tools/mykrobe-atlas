@@ -2,8 +2,8 @@
 
 exports[`experiment schema should filter as expected 1`] = `
 Object {
-  "$id": undefined,
-  "$schema": undefined,
+  "$id": "https://api.atlas-dev.makeandship.com/schemas/experiment.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": Object {
     "DrugPhase": Object {
       "properties": Object {
@@ -1859,8 +1859,8 @@ Object {
 
 exports[`experiment schema should filter as expected 2`] = `
 Object {
-  "$id": undefined,
-  "$schema": undefined,
+  "$id": "https://api.atlas-dev.makeandship.com/schemas/experiment.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": Object {
     "DrugPhase": Object {
       "properties": Object {
@@ -3716,8 +3716,8 @@ Object {
 
 exports[`experiment schema should filter as expected 3`] = `
 Object {
-  "$id": undefined,
-  "$schema": undefined,
+  "$id": "https://api.atlas-dev.makeandship.com/schemas/experiment.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": Object {
     "DrugPhase": Object {
       "properties": Object {
@@ -5573,8 +5573,8 @@ Object {
 
 exports[`experiment schema should filter as expected 4`] = `
 Object {
-  "$id": undefined,
-  "$schema": undefined,
+  "$id": "https://api.atlas-dev.makeandship.com/schemas/experiment.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": Object {
     "DrugPhase": Object {
       "properties": Object {
@@ -7430,8 +7430,8 @@ Object {
 
 exports[`experiment schema should filter as expected 5`] = `
 Object {
-  "$id": undefined,
-  "$schema": undefined,
+  "$id": "https://api.atlas-dev.makeandship.com/schemas/experiment.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": Object {
     "DrugPhase": Object {
       "properties": Object {
@@ -9287,8 +9287,8 @@ Object {
 
 exports[`experiment schema should filter as expected 6`] = `
 Object {
-  "$id": undefined,
-  "$schema": undefined,
+  "$id": "https://api.atlas-dev.makeandship.com/schemas/experiment.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": Object {
     "DrugPhase": Object {
       "properties": Object {

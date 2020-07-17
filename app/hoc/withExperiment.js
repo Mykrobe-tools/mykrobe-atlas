@@ -18,6 +18,7 @@ import {
   getExperimentMetadata,
   getExperimentMetadataCompletion,
   getExperimentMetadataFormCompletion,
+  getExperimentMetadataLiveCompletion,
   getExperimentNearestNeigbours,
   getExperimentNotInTree,
   getExperimentOwnerIsCurrentUser,
@@ -45,6 +46,9 @@ const withExperiment = connect(
       state
     ),
     experimentMetadataCompletion: getExperimentMetadataCompletion(state),
+    experimentMetadataLiveCompletion: getExperimentMetadataLiveCompletion(
+      state
+    ),
     experimentMetadata: getExperimentMetadata(state),
     experimentAndNearestNeigboursInTree: getExperimentAndNearestNeigboursInTree(
       state

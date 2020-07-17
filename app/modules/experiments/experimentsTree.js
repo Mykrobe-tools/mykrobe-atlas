@@ -7,6 +7,7 @@ import { createSelector } from 'reselect';
 import _get from 'lodash.get';
 
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
+import { actions as authActions } from 'makeandship-js-common/src/modules/auth';
 
 const module = createEntityModule('experimentsTree', {
   typePrefix: 'experiments/experimentsTree/',
@@ -43,6 +44,7 @@ export default reducer;
 let treeLoaded = false;
 
 function* experimentsTreeWatcher() {
+  yield take(authActions.initialiseSuccess);
   yield fork(experimentsTreeWorker);
   while (!treeLoaded) {
     yield take(LOCATION_CHANGE);
