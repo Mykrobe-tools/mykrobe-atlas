@@ -33,7 +33,10 @@ class Upload extends React.Component<*> {
               </div>
             )}
             {isAuthenticated && (
-              <Link className={styles.libraryLink} to="/experiments">
+              <Link
+                className={styles.libraryLink}
+                to="/experiments?sort=modified&order=desc"
+              >
                 <i className="fa fa-chevron-circle-right" /> Sample Library
               </Link>
             )}
