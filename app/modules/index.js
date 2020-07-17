@@ -52,6 +52,12 @@ const axiosInstance = axios.create({
   transformResponse: [jsendResponseTransformer],
 });
 
+if (process.env.NODE_ENV !== 'production') {
+  // log network requests as curl to help with debugging
+  const curlirize = require('axios-curlirize/dist/curlirize').default;
+  curlirize(axiosInstance);
+}
+
 const keycloakInstance = new Keycloak({
   url: window.env.REACT_APP_KEYCLOAK_URL,
   realm: window.env.REACT_APP_KEYCLOAK_REALM,

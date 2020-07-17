@@ -17,6 +17,7 @@ import {
   requestUser,
   requestUsers,
 } from '../modules/users';
+import { requestExperiments } from '../modules/experiments';
 
 import {
   setFormData,
@@ -41,6 +42,7 @@ import {
 } from '../modules/users/currentUserEvents';
 
 export const actionCreators = {
+  requestExperiments,
   login,
   register,
   logout,
