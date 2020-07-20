@@ -120,6 +120,10 @@ class ExperimentsTable extends React.Component<*> {
         sort: 'metadata.sample.countryIsolate',
       },
       {
+        title: 'Owner',
+        sort: 'owner.lastname',
+      },
+      {
         title: 'Created',
         sort: 'created',
       },
@@ -135,7 +139,7 @@ class ExperimentsTable extends React.Component<*> {
   renderRow = (experiment: any) => {
     const { selected } = this.props;
     const allSelected = (selected && selected === '*') || false;
-    let { id, created, modified, results } = experiment;
+    let { id, created, modified, results, owner } = experiment;
     const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
     const countryIsolate =
       _get(experiment, 'metadata.sample.countryIsolate') || '–';
@@ -167,7 +171,9 @@ class ExperimentsTable extends React.Component<*> {
               </span>
               <UncontrolledTooltip delay={0} target={elementId}>
                 {key} resistant{'\n'}
-                Mutation {entry.mutation}
+                {entry.mutation && (
+                  <React.Fragment>Mutation {entry.mutation}</React.Fragment>
+                )}
               </UncontrolledTooltip>
             </span>
           );
@@ -227,6 +233,9 @@ class ExperimentsTable extends React.Component<*> {
         </td>
         <td>{cityIsolate}</td>
         <td>{countryCodeToName(countryIsolate)}</td>
+        <td>
+          {owner?.lastname}, {owner?.firstname}
+        </td>
         <td>{formatDate(dateFns.parseISO(created))}</td>
         <td>{formatDate(dateFns.parseISO(modified))}</td>
         <td>
