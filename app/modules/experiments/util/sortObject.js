@@ -2,20 +2,13 @@
 
 const sortObject = (o: Object) => {
   let sorted = {};
-  let key;
-  let a = [];
 
-  for (key in o) {
-    if (Object.prototype.hasOwnProperty.call(o, key)) {
-      a.push(key);
-    }
-  }
+  let keys = Object.keys(o);
+  keys.sort();
 
-  a.sort();
-
-  for (key = 0; key < a.length; key++) {
-    sorted[a[key]] = o[a[key]];
-  }
+  keys.forEach((key) => {
+    sorted[key] = o[key];
+  });
   return sorted;
 };
 
