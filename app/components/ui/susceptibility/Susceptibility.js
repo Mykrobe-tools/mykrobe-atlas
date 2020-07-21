@@ -4,9 +4,31 @@ import * as React from 'react';
 import { UncontrolledTooltip } from 'reactstrap';
 import uuid from 'uuid';
 
+import { Phenotyping } from 'mykrobe-atlas-jsonschema/schemas/definitions/experiment/experiment-metadata-phenotyping';
+
 import styles from './Susceptibility.module.scss';
 
 import susceptibilityTransformer from '../../../modules/experiments/util/transformers/susceptibility';
+
+const shortTitles = {
+  isoniazid: 'H',
+  rifampicin: 'R',
+  pyrazinamide: 'Z',
+  ethambutol: 'E',
+  levofloxacin: 'Lfx',
+  moxifloxacin: 'Mfx',
+  gatifloxacin: 'Gfx',
+  streptomycin: 'S',
+  amikacin: 'Am',
+  kanamycin: 'Km',
+  capreomycin: 'Cm',
+  ethionamide: 'Eto',
+  cycloserine: 'Cs',
+  terizidone: 'Trd',
+  clofazimine: 'Cfz',
+  linezolid: 'Lzd',
+  bedaquiline: 'Bdq',
+};
 
 const Susceptibility = ({
   id = uuid.v4(),
@@ -16,18 +38,21 @@ const Susceptibility = ({
   const elements = [];
   const keys = Object.keys(transformed.susceptibility);
   keys.forEach((key) => {
+    const keyLower = key.toLowerCase();
     const entry = transformed.susceptibility[key];
-    const initial = key.substr(0, 1).toUpperCase();
-    const elementId = `${key}${id}`;
-    const elementKey = `${key}`;
+    const title = Phenotyping.properties[keyLower]?.title || key;
+    const shortTitle =
+      shortTitles[keyLower] || title.substr(0, 1).toUpperCase();
+    const elementId = `${keyLower}${id}`;
+    const elementKey = `${keyLower}`;
     if (entry.resistant) {
       elements.push(
         <span key={elementKey}>
           <span id={elementId} className={styles.resistant}>
-            {initial}{' '}
+            {shortTitle}{' '}
           </span>
           <UncontrolledTooltip delay={0} target={elementId}>
-            {key} resistant{'\n'}
+            {title} resistant{'\n'}
             {entry.mutation && (
               <React.Fragment>Mutation {entry.mutation}</React.Fragment>
             )}
@@ -38,10 +63,10 @@ const Susceptibility = ({
       elements.push(
         <span key={elementKey}>
           <span id={elementId} className={styles.susceptible}>
-            {initial}{' '}
+            {shortTitle}{' '}
           </span>
           <UncontrolledTooltip delay={0} target={elementId}>
-            {key} susceptible
+            {title} susceptible
           </UncontrolledTooltip>
         </span>
       );
