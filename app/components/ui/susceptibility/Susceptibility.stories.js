@@ -117,37 +117,105 @@ const variations = {
   predictor: {
     susceptibility: {
       Ofloxacin: {
-        prediction: 'S',
+        predict: 'S',
       },
       Moxifloxacin: {
-        prediction: 'S',
+        predict: 'S',
       },
       Isoniazid: {
-        prediction: 'S',
+        predict: 'R',
+        called_by: {
+          'katG_S315X-GCT2155167GGT': {
+            variant: null,
+            genotype: [1, 1],
+            genotype_likelihoods: [
+              -5820.99135631956,
+              -99999999,
+              -82.7661725622509,
+            ],
+            info: {
+              coverage: {
+                reference: {
+                  percent_coverage: 0,
+                  median_depth: 0,
+                  min_non_zero_depth: 0,
+                  kmer_count: 0,
+                  klen: 21,
+                },
+                alternate: {
+                  percent_coverage: 100,
+                  median_depth: 43,
+                  min_non_zero_depth: 40,
+                  kmer_count: 850,
+                  klen: 20,
+                },
+              },
+              expected_depths: [55],
+              contamination_depths: [],
+              filter: [],
+              conf: 5738,
+            },
+            _cls: 'Call.VariantCall',
+          },
+        },
       },
       Kanamycin: {
-        prediction: 'S',
+        predict: 'S',
       },
       Ethambutol: {
-        prediction: 'S',
+        predict: 'S',
       },
       Streptomycin: {
-        prediction: 'S',
+        predict: 'S',
       },
       Ciprofloxacin: {
-        prediction: 'S',
+        predict: 'S',
       },
       Pyrazinamide: {
-        prediction: 'S',
+        predict: 'S',
       },
       Rifampicin: {
-        prediction: 'S',
+        predict: 'R',
+        called_by: {
+          'rpoB_S450X-TCG761154TTG': {
+            variant: null,
+            genotype: [1, 1],
+            genotype_likelihoods: [
+              -6249.837967310699,
+              -99999999,
+              -55.92699491580406,
+            ],
+            info: {
+              coverage: {
+                reference: {
+                  percent_coverage: 0,
+                  median_depth: 0,
+                  min_non_zero_depth: 0,
+                  kmer_count: 0,
+                  klen: 21,
+                },
+                alternate: {
+                  percent_coverage: 100,
+                  median_depth: 51,
+                  min_non_zero_depth: 48,
+                  kmer_count: 960,
+                  klen: 20,
+                },
+              },
+              expected_depths: [55],
+              contamination_depths: [],
+              filter: [],
+              conf: 6194,
+            },
+            _cls: 'Call.VariantCall',
+          },
+        },
       },
       Amikacin: {
-        prediction: 'S',
+        predict: 'S',
       },
       Capreomycin: {
-        prediction: 'S',
+        predict: 'S',
       },
     },
   },

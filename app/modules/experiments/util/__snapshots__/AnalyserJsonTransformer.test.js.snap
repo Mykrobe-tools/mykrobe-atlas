@@ -1,2615 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AnalyserJsonTransformer should transform as expected 1`] = `
-Object {
-  "drugsResistance": Object {
-    "mdr": false,
-    "xdr": false,
-  },
-  "evidence": Object {
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 82 on the resistant allele",
-        "Depth 1 on the susceptible allele",
-      ],
-    ],
-  },
-  "hasResistance": true,
-  "hasSpecies": true,
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "lineage": Array [
-    "European_American",
-  ],
-  "lineageString": "European American",
-  "negative": Array [],
-  "notTested": Array [],
-  "positive": Array [],
-  "resistant": Array [
-    "Isoniazid",
-  ],
-  "species": Array [
-    "Mycobacterium_tuberculosis",
-  ],
-  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
-  "speciesString": "Mycobacterium tuberculosis",
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer should transform as expected 2`] = `
-Object {
-  "drugsResistance": Object {
-    "mdr": true,
-    "xdr": false,
-  },
-  "evidence": Object {
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 43 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 51 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-  },
-  "hasResistance": true,
-  "hasSpecies": true,
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "lineage": Array [
-    "European_American",
-  ],
-  "lineageString": "European American",
-  "negative": Array [],
-  "notTested": Array [],
-  "positive": Array [],
-  "resistant": Array [
-    "Isoniazid",
-    "Rifampicin",
-  ],
-  "species": Array [
-    "Mycobacterium_tuberculosis",
-  ],
-  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
-  "speciesString": "Mycobacterium tuberculosis",
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer should transform as expected 3`] = `
-Object {
-  "hasResistance": false,
-  "hasSpecies": true,
-  "lineage": Array [
-    "Unknown",
-  ],
-  "lineageString": "Unknown",
-  "species": Array [
-    "Mycobacterium_kansasii",
-  ],
-  "speciesAndLineageString": "Mycobacterium kansasii (lineage: Unknown)",
-  "speciesString": "Mycobacterium kansasii",
-}
-`;
-
-exports[`AnalyserJsonTransformer should transform as expected 4`] = `
-Object {
-  "drugsResistance": Object {
-    "mdr": false,
-    "xdr": false,
-  },
-  "evidence": Object {
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: H445X in gene rpoB",
-        "Depth 28 on the resistant allele",
-        "Depth 98 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 100 on the resistant allele",
-        "Depth 40 on the susceptible allele",
-      ],
-    ],
-  },
-  "hasResistance": true,
-  "hasSpecies": true,
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "lineage": Array [
-    "European_American",
-  ],
-  "lineageString": "European American",
-  "negative": Array [],
-  "notTested": Array [],
-  "positive": Array [],
-  "resistant": Array [
-    "Rifampicin",
-  ],
-  "species": Array [
-    "Mycobacterium_tuberculosis",
-  ],
-  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
-  "speciesString": "Mycobacterium tuberculosis",
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Isoniazid",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer should transform as expected 5`] = `
-Object {
-  "drugsResistance": Object {
-    "mdr": true,
-    "xdr": true,
-  },
-  "evidence": Object {
-    "Amikacin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Capreomycin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Ciprofloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Ethambutol": Array [
-      Array [
-        "Resistance mutation found: M306V in gene embB",
-        "Depth 45 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 30 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Kanamycin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Moxifloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Ofloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Pyrazinamide": Array [
-      Array [
-        "Resistance mutation found: H137R in gene pncA",
-        "Depth 7 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-    ],
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 44 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Streptomycin": Array [
-      Array [
-        "Resistance mutation found: K43R in gene rpsL",
-        "Depth 56 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-  },
-  "hasResistance": true,
-  "hasSpecies": true,
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "lineage": Array [
-    "Beijing_East_Asia",
-  ],
-  "lineageString": "Beijing East Asia",
-  "negative": Array [],
-  "notTested": Array [],
-  "positive": Array [],
-  "resistant": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Isoniazid",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Amikacin",
-    "Capreomycin",
-  ],
-  "species": Array [
-    "Mycobacterium_tuberculosis",
-  ],
-  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: Beijing East Asia)",
-  "speciesString": "Mycobacterium tuberculosis",
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "embB (M306V)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "pncA (H137R)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpsL (K43R)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-  },
-  "susceptible": Array [],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer should transform as expected 1`] = `
-Object {
-  "evidence": Object {
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 82 on the resistant allele",
-        "Depth 1 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Isoniazid",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer should transform as expected 2`] = `
-Object {
-  "evidence": Object {
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 43 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 51 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Isoniazid",
-    "Rifampicin",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer should transform as expected 3`] = `
-Object {
-  "evidence": Object {},
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Isoniazid",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer should transform as expected 4`] = `
-Object {
-  "evidence": Object {
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: H445X in gene rpoB",
-        "Depth 28 on the resistant allele",
-        "Depth 98 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 100 on the resistant allele",
-        "Depth 40 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Rifampicin",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Isoniazid",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer should transform as expected 5`] = `
-Object {
-  "evidence": Object {
-    "Amikacin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Capreomycin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Ciprofloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Ethambutol": Array [
-      Array [
-        "Resistance mutation found: M306V in gene embB",
-        "Depth 45 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 30 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Kanamycin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Moxifloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Ofloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Pyrazinamide": Array [
-      Array [
-        "Resistance mutation found: H137R in gene pncA",
-        "Depth 7 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-    ],
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 44 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Streptomycin": Array [
-      Array [
-        "Resistance mutation found: K43R in gene rpsL",
-        "Depth 56 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Isoniazid",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Amikacin",
-    "Capreomycin",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "embB (M306V)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "pncA (H137R)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpsL (K43R)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-  },
-  "susceptible": Array [],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer when given Predicator data should return data transformed as expected 1`] = `
-Object {
-  "evidence": Object {
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 82 on the resistant allele",
-        "Depth 1 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Isoniazid",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer when given Predicator data should return data transformed as expected 2`] = `
-Object {
-  "evidence": Object {
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 43 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 51 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Isoniazid",
-    "Rifampicin",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer when given Predicator data should return data transformed as expected 3`] = `
-Object {
-  "evidence": Object {},
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Isoniazid",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer when given Predicator data should return data transformed as expected 4`] = `
-Object {
-  "evidence": Object {
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: H445X in gene rpoB",
-        "Depth 28 on the resistant allele",
-        "Depth 98 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 100 on the resistant allele",
-        "Depth 40 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Rifampicin",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Isoniazid",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer when given Predicator data should return data transformed as expected 5`] = `
-Object {
-  "evidence": Object {
-    "Amikacin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Capreomycin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Ciprofloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Ethambutol": Array [
-      Array [
-        "Resistance mutation found: M306V in gene embB",
-        "Depth 45 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 30 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Kanamycin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Moxifloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Ofloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Pyrazinamide": Array [
-      Array [
-        "Resistance mutation found: H137R in gene pncA",
-        "Depth 7 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-    ],
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 44 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Streptomycin": Array [
-      Array [
-        "Resistance mutation found: K43R in gene rpsL",
-        "Depth 56 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Isoniazid",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Amikacin",
-    "Capreomycin",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "embB (M306V)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "pncA (H137R)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpsL (K43R)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-  },
-  "susceptible": Array [],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer when valid and data is in Predicator format should return data transformed as expected 1`] = `
-Object {
-  "evidence": Object {
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 82 on the resistant allele",
-        "Depth 1 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Isoniazid",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer when valid and data is in Predicator format should return data transformed as expected 2`] = `
-Object {
-  "evidence": Object {
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 43 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 51 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Isoniazid",
-    "Rifampicin",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer when valid and data is in Predicator format should return data transformed as expected 3`] = `
-Object {
-  "evidence": Object {},
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Isoniazid",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer when valid and data is in Predicator format should return data transformed as expected 4`] = `
-Object {
-  "evidence": Object {
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: H445X in gene rpoB",
-        "Depth 28 on the resistant allele",
-        "Depth 98 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 100 on the resistant allele",
-        "Depth 40 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Rifampicin",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "notTested": false,
-      "resistant": false,
-      "susceptible": true,
-    },
-  },
-  "susceptible": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Isoniazid",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Amikacin",
-    "Capreomycin",
-  ],
-}
-`;
-
-exports[`AnalyserJsonTransformer susceptibilityTransformer when valid and data is in Predicator format should return data transformed as expected 5`] = `
-Object {
-  "evidence": Object {
-    "Amikacin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Capreomycin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Ciprofloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Ethambutol": Array [
-      Array [
-        "Resistance mutation found: M306V in gene embB",
-        "Depth 45 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Isoniazid": Array [
-      Array [
-        "Resistance mutation found: S315X in gene katG",
-        "Depth 30 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Kanamycin": Array [
-      Array [
-        "Resistance mutation found: A1401X in gene rrs",
-        "Depth 52 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Moxifloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Ofloxacin": Array [
-      Array [
-        "Resistance mutation found: A90V in gene gyrA",
-        "Depth 13 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-      Array [
-        "Resistance mutation found: D94G in gene gyrA",
-        "Depth 18 on the resistant allele",
-        "Depth 11 on the susceptible allele",
-      ],
-    ],
-    "Pyrazinamide": Array [
-      Array [
-        "Resistance mutation found: H137R in gene pncA",
-        "Depth 7 on the resistant allele",
-        "Depth 22 on the susceptible allele",
-      ],
-    ],
-    "Rifampicin": Array [
-      Array [
-        "Resistance mutation found: S450X in gene rpoB",
-        "Depth 44 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-    "Streptomycin": Array [
-      Array [
-        "Resistance mutation found: K43R in gene rpsL",
-        "Depth 56 on the resistant allele",
-        "Depth 0 on the susceptible allele",
-      ],
-    ],
-  },
-  "inconclusive": Array [],
-  "inducible": Array [],
-  "notTested": Array [],
-  "resistant": Array [
-    "Ofloxacin",
-    "Moxifloxacin",
-    "Isoniazid",
-    "Kanamycin",
-    "Ethambutol",
-    "Streptomycin",
-    "Ciprofloxacin",
-    "Pyrazinamide",
-    "Rifampicin",
-    "Amikacin",
-    "Capreomycin",
-  ],
-  "susceptibility": Object {
-    "Amikacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Capreomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ciprofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ethambutol": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "embB (M306V)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Isoniazid": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "katG (S315X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Kanamycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rrs (A1401X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Moxifloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Ofloxacin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "gyrA (D94G)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Pyrazinamide": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "pncA (H137R)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Rifampicin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpoB (S450X)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-    "Streptomycin": Object {
-      "inconclusive": false,
-      "inducible": false,
-      "mutation": "rpsL (K43R)",
-      "notTested": false,
-      "resistant": true,
-      "susceptible": false,
-    },
-  },
-  "susceptible": Array [],
-}
-`;
-
 exports[`AnalyserJsonTransformer susceptibilityTransformer when valid and in Metadata format should return data transformed as expected 1`] = `
 Object {
   "evidence": Object {},
@@ -2648,6 +38,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "amoxicilinClavulanate": Object {
       "inconclusive": false,
@@ -2656,6 +47,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "bedaquiline": Object {
       "inconclusive": false,
@@ -2664,6 +56,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "capreomycin": Object {
       "inconclusive": false,
@@ -2672,6 +65,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "ciprofloxacin": Object {
       "inconclusive": false,
@@ -2680,6 +74,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": false,
+      "type": "UNKNOWN",
     },
     "clarythromycin": Object {
       "inconclusive": false,
@@ -2688,6 +83,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "clofazimine": Object {
       "inconclusive": false,
@@ -2696,6 +92,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "delamanid": Object {
       "inconclusive": true,
@@ -2704,6 +101,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": false,
+      "type": "INCONCLUSIVE",
     },
     "ethambutol": Object {
       "inconclusive": false,
@@ -2712,6 +110,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "ethionamideProthionamide": Object {
       "inconclusive": true,
@@ -2720,6 +119,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": false,
+      "type": "INCONCLUSIVE",
     },
     "gatifloxacin": Object {
       "inconclusive": false,
@@ -2728,6 +128,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "gentamicin": Object {
       "inconclusive": false,
@@ -2736,6 +137,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "highDoseIsoniazid": Object {
       "inconclusive": false,
@@ -2744,6 +146,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "imipenemImipenemcilastatin": Object {
       "inconclusive": false,
@@ -2752,6 +155,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "isoniazid": Object {
       "inconclusive": false,
@@ -2760,6 +164,7 @@ Object {
       "notTested": true,
       "resistant": false,
       "susceptible": false,
+      "type": "NOT_TESTED",
     },
     "kanamycin": Object {
       "inconclusive": false,
@@ -2768,6 +173,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "levofloxacin": Object {
       "inconclusive": false,
@@ -2776,6 +182,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "linezolid": Object {
       "inconclusive": false,
@@ -2784,6 +191,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "meropenem": Object {
       "inconclusive": false,
@@ -2792,6 +200,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "ofloxacin": Object {
       "inconclusive": false,
@@ -2800,6 +209,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "pas": Object {
       "inconclusive": false,
@@ -2808,6 +218,7 @@ Object {
       "notTested": true,
       "resistant": false,
       "susceptible": false,
+      "type": "NOT_TESTED",
     },
     "pretomanid": Object {
       "inconclusive": false,
@@ -2816,6 +227,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "pretothionamide": Object {
       "inconclusive": false,
@@ -2824,6 +236,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "prothionamide": Object {
       "inconclusive": false,
@@ -2832,6 +245,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "pyrazinamide": Object {
       "inconclusive": true,
@@ -2840,6 +254,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": false,
+      "type": "INCONCLUSIVE",
     },
     "rerizidone": Object {
       "inconclusive": true,
@@ -2848,6 +263,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": false,
+      "type": "INCONCLUSIVE",
     },
     "rifabutin": Object {
       "inconclusive": true,
@@ -2856,6 +272,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": false,
+      "type": "INCONCLUSIVE",
     },
     "rifampicin": Object {
       "inconclusive": false,
@@ -2864,6 +281,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "streptomycin": Object {
       "inconclusive": false,
@@ -2872,6 +290,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "thioacetazone": Object {
       "inconclusive": true,
@@ -2880,6 +299,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": false,
+      "type": "INCONCLUSIVE",
     },
   },
   "susceptible": Array [
@@ -2920,6 +340,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Capreomycin": Object {
       "inconclusive": false,
@@ -2927,6 +348,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ciprofloxacin": Object {
       "inconclusive": false,
@@ -2934,6 +356,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ethambutol": Object {
       "inconclusive": false,
@@ -2941,6 +364,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Isoniazid": Object {
       "inconclusive": false,
@@ -2949,6 +373,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Kanamycin": Object {
       "inconclusive": false,
@@ -2956,6 +381,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Moxifloxacin": Object {
       "inconclusive": false,
@@ -2963,6 +389,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ofloxacin": Object {
       "inconclusive": false,
@@ -2970,6 +397,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Pyrazinamide": Object {
       "inconclusive": false,
@@ -2977,6 +405,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Rifampicin": Object {
       "inconclusive": false,
@@ -2984,6 +413,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Streptomycin": Object {
       "inconclusive": false,
@@ -2991,6 +421,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
   },
   "susceptible": Array [
@@ -3040,6 +471,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Capreomycin": Object {
       "inconclusive": false,
@@ -3047,6 +479,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ciprofloxacin": Object {
       "inconclusive": false,
@@ -3054,6 +487,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ethambutol": Object {
       "inconclusive": false,
@@ -3061,6 +495,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Isoniazid": Object {
       "inconclusive": false,
@@ -3069,6 +504,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Kanamycin": Object {
       "inconclusive": false,
@@ -3076,6 +512,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Moxifloxacin": Object {
       "inconclusive": false,
@@ -3083,6 +520,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ofloxacin": Object {
       "inconclusive": false,
@@ -3090,6 +528,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Pyrazinamide": Object {
       "inconclusive": false,
@@ -3097,6 +536,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Rifampicin": Object {
       "inconclusive": false,
@@ -3105,6 +545,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Streptomycin": Object {
       "inconclusive": false,
@@ -3112,6 +553,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
   },
   "susceptible": Array [
@@ -3142,6 +584,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Capreomycin": Object {
       "inconclusive": false,
@@ -3149,6 +592,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ciprofloxacin": Object {
       "inconclusive": false,
@@ -3156,6 +600,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ethambutol": Object {
       "inconclusive": false,
@@ -3163,6 +608,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Isoniazid": Object {
       "inconclusive": false,
@@ -3170,6 +616,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Kanamycin": Object {
       "inconclusive": false,
@@ -3177,6 +624,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Moxifloxacin": Object {
       "inconclusive": false,
@@ -3184,6 +632,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ofloxacin": Object {
       "inconclusive": false,
@@ -3191,6 +640,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Pyrazinamide": Object {
       "inconclusive": false,
@@ -3198,6 +648,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Rifampicin": Object {
       "inconclusive": false,
@@ -3205,6 +656,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Streptomycin": Object {
       "inconclusive": false,
@@ -3212,6 +664,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
   },
   "susceptible": Array [
@@ -3259,6 +712,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Capreomycin": Object {
       "inconclusive": false,
@@ -3266,6 +720,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ciprofloxacin": Object {
       "inconclusive": false,
@@ -3273,6 +728,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ethambutol": Object {
       "inconclusive": false,
@@ -3280,6 +736,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Isoniazid": Object {
       "inconclusive": false,
@@ -3287,6 +744,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Kanamycin": Object {
       "inconclusive": false,
@@ -3294,6 +752,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Moxifloxacin": Object {
       "inconclusive": false,
@@ -3301,6 +760,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ofloxacin": Object {
       "inconclusive": false,
@@ -3308,6 +768,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Pyrazinamide": Object {
       "inconclusive": false,
@@ -3315,6 +776,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Rifampicin": Object {
       "inconclusive": false,
@@ -3323,6 +785,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Streptomycin": Object {
       "inconclusive": false,
@@ -3330,6 +793,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
   },
   "susceptible": Array [
@@ -3467,6 +931,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Capreomycin": Object {
       "inconclusive": false,
@@ -3475,6 +940,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Ciprofloxacin": Object {
       "inconclusive": false,
@@ -3483,6 +949,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Ethambutol": Object {
       "inconclusive": false,
@@ -3491,6 +958,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Isoniazid": Object {
       "inconclusive": false,
@@ -3499,6 +967,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Kanamycin": Object {
       "inconclusive": false,
@@ -3507,6 +976,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Moxifloxacin": Object {
       "inconclusive": false,
@@ -3515,6 +985,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Ofloxacin": Object {
       "inconclusive": false,
@@ -3523,6 +994,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Pyrazinamide": Object {
       "inconclusive": false,
@@ -3531,6 +1003,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Rifampicin": Object {
       "inconclusive": false,
@@ -3539,6 +1012,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Streptomycin": Object {
       "inconclusive": false,
@@ -3547,6 +1021,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
   },
   "susceptible": Array [],
@@ -3594,6 +1069,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Capreomycin": Object {
       "inconclusive": false,
@@ -3601,6 +1077,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ciprofloxacin": Object {
       "inconclusive": false,
@@ -3608,6 +1085,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ethambutol": Object {
       "inconclusive": false,
@@ -3615,6 +1093,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Isoniazid": Object {
       "inconclusive": false,
@@ -3623,6 +1102,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Kanamycin": Object {
       "inconclusive": false,
@@ -3630,6 +1110,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Moxifloxacin": Object {
       "inconclusive": false,
@@ -3637,6 +1118,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ofloxacin": Object {
       "inconclusive": false,
@@ -3644,6 +1126,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Pyrazinamide": Object {
       "inconclusive": false,
@@ -3651,6 +1134,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Rifampicin": Object {
       "inconclusive": false,
@@ -3658,6 +1142,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Streptomycin": Object {
       "inconclusive": false,
@@ -3665,6 +1150,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
   },
   "susceptible": Array [
@@ -3731,6 +1217,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Capreomycin": Object {
       "inconclusive": false,
@@ -3738,6 +1225,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ciprofloxacin": Object {
       "inconclusive": false,
@@ -3745,6 +1233,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ethambutol": Object {
       "inconclusive": false,
@@ -3752,6 +1241,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Isoniazid": Object {
       "inconclusive": false,
@@ -3760,6 +1250,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Kanamycin": Object {
       "inconclusive": false,
@@ -3767,6 +1258,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Moxifloxacin": Object {
       "inconclusive": false,
@@ -3774,6 +1266,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ofloxacin": Object {
       "inconclusive": false,
@@ -3781,6 +1274,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Pyrazinamide": Object {
       "inconclusive": false,
@@ -3788,6 +1282,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Rifampicin": Object {
       "inconclusive": false,
@@ -3796,6 +1291,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Streptomycin": Object {
       "inconclusive": false,
@@ -3803,6 +1299,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
   },
   "susceptible": Array [
@@ -3881,6 +1378,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Capreomycin": Object {
       "inconclusive": false,
@@ -3888,6 +1386,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ciprofloxacin": Object {
       "inconclusive": false,
@@ -3895,6 +1394,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ethambutol": Object {
       "inconclusive": false,
@@ -3902,6 +1402,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Isoniazid": Object {
       "inconclusive": false,
@@ -3909,6 +1410,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Kanamycin": Object {
       "inconclusive": false,
@@ -3916,6 +1418,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Moxifloxacin": Object {
       "inconclusive": false,
@@ -3923,6 +1426,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Ofloxacin": Object {
       "inconclusive": false,
@@ -3930,6 +1434,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Pyrazinamide": Object {
       "inconclusive": false,
@@ -3937,6 +1442,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
     "Rifampicin": Object {
       "inconclusive": false,
@@ -3945,6 +1451,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Streptomycin": Object {
       "inconclusive": false,
@@ -3952,6 +1459,7 @@ Object {
       "notTested": false,
       "resistant": false,
       "susceptible": true,
+      "type": "SUSCEPTIBLE",
     },
   },
   "susceptible": Array [
@@ -4106,6 +1614,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Capreomycin": Object {
       "inconclusive": false,
@@ -4114,6 +1623,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Ciprofloxacin": Object {
       "inconclusive": false,
@@ -4122,6 +1632,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Ethambutol": Object {
       "inconclusive": false,
@@ -4130,6 +1641,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Isoniazid": Object {
       "inconclusive": false,
@@ -4138,6 +1650,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Kanamycin": Object {
       "inconclusive": false,
@@ -4146,6 +1659,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Moxifloxacin": Object {
       "inconclusive": false,
@@ -4154,6 +1668,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Ofloxacin": Object {
       "inconclusive": false,
@@ -4162,6 +1677,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Pyrazinamide": Object {
       "inconclusive": false,
@@ -4170,6 +1686,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Rifampicin": Object {
       "inconclusive": false,
@@ -4178,6 +1695,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
     "Streptomycin": Object {
       "inconclusive": false,
@@ -4186,6 +1704,7 @@ Object {
       "notTested": false,
       "resistant": true,
       "susceptible": false,
+      "type": "RESISTANT",
     },
   },
   "susceptible": Array [],
