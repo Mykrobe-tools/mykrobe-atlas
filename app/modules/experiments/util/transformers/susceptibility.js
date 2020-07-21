@@ -1,6 +1,7 @@
 /* @flow */
 
 import sortObject from '../sortObject';
+import { isPlainObject } from 'makeandship-js-common/src/utils/is';
 
 /*
 
@@ -79,8 +80,11 @@ const susceptibilityTransformer = (
 
     const susceptibilityModelEntry = susceptibilityModel[key];
 
-    if (Object.keys(susceptibility).length === 0) {
-      // omit - no data
+    if (
+      !isPlainObject(susceptibilityModelEntry) ||
+      Object.keys(susceptibilityModelEntry).length === 0
+    ) {
+      // omit - no data or not an object
     } else if (
       susceptibilityModelEntry.susceptibility ||
       susceptibilityModelEntry.method
