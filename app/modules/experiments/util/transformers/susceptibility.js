@@ -19,6 +19,26 @@ for another data type (which we now support but didn't previously).
 
 const USE_LEGACY_DESCRIPTION = false;
 
+export const susceptibilityTypes = {
+  UNKNOWN: 'UNKNOWN',
+  SUSCEPTIBLE: 'SUSCEPTIBLE',
+  RESISTANT: 'RESISTANT',
+  INCONCLUSIVE: 'INCONCLUSIVE',
+  INDUCIBLE: 'INDUCIBLE',
+  NOT_TESTED: 'NOT_TESTED',
+};
+
+export const susceptibilityTypeTitles = {
+  [susceptibilityTypes.UNKNOWN]: 'Unknown',
+  [susceptibilityTypes.SUSCEPTIBLE]: 'Susceptible',
+  [susceptibilityTypes.RESISTANT]: 'Resistant',
+  [susceptibilityTypes.INCONCLUSIVE]: 'Inconclusive',
+  [susceptibilityTypes.INDUCIBLE]: 'Inducible',
+  [susceptibilityTypes.NOT_TESTED]: 'Not tested',
+};
+
+export type SusceptibilityType = $Keys<typeof susceptibilityTypes>;
+
 const susceptibilityTransformer = (
   susceptibilityModel: any,
   genotypeModel: string = 'median_depth'
@@ -40,6 +60,7 @@ const susceptibilityTransformer = (
 
   for (key in susceptibilityModel) {
     let susceptibility: {
+      type: SusceptibilityType,
       susceptible: boolean,
       resistant: boolean,
       inconclusive: boolean,
@@ -48,6 +69,7 @@ const susceptibilityTransformer = (
       mutation?: string,
       method?: string,
     } = {
+      type: susceptibilityTypes.UNKNOWN,
       susceptible: false,
       resistant: false,
       inconclusive: false,
@@ -65,16 +87,20 @@ const susceptibilityTransformer = (
     ) {
       // metadata format
       if (susceptibilityModelEntry.susceptibility === 'Sensitive') {
-        transformed.susceptible.push(key);
+        (susceptibility.type = susceptibilityTypes.SUSCEPTIBLE),
+          transformed.susceptible.push(key);
         susceptibility.susceptible = true;
       } else if (susceptibilityModelEntry.susceptibility === 'Resistant') {
-        transformed.resistant.push(key);
+        (susceptibility.type = susceptibilityTypes.RESISTANT),
+          transformed.resistant.push(key);
         susceptibility.resistant = true;
       } else if (susceptibilityModelEntry.susceptibility === 'Inconclusive') {
-        transformed.inconclusive.push(key);
+        (susceptibility.type = susceptibilityTypes.INCONCLUSIVE),
+          transformed.inconclusive.push(key);
         susceptibility.inconclusive = true;
       } else if (susceptibilityModelEntry.susceptibility === 'Not tested') {
-        transformed.notTested.push(key);
+        (susceptibility.type = susceptibilityTypes.NOT_TESTED),
+          transformed.notTested.push(key);
         susceptibility.notTested = true;
       }
       susceptibility.method = susceptibilityModelEntry.method;
@@ -87,13 +113,16 @@ const susceptibilityTransformer = (
       value = predict.substr(0, 1);
       isInducible = predict.indexOf('INDUCIBLE') !== -1;
       if (value === 'S') {
-        transformed.susceptible.push(key);
+        (susceptibility.type = susceptibilityTypes.SUSCEPTIBLE),
+          transformed.susceptible.push(key);
         susceptibility.susceptible = true;
       } else if (value === 'R') {
-        transformed.resistant.push(key);
+        (susceptibility.type = susceptibilityTypes.RESISTANT),
+          transformed.resistant.push(key);
         susceptibility.resistant = true;
       } else if (value === 'N') {
-        transformed.inconclusive.push(key);
+        (susceptibility.type = susceptibilityTypes.INCONCLUSIVE),
+          transformed.inconclusive.push(key);
         susceptibility.inconclusive = true;
       }
       if (isInducible) {

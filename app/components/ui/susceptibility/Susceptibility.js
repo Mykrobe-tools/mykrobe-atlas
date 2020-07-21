@@ -8,7 +8,9 @@ import { Phenotyping } from 'mykrobe-atlas-jsonschema/schemas/definitions/experi
 
 import styles from './Susceptibility.module.scss';
 
-import susceptibilityTransformer from '../../../modules/experiments/util/transformers/susceptibility';
+import susceptibilityTransformer, {
+  susceptibilityTypeTitles,
+} from '../../../modules/experiments/util/transformers/susceptibility';
 
 const shortTitles = {
   isoniazid: 'H',
@@ -40,37 +42,26 @@ const Susceptibility = ({
   keys.forEach((key) => {
     const keyLower = key.toLowerCase();
     const entry = transformed.susceptibility[key];
-    const title = Phenotyping.properties[keyLower]?.title || key;
+    const title = Phenotyping.properties[key]?.title || key;
+    const typeTitle = susceptibilityTypeTitles[entry.type];
     const shortTitle =
       shortTitles[keyLower] || title.substr(0, 1).toUpperCase();
     const elementId = `${keyLower}${id}`;
     const elementKey = `${keyLower}`;
-    if (entry.resistant) {
-      elements.push(
-        <span key={elementKey}>
-          <span id={elementId} className={styles.resistant}>
-            {shortTitle}{' '}
-          </span>
-          <UncontrolledTooltip delay={0} target={elementId}>
-            {title} resistant{'\n'}
-            {entry.mutation && (
-              <React.Fragment>Mutation {entry.mutation}</React.Fragment>
-            )}
-          </UncontrolledTooltip>
+    elements.push(
+      <span key={elementKey} className={styles.entryWrap}>
+        <span id={elementId} className={styles[entry.type]}>
+          {shortTitle}{' '}
         </span>
-      );
-    } else {
-      elements.push(
-        <span key={elementKey}>
-          <span id={elementId} className={styles.susceptible}>
-            {shortTitle}{' '}
-          </span>
-          <UncontrolledTooltip delay={0} target={elementId}>
-            {title} susceptible
-          </UncontrolledTooltip>
-        </span>
-      );
-    }
+        <UncontrolledTooltip delay={0} target={elementId}>
+          <div>
+            {title} &middot; {typeTitle}
+          </div>
+          {entry.mutation && <div>Mutation &middot; {entry.mutation}</div>}
+          {entry.method && <div>Method &middot; {entry.method}</div>}
+        </UncontrolledTooltip>
+      </span>
+    );
   });
   const susceptibilityProfile = elements.length ? (
     <span className={styles.resistanceProfile}>{elements}</span>
