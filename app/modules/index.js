@@ -48,7 +48,7 @@ import { rootNavigationSaga } from './navigation';
 import networkStatus, { networkStatusSaga } from './networkStatus';
 
 const axiosInstance = axios.create({
-  baseURL: window.env.REACT_APP_API_URL,
+  baseURL: window.env?.REACT_APP_API_URL,
   transformResponse: [jsendResponseTransformer],
 });
 
@@ -59,9 +59,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const keycloakInstance = new Keycloak({
-  url: window.env.REACT_APP_KEYCLOAK_URL,
-  realm: window.env.REACT_APP_KEYCLOAK_REALM,
-  clientId: window.env.REACT_APP_KEYCLOAK_CLIENT_ID,
+  url: window.env?.REACT_APP_KEYCLOAK_URL,
+  realm: window.env?.REACT_APP_KEYCLOAK_REALM,
+  clientId: window.env?.REACT_APP_KEYCLOAK_CLIENT_ID,
 });
 
 const provider = createKeycloakProvider(keycloakInstance);
@@ -76,8 +76,8 @@ setAuthConfig({
 
 setApiConfig({
   fetcher,
-  apiUrl: window.env.REACT_APP_API_URL,
-  apiSpecUrl: window.env.REACT_APP_API_SPEC_URL,
+  apiUrl: window.env?.REACT_APP_API_URL,
+  apiSpecUrl: window.env?.REACT_APP_API_SPEC_URL,
 });
 
 export const rootReducer = (history: any) =>

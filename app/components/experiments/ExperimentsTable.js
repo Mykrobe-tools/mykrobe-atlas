@@ -21,6 +21,7 @@ import Table from 'makeandship-js-common/src/components/ui/table';
 import styles from './ExperimentsTable.module.scss';
 
 import susceptibilityTransformer from '../../modules/experiments/util/transformers/susceptibility';
+import Susceptibility from '../ui/susceptibility/Susceptibility';
 
 export const countryCodeToName = (countryCode) => {
   const index = Sample.properties.countryIsolate.enum.indexOf(countryCode);
@@ -120,6 +121,10 @@ class ExperimentsTable extends React.Component<*> {
         sort: 'metadata.sample.countryIsolate',
       },
       {
+        title: 'Owner',
+        sort: 'owner.lastname',
+      },
+      {
         title: 'Created',
         sort: 'created',
       },
@@ -135,7 +140,7 @@ class ExperimentsTable extends React.Component<*> {
   renderRow = (experiment: any) => {
     const { selected } = this.props;
     const allSelected = (selected && selected === '*') || false;
-    let { id, created, modified, results } = experiment;
+    let { id, created, modified, results, owner } = experiment;
     const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
     const countryIsolate =
       _get(experiment, 'metadata.sample.countryIsolate') || '–';
@@ -149,47 +154,14 @@ class ExperimentsTable extends React.Component<*> {
     if (results && results.predictor) {
       mdr = results.predictor.mdr;
       xdr = results.predictor.xdr;
-      const transformed = susceptibilityTransformer(
-        results.predictor.susceptibility
-      );
-      const elements = [];
-      const keys = Object.keys(transformed.susceptibility);
-      keys.forEach((key) => {
-        const entry = transformed.susceptibility[key];
-        const initial = key.substr(0, 1).toUpperCase();
-        const elementId = `${key}${id}`;
-        const elementKey = `${key}`;
-        if (entry.resistant) {
-          elements.push(
-            <span key={elementKey}>
-              <span id={elementId} className={styles.resistant}>
-                {initial}{' '}
-              </span>
-              <UncontrolledTooltip delay={0} target={elementId}>
-                {key} resistant{'\n'}
-                Mutation {entry.mutation}
-              </UncontrolledTooltip>
-            </span>
-          );
-        } else {
-          elements.push(
-            <span key={elementKey}>
-              <span id={elementId} className={styles.susceptible}>
-                {initial}{' '}
-              </span>
-              <UncontrolledTooltip delay={0} target={elementId}>
-                {key} susceptible
-              </UncontrolledTooltip>
-            </span>
-          );
-        }
-      });
-      susceptibilityProfile = elements.length ? (
-        <Link to={`/experiments/${id}/resistance/evidence`}>
-          <span className={styles.resistanceProfile}>{elements}</span>
+
+      susceptibilityProfile = (
+        <Link
+          to={`/experiments/${id}/resistance/evidence`}
+          className={styles.susceptibilityProfile}
+        >
+          <Susceptibility susceptibility={results.predictor.susceptibility} />
         </Link>
-      ) : (
-        '–'
       );
     }
     return (
@@ -227,6 +199,9 @@ class ExperimentsTable extends React.Component<*> {
         </td>
         <td>{cityIsolate}</td>
         <td>{countryCodeToName(countryIsolate)}</td>
+        <td>
+          {owner?.lastname}, {owner?.firstname}
+        </td>
         <td>{formatDate(dateFns.parseISO(created))}</td>
         <td>{formatDate(dateFns.parseISO(modified))}</td>
         <td>

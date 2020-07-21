@@ -1,0 +1,45 @@
+@import '~styles/colors';
+
+.resistanceProfile {
+  white-space: nowrap;
+}
+
+.entryWrap {
+  + .entryWrap {
+    margin-left: 2px;
+  }
+}
+
+.entry {
+  composes: fontSecondary from '~styles/typography.scss';
+  composes: global(badge);
+  color: white;
+  background-color: $color-grey-light;
+}
+
+.UNKNOWN {
+  composes: entry;
+}
+
+.SUSCEPTIBLE {
+  composes: entry;
+  background-color: $color-app-green;
+}
+
+.RESISTANT {
+  composes: entry;
+  background-color: $color-app-red;
+}
+
+.INCONCLUSIVE {
+  composes: entry;
+  background-color: $color-app-amber;
+}
+
+.INDUCIBLE {
+  composes: entry;
+}
+
+.NOT_TESTED {
+  composes: entry;
+}

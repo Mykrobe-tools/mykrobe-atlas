@@ -5,6 +5,7 @@ jest.unmock('electron');
 
 // nb. version of spectron should map to version of electron https://github.com/electron-userland/spectron#version-map
 import { Application } from 'spectron';
+import fs from 'fs-extra';
 
 import debug from 'debug';
 const d = debug('mykrobe:desktop-test');
@@ -76,10 +77,12 @@ describeSlowTest('Desktop e2e main window', function spec() {
   beforeAllSlow(async () => {
     await fetchPredictorBinariesIfChanged();
     await ensureExemplarSamples();
+    const logPath = path.join(__dirname, './logs');
+    fs.ensureDirSync(logPath);
     const options = {
       path: ELECTRON_EXECUTABLE_PATH,
-      webdriverLogPath: path.join(__dirname, './logs/webdriver'),
-      chromeDriverLogPath: path.join(__dirname, './logs/chromedriver.log'),
+      webdriverLogPath: path.join(logPath, 'webdriver'),
+      chromeDriverLogPath: path.join(logPath, 'chromedriver.log'),
     };
     d(`Creating Application with options`, options);
     _app = new Application(options);

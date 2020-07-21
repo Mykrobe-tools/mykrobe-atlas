@@ -73,7 +73,7 @@ class ExperimentGeographicMap extends React.Component<*, State> {
 
   constructor(props: any) {
     super(props);
-    GoogleMapsLoader.KEY = window.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+    GoogleMapsLoader.KEY = window.env?.REACT_APP_GOOGLE_MAPS_API_KEY;
     GoogleMapsLoader.REGION = 'GB';
     GoogleMapsLoader.VERSION = '3.38'; // https://developers.google.com/maps/documentation/javascript/versions#choosing-a-version-number
     GoogleMapsLoader.load(this.onGoogleMapsLoaded);

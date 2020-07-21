@@ -10,13 +10,9 @@
   composes: global(px-2);
 }
 
-.resistanceProfile {
+.susceptibilityProfile {
   white-space: nowrap;
-}
-
-.resistant {
-}
-
-.susceptible {
-  opacity: 0.2;
+  &:hover {
+    opacity: 1;
+  }
 }
