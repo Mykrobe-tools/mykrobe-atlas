@@ -5,7 +5,7 @@ import { createUrlNetworkStatusModule } from 'makeandship-js-common/src/modules/
 const urlNetworkStatusModule = createUrlNetworkStatusModule({
   typePrefix: 'networkStatus/urlNetworkStatus/',
   getState: (state: any) => state?.networkStatus?.urlNetworkStatus,
-  url: `${window.env.REACT_APP_API_URL}/health-check`,
+  url: `${window.env?.REACT_APP_API_URL}/health-check`,
   timeout: 30000,
 });
 

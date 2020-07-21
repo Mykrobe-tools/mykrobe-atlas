@@ -22,7 +22,7 @@ export const uploadBox = () => ({
 // Side effects
 
 const options = {
-  clientId: window.env.REACT_APP_BOX_CLIENT_ID,
+  clientId: window.env?.REACT_APP_BOX_CLIENT_ID,
   linkType: 'direct',
   multiselect: 'false',
 };
