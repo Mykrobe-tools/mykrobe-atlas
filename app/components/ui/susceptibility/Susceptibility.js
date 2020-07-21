@@ -12,7 +12,7 @@ import susceptibilityTransformer, {
   susceptibilityTypeTitles,
 } from '../../../modules/experiments/util/transformers/susceptibility';
 
-const shortTitles = {
+export const shortTitles = {
   isoniazid: 'H',
   rifampicin: 'R',
   pyrazinamide: 'Z',
@@ -69,12 +69,7 @@ const Susceptibility = ({
     <React.Fragment>–</React.Fragment>
   );
 
-  return (
-    <React.Fragment>
-      {susceptibilityProfile}
-      <pre>{JSON.stringify({ id, susceptibility, transformed }, null, 2)}</pre>
-    </React.Fragment>
-  );
+  return susceptibilityProfile;
 };
 
 export default Susceptibility;
