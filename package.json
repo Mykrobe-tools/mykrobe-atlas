@@ -29,7 +29,7 @@
     "lint:prettier": "prettier -l \"./**/*.{js,json,css,scss}\" || (echo '\nThese files are not formatted correctly. Did you forget to run \"yarn prettier\"?' && false)",
     "lint": "yarn lint:eslint && yarn lint:prettier",
     "migrate-css-module-filenames": "cross-env DEBUG=ms:* babel-node scripts/migrate-css-module-filenames.js --src ./app",
-    "precommit": "yarn lint && yarn test:fast && yarn check:es && yarn check:audit",
+    "precommit": "yarn lint && yarn test:fast && yarn check:es",
     "prettier": "prettier --write \"./**/*.{js,json,css,scss}\"",
     "storybook": "start-storybook --port 6006",
     "test:debug": "echo \"To attach Chrome DevTools, open chrome://inspect/#devices then click 'Open dedicated DevTools for node'\" && node --inspect node_modules/.bin/jest --runInBand",

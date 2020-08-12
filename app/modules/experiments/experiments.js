@@ -28,6 +28,10 @@ export const getIsPending = createSelector(
   (status) => status === 'pending'
 );
 
+export const getSearchId = createSelector(getState, (state) =>
+  _get(state, 'data.id')
+);
+
 export const getBigsi = createSelector(getState, (state) =>
   _get(state, 'data.bigsi')
 );
