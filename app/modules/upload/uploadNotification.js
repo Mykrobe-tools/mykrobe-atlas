@@ -64,13 +64,13 @@ function* fileAddedWatcher() {
         autoHide: false,
         actions: [
           {
-            title: 'Metadata',
+            title: 'Edit metadata',
             onClick: () => {
               _interactionChannel.put(push(`/experiments/${experimentId}`));
             },
           },
           {
-            title: 'Cancel',
+            title: 'Cancel upload',
             onClick: () => {
               if (
                 !confirm(
@@ -144,7 +144,7 @@ function* resumableUploadDoneWatcher() {
         content: `Finished uploading ${fileName}`,
         actions: [
           {
-            title: 'Metadata',
+            title: 'Edit metadata',
             onClick: () => {
               _interactionChannel.put(push(`/experiments/${experimentId}`));
             },
@@ -209,10 +209,10 @@ function* thirdPartyUploadDoneWatcher() {
     yield put(
       updateNotification(experimentId, {
         category: NotificationCategories.SUCCESS,
-        content: `Finished retreiving ${fileName} from ${provider}`,
+        content: `Finished retrieving ${fileName} from ${provider}`,
         actions: [
           {
-            title: 'Metadata',
+            title: 'Edit metadata',
             onClick: () => {
               _interactionChannel.put(push(`/experiments/${experimentId}`));
             },
@@ -250,7 +250,7 @@ function* analysisCompleteWatcher() {
         content: `Analysis complete ${fileName}`,
         actions: [
           {
-            title: 'Resistance',
+            title: 'View resistance',
             onClick: () => {
               _interactionChannel.put(
                 push(`/experiments/${experimentId}/resistance`)
