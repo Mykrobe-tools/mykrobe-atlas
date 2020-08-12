@@ -32,6 +32,7 @@ import ExperimentGeographicMap from '../experiment/analysis/ExperimentGeographic
 
 import { withExperimentsPropTypes } from '../../hoc/withExperiments';
 import { withExperimentsHighlightedPropTypes } from '../../hoc/withExperimentsHighlighted';
+import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
 
 type State = {
   selected?: string | Array<string>,
@@ -131,6 +132,7 @@ class Experiments extends React.Component<*, State> {
       experimentsWithoutGeolocation,
       experimentsHighlightedWithGeolocation,
       experimentsHighlightedWithoutGeolocation,
+      currentUser,
     } = this.props;
     const { pagination, results, total } = experiments;
     const hasTotal = total !== undefined;
@@ -234,6 +236,7 @@ class Experiments extends React.Component<*, State> {
               filters={experimentsFilters}
               selected={selected}
               setSelected={this.setSelected}
+              currentUser={currentUser}
             />
             {pagination && (
               <Pagination
@@ -316,6 +319,7 @@ class Experiments extends React.Component<*, State> {
 Experiments.propTypes = {
   ...withExperimentsPropTypes,
   ...withExperimentsHighlightedPropTypes,
+  ...withCurrentUserPropTypes,
   onChangeListOrder: PropTypes.func,
   setPage: PropTypes.func,
 };

@@ -136,7 +136,7 @@ class ExperimentsTable extends React.Component<*> {
     ];
   };
   renderRow = (experiment: any) => {
-    const { selected } = this.props;
+    const { selected, currentUser } = this.props;
     const allSelected = (selected && selected === '*') || false;
     let { id, created, modified, results, owner } = experiment;
     const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
@@ -149,6 +149,7 @@ class ExperimentsTable extends React.Component<*> {
       false;
     let mdr, xdr;
     let susceptibilityProfile = '–';
+    const currentUserIsOwner = currentUser?.id === owner?.id;
     if (results && results.predictor) {
       mdr = results.predictor.mdr;
       xdr = results.predictor.xdr;
@@ -198,28 +199,32 @@ class ExperimentsTable extends React.Component<*> {
         <td>{cityIsolate}</td>
         <td>{countryCodeToName(countryIsolate)}</td>
         <td>
-          {owner?.lastname}, {owner?.firstname}
+          {owner
+            ? [owner.lastname, owner.firstname].filter(Boolean).join(', ')
+            : '–'}
         </td>
         <td>{formatDate(dateFns.parseISO(created))}</td>
         <td>{formatDate(dateFns.parseISO(modified))}</td>
         <td>
-          <UncontrolledDropdown>
-            <DropdownToggle
-              tag={'a'}
-              href="#"
-              className={styles.dropdownToggle}
-            >
-              <i className="fa fa-ellipsis-v" />
-            </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem tag={Link} to={`/experiments/${id}`}>
-                View
-              </DropdownItem>
-              <DropdownItem tag={Link} to={`/experiments/${id}/edit`}>
-                Edit
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
+          {currentUserIsOwner && (
+            <UncontrolledDropdown>
+              <DropdownToggle
+                tag={'a'}
+                href="#"
+                className={styles.dropdownToggle}
+              >
+                <i className="fa fa-ellipsis-v" />
+              </DropdownToggle>
+              <DropdownMenu>
+                <DropdownItem tag={Link} to={`/experiments/${id}`}>
+                  View
+                </DropdownItem>
+                <DropdownItem tag={Link} to={`/experiments/${id}/edit`}>
+                  Edit
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          )}
         </td>
       </tr>
     );
