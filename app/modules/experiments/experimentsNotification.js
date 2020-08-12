@@ -1,9 +1,11 @@
 /* @flow */
 
-import { all, fork, put, takeEvery, select } from 'redux-saga/effects';
+import { channel } from 'redux-saga';
+import { all, fork, put, takeEvery, select, take } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
 import _get from 'lodash.get';
-import _isEqual from 'lodash.isequal';
+import { push } from 'connected-react-router';
+import qs from 'qs';
 
 import {
   showNotification,
@@ -21,11 +23,21 @@ import {
 import {
   getExperimentsIsPending,
   getBigsi,
+  getSearchId,
   requestExperiments,
   experimentsActionTypes,
 } from './experiments';
 
-import { notificationIdForBigsi, descriptionForBigsi } from './util/bigsi';
+import { descriptionForBigsi } from './util/bigsi';
+
+const _interactionChannel = channel();
+
+export function* interactionChannelWatcher(): Saga {
+  while (true) {
+    const action = yield take(_interactionChannel);
+    yield put(action);
+  }
+}
 
 // in progress
 
@@ -34,7 +46,8 @@ function* pendingSearchWatcher() {
     const isPending = yield select(getExperimentsIsPending);
     if (isPending) {
       const currentBigsi = yield select(getBigsi);
-      const notificationId = notificationIdForBigsi(currentBigsi);
+      const searchId = yield select(getSearchId);
+      const notificationId = searchId;
       const description = descriptionForBigsi(currentBigsi);
       yield put(
         showNotification({
@@ -57,7 +70,8 @@ function* searchStartedWatcher() {
     function* (action) {
       // refresh if this matches the current search
       const startedBigsi = _get(action.payload, 'search.bigsi');
-      const notificationId = notificationIdForBigsi(startedBigsi);
+      const startedSearchId = _get(action.payload, 'id');
+      const notificationId = startedSearchId;
       const description = descriptionForBigsi(startedBigsi);
       yield put(
         showNotification({
@@ -80,19 +94,32 @@ function* searchCompleteWatcher() {
     function* (action) {
       // refresh if this matches the current search
       const completeBigsi = _get(action.payload, 'search.bigsi');
-      const currentBigsi = yield select(getBigsi);
-      if (_isEqual(completeBigsi, currentBigsi)) {
+      const completeSearchId = _get(action.payload, 'id');
+      const completeQuery = _get(action.payload, 'search.query');
+      const currentSearchId = yield select(getSearchId);
+      const isViewingCompleteSearch = currentSearchId === completeSearchId;
+      if (isViewingCompleteSearch) {
         yield put(requestExperiments());
       }
-      const notificationId = notificationIdForBigsi(completeBigsi);
+      const notificationId = completeSearchId;
       const description = descriptionForBigsi(completeBigsi);
-      // TODO: add action to view the results
       yield put(
         updateNotification(notificationId, {
           category: NotificationCategories.SUCCESS,
           content: `${description} complete`,
-          autoHide: true,
+          autoHide: isViewingCompleteSearch,
           progress: undefined,
+          actions: [
+            {
+              title: 'View results',
+              onClick: () => {
+                const stringifiedQuery = qs.stringify(completeQuery);
+                _interactionChannel.put(
+                  push(`/experiments?${stringifiedQuery}`)
+                );
+              },
+            },
+          ],
         })
       );
     }
@@ -101,6 +128,7 @@ function* searchCompleteWatcher() {
 
 export function* experimentsNotificationSaga(): Saga {
   yield all([
+    fork(interactionChannelWatcher),
     fork(pendingSearchWatcher),
     fork(searchStartedWatcher),
     fork(searchCompleteWatcher),
