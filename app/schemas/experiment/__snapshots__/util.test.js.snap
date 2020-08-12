@@ -2,6 +2,8 @@
 
 exports[`experiment schema util should derive keys as expected 1`] = `
 Array [
+  "sampleId",
+  "leafId",
   "file",
   "metadata.sample.labId",
   "metadata.sample.isolateId",
@@ -169,6 +171,6 @@ Array [
 exports[`experiment schema util should determine completeness as expected 1`] = `
 Object {
   "complete": 2,
-  "total": 161,
+  "total": 163,
 }
 `;

@@ -8,7 +8,6 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  UncontrolledTooltip,
 } from 'reactstrap';
 import _get from 'lodash.get';
 import * as dateFns from 'date-fns';
@@ -20,7 +19,6 @@ import Table from 'makeandship-js-common/src/components/ui/table';
 
 import styles from './ExperimentsTable.module.scss';
 
-import susceptibilityTransformer from '../../modules/experiments/util/transformers/susceptibility';
 import Susceptibility from '../ui/susceptibility/Susceptibility';
 
 export const countryCodeToName = (countryCode) => {
