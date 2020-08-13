@@ -61,5 +61,5 @@ export function setProgress(progress: number) {
 
 export function launchWebsite() {
   const { shell } = require('electron').remote;
-  shell.openExternal('http://www.mykrobe.com/');
+  shell.openExternal('https://www.mykrobe.com/');
 }

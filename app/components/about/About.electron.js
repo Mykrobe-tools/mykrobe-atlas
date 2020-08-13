@@ -10,7 +10,7 @@ import { launchWebsite } from '../../helpers/UIHelpers'; // eslint-disable-line 
 const {
   version,
   executableVersion,
-} = require('../../../desktop/build/package.json');
+} = require('../../../desktop/resources/package.json');
 
 class About extends React.Component<*> {
   back = (e: any) => {
