@@ -57,7 +57,7 @@ class EditOrganisation extends React.Component<*> {
   onDeleteClick = (e: any) => {
     e && e.preventDefault();
     const { organisation, deleteOrganisation } = this.props;
-    if (confirm('Delete organisation?')) {
+    if (confirm('Delete organisation? This cannot be undone.')) {
       deleteOrganisation(organisation);
     }
   };

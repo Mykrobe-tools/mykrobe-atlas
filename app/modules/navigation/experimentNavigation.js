@@ -1,11 +1,12 @@
 /* @flow */
 
-import { all, fork, put, takeLatest } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+import { all, fork, put, takeLatest, select } from 'redux-saga/effects';
+import { push, getLocation } from 'connected-react-router';
 
 import { NEW_ENTITY_KEY } from 'makeandship-js-common/src/modules/generic';
 
 import { experimentActionTypes } from '../experiments/experiment';
+import { requestExperiments } from '../experiments';
 
 // Side effects
 
@@ -44,7 +45,12 @@ function* deleteWatcher() {
 }
 
 export function* deleteWorker(): Generator<*, *, *> {
-  yield put(push('/experiments?sort=modified&order=desc'));
+  const { pathname } = yield select(getLocation);
+  if (pathname === '/experiments') {
+    yield put(requestExperiments());
+  } else {
+    yield put(push('/experiments?sort=modified&order=desc'));
+  }
 }
 
 export function* experimentNavigationSaga(): Generator<*, *, *> {

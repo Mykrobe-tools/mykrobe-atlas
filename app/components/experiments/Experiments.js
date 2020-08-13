@@ -33,6 +33,7 @@ import ExperimentGeographicMap from '../experiment/analysis/ExperimentGeographic
 import { withExperimentsPropTypes } from '../../hoc/withExperiments';
 import { withExperimentsHighlightedPropTypes } from '../../hoc/withExperimentsHighlighted';
 import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
+import { withExperimentPropTypes } from '../../hoc/withExperiment';
 
 type State = {
   selected?: string | Array<string>,
@@ -43,16 +44,25 @@ type State = {
 const CHANGING_QUERY_CLEARS_OTHER_FILTERS = true;
 
 class Experiments extends React.Component<*, State> {
+  constructor(props: any) {
+    super(props);
+    this.state = {};
+  }
+
   onNewExperiment = (e: any) => {
     e && e.preventDefault();
     const { newExperiment } = this.props;
     newExperiment();
   };
 
-  constructor(props: any) {
-    super(props);
-    this.state = {};
-  }
+  onDelete = (experiment: any) => {
+    const { deleteExperiment } = this.props;
+    const isolateId = _get(experiment, 'metadata.sample.isolateId') || 'sample';
+    if (!confirm(`Delete ${isolateId}? This cannot be undone.`)) {
+      return;
+    }
+    deleteExperiment(experiment.id);
+  };
 
   onReset = (e: any) => {
     e.preventDefault();
@@ -232,6 +242,7 @@ class Experiments extends React.Component<*, State> {
             <ExperimentsTable
               isFetching={isFetchingExperiments}
               experiments={results}
+              onDelete={this.onDelete}
               onChangeOrder={onChangeListOrder}
               filters={experimentsFilters}
               selected={selected}
@@ -317,6 +328,7 @@ class Experiments extends React.Component<*, State> {
 }
 
 Experiments.propTypes = {
+  ...withExperimentPropTypes,
   ...withExperimentsPropTypes,
   ...withExperimentsHighlightedPropTypes,
   ...withCurrentUserPropTypes,
