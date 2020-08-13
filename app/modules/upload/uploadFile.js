@@ -152,7 +152,18 @@ export const setFileName = (payload: string) => ({
 
 // Reducer
 
-const initialState = {
+export type State = {
+  isUploading: boolean,
+  isComputingChecksums: boolean,
+  uploadProgress: number,
+  checksumProgress: number,
+  fileName?: string,
+  experimentId?: string,
+  uploadBeganAt?: string,
+  error?: any,
+};
+
+const initialState: State = {
   isUploading: false,
   isComputingChecksums: false,
   uploadProgress: 0,
@@ -250,7 +261,7 @@ export function* fileAddedWorker(action: any): Saga {
     );
     return;
   }
-  const experimentId = yield call(createExperimentId);
+  const experimentId = yield call(createExperimentId, action.payload.fileName);
   if (!experimentId) {
     return;
   }

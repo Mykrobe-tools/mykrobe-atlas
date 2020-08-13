@@ -44,7 +44,7 @@ function* deleteWatcher() {
 }
 
 export function* deleteWorker(): Generator<*, *, *> {
-  yield put(push('/experiments'));
+  yield put(push('/experiments?sort=modified&order=desc'));
 }
 
 export function* experimentNavigationSaga(): Generator<*, *, *> {
