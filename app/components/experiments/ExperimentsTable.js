@@ -219,7 +219,7 @@ class ExperimentsTable extends React.Component<*> {
                 <DropdownItem tag={Link} to={`/experiments/${id}`}>
                   View
                 </DropdownItem>
-                <DropdownItem tag={Link} to={`/experiments/${id}/edit`}>
+                <DropdownItem tag={Link} to={`/experiments/${id}/metadata`}>
                   Edit
                 </DropdownItem>
               </DropdownMenu>
