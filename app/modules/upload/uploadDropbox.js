@@ -77,13 +77,15 @@ export function* uploadDropboxWorker(): Saga {
   if (!files) {
     return;
   }
-  const experimentId = yield call(createExperimentId);
+  const name = files[0].name;
+  const path = files[0].link;
+  const experimentId = yield call(createExperimentId, name);
   if (!experimentId) {
     return;
   }
   const experimentFile = {
-    name: files[0].name,
-    path: files[0].link,
+    name,
+    path,
     provider: 'dropbox',
   };
   yield put(

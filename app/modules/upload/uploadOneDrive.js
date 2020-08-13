@@ -62,13 +62,15 @@ export function* uploadOneDriveWorker(): Saga {
   if (!files) {
     return;
   }
-  const experimentId = yield call(createExperimentId);
+  const name = files.value[0].name;
+  const path = files.value[0]['@microsoft.graph.downloadUrl'];
+  const experimentId = yield call(createExperimentId, name);
   if (!experimentId) {
     return;
   }
   const experimentFile = {
-    name: files.value[0].name,
-    path: files.value[0]['@microsoft.graph.downloadUrl'],
+    name,
+    path,
     provider: 'oneDrive',
   };
   yield put(
