@@ -3,30 +3,69 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash.get';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Collapse } from 'reactstrap';
 
 import styles from './ExperimentsList.module.scss';
 
-const ExperimentsList = ({ experiments }) =>
-  experiments &&
-  experiments.map(({ id, distance, metadata }, index) => {
-    const isolateId = _get(metadata, 'sample.isolateId') || 'No isolate Id';
-    const countryIsolate = _get(metadata, 'sample.countryIsolate');
-    // const cityIsolate = _get(metadata, 'sample.cityIsolate') || '–';
-    const elements = [isolateId];
-    distance && elements.push(`${distance} SNPs`);
-    countryIsolate && elements.push(countryIsolate);
+const ExperimentsListItem = ({
+  id,
+  distance,
+  metadata,
+}: React.ElementProps<*>): React.Element<*> => {
+  const isolateId = _get(metadata, 'sample.isolateId') || 'No isolate Id';
+  const countryIsolate = _get(metadata, 'sample.countryIsolate');
+  // const cityIsolate = _get(metadata, 'sample.cityIsolate') || '–';
+  const elements = [isolateId];
+  distance && elements.push(`${distance} SNPs`);
+  countryIsolate && elements.push(countryIsolate);
+  return (
+    <div className={styles.experiment} key={id}>
+      <Link to={`/experiments/${id}/analysis`}>
+        <i className="fa fa-chevron-circle-right" /> {elements.join(` · `)}
+      </Link>
+    </div>
+  );
+};
+
+const ExperimentsList = ({
+  experiments = [],
+  expandable = false,
+}: React.ElementProps<*>): React.Element<*> | null => {
+  if (!experiments || !experiments.length) {
+    return null;
+  }
+
+  if (expandable && experiments.length > 6) {
+    const [collapse, setCollapse] = React.useState(false);
+    const visibleExperiments = experiments.slice(0, 5).map(ExperimentsListItem);
+    const hiddenExperiments = experiments.slice(5).map(ExperimentsListItem);
+    const toggleCollapse = React.useCallback(() => {
+      setCollapse(!collapse);
+    });
     return (
-      <div className={styles.experiment} key={index}>
-        <Link to={`/experiments/${id}/analysis`}>
-          <i className="fa fa-chevron-circle-right" /> {elements.join(` · `)}
-        </Link>
-      </div>
+      <React.Fragment>
+        {visibleExperiments}
+        <Collapse isOpen={collapse}>{hiddenExperiments}</Collapse>
+        {collapse ? (
+          <a href="#" color="primary" onClick={toggleCollapse}>
+            <i className="fa fa-minus-circle" /> Less
+          </a>
+        ) : (
+          <a href="#" color="primary" onClick={toggleCollapse}>
+            <i className="fa fa-plus-circle" /> {experiments.length - 5} more
+          </a>
+        )}
+      </React.Fragment>
     );
-  });
+  }
+
+  return experiments.map(ExperimentsListItem);
+};
 
 ExperimentsList.propTypes = {
   experiments: PropTypes.array,
+  expandable: PropTypes.bool,
 };
 
-export default withRouter(ExperimentsList);
+export default ExperimentsList;

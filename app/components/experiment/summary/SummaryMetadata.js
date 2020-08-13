@@ -66,7 +66,10 @@ class SummaryMetadata extends React.Component<*> {
                 <td>Closest relatives</td>
                 <td>
                   {experimentNearestNeigbours && (
-                    <ExperimentsList experiments={experimentNearestNeigbours} />
+                    <ExperimentsList
+                      experiments={experimentNearestNeigbours}
+                      expandable
+                    />
                   )}
                 </td>
               </tr>
