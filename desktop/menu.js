@@ -4,7 +4,8 @@ import { Menu, shell } from 'electron';
 import type { BrowserWindow } from 'electron';
 
 import { DEBUG, IS_MAC } from './constants';
-const { productName } = require('./build/package.json');
+
+const { productName } = require('./resources/package.json');
 
 export const createMenu = (options: any) => {
   const template = getMenuTemplate(options);
@@ -210,7 +211,7 @@ const getMenuTemplate = ({
           {
             label: 'Learn More',
             click() {
-              shell.openExternal('http://www.mykrobe.com/');
+              shell.openExternal('https://www.mykrobe.com/');
             },
           },
         ],
@@ -310,7 +311,7 @@ const getMenuTemplate = ({
         {
           label: 'Learn More',
           click() {
-            shell.openExternal('http://www.mykrobe.com/');
+            shell.openExternal('https://www.mykrobe.com/');
           },
         },
       ],
