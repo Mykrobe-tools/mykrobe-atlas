@@ -212,9 +212,18 @@ export default reducer;
 
 // Side effects
 
-export function* createExperimentId(): Saga {
+export function* createExperimentId(fileName: string): Saga {
   // create an id for the experiment
-  yield put(createEntity());
+  // set the file name as isolateId
+  yield put(
+    createEntity({
+      metadata: {
+        sample: {
+          isolateId: fileName,
+        },
+      },
+    })
+  );
   const { success } = yield race({
     success: take(actionTypes.CREATE_SUCCESS),
     failure: take(actionTypes.CREATE_FAILURE),
