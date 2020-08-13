@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import Experiments from './Experiments';
 
+import withExperiment from '../../hoc/withExperiment';
 import withExperiments from '../../hoc/withExperiments';
 import withExperimentsHighlighted from '../../hoc/withExperimentsHighlighted';
 import withCurrentUser from '../../hoc/withCurrentUser';
@@ -41,5 +42,5 @@ class ExperimentsContainer extends React.Component<*> {
 }
 
 export default withExperimentsHighlighted(
-  withExperiments(withCurrentUser(ExperimentsContainer))
+  withExperiments(withExperiment(withCurrentUser(ExperimentsContainer)))
 );

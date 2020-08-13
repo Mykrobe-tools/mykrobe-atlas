@@ -63,6 +63,7 @@ class ExperimentsTable extends React.Component<*> {
     const { setSelected } = this.props;
     setSelected(e.target.checked ? '*' : undefined);
   };
+
   onRowCheckChanged = (id: string, e: any) => {
     const { selected, setSelected } = this.props;
     if (e.target.checked) {
@@ -76,6 +77,7 @@ class ExperimentsTable extends React.Component<*> {
       setSelected(newSelected.length > 0 ? newSelected : undefined);
     }
   };
+
   headings = () => {
     const { selected } = this.props;
     const allSelected = (selected && selected === '*') || false;
@@ -135,8 +137,9 @@ class ExperimentsTable extends React.Component<*> {
       },
     ];
   };
+
   renderRow = (experiment: any) => {
-    const { selected, currentUser } = this.props;
+    const { selected, currentUser, onDelete } = this.props;
     const allSelected = (selected && selected === '*') || false;
     let { id, created, modified, results, owner } = experiment;
     const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
@@ -217,10 +220,19 @@ class ExperimentsTable extends React.Component<*> {
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem tag={Link} to={`/experiments/${id}`}>
-                  View
+                  <i className="fa fa-chevron-circle-right" /> View
                 </DropdownItem>
                 <DropdownItem tag={Link} to={`/experiments/${id}/metadata`}>
-                  Edit
+                  <i className="fa fa-pencil" /> Edit
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem
+                  onClick={() => {
+                    onDelete(experiment);
+                  }}
+                  className="btn-outline-danger"
+                >
+                  <i className="fa fa-trash" /> Delete
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
