@@ -64,13 +64,15 @@ export function* uploadBoxWorker(): Saga {
   if (!files) {
     return;
   }
-  const experimentId = yield call(createExperimentId);
+  const name = files[0].name;
+  const path = files[0].url;
+  const experimentId = yield call(createExperimentId, name);
   if (!experimentId) {
     return;
   }
   const experimentFile = {
-    name: files[0].name,
-    path: files[0].url,
+    name,
+    path,
     provider: 'box',
   };
   yield put(

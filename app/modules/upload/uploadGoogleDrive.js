@@ -106,13 +106,15 @@ export function* uploadGoogleDriveWorker(): Saga {
     fileId: id,
   });
   const response = yield call(executeRequest, request);
-  const experimentId = yield call(createExperimentId);
+  const name = response.name;
+  const path = `https://www.googleapis.com/drive/v3/files/${id}?alt=media`;
+  const experimentId = yield call(createExperimentId, name);
   if (!experimentId) {
     return;
   }
   const experimentFile = {
-    name: response.name,
-    path: `https://www.googleapis.com/drive/v3/files/${id}?alt=media`,
+    name,
+    path,
     accessToken: window.gapi.auth.getToken().access_token,
     provider: 'googleDrive',
   };
