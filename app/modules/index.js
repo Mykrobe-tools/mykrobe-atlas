@@ -22,14 +22,17 @@ import {
   setConfig as setAuthConfig,
   actions as authActions,
 } from 'makeandship-js-common/src/modules/auth';
-
 import api, {
   rootApiSaga,
   setConfig as setApiConfig,
   jsonApiActions,
 } from 'makeandship-js-common/src/modules/api';
+import {
+  reducer as query,
+  saga as querySaga,
+  setConfig as setQueryConfig,
+} from 'makeandship-js-common/src/modules/query';
 import form from 'makeandship-js-common/src/modules/form';
-
 import { createAxiosFetcher } from 'makeandship-js-common/src/modules/fetchers/axiosFetcher';
 import jsendResponseTransformer from 'makeandship-js-common/src/modules/transformers/jsendResponseTransformer';
 import { createAxiosAuthInterceptor } from 'makeandship-js-common/src/modules/auth/interceptors/axiosAuthInterceptor';
@@ -74,6 +77,10 @@ setAuthConfig({
   provider,
 });
 
+setQueryConfig({
+  fetcher,
+});
+
 setApiConfig({
   fetcher,
   apiUrl: window.env?.REACT_APP_API_URL,
@@ -90,12 +97,14 @@ export const rootReducer = (history: any) =>
     experiments,
     notifications,
     organisations,
+    query,
     upload,
     networkStatus,
   });
 
 const sagas = [
   authSaga,
+  querySaga,
   rootApiSaga,
   rootNotificationsSaga,
   rootUsersSaga,

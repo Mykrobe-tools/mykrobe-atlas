@@ -25,6 +25,7 @@ export type AnalyserJsonTransformerResult = {
   samples?: any,
   tree?: any,
   error?: any,
+  distance?: any,
 };
 
 class AnalyserJsonTransformer {
