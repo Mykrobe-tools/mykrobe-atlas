@@ -3,7 +3,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import _isEqual from 'lodash.isequal';
-import _get from 'lodash.get';
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -185,6 +184,19 @@ class Phylogeny extends React.Component<*, State> {
       marginLeft: `${controlsInset}px`,
       marginRight: `${controlsInset}px`,
     };
+
+    const experimentsHighlightedInTreeByLeafId = {};
+    if (experimentsHighlightedInTree) {
+      experimentsHighlightedInTree.forEach((experiment) => {
+        if (!experimentsHighlightedInTreeByLeafId[experiment.leafId]) {
+          experimentsHighlightedInTreeByLeafId[experiment.leafId] = [];
+        }
+        experimentsHighlightedInTreeByLeafId[experiment.leafId].push(
+          experiment
+        );
+      });
+    }
+
     return (
       <div className={styles.container}>
         <div className={styles.contentContainer} ref={this.onContainerRef}>
@@ -277,21 +289,23 @@ class Phylogeny extends React.Component<*, State> {
           )}
 
           {experimentsHighlightedInTree &&
-            experimentsHighlightedInTree.map((experiment) => {
-              const leafId = experiment?.leafId;
-              const experimentsTooltipLocation = this.screenPositionForNodeId(
-                leafId
-              );
-              return (
-                <ExperimentsTooltip
-                  key={leafId}
-                  experiments={[experiment]}
-                  x={experimentsTooltipLocation.x}
-                  y={experimentsTooltipLocation.y}
-                  onClickOutside={this.onExperimentsTooltipClickOutside}
-                />
-              );
-            })}
+            Object.entries(experimentsHighlightedInTreeByLeafId).map(
+              ([leafId, experiments]) => {
+                const experimentsTooltipLocation = this.screenPositionForNodeId(
+                  leafId
+                );
+                console.log({ leafId, experiments });
+                return (
+                  <ExperimentsTooltip
+                    key={leafId}
+                    experiments={experiments}
+                    x={experimentsTooltipLocation.x}
+                    y={experimentsTooltipLocation.y}
+                    onClickOutside={this.onExperimentsTooltipClickOutside}
+                  />
+                );
+              }
+            )}
         </div>
       </div>
     );
