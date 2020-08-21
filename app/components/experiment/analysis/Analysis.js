@@ -37,7 +37,7 @@ class Analysis extends React.Component<*> {
       experimentsHighlightedNotInTree,
       experimentsHighlightedWithGeolocation,
       experimentsHighlightedWithoutGeolocation,
-      experimentTreeNearestNeigbours,
+      experimentNearestNeigbours,
     } = this.props;
     let content;
     if (isBusyWithCurrentRoute) {
@@ -71,13 +71,13 @@ class Analysis extends React.Component<*> {
               {EXPERIMENTAL_RENDER_TREE_NEIGHBOURS ? (
                 <Phylogeny
                   experimentsTreeNewick={experimentsTreeNewick}
-                  experiments={experimentTreeNearestNeigbours}
+                  experiments={experimentNearestNeigbours}
                   experimentsHighlighted={experimentsHighlighted}
                   experimentsHighlightedInTree={experimentsHighlightedInTree}
                   experimentsHighlightedNotInTree={
                     experimentsHighlightedNotInTree
                   }
-                  experimentsInTree={experimentTreeNearestNeigbours}
+                  experimentsInTree={experimentNearestNeigbours}
                   experimentsNotInTree={[]}
                   setExperimentsHighlighted={setExperimentsHighlighted}
                   resetExperimentsHighlighted={resetExperimentsHighlighted}

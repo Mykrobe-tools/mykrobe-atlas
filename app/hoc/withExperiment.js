@@ -25,7 +25,6 @@ import {
   getExperimentsTree,
   getExperimentsTreeNewick,
   getExperimentTransformed,
-  getExperimentTreeNearestNeigbours,
   newExperiment,
   requestExperiment,
   requestExperimentMetadataTemplate,
@@ -65,7 +64,6 @@ const withExperiment = connect(
     experimentInTree: getExperimentInTree(state),
     experimentNotInTree: getExperimentNotInTree(state),
     isFetchingExperiment: getIsFetchingExperiment(state),
-    experimentTreeNearestNeigbours: getExperimentTreeNearestNeigbours(state),
   }),
   {
     newExperiment,
@@ -102,7 +100,6 @@ export const withExperimentPropTypes = {
   experimentInTree: PropTypes.array,
   experimentNotInTree: PropTypes.array,
   isFetchingExperiment: PropTypes.bool,
-  experimentTreeNearestNeigbours: PropTypes.array,
 };
 
 export default withExperiment;
