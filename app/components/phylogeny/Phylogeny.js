@@ -228,7 +228,7 @@ class Phylogeny extends React.Component<*, State> {
             {hasExperimentsNotInTree && (
               <UncontrolledDropdown>
                 <DropdownToggle color="mid" outline size={'sm'}>
-                  {experimentsNotInTree.length} not shown{' '}
+                  {experimentsNotInTree.length} not on tree{' '}
                   <i className="fa fa-caret-down" />
                 </DropdownToggle>
                 <DropdownMenu>
