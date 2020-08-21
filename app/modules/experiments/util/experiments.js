@@ -9,11 +9,15 @@ export const experimentsInTree = (
   experiments,
   inTree = true
 ) => {
+  console.log('experimentsInTree', { experimentsTree, experiments });
   return (
     experiments &&
     experiments.filter((experiment) => {
-      const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
-      const contains = newickContainsNodeId(experimentsTree, isolateId);
+      const leafId = experiment?.leafId;
+      let contains = false;
+      if (leafId) {
+        contains = newickContainsNodeId(experimentsTree, leafId);
+      }
       if (contains) {
         return inTree;
       }

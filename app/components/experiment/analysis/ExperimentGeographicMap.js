@@ -381,7 +381,7 @@ class ExperimentGeographicMap extends React.Component<*, State> {
           <div className={styles.controlsContainerTop}>
             <UncontrolledDropdown>
               <DropdownToggle color="mid" outline size={'sm'}>
-                {experimentsWithoutGeolocation.length} not shown{' '}
+                {experimentsWithoutGeolocation.length} no location{' '}
                 <i className="fa fa-caret-down" />
               </DropdownToggle>
               <DropdownMenu>

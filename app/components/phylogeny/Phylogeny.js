@@ -3,7 +3,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import _isEqual from 'lodash.isequal';
-import _get from 'lodash.get';
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -47,15 +46,12 @@ class Phylogeny extends React.Component<*, State> {
     treeType: 'circular',
   };
 
-  nodeIsInSamplesToHighlight = (node) => {
-    return this.getSampleIds().includes(node.id);
-  };
-
   onNodeMouseOver = (node) => {
-    const { setExperimentsHighlighted } = this.props;
-    if (this.nodeIsInSamplesToHighlight(node)) {
-      setExperimentsHighlighted([this.getSampleWithId(node.id)]);
-    }
+    const { experiments, setExperimentsHighlighted } = this.props;
+    const experimentsForNode = experiments.filter(
+      (experiment) => experiment.leafId === node.id
+    );
+    setExperimentsHighlighted(experimentsForNode);
   };
 
   onNodeMouseOut = () => {};
@@ -99,12 +95,12 @@ class Phylogeny extends React.Component<*, State> {
     }
     this._phyloCanvas.resetHighlightedNodes();
     experimentsInTree.forEach((experiment, index) => {
-      const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
+      const leafId = experiment?.leafId;
       const color =
         index === 0
           ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
           : Colors.COLOR_HIGHLIGHT_EXPERIMENT;
-      this._phyloCanvas.highlightNodeWithId(isolateId, color);
+      this._phyloCanvas.highlightNodeWithId(leafId, color);
     });
   };
 
@@ -188,6 +184,19 @@ class Phylogeny extends React.Component<*, State> {
       marginLeft: `${controlsInset}px`,
       marginRight: `${controlsInset}px`,
     };
+
+    const experimentsHighlightedInTreeByLeafId = {};
+    if (experimentsHighlightedInTree) {
+      experimentsHighlightedInTree.forEach((experiment) => {
+        if (!experimentsHighlightedInTreeByLeafId[experiment.leafId]) {
+          experimentsHighlightedInTreeByLeafId[experiment.leafId] = [];
+        }
+        experimentsHighlightedInTreeByLeafId[experiment.leafId].push(
+          experiment
+        );
+      });
+    }
+
     return (
       <div className={styles.container}>
         <div className={styles.contentContainer} ref={this.onContainerRef}>
@@ -219,7 +228,7 @@ class Phylogeny extends React.Component<*, State> {
             {hasExperimentsNotInTree && (
               <UncontrolledDropdown>
                 <DropdownToggle color="mid" outline size={'sm'}>
-                  {experimentsNotInTree.length} not shown{' '}
+                  {experimentsNotInTree.length} not on tree{' '}
                   <i className="fa fa-caret-down" />
                 </DropdownToggle>
                 <DropdownMenu>
@@ -280,21 +289,23 @@ class Phylogeny extends React.Component<*, State> {
           )}
 
           {experimentsHighlightedInTree &&
-            experimentsHighlightedInTree.map((experiment) => {
-              const isolateId = _get(experiment, 'metadata.sample.isolateId');
-              const experimentsTooltipLocation = this.screenPositionForNodeId(
-                isolateId
-              );
-              return (
-                <ExperimentsTooltip
-                  key={isolateId}
-                  experiments={[experiment]}
-                  x={experimentsTooltipLocation.x}
-                  y={experimentsTooltipLocation.y}
-                  onClickOutside={this.onExperimentsTooltipClickOutside}
-                />
-              );
-            })}
+            Object.entries(experimentsHighlightedInTreeByLeafId).map(
+              ([leafId, experiments]) => {
+                const experimentsTooltipLocation = this.screenPositionForNodeId(
+                  leafId
+                );
+                console.log({ leafId, experiments });
+                return (
+                  <ExperimentsTooltip
+                    key={leafId}
+                    experiments={experiments}
+                    x={experimentsTooltipLocation.x}
+                    y={experimentsTooltipLocation.y}
+                    onClickOutside={this.onExperimentsTooltipClickOutside}
+                  />
+                );
+              }
+            )}
         </div>
       </div>
     );
@@ -307,28 +318,18 @@ class Phylogeny extends React.Component<*, State> {
 
   getSampleWithId = (nodeId: string): ?SampleType => {
     const { experiments } = this.props;
-    return experiments.find((experiment) => {
-      const isolateId = _get(experiment, 'metadata.sample.isolateId');
-      return isolateId === nodeId;
-    });
-  };
-
-  getSampleIds = (): Array<string> => {
-    const { experiments } = this.props;
-    const isolateIds = experiments
-      .map((experiment) => {
-        const isolateId = _get(experiment, 'metadata.sample.isolateId');
-        return isolateId;
-      })
-      .filter((isolateId) => !!isolateId);
-    return isolateIds;
+    return experiments.find((experiment) => experiment.leafId === nodeId);
   };
 
   zoomSamples = () => {
     if (!this._phyloCanvas) {
       return;
     }
-    this._phyloCanvas.zoomToNodesWithIds(this.getSampleIds());
+    const { experiments } = this.props;
+    const experimentsLeafIds = experiments
+      .map((experiment) => experiment.leafId)
+      .filter(Boolean);
+    this._phyloCanvas.zoomToNodesWithIds(experimentsLeafIds);
   };
 
   static defaultProps = {

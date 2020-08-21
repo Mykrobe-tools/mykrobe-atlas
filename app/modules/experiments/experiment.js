@@ -118,19 +118,11 @@ export const getExperimentNotInTree = createSelector(
   (newick, experiment) => experimentsInTree(newick, [experiment], false)
 );
 
-// tree distance
-
-export const getExperimentTreeNearestNeigbours = createSelector(
-  getExperiment,
-  (experiment) => _get(experiment, 'results.distance-tree-distance.experiments')
-);
-
 // nearest neighbours
 
 export const getExperimentNearestNeigbours = createSelector(
   getExperiment,
-  (experiment) =>
-    _get(experiment, 'results.distance-nearest-neighbour.experiments')
+  (experiment) => _get(experiment, 'results.distance.experiments')
 );
 
 export const getExperimentHasNearestNeigbours = createSelector(
@@ -165,6 +157,10 @@ export const getExperimentAndNearestNeigbours = createSelector(
     if (experimentNearestNeigbours) {
       experiments = experiments.concat(experimentNearestNeigbours);
     }
+    console.log('getExperimentAndNearestNeigbours', {
+      experiment,
+      experiments,
+    });
     return experiments;
   }
 );
@@ -174,7 +170,13 @@ export const getExperimentAndNearestNeigbours = createSelector(
 export const getExperimentAndNearestNeigboursInTree = createSelector(
   getExperimentsTreeNewick,
   getExperimentAndNearestNeigbours,
-  (newick, experiments) => experimentsInTree(newick, experiments, true)
+  (newick, experiments) => {
+    console.log('getExperimentAndNearestNeigboursInTree', {
+      newick,
+      experiments,
+    });
+    return experimentsInTree(newick, experiments, true);
+  }
 );
 
 export const getExperimentAndNearestNeigboursNotInTree = createSelector(

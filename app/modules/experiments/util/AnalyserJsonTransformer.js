@@ -22,8 +22,6 @@ export type AnalyserJsonTransformerResult = {
     mdr: boolean,
     xdr: boolean,
   },
-  samples?: any,
-  tree?: any,
   error?: any,
 };
 
@@ -70,38 +68,20 @@ class AnalyserJsonTransformer {
       const transformedSampleModel = this.transformSampleModel(sampleModel);
       return transformedSampleModel;
     }
-    if (sourceModel.snpDistance) {
-      // just do the first one for now
-      const sampleIds = Object.keys(sourceModel.snpDistance.newick);
+    // only one sample from Predictor
+    const sampleIds = Object.keys(sourceModel);
+    if (sampleIds.length === 1) {
       const sampleId = sampleIds[0];
-
-      const sampleModel = sourceModel.snpDistance.newick[sampleId];
-
-      const transformedSampleModel = this.transformSampleModel(
-        sampleModel,
-        sourceModel.geoDistance.experiments
-      );
-
-      return transformedSampleModel;
-    } else {
-      // only one sample from Predictor
-      const sampleIds = Object.keys(sourceModel);
-      if (sampleIds.length === 1) {
-        const sampleId = sampleIds[0];
-        const sampleModel = sourceModel[sampleId];
-        const transformedSampleModel = this.transformSampleModel(sampleModel);
-        return transformedSampleModel;
-      }
-      // Already unwrapped
-      const transformedSampleModel = this.transformSampleModel(sourceModel);
+      const sampleModel = sourceModel[sampleId];
+      const transformedSampleModel = this.transformSampleModel(sampleModel);
       return transformedSampleModel;
     }
+    // Already unwrapped
+    const transformedSampleModel = this.transformSampleModel(sourceModel);
+    return transformedSampleModel;
   }
 
-  transformSampleModel(
-    sourceModel: Object,
-    relatedModels: ?Array<Object>
-  ): AnalyserJsonTransformerResult {
+  transformSampleModel(sourceModel: Object): AnalyserJsonTransformerResult {
     let transformed: AnalyserJsonTransformerResult = {};
     // return empty object if there is no data to parse
     if (
@@ -222,23 +202,6 @@ class AnalyserJsonTransformer {
     }
 
     transformed.drugsResistance = drugsResistance;
-
-    // tree and neighbours
-    if (sourceModel.neighbours && relatedModels) {
-      let neighbourKeys = Object.keys(sourceModel.neighbours);
-      let samples = {};
-      for (let i = 0; i < 2; i++) {
-        const neighbour = sourceModel.neighbours[neighbourKeys[i]];
-        let keys = Object.keys(neighbour);
-        let neighbourSampleModel = relatedModels[i];
-        let sampleId: string = keys[0];
-        neighbourSampleModel.id = sampleId;
-        samples[sampleId] = neighbourSampleModel;
-      }
-      transformed.samples = samples;
-
-      transformed.tree = sourceModel.tree;
-    }
 
     return transformed;
   }

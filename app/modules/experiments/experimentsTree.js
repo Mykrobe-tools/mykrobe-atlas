@@ -26,7 +26,10 @@ const {
 
 export const getExperimentsTreeNewick = createSelector(
   getExperimentsTree,
-  (experimentsTree) => _get(experimentsTree, 'tree')
+  (experimentsTree) => {
+    console.log('getExperimentsTreeNewick', { experimentsTree });
+    return _get(experimentsTree, 'tree');
+  }
 );
 
 export {
