@@ -35,7 +35,7 @@ const loadDropbox = async () => {
       {
         attrs: {
           id: SCRIPT_ID,
-          'data-app-key': window.env?.REACT_APP_DROPBOX_APP_KEY,
+          'data-app-key': window.env.REACT_APP_DROPBOX_APP_KEY,
         },
       },
       (error) => {

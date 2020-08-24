@@ -21,7 +21,7 @@ describe('experiments module', () => {
   });
 
   it('should handle "requestExperiments" action', async () => {
-    nock(window.env?.REACT_APP_API_URL)
+    nock(window.env.REACT_APP_API_URL)
       .get('/experiments/search')
       .query(true)
       .reply(200, data);
