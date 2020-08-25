@@ -9,6 +9,7 @@ import { Collapse } from 'reactstrap';
 import styles from './ExperimentsList.module.scss';
 
 const ExperimentsListItem = ({
+  highlighted,
   id,
   distance,
   metadata,
@@ -17,10 +18,12 @@ const ExperimentsListItem = ({
   const countryIsolate = _get(metadata, 'sample.countryIsolate');
   // const cityIsolate = _get(metadata, 'sample.cityIsolate') || '–';
   const elements = [isolateId];
-  distance && elements.push(`${distance} SNPs`);
+  distance !== undefined && elements.push(`${distance} SNPs`);
   countryIsolate && elements.push(countryIsolate);
   return (
-    <div className={styles.experiment} key={id}>
+    <div
+      className={highlighted ? styles.experimentHighlighted : styles.experiment}
+    >
       <Link to={`/experiments/${id}/analysis`}>
         <i className="fa fa-chevron-circle-right" /> {elements.join(` · `)}
       </Link>
@@ -29,6 +32,7 @@ const ExperimentsListItem = ({
 };
 
 const ExperimentsList = ({
+  experiment,
   experiments = [],
   expandable = false,
 }: React.ElementProps<*>): React.Element<*> | null => {
@@ -60,10 +64,22 @@ const ExperimentsList = ({
     );
   }
 
-  return experiments.map(ExperimentsListItem);
+  console.log({ experiment, experiments });
+
+  return experiments.map((experimentItem) => {
+    const highlighted = experimentItem?.id === experiment?.id;
+    return (
+      <ExperimentsListItem
+        key={experimentItem.id}
+        highlighted={highlighted}
+        {...experimentItem}
+      />
+    );
+  });
 };
 
 ExperimentsList.propTypes = {
+  experiment: PropTypes.any,
   experiments: PropTypes.array,
   expandable: PropTypes.bool,
 };

@@ -33,7 +33,7 @@ class ExperimentsTooltip extends React.PureComponent<*> {
   };
 
   render() {
-    const { x, y, experiments } = this.props;
+    const { x, y, experiment, experiments } = this.props;
     if (!experiments || !experiments.length) {
       return null;
     }
@@ -46,7 +46,10 @@ class ExperimentsTooltip extends React.PureComponent<*> {
         <div className={styles.tooltipWrapper}>
           <div className={styles.tooltipContainer}>
             <div className={styles.tooltipContent}>
-              <ExperimentsList experiments={experiments} />
+              <ExperimentsList
+                experiment={experiment}
+                experiments={experiments}
+              />
             </div>
           </div>
         </div>

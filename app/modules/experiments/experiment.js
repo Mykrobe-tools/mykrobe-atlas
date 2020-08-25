@@ -122,7 +122,16 @@ export const getExperimentNotInTree = createSelector(
 
 export const getExperimentNearestNeigbours = createSelector(
   getExperiment,
-  (experiment) => _get(experiment, 'results.distance.experiments')
+  (experiment) => {
+    const neighbours = _get(experiment, 'results.distance.experiments');
+    // omit current sample if included
+    if (neighbours) {
+      const filtered = neighbours.filter(
+        (neighbour) => neighbour.id !== experiment.id
+      );
+      return filtered;
+    }
+  }
 );
 
 export const getExperimentHasNearestNeigbours = createSelector(

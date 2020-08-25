@@ -23,6 +23,7 @@ export const DEFAULT_LAT = 51.5074;
 export const DEFAULT_LNG = 0.1278;
 
 const ExperimentGeographicMap = ({
+  experiment,
   experimentIsolateId,
   experimentsHighlightedWithGeolocation,
   experimentsWithGeolocation,
@@ -320,6 +321,7 @@ const ExperimentGeographicMap = ({
       tooltips.push(
         <ExperimentsTooltip
           key={key}
+          experiment={experiment}
           experiments={experiments}
           x={tooltipLocation.x}
           y={tooltipLocation.y}
