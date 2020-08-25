@@ -64,6 +64,14 @@ const ExperimentGeographicMap = ({
     return screenPosition;
   });
 
+  const zoomToMarkers = React.useCallback(() => {
+    let bounds = new googleRef.current.maps.LatLngBounds();
+    markersRef.current.forEach((marker) => {
+      bounds.extend(marker.getPosition());
+    });
+    mapRef.current.fitBounds(bounds);
+  });
+
   const onMarkerClusterMouseOver = React.useCallback(
     (markerCluster) => {
       console.log('onMarkerClusterMouseOver', markerCluster);
@@ -136,6 +144,7 @@ const ExperimentGeographicMap = ({
       markersRef.current.push(marker);
     });
     markerClusterer.addMarkers(markersRef.current);
+    zoomToMarkers();
   }, [markerClusterer, experimentsWithGeolocation]);
 
   const onProjectionChanged = React.useCallback(() => {
