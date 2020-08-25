@@ -263,18 +263,51 @@ const ExperimentGeographicMap = ({
   }, [ref]);
 
   const tooltips = React.useMemo(() => {
+    let tooltips = {};
     console.log('Here we go');
+    console.log({ markerClusterer, experimentsHighlightedWithGeolocation });
     if (markerClusterer && experimentsHighlightedWithGeolocation) {
       const markerClusters = markerClusterer.getClusters();
       console.log({ markerClusters });
       experimentsHighlightedWithGeolocation.forEach((experimentHighlighted) => {
-        markerClusters.forEach((markerCluster) => {
+        let handled = false;
+        markerClusters.some((markerCluster) => {
+          const center = markerCluster.getCenter();
           const markers = markerCluster.getMarkers();
           const experiments = markers.map((marker) => marker.get('experiment'));
           if (experiments.includes(experimentHighlighted)) {
             console.log('Within cluster:', experimentHighlighted);
+            // show from cluster
+            const key = JSON.stringify(center);
+            if (!tooltips[key]) {
+              tooltips[key] = [];
+            }
+            tooltips[key].push(experimentHighlighted);
+            handled = true;
           }
+          return handled;
         });
+        if (!handled) {
+          // show individually
+          const markers = markerClusterer.getMarkers();
+          const marker = markers.find((marker) => {
+            const experiment = marker.get('experiment');
+            return experiment === experimentHighlighted;
+          });
+          if (marker) {
+            const position = marker.getPosition();
+            const key = JSON.stringify(position);
+            if (!tooltips[key]) {
+              tooltips[key] = [];
+            }
+            tooltips[key].push(experimentHighlighted);
+          } else {
+            console.log(
+              'Could not find marker for experiment',
+              experimentHighlighted
+            );
+          }
+        }
       });
 
       // experimentsHighlightedWithGeolocation.forEach((experiment) => {
@@ -283,6 +316,7 @@ const ExperimentGeographicMap = ({
     } else {
       console.log('Nope');
     }
+    return tooltips;
   }, [
     markerClusterer,
     experimentsHighlightedWithGeolocation,
