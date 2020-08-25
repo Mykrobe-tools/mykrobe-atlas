@@ -37,15 +37,24 @@ const ExperimentGeographicMap = ({
     experimentsWithoutGeolocation && experimentsWithoutGeolocation.length
   );
 
+  // refs for instance and storage
+  // ref to the div that the map will render into
   const ref: { current: null | HTMLDivElement } = React.useRef(null);
+  // google class instance
   const googleRef = React.useRef(null);
-  const markersRef = React.useRef([]);
+  // map instance
   const mapRef = React.useRef(null);
+  // map overlay instance (used to compute pixel coordinates)
   const overlayRef = React.useRef(null);
+  // array of markers
+  const markersRef = React.useRef([]);
 
+  // state values that may cause re-render
   const [markerClusterer, setMarkerClusterer] = React.useState(null);
   const [projection, setProjection] = React.useState(null);
   const [bounds, setBounds] = React.useState(null);
+
+  // conversion from lat / lng to screen position pixels
 
   const fromLatLngToPoint = React.useCallback(
     (latLng: any) => {
@@ -75,6 +84,8 @@ const ExperimentGeographicMap = ({
     return screenPosition;
   });
 
+  // zoom to fit markers in current viewport
+
   const zoomToMarkers = React.useCallback(() => {
     if (!mapRef.current || !googleRef.current) {
       return;
@@ -85,6 +96,8 @@ const ExperimentGeographicMap = ({
     });
     mapRef.current.fitBounds(bounds);
   });
+
+  // marker user interaction handlers
 
   const onMarkerClusterMouseOver = React.useCallback(
     (markerCluster) => {
@@ -102,6 +115,8 @@ const ExperimentGeographicMap = ({
     },
     [setExperimentsHighlighted]
   );
+
+  // update the markers on the map when the clusterer or experiments change
 
   React.useEffect(() => {
     if (!mapRef.current || !markerClusterer || !googleRef.current) {
@@ -140,6 +155,7 @@ const ExperimentGeographicMap = ({
         position: new googleRef.current.maps.LatLng(lat, lng),
         map: mapRef.current,
       });
+      // custom marker value that can be retreived
       marker.setValues({ experiment });
       marker.addListener('mouseover', () => {
         onMarkerMouseOver(marker);
@@ -147,9 +163,11 @@ const ExperimentGeographicMap = ({
       markersRef.current.push(marker);
     });
     markerClusterer.addMarkers(markersRef.current);
+    // when markers are updated, fit to viewport
     zoomToMarkers();
   }, [markerClusterer, experimentsWithGeolocation]);
 
+  // map projection change should cause tooltip position re-render
   const onProjectionChanged = React.useCallback(() => {
     if (!mapRef.current) {
       return;
@@ -158,6 +176,7 @@ const ExperimentGeographicMap = ({
     setProjection(projection);
   }, [setProjection]);
 
+  // map bounds change should cause tooltip position re-render
   const onBoundsChanged = React.useCallback(() => {
     if (!mapRef.current) {
       return;
@@ -166,6 +185,7 @@ const ExperimentGeographicMap = ({
     setBounds(bounds);
   }, [setBounds]);
 
+  // idle event after zoom animation - cause tooltip position re-render
   const onIdle = React.useCallback(() => {
     if (!mapRef.current) {
       return;
@@ -176,14 +196,17 @@ const ExperimentGeographicMap = ({
     setProjection(projection);
   }, [setBounds]);
 
+  // click on the map - unset highlight
   const onClick = React.useCallback(() => {
     setExperimentsHighlighted([]);
   }, [setExperimentsHighlighted]);
 
+  // determine what text and which style to use for each marker cluster
   const markerClustererCalculator = React.useCallback(
-    (markers, numStyles) => {
+    (markers) => {
       const text = `${markers.length}`;
       let highlighted = false;
+      // check if this cluser contains the current experiment
       markers.some((marker) => {
         const markerExperiment = marker.get('experiment');
         if (experiment.id === markerExperiment.id) {
@@ -191,13 +214,14 @@ const ExperimentGeographicMap = ({
         }
         return highlighted;
       });
+      // if so, use the highlight style
       const index = highlighted ? 2 : 1;
-      console.log(numStyles);
       return { text, index };
     },
     [experiment]
   );
 
+  // using a callback to set the google ref gives a way to cleanup previous events
   const setGoogleRef = React.useCallback((google) => {
     if (googleRef.current) {
       googleRef.current.maps.event.removeListener(onMarkerClusterMouseOver);
@@ -225,6 +249,7 @@ const ExperimentGeographicMap = ({
     });
     mapRef.current = googleMap;
 
+    // overlay is used to calculate pixel positions
     const overlay = new googleRef.current.maps.OverlayView();
     overlay.setMap(mapRef.current);
     overlayRef.current = overlay;
@@ -276,9 +301,11 @@ const ExperimentGeographicMap = ({
 
     googleRef.current.maps.event.addListener(mapRef.current, 'click', onClick);
 
+    // this will trigger the side-effect which updates markers and initialises zoom
     setMarkerClusterer(clusterer);
   });
 
+  // initialisation once the map div ref is known
   React.useEffect(() => {
     const initMaps = async () => {
       const options: LoaderOptions = {
@@ -295,6 +322,7 @@ const ExperimentGeographicMap = ({
     }
   }, [ref]);
 
+  // derive the tooltips and their positions
   const tooltips = React.useMemo(() => {
     let experimentsByLatLng = {};
     if (
