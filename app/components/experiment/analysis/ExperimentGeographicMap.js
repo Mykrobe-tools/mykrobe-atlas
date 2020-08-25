@@ -19,15 +19,19 @@ export const DEFAULT_LNG = 0.1278;
 
 const ExperimentGeographicMap = ({
   experiments,
+  experimentsHighlightedWithGeolocation,
   experimentsWithGeolocation,
   experimentsWithoutGeolocation,
   setExperimentsHighlighted,
 }: React.ElementProps<*>): React.Element<*> => {
   const ref = React.useRef(null);
   const googleRef = React.useRef(null);
-  const markersRef = React.useRef(null);
-  const markerClustererRef = React.useRef(null);
+  const markersRef = React.useRef([]);
   const mapRef = React.useRef(null);
+
+  const [markerClusterer, setMarkerClusterer] = React.useState(null);
+  const [projection, setProjection] = React.useState(null);
+  const [bounds, setBounds] = React.useState(null);
 
   const fromLatLngToPoint = React.useCallback((latLng: any) => {
     if (!mapRef.current) {
@@ -106,19 +110,16 @@ const ExperimentGeographicMap = ({
     [setExperimentsHighlighted]
   );
 
-  const updateMarkers = React.useCallback(() => {
+  React.useEffect(() => {
     console.log('Updating markers');
-    if (!mapRef.current || !markerClustererRef.current || !googleRef.current) {
+    if (!mapRef.current || !markerClusterer || !googleRef.current) {
       console.log('Bailed');
       return;
     }
-    // if (markersRef.current) {
-    //   for (let markerKey in markersRef.current) {
-    //     const marker = markersRef.current[markerKey];
-    //     marker.setMap(null);
-    //   }
-    // }
-    markerClustererRef.current.clearMarkers();
+    markersRef.current.forEach((marker) => {
+      marker.setMap(null);
+    });
+    markerClusterer.clearMarkers();
     markersRef.current = [];
     experimentsWithGeolocation.forEach((experiment, index) => {
       const longitudeIsolate = _get(
@@ -156,25 +157,32 @@ const ExperimentGeographicMap = ({
       marker.addListener('mouseover', () => {
         onMarkerMouseOver(marker);
       });
-
       // marker.addListener('mouseout', () => {
       //   setNodeHighlighted(experiment.id, false);
       // });
       markersRef.current.push(marker);
     });
-    markerClustererRef.current.addMarkers(markersRef.current);
+    markerClusterer.addMarkers(markersRef.current);
     console.log('markersRef.current', markersRef.current);
-    console.log('markerClustererRef.current', markerClustererRef.current);
+    console.log('markerClusterer', markerClusterer);
     // this.zoomToMarkers();
-  }, [experimentsWithGeolocation]);
+  }, [markerClusterer, experimentsWithGeolocation]);
 
-  React.useEffect(() => {
-    updateMarkers();
-  }, [experimentsWithGeolocation]);
+  const onProjectionChanged = React.useCallback(() => {
+    const projection = mapRef.current.getProjection();
+    setProjection(projection);
+  }, [setProjection]);
+
+  const onBoundsChanged = React.useCallback(() => {
+    const bounds = mapRef.current.getBounds();
+    setBounds(bounds);
+  }, [setBounds]);
 
   const setGoogleRef = React.useCallback((google) => {
     if (googleRef.current) {
       googleRef.current.maps.event.removeListener(onMarkerClusterMouseOver);
+      googleRef.current.maps.event.removeListener(onProjectionChanged);
+      googleRef.current.maps.event.removeListener(onBoundsChanged);
     }
     googleRef.current = google;
 
@@ -195,31 +203,48 @@ const ExperimentGeographicMap = ({
     });
     mapRef.current = googleMap;
 
-    const markerClusterer = new MarkerClusterer(mapRef.current, [], {
+    const clusterer = new MarkerClusterer(mapRef.current, [], {
       averageCenter: true,
       minimumClusterSize: 2,
       styles: [
-        {
+        MarkerClusterer.withDefaultStyle({
           textColor: 'white',
           textSize: 16,
           width: 48,
           height: 48,
           url: makeSvgMarker({ diameter: 48 }),
-        },
+        }),
       ],
     });
-    markerClustererRef.current = markerClusterer;
-
-    console.log('markerClusterer', markerClusterer);
 
     googleRef.current.maps.event.addListener(
-      markerClusterer,
+      clusterer,
       'mouseover',
       onMarkerClusterMouseOver
     );
 
-    updateMarkers();
+    googleRef.current.maps.event.addListenerOnce(
+      mapRef.current,
+      'projection_changed',
+      onProjectionChanged
+    );
+
+    googleRef.current.maps.event.addListener(
+      mapRef.current,
+      'bounds_changed',
+      onBoundsChanged
+    );
+
+    setMarkerClusterer(clusterer);
+
+    console.log('markerClusterer', markerClusterer);
+
+    // updateMarkers();
   });
+
+  // React.useEffect(() => {
+  //   updateMarkers();
+  // }, [experimentsWithGeolocation]);
 
   React.useEffect(() => {
     const initMaps = async () => {
@@ -237,7 +262,40 @@ const ExperimentGeographicMap = ({
     }
   }, [ref]);
 
-  return <div ref={ref} className={styles.map} />;
+  const tooltips = React.useMemo(() => {
+    console.log('Here we go');
+    if (markerClusterer && experimentsHighlightedWithGeolocation) {
+      const markerClusters = markerClusterer.getClusters();
+      console.log({ markerClusters });
+      experimentsHighlightedWithGeolocation.forEach((experimentHighlighted) => {
+        markerClusters.forEach((markerCluster) => {
+          const markers = markerCluster.getMarkers();
+          const experiments = markers.map((marker) => marker.get('experiment'));
+          if (experiments.includes(experimentHighlighted)) {
+            console.log('Within cluster:', experimentHighlighted);
+          }
+        });
+      });
+
+      // experimentsHighlightedWithGeolocation.forEach((experiment) => {
+      //   // is it within a marker?
+      // });
+    } else {
+      console.log('Nope');
+    }
+  }, [
+    markerClusterer,
+    experimentsHighlightedWithGeolocation,
+    bounds,
+    projection,
+  ]);
+
+  return (
+    <div className={styles.mapContainer}>
+      <div ref={ref} className={styles.map} />
+      <pre>{JSON.stringify(tooltips, null, 2)}</pre>
+    </div>
+  );
 };
 
 export default ExperimentGeographicMap;

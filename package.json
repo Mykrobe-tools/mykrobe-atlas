@@ -218,7 +218,7 @@
     "webpack-merge": "^4.2.0"
   },
   "dependencies": {
-    "@google/markerclustererplus": "^2.1.11",
+    "@google/markerclustererplus": "^5.1.0",
     "@reduxjs/toolkit": "^1.4.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.1.0",
