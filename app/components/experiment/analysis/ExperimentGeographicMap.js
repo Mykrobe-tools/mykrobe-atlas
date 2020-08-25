@@ -41,8 +41,10 @@ const ExperimentGeographicMap = ({
       if (!mapRef.current || !overlayRef.current || !projection || !bounds) {
         return { x: 0, y: 0 };
       }
-
       const overlayProjection = overlayRef.current.getProjection();
+      if (!overlayProjection) {
+        return { x: 0, y: 0 };
+      }
       const point = overlayProjection.fromLatLngToContainerPixel(latLng);
       return point;
     },
@@ -148,11 +150,20 @@ const ExperimentGeographicMap = ({
     setBounds(bounds);
   }, [setBounds]);
 
+  const onIdle = React.useCallback(() => {
+    console.log('onIdle');
+    const bounds = mapRef.current.getBounds();
+    const projection = mapRef.current.getProjection();
+    setBounds(bounds);
+    setProjection(projection);
+  }, [setBounds]);
+
   const setGoogleRef = React.useCallback((google) => {
     if (googleRef.current) {
       googleRef.current.maps.event.removeListener(onMarkerClusterMouseOver);
       googleRef.current.maps.event.removeListener(onProjectionChanged);
       googleRef.current.maps.event.removeListener(onBoundsChanged);
+      googleRef.current.maps.event.removeListener(onIdle);
     }
     googleRef.current = google;
 
@@ -208,6 +219,8 @@ const ExperimentGeographicMap = ({
       'bounds_changed',
       onBoundsChanged
     );
+
+    googleRef.current.maps.event.addListener(mapRef.current, 'idle', onIdle);
 
     setMarkerClusterer(clusterer);
 
