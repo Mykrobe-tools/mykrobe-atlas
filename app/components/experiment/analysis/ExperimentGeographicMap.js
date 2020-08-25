@@ -10,6 +10,8 @@ import MarkerClusterer from '@google/markerclustererplus';
 import MapStyle from './MapStyle';
 import makeSvgMarker from './makeSvgMarker';
 
+import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
+
 import * as Colors from '../../../constants/Colors';
 
 import styles from './ExperimentGeographicMap.module.scss';
@@ -33,32 +35,31 @@ const ExperimentGeographicMap = ({
   const [projection, setProjection] = React.useState(null);
   const [bounds, setBounds] = React.useState(null);
 
-  const fromLatLngToPoint = React.useCallback((latLng: any) => {
-    if (!mapRef.current) {
-      return { x: 0, y: 0 };
-    }
-    const TILE_SIZE = 256;
-    const projection = mapRef.current.getProjection();
-    const bounds = mapRef.current.getBounds();
-    if (!projection) {
-      return {
-        x: 0,
-        y: 0,
-      };
-    }
-    const topRight = projection.fromLatLngToPoint(bounds.getNorthEast());
-    const bottomLeft = projection.fromLatLngToPoint(bounds.getSouthWest());
-    const scale = Math.pow(2, mapRef.current.getZoom());
-    const worldPoint = projection.fromLatLngToPoint(latLng);
-    let x = worldPoint.x - bottomLeft.x;
-    // FIXME: ugly fix for wrapping
-    while (x < 0) {
-      x += TILE_SIZE;
-    }
-    x *= scale;
-    const y = (worldPoint.y - topRight.y) * scale;
-    return { x, y };
-  });
+  const fromLatLngToPoint = React.useCallback(
+    (latLng: any) => {
+      if (!mapRef.current || !projection || !bounds) {
+        return { x: 0, y: 0 };
+      }
+      const TILE_SIZE = 256;
+      const topRight = projection.fromLatLngToPoint(bounds.getNorthEast());
+      console.log(topRight);
+      const bottomLeft = projection.fromLatLngToPoint(bounds.getSouthWest());
+      console.log(bottomLeft);
+      const scale = Math.pow(2, mapRef.current.getZoom());
+      console.log(latLng);
+      const worldPoint = projection.fromLatLngToPoint(latLng);
+      console.log(worldPoint);
+      let x = worldPoint.x - bottomLeft.x;
+      // FIXME: ugly fix for wrapping
+      while (x < 0) {
+        x += TILE_SIZE;
+      }
+      x *= scale;
+      const y = (worldPoint.y - topRight.y) * scale;
+      return { x, y };
+    },
+    [projection, bounds]
+  );
 
   const screenPositionFromLatLng = React.useCallback((latLng) => {
     if (!ref.current || !mapRef.current) {
@@ -263,59 +264,71 @@ const ExperimentGeographicMap = ({
   }, [ref]);
 
   const tooltips = React.useMemo(() => {
-    let tooltips = {};
+    let experimentsByLatLng = {};
     console.log('Here we go');
     console.log({ markerClusterer, experimentsHighlightedWithGeolocation });
-    if (markerClusterer && experimentsHighlightedWithGeolocation) {
-      const markerClusters = markerClusterer.getClusters();
-      console.log({ markerClusters });
-      experimentsHighlightedWithGeolocation.forEach((experimentHighlighted) => {
-        let handled = false;
-        markerClusters.some((markerCluster) => {
-          const center = markerCluster.getCenter();
-          const markers = markerCluster.getMarkers();
-          const experiments = markers.map((marker) => marker.get('experiment'));
-          if (experiments.includes(experimentHighlighted)) {
-            console.log('Within cluster:', experimentHighlighted);
-            // show from cluster
-            const key = JSON.stringify(center);
-            if (!tooltips[key]) {
-              tooltips[key] = [];
-            }
-            tooltips[key].push(experimentHighlighted);
-            handled = true;
-          }
-          return handled;
-        });
-        if (!handled) {
-          // show individually
-          const markers = markerClusterer.getMarkers();
-          const marker = markers.find((marker) => {
-            const experiment = marker.get('experiment');
-            return experiment === experimentHighlighted;
-          });
-          if (marker) {
-            const position = marker.getPosition();
-            const key = JSON.stringify(position);
-            if (!tooltips[key]) {
-              tooltips[key] = [];
-            }
-            tooltips[key].push(experimentHighlighted);
-          } else {
-            console.log(
-              'Could not find marker for experiment',
-              experimentHighlighted
-            );
-          }
-        }
-      });
-
-      // experimentsHighlightedWithGeolocation.forEach((experiment) => {
-      //   // is it within a marker?
-      // });
-    } else {
-      console.log('Nope');
+    if (!markerClusterer || !experimentsHighlightedWithGeolocation) {
+      return null;
     }
+    const markerClusters = markerClusterer.getClusters();
+    console.log({ markerClusters });
+    experimentsHighlightedWithGeolocation.forEach((experimentHighlighted) => {
+      let handled = false;
+      markerClusters.some((markerCluster) => {
+        const center = markerCluster.getCenter();
+        const markers = markerCluster.getMarkers();
+        const experiments = markers.map((marker) => marker.get('experiment'));
+        if (experiments.includes(experimentHighlighted)) {
+          console.log('Within cluster:', experimentHighlighted);
+          // show from cluster
+          const key = JSON.stringify(center);
+          if (!experimentsByLatLng[key]) {
+            experimentsByLatLng[key] = [];
+          }
+          experimentsByLatLng[key].push(experimentHighlighted);
+          handled = true;
+        }
+        return handled;
+      });
+      if (!handled) {
+        // show individually
+        const markers = markerClusterer.getMarkers();
+        const marker = markers.find((marker) => {
+          const experiment = marker.get('experiment');
+          return experiment === experimentHighlighted;
+        });
+        if (marker) {
+          const position = marker.getPosition();
+          const key = JSON.stringify(position);
+          if (!experimentsByLatLng[key]) {
+            experimentsByLatLng[key] = [];
+          }
+          experimentsByLatLng[key].push(experimentHighlighted);
+        } else {
+          console.log(
+            'Could not find marker for experiment',
+            experimentHighlighted
+          );
+        }
+      }
+    });
+
+    const tooltips = [];
+
+    Object.entries(experimentsByLatLng).forEach(([key, experiments]) => {
+      const { lat, lng } = JSON.parse(key);
+      const latLng = new googleRef.current.maps.LatLng(lat, lng);
+      const tooltipLocation = screenPositionFromLatLng(latLng);
+      tooltips.push(
+        <ExperimentsTooltip
+          key={key}
+          experiments={experiments}
+          x={tooltipLocation.x}
+          y={tooltipLocation.y}
+        />
+      );
+    });
+
     return tooltips;
   }, [
     markerClusterer,
@@ -327,7 +340,7 @@ const ExperimentGeographicMap = ({
   return (
     <div className={styles.mapContainer}>
       <div ref={ref} className={styles.map} />
-      <pre>{JSON.stringify(tooltips, null, 2)}</pre>
+      {tooltips}
     </div>
   );
 };
