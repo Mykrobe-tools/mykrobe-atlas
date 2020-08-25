@@ -27,16 +27,15 @@ const ExperimentGeographicMap = ({
   const googleRef = React.useRef(null);
   const markersRef = React.useRef(null);
   const markerClustererRef = React.useRef(null);
+  const mapRef = React.useRef(null);
 
-  const [map, setMap] = React.useState();
-
-  const fromLatLngToPoint = (latLng: any) => {
-    if (!map) {
+  const fromLatLngToPoint = React.useCallback((latLng: any) => {
+    if (!mapRef.current) {
       return { x: 0, y: 0 };
     }
     const TILE_SIZE = 256;
-    const projection = map.getProjection();
-    const bounds = map.getBounds();
+    const projection = mapRef.current.getProjection();
+    const bounds = mapRef.current.getBounds();
     if (!projection) {
       return {
         x: 0,
@@ -45,7 +44,7 @@ const ExperimentGeographicMap = ({
     }
     const topRight = projection.fromLatLngToPoint(bounds.getNorthEast());
     const bottomLeft = projection.fromLatLngToPoint(bounds.getSouthWest());
-    const scale = Math.pow(2, map.getZoom());
+    const scale = Math.pow(2, mapRef.current.getZoom());
     const worldPoint = projection.fromLatLngToPoint(latLng);
     let x = worldPoint.x - bottomLeft.x;
     // FIXME: ugly fix for wrapping
@@ -55,10 +54,10 @@ const ExperimentGeographicMap = ({
     x *= scale;
     const y = (worldPoint.y - topRight.y) * scale;
     return { x, y };
-  };
+  });
 
   const screenPositionFromLatLng = React.useCallback((latLng) => {
-    if (!ref.current || !map) {
+    if (!ref.current || !mapRef.current) {
       return { x: 0, y: 0 };
     }
     const divPosition = fromLatLngToPoint(latLng);
@@ -70,39 +69,47 @@ const ExperimentGeographicMap = ({
     return screenPosition;
   });
 
-  const onMarkerClusterMouseOver = React.useCallback((markerCluster) => {
-    console.log('onMarkerClusterMouseOver', markerCluster);
-    const experimentsTooltipLocation = screenPositionFromLatLng(
-      markerCluster.getCenter()
-    );
-    const markers = markerCluster.getMarkers();
-    const experiments = markers.map((marker) => marker.get('experiment'));
-    setExperimentsHighlighted(experiments);
-    console.log({ experimentsTooltipLocation });
-    // this.setState({
-    //   experimentsTooltipLocation,
-    //   trackingMarkerCluster: markerCluster,
-    //   trackingMarker: undefined,
-    // });
-  });
+  const onMarkerClusterMouseOver = React.useCallback(
+    (markerCluster) => {
+      console.log('onMarkerClusterMouseOver', markerCluster);
+      const experimentsTooltipLocation = screenPositionFromLatLng(
+        markerCluster.getCenter()
+      );
+      const markers = markerCluster.getMarkers();
+      const experiments = markers.map((marker) => marker.get('experiment'));
+      setExperimentsHighlighted(experiments);
+      console.log({ experimentsTooltipLocation });
+      // this.setState({
+      //   experimentsTooltipLocation,
+      //   trackingMarkerCluster: markerCluster,
+      //   trackingMarker: undefined,
+      // });
+    },
+    [setExperimentsHighlighted]
+  );
 
-  const onMarkerMouseOver = (marker) => {
-    console.log('onMarkerMouseOver', marker);
-    const experimentsTooltipLocation = screenPositionFromLatLng(
-      marker.getPosition()
-    );
-    const experiments = [marker.get('experiment')];
-    setExperimentsHighlighted(experiments);
-    console.log({ experimentsTooltipLocation });
-    // this.setState({
-    //   experimentsTooltipLocation,
-    //   trackingMarkerCluster: undefined,
-    //   trackingMarker: marker,
-    // });
-  };
+  const onMarkerMouseOver = React.useCallback(
+    (marker) => {
+      console.log('onMarkerMouseOver', marker);
+      const experimentsTooltipLocation = screenPositionFromLatLng(
+        marker.getPosition()
+      );
+      const experiments = [marker.get('experiment')];
+      setExperimentsHighlighted(experiments);
+      console.log({ experimentsTooltipLocation });
+      // this.setState({
+      //   experimentsTooltipLocation,
+      //   trackingMarkerCluster: undefined,
+      //   trackingMarker: marker,
+      // });
+    },
+    [setExperimentsHighlighted]
+  );
 
-  React.useEffect(() => {
-    if (!map || !markerClustererRef.current || !googleRef.current) {
+  const updateMarkers = React.useCallback(() => {
+    console.log('Updating markers');
+    if (!mapRef.current || !markerClustererRef.current || !googleRef.current) {
+      console.log('Bailed');
       return;
     }
     // if (markersRef.current) {
@@ -140,7 +147,7 @@ const ExperimentGeographicMap = ({
           scaledSize: new googleRef.current.maps.Size(24, 24),
         },
         position: new googleRef.current.maps.LatLng(lat, lng),
-        map,
+        map: mapRef.current,
       });
       marker.setValues({ experiment });
       // marker.addListener('mouseover', () => {
@@ -159,7 +166,60 @@ const ExperimentGeographicMap = ({
     console.log('markersRef.current', markersRef.current);
     console.log('markerClustererRef.current', markerClustererRef.current);
     // this.zoomToMarkers();
-  }, [googleRef, map, markerClustererRef, experimentsWithGeolocation]);
+  }, [experimentsWithGeolocation]);
+
+  React.useEffect(() => {
+    updateMarkers();
+  }, [experimentsWithGeolocation]);
+
+  const setGoogleRef = React.useCallback((google) => {
+    if (googleRef.current) {
+      googleRef.current.maps.event.removeListener(onMarkerClusterMouseOver);
+    }
+    googleRef.current = google;
+
+    if (!google) {
+      return;
+    }
+
+    const googleMap = new googleRef.current.maps.Map(ref.current, {
+      center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
+      minZoom: 2,
+      maxZoom: 10, // roughly allow you to see a city, without implying that samples came from a specific point within it
+      zoom: 3,
+      backgroundColor: '#e2e1dc',
+      styles: MapStyle,
+      mapTypeControl: false,
+      fullscreenControl: false,
+      streetViewControl: false,
+    });
+    mapRef.current = googleMap;
+
+    const markerClusterer = new MarkerClusterer(mapRef.current, [], {
+      averageCenter: true,
+      minimumClusterSize: 2,
+      styles: [
+        {
+          textColor: 'white',
+          textSize: 16,
+          width: 48,
+          height: 48,
+          url: makeSvgMarker({ diameter: 48 }),
+        },
+      ],
+    });
+    markerClustererRef.current = markerClusterer;
+
+    console.log('markerClusterer', markerClusterer);
+
+    googleRef.current.maps.event.addListener(
+      markerClusterer,
+      'mouseover',
+      onMarkerClusterMouseOver
+    );
+
+    updateMarkers();
+  });
 
   React.useEffect(() => {
     const initMaps = async () => {
@@ -170,50 +230,11 @@ const ExperimentGeographicMap = ({
       const apiKey = window.env.REACT_APP_GOOGLE_MAPS_API_KEY;
       const loader = new Loader(apiKey, options);
       const google = await loader.load();
-      googleRef.current = google;
-
-      const googleMap = new google.maps.Map(ref.current, {
-        center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
-        minZoom: 2,
-        maxZoom: 10, // roughly allow you to see a city, without implying that samples came from a specific point within it
-        zoom: 3,
-        backgroundColor: '#e2e1dc',
-        styles: MapStyle,
-        mapTypeControl: false,
-        fullscreenControl: false,
-        streetViewControl: false,
-      });
-      setMap(googleMap);
-
-      const markerClusterer = new MarkerClusterer(map, [], {
-        averageCenter: true,
-        minimumClusterSize: 2,
-        styles: [
-          MarkerClusterer.withDefaultStyle({
-            textColor: 'white',
-            textSize: 16,
-            width: 48,
-            height: 48,
-            url: makeSvgMarker({ diameter: 48 }),
-          }),
-        ],
-      });
-      markerClustererRef.current = markerClusterer;
-
-      console.log('markerClusterer', markerClusterer);
-
-      google.maps.event.addListener(
-        markerClusterer,
-        'mouseover',
-        onMarkerClusterMouseOver
-      );
+      setGoogleRef(google);
     };
     if (ref.current) {
       initMaps();
     }
-    return () => {
-      googleRef.current?.maps.event.removeListener(onMarkerClusterMouseOver);
-    };
   }, [ref]);
 
   return <div ref={ref} className={styles.map} />;

@@ -26,6 +26,12 @@ import styles from './ExperimentGeographicMap.module.scss';
 export const DEFAULT_LAT = 51.5074;
 export const DEFAULT_LNG = 0.1278;
 
+/*
+    "@google/markerclustererplus": "^2.1.11",
+    "google-maps": "^3.3.0",
+
+*/
+
 export const makeSvgMarker = memoizeOne(
   ({
     color = Colors.COLOR_HIGHLIGHT_EXPERIMENT,
