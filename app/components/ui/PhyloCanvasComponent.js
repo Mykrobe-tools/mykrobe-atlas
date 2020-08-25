@@ -214,13 +214,21 @@ class PhyloCanvasComponent extends React.Component<*> {
     }
     const context = this._tree.canvas;
     const radius = 4;
+    const scale = window?.devicePixelRatio || 1;
     for (let nodeId in this._highlightedNodes) {
       const color = this._highlightedNodes[nodeId];
       const position = this.getPositionOfNodeWithId(nodeId);
       if (position) {
         context.fillStyle = color;
         context.beginPath();
-        context.arc(position.x, position.y, radius, 0, 2 * Math.PI, false);
+        context.arc(
+          scale * position.x,
+          scale * position.y,
+          scale * radius,
+          0,
+          2 * Math.PI,
+          false
+        );
         context.fill();
       }
     }
