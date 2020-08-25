@@ -30,38 +30,21 @@ const ExperimentGeographicMap = ({
   const googleRef = React.useRef(null);
   const markersRef = React.useRef([]);
   const mapRef = React.useRef(null);
+  const overlayRef = React.useRef(null);
 
   const [markerClusterer, setMarkerClusterer] = React.useState(null);
   const [projection, setProjection] = React.useState(null);
   const [bounds, setBounds] = React.useState(null);
 
-  const TILE_SIZE = 256;
-
   const fromLatLngToPoint = React.useCallback(
     (latLng: any) => {
-      if (!mapRef.current || !projection || !bounds) {
+      if (!mapRef.current || !overlayRef.current || !projection || !bounds) {
         return { x: 0, y: 0 };
       }
 
-      const zoom = mapRef.current.getZoom();
-      console.log(zoom);
-      const scale = 1 << zoom;
-      console.log(scale);
-      const topRight = projection.fromLatLngToPoint(bounds.getNorthEast());
-      console.log(topRight);
-      const bottomLeft = projection.fromLatLngToPoint(bounds.getSouthWest());
-      console.log(bottomLeft);
-      console.log(latLng);
-      const worldPoint = projection.fromLatLngToPoint(latLng);
-      console.log(worldPoint);
-      let x = worldPoint.x - bottomLeft.x;
-      // FIXME: ugly fix for wrapping
-      // while (x < 0) {
-      //   x += TILE_SIZE;
-      // }
-      x *= scale;
-      const y = (worldPoint.y - topRight.y) * scale;
-      return { x, y };
+      const overlayProjection = overlayRef.current.getProjection();
+      const point = overlayProjection.fromLatLngToContainerPixel(latLng);
+      return point;
     },
     [projection, bounds]
   );
@@ -151,17 +134,16 @@ const ExperimentGeographicMap = ({
       markersRef.current.push(marker);
     });
     markerClusterer.addMarkers(markersRef.current);
-    console.log('markersRef.current', markersRef.current);
-    console.log('markerClusterer', markerClusterer);
-    // this.zoomToMarkers();
   }, [markerClusterer, experimentsWithGeolocation]);
 
   const onProjectionChanged = React.useCallback(() => {
+    console.log('onProjectionChanged');
     const projection = mapRef.current.getProjection();
     setProjection(projection);
   }, [setProjection]);
 
   const onBoundsChanged = React.useCallback(() => {
+    console.log('onBoundsChanged');
     const bounds = mapRef.current.getBounds();
     setBounds(bounds);
   }, [setBounds]);
@@ -190,6 +172,10 @@ const ExperimentGeographicMap = ({
       streetViewControl: false,
     });
     mapRef.current = googleMap;
+
+    const overlay = new googleRef.current.maps.OverlayView();
+    overlay.setMap(mapRef.current);
+    overlayRef.current = overlay;
 
     const clusterer = new MarkerClusterer(mapRef.current, [], {
       averageCenter: true,
@@ -252,8 +238,6 @@ const ExperimentGeographicMap = ({
 
   const tooltips = React.useMemo(() => {
     let experimentsByLatLng = {};
-    console.log('Here we go');
-    console.log({ markerClusterer, experimentsHighlightedWithGeolocation });
     if (!markerClusterer || !experimentsHighlightedWithGeolocation) {
       return null;
     }
@@ -266,7 +250,6 @@ const ExperimentGeographicMap = ({
         const markers = markerCluster.getMarkers();
         const experiments = markers.map((marker) => marker.get('experiment'));
         if (experiments.includes(experimentHighlighted)) {
-          console.log('Within cluster:', experimentHighlighted);
           // show from cluster
           const key = JSON.stringify(center);
           if (!experimentsByLatLng[key]) {
