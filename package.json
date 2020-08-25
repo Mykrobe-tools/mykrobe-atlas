@@ -31,7 +31,7 @@
     "migrate-css-module-filenames": "cross-env DEBUG=ms:* babel-node scripts/migrate-css-module-filenames.js --src ./app",
     "precommit": "yarn lint && yarn test:fast && yarn check:es",
     "prettier": "prettier --write \"./**/*.{js,json,css,scss}\"",
-    "storybook": "start-storybook --port 6006",
+    "storybook": "cross-env DEBUG=mykrobe* start-storybook --port 6006",
     "test:debug": "echo \"To attach Chrome DevTools, open chrome://inspect/#devices then click 'Open dedicated DevTools for node'\" && node --inspect node_modules/.bin/jest --runInBand",
     "test:e2e": "yarn test -t 'e2e'",
     "test:fast": "cross-env INCLUDE_SLOW_TESTS=false jest --no-cache",
@@ -218,7 +218,7 @@
     "webpack-merge": "^4.2.0"
   },
   "dependencies": {
-    "@google/markerclustererplus": "^2.1.11",
+    "@google/markerclustererplus": "^5.1.0",
     "@reduxjs/toolkit": "^1.4.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.1.0",
@@ -228,7 +228,7 @@
     "font-awesome": "^4.7.0",
     "fs-extra": "^6.0.1",
     "fuse.js": "^2.6.1",
-    "google-maps": "^3.3.0",
+    "google-maps": "^4.3.2",
     "history": "^4.7.2",
     "http-status-codes": "^1.3.0",
     "immer": "^3.1.2",

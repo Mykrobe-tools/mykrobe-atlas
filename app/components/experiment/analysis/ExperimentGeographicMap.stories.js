@@ -66,7 +66,12 @@ const variations = {
     resetExperimentsHighlighted,
     experiments: [experiment, experiment2, experiment3],
     experimentsWithGeolocation: [experiment, experiment2, experiment3],
-    experimentsHighlighted: [experiment2, experiment3],
+    experimentsHighlighted: [experiment, experiment2, experiment3],
+    experimentsHighlightedWithGeolocation: [
+      experiment,
+      experiment2,
+      experiment3,
+    ],
   },
 };
 
