@@ -26,10 +26,9 @@ const ExperimentGeographicMap = ({
   const ref = React.useRef(null);
   const googleRef = React.useRef(null);
   const markersRef = React.useRef(null);
+  const markerClustererRef = React.useRef(null);
 
   const [map, setMap] = React.useState();
-  const [markerClusterer, setMarkerClusterer] = React.useState();
-  const [markers, setMarkers] = React.useState();
 
   const fromLatLngToPoint = (latLng: any) => {
     if (!map) {
@@ -72,6 +71,7 @@ const ExperimentGeographicMap = ({
   });
 
   const onMarkerClusterMouseOver = React.useCallback((markerCluster) => {
+    console.log('onMarkerClusterMouseOver', markerCluster);
     const experimentsTooltipLocation = screenPositionFromLatLng(
       markerCluster.getCenter()
     );
@@ -87,6 +87,7 @@ const ExperimentGeographicMap = ({
   });
 
   const onMarkerMouseOver = (marker) => {
+    console.log('onMarkerMouseOver', marker);
     const experimentsTooltipLocation = screenPositionFromLatLng(
       marker.getPosition()
     );
@@ -101,17 +102,17 @@ const ExperimentGeographicMap = ({
   };
 
   React.useEffect(() => {
-    if (!map || !markerClusterer || !googleRef.current) {
+    if (!map || !markerClustererRef.current || !googleRef.current) {
       return;
     }
-    if (markersRef.current) {
-      for (let markerKey in markersRef.current) {
-        const marker = markersRef.current[markerKey];
-        marker.setMap(null);
-      }
-    }
-    markerClusterer.clearMarkers();
-    markersRef.current = {};
+    // if (markersRef.current) {
+    //   for (let markerKey in markersRef.current) {
+    //     const marker = markersRef.current[markerKey];
+    //     marker.setMap(null);
+    //   }
+    // }
+    markerClustererRef.current.clearMarkers();
+    markersRef.current = [];
     experimentsWithGeolocation.forEach((experiment, index) => {
       const longitudeIsolate = _get(
         experiment,
@@ -124,6 +125,7 @@ const ExperimentGeographicMap = ({
       const lat = parseFloat(latitudeIsolate);
       const lng = parseFloat(longitudeIsolate);
       console.log(`experiment id ${experiment.id} lat ${lat} lat ${lng}`);
+
       const marker = new googleRef.current.maps.Marker({
         icon: {
           url: makeSvgMarker({
@@ -137,7 +139,7 @@ const ExperimentGeographicMap = ({
           size: new googleRef.current.maps.Size(24, 24),
           scaledSize: new googleRef.current.maps.Size(24, 24),
         },
-        position: { lat, lng },
+        position: new googleRef.current.maps.LatLng(lat, lng),
         map,
       });
       marker.setValues({ experiment });
@@ -151,11 +153,13 @@ const ExperimentGeographicMap = ({
       // marker.addListener('mouseout', () => {
       //   setNodeHighlighted(experiment.id, false);
       // });
-      markersRef.current[experiment.id] = marker;
+      markersRef.current.push(marker);
     });
-    markerClusterer.addMarkers(markersRef.current);
+    markerClustererRef.current.addMarkers(markersRef.current);
+    console.log('markersRef.current', markersRef.current);
+    console.log('markerClustererRef.current', markerClustererRef.current);
     // this.zoomToMarkers();
-  }, [googleRef, map, markerClusterer, experimentsWithGeolocation]);
+  }, [googleRef, map, markerClustererRef, experimentsWithGeolocation]);
 
   React.useEffect(() => {
     const initMaps = async () => {
@@ -181,23 +185,25 @@ const ExperimentGeographicMap = ({
       });
       setMap(googleMap);
 
-      const clusterer = new MarkerClusterer(map, [], {
+      const markerClusterer = new MarkerClusterer(map, [], {
         averageCenter: true,
         minimumClusterSize: 2,
         styles: [
-          {
+          MarkerClusterer.withDefaultStyle({
             textColor: 'white',
             textSize: 16,
             width: 48,
             height: 48,
             url: makeSvgMarker({ diameter: 48 }),
-          },
+          }),
         ],
       });
-      setMarkerClusterer(clusterer);
+      markerClustererRef.current = markerClusterer;
+
+      console.log('markerClusterer', markerClusterer);
 
       google.maps.event.addListener(
-        clusterer,
+        markerClusterer,
         'mouseover',
         onMarkerClusterMouseOver
       );
