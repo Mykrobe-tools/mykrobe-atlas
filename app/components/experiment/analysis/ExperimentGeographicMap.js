@@ -6,11 +6,16 @@ import { Loader, LoaderOptions } from 'google-maps';
 import _get from 'lodash.get';
 import _isEqual from 'lodash.isequal';
 import MarkerClusterer from '@google/markerclustererplus';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
+
+import { IconButton } from 'makeandship-js-common/src/components/ui/buttons';
 
 import MapStyle from './MapStyle';
 import makeSvgMarker from './makeSvgMarker';
 
 import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
+import ExperimentsList from '../../ui/ExperimentsList';
+import Empty from '../../ui/Empty';
 
 import * as Colors from '../../../constants/Colors';
 
@@ -21,11 +26,20 @@ export const DEFAULT_LNG = 0.1278;
 
 const ExperimentGeographicMap = ({
   experiments,
+  experimentIsolateId,
+
   experimentsHighlightedWithGeolocation,
   experimentsWithGeolocation,
   experimentsWithoutGeolocation,
   setExperimentsHighlighted,
 }: React.ElementProps<*>): React.Element<*> => {
+  const hasExperimentsWithGeolocation = !!(
+    experimentsWithGeolocation && experimentsWithGeolocation.length
+  );
+  const hasExperimentsWithoutGeolocation = !!(
+    experimentsWithoutGeolocation && experimentsWithoutGeolocation.length
+  );
+
   const ref = React.useRef(null);
   const googleRef = React.useRef(null);
   const markersRef = React.useRef([]);
@@ -331,7 +345,47 @@ const ExperimentGeographicMap = ({
 
   return (
     <div className={styles.mapContainer}>
-      <div ref={ref} className={styles.map} />
+      {hasExperimentsWithGeolocation ? (
+        <div ref={ref} className={styles.map} />
+      ) : (
+        <Empty
+          icon={'globe'}
+          title={'No geolocation'}
+          subtitle={
+            experimentsWithoutGeolocation.length > 1
+              ? `No geolocation data for ${experimentIsolateId} or any of its nearest neighbours`
+              : `No geolocation data for ${experimentIsolateId}`
+          }
+        />
+      )}
+      {hasExperimentsWithoutGeolocation && (
+        <div className={styles.controlsContainerTop}>
+          <UncontrolledDropdown>
+            <DropdownToggle color="mid" outline size={'sm'}>
+              {experimentsWithoutGeolocation.length} no location{' '}
+              <i className="fa fa-caret-down" />
+            </DropdownToggle>
+            <DropdownMenu>
+              <div className={styles.dropdownContent}>
+                <ExperimentsList experiments={experimentsWithoutGeolocation} />
+              </div>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </div>
+      )}
+      {hasExperimentsWithGeolocation && (
+        <div className={styles.controlsContainerBottomLeft}>
+          <IconButton
+            size="sm"
+            icon="search"
+            onClick={zoomToMarkers}
+            outline
+            color="mid"
+          >
+            Zoom to fit
+          </IconButton>
+        </div>
+      )}
       {tooltips}
     </div>
   );
