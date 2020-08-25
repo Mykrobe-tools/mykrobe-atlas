@@ -4,3 +4,10 @@
 .experiment {
   white-space: nowrap;
 }
+
+.experimentHighlighted {
+  composes: experiment;
+  a {
+    color: $color-app-red;
+  }
+}

@@ -16,8 +16,6 @@ import { withExperimentsHighlightedPropTypes } from '../../../hoc/withExperiment
 
 import styles from './Analysis.module.scss';
 
-const EXPERIMENTAL_RENDER_TREE_NEIGHBOURS = false;
-
 class Analysis extends React.Component<*> {
   render() {
     const {
@@ -37,7 +35,7 @@ class Analysis extends React.Component<*> {
       experimentsHighlightedNotInTree,
       experimentsHighlightedWithGeolocation,
       experimentsHighlightedWithoutGeolocation,
-      experimentNearestNeigbours,
+      experiment,
     } = this.props;
     let content;
     if (isBusyWithCurrentRoute) {
@@ -49,6 +47,7 @@ class Analysis extends React.Component<*> {
         <div className={styles.content}>
           <div className={styles.mapAndPhylogenyContainer}>
             <ExperimentGeographicMap
+              experiment={experiment}
               experiments={experimentAndNearestNeigbours}
               experimentsWithGeolocation={
                 experimentAndNearestNeigboursWithGeolocation
@@ -68,37 +67,21 @@ class Analysis extends React.Component<*> {
               experimentIsolateId={experimentIsolateId}
             />
             <div className={styles.phylogenyContainer}>
-              {EXPERIMENTAL_RENDER_TREE_NEIGHBOURS ? (
-                <Phylogeny
-                  experimentsTreeNewick={experimentsTreeNewick}
-                  experiments={experimentNearestNeigbours}
-                  experimentsHighlighted={experimentsHighlighted}
-                  experimentsHighlightedInTree={experimentsHighlightedInTree}
-                  experimentsHighlightedNotInTree={
-                    experimentsHighlightedNotInTree
-                  }
-                  experimentsInTree={experimentNearestNeigbours}
-                  experimentsNotInTree={[]}
-                  setExperimentsHighlighted={setExperimentsHighlighted}
-                  resetExperimentsHighlighted={resetExperimentsHighlighted}
-                  experimentIsolateId={experimentIsolateId}
-                />
-              ) : (
-                <Phylogeny
-                  experimentsTreeNewick={experimentsTreeNewick}
-                  experiments={experimentAndNearestNeigbours}
-                  experimentsHighlighted={experimentsHighlighted}
-                  experimentsHighlightedInTree={experimentsHighlightedInTree}
-                  experimentsHighlightedNotInTree={
-                    experimentsHighlightedNotInTree
-                  }
-                  experimentsInTree={experimentAndNearestNeigboursInTree}
-                  experimentsNotInTree={experimentAndNearestNeigboursNotInTree}
-                  setExperimentsHighlighted={setExperimentsHighlighted}
-                  resetExperimentsHighlighted={resetExperimentsHighlighted}
-                  experimentIsolateId={experimentIsolateId}
-                />
-              )}
+              <Phylogeny
+                experiment={experiment}
+                experimentsTreeNewick={experimentsTreeNewick}
+                experiments={experimentAndNearestNeigbours}
+                experimentsHighlighted={experimentsHighlighted}
+                experimentsHighlightedInTree={experimentsHighlightedInTree}
+                experimentsHighlightedNotInTree={
+                  experimentsHighlightedNotInTree
+                }
+                experimentsInTree={experimentAndNearestNeigboursInTree}
+                experimentsNotInTree={experimentAndNearestNeigboursNotInTree}
+                setExperimentsHighlighted={setExperimentsHighlighted}
+                resetExperimentsHighlighted={resetExperimentsHighlighted}
+                experimentIsolateId={experimentIsolateId}
+              />
             </div>
           </div>
         </div>

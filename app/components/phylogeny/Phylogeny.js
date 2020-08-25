@@ -89,19 +89,29 @@ class Phylogeny extends React.Component<*, State> {
   };
 
   updateMarkers = () => {
-    const { experimentsInTree } = this.props;
+    const { experimentsInTree, experiment } = this.props;
     if (!this._phyloCanvas) {
       return;
     }
     this._phyloCanvas.resetHighlightedNodes();
-    experimentsInTree.forEach((experiment, index) => {
-      const leafId = experiment?.leafId;
-      const color =
-        index === 0
-          ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
-          : Colors.COLOR_HIGHLIGHT_EXPERIMENT;
-      this._phyloCanvas.highlightNodeWithId(leafId, color);
-    });
+    if (experimentsInTree.length) {
+      // highlight all with default colours
+      experimentsInTree.forEach((experiment) => {
+        const leafId = experiment?.leafId;
+        this._phyloCanvas.highlightNodeWithId(
+          leafId,
+          Colors.COLOR_HIGHLIGHT_EXPERIMENT
+        );
+      });
+      // highlight current sample
+      console.log({ experiment });
+      if (experiment.leafId) {
+        this._phyloCanvas.highlightNodeWithId(
+          experiment.leafId,
+          Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
+        );
+      }
+    }
   };
 
   updateHighlighted = () => {
@@ -163,6 +173,7 @@ class Phylogeny extends React.Component<*, State> {
   render() {
     const {
       controlsInset,
+      experiment,
       experimentsTreeNewick,
       experimentsInTree,
       experimentsNotInTree,
@@ -298,6 +309,7 @@ class Phylogeny extends React.Component<*, State> {
                 return (
                   <ExperimentsTooltip
                     key={leafId}
+                    experiment={experiment}
                     experiments={experiments}
                     x={experimentsTooltipLocation.x}
                     y={experimentsTooltipLocation.y}
