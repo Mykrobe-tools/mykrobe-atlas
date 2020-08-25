@@ -1,10 +1,8 @@
 /* @flow */
 
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import { Loader, LoaderOptions } from 'google-maps';
 import _get from 'lodash.get';
-import _isEqual from 'lodash.isequal';
 import MarkerClusterer from '@google/markerclustererplus';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
 
@@ -25,9 +23,7 @@ export const DEFAULT_LAT = 51.5074;
 export const DEFAULT_LNG = 0.1278;
 
 const ExperimentGeographicMap = ({
-  experiments,
   experimentIsolateId,
-
   experimentsHighlightedWithGeolocation,
   experimentsWithGeolocation,
   experimentsWithoutGeolocation,
@@ -79,6 +75,9 @@ const ExperimentGeographicMap = ({
   });
 
   const zoomToMarkers = React.useCallback(() => {
+    if (!mapRef.current) {
+      return;
+    }
     let bounds = new googleRef.current.maps.LatLngBounds();
     markersRef.current.forEach((marker) => {
       bounds.extend(marker.getPosition());
@@ -88,7 +87,6 @@ const ExperimentGeographicMap = ({
 
   const onMarkerClusterMouseOver = React.useCallback(
     (markerCluster) => {
-      console.log('onMarkerClusterMouseOver', markerCluster);
       const markers = markerCluster.getMarkers();
       const experiments = markers.map((marker) => marker.get('experiment'));
       setExperimentsHighlighted(experiments);
@@ -98,7 +96,6 @@ const ExperimentGeographicMap = ({
 
   const onMarkerMouseOver = React.useCallback(
     (marker) => {
-      console.log('onMarkerMouseOver', marker);
       const experiments = [marker.get('experiment')];
       setExperimentsHighlighted(experiments);
     },
@@ -146,15 +143,9 @@ const ExperimentGeographicMap = ({
         map: mapRef.current,
       });
       marker.setValues({ experiment });
-      // marker.addListener('mouseover', () => {
-      //   setNodeHighlighted(experiment.id, true);
-      // });
       marker.addListener('mouseover', () => {
         onMarkerMouseOver(marker);
       });
-      // marker.addListener('mouseout', () => {
-      //   setNodeHighlighted(experiment.id, false);
-      // });
       markersRef.current.push(marker);
     });
     markerClusterer.addMarkers(markersRef.current);
@@ -162,19 +153,25 @@ const ExperimentGeographicMap = ({
   }, [markerClusterer, experimentsWithGeolocation]);
 
   const onProjectionChanged = React.useCallback(() => {
-    console.log('onProjectionChanged');
+    if (!mapRef.current) {
+      return;
+    }
     const projection = mapRef.current.getProjection();
     setProjection(projection);
   }, [setProjection]);
 
   const onBoundsChanged = React.useCallback(() => {
-    console.log('onBoundsChanged');
+    if (!mapRef.current) {
+      return;
+    }
     const bounds = mapRef.current.getBounds();
     setBounds(bounds);
   }, [setBounds]);
 
   const onIdle = React.useCallback(() => {
-    console.log('onIdle');
+    if (!mapRef.current) {
+      return;
+    }
     const bounds = mapRef.current.getBounds();
     const projection = mapRef.current.getProjection();
     setBounds(bounds);
