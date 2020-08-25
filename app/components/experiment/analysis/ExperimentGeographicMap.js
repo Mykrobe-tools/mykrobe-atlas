@@ -35,25 +35,30 @@ const ExperimentGeographicMap = ({
   const [projection, setProjection] = React.useState(null);
   const [bounds, setBounds] = React.useState(null);
 
+  const TILE_SIZE = 256;
+
   const fromLatLngToPoint = React.useCallback(
     (latLng: any) => {
       if (!mapRef.current || !projection || !bounds) {
         return { x: 0, y: 0 };
       }
-      const TILE_SIZE = 256;
+
+      const zoom = mapRef.current.getZoom();
+      console.log(zoom);
+      const scale = 1 << zoom;
+      console.log(scale);
       const topRight = projection.fromLatLngToPoint(bounds.getNorthEast());
       console.log(topRight);
       const bottomLeft = projection.fromLatLngToPoint(bounds.getSouthWest());
       console.log(bottomLeft);
-      const scale = Math.pow(2, mapRef.current.getZoom());
       console.log(latLng);
       const worldPoint = projection.fromLatLngToPoint(latLng);
       console.log(worldPoint);
       let x = worldPoint.x - bottomLeft.x;
       // FIXME: ugly fix for wrapping
-      while (x < 0) {
-        x += TILE_SIZE;
-      }
+      // while (x < 0) {
+      //   x += TILE_SIZE;
+      // }
       x *= scale;
       const y = (worldPoint.y - topRight.y) * scale;
       return { x, y };
@@ -77,18 +82,9 @@ const ExperimentGeographicMap = ({
   const onMarkerClusterMouseOver = React.useCallback(
     (markerCluster) => {
       console.log('onMarkerClusterMouseOver', markerCluster);
-      const experimentsTooltipLocation = screenPositionFromLatLng(
-        markerCluster.getCenter()
-      );
       const markers = markerCluster.getMarkers();
       const experiments = markers.map((marker) => marker.get('experiment'));
       setExperimentsHighlighted(experiments);
-      console.log({ experimentsTooltipLocation });
-      // this.setState({
-      //   experimentsTooltipLocation,
-      //   trackingMarkerCluster: markerCluster,
-      //   trackingMarker: undefined,
-      // });
     },
     [setExperimentsHighlighted]
   );
@@ -96,17 +92,8 @@ const ExperimentGeographicMap = ({
   const onMarkerMouseOver = React.useCallback(
     (marker) => {
       console.log('onMarkerMouseOver', marker);
-      const experimentsTooltipLocation = screenPositionFromLatLng(
-        marker.getPosition()
-      );
       const experiments = [marker.get('experiment')];
       setExperimentsHighlighted(experiments);
-      console.log({ experimentsTooltipLocation });
-      // this.setState({
-      //   experimentsTooltipLocation,
-      //   trackingMarkerCluster: undefined,
-      //   trackingMarker: marker,
-      // });
     },
     [setExperimentsHighlighted]
   );
