@@ -37,7 +37,7 @@ const ExperimentGeographicMap = ({
     experimentsWithoutGeolocation && experimentsWithoutGeolocation.length
   );
 
-  const ref = React.useRef(null);
+  const ref: { current: null | HTMLDivElement } = React.useRef(null);
   const googleRef = React.useRef(null);
   const markersRef = React.useRef([]);
   const mapRef = React.useRef(null);
@@ -76,7 +76,7 @@ const ExperimentGeographicMap = ({
   });
 
   const zoomToMarkers = React.useCallback(() => {
-    if (!mapRef.current) {
+    if (!mapRef.current || !googleRef.current) {
       return;
     }
     let bounds = new googleRef.current.maps.LatLngBounds();
@@ -190,7 +190,7 @@ const ExperimentGeographicMap = ({
     }
     googleRef.current = google;
 
-    if (!google) {
+    if (!googleRef.current) {
       return;
     }
 
@@ -268,7 +268,11 @@ const ExperimentGeographicMap = ({
 
   const tooltips = React.useMemo(() => {
     let experimentsByLatLng = {};
-    if (!markerClusterer || !experimentsHighlightedWithGeolocation) {
+    if (
+      !markerClusterer ||
+      !experimentsHighlightedWithGeolocation ||
+      !googleRef.current
+    ) {
       return null;
     }
     const markerClusters = markerClusterer.getClusters();
