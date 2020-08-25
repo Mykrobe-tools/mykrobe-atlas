@@ -180,6 +180,24 @@ const ExperimentGeographicMap = ({
     setExperimentsHighlighted([]);
   }, [setExperimentsHighlighted]);
 
+  const markerClustererCalculator = React.useCallback(
+    (markers, numStyles) => {
+      const text = `${markers.length}`;
+      let highlighted = false;
+      markers.some((marker) => {
+        const markerExperiment = marker.get('experiment');
+        if (experiment.id === markerExperiment.id) {
+          highlighted = true;
+        }
+        return highlighted;
+      });
+      const index = highlighted ? 2 : 1;
+      console.log(numStyles);
+      return { text, index };
+    },
+    [experiment]
+  );
+
   const setGoogleRef = React.useCallback((google) => {
     if (googleRef.current) {
       googleRef.current.maps.event.removeListener(onMarkerClusterMouseOver);
@@ -222,7 +240,18 @@ const ExperimentGeographicMap = ({
           height: 48,
           url: makeSvgMarker({ diameter: 48 }),
         }),
+        MarkerClusterer.withDefaultStyle({
+          textColor: 'white',
+          textSize: 16,
+          width: 48,
+          height: 48,
+          url: makeSvgMarker({
+            diameter: 48,
+            color: Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST,
+          }),
+        }),
       ],
+      calculator: markerClustererCalculator,
     });
 
     googleRef.current.maps.event.addListener(
@@ -281,17 +310,19 @@ const ExperimentGeographicMap = ({
       markerClusters.some((markerCluster) => {
         const center = markerCluster.getCenter();
         const markers = markerCluster.getMarkers();
-        const experiments = markers.map((marker) => marker.get('experiment'));
-        if (experiments.includes(experimentHighlighted)) {
-          // show from cluster
-          const key = JSON.stringify(center);
-          if (!experimentsByLatLng[key]) {
-            experimentsByLatLng[key] = [];
+        if (markers) {
+          const experiments = markers.map((marker) => marker.get('experiment'));
+          if (experiments.includes(experimentHighlighted)) {
+            // show from cluster
+            const key = JSON.stringify(center);
+            if (!experimentsByLatLng[key]) {
+              experimentsByLatLng[key] = [];
+            }
+            experimentsByLatLng[key].push(experimentHighlighted);
+            handled = true;
           }
-          experimentsByLatLng[key].push(experimentHighlighted);
-          handled = true;
+          return handled;
         }
-        return handled;
       });
       if (!handled) {
         // show individually

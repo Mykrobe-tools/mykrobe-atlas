@@ -214,7 +214,6 @@ class PhyloCanvasComponent extends React.Component<*> {
     }
     const context = this._tree.canvas;
     const radius = 4;
-    console.log('_highlightedNodes', this._highlightedNodes);
     for (let nodeId in this._highlightedNodes) {
       const color = this._highlightedNodes[nodeId];
       const position = this.getPositionOfNodeWithId(nodeId);
