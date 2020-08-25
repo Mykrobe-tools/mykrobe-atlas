@@ -103,9 +103,7 @@ const ExperimentGeographicMap = ({
   );
 
   React.useEffect(() => {
-    console.log('Updating markers');
     if (!mapRef.current || !markerClusterer || !googleRef.current) {
-      console.log('Bailed');
       return;
     }
     markersRef.current.forEach((marker) => {
@@ -124,7 +122,6 @@ const ExperimentGeographicMap = ({
       );
       const lat = parseFloat(latitudeIsolate);
       const lng = parseFloat(longitudeIsolate);
-      console.log(`experiment id ${experiment.id} lat ${lat} lat ${lng}`);
 
       const marker = new googleRef.current.maps.Marker({
         icon: {
@@ -179,7 +176,6 @@ const ExperimentGeographicMap = ({
   }, [setBounds]);
 
   const onClick = React.useCallback(() => {
-    console.log('onClick');
     setExperimentsHighlighted([]);
   }, [setExperimentsHighlighted]);
 
@@ -275,7 +271,6 @@ const ExperimentGeographicMap = ({
       return null;
     }
     const markerClusters = markerClusterer.getClusters();
-    console.log({ markerClusters });
     experimentsHighlightedWithGeolocation.forEach((experimentHighlighted) => {
       let handled = false;
       markerClusters.some((markerCluster) => {
