@@ -2,6 +2,7 @@
 @import '~styles/use-bootstrap';
 
 .tooltip {
+  pointer-events: none;
   position: fixed;
   z-index: 3;
 }
@@ -12,6 +13,7 @@
 }
 
 .tooltipContainer {
+  pointer-events: auto;
   position: relative;
   max-width: $popover-max-width;
   @include reset-text();

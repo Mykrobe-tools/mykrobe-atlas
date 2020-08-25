@@ -129,7 +129,7 @@ function* startWorker() {
   // TODO construct this with Swagger operation id
   try {
     _eventSource = new EventSourcePolyfill(
-      `${window.env?.REACT_APP_API_URL}/user/events`,
+      `${window.env.REACT_APP_API_URL}/user/events`,
       options
     );
   } catch (error) {

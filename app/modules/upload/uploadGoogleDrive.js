@@ -45,7 +45,7 @@ const authoriseApp = async () => {
   return new Promise((resolve) => {
     window.gapi.auth.authorize(
       {
-        client_id: window.env?.REACT_APP_GOOGLE_DRIVE_CLIENT_ID,
+        client_id: window.env.REACT_APP_GOOGLE_DRIVE_CLIENT_ID,
         scope: SCOPE,
         immediate: false,
       },
@@ -61,7 +61,7 @@ const googleDriveChoose = async (oauthToken: string) => {
     const picker = new window.google.picker.PickerBuilder();
     picker.addView(window.google.picker.ViewId.DOCS);
     picker.setOAuthToken(oauthToken);
-    picker.setDeveloperKey(window.env?.REACT_APP_GOOGLE_DRIVE_DEVELOPER_KEY);
+    picker.setDeveloperKey(window.env.REACT_APP_GOOGLE_DRIVE_DEVELOPER_KEY);
     picker.setCallback((data) => {
       const action = data[window.google.picker.Response.ACTION];
       if (action === window.google.picker.Action.PICKED) {

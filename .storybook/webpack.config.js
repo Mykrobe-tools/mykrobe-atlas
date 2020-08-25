@@ -1,9 +1,22 @@
 const webpack = require('webpack');
 const _ = require('lodash');
+
 const { version, productName } = require('../package.json');
+const getReactAppEnv = require('../scripts/react-app-env');
 
 const debug = require('debug');
 const d = debug('mykrobe:storybook-config');
+
+// define window.env via webpack.DefinePlugin - TODO: replace with vars injected into HTML to make behaviour idential to actual runtime
+
+const env = getReactAppEnv();
+
+const defines = {};
+Object.entries(env).forEach(([key, value]) => {
+  defines[`window.env.${key}`] = JSON.stringify(value);
+});
+
+d(defines);
 
 // exclude rules which conflict with Storybook's
 
@@ -31,6 +44,7 @@ const filteredRules = (rules) =>
   });
 
 module.exports = async ({ config, mode }) => {
+  d({ mode });
   const customConfig =
     mode === 'DEVELOPMENT'
       ? require('../web/webpack.config.development')
@@ -44,6 +58,7 @@ module.exports = async ({ config, mode }) => {
   config.plugins = [
     ...config.plugins,
     new webpack.DefinePlugin({
+      ...defines,
       PACKAGE_JSON: JSON.stringify({ version, productName }),
       IS_ELECTRON: JSON.stringify(false),
     }),

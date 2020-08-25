@@ -7,7 +7,7 @@ const urlNetworkStatusModule = createUrlNetworkStatusModule({
   getState: (state: any) => state?.networkStatus?.urlNetworkStatus,
   url:
     window.env?.REACT_APP_API_HEALTH_CHECK_URL ||
-    `${window.env?.REACT_APP_API_URL}/health-check`,
+    `${window.env.REACT_APP_API_URL}/health-check`,
   pollInterval: window.env?.REACT_APP_API_HEALTH_CHECK_INTERVAL || 10000,
   timeout: window.env?.REACT_APP_API_HEALTH_CHECK_TIMEOUT || 30000,
 });

@@ -35,10 +35,10 @@ class ResumableUpload {
       uploadMethod: 'PUT',
       headers: this.headers,
       target: () => {
-        return `${window.env?.REACT_APP_API_URL}/experiments/${this.id}/file`;
+        return `${window.env.REACT_APP_API_URL}/experiments/${this.id}/file`;
       },
       testTarget: () => {
-        return `${window.env?.REACT_APP_API_URL}/experiments/${this.id}/upload-status`;
+        return `${window.env.REACT_APP_API_URL}/experiments/${this.id}/upload-status`;
       },
       fileType: this.acceptedExtensions,
       query: (resumableFile, resumableObj) => {
