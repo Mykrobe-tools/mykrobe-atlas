@@ -158,12 +158,18 @@ const ExperimentGeographicMap = ({
     setProjection(projection);
   }, [setBounds]);
 
+  const onClick = React.useCallback(() => {
+    console.log('onClick');
+    setExperimentsHighlighted([]);
+  }, [setExperimentsHighlighted]);
+
   const setGoogleRef = React.useCallback((google) => {
     if (googleRef.current) {
       googleRef.current.maps.event.removeListener(onMarkerClusterMouseOver);
       googleRef.current.maps.event.removeListener(onProjectionChanged);
       googleRef.current.maps.event.removeListener(onBoundsChanged);
       googleRef.current.maps.event.removeListener(onIdle);
+      googleRef.current.maps.event.removeListener(onClick);
     }
     googleRef.current = google;
 
@@ -222,16 +228,10 @@ const ExperimentGeographicMap = ({
 
     googleRef.current.maps.event.addListener(mapRef.current, 'idle', onIdle);
 
+    googleRef.current.maps.event.addListener(mapRef.current, 'click', onClick);
+
     setMarkerClusterer(clusterer);
-
-    console.log('markerClusterer', markerClusterer);
-
-    // updateMarkers();
   });
-
-  // React.useEffect(() => {
-  //   updateMarkers();
-  // }, [experimentsWithGeolocation]);
 
   React.useEffect(() => {
     const initMaps = async () => {
