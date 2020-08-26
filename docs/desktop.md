@@ -1,4 +1,4 @@
-# Mykrobe Atlas Desktop
+# Mykrobe
 
 ## Setup
 
