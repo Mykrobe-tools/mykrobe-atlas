@@ -64,8 +64,6 @@ const ExperimentsList = ({
     );
   }
 
-  console.log({ experiment, experiments });
-
   return experiments.map((experimentItem) => {
     const highlighted = experimentItem?.id === experiment?.id;
     return (

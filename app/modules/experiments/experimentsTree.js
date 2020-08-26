@@ -27,7 +27,6 @@ const {
 export const getExperimentsTreeNewick = createSelector(
   getExperimentsTree,
   (experimentsTree) => {
-    console.log('getExperimentsTreeNewick', { experimentsTree });
     return _get(experimentsTree, 'tree');
   }
 );

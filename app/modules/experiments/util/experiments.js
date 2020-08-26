@@ -9,7 +9,6 @@ export const experimentsInTree = (
   experiments,
   inTree = true
 ) => {
-  console.log('experimentsInTree', { experimentsTree, experiments });
   return (
     experiments &&
     experiments.filter((experiment) => {
