@@ -54,11 +54,13 @@ class App extends React.Component<*> {
           width: 400,
           height: 320,
           resizable: false,
+          minimizable: false,
           frame: true,
           webPreferences: {
             nodeIntegration: true,
           },
         });
+        this._aboutWindow.setMenuBarVisibility(false);
         this._aboutWindow.loadURL(url);
         this._aboutWindow.on('close', () => {
           delete this._aboutWindow;
