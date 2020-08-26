@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import styles from './About.module.scss';
 import Logo from '../ui/logo/Logo';
+import AppDocumentTitle from '../ui/AppDocumentTitle';
 
 import { launchWebsite } from '../../helpers/UIHelpers'; // eslint-disable-line import/named
 
@@ -13,33 +14,23 @@ const {
 } = require('../../../desktop/resources/package.json');
 
 class About extends React.Component<*> {
-  back = (e: any) => {
-    e.preventDefault();
-    window.history.go(-1);
-  };
-
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.logo}>
-            <Logo />
-          </div>
-          <div className={styles.actions}>
-            <a onClick={this.back} className={styles.close}>
-              <i className="fa fa-times-circle" />
-            </a>
-          </div>
-        </div>
+        <AppDocumentTitle title={'About'} />
+        <Logo />
         <div className={styles.content}>
+          <p>
+            Predictor version {executableVersion}
+            <br></br>
+            Desktop app version v{version}
+          </p>
           <p>
             For research use only. Not for use in diagnostic procedures. For
             further information see{' '}
-            <a onClick={launchWebsite}>www.mykrobe.com</a>
-          </p>
-          <p>
-            Predictor version {executableVersion} &middot; Desktop app version v
-            {version}
+            <a href="#" onClick={launchWebsite}>
+              www.mykrobe.com
+            </a>
           </p>
         </div>
       </div>

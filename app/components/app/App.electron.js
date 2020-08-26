@@ -25,10 +25,13 @@ import AppDocumentTitle from '../ui/AppDocumentTitle';
 import DragAndDrop from '../ui/dragAndDrop/DragAndDrop';
 
 class App extends React.Component<*> {
+  _aboutWindow;
+
   constructor(props) {
     super(props);
     const { analyseFile, analyseFileNew, analyseFileSave, push } = props;
     const ipcRenderer = require('electron').ipcRenderer;
+    const remote = require('electron').remote;
 
     ipcRenderer.on('open-file', (e, filePaths) => {
       console.log('App open-file');
@@ -42,7 +45,32 @@ class App extends React.Component<*> {
     });
 
     ipcRenderer.on('menu-about', () => {
-      push('/about');
+      if (this._aboutWindow) {
+        this._aboutWindow.show();
+      } else {
+        const currentWindow = remote.getCurrentWindow();
+        console.log(this._aboutWindow);
+        console.log(currentWindow.getURL());
+        console.log('window.location', window.location);
+        const url = `${window.location.href}about`;
+        console.log(url);
+        this._aboutWindow = new remote.BrowserWindow({
+          width: 400,
+          height: 300,
+          maxWidth: 400,
+          maxHeight: 300,
+          resizable: false,
+          frame: true,
+          webPreferences: {
+            nodeIntegration: true,
+          },
+        });
+        // http://localhost:3000/#/
+        this._aboutWindow.loadURL(url);
+        this._aboutWindow.on('close', () => {
+          delete this._aboutWindow;
+        });
+      }
     });
 
     ipcRenderer.on('menu-file-open', () => {
