@@ -104,7 +104,6 @@ class Phylogeny extends React.Component<*, State> {
         );
       });
       // highlight current sample
-      console.log({ experiment });
       if (experiment.leafId) {
         this._phyloCanvas.highlightNodeWithId(
           experiment.leafId,
@@ -305,7 +304,6 @@ class Phylogeny extends React.Component<*, State> {
                 const experimentsTooltipLocation = this.screenPositionForNodeId(
                   leafId
                 );
-                console.log({ leafId, experiments });
                 return (
                   <ExperimentsTooltip
                     key={leafId}

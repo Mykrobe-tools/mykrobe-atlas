@@ -206,14 +206,16 @@ const ExperimentGeographicMap = ({
     (markers) => {
       const text = `${markers.length}`;
       let highlighted = false;
-      // check if this cluser contains the current experiment
-      markers.some((marker) => {
-        const markerExperiment = marker.get('experiment');
-        if (experiment.id === markerExperiment.id) {
-          highlighted = true;
-        }
-        return highlighted;
-      });
+      if (experiment) {
+        // check if this cluser contains the current experiment
+        markers.some((marker) => {
+          const markerExperiment = marker.get('experiment');
+          if (experiment.id === markerExperiment.id) {
+            highlighted = true;
+          }
+          return highlighted;
+        });
+      }
       // if so, use the highlight style
       const index = highlighted ? 2 : 1;
       return { text, index };
