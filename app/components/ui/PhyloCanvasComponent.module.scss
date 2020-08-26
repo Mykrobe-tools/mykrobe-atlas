@@ -1,13 +1,16 @@
 .container {
   composes: container from '~styles/layout.scss';
   position: relative;
+  :global(#phyloCanvasDiv__canvas) {
+    // remove inline z-index to allow natural dom layering
+    z-index: auto !important;
+  }
 }
 
 .controlsContainer {
   position: absolute;
   right: 0;
   bottom: 0;
-  z-index: 1;
   display: flex;
 }
 
