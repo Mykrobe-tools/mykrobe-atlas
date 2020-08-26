@@ -3,14 +3,10 @@
 .container {
   composes: container from '~styles/layout.scss';
   flex-direction: column;
-}
-
-.header {
-  display: flex;
-  position: relative;
-  padding: 20px 30px;
   align-items: center;
-  background-color: $color-background;
+  justify-content: center;
+  background-color: white;
+  margin: 10px;
 }
 
 .actions {
@@ -18,14 +14,7 @@
   margin-left: auto;
 }
 
-.close {
-  font-size: 24px;
-  cursor: pointer;
-}
-
 .content {
-  composes: container from '~styles/layout.scss';
-  background-color: white;
-  padding: 20px 30px;
-  flex-direction: column;
+  margin-top: 20px;
+  text-align: center;
 }
