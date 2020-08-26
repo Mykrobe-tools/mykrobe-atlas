@@ -18,5 +18,7 @@ export {
 
 export { executeCommand } from './executeCommand';
 
+export { default as checkCanPublishWithEnv } from './checkCanPublishWithEnv';
+
 export const arch = os.arch();
 export const plat = os.platform();
