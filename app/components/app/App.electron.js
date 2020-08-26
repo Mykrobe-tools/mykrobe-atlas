@@ -56,9 +56,7 @@ class App extends React.Component<*> {
         console.log(url);
         this._aboutWindow = new remote.BrowserWindow({
           width: 400,
-          height: 300,
-          maxWidth: 400,
-          maxHeight: 300,
+          height: 320,
           resizable: false,
           frame: true,
           webPreferences: {
@@ -70,6 +68,12 @@ class App extends React.Component<*> {
         this._aboutWindow.on('close', () => {
           delete this._aboutWindow;
         });
+      }
+    });
+
+    ipcRenderer.on('close', () => {
+      if (this._aboutWindow) {
+        this._aboutWindow.close();
       }
     });
 

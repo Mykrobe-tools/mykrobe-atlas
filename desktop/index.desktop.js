@@ -171,6 +171,7 @@ const confirmIfAnalysing = () => {
 };
 
 const onWindowClose = (e) => {
+  mainWindow.webContents.send('close');
   // this is also triggered as a result of app.quit()
   if (!quittingProgramatically) {
     if (!confirmIfAnalysing()) {
@@ -180,6 +181,7 @@ const onWindowClose = (e) => {
 };
 
 const onMenuQuit = () => {
+  mainWindow.show();
   if (confirmIfAnalysing()) {
     quittingProgramatically = true;
     app.quit();
@@ -187,12 +189,14 @@ const onMenuQuit = () => {
 };
 
 const onMenuFileNew = () => {
+  mainWindow.show();
   if (confirmIfAnalysing()) {
     mainWindow.send('menu-file-new');
   }
 };
 
 const onMenuFileOpen = () => {
+  mainWindow.show();
   if (confirmIfAnalysing()) {
     mainWindow.send('menu-file-open');
   }

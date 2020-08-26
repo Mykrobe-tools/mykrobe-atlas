@@ -35,6 +35,7 @@ const getMenuTemplate = ({
           {
             label: `About ${productName}`,
             click() {
+              mainWindow.show();
               mainWindow.send('menu-about');
             },
           },
@@ -95,6 +96,7 @@ const getMenuTemplate = ({
             label: 'Save As…',
             accelerator: 'CmdOrCtrl+Shift+S',
             click() {
+              mainWindow.show();
               mainWindow.send('menu-file-save-as');
             },
           },
@@ -104,6 +106,7 @@ const getMenuTemplate = ({
           {
             label: 'Save Screenshot…',
             click() {
+              mainWindow.show();
               mainWindow.send('menu-capture-page');
             },
           },
@@ -242,6 +245,7 @@ const getMenuTemplate = ({
           label: '&Save As…',
           accelerator: 'Ctrl+Shift+S',
           click() {
+            mainWindow.show();
             mainWindow.send('menu-file-save-as');
           },
         },
@@ -251,6 +255,7 @@ const getMenuTemplate = ({
         {
           label: 'Save Screenshot…',
           click() {
+            mainWindow.show();
             mainWindow.send('menu-capture-page');
           },
         },
