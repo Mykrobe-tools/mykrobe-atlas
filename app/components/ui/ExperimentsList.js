@@ -22,6 +22,7 @@ const ExperimentsListItem = ({
   countryIsolate && elements.push(countryIsolate);
   return (
     <div
+      key={id}
       className={highlighted ? styles.experimentHighlighted : styles.experiment}
     >
       <Link to={`/experiments/${id}/analysis`}>
@@ -64,10 +65,11 @@ const ExperimentsList = ({
     );
   }
 
-  console.log({ experiment, experiments });
-
   return experiments.map((experimentItem) => {
     const highlighted = experimentItem?.id === experiment?.id;
+    if (!experimentItem.id) {
+      return null;
+    }
     return (
       <ExperimentsListItem
         key={experimentItem.id}
