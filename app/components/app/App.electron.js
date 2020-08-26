@@ -48,12 +48,8 @@ class App extends React.Component<*> {
       if (this._aboutWindow) {
         this._aboutWindow.show();
       } else {
-        const currentWindow = remote.getCurrentWindow();
-        console.log(this._aboutWindow);
-        console.log(currentWindow.getURL());
-        console.log('window.location', window.location);
+        // window.location.href has trailing slash e.g. http://localhost:3000/#/
         const url = `${window.location.href}about`;
-        console.log(url);
         this._aboutWindow = new remote.BrowserWindow({
           width: 400,
           height: 320,
@@ -63,7 +59,6 @@ class App extends React.Component<*> {
             nodeIntegration: true,
           },
         });
-        // http://localhost:3000/#/
         this._aboutWindow.loadURL(url);
         this._aboutWindow.on('close', () => {
           delete this._aboutWindow;

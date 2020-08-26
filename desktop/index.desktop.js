@@ -7,6 +7,7 @@ import type { Menu } from 'electron';
 import { DEBUG, IS_MAC } from './constants';
 
 import { createMenu, installMenu } from './menu';
+import getRootUrl from './util/getRootUrl';
 
 let autoUpdater;
 
@@ -120,18 +121,9 @@ app.on('ready', async () => {
 
   menu = createMenu({ mainWindow, onMenuQuit, onMenuFileNew, onMenuFileOpen });
 
-  if (process.env.NODE_ENV === 'production') {
-    let url = require('url').format({
-      protocol: 'file',
-      slashes: true,
-      pathname: require('path').join(__dirname, 'index.html'),
-    });
-    log.info('mainWindow.loadURL', url);
-    mainWindow.loadURL(url);
-  } else {
-    log.info('mainWindow.loadURL', `http://localhost:3000`);
-    mainWindow.loadURL('http://localhost:3000');
-  }
+  const url = getRootUrl();
+  log.info('mainWindow.loadURL', url);
+  mainWindow.loadURL(url);
 
   mainWindow.webContents.on('did-finish-load', () => {
     installMenu(menu, mainWindow);
