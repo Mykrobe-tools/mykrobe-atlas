@@ -1,7 +1,7 @@
 /* @flow */
 
 import * as React from 'react';
-import { Loader, LoaderOptions } from 'google-maps';
+import { Loader } from '@googlemaps/js-api-loader';
 import _get from 'lodash.get';
 import MarkerClusterer from '@google/markerclustererplus';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu } from 'reactstrap';
@@ -48,6 +48,8 @@ const ExperimentGeographicMap = ({
   const overlayRef = React.useRef(null);
   // array of markers
   const markersRef = React.useRef([]);
+  // array of listeners
+  const listenersRef = React.useRef([]);
 
   // state values that may cause re-render
   const [markerClusterer, setMarkerClusterer] = React.useState(null);
@@ -226,11 +228,11 @@ const ExperimentGeographicMap = ({
   // using a callback to set the google ref gives a way to cleanup previous events
   const setGoogleRef = React.useCallback((google) => {
     if (googleRef.current) {
-      googleRef.current.maps.event.removeListener(onMarkerClusterMouseOver);
-      googleRef.current.maps.event.removeListener(onProjectionChanged);
-      googleRef.current.maps.event.removeListener(onBoundsChanged);
-      googleRef.current.maps.event.removeListener(onIdle);
-      googleRef.current.maps.event.removeListener(onClick);
+      // clean up listeners
+      listenersRef.current.forEach((listener) => {
+        googleRef.current.maps.event.removeListener(listener);
+      });
+      listenersRef.current = [];
     }
     googleRef.current = google;
 
@@ -281,27 +283,36 @@ const ExperimentGeographicMap = ({
       calculator: markerClustererCalculator,
     });
 
-    googleRef.current.maps.event.addListener(
-      clusterer,
-      'mouseover',
-      onMarkerClusterMouseOver
+    listenersRef.current.push(
+      googleRef.current.maps.event.addListener(
+        clusterer,
+        'mouseover',
+        onMarkerClusterMouseOver
+      )
     );
 
-    googleRef.current.maps.event.addListenerOnce(
-      mapRef.current,
-      'projection_changed',
-      onProjectionChanged
+    listenersRef.current.push(
+      googleRef.current.maps.event.addListener(
+        mapRef.current,
+        'projection_changed',
+        onProjectionChanged
+      )
     );
 
-    googleRef.current.maps.event.addListener(
-      mapRef.current,
-      'bounds_changed',
-      onBoundsChanged
+    listenersRef.current.push(
+      googleRef.current.maps.event.addListener(
+        mapRef.current,
+        'bounds_changed',
+        onBoundsChanged
+      )
     );
 
-    googleRef.current.maps.event.addListener(mapRef.current, 'idle', onIdle);
-
-    googleRef.current.maps.event.addListener(mapRef.current, 'click', onClick);
+    listenersRef.current.push(
+      googleRef.current.maps.event.addListener(mapRef.current, 'idle', onIdle)
+    );
+    listenersRef.current.push(
+      googleRef.current.maps.event.addListener(mapRef.current, 'click', onClick)
+    );
 
     // this will trigger the side-effect which updates markers and initialises zoom
     setMarkerClusterer(clusterer);
@@ -310,18 +321,25 @@ const ExperimentGeographicMap = ({
   // initialisation once the map div ref is known
   React.useEffect(() => {
     const initMaps = async () => {
-      const options: LoaderOptions = {
-        version: '3.41', // https://developers.google.com/maps/documentation/javascript/versions#choosing-a-version-number
-        region: 'GB',
-      };
-      const apiKey = window.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-      const loader = new Loader(apiKey, options);
-      const google = await loader.load();
-      setGoogleRef(google);
+      if (!window?.google?.maps) {
+        const apiKey = window.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+        const options = {
+          apiKey,
+          version: 'weekly',
+          region: 'GB',
+        };
+        const loader = new Loader(options);
+        await loader.load();
+      }
+      setGoogleRef(window.google);
     };
     if (ref.current) {
       initMaps();
     }
+    return () => {
+      // cleanup listeners
+      setGoogleRef(null);
+    };
   }, [ref]);
 
   // derive the tooltips and their positions
@@ -334,14 +352,20 @@ const ExperimentGeographicMap = ({
     ) {
       return null;
     }
+    const markers = markerClusterer.getMarkers();
+    if (!markers.length) {
+      return null;
+    }
     const markerClusters = markerClusterer.getClusters();
     experimentsHighlightedWithGeolocation.forEach((experimentHighlighted) => {
       let handled = false;
       markerClusters.some((markerCluster) => {
         const center = markerCluster.getCenter();
-        const markers = markerCluster.getMarkers();
-        if (markers) {
-          const experiments = markers.map((marker) => marker.get('experiment'));
+        const clusterMarkers = markerCluster.getMarkers();
+        if (clusterMarkers) {
+          const experiments = clusterMarkers.map((marker) =>
+            marker.get('experiment')
+          );
           if (experiments.includes(experimentHighlighted)) {
             // show from cluster
             const key = JSON.stringify(center);
@@ -356,23 +380,21 @@ const ExperimentGeographicMap = ({
       });
       if (!handled) {
         // show individually
-        const markers = markerClusterer.getMarkers();
-        const marker = markers.find((marker) => {
-          const experiment = marker.get('experiment');
-          return experiment === experimentHighlighted;
-        });
-        if (marker) {
-          const position = marker.getPosition();
-          const key = JSON.stringify(position);
-          if (!experimentsByLatLng[key]) {
-            experimentsByLatLng[key] = [];
+        if (markers.length) {
+          const marker = markers.find((marker) => {
+            const experiment = marker.get('experiment');
+            return experiment === experimentHighlighted;
+          });
+          if (marker) {
+            const position = marker.getPosition();
+            const key = JSON.stringify(position);
+            if (!experimentsByLatLng[key]) {
+              experimentsByLatLng[key] = [];
+            }
+            experimentsByLatLng[key].push(experimentHighlighted);
+          } else {
+            // Not found - map, markers and data may be loading and out of sync
           }
-          experimentsByLatLng[key].push(experimentHighlighted);
-        } else {
-          console.log(
-            'Could not find marker for experiment',
-            experimentHighlighted
-          );
         }
       }
     });

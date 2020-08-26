@@ -166,10 +166,6 @@ export const getExperimentAndNearestNeigbours = createSelector(
     if (experimentNearestNeigbours) {
       experiments = experiments.concat(experimentNearestNeigbours);
     }
-    console.log('getExperimentAndNearestNeigbours', {
-      experiment,
-      experiments,
-    });
     return experiments;
   }
 );
@@ -180,10 +176,6 @@ export const getExperimentAndNearestNeigboursInTree = createSelector(
   getExperimentsTreeNewick,
   getExperimentAndNearestNeigbours,
   (newick, experiments) => {
-    console.log('getExperimentAndNearestNeigboursInTree', {
-      newick,
-      experiments,
-    });
     return experimentsInTree(newick, experiments, true);
   }
 );
