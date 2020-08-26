@@ -104,7 +104,7 @@ class Phylogeny extends React.Component<*, State> {
         );
       });
       // highlight current sample
-      if (experiment.leafId) {
+      if (experiment?.leafId) {
         this._phyloCanvas.highlightNodeWithId(
           experiment.leafId,
           Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
