@@ -16,7 +16,11 @@ const builder = require('electron-builder');
 const pkg = require('../package.json');
 
 import archPlatArgs from './util/archPlatArgs';
-import { fetchPredictorBinariesIfChanged, fetchLatestRelease } from './util';
+import {
+  fetchPredictorBinariesIfChanged,
+  fetchLatestRelease,
+  checkCanPublishWithEnv,
+} from './util';
 
 const argv = require('minimist')(process.argv.slice(2));
 
@@ -85,6 +89,10 @@ export const build = async ({ plat, arch, releaseType, publish }) => {
   });
 
   d('options', JSON.stringify(options, null, 2));
+
+  if (options.publish) {
+    checkCanPublishWithEnv(process.env);
+  }
 
   await builder.build(options);
 };
