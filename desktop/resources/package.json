@@ -2,7 +2,7 @@
   "targetName": "desktop",
   "name": "mykrobe",
   "productName": "Mykrobe",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "main": "./main.js",
   "description": "Mykrobe",
   "executableVersion": "v0.8.1"
