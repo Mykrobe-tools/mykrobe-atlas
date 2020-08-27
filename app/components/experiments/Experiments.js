@@ -29,6 +29,7 @@ import UploadButton from '../upload/button/UploadButton';
 import SearchNavigation from '../ui/search/SearchNavigation';
 import Empty from '../ui/Empty';
 import ExperimentsMap from './ExperimentsMap';
+import ExperimentsTree from './ExperimentsTree';
 
 import { withExperimentsPropTypes } from '../../hoc/withExperiments';
 import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
@@ -128,7 +129,9 @@ class Experiments extends React.Component<*, State> {
       : 'Experiments';
     const { selected } = this.state;
     const showCompare = selected && (selected === '*' || selected.length > 1);
-    const showMap = location.hash === '#map';
+    const showMap = location.hash?.startsWith('#map');
+    const showTree = location.hash?.startsWith('#tree');
+    console.log({ location });
     let content;
     if (hasResults) {
       const headerContent = (
@@ -172,7 +175,7 @@ class Experiments extends React.Component<*, State> {
                   icon="list-ul"
                   tag={Link}
                   to={`${location.pathname}${location.search}`}
-                  outline={showMap}
+                  outline={showMap || showTree}
                 >
                   List
                 </IconButton>
@@ -184,6 +187,15 @@ class Experiments extends React.Component<*, State> {
                   outline={!showMap}
                 >
                   Map
+                </IconButton>
+                <IconButton
+                  size="sm"
+                  icon="snowflake-o"
+                  tag={Link}
+                  to={`${location.pathname}${location.search}#tree`}
+                  outline={!showTree}
+                >
+                  Tree
                 </IconButton>
               </ButtonGroup>
               <div className="ml-2">
@@ -198,6 +210,13 @@ class Experiments extends React.Component<*, State> {
           <React.Fragment>
             <Container fluid>{headerContent}</Container>
             <ExperimentsMap />
+          </React.Fragment>
+        );
+      } else if (showTree) {
+        content = (
+          <React.Fragment>
+            <Container fluid>{headerContent}</Container>
+            <ExperimentsTree />
           </React.Fragment>
         );
       } else {
@@ -284,9 +303,11 @@ class Experiments extends React.Component<*, State> {
         />
         <div className={styles.resultsContainer}>
           {content}
-          {!showMap && isFetchingExperiments && <Loading overlay delayed />}
+          {!showMap && !showTree && isFetchingExperiments && (
+            <Loading overlay delayed />
+          )}
         </div>
-        {!showMap && <Footer />}
+        {!showMap && !showTree && <Footer />}
       </div>
     );
   }

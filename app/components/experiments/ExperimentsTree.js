@@ -7,14 +7,16 @@ import { useSelector } from 'react-redux';
 import { useQuery } from 'makeandship-js-common/src/modules/query';
 import Loading from 'makeandship-js-common/src/components/ui/loading';
 
-import ExperimentGeographicMap from '../experiment/analysis/ExperimentGeographicMap';
 import { getExperimentsFilters } from '../../modules/experiments/experimentsFilters';
 import withExperimentsHighlighted from '../../hoc/withExperimentsHighlighted';
-import { filterExperimentsWithGeolocation } from '../../modules/experiments/util/experiments';
+import { filterExperimentsInTree } from '../../modules/experiments/util/experiments';
+import Phylogeny from '../phylogeny/Phylogeny';
+import { getExperimentsTreeNewick } from '../../modules/experiments';
 
-const ExperimentsMap = (
+const ExperimentsTree = (
   props: React.ElementProps<*>
 ): React.Element<*> | null => {
+  const experimentsTreeNewick = useSelector(getExperimentsTreeNewick);
   const filters = useSelector(getExperimentsFilters);
   const query = React.useMemo(() => qs.stringify(filters), [filters]);
 
@@ -22,14 +24,14 @@ const ExperimentsMap = (
     () => `/experiments/summary?${query}`
   );
 
-  const experimentsWithGeolocation = React.useMemo(
-    () => filterExperimentsWithGeolocation(experiments, true),
-    [experiments]
+  const experimentsInTree = React.useMemo(
+    () => filterExperimentsInTree(experimentsTreeNewick, experiments, true),
+    [experimentsTreeNewick, experiments]
   );
 
-  const experimentsWithoutGeolocation = React.useMemo(
-    () => filterExperimentsWithGeolocation(experiments, false),
-    [experiments]
+  const experimentsNotInTree = React.useMemo(
+    () => filterExperimentsInTree(experimentsTreeNewick, experiments, false),
+    [experimentsTreeNewick, experiments]
   );
 
   if (!experiments.length && isFetching) {
@@ -37,13 +39,14 @@ const ExperimentsMap = (
   }
 
   return (
-    <ExperimentGeographicMap
+    <Phylogeny
+      experimentsTreeNewick={experimentsTreeNewick}
       experiments={experiments}
-      experimentsWithGeolocation={experimentsWithGeolocation}
-      experimentsWithoutGeolocation={experimentsWithoutGeolocation}
+      experimentsInTree={experimentsInTree}
+      experimentsNotInTree={experimentsNotInTree}
       {...props}
     />
   );
 };
 
-export default withExperimentsHighlighted(ExperimentsMap);
+export default withExperimentsHighlighted(ExperimentsTree);
