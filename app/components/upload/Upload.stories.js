@@ -16,4 +16,5 @@ storiesOf('Upload', module)
   .addDecorator((story) => <ConnectedStorybook story={story()} />)
   .addDecorator((story) => <FillContainerStorybook story={story()} />)
   .add('Default', () => <Upload />)
+  .add('Fetching', () => <Upload isFetching />)
   .add('Authenticated', () => <Upload isAuthenticated />);
