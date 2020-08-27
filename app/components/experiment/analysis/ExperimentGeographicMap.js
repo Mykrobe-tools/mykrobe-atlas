@@ -36,6 +36,10 @@ const ExperimentGeographicMap = ({
   const hasExperimentsWithoutGeolocation = !!(
     experimentsWithoutGeolocation && experimentsWithoutGeolocation.length
   );
+  const experimentIsInExperimentsWithoutGeolocation =
+    experiment &&
+    experimentsWithoutGeolocation &&
+    experimentsWithoutGeolocation.map(({ id }) => id).includes(experiment.id);
 
   // refs for instance and storage
   // ref to the div that the map will render into
@@ -443,12 +447,20 @@ const ExperimentGeographicMap = ({
         <div className={styles.controlsContainerTop}>
           <UncontrolledDropdown>
             <DropdownToggle color="mid" outline size={'sm'}>
-              {experimentsWithoutGeolocation.length} no location{' '}
+              {experimentIsInExperimentsWithoutGeolocation && (
+                <span className={styles.highlighted}>
+                  <i className="fa fa-circle" />{' '}
+                </span>
+              )}
+              {experimentsWithoutGeolocation.length} No location{' '}
               <i className="fa fa-caret-down" />
             </DropdownToggle>
             <DropdownMenu>
               <div className={styles.dropdownContent}>
-                <ExperimentsList experiments={experimentsWithoutGeolocation} />
+                <ExperimentsList
+                  experiment={experiment}
+                  experiments={experimentsWithoutGeolocation}
+                />
               </div>
             </DropdownMenu>
           </UncontrolledDropdown>
