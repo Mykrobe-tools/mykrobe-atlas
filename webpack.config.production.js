@@ -3,6 +3,7 @@
 // load process.env from .env file
 require('dotenv').config();
 const DEBUG = process.env.DEBUG_PRODUCTION === '1';
+const GENERATE_SOURCE_MAP = process.env.PLATFORM !== 'electron';
 
 const path = require('path');
 const merge = require('webpack-merge');
@@ -241,7 +242,7 @@ module.exports = merge(webpackConfig, {
         },
         parallel: true,
         cache: true,
-        sourceMap: false,
+        sourceMap: GENERATE_SOURCE_MAP,
       }),
       new OptimizeCSSAssetsPlugin(),
     ],
