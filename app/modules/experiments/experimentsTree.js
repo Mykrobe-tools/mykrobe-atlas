@@ -60,7 +60,7 @@ function* experimentsTreeWorker() {
   }
   const { pathname } = yield select(getLocation);
   // TODO: move route definitions into a common location
-  if (pathname.startsWith('/experiments/')) {
+  if (pathname.startsWith('/experiments')) {
     const experimentsTree = yield select(getExperimentsTree);
     const isFetching = yield select(getIsFetching);
     if (!experimentsTree) {

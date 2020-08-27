@@ -18,30 +18,27 @@ const ExperimentsMap = (
   const filters = useSelector(getExperimentsFilters);
   const query = React.useMemo(() => qs.stringify(filters), [filters]);
 
-  // use same query key - only store a single response to help reduce memory usage
-
-  const { data = [], isFetching } = useQuery({
-    queryKey: 'ExperimentsSummary',
-    url: () => `/experiments/summary?${query}`,
-  });
+  const { data: experiments = [], isFetching } = useQuery(
+    () => `/experiments/summary?${query}`
+  );
 
   const experimentsWithGeolocation = React.useMemo(
-    () => filterExperimentsWithGeolocation(data, true),
-    [data]
+    () => filterExperimentsWithGeolocation(experiments, true),
+    [experiments]
   );
 
   const experimentsWithoutGeolocation = React.useMemo(
-    () => filterExperimentsWithGeolocation(data, false),
-    [data]
+    () => filterExperimentsWithGeolocation(experiments, false),
+    [experiments]
   );
 
-  if (isFetching) {
-    return <Loading delayed />;
+  if (!experiments.length && isFetching) {
+    return <Loading />;
   }
 
   return (
     <ExperimentGeographicMap
-      experiments={data}
+      experiments={experiments}
       experimentsWithGeolocation={experimentsWithGeolocation}
       experimentsWithoutGeolocation={experimentsWithoutGeolocation}
       {...props}

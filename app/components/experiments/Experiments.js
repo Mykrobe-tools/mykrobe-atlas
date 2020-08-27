@@ -129,8 +129,9 @@ class Experiments extends React.Component<*, State> {
       : 'Experiments';
     const { selected } = this.state;
     const showCompare = selected && (selected === '*' || selected.length > 1);
-    const showMap = location.hash === '#map';
-    const showTree = location.hash === '#tree';
+    const showMap = location.hash?.startsWith('#map');
+    const showTree = location.hash?.startsWith('#tree');
+    console.log({ location });
     let content;
     if (hasResults) {
       const headerContent = (
