@@ -5,8 +5,8 @@ import produce from 'immer';
 
 import { getExperimentsTreeNewick } from './experimentsTree';
 import {
-  experimentsInTree,
-  experimentsWithGeolocation,
+  filterExperimentsInTree,
+  filterExperimentsWithGeolocation,
 } from './util/experiments';
 
 export const typePrefix = 'experiments/experimentsHighlighted/';
@@ -28,25 +28,25 @@ export const getExperimentsHighlighted = createSelector(
 export const getExperimentsHighlightedInTree = createSelector(
   getExperimentsTreeNewick,
   getExperimentsHighlighted,
-  (newick, experiments) => experimentsInTree(newick, experiments, true)
+  (newick, experiments) => filterExperimentsInTree(newick, experiments, true)
 );
 
 export const getExperimentsHighlightedNotInTree = createSelector(
   getExperimentsTreeNewick,
   getExperimentsHighlighted,
-  (newick, experiments) => experimentsInTree(newick, experiments, false)
+  (newick, experiments) => filterExperimentsInTree(newick, experiments, false)
 );
 
 // highlighted with and without geolocation available
 
 export const getExperimentsHighlightedWithGeolocation = createSelector(
   getExperimentsHighlighted,
-  (experiments) => experimentsWithGeolocation(experiments, true)
+  (experiments) => filterExperimentsWithGeolocation(experiments, true)
 );
 
 export const getExperimentsHighlightedWithoutGeolocation = createSelector(
   getExperimentsHighlighted,
-  (experiments) => experimentsWithGeolocation(experiments, false)
+  (experiments) => filterExperimentsWithGeolocation(experiments, false)
 );
 
 // Action creators

@@ -9,8 +9,8 @@ import { getExperimentsFiltersSaga } from './experimentsFilters';
 import { descriptionForBigsi } from './util/bigsi';
 import { getExperimentsTreeNewick } from './experimentsTree';
 import {
-  experimentsInTree,
-  experimentsWithGeolocation,
+  filterExperimentsInTree,
+  filterExperimentsWithGeolocation,
 } from './util/experiments';
 
 export const getState = (state: any) => state.experiments.experiments;
@@ -75,25 +75,25 @@ const {
 export const getExperimentsInTree = createSelector(
   getExperimentsTreeNewick,
   getResults,
-  (newick, experiments) => experimentsInTree(newick, experiments, true)
+  (newick, experiments) => filterExperimentsInTree(newick, experiments, true)
 );
 
 export const getExperimentsNotInTree = createSelector(
   getExperimentsTreeNewick,
   getResults,
-  (newick, experiments) => experimentsInTree(newick, experiments, false)
+  (newick, experiments) => filterExperimentsInTree(newick, experiments, false)
 );
 
 // highlighted with and without geolocation available
 
 export const getExperimentsWithGeolocation = createSelector(
   getResults,
-  (experiments) => experimentsWithGeolocation(experiments, true)
+  (experiments) => filterExperimentsWithGeolocation(experiments, true)
 );
 
 export const getExperimentsWithoutGeolocation = createSelector(
   getResults,
-  (experiments) => experimentsWithGeolocation(experiments, false)
+  (experiments) => filterExperimentsWithGeolocation(experiments, false)
 );
 
 export {
