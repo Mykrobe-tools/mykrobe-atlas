@@ -5,10 +5,10 @@ import { createStore, applyMiddleware, compose as vanillaCompose } from 'redux';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
-import { createBrowserHistory } from 'history';
 import { createLogger } from 'redux-logger';
 
 import { actionCreators, actionsBlacklist } from './devconfig';
+import { history } from './config';
 
 import { rootReducer, rootSaga } from '../modules';
 
@@ -25,8 +25,6 @@ if (devToolsPresent) {
 } else {
   compose = vanillaCompose;
 }
-
-export const history = createBrowserHistory();
 
 const router = routerMiddleware(history);
 

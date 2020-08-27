@@ -11,7 +11,6 @@ const d = debug('mykrobe:desktop-util:fetch-predictor-binaries');
 const argv = require('minimist')(process.argv.slice(2));
 d('argv', JSON.stringify(argv, null, 2));
 
-import { updateBuildPackageJson } from './buildPackageJson';
 import { executeCommand } from './executeCommand';
 import { GH_TOKEN, fetchGitHubReleases, gitHubPublishConfig } from './gitHub';
 
@@ -58,6 +57,22 @@ export const getDownloads = ({
     return false;
   }
   return downloads;
+};
+
+export const getCurrentPredictorBinariesVersion = () => {
+  const platforms = getExpectedPlatformAssetsForTag().map(
+    ({ platform }) => platform
+  );
+  for (let i = 0; i < platforms.length; i++) {
+    const platform = platforms[i];
+    const platformFolder = path.join(RESOURCES_DESKTOP_FOLDER, platform, 'bin');
+    const platformVersionFile = path.join(platformFolder, 'VERSION');
+    if (fs.existsSync(platformVersionFile)) {
+      const versionTag = fs.readFileSync(platformVersionFile, 'utf8');
+      d(`Found executable version ${versionTag} from '${platformVersionFile}'`);
+      return versionTag;
+    }
+  }
 };
 
 export const processDownloads = async ({ tag, downloads }: any) => {
@@ -164,7 +179,4 @@ export const fetchPredictorBinaries = async () => {
   }
   d('Processing downloads', JSON.stringify(downloads, null, 2));
   await processDownloads({ tag, downloads });
-  // if successful, update executable display version
-  d('Updating display executable version');
-  updateBuildPackageJson({ executableVersion: tag });
 };

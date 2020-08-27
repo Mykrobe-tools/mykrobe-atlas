@@ -47,6 +47,12 @@
   margin-bottom: 30px;
 }
 
+.activityIndicatorContainer {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+}
+
 .circularProgressContainer {
   composes: containerAbsolute from '~styles/layout.scss';
   pointer-events: none;

@@ -25,10 +25,13 @@ import AppDocumentTitle from '../ui/AppDocumentTitle';
 import DragAndDrop from '../ui/dragAndDrop/DragAndDrop';
 
 class App extends React.Component<*> {
+  _aboutWindow;
+
   constructor(props) {
     super(props);
     const { analyseFile, analyseFileNew, analyseFileSave, push } = props;
     const ipcRenderer = require('electron').ipcRenderer;
+    const remote = require('electron').remote;
 
     ipcRenderer.on('open-file', (e, filePaths) => {
       console.log('App open-file');
@@ -42,7 +45,33 @@ class App extends React.Component<*> {
     });
 
     ipcRenderer.on('menu-about', () => {
-      push('/about');
+      if (this._aboutWindow) {
+        this._aboutWindow.show();
+      } else {
+        // window.location.href has trailing slash e.g. http://localhost:3000/#/
+        const url = `${window.location.href}about`;
+        this._aboutWindow = new remote.BrowserWindow({
+          width: 400,
+          height: 320,
+          resizable: false,
+          minimizable: false,
+          frame: true,
+          webPreferences: {
+            nodeIntegration: true,
+          },
+        });
+        this._aboutWindow.setMenuBarVisibility(false);
+        this._aboutWindow.loadURL(url);
+        this._aboutWindow.on('close', () => {
+          delete this._aboutWindow;
+        });
+      }
+    });
+
+    ipcRenderer.on('close', () => {
+      if (this._aboutWindow) {
+        this._aboutWindow.close();
+      }
     });
 
     ipcRenderer.on('menu-file-open', () => {
