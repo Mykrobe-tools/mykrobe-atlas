@@ -28,12 +28,13 @@ import { notImplemented } from '../../util';
 import UploadButton from '../upload/button/UploadButton';
 import SearchNavigation from '../ui/search/SearchNavigation';
 import Empty from '../ui/Empty';
-import ExperimentGeographicMap from '../experiment/analysis/ExperimentGeographicMap';
+import ExperimentsMap from './ExperimentsMap';
+import ExperimentsTree from './ExperimentsTree';
 
 import { withExperimentsPropTypes } from '../../hoc/withExperiments';
-import { withExperimentsHighlightedPropTypes } from '../../hoc/withExperimentsHighlighted';
 import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
 import { withExperimentPropTypes } from '../../hoc/withExperiment';
+import { Link } from 'react-router-dom';
 
 type State = {
   selected?: string | Array<string>,
@@ -101,24 +102,6 @@ class Experiments extends React.Component<*, State> {
     });
   };
 
-  onViewListClick = (e: any) => {
-    e && e.preventDefault();
-    const { setExperimentsFilters, experimentsFilters } = this.props;
-    setExperimentsFilters({
-      ...experimentsFilters,
-      view: undefined,
-    });
-  };
-
-  onViewMapClick = (e: any) => {
-    e && e.preventDefault();
-    const { setExperimentsFilters, experimentsFilters } = this.props;
-    setExperimentsFilters({
-      ...experimentsFilters,
-      view: 'map',
-    });
-  };
-
   setSelected = (selected?: string | Array<string>) => {
     this.setState({
       selected,
@@ -127,6 +110,7 @@ class Experiments extends React.Component<*, State> {
 
   render() {
     const {
+      location,
       experiments,
       experimentsFilters,
       isFetchingExperiments,
@@ -134,14 +118,7 @@ class Experiments extends React.Component<*, State> {
       experimentsIsPending,
       experimentsSearchDescription,
       experimentsError,
-      experimentsHighlighted,
-      setExperimentsHighlighted,
-      resetExperimentsHighlighted,
       experimentsSearchQuery,
-      experimentsWithGeolocation,
-      experimentsWithoutGeolocation,
-      experimentsHighlightedWithGeolocation,
-      experimentsHighlightedWithoutGeolocation,
       currentUser,
     } = this.props;
     const { pagination, results, total } = experiments;
@@ -152,7 +129,9 @@ class Experiments extends React.Component<*, State> {
       : 'Experiments';
     const { selected } = this.state;
     const showCompare = selected && (selected === '*' || selected.length > 1);
-    const showMap = _get(experimentsFilters, 'view') === 'map';
+    const showMap = location.hash?.startsWith('#map');
+    const showTree = location.hash?.startsWith('#tree');
+    console.log({ location });
     let content;
     if (hasResults) {
       const headerContent = (
@@ -194,18 +173,29 @@ class Experiments extends React.Component<*, State> {
                 <IconButton
                   size="sm"
                   icon="list-ul"
-                  onClick={this.onViewListClick}
-                  outline={showMap}
+                  tag={Link}
+                  to={`${location.pathname}${location.search}`}
+                  outline={showMap || showTree}
                 >
                   List
                 </IconButton>
                 <IconButton
                   size="sm"
                   icon="globe"
-                  onClick={this.onViewMapClick}
+                  tag={Link}
+                  to={`${location.pathname}${location.search}#map`}
                   outline={!showMap}
                 >
                   Map
+                </IconButton>
+                <IconButton
+                  size="sm"
+                  icon="snowflake-o"
+                  tag={Link}
+                  to={`${location.pathname}${location.search}#tree`}
+                  outline={!showTree}
+                >
+                  Tree
                 </IconButton>
               </ButtonGroup>
               <div className="ml-2">
@@ -219,20 +209,14 @@ class Experiments extends React.Component<*, State> {
         content = (
           <React.Fragment>
             <Container fluid>{headerContent}</Container>
-            <ExperimentGeographicMap
-              experiments={results}
-              experimentsHighlighted={experimentsHighlighted}
-              setExperimentsHighlighted={setExperimentsHighlighted}
-              resetExperimentsHighlighted={resetExperimentsHighlighted}
-              experimentsWithGeolocation={experimentsWithGeolocation}
-              experimentsWithoutGeolocation={experimentsWithoutGeolocation}
-              experimentsHighlightedWithGeolocation={
-                experimentsHighlightedWithGeolocation
-              }
-              experimentsHighlightedWithoutGeolocation={
-                experimentsHighlightedWithoutGeolocation
-              }
-            />
+            <ExperimentsMap />
+          </React.Fragment>
+        );
+      } else if (showTree) {
+        content = (
+          <React.Fragment>
+            <Container fluid>{headerContent}</Container>
+            <ExperimentsTree />
           </React.Fragment>
         );
       } else {
@@ -319,9 +303,11 @@ class Experiments extends React.Component<*, State> {
         />
         <div className={styles.resultsContainer}>
           {content}
-          {isFetchingExperiments && <Loading overlay />}
+          {!showMap && !showTree && isFetchingExperiments && (
+            <Loading overlay delayed />
+          )}
         </div>
-        <Footer />
+        {!showMap && !showTree && <Footer />}
       </div>
     );
   }
@@ -330,7 +316,6 @@ class Experiments extends React.Component<*, State> {
 Experiments.propTypes = {
   ...withExperimentPropTypes,
   ...withExperimentsPropTypes,
-  ...withExperimentsHighlightedPropTypes,
   ...withCurrentUserPropTypes,
   onChangeListOrder: PropTypes.func,
   setPage: PropTypes.func,

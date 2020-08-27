@@ -21,8 +21,8 @@ import { ANALYSIS_COMPLETE } from '../../modules/users/currentUserEvents';
 import AnalyserJsonTransformer from './util/AnalyserJsonTransformer';
 import { getExperimentsTreeNewick } from './experimentsTree';
 import {
-  experimentsInTree,
-  experimentsWithGeolocation,
+  filterExperimentsInTree,
+  filterExperimentsWithGeolocation,
 } from './util/experiments';
 
 import {
@@ -109,13 +109,13 @@ export const getExperimentTransformed = createSelector(
 export const getExperimentInTree = createSelector(
   getExperimentsTreeNewick,
   getExperiment,
-  (newick, experiment) => experimentsInTree(newick, [experiment], true)
+  (newick, experiment) => filterExperimentsInTree(newick, [experiment], true)
 );
 
 export const getExperimentNotInTree = createSelector(
   getExperimentsTreeNewick,
   getExperiment,
-  (newick, experiment) => experimentsInTree(newick, [experiment], false)
+  (newick, experiment) => filterExperimentsInTree(newick, [experiment], false)
 );
 
 // nearest neighbours
@@ -176,26 +176,26 @@ export const getExperimentAndNearestNeigboursInTree = createSelector(
   getExperimentsTreeNewick,
   getExperimentAndNearestNeigbours,
   (newick, experiments) => {
-    return experimentsInTree(newick, experiments, true);
+    return filterExperimentsInTree(newick, experiments, true);
   }
 );
 
 export const getExperimentAndNearestNeigboursNotInTree = createSelector(
   getExperimentsTreeNewick,
   getExperimentAndNearestNeigbours,
-  (newick, experiments) => experimentsInTree(newick, experiments, false)
+  (newick, experiments) => filterExperimentsInTree(newick, experiments, false)
 );
 
 // highlighted with and without geolocation available
 
 export const getExperimentAndNearestNeigboursWithGeolocation = createSelector(
   getExperimentAndNearestNeigbours,
-  (experiments) => experimentsWithGeolocation(experiments, true)
+  (experiments) => filterExperimentsWithGeolocation(experiments, true)
 );
 
 export const getExperimentAndNearestNeigboursWithoutGeolocation = createSelector(
   getExperimentAndNearestNeigbours,
-  (experiments) => experimentsWithGeolocation(experiments, false)
+  (experiments) => filterExperimentsWithGeolocation(experiments, false)
 );
 
 export {

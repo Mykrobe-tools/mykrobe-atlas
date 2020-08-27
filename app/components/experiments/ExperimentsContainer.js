@@ -6,8 +6,8 @@ import Experiments from './Experiments';
 
 import withExperiment from '../../hoc/withExperiment';
 import withExperiments from '../../hoc/withExperiments';
-import withExperimentsHighlighted from '../../hoc/withExperimentsHighlighted';
 import withCurrentUser from '../../hoc/withCurrentUser';
+import { withRouter } from 'react-router-dom';
 
 class ExperimentsContainer extends React.Component<*> {
   componentDidMount() {
@@ -41,6 +41,6 @@ class ExperimentsContainer extends React.Component<*> {
   }
 }
 
-export default withExperimentsHighlighted(
+export default withRouter(
   withExperiments(withExperiment(withCurrentUser(ExperimentsContainer)))
 );
