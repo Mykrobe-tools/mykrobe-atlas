@@ -190,7 +190,7 @@ class Experiments extends React.Component<*, State> {
                 </IconButton>
                 <IconButton
                   size="sm"
-                  icon="globe"
+                  icon="snowflake-o"
                   tag={Link}
                   to={`${location.pathname}${location.search}#tree`}
                   outline={!showTree}
