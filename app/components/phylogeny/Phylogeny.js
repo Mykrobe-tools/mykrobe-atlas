@@ -72,10 +72,13 @@ class Phylogeny extends React.Component<*, State> {
     const {
       highlighted,
       experiments,
-      experimentsTree,
+      experimentsTreeNewick,
       resetExperimentsHighlighted,
     } = this.props;
-    const treeChanged = !_isEqual(experimentsTree, prevProps.experimentsTree);
+    const treeChanged = !_isEqual(
+      experimentsTreeNewick,
+      prevProps.experimentsTreeNewick
+    );
     if (treeChanged || !_isEqual(experiments, prevProps.experiments)) {
       this.updateMarkers();
       resetExperimentsHighlighted();
