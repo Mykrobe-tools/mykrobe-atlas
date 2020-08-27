@@ -20,6 +20,16 @@ import Menu from '../ui/navigation/menu/Menu';
 import MenuBg from '../ui/navigation/menu/MenuBg';
 import DragAndDrop from '../ui/dragAndDrop/DragAndDrop';
 
+const USE_SENTRY =
+  process.env.NODE_ENV !== 'development' &&
+  window.env?.REACT_APP_SENTRY_PUBLIC_DSN;
+
+if (USE_SENTRY) {
+  Sentry.init({
+    dsn: window.env.SENTRY_PUBLIC_DSN,
+  });
+}
+
 type State = {
   displayMenu: boolean,
 };
