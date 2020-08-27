@@ -4,7 +4,7 @@ import _get from 'lodash.get';
 
 import { newickContainsNodeId } from './newick';
 
-export const experimentsInTree = (
+export const filterExperimentsInTree = (
   experimentsTree,
   experiments,
   inTree = true
@@ -25,7 +25,7 @@ export const experimentsInTree = (
   );
 };
 
-export const experimentsWithGeolocation = (
+export const filterExperimentsWithGeolocation = (
   experiments,
   withGeolocation = true
 ) => {

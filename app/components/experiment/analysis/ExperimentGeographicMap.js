@@ -29,6 +29,7 @@ const ExperimentGeographicMap = ({
   experimentsWithGeolocation,
   experimentsWithoutGeolocation,
   setExperimentsHighlighted,
+  resetExperimentsHighlighted,
 }: React.ElementProps<*>): React.Element<*> => {
   const hasExperimentsWithGeolocation = !!(
     experimentsWithGeolocation && experimentsWithGeolocation.length
@@ -204,8 +205,8 @@ const ExperimentGeographicMap = ({
 
   // click on the map - unset highlight
   const onClick = React.useCallback(() => {
-    setExperimentsHighlighted([]);
-  }, [setExperimentsHighlighted]);
+    resetExperimentsHighlighted();
+  }, [resetExperimentsHighlighted]);
 
   // determine what text and which style to use for each marker cluster
   const markerClustererCalculator = React.useCallback(

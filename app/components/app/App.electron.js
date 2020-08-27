@@ -29,7 +29,7 @@ class App extends React.Component<*> {
 
   constructor(props) {
     super(props);
-    const { analyseFile, analyseFileNew, analyseFileSave, push } = props;
+    const { analyseFile, analyseFileNew, analyseFileSave } = props;
     const ipcRenderer = require('electron').ipcRenderer;
     const remote = require('electron').remote;
 
