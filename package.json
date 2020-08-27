@@ -3,6 +3,8 @@
   "productName": "Mykrobe",
   "version": "0.8.2",
   "description": "Mykrobe",
+  "author": "Mykrobe",
+  "license": "MIT",
   "private": true,
   "main": "main.js",
   "scripts": {
