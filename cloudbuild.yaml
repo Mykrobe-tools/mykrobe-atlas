@@ -56,10 +56,14 @@ steps:
       ]
   - name: node:$_NODE_VERSION
     entrypoint: "bash"
+    env:
+      - "SENTRY_AUTH_TOKEN=`cat /workspace/sentry-auth-token.txt`"
+      - "SENTRY_ORG=$_SENTRY_ORG"
+      - "SENTRY_PROJECT=$_SENTRY_PROJECT"
     args:
       - "-c"
       - |
-        SENTRY_AUTH_TOKEN=`cat /workspace/sentry-auth-token.txt` SENTRY_ORG="$_SENTRY_ORG" SENTRY_PROJECT="$_SENTRY_PROJECT" NODE_ENV=production webpack --config ./web/webpack.config.production.js
+        yarn web-build
   - name: node:$_NODE_VERSION
     entrypoint: "bash"
     args:
