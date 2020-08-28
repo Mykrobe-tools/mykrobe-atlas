@@ -57,7 +57,7 @@ steps:
   - name: node:$_NODE_VERSION
     entrypoint: "bash"
     env:
-      - "SENTRY_AUTH_TOKEN=`cat /workspace/sentry-auth-token.txt`"
+      - "SENTRY_AUTH_TOKEN=$(cat /workspace/sentry-auth-token.txt)"
       - "SENTRY_ORG=$_SENTRY_ORG"
       - "SENTRY_PROJECT=$_SENTRY_PROJECT"
     args:
