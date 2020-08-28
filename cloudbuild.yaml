@@ -59,7 +59,7 @@ steps:
     args:
       - "-c"
       - |
-        export SENTRY_AUTH_TOKEN=`cat /workspace/sentry-auth-token.txt` && SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN SENTRY_ORG=$_SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT yarn web-build
+        SENTRY_AUTH_TOKEN=`cat /workspace/sentry-auth-token.txt` SENTRY_ORG=$_SENTRY_ORG SENTRY_PROJECT=$SENTRY_PROJECT yarn web-build
   - name: node:$_NODE_VERSION
     entrypoint: "bash"
     args:
