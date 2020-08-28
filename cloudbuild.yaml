@@ -56,6 +56,9 @@ steps:
       ]
   - name: node:$_NODE_VERSION
     entrypoint: "bash"
+    args: ["-c", "cat /workspace/sentry-auth-token.txt"]
+  - name: node:$_NODE_VERSION
+    entrypoint: "bash"
     args:
       - "-c"
       - |
