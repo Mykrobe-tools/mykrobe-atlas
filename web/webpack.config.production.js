@@ -14,8 +14,13 @@ const buildPath = path.join(__dirname, 'build');
 
 const additionalPlugins = [];
 
+console.log(
+  'process.env.REACT_APP_SENTRY_PUBLIC_DSN',
+  process.env.REACT_APP_SENTRY_PUBLIC_DSN
+);
 console.log('process.env.SENTRY_AUTH_TOKEN', process.env.SENTRY_AUTH_TOKEN);
-console.log('process.env.UPLOAD_TO_SENTRY', process.env.UPLOAD_TO_SENTRY);
+console.log('process.env.SENTRY_ORG', process.env.SENTRY_ORG);
+console.log('process.env.SENTRY_PROJECT', process.env.SENTRY_PROJECT);
 
 if (process.env.SENTRY_AUTH_TOKEN && process.env.UPLOAD_TO_SENTRY !== 'false') {
   console.log('Using SentryCliPlugin');
