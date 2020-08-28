@@ -14,17 +14,24 @@ const buildPath = path.join(__dirname, 'build');
 
 const additionalPlugins = [];
 
+console.log('process.env.SENTRY_AUTH_TOKEN', process.env.SENTRY_AUTH_TOKEN);
+console.log('process.env.UPLOAD_TO_SENTRY', process.env.UPLOAD_TO_SENTRY);
+
 if (process.env.SENTRY_AUTH_TOKEN && process.env.UPLOAD_TO_SENTRY !== 'false') {
+  console.log('Using SentryCliPlugin');
   const release = require('child_process')
     .execSync('git rev-parse --short HEAD')
     .toString()
     .trim();
+  console.log('release', release);
   additionalPlugins.push(
     new SentryCliPlugin({
       include: buildPath,
       release,
     })
   );
+} else {
+  console.log('Not using SentryCliPlugin');
 }
 
 module.exports = merge(webpackConfig, {
