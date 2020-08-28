@@ -12,14 +12,20 @@ const pluginConfig = require('./webpack.plugin.config');
 
 const buildPath = path.join(__dirname, 'build');
 
-const additionalPlugins =
-  process.env.UPLOAD_TO_SENTRY !== 'false'
-    ? [
-        new SentryCliPlugin({
-          include: buildPath,
-        }),
-      ]
-    : [];
+const additionalPlugins = [];
+
+if (process.env.SENTRY_AUTH_TOKEN && process.env.UPLOAD_TO_SENTRY !== 'false') {
+  const release = require('child_process')
+    .execSync('git rev-parse --short HEAD')
+    .toString()
+    .trim();
+  additionalPlugins.push(
+    new SentryCliPlugin({
+      include: buildPath,
+      release,
+    })
+  );
+}
 
 module.exports = merge(webpackConfig, {
   devtool: 'source-map',
