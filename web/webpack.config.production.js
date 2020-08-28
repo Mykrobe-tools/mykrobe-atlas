@@ -13,7 +13,7 @@ const pluginConfig = require('./webpack.plugin.config');
 const buildPath = path.join(__dirname, 'build');
 
 const additionalPlugins =
-  process.env.UPLOAD_TO_SENTRY !== 'false'
+  process.env.SENTRY_AUTH_TOKEN && process.env.UPLOAD_TO_SENTRY !== 'false'
     ? [
         new SentryCliPlugin({
           include: buildPath,
