@@ -19,7 +19,6 @@ if (process.env.SENTRY_AUTH_TOKEN && process.env.UPLOAD_TO_SENTRY !== 'false') {
     .execSync('git rev-parse --short HEAD')
     .toString()
     .trim();
-  console.log({ release });
   additionalPlugins.push(
     new SentryCliPlugin({
       include: buildPath,
