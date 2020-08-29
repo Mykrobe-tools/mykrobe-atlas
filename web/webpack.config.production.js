@@ -24,7 +24,12 @@ console.log('process.env.SENTRY_PROJECT', process.env.SENTRY_PROJECT);
 console.log('process.env.SHORT_SHA', process.env.SHORT_SHA);
 
 if (process.env.SENTRY_AUTH_TOKEN && process.env.UPLOAD_TO_SENTRY !== 'false') {
-  const release = process.env.SHORT_SHA;
+  const release =
+    process.env.SHORT_SHA ||
+    require('child_process')
+      .execSync('git rev-parse --short HEAD')
+      .toString()
+      .trim();
   additionalPlugins.push(
     new SentryCliPlugin({
       include: buildPath,
