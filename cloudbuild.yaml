@@ -47,12 +47,20 @@ steps:
     volumes:
       - name: "ssh"
         path: /root/.ssh
-  - name: node:$_NODE_VERSION
+  - name: gcr.io/cloud-builders/gcloud
     entrypoint: "bash"
     args:
-      - "-c"
-      - |
-        yarn web-build
+      [
+        "-c",
+        "gcloud secrets versions access latest --secret=SENTRY_AUTH_TOKEN --format='get(payload.data)' | tr '_-' '/+' | base64 -d > /workspace/sentry-auth-token.txt",
+      ]
+  - name: node:$_NODE_VERSION
+    entrypoint: "bash"
+    env:
+      - "SENTRY_ORG=$_SENTRY_ORG"
+      - "SENTRY_PROJECT=$_SENTRY_PROJECT"
+      - "SHORT_SHA=$SHORT_SHA"
+    args: ["cloudbuild-build.sh"]
   - name: node:$_NODE_VERSION
     entrypoint: "bash"
     args:
@@ -105,3 +113,5 @@ substitutions:
   _IMAGE_REPOSITORY: eu.gcr.io/atlas-275810/mykrobe-atlas
   _BITBUCKET_SECRET: ms-bitbucket-readonly
   _GITHUB_SECRET: atlas-jsonschema-readonly
+  _SENTRY_ORG: makeandship
+  _SENTRY_PROJECT: mykrobe-atlas
