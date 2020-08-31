@@ -15,10 +15,13 @@ const buildPath = path.join(__dirname, 'build');
 const additionalPlugins = [];
 
 if (process.env.SENTRY_AUTH_TOKEN && process.env.UPLOAD_TO_SENTRY !== 'false') {
-  const release = require('child_process')
-    .execSync('git rev-parse --short HEAD')
-    .toString()
-    .trim();
+  const release =
+    process.env.SHORT_SHA ||
+    require('child_process')
+      .execSync('git rev-parse --short HEAD')
+      .toString()
+      .trim();
+
   additionalPlugins.push(
     new SentryCliPlugin({
       include: buildPath,
