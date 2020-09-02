@@ -10262,9 +10262,9 @@ make-dir@^3.0.0, make-dir@^3.0.2:
   dependencies:
     semver "^6.0.0"
 
-"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#v0.2.6":
+"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#feature/325-modify-query-fetching":
   version "0.2.6"
-  resolved "https://bitbucket.org/makeandship/makeandship-js-common#3d6aa7f36fd33f1699946964c935f6b3b393d471"
+  resolved "https://bitbucket.org/makeandship/makeandship-js-common#ece34fe97da121e042df8b34a997afe7ce9e3779"
   dependencies:
     ajv "^6.7.0"
     react-jsonschema-form "^1.8.0"
