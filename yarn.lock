@@ -10262,9 +10262,9 @@ make-dir@^3.0.0, make-dir@^3.0.2:
   dependencies:
     semver "^6.0.0"
 
-"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#feature/325-modify-query-fetching":
-  version "0.2.6"
-  resolved "https://bitbucket.org/makeandship/makeandship-js-common#ece34fe97da121e042df8b34a997afe7ce9e3779"
+"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#v0.2.7":
+  version "0.2.7"
+  resolved "https://bitbucket.org/makeandship/makeandship-js-common#ee3f959433b79e8cd1efca22432a2534b71801f3"
   dependencies:
     ajv "^6.7.0"
     react-jsonschema-form "^1.8.0"
@@ -10789,9 +10789,9 @@ mute-stream@0.0.8:
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.8.tgz#1630c42b2251ff81e2a283de96a5497ea92e5e0d"
   integrity sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
 
-"mykrobe-atlas-jsonschema@git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.27":
-  version "0.0.27"
-  resolved "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#9e57adf951a0e4266745fa7902e898a616f0c68a"
+"mykrobe-atlas-jsonschema@git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.33":
+  version "0.0.33"
+  resolved "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#24800fd1f3a9b0255e93185f72eab1e3cb437a91"
   dependencies:
     onchange "^4.0.0"
 

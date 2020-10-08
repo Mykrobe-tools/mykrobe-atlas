@@ -4,7 +4,7 @@ exports[`experiment schema util should derive keys as expected 1`] = `
 Array [
   "sampleId",
   "leafId",
-  "file",
+  "files",
   "metadata.sample.labId",
   "metadata.sample.isolateId",
   "metadata.sample.collectionDate",
@@ -62,16 +62,16 @@ Array [
   "metadata.phenotyping.pas.method",
   "metadata.phenotyping.linezolid.susceptibility",
   "metadata.phenotyping.linezolid.method",
-  "metadata.phenotyping.ethionamideProthionamide.susceptibility",
-  "metadata.phenotyping.ethionamideProthionamide.method",
-  "metadata.phenotyping.rerizidone.susceptibility",
-  "metadata.phenotyping.rerizidone.method",
+  "metadata.phenotyping.ethionamide.susceptibility",
+  "metadata.phenotyping.ethionamide.method",
+  "metadata.phenotyping.terizidone.susceptibility",
+  "metadata.phenotyping.terizidone.method",
   "metadata.phenotyping.amoxicilinClavulanate.susceptibility",
   "metadata.phenotyping.amoxicilinClavulanate.method",
   "metadata.phenotyping.thioacetazone.susceptibility",
   "metadata.phenotyping.thioacetazone.method",
-  "metadata.phenotyping.imipenemImipenemcilastatin.susceptibility",
-  "metadata.phenotyping.imipenemImipenemcilastatin.method",
+  "metadata.phenotyping.imipenem.susceptibility",
+  "metadata.phenotyping.imipenem.method",
   "metadata.phenotyping.meropenem.susceptibility",
   "metadata.phenotyping.meropenem.method",
   "metadata.phenotyping.clarythromycin.susceptibility",
@@ -84,8 +84,6 @@ Array [
   "metadata.phenotyping.delamanid.method",
   "metadata.phenotyping.prothionamide.susceptibility",
   "metadata.phenotyping.prothionamide.method",
-  "metadata.phenotyping.pretothionamide.susceptibility",
-  "metadata.phenotyping.pretothionamide.method",
   "metadata.phenotyping.pretomanid.susceptibility",
   "metadata.phenotyping.pretomanid.method",
   "metadata.treatment.previousTbInformation",
@@ -171,6 +169,6 @@ Array [
 exports[`experiment schema util should determine completeness as expected 1`] = `
 Object {
   "complete": 2,
-  "total": 163,
+  "total": 161,
 }
 `;
