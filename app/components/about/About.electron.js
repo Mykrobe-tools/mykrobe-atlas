@@ -11,7 +11,7 @@ import { launchWebsite } from '../../helpers/UIHelpers'; // eslint-disable-line 
 const {
   version,
   executableVersion,
-} = require('../../../desktop/resources/package.json');
+} = require('../../../desktop/build/package.json');
 
 const About = (): React.Element<*> => {
   const onLaunchWebsite = (e) => {
