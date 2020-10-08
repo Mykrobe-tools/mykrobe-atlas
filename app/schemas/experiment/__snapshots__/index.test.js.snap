@@ -814,9 +814,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Ethambutol",
         },
-        "ethionamideProthionamide": Object {
+        "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Ethionamide/Prothionamide",
+          "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -830,9 +830,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "High-dose Isoniazid",
         },
-        "imipenemImipenemcilastatin": Object {
+        "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Imipenem/Imipenemcilastatin",
+          "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -882,10 +882,6 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pretomanid (PA-824)",
         },
-        "pretothionamide": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Pretothionamide",
-        },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Prothionamide",
@@ -893,10 +889,6 @@ Object {
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pyrazinamide",
-        },
-        "rerizidone": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Rerizidone",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -909,6 +901,10 @@ Object {
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Streptomycin",
+        },
+        "terizidone": Object {
+          "$ref": "#/definitions/Susceptibility",
+          "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -1043,8 +1039,6 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
-            "distance-tree-distance",
-            "distance-nearest-neighbour",
             "distance",
           ],
           "title": "Type",
@@ -1080,7 +1074,10 @@ Object {
         },
         "cityIsolate": Object {
           "title": "City Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "collectionDate": Object {
           "format": "date",
@@ -1089,6 +1086,7 @@ Object {
         },
         "countryIsolate": Object {
           "enum": Array [
+            null,
             "",
             "AD",
             "AE",
@@ -1339,6 +1337,7 @@ Object {
           ],
           "enumNames": Array [
             "",
+            "",
             "Andorra",
             "United Arab Emirates",
             "Afghanistan",
@@ -1587,7 +1586,10 @@ Object {
             "Zimbabwe",
           ],
           "title": "Country Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "dateArrived": Object {
           "format": "date",
@@ -2671,9 +2673,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Ethambutol",
         },
-        "ethionamideProthionamide": Object {
+        "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Ethionamide/Prothionamide",
+          "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -2687,9 +2689,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "High-dose Isoniazid",
         },
-        "imipenemImipenemcilastatin": Object {
+        "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Imipenem/Imipenemcilastatin",
+          "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -2739,10 +2741,6 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pretomanid (PA-824)",
         },
-        "pretothionamide": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Pretothionamide",
-        },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Prothionamide",
@@ -2750,10 +2748,6 @@ Object {
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pyrazinamide",
-        },
-        "rerizidone": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Rerizidone",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -2766,6 +2760,10 @@ Object {
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Streptomycin",
+        },
+        "terizidone": Object {
+          "$ref": "#/definitions/Susceptibility",
+          "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -2900,8 +2898,6 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
-            "distance-tree-distance",
-            "distance-nearest-neighbour",
             "distance",
           ],
           "title": "Type",
@@ -2937,7 +2933,10 @@ Object {
         },
         "cityIsolate": Object {
           "title": "City Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "collectionDate": Object {
           "format": "date",
@@ -2946,6 +2945,7 @@ Object {
         },
         "countryIsolate": Object {
           "enum": Array [
+            null,
             "",
             "AD",
             "AE",
@@ -3196,6 +3196,7 @@ Object {
           ],
           "enumNames": Array [
             "",
+            "",
             "Andorra",
             "United Arab Emirates",
             "Afghanistan",
@@ -3444,7 +3445,10 @@ Object {
             "Zimbabwe",
           ],
           "title": "Country Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "dateArrived": Object {
           "format": "date",
@@ -4528,9 +4532,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Ethambutol",
         },
-        "ethionamideProthionamide": Object {
+        "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Ethionamide/Prothionamide",
+          "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -4544,9 +4548,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "High-dose Isoniazid",
         },
-        "imipenemImipenemcilastatin": Object {
+        "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Imipenem/Imipenemcilastatin",
+          "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -4596,10 +4600,6 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pretomanid (PA-824)",
         },
-        "pretothionamide": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Pretothionamide",
-        },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Prothionamide",
@@ -4607,10 +4607,6 @@ Object {
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pyrazinamide",
-        },
-        "rerizidone": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Rerizidone",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -4623,6 +4619,10 @@ Object {
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Streptomycin",
+        },
+        "terizidone": Object {
+          "$ref": "#/definitions/Susceptibility",
+          "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -4757,8 +4757,6 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
-            "distance-tree-distance",
-            "distance-nearest-neighbour",
             "distance",
           ],
           "title": "Type",
@@ -4794,7 +4792,10 @@ Object {
         },
         "cityIsolate": Object {
           "title": "City Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "collectionDate": Object {
           "format": "date",
@@ -4803,6 +4804,7 @@ Object {
         },
         "countryIsolate": Object {
           "enum": Array [
+            null,
             "",
             "AD",
             "AE",
@@ -5053,6 +5055,7 @@ Object {
           ],
           "enumNames": Array [
             "",
+            "",
             "Andorra",
             "United Arab Emirates",
             "Afghanistan",
@@ -5301,7 +5304,10 @@ Object {
             "Zimbabwe",
           ],
           "title": "Country Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "dateArrived": Object {
           "format": "date",
@@ -6385,9 +6391,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Ethambutol",
         },
-        "ethionamideProthionamide": Object {
+        "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Ethionamide/Prothionamide",
+          "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -6401,9 +6407,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "High-dose Isoniazid",
         },
-        "imipenemImipenemcilastatin": Object {
+        "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Imipenem/Imipenemcilastatin",
+          "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -6453,10 +6459,6 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pretomanid (PA-824)",
         },
-        "pretothionamide": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Pretothionamide",
-        },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Prothionamide",
@@ -6464,10 +6466,6 @@ Object {
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pyrazinamide",
-        },
-        "rerizidone": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Rerizidone",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -6480,6 +6478,10 @@ Object {
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Streptomycin",
+        },
+        "terizidone": Object {
+          "$ref": "#/definitions/Susceptibility",
+          "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -6614,8 +6616,6 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
-            "distance-tree-distance",
-            "distance-nearest-neighbour",
             "distance",
           ],
           "title": "Type",
@@ -6651,7 +6651,10 @@ Object {
         },
         "cityIsolate": Object {
           "title": "City Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "collectionDate": Object {
           "format": "date",
@@ -6660,6 +6663,7 @@ Object {
         },
         "countryIsolate": Object {
           "enum": Array [
+            null,
             "",
             "AD",
             "AE",
@@ -6910,6 +6914,7 @@ Object {
           ],
           "enumNames": Array [
             "",
+            "",
             "Andorra",
             "United Arab Emirates",
             "Afghanistan",
@@ -7158,7 +7163,10 @@ Object {
             "Zimbabwe",
           ],
           "title": "Country Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "dateArrived": Object {
           "format": "date",
@@ -8242,9 +8250,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Ethambutol",
         },
-        "ethionamideProthionamide": Object {
+        "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Ethionamide/Prothionamide",
+          "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -8258,9 +8266,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "High-dose Isoniazid",
         },
-        "imipenemImipenemcilastatin": Object {
+        "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Imipenem/Imipenemcilastatin",
+          "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -8310,10 +8318,6 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pretomanid (PA-824)",
         },
-        "pretothionamide": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Pretothionamide",
-        },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Prothionamide",
@@ -8321,10 +8325,6 @@ Object {
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pyrazinamide",
-        },
-        "rerizidone": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Rerizidone",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -8337,6 +8337,10 @@ Object {
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Streptomycin",
+        },
+        "terizidone": Object {
+          "$ref": "#/definitions/Susceptibility",
+          "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -8471,8 +8475,6 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
-            "distance-tree-distance",
-            "distance-nearest-neighbour",
             "distance",
           ],
           "title": "Type",
@@ -8508,7 +8510,10 @@ Object {
         },
         "cityIsolate": Object {
           "title": "City Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "collectionDate": Object {
           "format": "date",
@@ -8517,6 +8522,7 @@ Object {
         },
         "countryIsolate": Object {
           "enum": Array [
+            null,
             "",
             "AD",
             "AE",
@@ -8767,6 +8773,7 @@ Object {
           ],
           "enumNames": Array [
             "",
+            "",
             "Andorra",
             "United Arab Emirates",
             "Afghanistan",
@@ -9015,7 +9022,10 @@ Object {
             "Zimbabwe",
           ],
           "title": "Country Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "dateArrived": Object {
           "format": "date",
@@ -10099,9 +10109,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Ethambutol",
         },
-        "ethionamideProthionamide": Object {
+        "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Ethionamide/Prothionamide",
+          "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -10115,9 +10125,9 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "High-dose Isoniazid",
         },
-        "imipenemImipenemcilastatin": Object {
+        "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
-          "title": "Imipenem/Imipenemcilastatin",
+          "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -10167,10 +10177,6 @@ Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pretomanid (PA-824)",
         },
-        "pretothionamide": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Pretothionamide",
-        },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Prothionamide",
@@ -10178,10 +10184,6 @@ Object {
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Pyrazinamide",
-        },
-        "rerizidone": Object {
-          "$ref": "#/definitions/Susceptibility",
-          "title": "Rerizidone",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -10194,6 +10196,10 @@ Object {
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
           "title": "Streptomycin",
+        },
+        "terizidone": Object {
+          "$ref": "#/definitions/Susceptibility",
+          "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
@@ -10328,8 +10334,6 @@ Object {
         "type": Object {
           "enum": Array [
             "predictor",
-            "distance-tree-distance",
-            "distance-nearest-neighbour",
             "distance",
           ],
           "title": "Type",
@@ -10365,7 +10369,10 @@ Object {
         },
         "cityIsolate": Object {
           "title": "City Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "collectionDate": Object {
           "format": "date",
@@ -10374,6 +10381,7 @@ Object {
         },
         "countryIsolate": Object {
           "enum": Array [
+            null,
             "",
             "AD",
             "AE",
@@ -10624,6 +10632,7 @@ Object {
           ],
           "enumNames": Array [
             "",
+            "",
             "Andorra",
             "United Arab Emirates",
             "Afghanistan",
@@ -10872,7 +10881,10 @@ Object {
             "Zimbabwe",
           ],
           "title": "Country Isolate",
-          "type": "string",
+          "type": Array [
+            "string",
+            "null",
+          ],
         },
         "dateArrived": Object {
           "format": "date",

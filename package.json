@@ -227,7 +227,7 @@
     "mini-css-extract-plugin": "^0.9.0",
     "minimist": "^1.2.0",
     "module": "^1.2.5",
-    "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.27",
+    "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.33",
     "nhs-number-validator": "^1.1.1",
     "nock": "^9.1.0",
     "node-sass": "^4.13.0",
