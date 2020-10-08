@@ -10,8 +10,10 @@ import {
   select,
   call,
   apply,
+  takeLeading,
 } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
+import type { ResumableFile } from 'resumablejs';
 import { createSelector } from 'reselect';
 import { push } from 'connected-react-router';
 import * as dateFns from 'date-fns';
@@ -26,7 +28,7 @@ import {
 } from '../experiments/experiment';
 
 import ResumableUpload, {
-  RESUMABLE_UPLOAD_FILE_ADDED,
+  RESUMABLE_UPLOAD_FILES_ADDED,
   RESUMABLE_UPLOAD_PROGRESS,
   RESUMABLE_UPLOAD_ERROR,
   RESUMABLE_UPLOAD_DONE,
@@ -38,18 +40,18 @@ import ComputeChecksums, {
 } from './util/ComputeChecksums';
 
 const _computeChecksumChannel = channel();
-const _uploadFileChannel = channel();
+const _resumableUploadChannel = channel();
 const _uploadFile = new ResumableUpload(
-  _uploadFileChannel,
+  _resumableUploadChannel,
   APIConstants.API_SAMPLE_EXTENSIONS_ARRAY
 );
-const _computeChecksums = new ComputeChecksums(_computeChecksumChannel);
+const _computeChecksums = {};
 
 export const typePrefix = 'upload/uploadFile/';
 
-export const UPLOAD_FILE = `${typePrefix}UPLOAD_FILE`;
-export const UPLOAD_FILE_CANCEL = `${typePrefix}UPLOAD_FILE_CANCEL`;
-export const UPLOAD_FILE_CANCEL_SUCCESS = `${typePrefix}UPLOAD_FILE_CANCEL_SUCCESS`;
+export const UPLOAD_FILES = `${typePrefix}UPLOAD_FILES`;
+export const UPLOAD_FILES_CANCEL = `${typePrefix}UPLOAD_FILES_CANCEL`;
+export const UPLOAD_FILES_CANCEL_SUCCESS = `${typePrefix}UPLOAD_FILES_CANCEL_SUCCESS`;
 
 export const UPLOAD_FILE_DROP = `${typePrefix}UPLOAD_FILE_DROP`;
 export const UPLOAD_FILE_ASSIGN_BROWSE = `${typePrefix}UPLOAD_FILE_ASSIGN_BROWSE`;
@@ -94,9 +96,18 @@ export const getIsComputingChecksums = createSelector(
   (state) => state.isComputingChecksums
 );
 
-export const getChecksumProgress = createSelector(
+export const getChecksumProgressById = createSelector(
   getState,
-  (state) => state.checksumProgress
+  (state) => state.checksumProgressById
+);
+
+export const getChecksumProgress = createSelector(
+  getChecksumProgressById,
+  (checksumProgressById) => {
+    const values = Object.values(checksumProgressById);
+    const total = values.reduce((a, b) => a + b, 0);
+    return total / values.length;
+  }
 );
 
 export const getIsBusy = createSelector(
@@ -122,7 +133,7 @@ export const getExperimentId = createSelector(
 // Actions
 
 export const uploadFile = (payload: any) => ({
-  type: UPLOAD_FILE,
+  type: UPLOAD_FILES,
   payload,
 });
 
@@ -132,7 +143,7 @@ export const uploadFileDrop = (payload: any) => ({
 });
 
 export const uploadFileCancel = () => ({
-  type: UPLOAD_FILE_CANCEL,
+  type: UPLOAD_FILES_CANCEL,
 });
 
 export const uploadFileAssignBrowse = (payload: any) => ({
@@ -156,7 +167,7 @@ export type State = {
   isUploading: boolean,
   isComputingChecksums: boolean,
   uploadProgress: number,
-  checksumProgress: number,
+  checksumProgressById: { [string]: number },
   fileName?: string,
   experimentId?: string,
   uploadBeganAt?: string,
@@ -167,13 +178,13 @@ const initialState: State = {
   isUploading: false,
   isComputingChecksums: false,
   uploadProgress: 0,
-  checksumProgress: 0,
+  checksumProgressById: {},
 };
 
 const reducer = (state?: State = initialState, action?: Object = {}): State =>
   produce(state, (draft) => {
     switch (action.type) {
-      case UPLOAD_FILE_CANCEL_SUCCESS:
+      case UPLOAD_FILES_CANCEL_SUCCESS:
         return initialState;
       case SET_FILE_NAME:
         draft.fileName = action.payload;
@@ -182,18 +193,17 @@ const reducer = (state?: State = initialState, action?: Object = {}): State =>
         draft.experimentId = action.payload;
         return;
       case COMPUTE_CHECKSUMS:
+        draft.checksumProgressById = {};
         draft.isComputingChecksums = true;
         return;
       case COMPUTE_CHECKSUMS_PROGRESS:
-        draft.checksumProgress = action.payload;
+        draft.checksumProgressById[action.meta] = action.payload;
         return;
-      case COMPUTE_CHECKSUMS_COMPLETE:
-        Object.assign(draft, {
-          checksumProgress: 1,
-          isComputingChecksums: false,
-        });
+      case COMPUTE_CHECKSUMS_COMPLETE: {
+        draft.checksumProgressById[action.meta] = 1;
         return;
-      case UPLOAD_FILE:
+      }
+      case UPLOAD_FILES:
         Object.assign(draft, {
           isUploading: true,
           uploadBeganAt: dateFns.formatISO(new Date()),
@@ -206,7 +216,7 @@ const reducer = (state?: State = initialState, action?: Object = {}): State =>
         Object.assign(draft, {
           isUploading: false,
           uploadProgress: 0,
-          checksumProgress: 0,
+          checksumProgressById: {},
         });
         return;
       case RESUMABLE_UPLOAD_ERROR:
@@ -240,20 +250,20 @@ function* uploadFileAssignBrowseWatcher() {
 // take emitted events, put actions into channel
 // then send those into the main channel
 
-export function* fileAddedEventEmitterWatcher(): Saga {
+export function* resumableUploadChannelWatcher(): Saga {
   while (true) {
-    const action = yield take(_uploadFileChannel);
+    const action = yield take(_resumableUploadChannel);
     yield put(action);
   }
 }
 
 // process the added file
 
-function* fileAddedWatcher() {
-  yield takeEvery(RESUMABLE_UPLOAD_FILE_ADDED, fileAddedWorker);
+function* filesAddedWatcher() {
+  yield takeEvery(RESUMABLE_UPLOAD_FILES_ADDED, filesAddedWorker);
 }
 
-export function* fileAddedWorker(action: any): Saga {
+export function* filesAddedWorker(action: any): Saga {
   const isBusy = yield select(getIsBusy);
   if (isBusy) {
     alert(
@@ -261,30 +271,56 @@ export function* fileAddedWorker(action: any): Saga {
     );
     return;
   }
-  const experimentId = yield call(createExperimentId, action.payload.fileName);
+  const files: Array<ResumableFile> = action.payload;
+  const fileName = files
+    .map((file) => {
+      return file.fileName;
+    })
+    .join(', ');
+  const experimentId = yield call(createExperimentId, fileName);
   if (!experimentId) {
     return;
   }
   // TODO: use the id as a unique identifier for all actions
   yield apply(_uploadFile, 'setId', [experimentId]);
   yield put(setExperimentId(experimentId));
-  yield put(setFileName(action.payload.fileName));
+  yield put(setFileName(fileName));
   yield put(push(`/experiments/${experimentId}`));
-  yield put({ type: COMPUTE_CHECKSUMS, payload: action.payload });
+  yield put({ type: COMPUTE_CHECKSUMS, payload: files });
 }
 
 // calculate checksums
+
+const cancelChecksums = () => {
+  Object.entries(_computeChecksums).forEach(
+    ([uniqueIdentifier, computeChecksums]) => {
+      computeChecksums.cancel();
+      delete _computeChecksums[uniqueIdentifier];
+    }
+  );
+};
 
 function* computeChecksumsWatcher() {
   yield takeEvery(COMPUTE_CHECKSUMS, computeChecksumsWorker);
 }
 
 export function* computeChecksumsWorker(action: any): Saga {
-  yield apply(_computeChecksums, 'computeChecksums', [action.payload]);
-  yield take(COMPUTE_CHECKSUMS_COMPLETE);
-  yield put({
-    type: UPLOAD_FILE,
-    payload: action.payload,
+  yield call(cancelChecksums);
+  const files = action.payload;
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const computeChecksums = new ComputeChecksums(_computeChecksumChannel);
+    _computeChecksums[file.uniqueIdentifier] = computeChecksums;
+    computeChecksums.computeChecksums(file);
+  }
+}
+
+export function* computeChecksumsCompleteWatcher(): Saga {
+  yield takeLeading(COMPUTE_CHECKSUMS_COMPLETE, function* () {
+    const checksumProgress = yield select(getChecksumProgress);
+    if (checksumProgress === 1) {
+      yield put({ type: UPLOAD_FILES });
+    }
   });
 }
 
@@ -299,7 +335,7 @@ function* computeChecksumsChannelWatcher() {
 // upload the file
 
 function* uploadFileWatcher() {
-  yield takeEvery(UPLOAD_FILE, uploadFileWorker);
+  yield takeLeading(UPLOAD_FILES, uploadFileWorker);
 }
 
 export function* uploadFileWorker(): Saga {
@@ -315,22 +351,23 @@ export function* uploadFileWorker(): Saga {
 // upload events
 
 function* uploadFileCancelWatcher() {
-  yield takeEvery([UPLOAD_FILE_CANCEL], function* () {
+  yield takeEvery([UPLOAD_FILES_CANCEL], function* () {
     const experimentId = yield select(getExperimentId);
     yield apply(_uploadFile, 'cancel');
-    yield apply(_computeChecksums, 'cancel');
+    yield call(cancelChecksums);
     if (experimentId) {
       yield put(deleteExperiment(experimentId));
     }
-    yield put({ type: UPLOAD_FILE_CANCEL_SUCCESS });
+    yield put({ type: UPLOAD_FILES_CANCEL_SUCCESS });
   });
 }
 
 export function* uploadFileSaga(): Saga {
   yield all([
-    fork(fileAddedEventEmitterWatcher),
-    fork(fileAddedWatcher),
+    fork(resumableUploadChannelWatcher),
+    fork(filesAddedWatcher),
     fork(computeChecksumsWatcher),
+    fork(computeChecksumsCompleteWatcher),
     fork(computeChecksumsChannelWatcher),
     fork(uploadFileWatcher),
     fork(uploadFileAssignBrowseWatcher),

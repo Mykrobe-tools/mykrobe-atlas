@@ -9,9 +9,9 @@ import {
 } from './util/ResumableUpload';
 
 import {
-  UPLOAD_FILE,
+  UPLOAD_FILES,
   UPLOAD_FILE_DROP,
-  UPLOAD_FILE_CANCEL,
+  UPLOAD_FILES_CANCEL,
 } from './uploadFile';
 
 export const _warn = (e: any) => {
@@ -22,14 +22,14 @@ export const _warn = (e: any) => {
 };
 
 function* addWarningWatcher() {
-  yield takeEvery([UPLOAD_FILE_DROP, UPLOAD_FILE], function* () {
+  yield takeEvery([UPLOAD_FILE_DROP, UPLOAD_FILES], function* () {
     yield apply(window, 'addEventListener', ['beforeunload', _warn]);
   });
 }
 
 function* removeWarningWatcher() {
   yield takeEvery(
-    [UPLOAD_FILE_CANCEL, RESUMABLE_UPLOAD_DONE, RESUMABLE_UPLOAD_ERROR],
+    [UPLOAD_FILES_CANCEL, RESUMABLE_UPLOAD_DONE, RESUMABLE_UPLOAD_ERROR],
     function* () {
       yield apply(window, 'removeEventListener', ['beforeunload', _warn]);
     }
