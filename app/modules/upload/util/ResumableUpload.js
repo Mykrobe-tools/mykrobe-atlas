@@ -60,7 +60,7 @@ class ResumableUpload {
         });
       },
     });
-    this.resumable.on('fileError', (file, message) => {
+    this.resumable.on('error', (message, file) => {
       this.actionChannel.put({
         type: RESUMABLE_UPLOAD_ERROR,
         payload: message,
@@ -72,14 +72,14 @@ class ResumableUpload {
         payload: files,
       });
     });
-    this.resumable.on('fileProgress', () => {
+    this.resumable.on('progress', () => {
       const uploadProgress = this.resumable.progress();
       this.actionChannel.put({
         type: RESUMABLE_UPLOAD_PROGRESS,
         payload: uploadProgress,
       });
     });
-    this.resumable.on('fileSuccess', (file) => {
+    this.resumable.on('complete', (file) => {
       this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE, payload: file });
     });
   }
