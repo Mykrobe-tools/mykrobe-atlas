@@ -81,7 +81,9 @@ class ResumableUpload {
       });
     });
     this.resumable.on('complete', (file) => {
-      this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE, payload: file });
+      if (file) {
+        this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE, payload: file });
+      }
     });
   }
 
