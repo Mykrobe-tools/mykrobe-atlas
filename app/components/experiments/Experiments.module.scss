@@ -51,3 +51,8 @@
   flex-direction: column;
   position: relative;
 }
+
+.bothContainer {
+  composes: container from '~styles/layout.scss';
+  flex-direction: row;
+}

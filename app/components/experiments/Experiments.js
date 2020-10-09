@@ -131,7 +131,7 @@ class Experiments extends React.Component<*, State> {
     const showCompare = selected && (selected === '*' || selected.length > 1);
     const showMap = location.hash?.startsWith('#map');
     const showTree = location.hash?.startsWith('#tree');
-    console.log({ location });
+    const showMapAndTree = location.hash?.startsWith('#both');
     let content;
     if (hasResults) {
       const headerContent = (
@@ -175,7 +175,7 @@ class Experiments extends React.Component<*, State> {
                   icon="list-ul"
                   tag={Link}
                   to={`${location.pathname}${location.search}`}
-                  outline={showMap || showTree}
+                  outline={showMap || showTree || showMapAndTree}
                 >
                   List
                 </IconButton>
@@ -197,6 +197,15 @@ class Experiments extends React.Component<*, State> {
                 >
                   Tree
                 </IconButton>
+                <IconButton
+                  size="sm"
+                  icon="columns"
+                  tag={Link}
+                  to={`${location.pathname}${location.search}#both`}
+                  outline={!showMapAndTree}
+                >
+                  Map+Tree
+                </IconButton>
               </ButtonGroup>
               <div className="ml-2">
                 <UploadButton right size="sm" outline={false} />
@@ -217,6 +226,16 @@ class Experiments extends React.Component<*, State> {
           <React.Fragment>
             <Container fluid>{headerContent}</Container>
             <ExperimentsTree />
+          </React.Fragment>
+        );
+      } else if (showMapAndTree) {
+        content = (
+          <React.Fragment>
+            <Container fluid>{headerContent}</Container>
+            <div className={styles.bothContainer}>
+              <ExperimentsMap />
+              <ExperimentsTree />
+            </div>
           </React.Fragment>
         );
       } else {
