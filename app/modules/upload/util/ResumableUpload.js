@@ -4,7 +4,7 @@ import Resumablejs from 'resumablejs';
 
 export const typePrefix = 'upload/uploadFileResumable/';
 
-export const RESUMABLE_UPLOAD_FILE_ADDED = `${typePrefix}RESUMABLE_UPLOAD_FILE_ADDED`;
+export const RESUMABLE_UPLOAD_FILES_ADDED = `${typePrefix}RESUMABLE_UPLOAD_FILES_ADDED`;
 export const RESUMABLE_UPLOAD_PROGRESS = `${typePrefix}RESUMABLE_UPLOAD_PROGRESS`;
 export const RESUMABLE_UPLOAD_ERROR = `${typePrefix}RESUMABLE_UPLOAD_ERROR`;
 export const RESUMABLE_UPLOAD_DONE = `${typePrefix}RESUMABLE_UPLOAD_DONE`;
@@ -30,7 +30,7 @@ class ResumableUpload {
     this.actionChannel = actionChannel;
     this.acceptedExtensions = acceptedExtensions;
     this.resumable = new Resumablejs({
-      maxFiles: 1,
+      maxFiles: 2,
       minFileSize: 0,
       uploadMethod: 'PUT',
       headers: this.headers,
@@ -47,10 +47,11 @@ class ResumableUpload {
           checksum: resumableFile.hashes[resumableObj.offset],
         };
       },
-      maxFilesErrorCallback: () => {
+      maxFilesErrorCallback: (files) => {
+        console.log('maxFilesErrorCallback', files);
         this.actionChannel.put({
           type: RESUMABLE_UPLOAD_ERROR,
-          payload: 'Please upload one file at a time',
+          payload: 'Please add no more than two files per experiment',
         });
       },
       fileTypeErrorCallback: () => {
@@ -60,27 +61,29 @@ class ResumableUpload {
         });
       },
     });
-    this.resumable.on('fileError', (file, message) => {
+    this.resumable.on('error', (message, file) => {
       this.actionChannel.put({
         type: RESUMABLE_UPLOAD_ERROR,
         payload: message,
       });
     });
-    this.resumable.on('fileAdded', (file) => {
+    this.resumable.on('filesAdded', (files) => {
       this.actionChannel.put({
-        type: RESUMABLE_UPLOAD_FILE_ADDED,
-        payload: file,
+        type: RESUMABLE_UPLOAD_FILES_ADDED,
+        payload: files,
       });
     });
-    this.resumable.on('fileProgress', () => {
+    this.resumable.on('progress', () => {
       const uploadProgress = this.resumable.progress();
       this.actionChannel.put({
         type: RESUMABLE_UPLOAD_PROGRESS,
         payload: uploadProgress,
       });
     });
-    this.resumable.on('fileSuccess', (file) => {
-      this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE, payload: file });
+    this.resumable.on('complete', (file) => {
+      if (file) {
+        this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE, payload: file });
+      }
     });
   }
 
