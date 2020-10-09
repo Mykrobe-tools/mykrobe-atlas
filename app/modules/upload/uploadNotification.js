@@ -31,7 +31,7 @@ import {
 
 import {
   SET_FILE_NAME,
-  UPLOAD_FILE_CANCEL,
+  UPLOAD_FILES_CANCEL,
   uploadFileCancel,
   getExperimentId,
   getFileName,
@@ -169,7 +169,7 @@ function* resumableUploadErrorWatcher() {
 }
 
 function* uploadFileCancelWatcher() {
-  yield takeEvery(UPLOAD_FILE_CANCEL, function* () {
+  yield takeEvery(UPLOAD_FILES_CANCEL, function* () {
     const experimentId = yield select(getExperimentId);
     yield put(
       updateNotification(experimentId, {

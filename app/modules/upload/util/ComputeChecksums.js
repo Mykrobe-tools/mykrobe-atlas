@@ -1,18 +1,15 @@
 /* @flow */
 
 import SparkMD5 from 'spark-md5';
+import type { ResumableFile } from 'resumablejs';
 
 export const typePrefix = 'upload/uploadFileComputeChecksums/';
 
 export const COMPUTE_CHECKSUMS_PROGRESS = `${typePrefix}COMPUTE_CHECKSUMS_PROGRESS`;
 export const COMPUTE_CHECKSUMS_COMPLETE = `${typePrefix}COMPUTE_CHECKSUMS_COMPLETE`;
 
-class ResumableUpload {
-  acceptedExtensions: Array<string>;
-  resumable: Object;
+class ComputeChecksums {
   actionChannel: any;
-  id: string;
-  accessToken: string;
   isCancelled: boolean;
 
   constructor(actionChannel: any) {
@@ -21,7 +18,7 @@ class ResumableUpload {
   }
 
   computeChecksums(
-    resumableFile: Object,
+    resumableFile: ResumableFile,
     offset: number = 0,
     fileReader: ?FileReader = null
   ) {
@@ -71,11 +68,13 @@ class ResumableUpload {
         this.actionChannel.put({
           type: COMPUTE_CHECKSUMS_PROGRESS,
           payload: offset / numChunks,
+          meta: resumableFile.uniqueIdentifier,
         });
         this.computeChecksums(resumableFile, offset + 1, fileReader);
       } else {
         this.actionChannel.put({
           type: COMPUTE_CHECKSUMS_COMPLETE,
+          meta: resumableFile.uniqueIdentifier,
         });
       }
     };
@@ -87,4 +86,4 @@ class ResumableUpload {
   }
 }
 
-export default ResumableUpload;
+export default ComputeChecksums;
