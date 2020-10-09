@@ -38,6 +38,8 @@ import ComputeChecksums, {
   COMPUTE_CHECKSUMS_PROGRESS,
   COMPUTE_CHECKSUMS_COMPLETE,
 } from './util/ComputeChecksums';
+import detectFileSeqForFileNameInArray from '../../util/detectFileSeqForFileNameInArray';
+import prettyFileName from '../../util/prettyFileName';
 
 const _computeChecksumChannel = channel();
 const _resumableUploadChannel = channel();
@@ -273,9 +275,30 @@ export function* filesAddedWorker(action: any): Saga {
     return;
   }
   const files: Array<ResumableFile> = action.payload;
+  const fileNames = files.map((file) => {
+    return file.fileName;
+  });
+  if (fileNames.length > 1) {
+    const seq = detectFileSeqForFileNameInArray(fileNames[0], fileNames);
+    if (!seq) {
+      const fileNamesSequence = fileNames.join(', ');
+      if (
+        !confirm(
+          `${fileNamesSequence} do not appear to be sequential names. Analyse as a pair anyway?`
+        )
+      ) {
+        // reset the file list
+        yield put({ type: UPLOAD_FILES_CANCEL });
+        return;
+      }
+    }
+  }
   const fileName = files
     .map((file) => {
-      return file.fileName;
+      const fileName = file.fileName;
+      const pretty = prettyFileName(fileName);
+      console.log({ pretty, fileName });
+      return pretty || fileName;
     })
     .join(', ');
   const experimentId = yield call(createExperimentId, fileName);

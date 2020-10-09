@@ -47,7 +47,8 @@ class ResumableUpload {
           checksum: resumableFile.hashes[resumableObj.offset],
         };
       },
-      maxFilesErrorCallback: () => {
+      maxFilesErrorCallback: (files) => {
+        console.log('maxFilesErrorCallback', files);
         this.actionChannel.put({
           type: RESUMABLE_UPLOAD_ERROR,
           payload: 'Please add no more than two files per experiment',
@@ -80,7 +81,9 @@ class ResumableUpload {
       });
     });
     this.resumable.on('complete', (file) => {
-      this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE, payload: file });
+      if (file) {
+        this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE, payload: file });
+      }
     });
   }
 
