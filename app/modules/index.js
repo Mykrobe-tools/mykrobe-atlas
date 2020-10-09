@@ -65,6 +65,7 @@ const keycloakInstance = new Keycloak({
   url: window.env.REACT_APP_KEYCLOAK_URL,
   realm: window.env.REACT_APP_KEYCLOAK_REALM,
   clientId: window.env.REACT_APP_KEYCLOAK_CLIENT_ID,
+  pkceMethod: 'S256',
 });
 
 const provider = createKeycloakProvider(keycloakInstance);
