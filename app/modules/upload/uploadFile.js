@@ -205,6 +205,7 @@ const reducer = (state?: State = initialState, action?: Object = {}): State =>
       }
       case UPLOAD_FILES:
         Object.assign(draft, {
+          isComputingChecksums: false,
           isUploading: true,
           uploadBeganAt: dateFns.formatISO(new Date()),
         });
@@ -309,6 +310,11 @@ export function* computeChecksumsWorker(action: any): Saga {
   const files = action.payload;
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
+    yield put({
+      type: COMPUTE_CHECKSUMS_PROGRESS,
+      payload: 0,
+      meta: file.uniqueIdentifier,
+    });
     const computeChecksums = new ComputeChecksums(_computeChecksumChannel);
     _computeChecksums[file.uniqueIdentifier] = computeChecksums;
     computeChecksums.computeChecksums(file);
