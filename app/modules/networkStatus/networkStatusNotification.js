@@ -3,6 +3,7 @@
 import { channel } from 'redux-saga';
 import { all, fork, put, take, race, select } from 'redux-saga/effects';
 import type { Saga } from 'redux-saga';
+import * as Sentry from '@sentry/react';
 
 import {
   showNotification,
@@ -72,6 +73,7 @@ function* urlNetworkStatusWatcher() {
     if (online) {
       yield take(urlNetworkStatusActions.networkOffline);
     }
+    Sentry.captureMessage('Service unreachable');
     const action = showNotification({
       category: NotificationCategories.ERROR,
       content: `Service unreachable`,
@@ -115,6 +117,7 @@ function* urlNetworkStatusWatcher() {
         );
       }
     }
+    Sentry.captureMessage('Service online');
     yield put(
       updateNotification(notificationId, {
         category: NotificationCategories.SUCCESS,
