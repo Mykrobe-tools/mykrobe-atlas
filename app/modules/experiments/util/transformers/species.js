@@ -11,7 +11,7 @@ const speciesTransformer = (
 } => {
   const species = Object.keys(sourceModel.phylogenetics.species);
 
-  let lineage = Object.keys(sourceModel.phylogenetics.lineage);
+  let lineage = sourceModel.phylogenetics.lineage.lineage;
 
   let speciesAndLineageString = '';
 
@@ -23,7 +23,7 @@ const speciesTransformer = (
   const lineageString =
     lineage && lineage.length ? lineage.join(' / ').replace(/_/g, ' ') : '';
 
-  const lineageSuffix = lineageString ? ` (lineage: ${lineageString})` : '';
+  const lineageSuffix = lineageString ? ` (${lineageString})` : '';
   speciesAndLineageString = `${speciesString}${lineageSuffix}`;
 
   return {
