@@ -20,8 +20,15 @@ const speciesTransformer = (
       ? species.join(' / ').replace(/_/g, ' ')
       : 'undefined';
 
-  const lineageString =
-    lineage && lineage.length ? lineage.join(' / ').replace(/_/g, ' ') : '';
+  let lineageString = 'undefined';
+
+  if (lineage) {
+    if (lineage.length > 1) {
+      lineageString = `mixed ${lineage.join(', ')}`;
+    } else if (lineage.length === 1) {
+      lineageString = lineage[0];
+    }
+  }
 
   const lineageSuffix = lineageString ? ` (${lineageString})` : '';
   speciesAndLineageString = `${speciesString}${lineageSuffix}`;
