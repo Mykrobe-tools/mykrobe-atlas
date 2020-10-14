@@ -139,14 +139,6 @@ const susceptibilityTransformer = (
         susceptibilityModelEntry['calledBy'];
       if (calledBy) {
         for (let calledByKey in calledBy) {
-          // group by title
-          o = [];
-          if (transformed.evidence[key]) {
-            o = transformed.evidence[key];
-          } else {
-            // initialise
-            transformed.evidence[key] = o;
-          }
           const genes = calledByKey.split('_');
           // if in format I491F-I491F, split and take just I491F
           if (genes[1].indexOf('-') > 0) {
@@ -182,7 +174,12 @@ const susceptibilityTransformer = (
               `Depth ${reference['median_depth']} on the susceptible allele`,
             ];
           }
-          o.push(elements);
+          // group by title
+          if (!transformed.evidence[key]) {
+            // initialise
+            transformed.evidence[key] = [];
+          }
+          transformed.evidence[key].push(elements);
         }
       }
     }
