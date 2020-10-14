@@ -1,5 +1,7 @@
 /* @flow */
 
+import { isArray } from 'makeandship-js-common/src/utils/is';
+
 const speciesTransformer = (
   sourceModel: Object
 ): {
@@ -11,7 +13,14 @@ const speciesTransformer = (
 } => {
   const species = Object.keys(sourceModel.phylogenetics.species);
 
-  let lineage = Object.keys(sourceModel.phylogenetics.lineage);
+  let lineage;
+  if (isArray(sourceModel.phylogenetics.lineage?.lineage)) {
+    // updated lineages in array format
+    lineage = sourceModel.phylogenetics.lineage.lineage;
+  } else {
+    // legacy lineages in object / keys format
+    lineage = Object.keys(sourceModel.phylogenetics.lineage);
+  }
 
   let speciesAndLineageString = '';
 
@@ -20,10 +29,17 @@ const speciesTransformer = (
       ? species.join(' / ').replace(/_/g, ' ')
       : 'undefined';
 
-  const lineageString =
-    lineage && lineage.length ? lineage.join(' / ').replace(/_/g, ' ') : '';
+  let lineageString = 'undefined';
 
-  const lineageSuffix = lineageString ? ` (lineage: ${lineageString})` : '';
+  if (lineage) {
+    if (lineage.length > 1) {
+      lineageString = `mixed ${lineage.join(', ')}`;
+    } else if (lineage.length === 1) {
+      lineageString = lineage[0];
+    }
+  }
+
+  const lineageSuffix = lineageString ? ` (${lineageString})` : '';
   speciesAndLineageString = `${speciesString}${lineageSuffix}`;
 
   return {

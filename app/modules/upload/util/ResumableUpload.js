@@ -61,7 +61,7 @@ class ResumableUpload {
         });
       },
     });
-    this.resumable.on('error', (message, file) => {
+    this.resumable.on('error', (message) => {
       this.actionChannel.put({
         type: RESUMABLE_UPLOAD_ERROR,
         payload: message,

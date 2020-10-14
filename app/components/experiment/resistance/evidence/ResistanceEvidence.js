@@ -33,21 +33,42 @@ class ResistanceEvidence extends React.Component<*> {
       return this.renderEmpty(error);
     }
     const { evidence } = experimentTransformed;
+
+    console.log('evidence', evidence);
     let panels = [];
-    for (let title in evidence) {
-      const values = evidence[title][0];
+    Object.entries(evidence).forEach(([title, entries]) => {
+      console.log('title', title);
+      console.log('entries', entries);
+      const lines = entries.flatMap((entry) => entry);
+      console.log('values', lines);
       panels.push(
         <Panel key={panels.length} title={title} columns={4}>
           <div className={styles.evidence}>
-            {values.map((value, index) => (
+            {lines.map((line, index) => (
               <div key={index} data-tid="evidence">
-                {value}
+                {line}
               </div>
             ))}
           </div>
         </Panel>
       );
-    }
+    });
+
+    // let panels = [];
+    // for (let title in evidence) {
+    //   const values = evidence[title][0];
+    //   panels.push(
+    //     <Panel key={panels.length} title={title} columns={4}>
+    //       <div className={styles.evidence}>
+    //         {values.map((value, index) => (
+    //           <div key={index} data-tid="evidence">
+    //             {value}
+    //           </div>
+    //         ))}
+    //       </div>
+    //     </Panel>
+    //   );
+    // }
     if (!panels.length) {
       return this.renderEmpty(error);
     }

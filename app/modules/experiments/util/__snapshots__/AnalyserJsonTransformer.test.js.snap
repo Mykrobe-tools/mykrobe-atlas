@@ -321,7 +321,7 @@ Object {
   "evidence": Object {
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315X in gene katG",
+        "Resistance mutation found: S315G in gene katG",
         "Depth 82 on the resistant allele",
         "Depth 1 on the susceptible allele",
       ],
@@ -369,7 +369,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315X)",
+      "mutation": "katG (S315G)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -444,14 +444,14 @@ Object {
   "evidence": Object {
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315X in gene katG",
+        "Resistance mutation found: S315G in gene katG",
         "Depth 43 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
     ],
     "Rifampicin": Array [
       Array [
-        "Resistance mutation found: S450X in gene rpoB",
+        "Resistance mutation found: S450L in gene rpoB",
         "Depth 51 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
@@ -500,7 +500,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315X)",
+      "mutation": "katG (S315G)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -541,7 +541,7 @@ Object {
     "Rifampicin": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "rpoB (S450X)",
+      "mutation": "rpoB (S450L)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -688,12 +688,12 @@ Object {
   "evidence": Object {
     "Rifampicin": Array [
       Array [
-        "Resistance mutation found: H445X in gene rpoB",
+        "Resistance mutation found: H445Y in gene rpoB",
         "Depth 28 on the resistant allele",
         "Depth 98 on the susceptible allele",
       ],
       Array [
-        "Resistance mutation found: S450X in gene rpoB",
+        "Resistance mutation found: S450L in gene rpoB",
         "Depth 100 on the resistant allele",
         "Depth 40 on the susceptible allele",
       ],
@@ -781,7 +781,7 @@ Object {
     "Rifampicin": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "rpoB (S450X)",
+      "mutation": "rpoB (S450L)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -849,7 +849,7 @@ Object {
     ],
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315X in gene katG",
+        "Resistance mutation found: S315G in gene katG",
         "Depth 30 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
@@ -894,7 +894,7 @@ Object {
     ],
     "Rifampicin": Array [
       Array [
-        "Resistance mutation found: S450X in gene rpoB",
+        "Resistance mutation found: S450L in gene rpoB",
         "Depth 44 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
@@ -963,7 +963,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315X)",
+      "mutation": "katG (S315G)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -1008,7 +1008,7 @@ Object {
     "Rifampicin": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "rpoB (S450X)",
+      "mutation": "rpoB (S450L)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -1037,7 +1037,7 @@ Object {
   "evidence": Object {
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315X in gene katG",
+        "Resistance mutation found: S315G in gene katG",
         "Depth 82 on the resistant allele",
         "Depth 1 on the susceptible allele",
       ],
@@ -1048,9 +1048,9 @@ Object {
   "inconclusive": Array [],
   "inducible": Array [],
   "lineage": Array [
-    "European_American",
+    "lineage4.10",
   ],
-  "lineageString": "European American",
+  "lineageString": "lineage4.10",
   "negative": Array [],
   "notTested": Array [],
   "positive": Array [],
@@ -1060,7 +1060,7 @@ Object {
   "species": Array [
     "Mycobacterium_tuberculosis",
   ],
-  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage4.10)",
   "speciesString": "Mycobacterium tuberculosis",
   "susceptibility": Object {
     "Amikacin": Object {
@@ -1098,7 +1098,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315X)",
+      "mutation": "katG (S315G)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -1177,14 +1177,14 @@ Object {
   "evidence": Object {
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315X in gene katG",
+        "Resistance mutation found: S315G in gene katG",
         "Depth 43 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
     ],
     "Rifampicin": Array [
       Array [
-        "Resistance mutation found: S450X in gene rpoB",
+        "Resistance mutation found: S450L in gene rpoB",
         "Depth 51 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
@@ -1195,9 +1195,9 @@ Object {
   "inconclusive": Array [],
   "inducible": Array [],
   "lineage": Array [
-    "European_American",
+    "lineage4.6.2.2",
   ],
-  "lineageString": "European American",
+  "lineageString": "lineage4.6.2.2",
   "negative": Array [],
   "notTested": Array [],
   "positive": Array [],
@@ -1208,7 +1208,7 @@ Object {
   "species": Array [
     "Mycobacterium_tuberculosis",
   ],
-  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage4.6.2.2)",
   "speciesString": "Mycobacterium tuberculosis",
   "susceptibility": Object {
     "Amikacin": Object {
@@ -1246,7 +1246,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315X)",
+      "mutation": "katG (S315G)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -1287,7 +1287,7 @@ Object {
     "Rifampicin": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "rpoB (S450X)",
+      "mutation": "rpoB (S450L)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -1321,13 +1321,13 @@ Object {
   "hasResistance": false,
   "hasSpecies": true,
   "lineage": Array [
-    "Unknown",
+    "lineage4.10",
   ],
-  "lineageString": "Unknown",
+  "lineageString": "lineage4.10",
   "species": Array [
     "Mycobacterium_kansasii",
   ],
-  "speciesAndLineageString": "Mycobacterium kansasii (lineage: Unknown)",
+  "speciesAndLineageString": "Mycobacterium kansasii (lineage4.10)",
   "speciesString": "Mycobacterium kansasii",
 }
 `;
@@ -1341,12 +1341,12 @@ Object {
   "evidence": Object {
     "Rifampicin": Array [
       Array [
-        "Resistance mutation found: H445X in gene rpoB",
+        "Resistance mutation found: H445Y in gene rpoB",
         "Depth 28 on the resistant allele",
         "Depth 98 on the susceptible allele",
       ],
       Array [
-        "Resistance mutation found: S450X in gene rpoB",
+        "Resistance mutation found: S450L in gene rpoB",
         "Depth 100 on the resistant allele",
         "Depth 40 on the susceptible allele",
       ],
@@ -1357,9 +1357,9 @@ Object {
   "inconclusive": Array [],
   "inducible": Array [],
   "lineage": Array [
-    "European_American",
+    "lineage4.10",
   ],
-  "lineageString": "European American",
+  "lineageString": "lineage4.10",
   "negative": Array [],
   "notTested": Array [],
   "positive": Array [],
@@ -1369,7 +1369,7 @@ Object {
   "species": Array [
     "Mycobacterium_tuberculosis",
   ],
-  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: European American)",
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage4.10)",
   "speciesString": "Mycobacterium tuberculosis",
   "susceptibility": Object {
     "Amikacin": Object {
@@ -1447,7 +1447,7 @@ Object {
     "Rifampicin": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "rpoB (S450X)",
+      "mutation": "rpoB (S450L)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -1519,7 +1519,7 @@ Object {
     ],
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315X in gene katG",
+        "Resistance mutation found: S315G in gene katG",
         "Depth 30 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
@@ -1564,7 +1564,7 @@ Object {
     ],
     "Rifampicin": Array [
       Array [
-        "Resistance mutation found: S450X in gene rpoB",
+        "Resistance mutation found: S450L in gene rpoB",
         "Depth 44 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
@@ -1582,9 +1582,9 @@ Object {
   "inconclusive": Array [],
   "inducible": Array [],
   "lineage": Array [
-    "Beijing_East_Asia",
+    "lineage2.2.10",
   ],
-  "lineageString": "Beijing East Asia",
+  "lineageString": "lineage2.2.10",
   "negative": Array [],
   "notTested": Array [],
   "positive": Array [],
@@ -1604,7 +1604,7 @@ Object {
   "species": Array [
     "Mycobacterium_tuberculosis",
   ],
-  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage: Beijing East Asia)",
+  "speciesAndLineageString": "Mycobacterium tuberculosis (lineage2.2.10)",
   "speciesString": "Mycobacterium tuberculosis",
   "susceptibility": Object {
     "Amikacin": Object {
@@ -1646,7 +1646,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315X)",
+      "mutation": "katG (S315G)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -1691,7 +1691,7 @@ Object {
     "Rifampicin": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "rpoB (S450X)",
+      "mutation": "rpoB (S450L)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
