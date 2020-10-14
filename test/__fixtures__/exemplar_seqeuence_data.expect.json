@@ -376,7 +376,7 @@
       },
       "evidence": {
         "Isoniazid": [
-          "Resistance mutation found: S315X in gene katG",
+          "Resistance mutation found: S315G in gene katG",
           "Depth 64 on the resistant allele",
           "Depth 0 on the susceptible allele"
         ],
@@ -549,7 +549,7 @@
       },
       "evidence": {
         "Isoniazid": [
-          "Resistance mutation found: S315X in gene katG",
+          "Resistance mutation found: S315G in gene katG",
           "Depth 16 on the resistant allele",
           "Depth 0 on the susceptible allele"
         ],
