@@ -1,5 +1,7 @@
 /* @flow */
 
+import { isArray } from 'makeandship-js-common/src/utils/is';
+
 const speciesTransformer = (
   sourceModel: Object
 ): {
@@ -11,7 +13,14 @@ const speciesTransformer = (
 } => {
   const species = Object.keys(sourceModel.phylogenetics.species);
 
-  let lineage = sourceModel.phylogenetics.lineage.lineage;
+  let lineage;
+  if (isArray(sourceModel.phylogenetics.lineage?.lineage)) {
+    // updated lineages in array format
+    lineage = sourceModel.phylogenetics.lineage.lineage;
+  } else {
+    // legacy lineages in object / keys format
+    lineage = Object.keys(sourceModel.phylogenetics.lineage);
+  }
 
   let speciesAndLineageString = '';
 
