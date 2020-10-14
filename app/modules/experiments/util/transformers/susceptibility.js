@@ -44,7 +44,6 @@ const susceptibilityTransformer = (
   susceptibilityModel: any,
   genotypeModel: string = 'median_depth'
 ) => {
-  let o;
   let key;
   let value;
   let isInducible;
