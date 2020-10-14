@@ -5,25 +5,28 @@ import { isArray } from 'makeandship-js-common/src/utils/is';
 import susceptibilityTransformer from './transformers/susceptibility';
 import speciesTransformer from './transformers/species';
 
-export type AnalyserJsonTransformerResult = {
-  lineage: Array<string>,
-  species: Array<string>,
-  speciesAndLineageString: string,
-  hasSpecies: boolean,
-  hasResistance: boolean,
-  susceptible: Array<string>,
-  resistant: Array<string>,
-  inconclusive: Array<string>,
-  positive: Array<string>,
-  negative: Array<string>,
-  inducible: Array<string>,
-  evidence: any,
-  drugsResistance: {
-    mdr: boolean,
-    xdr: boolean,
-  },
-  error?: any,
-};
+export type AnalyserJsonTransformerResult =
+  | {
+      lineage: Array<string>,
+      species: Array<string>,
+      speciesAndLineageString: string,
+      hasSpecies: boolean,
+      hasResistance: boolean,
+      susceptible: Array<string>,
+      resistant: Array<string>,
+      inconclusive: Array<string>,
+      positive: Array<string>,
+      negative: Array<string>,
+      inducible: Array<string>,
+      evidence: any,
+      drugsResistance: {
+        mdr: boolean,
+        xdr: boolean,
+      },
+    }
+  | {
+      error?: any,
+    };
 
 class AnalyserJsonTransformer {
   transform(jsonString: string) {
