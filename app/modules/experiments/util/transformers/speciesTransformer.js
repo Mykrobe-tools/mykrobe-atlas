@@ -5,7 +5,7 @@ import { isArray } from 'makeandship-js-common/src/utils/is';
 const speciesTransformer = (
   sourceModel: Object
 ): {
-  lineage: Array<string>,
+  lineage?: Array<string>,
   species: Array<string>,
   speciesAndLineageString: string,
   speciesString: string,
@@ -20,6 +20,14 @@ const speciesTransformer = (
   } else {
     // legacy lineages in object / keys format
     lineage = Object.keys(sourceModel.phylogenetics.lineage);
+  }
+
+  if (lineage) {
+    // omit 'Unknown'
+    lineage = lineage.filter((item) => item.toLowerCase() !== 'unknown');
+  }
+  if (!lineage.length) {
+    lineage = undefined;
   }
 
   let speciesAndLineageString = '';
