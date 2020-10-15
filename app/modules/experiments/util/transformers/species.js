@@ -9,7 +9,7 @@ const speciesTransformer = (
   species: Array<string>,
   speciesAndLineageString: string,
   speciesString: string,
-  lineageString: string,
+  lineageString?: string,
 } => {
   const species = Object.keys(sourceModel.phylogenetics.species);
 
@@ -29,7 +29,7 @@ const speciesTransformer = (
       ? species.join(' / ').replace(/_/g, ' ')
       : 'undefined';
 
-  let lineageString = 'undefined';
+  let lineageString;
 
   if (lineage) {
     if (lineage.length > 1) {
