@@ -159,7 +159,7 @@
   {
     "source": ["Mycobacterium_kansasii.bam"],
     "expect": {
-      "species": "Mycobacterium kansasii (lineage4.10)"
+      "species": "Mycobacterium kansasii"
     }
   },
   {

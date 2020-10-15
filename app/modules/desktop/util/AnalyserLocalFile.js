@@ -135,14 +135,11 @@ class AnalyserLocalFile extends EventEmitter {
 
     const pathToBinValue = pathToBin();
 
-    // FIXME: if we don't use --force, occasionally get error - some files cached??
-
     const args = [
       'predict',
-      '--force',
       sampleName,
       'tb',
-      filePaths.length > 1 ? '--seq' : '-1',
+      '--seq',
       ...filePaths,
       '--tmp',
       tmpDir,

@@ -5,11 +5,11 @@ import { isArray } from 'makeandship-js-common/src/utils/is';
 const speciesTransformer = (
   sourceModel: Object
 ): {
-  lineage: Array<string>,
+  lineage?: Array<string>,
   species: Array<string>,
   speciesAndLineageString: string,
   speciesString: string,
-  lineageString: string,
+  lineageString?: string,
 } => {
   const species = Object.keys(sourceModel.phylogenetics.species);
 
@@ -22,6 +22,14 @@ const speciesTransformer = (
     lineage = Object.keys(sourceModel.phylogenetics.lineage);
   }
 
+  if (lineage) {
+    // omit 'Unknown'
+    lineage = lineage.filter((item) => item.toLowerCase() !== 'unknown');
+  }
+  if (!lineage.length) {
+    lineage = undefined;
+  }
+
   let speciesAndLineageString = '';
 
   const speciesString =
@@ -29,7 +37,7 @@ const speciesTransformer = (
       ? species.join(' / ').replace(/_/g, ' ')
       : 'undefined';
 
-  let lineageString = 'undefined';
+  let lineageString;
 
   if (lineage) {
     if (lineage.length > 1) {
