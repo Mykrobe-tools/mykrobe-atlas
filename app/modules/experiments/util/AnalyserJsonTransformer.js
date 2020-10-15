@@ -3,7 +3,7 @@
 import { isArray } from 'makeandship-js-common/src/utils/is';
 
 import susceptibilityTransformer from './transformers/susceptibility';
-import speciesTransformer from './transformers/species';
+import speciesTransformer from './transformers/speciesTransformer';
 
 export type AnalyserJsonTransformerResult =
   | {
