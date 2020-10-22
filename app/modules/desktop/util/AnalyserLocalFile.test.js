@@ -54,73 +54,81 @@ const pathToProcessMock = path.join(
 );
 
 describe('AnalyserLocalFile', () => {
-  it(`should handle exit with code 123`, async (done) => {
-    const command = `babel-node "${pathToProcessMock}" --exitWithCode 123`;
-    console.log('command', command);
-    const child = exec(command);
-    const analyser = new AnalyserLocalFile();
-    analyser
-      .setChildProcess(child)
-      .monitorChildProcess()
-      .on('done', (result) => {
-        console.log({ result });
-        throw 'Analyser should not emit done';
-      })
-      .on('error', (error) => {
-        console.log({ error });
-        expect(error.description).toEqual(
-          'Process exit unexpectedly with code 123'
-        );
-        done();
+  describe('when parsing output from the child process', () => {
+    describe('and there is an error', () => {
+      it(`should emit the error and not done`, async (done) => {
+        const command = `babel-node "${pathToProcessMock}" --exitWithCode 123`;
+        console.log('command', command);
+        const child = exec(command);
+        const analyser = new AnalyserLocalFile();
+        analyser
+          .setChildProcess(child)
+          .monitorChildProcess()
+          .on('done', (result) => {
+            console.log({ result });
+            throw 'Analyser should not emit done';
+          })
+          .on('error', (error) => {
+            console.log({ error });
+            expect(error.description).toEqual(
+              'Process exit unexpectedly with code 123'
+            );
+            done();
+          });
       });
-  });
+    });
 
-  it(`should handle progress`, async (done) => {
-    const json = { progress: 'true' };
-    const jsonString = JSON.stringify({ progress: 'true' });
-    const command = `babel-node "${pathToProcessMock}" --progress --emit '${jsonString}'`;
-    console.log('command', command);
-    const child = exec(command);
-    const analyser = new AnalyserLocalFile();
-    analyser
-      .setChildProcess(child)
-      .monitorChildProcess()
-      .on('progress', (progress) => {
-        console.log('progress', progress);
-      })
-      .on('done', (result) => {
-        console.log('result', result);
-        console.log('json', json);
-        expect(result.json).toEqual(json);
-        done();
-      })
-      .on('error', (error) => {
-        console.error('error', error);
-        throw 'Analyser should not emit error';
+    describe('and progress is emitted', () => {
+      it(`should parse progress without error`, async (done) => {
+        const json = { progress: 'true' };
+        const jsonString = JSON.stringify({ progress: 'true' });
+        const command = `babel-node "${pathToProcessMock}" --progress --emit '${jsonString}'`;
+        console.log('command', command);
+        const child = exec(command);
+        const analyser = new AnalyserLocalFile();
+        analyser
+          .setChildProcess(child)
+          .monitorChildProcess()
+          .on('progress', (progress) => {
+            console.log('progress', progress);
+          })
+          .on('done', (result) => {
+            console.log('result', result);
+            console.log('json', json);
+            expect(result.json).toEqual(json);
+            done();
+          })
+          .on('error', (error) => {
+            console.error('error', error);
+            throw 'Analyser should not emit error';
+          });
       });
-  });
+    });
 
-  it(`should handle noisy JSON`, async (done) => {
-    const json = { progress: 'true' };
-    const noise = 'ABCxyz123';
-    const jsonString = JSON.stringify({ progress: 'true' });
-    const command = `babel-node "${pathToProcessMock}" --emit '${noise}${jsonString}'`;
-    console.log('command', command);
-    const child = exec(command);
-    const analyser = new AnalyserLocalFile();
-    analyser
-      .setChildProcess(child)
-      .monitorChildProcess()
-      .on('done', (result) => {
-        console.log('result', result);
-        console.log('json', json);
-        expect(result.json).toEqual(json);
-        done();
-      })
-      .on('error', (error) => {
-        console.error('error', error);
-        throw 'Analyser should not emit error';
+    describe('and noisy json is emitted', () => {
+      it(`should ignore noise and parse json without error`, async (done) => {
+        const json = { progress: 'true' };
+        const noise = 'ABCxyz123';
+        const jsonString = JSON.stringify({ progress: 'true' });
+        const command = `babel-node "${pathToProcessMock}" --emit '${noise}${jsonString}'`;
+        console.log('command', command);
+        const child = exec(command);
+        const analyser = new AnalyserLocalFile();
+        analyser
+          .setChildProcess(child)
+          .monitorChildProcess()
+          .on('done', (result) => {
+            console.log('result', result);
+            console.log('json', json);
+            expect(result.json).toEqual(json);
+            done();
+          })
+          .on('error', (error) => {
+            console.error('error', error);
+            throw 'Analyser should not emit error';
+          });
       });
+    });
   });
 });
 
@@ -136,7 +144,8 @@ describe('AnalyserLocalFile', () => {
       console.log(`Skipping slow test for ${displayName}`);
       continue;
     }
-    it(`should analyse source file ${displayName}`, async (done) => {
+
+    it(`should analyse source ${displayName}`, async (done) => {
       const analyser = new AnalyserLocalFile();
       analyser
         .analyseFile(filePaths)

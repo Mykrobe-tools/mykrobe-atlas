@@ -559,6 +559,98 @@
     }
   },
   {
+    "source": [
+      "nanopore_file/matched-illumina-fq/BC04_1.fastq.gz",
+      "nanopore_file/matched-illumina-fq/BC04_2.fastq.gz"
+    ],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": []
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid SUSCEPTIBLE",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "species": "Mycobacterium tuberculosis (lineage1.1.2)"
+    }
+  },
+  {
+    "source": [
+      "nanopore_file/matched-illumina-fq/BC05_1.fastq.gz",
+      "nanopore_file/matched-illumina-fq/BC05_2.fastq.gz"
+    ],
+    "expect": {
+      "all": {
+        "susceptible": [
+          "Ofloxacin",
+          "Moxifloxacin",
+          "Isoniazid",
+          "Kanamycin",
+          "Ethambutol",
+          "Streptomycin",
+          "Ciprofloxacin",
+          "Pyrazinamide",
+          "Rifampicin",
+          "Amikacin",
+          "Capreomycin"
+        ],
+        "resistant": []
+      },
+      "drugs": {
+        "firstLineDrugs": [
+          "Isoniazid SUSCEPTIBLE",
+          "Rifampicin SUSCEPTIBLE",
+          "Ethambutol SUSCEPTIBLE",
+          "Pyrazinamide SUSCEPTIBLE"
+        ],
+        "secondLineDrugs": [
+          "Ofloxacin SUSCEPTIBLE",
+          "Moxifloxacin SUSCEPTIBLE",
+          "Ciprofloxacin SUSCEPTIBLE",
+          "Streptomycin SUSCEPTIBLE",
+          "Amikacin SUSCEPTIBLE",
+          "Capreomycin SUSCEPTIBLE",
+          "Kanamycin SUSCEPTIBLE"
+        ],
+        "resistanceFlags": {
+          "mdr": false,
+          "xdr": false
+        }
+      },
+      "species": "Mycobacterium tuberculosis (lineage4.10)"
+    }
+  },
+  {
     "source": "nanopore_file/nanopore-fq/BC01_filtered.fastq",
     "expect": {
       "all": {

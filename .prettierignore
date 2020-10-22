@@ -1,6 +1,6 @@
 package.json
 __mocks__
-# __fixtures__
+__fixtures__
 flow-typed
 .vscode
 web/demo
