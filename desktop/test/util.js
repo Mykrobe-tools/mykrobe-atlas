@@ -3,6 +3,11 @@
 import os from 'os';
 import path from 'path';
 import fs from 'fs-extra';
+import parsePath from 'parse-filepath';
+
+import { isString } from 'makeandship-js-common/src/utils/is';
+
+import { extensionForFileName } from '../../app/util';
 
 export const pkg = require('../../package.json');
 
@@ -84,4 +89,25 @@ export const asLowerCase = (o: any) => {
 
 export const expectCaseInsensitiveEqual = (a: string, b: string) => {
   expect(asLowerCase(a)).toEqual(asLowerCase(b));
+};
+
+export const fileNamesAndPathsForSource = (source: string | Array<string>) => {
+  let filePaths: Array<string>;
+  let isJson = false;
+
+  if (isString(source)) {
+    const extension = extensionForFileName(source);
+    isJson = extension === '.json';
+    const filePath = path.join(EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH, source);
+    filePaths = [filePath];
+  } else {
+    filePaths = source.map((fileName) =>
+      path.join(EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH, fileName)
+    );
+  }
+  const fileNames: Array<string> = filePaths.map(
+    (filePath) => parsePath(filePath).basename
+  );
+  const displayName = fileNames.join(', ');
+  return { filePaths, fileNames, isJson, displayName };
 };
