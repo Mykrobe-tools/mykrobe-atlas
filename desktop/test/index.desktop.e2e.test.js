@@ -30,6 +30,7 @@ import {
   afterAllSlow,
   ensureExemplarSamples,
   ELECTRON_EXECUTABLE_PATH,
+  fileNamesAndPathsForSource,
 } from './util';
 
 import createTestHelpers from './helpers';
@@ -101,39 +102,36 @@ describeSlowTest('Desktop e2e main window', function spec() {
 
   for (let i = 0; i < exemplarSamplesExpect.length; i++) {
     const exemplarSamplesExpectEntry = exemplarSamplesExpect[i];
-    for (let j = 0; j < exemplarSamplesExpectEntry.source.length; j++) {
-      const source = exemplarSamplesExpectEntry.source[j];
+    const source = exemplarSamplesExpectEntry.source;
+    const { displayName } = fileNamesAndPathsForSource(source);
 
-      it(`${source} - should start on front screen`, async () => {
+    it(`${displayName} - should start on front screen`, async () => {
+      const { isExisting } = createTestHelpers(_app);
+      // check existence of component
+      expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
+      // check existence of button
+      expect(await isExisting('[data-tid="button-analyse-sample"]')).toBe(true);
+    });
+
+    it(`${displayName} - should open source file`, async () => {
+      d(`Opening source ${displayName}`);
+      await testOpenSourceFile(source, exemplarSamplesExpectEntry, _app);
+    });
+
+    if (!exemplarSamplesExpectEntry.expect.reject) {
+      it(`${displayName} - should display the expected results`, async () => {
+        await testDisplayResults(source, exemplarSamplesExpectEntry, _app);
+      });
+
+      it(`${displayName} - should return to front screen`, async () => {
         const { isExisting } = createTestHelpers(_app);
+        const { client } = _app;
+        // new
+        await client.click('[data-tid="button-file-new"]');
+        await delay(500);
         // check existence of component
         expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
-        // check existence of button
-        expect(await isExisting('[data-tid="button-analyse-sample"]')).toBe(
-          true
-        );
       });
-
-      it(`${source} - should open source file`, async () => {
-        d(`Opening source file ${source}`);
-        await testOpenSourceFile(source, exemplarSamplesExpectEntry, _app);
-      });
-
-      if (!exemplarSamplesExpectEntry.expect.reject) {
-        it(`${source} - should display the expected results`, async () => {
-          await testDisplayResults(source, exemplarSamplesExpectEntry, _app);
-        });
-
-        it(`${source} - should return to front screen`, async () => {
-          const { isExisting } = createTestHelpers(_app);
-          const { client } = _app;
-          // new
-          await client.click('[data-tid="button-file-new"]');
-          await delay(500);
-          // check existence of component
-          expect(await isExisting('[data-tid="component-upload"]')).toBe(true);
-        });
-      }
     }
   }
 });

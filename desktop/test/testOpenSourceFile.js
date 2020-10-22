@@ -1,19 +1,16 @@
 /* @flow */
 
 import { Application } from 'spectron';
-import path from 'path';
 
 import debug from 'debug';
 const d = debug('mykrobe:desktop-test:test-open-source-file');
 
-import { extensionForFileName } from '../../app/util';
-
-import { TIMEOUT, delay, EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH } from './util';
+import { TIMEOUT, delay, fileNamesAndPathsForSource } from './util';
 
 import createTestHelpers from './helpers';
 
 const testOpenSourceFile = async (
-  source: string,
+  source: string | Array<string>,
   exemplarSamplesExpectEntry: any,
   app: Application
 ) => {
@@ -24,12 +21,11 @@ const testOpenSourceFile = async (
     app
   );
   const { client, webContents } = app;
-  const filePath = path.join(EXEMPLAR_SEQUENCE_DATA_FOLDER_PATH, source);
-  const extension = extensionForFileName(source);
-  const isJson = extension === '.json';
+
+  const { filePaths, isJson, displayName } = fileNamesAndPathsForSource(source);
 
   // send file > open event
-  webContents.send('open-file', filePath);
+  webContents.send('open-file', filePaths);
 
   if (!isJson) {
     // await UI change
@@ -60,7 +56,7 @@ const testOpenSourceFile = async (
     const notifications = await textForSelector(
       '[data-tid="component-notification-content"]'
     );
-    await saveScreenshot(`${source}__rejection__.png`);
+    await saveScreenshot(`${displayName}__rejection__.png`);
     expect(
       notifications[0].includes('does not give susceptibility predictions')
     ).toBeTruthy();
