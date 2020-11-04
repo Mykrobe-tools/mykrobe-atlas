@@ -121,10 +121,6 @@ class ExperimentsTable extends React.Component<*> {
         sort: 'metadata.sample.countryIsolate',
       },
       {
-        title: 'Owner',
-        sort: 'owner.lastname',
-      },
-      {
         title: 'Created',
         sort: 'created',
       },
