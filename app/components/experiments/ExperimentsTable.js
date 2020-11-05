@@ -197,11 +197,6 @@ class ExperimentsTable extends React.Component<*> {
         </td>
         <td>{cityIsolate}</td>
         <td>{countryCodeToName(countryIsolate)}</td>
-        <td>
-          {owner
-            ? [owner.lastname, owner.firstname].filter(Boolean).join(', ')
-            : '–'}
-        </td>
         <td>{formatDate(dateFns.parseISO(created))}</td>
         <td>{formatDate(dateFns.parseISO(modified))}</td>
         <td>
