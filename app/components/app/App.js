@@ -26,7 +26,7 @@ const USE_SENTRY =
 
 if (USE_SENTRY) {
   Sentry.init({
-    dsn: window.env.SENTRY_PUBLIC_DSN,
+    dsn: window.env.REACT_APP_SENTRY_PUBLIC_DSN,
   });
 }
 
