@@ -2,11 +2,8 @@
 
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
 
-import store from './store';
-import { history } from './store/config';
+import Root from './components/root/Root';
 
 import './styles/app.scss';
 
@@ -24,19 +21,13 @@ if (!element) {
 }
 
 const renderRoot = () => {
-  const routes = require('./routes').default;
-  render(
-    <Provider store={store}>
-      <ConnectedRouter history={history}>{routes}</ConnectedRouter>
-    </Provider>,
-    element
-  );
+  render(<Root />, element);
 };
 
 renderRoot();
 
 if (module.hot) {
-  module.hot.accept('./routes', () => {
+  module.hot.accept('./modules', () => {
     renderRoot();
   });
 }
