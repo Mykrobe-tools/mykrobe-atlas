@@ -33,9 +33,9 @@ export const shortTitles = {
 };
 
 const Susceptibility = ({
-  id = uuid.v4(),
   susceptibility,
 }: React.ElementProps<*>): React.Element<*> | null => {
+  const id = React.useRef(uuid.v4()).current;
   const transformed = susceptibilityTransformer(susceptibility);
   const elements = [];
   const keys = Object.keys(transformed.susceptibility);
