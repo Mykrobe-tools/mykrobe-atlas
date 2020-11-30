@@ -48,7 +48,7 @@ class PhyloCanvasComponent extends React.Component<*> {
     this._tree = new DrawEventTree(this._phyloCanvasDiv);
     this._tree.setTreeType(this.props.treeType);
     this._tree.padding = 12;
-    this._tree.showLabels = false;
+    this._tree.showLabels = this.props.showLabels;
     this._tree.branchColour = Colors.COLOR_GREY_MID;
     this._tree.hoverLabel = false;
     this._tree.on('loaded', () => {
@@ -273,6 +273,9 @@ class PhyloCanvasComponent extends React.Component<*> {
     if (prevProps.treeType !== this.props.treeType) {
       this._tree.setTreeType(this.props.treeType);
     }
+    if (prevProps.showLabels !== this.props.showLabels) {
+      this._tree.showLabels = this.props.showLabels;
+    }
   }
 
   onPhyloCanvasDivRef = (ref: any) => {
@@ -330,6 +333,7 @@ class PhyloCanvasComponent extends React.Component<*> {
 PhyloCanvasComponent.propTypes = {
   data: PropTypes.string,
   treeType: PropTypes.string,
+  showLabels: PropTypes.bool,
   onNodeMouseOver: PropTypes.func,
   onNodeMouseOut: PropTypes.func,
   onLoad: PropTypes.func,
