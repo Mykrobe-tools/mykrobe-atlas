@@ -36,6 +36,7 @@ const AUTO_ZOOM_SAMPLES = true;
 
 type State = {
   treeType: string,
+  showLabels: Boolean,
 };
 
 class Phylogeny extends React.Component<*, State> {
@@ -44,6 +45,7 @@ class Phylogeny extends React.Component<*, State> {
 
   state = {
     treeType: 'circular',
+    showLabels: false,
   };
 
   onNodeMouseOver = (node) => {
@@ -182,7 +184,7 @@ class Phylogeny extends React.Component<*, State> {
       experimentsHighlightedInTree,
       experimentIsolateId,
     } = this.props;
-    const { treeType } = this.state;
+    const { treeType, showLabels } = this.state;
     if (!experimentsTreeNewick) {
       return null;
     }
@@ -217,6 +219,7 @@ class Phylogeny extends React.Component<*, State> {
             <PhyloCanvasComponent
               ref={this.onPhyloCanvasRef}
               treeType={treeType}
+              showLabels={showLabels}
               data={experimentsTreeNewick}
               onNodeMouseOver={this.onNodeMouseOver}
               onNodeMouseOut={this.onNodeMouseOut}
@@ -279,6 +282,19 @@ class Phylogeny extends React.Component<*, State> {
                         {thisTreeType}
                       </DropdownItem>
                     ))}
+                    <DropdownItem divider />
+                    <DropdownItem
+                      onClick={() => {
+                        this.setState({ showLabels: !showLabels });
+                      }}
+                    >
+                      {showLabels ? (
+                        <i className="fa fa-check-square" />
+                      ) : (
+                        <i className="fa fa-square-o" />
+                      )}{' '}
+                      Show leaf ID
+                    </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </div>
