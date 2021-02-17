@@ -139,12 +139,8 @@ function* distanceSearchCompleteWatcher() {
       currentExperimentId === completeExperimentId;
     if (isViewingCompleteExperiment) {
       yield put(requestExperiment(completeExperimentId));
+      yield put(showNotification(`Distance search complete`));
     }
-    yield put(
-      showNotification({
-        content: `Distance search complete`,
-      })
-    );
   });
 }
 
