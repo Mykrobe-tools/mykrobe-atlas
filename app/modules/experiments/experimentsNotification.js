@@ -18,7 +18,10 @@ import {
   PROTEIN_VARIANT_SEARCH_COMPLETE,
   SEQUENCE_SEARCH_STARTED,
   SEQUENCE_SEARCH_COMPLETE,
+  DISTANCE_SEARCH_COMPLETE,
 } from '../users/currentUserEvents';
+
+import { getExperiment, requestExperiment } from './experiment';
 
 import {
   getExperimentsIsPending,
@@ -126,11 +129,27 @@ function* searchCompleteWatcher() {
   );
 }
 
+function* distanceSearchCompleteWatcher() {
+  yield takeEvery(DISTANCE_SEARCH_COMPLETE, function* (action) {
+    // refresh if this matches the current experiment
+    const completeExperimentId = _get(action.payload, 'id');
+    const currentExperiment = yield select(getExperiment);
+    const currentExperimentId = _get(currentExperiment, 'id');
+    const isViewingCompleteExperiment =
+      currentExperimentId === completeExperimentId;
+    if (isViewingCompleteExperiment) {
+      yield put(requestExperiment(completeExperimentId));
+      yield put(showNotification(`Distance search complete`));
+    }
+  });
+}
+
 export function* experimentsNotificationSaga(): Saga {
   yield all([
     fork(interactionChannelWatcher),
     fork(pendingSearchWatcher),
     fork(searchStartedWatcher),
     fork(searchCompleteWatcher),
+    fork(distanceSearchCompleteWatcher),
   ]);
 }
