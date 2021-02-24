@@ -42,6 +42,8 @@ export const PROTEIN_VARIANT_SEARCH_COMPLETE = `${typePrefix}PROTEIN_VARIANT_SEA
 export const SEQUENCE_SEARCH_STARTED = `${typePrefix}SEQUENCE_SEARCH_STARTED`;
 export const SEQUENCE_SEARCH_COMPLETE = `${typePrefix}SEQUENCE_SEARCH_COMPLETE`;
 
+export const DISTANCE_SEARCH_COMPLETE = `${typePrefix}DISTANCE_SEARCH_COMPLETE`;
+
 const _eventSourceChannel = channel();
 let _eventSource;
 
@@ -197,6 +199,14 @@ totalSize
 :
 217685411
 */
+
+/*
+{event: "Distance search complete", getURL: "/experiments/602ce41c0089d90013b4bd40", id: "602ce41c0089d90013b4bd40"}
+event: "Distance search complete"
+getURL: "/experiments/602ce41c0089d90013b4bd40"
+id: "602ce41c0089d90013b4bd40"
+*/
+
 function* eventWorker(action: any) {
   const {
     payload,
@@ -250,6 +260,11 @@ function* eventWorker(action: any) {
   } else if (event === 'Sequence search complete') {
     yield put({
       type: SEQUENCE_SEARCH_COMPLETE,
+      payload,
+    });
+  } else if (event === 'Distance search complete') {
+    yield put({
+      type: DISTANCE_SEARCH_COMPLETE,
       payload,
     });
   } else {
