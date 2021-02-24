@@ -17,6 +17,7 @@ class SummaryMetadata extends React.Component<*> {
       experimentTransformed,
       experiment: { metadata },
       experimentNearestNeigbours,
+      experimentDistanceIsSearching,
     } = this.props;
     const isolateId = _get(metadata, 'sample.isolateId') || 'No isolate Id';
     let collectionDate = _get(metadata, 'sample.collectionDate');
@@ -65,12 +66,14 @@ class SummaryMetadata extends React.Component<*> {
               <tr>
                 <td>Closest relatives</td>
                 <td>
-                  {experimentNearestNeigbours && (
-                    <ExperimentsList
-                      experiments={experimentNearestNeigbours}
-                      expandable
-                    />
-                  )}
+                  {experimentDistanceIsSearching
+                    ? 'Searching…'
+                    : experimentNearestNeigbours && (
+                        <ExperimentsList
+                          experiments={experimentNearestNeigbours}
+                          expandable
+                        />
+                      )}
                 </td>
               </tr>
             </tbody>

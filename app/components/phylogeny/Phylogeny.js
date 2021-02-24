@@ -183,6 +183,7 @@ class Phylogeny extends React.Component<*, State> {
       experimentsNotInTree,
       experimentsHighlightedInTree,
       experimentIsolateId,
+      experimentDistanceIsSearching,
     } = this.props;
     const { treeType, showLabels } = this.state;
     if (!experimentsTreeNewick) {
@@ -241,19 +242,21 @@ class Phylogeny extends React.Component<*, State> {
             className={styles.controlsContainerTop}
             style={insetStyleHorizontal}
           >
-            {hasExperimentsNotInTree && (
-              <UncontrolledDropdown>
-                <DropdownToggle color="mid" outline size={'sm'}>
-                  {experimentsNotInTree.length} not on tree{' '}
-                  <i className="fa fa-caret-down" />
-                </DropdownToggle>
-                <DropdownMenu>
-                  <div className={styles.dropdownContent}>
-                    <ExperimentsList experiments={experimentsNotInTree} />
-                  </div>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            )}
+            {experimentDistanceIsSearching
+              ? 'Searching…'
+              : hasExperimentsNotInTree && (
+                  <UncontrolledDropdown>
+                    <DropdownToggle color="mid" outline size={'sm'}>
+                      {experimentsNotInTree.length} not on tree{' '}
+                      <i className="fa fa-caret-down" />
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <div className={styles.dropdownContent}>
+                        <ExperimentsList experiments={experimentsNotInTree} />
+                      </div>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                )}
             {hasExperimentsInTree && (
               <div className={'ml-auto'}>
                 <UncontrolledDropdown>

@@ -9999,6 +9999,11 @@ lodash.get@^4.0.0, lodash.get@^4.4.2:
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
   integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
 
+lodash.has@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/lodash.has/-/lodash.has-4.5.2.tgz#d19f4dc1095058cccbe2b0cdf4ee0fe4aa37c862"
+  integrity sha1-0Z9NwQlQWMzL4rDN9O4P5Ko3yGI=
+
 lodash.isempty@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.isempty/-/lodash.isempty-4.4.0.tgz#6f86cbedd8be4ec987be9aaf33c9684db1b31e7e"
@@ -10262,9 +10267,9 @@ make-dir@^3.0.0, make-dir@^3.0.2:
   dependencies:
     semver "^6.0.0"
 
-"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#v0.2.7":
-  version "0.2.7"
-  resolved "https://bitbucket.org/makeandship/makeandship-js-common#ee3f959433b79e8cd1efca22432a2534b71801f3"
+"makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#v0.2.11":
+  version "0.2.11"
+  resolved "https://bitbucket.org/makeandship/makeandship-js-common#a8b3b98623cbc9f7802d213419143663d87f45b5"
   dependencies:
     ajv "^6.7.0"
     react-jsonschema-form "^1.8.0"

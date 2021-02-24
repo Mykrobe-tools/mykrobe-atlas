@@ -36,6 +36,7 @@ class Analysis extends React.Component<*> {
       experimentsHighlightedWithGeolocation,
       experimentsHighlightedWithoutGeolocation,
       experiment,
+      experimentDistanceIsSearching,
     } = this.props;
     let content;
     if (isBusyWithCurrentRoute) {
@@ -65,6 +66,7 @@ class Analysis extends React.Component<*> {
               setExperimentsHighlighted={setExperimentsHighlighted}
               resetExperimentsHighlighted={resetExperimentsHighlighted}
               experimentIsolateId={experimentIsolateId}
+              experimentDistanceIsSearching={experimentDistanceIsSearching}
             />
             <div className={styles.phylogenyContainer}>
               <Phylogeny
@@ -81,6 +83,7 @@ class Analysis extends React.Component<*> {
                 setExperimentsHighlighted={setExperimentsHighlighted}
                 resetExperimentsHighlighted={resetExperimentsHighlighted}
                 experimentIsolateId={experimentIsolateId}
+                experimentDistanceIsSearching={experimentDistanceIsSearching}
               />
             </div>
           </div>

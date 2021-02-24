@@ -30,6 +30,7 @@ const ExperimentGeographicMap = ({
   experimentsWithoutGeolocation,
   setExperimentsHighlighted,
   resetExperimentsHighlighted,
+  experimentDistanceIsSearching,
 }: React.ElementProps<*>): React.Element<*> => {
   const hasExperimentsWithGeolocation = !!(
     experimentsWithGeolocation && experimentsWithGeolocation.length
@@ -345,7 +346,7 @@ const ExperimentGeographicMap = ({
       // cleanup listeners
       setGoogleRef(null);
     };
-  }, [ref]);
+  }, [ref.current]);
 
   // derive the tooltips and their positions
   const tooltips = React.useMemo(() => {
@@ -444,29 +445,31 @@ const ExperimentGeographicMap = ({
           }
         />
       )}
-      {hasExperimentsWithoutGeolocation && (
-        <div className={styles.controlsContainerTop}>
-          <UncontrolledDropdown>
-            <DropdownToggle color="mid" outline size={'sm'}>
-              {experimentIsInExperimentsWithoutGeolocation && (
-                <span className={styles.highlighted}>
-                  <i className="fa fa-circle" />{' '}
-                </span>
-              )}
-              {experimentsWithoutGeolocation.length} No location{' '}
-              <i className="fa fa-caret-down" />
-            </DropdownToggle>
-            <DropdownMenu>
-              <div className={styles.dropdownContent}>
-                <ExperimentsList
-                  experiment={experiment}
-                  experiments={experimentsWithoutGeolocation}
-                />
-              </div>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        </div>
-      )}
+      <div className={styles.controlsContainerTop}>
+        {experimentDistanceIsSearching
+          ? 'Searching…'
+          : hasExperimentsWithoutGeolocation && (
+              <UncontrolledDropdown>
+                <DropdownToggle color="mid" outline size={'sm'}>
+                  {experimentIsInExperimentsWithoutGeolocation && (
+                    <span className={styles.highlighted}>
+                      <i className="fa fa-circle" />{' '}
+                    </span>
+                  )}
+                  {experimentsWithoutGeolocation.length} No location{' '}
+                  <i className="fa fa-caret-down" />
+                </DropdownToggle>
+                <DropdownMenu>
+                  <div className={styles.dropdownContent}>
+                    <ExperimentsList
+                      experiment={experiment}
+                      experiments={experimentsWithoutGeolocation}
+                    />
+                  </div>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            )}
+      </div>
       {hasExperimentsWithGeolocation && (
         <div className={styles.controlsContainerBottomLeft}>
           <IconButton
