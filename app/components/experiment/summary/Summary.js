@@ -23,6 +23,7 @@ class Summary extends React.Component<*> {
       experimentNearestNeigbours,
       isBusyWithCurrentRoute,
       experimentIsolateId,
+      experimentDistanceIsSearching,
     } = this.props;
     let content;
     if (isBusyWithCurrentRoute) {
@@ -36,6 +37,7 @@ class Summary extends React.Component<*> {
                 experiment={experiment}
                 experimentTransformed={experimentTransformed}
                 experimentNearestNeigbours={experimentNearestNeigbours}
+                experimentDistanceIsSearching={experimentDistanceIsSearching}
               />
             </Panel>
           </div>

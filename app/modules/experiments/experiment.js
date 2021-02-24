@@ -12,6 +12,7 @@ import {
 import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import _get from 'lodash.get';
+import _has from 'lodash.has';
 
 import { showNotification, NotificationCategories } from '../notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
@@ -119,6 +120,14 @@ export const getExperimentNotInTree = createSelector(
 );
 
 // nearest neighbours
+
+export const getExperimentDistanceIsSearching = createSelector(
+  getExperiment,
+  (experiment) => {
+    const hasDistance = _has(experiment, 'results.distance');
+    return !hasDistance;
+  }
+);
 
 export const getExperimentNearestNeigbours = createSelector(
   getExperiment,
