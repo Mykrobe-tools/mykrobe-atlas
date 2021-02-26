@@ -3,15 +3,20 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
+import _get from 'lodash.get';
 
 import styles from './EditMetadata.module.scss';
 
 import { EXPERIMENT_METADATA_FORM_ID } from '../../../modules/experiments';
 
-import Form, { FormFooter } from 'makeandship-js-common/src/components/ui/form';
+import Form, {
+  FormFooter,
+  FormFooterButtonGroup,
+} from 'makeandship-js-common/src/components/ui/form';
 import {
   SubmitButton,
   CancelButton,
+  DestructiveButton,
 } from 'makeandship-js-common/src/components/ui/buttons';
 
 import experimentUiSchema from './experimentUiSchema';
@@ -33,6 +38,16 @@ class EditMetadata extends React.Component<*> {
     e && e.preventDefault();
     const { history } = this.props;
     history.goBack();
+  };
+
+  onDeleteClick = (e) => {
+    e && e.preventDefault();
+    const { deleteExperiment, experiment } = this.props;
+    const isolateId = _get(experiment, 'metadata.sample.isolateId') || 'sample';
+    if (!confirm(`Delete ${isolateId}? This cannot be undone.`)) {
+      return;
+    }
+    deleteExperiment(experiment.id);
   };
 
   render() {
@@ -62,10 +77,15 @@ class EditMetadata extends React.Component<*> {
           >
             <FormFooter>
               {!readonly && (
-                <div>
-                  <SubmitButton marginRight>Save metadata</SubmitButton>
-                  <CancelButton onClick={this.onCancelClick} />
-                </div>
+                <React.Fragment>
+                  <FormFooterButtonGroup>
+                    <SubmitButton marginRight>Save metadata</SubmitButton>
+                    <CancelButton onClick={this.onCancelClick} />
+                  </FormFooterButtonGroup>
+                  <DestructiveButton onClick={this.onDeleteClick}>
+                    Delete sample
+                  </DestructiveButton>
+                </React.Fragment>
               )}
             </FormFooter>
           </Form>
