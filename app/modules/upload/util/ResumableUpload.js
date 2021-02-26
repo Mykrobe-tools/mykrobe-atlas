@@ -80,10 +80,8 @@ class ResumableUpload {
         payload: uploadProgress,
       });
     });
-    this.resumable.on('complete', (file) => {
-      if (file) {
-        this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE, payload: file });
-      }
+    this.resumable.on('complete', () => {
+      this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE });
     });
   }
 
