@@ -138,21 +138,23 @@ function* resumableUploadDoneWatcher() {
   yield takeEvery(RESUMABLE_UPLOAD_DONE, function* () {
     const experimentId = yield select(getExperimentId);
     const fileName = yield select(getFileName);
-    yield put(
-      updateNotification(experimentId, {
-        category: NotificationCategories.SUCCESS,
-        content: `Finished uploading ${fileName}`,
-        actions: [
-          {
-            title: 'Edit metadata',
-            onClick: () => {
-              _interactionChannel.put(push(`/experiments/${experimentId}`));
+    if (fileName) {
+      yield put(
+        updateNotification(experimentId, {
+          category: NotificationCategories.SUCCESS,
+          content: `Finished uploading ${fileName}`,
+          actions: [
+            {
+              title: 'Edit metadata',
+              onClick: () => {
+                _interactionChannel.put(push(`/experiments/${experimentId}`));
+              },
             },
-          },
-        ],
-        progress: undefined,
-      })
-    );
+          ],
+          progress: undefined,
+        })
+      );
+    }
   });
 }
 

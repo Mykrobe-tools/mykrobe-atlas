@@ -21,16 +21,18 @@ class ExperimentMetadataNavigation extends React.Component<*> {
       isBusyWithCurrentRoute,
       experimentOwnerIsCurrentUser,
       experimentMetadataLiveCompletion,
+      experimentIsAnalysing,
     } = this.props;
     const { complete, total } = experimentMetadataLiveCompletion;
     const percent = Math.round((100 * complete) / total);
     return (
       <div className={styles.container}>
         <Container fluid>
-          {isBusyWithCurrentRoute && (
+          {(isBusyWithCurrentRoute || experimentIsAnalysing) && (
             <div className={styles.uploadingMessage}>
               <div className={styles.uploadingMessageTitle}>
-                Your sample is uploading
+                Your sample is{' '}
+                {isBusyWithCurrentRoute ? 'uploading' : 'analysing'}
               </div>
             </div>
           )}

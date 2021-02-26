@@ -37,10 +37,17 @@ class Analysis extends React.Component<*> {
       experimentsHighlightedWithoutGeolocation,
       experiment,
       experimentDistanceIsSearching,
+      experimentIsAnalysing,
     } = this.props;
     let content;
-    if (isBusyWithCurrentRoute) {
-      content = <Uploading sectionName="Analysis" />;
+    if (isBusyWithCurrentRoute || experimentIsAnalysing) {
+      content = (
+        <Uploading
+          sectionName="Analysis"
+          isBusyWithCurrentRoute={isBusyWithCurrentRoute}
+          experimentIsAnalysing={experimentIsAnalysing}
+        />
+      );
     } else if (isFetchingExperiment) {
       content = <Loading />;
     } else {

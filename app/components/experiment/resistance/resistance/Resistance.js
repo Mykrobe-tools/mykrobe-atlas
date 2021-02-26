@@ -18,16 +18,23 @@ import TabNavigation, {
 } from '../../../ui/navigation/TabNavigation';
 
 import withFileUpload from '../../../../hoc/withFileUpload';
+import withExperiment from '../../../../hoc/withExperiment';
 
 import styles from './Resistance.module.scss';
 
 class Resistance extends React.Component<*> {
   render() {
-    const { isBusyWithCurrentRoute, match } = this.props;
+    const { isBusyWithCurrentRoute, experimentIsAnalysing, match } = this.props;
     let content;
 
-    if (isBusyWithCurrentRoute) {
-      content = <Uploading sectionName="Resistance" />;
+    if (isBusyWithCurrentRoute || experimentIsAnalysing) {
+      content = (
+        <Uploading
+          sectionName="Resistance"
+          isBusyWithCurrentRoute={isBusyWithCurrentRoute}
+          experimentIsAnalysing={experimentIsAnalysing}
+        />
+      );
     } else {
       content = (
         <div className={styles.content}>
@@ -87,4 +94,6 @@ Resistance.propTypes = {
   match: PropTypes.object,
 };
 
-export default withRouter(connect(mapStateToProps)(withFileUpload(Resistance)));
+export default withRouter(
+  connect(mapStateToProps)(withExperiment(withFileUpload(Resistance)))
+);

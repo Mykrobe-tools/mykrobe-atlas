@@ -30,6 +30,7 @@ import {
   requestExperimentMetadataTemplate,
   updateExperiment,
   getExperimentDistanceIsSearching,
+  getExperimentIsAnalysing,
 } from '../modules/experiments';
 
 const withExperiment = connect(
@@ -66,6 +67,7 @@ const withExperiment = connect(
     experimentNotInTree: getExperimentNotInTree(state),
     isFetchingExperiment: getIsFetchingExperiment(state),
     experimentDistanceIsSearching: getExperimentDistanceIsSearching(state),
+    experimentIsAnalysing: getExperimentIsAnalysing(state),
   }),
   {
     newExperiment,
@@ -103,6 +105,7 @@ export const withExperimentPropTypes = {
   experimentNotInTree: PropTypes.array,
   isFetchingExperiment: PropTypes.bool,
   experimentDistanceIsSearching: PropTypes.bool,
+  experimentIsAnalysing: PropTypes.bool,
 };
 
 export default withExperiment;

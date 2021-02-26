@@ -62,6 +62,7 @@ export {
   getExperimentAndNearestNeigboursWithGeolocation,
   getExperimentAndNearestNeigboursWithoutGeolocation,
   getExperimentError,
+  getExperimentIsAnalysing,
   getExperimentDistanceIsSearching,
   getExperimentHasNearestNeigbours,
   getExperimentIsolateId,
