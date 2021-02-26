@@ -91,6 +91,18 @@ export const getExperimentOwnerIsCurrentUser = createSelector(
   }
 );
 
+export const getExperimentIsAnalysing = createSelector(
+  getExperiment,
+  getIsFetching,
+  (experiment, isFetching) => {
+    if (isFetching) {
+      return false;
+    }
+    const hasPredictor = _has(experiment, 'results.predictor');
+    return !hasPredictor;
+  }
+);
+
 export const getExperimentIsolateId = createSelector(
   getExperimentMetadata,
   (metadata) => _get(metadata, 'sample.isolateId') || '–'
@@ -122,8 +134,11 @@ export const getExperimentNotInTree = createSelector(
 // nearest neighbours
 
 export const getExperimentDistanceIsSearching = createSelector(
-  getExperiment,
-  (experiment) => {
+  getIsFetching,
+  (experiment, isFetching) => {
+    if (isFetching) {
+      return false;
+    }
     const hasDistance = _has(experiment, 'results.distance');
     return !hasDistance;
   }

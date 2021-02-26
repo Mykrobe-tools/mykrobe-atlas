@@ -82,6 +82,7 @@ class ResumableUpload {
     });
     this.resumable.on('complete', () => {
       this.actionChannel.put({ type: RESUMABLE_UPLOAD_DONE });
+      this.resumable.files = [];
     });
   }
 
@@ -121,6 +122,7 @@ class ResumableUpload {
 
   cancel() {
     this.resumable.cancel();
+    this.resumable.files = [];
   }
 
   startUpload() {

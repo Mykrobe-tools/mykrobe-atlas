@@ -24,10 +24,17 @@ class Summary extends React.Component<*> {
       isBusyWithCurrentRoute,
       experimentIsolateId,
       experimentDistanceIsSearching,
+      experimentIsAnalysing,
     } = this.props;
     let content;
-    if (isBusyWithCurrentRoute) {
-      content = <Uploading sectionName="Summary" />;
+    if (isBusyWithCurrentRoute || experimentIsAnalysing) {
+      content = (
+        <Uploading
+          sectionName="Summary"
+          isBusyWithCurrentRoute={isBusyWithCurrentRoute}
+          experimentIsAnalysing={experimentIsAnalysing}
+        />
+      );
     } else {
       content = (
         <div className={styles.summaryContainer}>

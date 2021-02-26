@@ -6,13 +6,22 @@ import styles from './Uploading.module.scss';
 
 class Uploading extends React.Component<*> {
   render() {
-    const { sectionName } = this.props;
+    const {
+      sectionName,
+      isBusyWithCurrentRoute,
+      experimentIsAnalysing,
+    } = this.props;
+    const title = isBusyWithCurrentRoute
+      ? 'Uploading'
+      : experimentIsAnalysing
+      ? 'Analysing'
+      : 'Complete';
     return (
       <div className={styles.container}>
         <div className={styles.icon}>
           <i className="fa fa-clock-o fa-3x" />
         </div>
-        <h2 className={styles.title}>Uploading</h2>
+        <h2 className={styles.title}>{title}</h2>
         <p className={styles.text}>
           {sectionName} will be available here on completion
         </p>
@@ -23,6 +32,7 @@ class Uploading extends React.Component<*> {
 
 Uploading.propTypes = {
   sectionName: PropTypes.string,
+  experimentIsAnalysing: PropTypes.bool,
 };
 
 export default Uploading;
