@@ -17,7 +17,11 @@ import {
   requestUser,
   requestUsers,
 } from '../modules/users';
-import { requestExperiments } from '../modules/experiments';
+import {
+  requestExperiments,
+  requestExperiment,
+  deleteExperiment,
+} from '../modules/experiments';
 
 import {
   setFormData,
@@ -43,6 +47,8 @@ import {
 
 export const actionCreators = {
   requestExperiments,
+  requestExperiment,
+  deleteExperiment,
   login,
   register,
   logout,
