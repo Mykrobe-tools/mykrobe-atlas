@@ -28,15 +28,14 @@ class ExperimentMetadataNavigation extends React.Component<*> {
     return (
       <div className={styles.container}>
         <Container fluid>
-          {isBusyWithCurrentRoute ||
-            (experimentIsAnalysing && (
-              <div className={styles.uploadingMessage}>
-                <div className={styles.uploadingMessageTitle}>
-                  Your sample is{' '}
-                  {isBusyWithCurrentRoute ? 'uploading' : 'analysing'}
-                </div>
+          {(isBusyWithCurrentRoute || experimentIsAnalysing) && (
+            <div className={styles.uploadingMessage}>
+              <div className={styles.uploadingMessageTitle}>
+                Your sample is{' '}
+                {isBusyWithCurrentRoute ? 'uploading' : 'analysing'}
               </div>
-            ))}
+            </div>
+          )}
           {experimentOwnerIsCurrentUser && (
             <div className={styles.progress}>
               <div className={styles.percent}>
