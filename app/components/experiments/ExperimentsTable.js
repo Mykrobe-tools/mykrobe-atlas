@@ -135,7 +135,7 @@ class ExperimentsTable extends React.Component<*> {
   };
 
   renderRow = (experiment: any) => {
-    const { selected, currentUser, onDelete } = this.props;
+    const { selected, onDelete } = this.props;
     const allSelected = (selected && selected === '*') || false;
     let { id, created, modified, results, owner } = experiment;
     const isolateId = _get(experiment, 'metadata.sample.isolateId') || '–';
@@ -148,7 +148,6 @@ class ExperimentsTable extends React.Component<*> {
       false;
     let mdr, xdr;
     let susceptibilityProfile = '–';
-    const currentUserIsOwner = currentUser?.id === owner?.id;
     if (results && results.predictor) {
       mdr = results.predictor.mdr;
       xdr = results.predictor.xdr;
@@ -200,7 +199,7 @@ class ExperimentsTable extends React.Component<*> {
         <td>{formatDate(dateFns.parseISO(created))}</td>
         <td>{formatDate(dateFns.parseISO(modified))}</td>
         <td>
-          {currentUserIsOwner && (
+          {owner && (
             <UncontrolledDropdown>
               <DropdownToggle
                 tag={'a'}
