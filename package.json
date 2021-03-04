@@ -223,7 +223,7 @@
     "lodash.snakecase": "^4.1.1",
     "lodash.topath": "^4.5.2",
     "lodash.trim": "^4.5.1",
-    "makeandship-js-common": "https://bitbucket.org/makeandship/makeandship-js-common#v0.2.12",
+    "makeandship-js-common": "https://bitbucket.org/makeandship/makeandship-js-common#v0.2.13",
     "memoize-one": "^5.0.4",
     "mini-css-extract-plugin": "^0.9.0",
     "minimist": "^1.2.0",
