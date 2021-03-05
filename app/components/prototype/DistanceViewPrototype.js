@@ -5,9 +5,9 @@ import styles from './DistanceViewPrototype.module.scss';
 import * as d3 from 'd3';
 import HeaderContainer from '../ui/header/HeaderContainer';
 
-// const json = require('./nearest-neighbours-sample-data/SAMD00016703,5fd7dd0ee804da0012608e6f,955bafc3-9e25-4aa8-a57b-f6e7438915bf-2072*many.json');
+const json = require('./nearest-neighbours-sample-data/SAMD00016703,5fd7dd0ee804da0012608e6f,955bafc3-9e25-4aa8-a57b-f6e7438915bf-2072*many.json');
 
-const json = require('./nearest-neighbours-sample-data/SAMD00029444,5fd7dd10e804da00126093a1,31bc3b8b-a5f1-46fb-b9e6-047c5073643b-201*33468.json');
+// const json = require('./nearest-neighbours-sample-data/SAMD00029444,5fd7dd10e804da00126093a1,31bc3b8b-a5f1-46fb-b9e6-047c5073643b-201*33468.json');
 
 // const json = require('./nearest-neighbours-sample-data/SAMD00029466,5fd7dd11e804da0012609530,d9c38ab1-e949-44b3-ad92-5a402bb0669d-21*418.json');
 
@@ -19,8 +19,10 @@ const data = json[0];
 
 let nodes = data.nodes.map(({ identity }) => ({
   id: identity,
-  zeroDistanceIds: [],
+  zeroDistanceIds: [identity],
 }));
+
+// remove relationships where start<->end are also included as as end<->start
 
 const dedupedRelationships = [];
 
@@ -33,23 +35,53 @@ data.relationships.forEach((first) => {
   }
 });
 
-const links = dedupedRelationships.flatMap(({ start, end, properties }) => {
-  const distance = properties.distance;
-  if (distance === 0) {
-    // debugger;
-    // const sourceNode = nodes.find(({ id }) => id === start);
-    // sourceNode.zeroDistanceIds.push(end);
-    // nodes = nodes.filter(({ id }) => id === end);
-    // return [];
-    console.log({ start, end });
+// find relationships with zero distance, mark end node for removal
+
+const nodesIdsToRemove = [];
+
+dedupedRelationships.forEach((relationship) => {
+  if (relationship.properties.distance === 0) {
+    const startNode = nodes.find(({ id }) => id === relationship.start);
+    startNode.zeroDistanceIds.push(relationship.end);
+    nodesIdsToRemove.push(relationship.end);
   }
-  return {
-    source: start,
-    target: end,
-    distance,
-    visualDistance: distance * 30,
-  };
 });
+
+// remove the nodes
+
+nodes = nodes.filter(({ id }) => !nodesIdsToRemove.includes(id));
+
+console.log({ nodes });
+
+// // remove the relationships
+
+const filterdAndDedupedRelationships = dedupedRelationships.filter(
+  ({ start, end }) => {
+    const remove =
+      nodesIdsToRemove.includes(start) || nodesIdsToRemove.includes(end);
+    return !remove;
+  }
+);
+
+const links = filterdAndDedupedRelationships.flatMap(
+  ({ start, end, properties }) => {
+    const distance = properties.distance;
+    if (distance === 0) {
+      // debugger;
+      // const sourceNode = nodes.find(({ id }) => id === start);
+      // sourceNode.zeroDistanceIds.push(end);
+      // nodes = nodes.filter(({ id }) => id === end);
+      // return [];
+      console.log({ start, end });
+    }
+    return {
+      source: start,
+      target: end,
+      distance,
+      visualDistance: distance * 30,
+    };
+  }
+);
 
 const width = 600;
 const height = 600;
@@ -122,34 +154,25 @@ const DistanceViewPrototype = () => {
         return d.source.y + (d.target.y - d.source.y) * 0.5;
       })
       .attr('dy', '.25em')
-      .attr('text-anchor', 'middle');
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '12px')
+      .attr('visibility', 'hidden');
 
     const node = svg
       .append('g')
-      .attr('fill', 'currentColor')
-      .attr('stroke-linecap', 'round')
-      .attr('stroke-linejoin', 'round')
       .selectAll('g')
       .data(nodes)
       .join('g')
       .call(drag(simulation));
 
-    node
-      .append('circle')
-      .attr('stroke', 'white')
-      .attr('stroke-width', 1.5)
-      .attr('r', 5);
+    node.append('circle').attr('r', 3);
 
     node
       .append('text')
       .attr('x', 8)
       .attr('y', '0.31em')
-      .text((d) => d.id)
-      .clone(true)
-      .lower()
-      .attr('fill', 'none')
-      .attr('stroke', 'white')
-      .attr('stroke-width', 3);
+      .text((d) => d.zeroDistanceIds.join(', '))
+      .attr('font-size', '12px');
 
     simulation.on('tick', () => {
       link
