@@ -3,3 +3,17 @@
   flex-direction: column;
   flex: 1;
 }
+
+.svgContainer {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  svg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+}

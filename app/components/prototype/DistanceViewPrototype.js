@@ -4,12 +4,15 @@ import * as React from 'react';
 import styles from './DistanceViewPrototype.module.scss';
 import * as d3 from 'd3';
 import HeaderContainer from '../ui/header/HeaderContainer';
+import useSize from '@react-hook/size';
 
-const json = require('./nearest-neighbours-sample-data/SAMD00016703,5fd7dd0ee804da0012608e6f,955bafc3-9e25-4aa8-a57b-f6e7438915bf-2072*many.json');
+const SCALE_VISUAL_DISTANCE = 50;
+
+// const json = require('./nearest-neighbours-sample-data/SAMD00016703,5fd7dd0ee804da0012608e6f,955bafc3-9e25-4aa8-a57b-f6e7438915bf-2072*many.json');
 
 // const json = require('./nearest-neighbours-sample-data/SAMD00029444,5fd7dd10e804da00126093a1,31bc3b8b-a5f1-46fb-b9e6-047c5073643b-201*33468.json');
 
-// const json = require('./nearest-neighbours-sample-data/SAMD00029466,5fd7dd11e804da0012609530,d9c38ab1-e949-44b3-ad92-5a402bb0669d-21*418.json');
+const json = require('./nearest-neighbours-sample-data/SAMD00029466,5fd7dd11e804da0012609530,d9c38ab1-e949-44b3-ad92-5a402bb0669d-21*418.json');
 
 // const json = require('./nearest-neighbours-sample-data/SAMD00029487,5fd7dd12e804da00126096bf,d48aca21-fb18-4e42-96db-0299ed82eedb-5*14.json');
 
@@ -51,9 +54,7 @@ dedupedRelationships.forEach((relationship) => {
 
 nodes = nodes.filter(({ id }) => !nodesIdsToRemove.includes(id));
 
-console.log({ nodes });
-
-// // remove the relationships
+// remove the relationships
 
 const filterdAndDedupedRelationships = dedupedRelationships.filter(
   ({ start, end }) => {
@@ -66,25 +67,14 @@ const filterdAndDedupedRelationships = dedupedRelationships.filter(
 const links = filterdAndDedupedRelationships.flatMap(
   ({ start, end, properties }) => {
     const distance = properties.distance;
-    if (distance === 0) {
-      // debugger;
-      // const sourceNode = nodes.find(({ id }) => id === start);
-      // sourceNode.zeroDistanceIds.push(end);
-      // nodes = nodes.filter(({ id }) => id === end);
-      // return [];
-      console.log({ start, end });
-    }
     return {
       source: start,
       target: end,
       distance,
-      visualDistance: distance * 30,
+      visualDistance: distance * SCALE_VISUAL_DISTANCE,
     };
   }
 );
-
-const width = 600;
-const height = 600;
 
 const drag = (simulation) => {
   const dragstarted = (event) => {
@@ -112,10 +102,17 @@ const drag = (simulation) => {
 };
 
 const DistanceViewPrototype = () => {
-  const ref = React.useRef();
+  const svgContainerRef = React.useRef();
+  const svgRef = React.useRef();
+
+  const [width, height] = useSize(svgContainerRef);
+  const [svg, setSvg] = React.useState(null);
+  const [simulation, setSimulation] = React.useState(null);
 
   React.useEffect(() => {
-    const svg = d3.select(ref.current).attr('viewBox', [0, 0, width, height]);
+    const svg = d3
+      .select(svgRef.current)
+      .attr('viewBox', [0, 0, width, height]);
 
     const simulation = d3
       .forceSimulation(nodes)
@@ -191,12 +188,25 @@ const DistanceViewPrototype = () => {
           return d.source.y + (d.target.y - d.source.y) * 0.5;
         });
     });
+
+    setSvg(svg);
+    setSimulation(simulation);
   }, []);
+
+  React.useEffect(() => {
+    console.log({ width, height });
+    svg?.attr('viewBox', [0, 0, width, height]);
+    simulation
+      ?.force('center', d3.forceCenter(width / 2, height / 2))
+      .restart();
+  }, [width, height, svg]);
 
   return (
     <div className={styles.container}>
       <HeaderContainer title={'Distance view prototype'} />
-      <svg ref={ref} />
+      <div ref={svgContainerRef} className={styles.svgContainer}>
+        <svg ref={svgRef} />
+      </div>
     </div>
   );
 };
