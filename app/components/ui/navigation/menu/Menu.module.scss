@@ -46,3 +46,9 @@
   composes: navigationLink;
   color: $color-tint-primary;
 }
+
+.navigationFooter {
+  margin: auto 0 30px 30px;
+  padding: 0;
+  border-bottom: 1px solid $color-rule;
+}

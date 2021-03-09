@@ -11,7 +11,6 @@ import withExperiment, {
 } from '../../../hoc/withExperiment';
 
 import styles from './ExperimentMetadataContainer.module.scss';
-import Footer from '../../ui/footer/Footer';
 import ViewMetadata from './ViewMetadata';
 
 const ExperimentMetadataContainer = ({
@@ -31,7 +30,6 @@ const ExperimentMetadataContainer = ({
       ) : (
         <ViewMetadata experimentMetadata={experimentMetadata} />
       )}
-      <Footer />
     </div>
   );
 };

@@ -48,6 +48,18 @@ class Menu extends React.Component<*> {
             </NavLink>
           </li>
         </ul>
+        <ul className={styles.navigationFooter}>
+          <li className={styles.navigationItem}>
+            <a
+              className={styles.navigationLink}
+              rel="noopener noreferrer"
+              target="_blank"
+              href="https://www.ebi.ac.uk/data-protection/privacy-notice/mykrobe-atlas-database"
+            >
+              Privacy Policy
+            </a>
+          </li>
+        </ul>
       </div>
     );
   }
