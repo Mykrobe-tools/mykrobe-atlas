@@ -22,7 +22,6 @@ import styles from './Experiments.module.scss';
 import ExperimentsTable from './ExperimentsTable';
 import ExperimentsChoicesFilters from './ExperimentsChoicesFilters';
 import HeaderContainer from '../ui/header/HeaderContainer';
-import Footer from '../ui/footer/Footer';
 import { notImplemented } from '../../util';
 
 import UploadButton from '../upload/button/UploadButton';
@@ -326,7 +325,6 @@ class Experiments extends React.Component<*, State> {
             <Loading overlay delayed />
           )}
         </div>
-        {!showMap && !showTree && <Footer />}
       </div>
     );
   }

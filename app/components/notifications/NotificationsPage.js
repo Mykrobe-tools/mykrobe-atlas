@@ -13,7 +13,6 @@ import { PrimaryButton } from 'makeandship-js-common/src/components/ui/buttons';
 import { clearAllNotifications } from '../../modules/notifications';
 
 import HeaderContainer from '../ui/header/HeaderContainer';
-import Footer from '../ui/footer/Footer';
 
 import styles from './NotificationsPage.module.scss';
 import NotificationsContainer from './NotificationsContainer';
@@ -52,7 +51,6 @@ class NotificationsPage extends React.Component<*> {
             />
           </Container>
         </div>
-        <Footer />
       </div>
     );
   }

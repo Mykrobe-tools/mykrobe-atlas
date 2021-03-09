@@ -21,7 +21,6 @@ import TrLink from 'makeandship-js-common/src/components/ui/table/TrLink';
 import OrganisationStatusIcon from '../organisation/ui/OrganisationStatusIcon';
 
 import HeaderContainer from '../ui/header/HeaderContainer';
-import Footer from '../ui/footer/Footer';
 import { withCurrentUserPropTypes } from '../../hoc/withCurrentUser';
 
 import styles from './Organisations.module.scss';
@@ -151,7 +150,6 @@ class Organisations extends React.Component<*> {
             />
           </Container>
         </div>
-        <Footer />
       </div>
     );
   }

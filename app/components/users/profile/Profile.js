@@ -15,7 +15,6 @@ import {
 } from 'makeandship-js-common/src/components/ui/buttons';
 
 import HeaderContainer from '../../ui/header/HeaderContainer';
-import Footer from '../../ui/footer/Footer';
 
 import { profileSchema } from '../../../schemas/users';
 import styles from './Profile.module.scss';
@@ -85,7 +84,6 @@ class Profile extends React.Component<*> {
             </DecoratedForm>
           </Container>
         </div>
-        <Footer />
       </div>
     );
   }

@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import { IconButton } from 'makeandship-js-common/src/components/ui/buttons';
 import Loading from 'makeandship-js-common/src/components/ui/loading';
 
-import Footer from '../../ui/footer/Footer';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
 
 import styles from './OrganisationProfile.module.scss';
@@ -152,7 +151,6 @@ class OrganisationProfile extends React.Component<*> {
             </Container>
           )}
         </div>
-        <Footer />
       </div>
     );
   }
