@@ -232,121 +232,132 @@ const ExperimentGeographicMap = ({
   );
 
   // using a callback to set the google ref gives a way to cleanup previous events
-  const setGoogleRef = React.useCallback((google) => {
-    if (googleRef.current) {
-      // clean up listeners
-      listenersRef.current.forEach((listener) => {
-        googleRef.current.maps.event.removeListener(listener);
-      });
-      listenersRef.current = [];
-    }
-    googleRef.current = google;
-
-    if (!googleRef.current) {
-      return;
-    }
-
-    const googleMap = new googleRef.current.maps.Map(ref.current, {
-      center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
-      minZoom: 2,
-      maxZoom: 10, // roughly allow you to see a city, without implying that samples came from a specific point within it
-      zoom: 3,
-      backgroundColor: '#e2e1dc',
-      styles: MapStyle,
-      mapTypeControl: false,
-      fullscreenControl: false,
-      streetViewControl: false,
-    });
-    mapRef.current = googleMap;
-
-    // overlay is used to calculate pixel positions
-    const overlay = new googleRef.current.maps.OverlayView();
-    overlay.setMap(mapRef.current);
-    overlayRef.current = overlay;
-
-    const clusterer = new MarkerClusterer(mapRef.current, [], {
-      averageCenter: true,
-      minimumClusterSize: 2,
-      styles: [
-        MarkerClusterer.withDefaultStyle({
-          textColor: 'white',
-          textSize: 16,
-          width: 48,
-          height: 48,
-          url: makeSvgMarker({ diameter: 48 }),
-        }),
-        MarkerClusterer.withDefaultStyle({
-          textColor: 'white',
-          textSize: 16,
-          width: 48,
-          height: 48,
-          url: makeSvgMarker({
-            diameter: 48,
-            color: Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST,
-          }),
-        }),
-      ],
-      calculator: markerClustererCalculator,
-    });
-
-    listenersRef.current.push(
-      googleRef.current.maps.event.addListener(
-        clusterer,
-        'mouseover',
-        onMarkerClusterMouseOver
-      )
-    );
-
-    listenersRef.current.push(
-      googleRef.current.maps.event.addListener(
-        mapRef.current,
-        'projection_changed',
-        onProjectionChanged
-      )
-    );
-
-    listenersRef.current.push(
-      googleRef.current.maps.event.addListener(
-        mapRef.current,
-        'bounds_changed',
-        onBoundsChanged
-      )
-    );
-
-    listenersRef.current.push(
-      googleRef.current.maps.event.addListener(mapRef.current, 'idle', onIdle)
-    );
-    listenersRef.current.push(
-      googleRef.current.maps.event.addListener(mapRef.current, 'click', onClick)
-    );
-
-    // this will trigger the side-effect which updates markers and initialises zoom
-    setMarkerClusterer(clusterer);
-  });
-
-  // initialisation once the map div ref is known
-  React.useEffect(() => {
-    const initMaps = async () => {
-      if (!window?.google?.maps) {
-        const apiKey = window.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-        const options = {
-          apiKey,
-          version: 'weekly',
-          region: 'GB',
-        };
-        const loader = new Loader(options);
-        await loader.load();
+  const setGoogleRef = React.useCallback(
+    (google) => {
+      if (googleRef.current) {
+        // clean up listeners
+        listenersRef.current.forEach((listener) => {
+          googleRef.current.maps.event.removeListener(listener);
+        });
+        listenersRef.current = [];
       }
-      setGoogleRef(window.google);
-    };
-    if (ref.current) {
-      initMaps();
-    }
-    return () => {
-      // cleanup listeners
-      setGoogleRef(null);
-    };
-  }, [ref.current]);
+      googleRef.current = google;
+
+      if (!googleRef.current) {
+        return;
+      }
+
+      const googleMap = new googleRef.current.maps.Map(ref.current, {
+        center: { lat: DEFAULT_LAT, lng: DEFAULT_LNG },
+        minZoom: 2,
+        maxZoom: 10, // roughly allow you to see a city, without implying that samples came from a specific point within it
+        zoom: 3,
+        backgroundColor: '#e2e1dc',
+        styles: MapStyle,
+        mapTypeControl: false,
+        fullscreenControl: false,
+        streetViewControl: false,
+      });
+      mapRef.current = googleMap;
+
+      // overlay is used to calculate pixel positions
+      const overlay = new googleRef.current.maps.OverlayView();
+      overlay.setMap(mapRef.current);
+      overlayRef.current = overlay;
+
+      const clusterer = new MarkerClusterer(mapRef.current, [], {
+        averageCenter: true,
+        minimumClusterSize: 2,
+        styles: [
+          MarkerClusterer.withDefaultStyle({
+            textColor: 'white',
+            textSize: 16,
+            width: 48,
+            height: 48,
+            url: makeSvgMarker({ diameter: 48 }),
+          }),
+          MarkerClusterer.withDefaultStyle({
+            textColor: 'white',
+            textSize: 16,
+            width: 48,
+            height: 48,
+            url: makeSvgMarker({
+              diameter: 48,
+              color: Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST,
+            }),
+          }),
+        ],
+        calculator: markerClustererCalculator,
+      });
+
+      listenersRef.current.push(
+        googleRef.current.maps.event.addListener(
+          clusterer,
+          'mouseover',
+          onMarkerClusterMouseOver
+        )
+      );
+
+      listenersRef.current.push(
+        googleRef.current.maps.event.addListener(
+          mapRef.current,
+          'projection_changed',
+          onProjectionChanged
+        )
+      );
+
+      listenersRef.current.push(
+        googleRef.current.maps.event.addListener(
+          mapRef.current,
+          'bounds_changed',
+          onBoundsChanged
+        )
+      );
+
+      listenersRef.current.push(
+        googleRef.current.maps.event.addListener(mapRef.current, 'idle', onIdle)
+      );
+      listenersRef.current.push(
+        googleRef.current.maps.event.addListener(
+          mapRef.current,
+          'click',
+          onClick
+        )
+      );
+
+      // this will trigger the side-effect which updates markers and initialises zoom
+      setMarkerClusterer(clusterer);
+    },
+    [setMarkerClusterer]
+  );
+
+  // initialisation once the map div ref is set
+  const setRef = React.useCallback(
+    (node) => {
+      const initMaps = async () => {
+        if (!window?.google?.maps) {
+          const apiKey = window.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+          const options = {
+            apiKey,
+            version: 'weekly',
+            region: 'GB',
+          };
+          const loader = new Loader(options);
+          await loader.load();
+        }
+        setGoogleRef(window.google);
+      };
+      ref.current = node;
+      if (ref.current) {
+        initMaps();
+      }
+      return () => {
+        // cleanup listeners
+        setGoogleRef(null);
+      };
+    },
+    [setGoogleRef]
+  );
 
   // derive the tooltips and their positions
   const tooltips = React.useMemo(() => {
@@ -433,7 +444,7 @@ const ExperimentGeographicMap = ({
   return (
     <div className={styles.mapContainer}>
       {hasExperimentsWithGeolocation ? (
-        <div ref={ref} className={styles.map} />
+        <div ref={setRef} className={styles.map} />
       ) : (
         <Empty
           icon={'globe'}
