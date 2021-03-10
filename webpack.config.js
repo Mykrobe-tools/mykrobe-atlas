@@ -16,6 +16,7 @@ module.exports = {
     bundle: [
       'url-search-params-polyfill',
       'event-source-polyfill',
+      'resize-observer-polyfill',
       path.join(dirApp, 'index'),
     ],
   },

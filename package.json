@@ -167,6 +167,7 @@
     "cors": "^2.8.1",
     "cross-env": "^7.0.0",
     "css-loader": "^3.4.0",
+    "d3": "^6.5.0",
     "date-fns": "^2.8.1",
     "debug": "^4.1.1",
     "decompress": "^4.2.0",
@@ -275,7 +276,10 @@
     "webpack-dev-server": "^3.10.0",
     "webpack-merge": "^4.2.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@react-hook/size": "^2.1.1",
+    "resize-observer-polyfill": "^1.5.1"
+  },
   "targetName": "desktop",
   "jest": {
     "verbose": true,

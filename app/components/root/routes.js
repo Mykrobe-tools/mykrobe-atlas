@@ -11,10 +11,12 @@ import NotificationsPage from '../notifications/NotificationsPage';
 import NotFoundPage from '../notFound/NotFoundPage';
 
 import ProtectedContainer from '../auth/ProtectedContainer';
+import DistanceViewPrototype from '../prototype/DistanceViewPrototype';
 
 export default (
   <Switch>
     <Route exact path="/" component={UploadContainer} />
+    <Route path="/prototype" component={DistanceViewPrototype} />
     <ProtectedContainer>
       <Route path="/experiments" component={ExperimentsRoutes} />
       <Route path="/users" component={UsersRoutes} />
