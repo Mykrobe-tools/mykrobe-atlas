@@ -18,7 +18,7 @@ const sources = {
   '5*14': require('./nearest-neighbours-sample-data/SAMD00029487,5fd7dd12e804da00126096bf,d48aca21-fb18-4e42-96db-0299ed82eedb-5*14.json'),
   '21*418': require('./nearest-neighbours-sample-data/SAMD00029466,5fd7dd11e804da0012609530,d9c38ab1-e949-44b3-ad92-5a402bb0669d-21*418.json'),
   '201*33468': require('./nearest-neighbours-sample-data/SAMD00029444,5fd7dd10e804da00126093a1,31bc3b8b-a5f1-46fb-b9e6-047c5073643b-201*33468.json'),
-  '2072*many': require('./nearest-neighbours-sample-data/SAMD00016703,5fd7dd0ee804da0012608e6f,955bafc3-9e25-4aa8-a57b-f6e7438915bf-2072*many.json'),
+  // '2072*many': require('./nearest-neighbours-sample-data/SAMD00016703,5fd7dd0ee804da0012608e6f,955bafc3-9e25-4aa8-a57b-f6e7438915bf-2072*many.json'),
 };
 
 const transformData = (data) => {
