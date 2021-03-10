@@ -134,6 +134,7 @@ export const getExperimentNotInTree = createSelector(
 // nearest neighbours
 
 export const getExperimentDistanceIsSearching = createSelector(
+  getExperiment,
   getIsFetching,
   (experiment, isFetching) => {
     if (isFetching) {

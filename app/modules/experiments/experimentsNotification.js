@@ -21,7 +21,11 @@ import {
   DISTANCE_SEARCH_COMPLETE,
 } from '../users/currentUserEvents';
 
-import { getExperiment, requestExperiment } from './experiment';
+import {
+  getExperiment,
+  getExperimentDistanceIsSearching,
+  requestExperiment,
+} from './experiment';
 
 import {
   getExperimentsIsPending,
@@ -137,7 +141,10 @@ function* distanceSearchCompleteWatcher() {
     const currentExperimentId = _get(currentExperiment, 'id');
     const isViewingCompleteExperiment =
       currentExperimentId === completeExperimentId;
-    if (isViewingCompleteExperiment) {
+    const experimentDistanceIsSearching = yield select(
+      getExperimentDistanceIsSearching
+    );
+    if (isViewingCompleteExperiment && experimentDistanceIsSearching) {
       yield put(requestExperiment(completeExperimentId));
       yield put(showNotification(`Distance search complete`));
     }

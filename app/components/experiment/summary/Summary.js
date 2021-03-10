@@ -7,7 +7,6 @@ import ResistanceProfile from '../resistance/profile/ResistanceProfile';
 import Panel from '../../ui/Panel';
 import SummaryMetadata from './SummaryMetadata';
 import SummaryVariants from './SummaryVariants';
-import Footer from '../../ui/footer/Footer';
 import AppDocumentTitle from '../../ui/AppDocumentTitle';
 
 import { withExperimentPropTypes } from '../../../hoc/withExperiment';
@@ -69,7 +68,6 @@ class Summary extends React.Component<*> {
       <div className={styles.container}>
         <AppDocumentTitle title={[experimentIsolateId, 'Summary']} />
         {content}
-        <Footer />
       </div>
     );
   }

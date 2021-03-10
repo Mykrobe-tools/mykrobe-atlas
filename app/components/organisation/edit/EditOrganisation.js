@@ -19,7 +19,6 @@ import {
 
 import type { OrganisationType } from '../../../types/OrganisationTypes';
 import OrganisationHeader from '../ui/OrganisationHeader';
-import Footer from '../../ui/footer/Footer';
 import { organisationSchema } from '../../../schemas/organisations';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
 
@@ -99,7 +98,6 @@ class EditOrganisation extends React.Component<*> {
             </DecoratedForm>
           </Container>
         </div>
-        <Footer />
       </div>
     );
   }

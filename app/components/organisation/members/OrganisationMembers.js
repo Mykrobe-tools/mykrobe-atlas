@@ -20,7 +20,6 @@ import TrLink from 'makeandship-js-common/src/components/ui/table/TrLink';
 import OrganisationHeader from '../ui/OrganisationHeader';
 import OrganisationMembershipActions from '../ui/OrganisationMembershipActions';
 import OrganisationStatusIcon from '../../organisation/ui/OrganisationStatusIcon';
-import Footer from '../../ui/footer/Footer';
 import { withOrganisationPropTypes } from '../../../hoc/withOrganisation';
 import { notImplemented } from '../../../util';
 
@@ -293,7 +292,6 @@ class OrganisationMembers extends React.Component<*> {
             />
           </Container>
         </div>
-        <Footer />
       </div>
     );
   }
