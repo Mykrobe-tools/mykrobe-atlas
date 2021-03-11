@@ -106,7 +106,9 @@ const transformData = (data) => {
 
   // create mst and flag each link that is in the mst
 
-  const mst = kruskal(g);
+  const mst = kruskal(g, (link) => link.data.distance);
+
+  console.log(mst);
   mst.forEach(({ fromId, toId }) => {
     const link = g.getLink(fromId, toId);
     link.data.mst = true;
