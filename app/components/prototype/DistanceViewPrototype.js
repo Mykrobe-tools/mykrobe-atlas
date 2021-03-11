@@ -110,6 +110,7 @@ const drag = (simulation) => {
 
 const DistanceViewPrototype = () => {
   const [source, setSource] = React.useState('5*14');
+  const [showDistance, setShowDistance] = React.useState(false);
 
   const svgContainerRef = React.useRef();
   const svgRef = React.useRef();
@@ -168,7 +169,7 @@ const DistanceViewPrototype = () => {
       .attr('dy', '.25em')
       .attr('text-anchor', 'middle')
       .attr('font-size', '12px')
-      .attr('visibility', 'hidden');
+      .attr('visibility', showDistance ? 'visible' : 'hidden');
 
     const node = newSvg
       .append('g')
@@ -213,7 +214,7 @@ const DistanceViewPrototype = () => {
 
     setSvg(newSvg);
     setSimulation(newSimulation);
-  }, [source]);
+  }, [source, showDistance]);
 
   React.useEffect(() => {
     // console.log({ width, height });
@@ -222,6 +223,10 @@ const DistanceViewPrototype = () => {
       ?.force('center', d3.forceCenter(width / 2, height / 2))
       .restart();
   }, [width, height, svg]);
+
+  const toggleShowDistance = React.useCallback(() => {
+    setShowDistance(!showDistance);
+  }, [setShowDistance, showDistance]);
 
   return (
     <div className={styles.container}>
@@ -244,6 +249,15 @@ const DistanceViewPrototype = () => {
                   {thisSource}
                 </DropdownItem>
               ))}
+              <DropdownItem divider />
+              <DropdownItem onClick={toggleShowDistance}>
+                {showDistance ? (
+                  <i className="fa fa-check-square" />
+                ) : (
+                  <i className="fa fa-square-o" />
+                )}{' '}
+                Show distance
+              </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </div>
