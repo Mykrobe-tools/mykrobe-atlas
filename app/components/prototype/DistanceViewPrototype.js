@@ -12,6 +12,9 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
+import createGraph from 'ngraph.graph';
+import kruskal from 'ngraph.kruskal';
+
 const SCALE_VISUAL_DISTANCE = 50;
 
 const sources = {
@@ -80,7 +83,35 @@ const transformData = (data) => {
     }
   );
 
-  return { nodes, links };
+  const g = createGraph();
+
+  nodes.forEach((node) => {
+    g.addNode(node.id, node);
+  });
+
+  links.forEach((link) => {
+    g.addLink(link.source, link.target, link);
+  });
+
+  g.forEachNode(function (node) {
+    console.log(node.id, node.data);
+  });
+
+  g.forEachLink(function (link) {
+    console.dir(link);
+  });
+
+  const mst = kruskal(g);
+  const mstLinks = [];
+  mst.forEach(({ fromId, toId }) => {
+    const link = g.getLink(fromId, toId);
+    console.log('link', link);
+    mstLinks.push(link.data);
+  });
+
+  console.log({ nodes, links, mst, mstLinks });
+
+  return { nodes, rawLinks: links, mstLinks };
 };
 
 const drag = (simulation) => {
@@ -122,7 +153,9 @@ const DistanceViewPrototype = () => {
   React.useEffect(() => {
     const sourceData = sources[source][0];
     const data = transformData(sourceData);
-    const { nodes, links } = data;
+    const { nodes, rawLinks, mstLinks } = data;
+
+    const links = mstLinks;
 
     const newSvg = d3
       .select(svgRef.current)

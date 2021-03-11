@@ -143,6 +143,7 @@
     "@babel/runtime": "^7.8.2",
     "@google/markerclustererplus": "^5.1.0",
     "@googlemaps/js-api-loader": "^1.2.0",
+    "@react-hook/size": "^2.1.1",
     "@reduxjs/toolkit": "^1.4.0",
     "@sentry/react": "^5.21.4",
     "@sentry/webpack-plugin": "^1.12.1",
@@ -230,6 +231,8 @@
     "minimist": "^1.2.0",
     "module": "^1.2.5",
     "mykrobe-atlas-jsonschema": "git+ssh://git@github.com/Mykrobe-tools/mykrobe-atlas-jsonschema#v0.0.33",
+    "ngraph.graph": "^19.1.0",
+    "ngraph.kruskal": "^1.0.1",
     "nhs-number-validator": "^1.1.1",
     "nock": "^9.1.0",
     "node-sass": "^4.13.0",
@@ -258,6 +261,7 @@
     "redux-saga-testing": "^1.0.5",
     "redux-thunk": "^2.2.0",
     "reselect": "^4.0.0",
+    "resize-observer-polyfill": "^1.5.1",
     "resumablejs": "^1.1.0",
     "sass-loader": "^8.0.0",
     "scroll-into-view": "^1.9.0",
@@ -276,10 +280,7 @@
     "webpack-dev-server": "^3.10.0",
     "webpack-merge": "^4.2.0"
   },
-  "dependencies": {
-    "@react-hook/size": "^2.1.1",
-    "resize-observer-polyfill": "^1.5.1"
-  },
+  "dependencies": {},
   "targetName": "desktop",
   "jest": {
     "verbose": true,
