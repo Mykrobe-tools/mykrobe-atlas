@@ -165,6 +165,18 @@ const DistanceViewPrototype = () => {
     const links =
       showMst && onlyMst ? rawLinks.filter(({ mst }) => mst) : rawLinks;
 
+    // add forces to the centre of each link to help with overlapping
+    // http://bl.ocks.org/couchand/7190660
+
+    const linkNodes = [];
+
+    links.forEach(function (link) {
+      linkNodes.push({
+        source: nodes.find(({ id }) => id === link.source),
+        target: nodes.find(({ id }) => id === link.target),
+      });
+    });
+
     const newSvg = d3
       .select(svgRef.current)
       .attr('viewBox', [0, 0, width, height]);
@@ -172,12 +184,13 @@ const DistanceViewPrototype = () => {
     newSvg.selectAll('*').remove();
 
     const newSimulation = d3
-      .forceSimulation(nodes)
+      .forceSimulation(nodes.concat(linkNodes))
       .force(
         'link',
         d3
           .forceLink(links)
           .distance((d) => d.visualDistance)
+          .strength(1) // achieve better uniformity of distance
           .id((d) => d.id)
       )
       .force('charge', d3.forceManyBody())
@@ -196,6 +209,16 @@ const DistanceViewPrototype = () => {
       .attr('visibility', (d) =>
         showMst ? (d.mst ? 'visible' : 'hidden') : 'visible'
       );
+
+    const linkNode = newSvg
+      .append('g')
+      .selectAll('g')
+      .data(linkNodes)
+      .enter()
+      .append('circle')
+      .attr('r', 2)
+      .attr('fill', 'gray')
+      .attr('visibility', 'hidden');
 
     const text = newSvg
       .append('g')
@@ -236,7 +259,7 @@ const DistanceViewPrototype = () => {
     node
       .append('circle')
       .attr('fill', 'gray')
-      .attr('r', (d) => 3 * d.zeroDistanceIds.length);
+      .attr('r', (d) => 5 * Math.sqrt(d.zeroDistanceIds.length));
 
     node
       .append('text')
@@ -260,6 +283,14 @@ const DistanceViewPrototype = () => {
         })
         .attr('y', function (d) {
           return d.source.y + (d.target.y - d.source.y) * 0.5;
+        });
+
+      linkNode
+        .attr('cx', function (d) {
+          return (d.x = (d.source.x + d.target.x) * 0.5);
+        })
+        .attr('cy', function (d) {
+          return (d.y = (d.source.y + d.target.y) * 0.5);
         });
     });
 
