@@ -106,7 +106,9 @@ const transformData = (data) => {
 
   // create mst and flag each link that is in the mst
 
-  const mst = kruskal(g);
+  const mst = kruskal(g, (link) => link.data.distance);
+
+  console.log(mst);
   mst.forEach(({ fromId, toId }) => {
     const link = g.getLink(fromId, toId);
     link.data.mst = true;
@@ -146,6 +148,7 @@ const DistanceViewPrototype = () => {
   const [source, setSource] = React.useState('5*14');
   const [showDistance, setShowDistance] = React.useState(true);
   const [showMst, setShowMst] = React.useState(true);
+  const [onlyMst, setOnlyMst] = React.useState(true);
 
   const svgContainerRef = React.useRef();
   const svgRef = React.useRef();
@@ -157,7 +160,10 @@ const DistanceViewPrototype = () => {
   React.useEffect(() => {
     const sourceData = sources[source][0];
     const data = transformData(sourceData);
-    const { nodes, links } = data;
+    const { nodes, links: rawLinks } = data;
+
+    const links =
+      showMst && onlyMst ? rawLinks.filter(({ mst }) => mst) : rawLinks;
 
     const newSvg = d3
       .select(svgRef.current)
@@ -261,7 +267,7 @@ const DistanceViewPrototype = () => {
 
     setSvg(newSvg);
     setSimulation(newSimulation);
-  }, [source, showDistance, showMst]);
+  }, [source, showDistance, showMst, onlyMst]);
 
   React.useEffect(() => {
     // console.log({ width, height });
@@ -278,6 +284,10 @@ const DistanceViewPrototype = () => {
   const toggleShowMst = React.useCallback(() => {
     setShowMst(!showMst);
   }, [setShowMst, showMst]);
+
+  const toggleOnlyMst = React.useCallback(() => {
+    setOnlyMst(!onlyMst);
+  }, [setOnlyMst, onlyMst]);
 
   return (
     <div className={styles.container}>
@@ -317,6 +327,16 @@ const DistanceViewPrototype = () => {
                 )}{' '}
                 Use MST
               </DropdownItem>
+              {showMst && (
+                <DropdownItem onClick={toggleOnlyMst}>
+                  {onlyMst ? (
+                    <i className="fa fa-check-square" />
+                  ) : (
+                    <i className="fa fa-square-o" />
+                  )}{' '}
+                  Use only MST for layout
+                </DropdownItem>
+              )}
             </DropdownMenu>
           </UncontrolledDropdown>
         </div>
