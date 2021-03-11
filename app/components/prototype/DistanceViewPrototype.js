@@ -79,9 +79,12 @@ const transformData = (data) => {
         target: end,
         distance,
         visualDistance: distance * SCALE_VISUAL_DISTANCE,
+        mst: false,
       };
     }
   );
+
+  // build graph used to create mst
 
   const g = createGraph();
 
@@ -101,17 +104,17 @@ const transformData = (data) => {
     console.dir(link);
   });
 
+  // create mst and flag each link that is in the mst
+
   const mst = kruskal(g);
-  const mstLinks = [];
   mst.forEach(({ fromId, toId }) => {
     const link = g.getLink(fromId, toId);
-    console.log('link', link);
-    mstLinks.push(link.data);
+    link.data.mst = true;
   });
 
-  console.log({ nodes, links, mst, mstLinks });
+  console.log({ nodes, links });
 
-  return { nodes, rawLinks: links, mstLinks };
+  return { nodes, links };
 };
 
 const drag = (simulation) => {
@@ -141,7 +144,8 @@ const drag = (simulation) => {
 
 const DistanceViewPrototype = () => {
   const [source, setSource] = React.useState('5*14');
-  const [showDistance, setShowDistance] = React.useState(false);
+  const [showDistance, setShowDistance] = React.useState(true);
+  const [showMst, setShowMst] = React.useState(true);
 
   const svgContainerRef = React.useRef();
   const svgRef = React.useRef();
@@ -153,9 +157,7 @@ const DistanceViewPrototype = () => {
   React.useEffect(() => {
     const sourceData = sources[source][0];
     const data = transformData(sourceData);
-    const { nodes, rawLinks, mstLinks } = data;
-
-    const links = mstLinks;
+    const { nodes, links } = data;
 
     const newSvg = d3
       .select(svgRef.current)
@@ -177,12 +179,15 @@ const DistanceViewPrototype = () => {
 
     const link = newSvg
       .append('g')
-      .attr('stroke', '#999')
-      .attr('stroke-opacity', 0.6)
       .selectAll('line')
       .data(links)
       .join('line')
-      .attr('stroke-width', 0.5);
+      .attr('stroke', '#999')
+      .attr('stroke-opacity', 0.6)
+      .attr('stroke-width', 0.5)
+      .attr('visibility', (d) =>
+        showMst ? (d.mst ? 'visible' : 'hidden') : 'visible'
+      );
 
     const text = newSvg
       .append('g')
@@ -202,7 +207,16 @@ const DistanceViewPrototype = () => {
       .attr('dy', '.25em')
       .attr('text-anchor', 'middle')
       .attr('font-size', '12px')
-      .attr('visibility', showDistance ? 'visible' : 'hidden');
+      .attr('fill', '#999')
+      .attr('visibility', (d) =>
+        showDistance
+          ? showMst
+            ? d.mst
+              ? 'visible'
+              : 'hidden'
+            : 'visible'
+          : 'hidden'
+      );
 
     const node = newSvg
       .append('g')
@@ -247,7 +261,7 @@ const DistanceViewPrototype = () => {
 
     setSvg(newSvg);
     setSimulation(newSimulation);
-  }, [source, showDistance]);
+  }, [source, showDistance, showMst]);
 
   React.useEffect(() => {
     // console.log({ width, height });
@@ -260,6 +274,10 @@ const DistanceViewPrototype = () => {
   const toggleShowDistance = React.useCallback(() => {
     setShowDistance(!showDistance);
   }, [setShowDistance, showDistance]);
+
+  const toggleShowMst = React.useCallback(() => {
+    setShowMst(!showMst);
+  }, [setShowMst, showMst]);
 
   return (
     <div className={styles.container}>
@@ -290,6 +308,14 @@ const DistanceViewPrototype = () => {
                   <i className="fa fa-square-o" />
                 )}{' '}
                 Show distance
+              </DropdownItem>
+              <DropdownItem onClick={toggleShowMst}>
+                {showMst ? (
+                  <i className="fa fa-check-square" />
+                ) : (
+                  <i className="fa fa-square-o" />
+                )}{' '}
+                Use MST
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
