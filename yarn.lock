@@ -11139,6 +11139,30 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
 
+ngraph.disjoint-set@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ngraph.disjoint-set/-/ngraph.disjoint-set-1.1.0.tgz#2b1f333426eb2d916993f328d895c329c91740eb"
+  integrity sha512-3leHhQgMG5utWq/5U9bcSfcI5no3xMRcWJAD13VVkkoHXvfwTX60Rfk9U8UE9rOx+AKSYX7jeoTME7CTe4yzeQ==
+
+ngraph.events@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/ngraph.events/-/ngraph.events-1.2.1.tgz#6e40425ef9dec1e074bbef6da56c8d79b9188fd8"
+  integrity sha512-D4C+nXH/RFxioGXQdHu8ELDtC6EaCiNsZtih0IvyGN81OZSUby4jXoJ5+RNWasfsd0FnKxxpAROyUMzw64QNsw==
+
+ngraph.graph@^19.1.0:
+  version "19.1.0"
+  resolved "https://registry.yarnpkg.com/ngraph.graph/-/ngraph.graph-19.1.0.tgz#88910ed53f6b4bc374f1b67296f4f81aab814e24"
+  integrity sha512-9cws84qfPkrYa7BaBtT+KgZfLXrd6pNL9Gl5Do+MBO/0Hm6rOM7qK78MZaO1uEoIK6p2pgUs6lu29zn/6tP59w==
+  dependencies:
+    ngraph.events "^1.2.1"
+
+ngraph.kruskal@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ngraph.kruskal/-/ngraph.kruskal-1.0.1.tgz#c5a2f2c9f84564c272f590d591a29f817924ec23"
+  integrity sha512-BEqxw34PAYdrX2WWl8z5g678mAXxJXCzlsVwKiA+1ubl9EQC3fE5G0oxNoKEQR7PU6vMX9rIPMVflPJJmI6ESA==
+  dependencies:
+    ngraph.disjoint-set "^1.1.0"
+
 nhs-number-validator@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/nhs-number-validator/-/nhs-number-validator-1.1.1.tgz#97592ad7d8a8ab66df1597cd953f33ad4fdacf41"
