@@ -1,5 +1,7 @@
 /* @flow */
 
+// 82fa4fc2-0356-46c6-8681-7cd1e38c628c
+
 import * as React from 'react';
 import styles from './DistanceViewPrototype.module.scss';
 import * as d3 from 'd3';
@@ -32,27 +34,51 @@ const transformData = (data) => {
 
   let nodeId = 0;
 
-  data.forEach(({ start, end, distance }) => {
-    const startNode = nodeWithRepresentedId(start);
-    const endNode = nodeWithRepresentedId(end);
-    if (distance === 0) {
-      if (startNode) {
-        startNode.representedIds.push(end);
-      } else if (endNode) {
-        endNode.representedIds.push(start);
+  if (true) {
+    data.forEach(({ start, end, distance }) => {
+      const startNode = nodeWithRepresentedId(start);
+      const endNode = nodeWithRepresentedId(end);
+      // 82fa4fc2-0356-46c6-8681-7cd1e38c628c
+      const DEBUG = end === '82fa4fc2-0356-46c6-8681-7cd1e38c628c';
+      if (DEBUG) {
+        console.log(JSON.stringify({ startNode, endNode, distance }, null, 2));
+      }
+      if (distance === 0) {
+        if (startNode) {
+          DEBUG && console.log('Pushing a');
+          startNode.representedIds.push(end);
+        } else if (endNode) {
+          DEBUG && console.log('Pushing b');
+          endNode.representedIds.push(start);
+        } else {
+          // create single node with both start and end
+          DEBUG && console.log('Creating a');
+          nodesById[nodeId] = { id: nodeId, representedIds: [start, end] };
+          nodeId++;
+        }
       } else {
-        // create single node with both start and end
-        nodesById[start] = { id: nodeId++, representedIds: [start, end] };
+        if (!startNode) {
+          DEBUG && console.log('Creating b');
+          nodesById[nodeId] = { id: nodeId, representedIds: [start] };
+          nodeId++;
+        }
+        if (!endNode) {
+          DEBUG && console.log('Creating c');
+          nodesById[nodeId] = { id: nodeId, representedIds: [end] };
+          nodeId++;
+        }
       }
-    } else {
-      if (!startNode) {
-        nodesById[start] = { id: nodeId++, representedIds: [start] };
+    });
+  } else {
+    data.forEach(({ start, end }) => {
+      if (!nodesById[start]) {
+        nodesById[start] = { id: start, representedIds: [start] };
       }
-      if (!endNode) {
-        nodesById[end] = { id: nodeId++, representedIds: [end] };
+      if (!nodesById[end]) {
+        nodesById[end] = { id: end, representedIds: [end] };
       }
-    }
-  });
+    });
+  }
 
   const nodes = Object.values(nodesById);
 
@@ -62,7 +88,10 @@ const transformData = (data) => {
     // if (!startNode || !endNode) {
     //   debugger;
     // }
-    if (distance === 0) {
+    // if (distance === 0) {
+    //   return [];
+    // }
+    if (startNode == endNode) {
       return [];
     }
     return {
