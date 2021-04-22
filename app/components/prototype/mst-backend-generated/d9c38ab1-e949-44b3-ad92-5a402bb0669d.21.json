@@ -1,0 +1,102 @@
+[
+  {
+    "start": "d9c38ab1-e949-44b3-ad92-5a402bb0669d",
+    "end": "b2d51951-f588-49a5-9e80-9677b71e34de",
+    "distance": 1
+  },
+  {
+    "start": "b2d51951-f588-49a5-9e80-9677b71e34de",
+    "end": "d33a5a4a-1731-4708-a446-42defcd5b208",
+    "distance": 0
+  },
+  {
+    "start": "b2d51951-f588-49a5-9e80-9677b71e34de",
+    "end": "e339cac3-41ec-4e5b-a1bb-2969fd44aeae",
+    "distance": 0
+  },
+  {
+    "start": "d33a5a4a-1731-4708-a446-42defcd5b208",
+    "end": "69b054cd-88f3-4884-85c5-c3b70e40b802",
+    "distance": 1
+  },
+  {
+    "start": "d33a5a4a-1731-4708-a446-42defcd5b208",
+    "end": "5f22ba58-9d26-49a7-a6cd-8487f8f216bd",
+    "distance": 1
+  },
+  {
+    "start": "d33a5a4a-1731-4708-a446-42defcd5b208",
+    "end": "dbf33ba9-92d9-4c2d-90f8-3d01a0bcc9d0",
+    "distance": 1
+  },
+  {
+    "start": "69b054cd-88f3-4884-85c5-c3b70e40b802",
+    "end": "78ba6e5f-72de-46b8-82d2-cfe3054a65cb",
+    "distance": 0
+  },
+  {
+    "start": "24c7e97f-0499-4db9-a341-320e0e6a7d51",
+    "end": "b02c5d41-08a4-4d28-a271-83fd936823e8",
+    "distance": 1
+  },
+  {
+    "start": "24c7e97f-0499-4db9-a341-320e0e6a7d51",
+    "end": "6b891b4c-45ab-4940-8d4f-ce56707af9ae",
+    "distance": 1
+  },
+  {
+    "start": "24c7e97f-0499-4db9-a341-320e0e6a7d51",
+    "end": "e0affbd1-aaff-4380-9ddf-fde389a875e1",
+    "distance": 0
+  },
+  {
+    "start": "c6cde309-bc28-485b-a16e-a9c644f18116",
+    "end": "468cddc4-8883-4100-bd63-5026b6fa4824",
+    "distance": 0
+  },
+  {
+    "start": "c6cde309-bc28-485b-a16e-a9c644f18116",
+    "end": "fe8ea718-5222-4ebc-b657-3a419ffa7cd6",
+    "distance": 1
+  },
+  {
+    "start": "468cddc4-8883-4100-bd63-5026b6fa4824",
+    "end": "0dc5861f-673d-4842-a296-65afafe1bafc",
+    "distance": 4
+  },
+  {
+    "start": "2f4337c0-2539-499f-8766-2eceb4011b31",
+    "end": "e0affbd1-aaff-4380-9ddf-fde389a875e1",
+    "distance": 6
+  },
+  {
+    "start": "7f5e902f-f65e-4535-a5ce-f80b065426c9",
+    "end": "0dc5861f-673d-4842-a296-65afafe1bafc",
+    "distance": 1
+  },
+  {
+    "start": "7f5e902f-f65e-4535-a5ce-f80b065426c9",
+    "end": "fce6e96f-1d69-4a45-a858-1c31711fadb7",
+    "distance": 6
+  },
+  {
+    "start": "7f5e902f-f65e-4535-a5ce-f80b065426c9",
+    "end": "07287870-5720-497e-863f-0f83ca109c13",
+    "distance": 0
+  },
+  {
+    "start": "0dc5861f-673d-4842-a296-65afafe1bafc",
+    "end": "e339cac3-41ec-4e5b-a1bb-2969fd44aeae",
+    "distance": 2
+  },
+  {
+    "start": "0445ed8a-b172-4c78-bd5d-74edb932d315",
+    "end": "e339cac3-41ec-4e5b-a1bb-2969fd44aeae",
+    "distance": 2
+  },
+  {
+    "start": "07287870-5720-497e-863f-0f83ca109c13",
+    "end": "e0affbd1-aaff-4380-9ddf-fde389a875e1",
+    "distance": 2
+  }
+]

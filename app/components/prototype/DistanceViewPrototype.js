@@ -1,5 +1,7 @@
 /* @flow */
 
+// 82fa4fc2-0356-46c6-8681-7cd1e38c628c
+
 import * as React from 'react';
 import styles from './DistanceViewPrototype.module.scss';
 import * as d3 from 'd3';
@@ -12,109 +14,91 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
-import createGraph from 'ngraph.graph';
-import kruskal from 'ngraph.kruskal';
-
-const SCALE_VISUAL_DISTANCE = 50;
+const SCALE_VISUAL_DISTANCE = 80;
 
 const sources = {
-  '5*14': require('./nearest-neighbours-sample-data/SAMD00029487,5fd7dd12e804da00126096bf,d48aca21-fb18-4e42-96db-0299ed82eedb-5*14.json'),
-  '21*418': require('./nearest-neighbours-sample-data/SAMD00029466,5fd7dd11e804da0012609530,d9c38ab1-e949-44b3-ad92-5a402bb0669d-21*418.json'),
-  '201*33468': require('./nearest-neighbours-sample-data/SAMD00029444,5fd7dd10e804da00126093a1,31bc3b8b-a5f1-46fb-b9e6-047c5073643b-201*33468.json'),
-  // '2072*many': require('./nearest-neighbours-sample-data/SAMD00016703,5fd7dd0ee804da0012608e6f,955bafc3-9e25-4aa8-a57b-f6e7438915bf-2072*many.json'),
+  'd48aca21-fb18-4e42-96db-0299ed82eedb.5': require('./mst-backend-generated/d48aca21-fb18-4e42-96db-0299ed82eedb.5.json'),
+  'd9c38ab1-e949-44b3-ad92-5a402bb0669d.21': require('./mst-backend-generated/d9c38ab1-e949-44b3-ad92-5a402bb0669d.21.json'),
+  '31bc3b8b-a5f1-46fb-b9e6-047c5073643b.201': require('./mst-backend-generated/31bc3b8b-a5f1-46fb-b9e6-047c5073643b.201.json'),
 };
 
 const transformData = (data) => {
-  // merge nodes where relationship distance is 0
+  // group nodes where the distance is 0
 
-  let nodes = data.nodes.map(({ identity }) => ({
-    id: identity,
-    zeroDistanceIds: [identity],
+  const nodeGroups = [];
+
+  const nodeGroupWithId = (id) =>
+    nodeGroups.find((nodeGroup) => {
+      return nodeGroup.includes(id);
+    });
+
+  data.forEach(({ start, end, distance }) => {
+    const startNodeGroup = nodeGroupWithId(start);
+    const endNodeGroup = nodeGroupWithId(end);
+
+    if (distance === 0) {
+      if (startNodeGroup && endNodeGroup) {
+        if (startNodeGroup !== endNodeGroup) {
+          // merge groups
+          startNodeGroup.push(...endNodeGroup);
+          // delete endNodeGroup
+          const index = nodeGroups.indexOf(endNodeGroup);
+          if (index !== -1) {
+            nodeGroups.splice(index, 1);
+          }
+        }
+      } else {
+        console.log({
+          start,
+          end,
+          distance,
+          startNode: startNodeGroup,
+          endNode: endNodeGroup,
+        });
+        if (startNodeGroup) {
+          startNodeGroup.push(end);
+        } else if (endNodeGroup) {
+          endNodeGroup.push(start);
+        } else {
+          // create new group with both start and end
+          nodeGroups.push([start, end]);
+        }
+      }
+    } else {
+      if (!startNodeGroup) {
+        nodeGroups.push([start]);
+      }
+      if (!endNodeGroup) {
+        nodeGroups.push([end]);
+      }
+    }
+  });
+
+  const nodes = nodeGroups.map((nodeGroup, index) => ({
+    id: index,
+    representedIds: nodeGroup,
   }));
 
-  // remove relationships where start<->end are also included as as end<->start
+  console.log(JSON.stringify({ nodes }, null, 2));
 
-  const dedupedRelationships = [];
+  const nodeWithRepresentedId = (id) =>
+    Object.values(nodes).find(({ representedIds }) => {
+      return representedIds.includes(id);
+    });
 
-  data.relationships.forEach((first) => {
-    const same = dedupedRelationships.findIndex(
-      (second) => first.end === second.start && first.start === second.end
-    );
-    if (same === -1) {
-      dedupedRelationships.push(first);
+  const links = data.flatMap(({ start, end, distance }) => {
+    if (distance === 0) {
+      return [];
     }
+    const startNode = nodeWithRepresentedId(start);
+    const endNode = nodeWithRepresentedId(end);
+    return {
+      source: startNode.id,
+      target: endNode.id,
+      distance,
+      visualDistance: distance * SCALE_VISUAL_DISTANCE,
+    };
   });
-
-  // find relationships with zero distance, mark end node for removal
-
-  const nodesIdsToRemove = [];
-
-  dedupedRelationships.forEach((relationship) => {
-    if (relationship.properties.distance === 0) {
-      const startNode = nodes.find(({ id }) => id === relationship.start);
-      startNode.zeroDistanceIds.push(relationship.end);
-      nodesIdsToRemove.push(relationship.end);
-    }
-  });
-
-  // remove the nodes
-
-  nodes = nodes.filter(({ id }) => !nodesIdsToRemove.includes(id));
-
-  // remove the relationships
-
-  const filterdAndDedupedRelationships = dedupedRelationships.filter(
-    ({ start, end }) => {
-      const remove =
-        nodesIdsToRemove.includes(start) || nodesIdsToRemove.includes(end);
-      return !remove;
-    }
-  );
-
-  const links = filterdAndDedupedRelationships.flatMap(
-    ({ start, end, properties }) => {
-      const distance = properties.distance;
-      return {
-        source: start,
-        target: end,
-        distance,
-        visualDistance: distance * SCALE_VISUAL_DISTANCE,
-        mst: false,
-      };
-    }
-  );
-
-  // build graph used to create mst
-
-  const g = createGraph();
-
-  nodes.forEach((node) => {
-    g.addNode(node.id, node);
-  });
-
-  links.forEach((link) => {
-    g.addLink(link.source, link.target, link);
-  });
-
-  g.forEachNode(function (node) {
-    console.log(node.id, node.data);
-  });
-
-  g.forEachLink(function (link) {
-    console.dir(link);
-  });
-
-  // create mst and flag each link that is in the mst
-
-  const mst = kruskal(g, (link) => link.data.distance);
-
-  console.log(mst);
-  mst.forEach(({ fromId, toId }) => {
-    const link = g.getLink(fromId, toId);
-    link.data.mst = true;
-  });
-
-  console.log({ nodes, links });
 
   return { nodes, links };
 };
@@ -145,10 +129,8 @@ const drag = (simulation) => {
 };
 
 const DistanceViewPrototype = () => {
-  const [source, setSource] = React.useState('5*14');
+  const [source, setSource] = React.useState(Object.keys(sources)[0]);
   const [showDistance, setShowDistance] = React.useState(true);
-  const [showMst, setShowMst] = React.useState(true);
-  const [onlyMst, setOnlyMst] = React.useState(true);
 
   const svgContainerRef = React.useRef();
   const svgRef = React.useRef();
@@ -158,12 +140,9 @@ const DistanceViewPrototype = () => {
   const [simulation, setSimulation] = React.useState(null);
 
   React.useEffect(() => {
-    const sourceData = sources[source][0];
+    const sourceData = sources[source];
     const data = transformData(sourceData);
-    const { nodes, links: rawLinks } = data;
-
-    const links =
-      showMst && onlyMst ? rawLinks.filter(({ mst }) => mst) : rawLinks;
+    const { nodes, links } = data;
 
     // add forces to the centre of each link to help with overlapping
     // http://bl.ocks.org/couchand/7190660
@@ -206,9 +185,7 @@ const DistanceViewPrototype = () => {
       .attr('stroke', '#999')
       .attr('stroke-opacity', 0.6)
       .attr('stroke-width', 0.5)
-      .attr('visibility', (d) =>
-        showMst ? (d.mst ? 'visible' : 'hidden') : 'visible'
-      );
+      .attr('visibility', () => 'visible');
 
     const linkNode = newSvg
       .append('g')
@@ -239,15 +216,7 @@ const DistanceViewPrototype = () => {
       .attr('text-anchor', 'middle')
       .attr('font-size', '12px')
       .attr('fill', '#999')
-      .attr('visibility', (d) =>
-        showDistance
-          ? showMst
-            ? d.mst
-              ? 'visible'
-              : 'hidden'
-            : 'visible'
-          : 'hidden'
-      );
+      .attr('visibility', () => (showDistance ? 'visible' : 'hidden'));
 
     const node = newSvg
       .append('g')
@@ -259,13 +228,13 @@ const DistanceViewPrototype = () => {
     node
       .append('circle')
       .attr('fill', 'gray')
-      .attr('r', (d) => 5 * Math.sqrt(d.zeroDistanceIds.length));
+      .attr('r', (d) => 5 * Math.sqrt(d.representedIds.length));
 
     node
       .append('text')
       .attr('x', 8)
       .attr('y', '0.31em')
-      .text((d) => d.zeroDistanceIds.join(', '))
+      .text((d) => d.representedIds.map((id) => id.substr(0, 8)).join(', '))
       .attr('font-size', '12px');
 
     newSimulation.on('tick', () => {
@@ -300,7 +269,7 @@ const DistanceViewPrototype = () => {
 
     setSvg(newSvg);
     setSimulation(newSimulation);
-  }, [source, showDistance, showMst, onlyMst]);
+  }, [source, showDistance]);
 
   React.useEffect(() => {
     // console.log({ width, height });
@@ -313,14 +282,6 @@ const DistanceViewPrototype = () => {
   const toggleShowDistance = React.useCallback(() => {
     setShowDistance(!showDistance);
   }, [setShowDistance, showDistance]);
-
-  const toggleShowMst = React.useCallback(() => {
-    setShowMst(!showMst);
-  }, [setShowMst, showMst]);
-
-  const toggleOnlyMst = React.useCallback(() => {
-    setOnlyMst(!onlyMst);
-  }, [setOnlyMst, onlyMst]);
 
   return (
     <div className={styles.container}>
@@ -352,24 +313,6 @@ const DistanceViewPrototype = () => {
                 )}{' '}
                 Show distance
               </DropdownItem>
-              <DropdownItem onClick={toggleShowMst}>
-                {showMst ? (
-                  <i className="fa fa-check-square" />
-                ) : (
-                  <i className="fa fa-square-o" />
-                )}{' '}
-                Use MST
-              </DropdownItem>
-              {showMst && (
-                <DropdownItem onClick={toggleOnlyMst}>
-                  {onlyMst ? (
-                    <i className="fa fa-check-square" />
-                  ) : (
-                    <i className="fa fa-square-o" />
-                  )}{' '}
-                  Use only MST for layout
-                </DropdownItem>
-              )}
             </DropdownMenu>
           </UncontrolledDropdown>
         </div>
