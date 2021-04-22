@@ -14,7 +14,7 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
-const SCALE_VISUAL_DISTANCE = 50;
+const SCALE_VISUAL_DISTANCE = 80;
 
 const sources = {
   'd48aca21-fb18-4e42-96db-0299ed82eedb.5': require('./mst-backend-generated/d48aca21-fb18-4e42-96db-0299ed82eedb.5.json'),
@@ -23,87 +23,75 @@ const sources = {
 };
 
 const transformData = (data) => {
-  // create unique set of nodes by id
+  // group nodes where the distance is 0
 
-  const nodesById = {};
+  const nodeGroups = [];
 
-  const nodeWithRepresentedId = (id) =>
-    Object.values(nodesById).find(({ representedIds }) => {
-      return representedIds.includes(id);
+  const nodeGroupWithId = (id) =>
+    nodeGroups.find((nodeGroup) => {
+      return nodeGroup.includes(id);
     });
 
-  let nodeId = 0;
+  data.forEach(({ start, end, distance }) => {
+    const startNodeGroup = nodeGroupWithId(start);
+    const endNodeGroup = nodeGroupWithId(end);
 
-  if (true) {
-    data.forEach(({ start, end, distance }) => {
-      const startNode = nodeWithRepresentedId(start);
-      const endNode = nodeWithRepresentedId(end);
-      // 82fa4fc2-0356-46c6-8681-7cd1e38c628c
-      // const DEBUG = end === '82fa4fc2-0356-46c6-8681-7cd1e38c628c';
-      // "9ff4792d-d368-4163-afb4-27c69ba82fd4"
-      const DEBUG = start === '9ff4792d-d368-4163-afb4-27c69ba82fd4';
-      if (DEBUG) {
-        console.log(JSON.stringify({ startNode, endNode, distance }, null, 2));
-      }
-      if (distance === 0) {
-        if (startNode && endNode) {
-          // do nothing
-        } else {
-          if (startNode) {
-            DEBUG && console.log('Pushing a');
-            startNode.representedIds.push(end);
-          } else if (endNode) {
-            DEBUG && console.log('Pushing b');
-            endNode.representedIds.push(start);
-          } else {
-            // create single node with both start and end
-            DEBUG && console.log('Creating a');
-            nodesById[nodeId] = { id: nodeId, representedIds: [start, end] };
-            nodeId++;
+    if (distance === 0) {
+      if (startNodeGroup && endNodeGroup) {
+        if (startNodeGroup !== endNodeGroup) {
+          // merge groups
+          startNodeGroup.push(...endNodeGroup);
+          // delete endNodeGroup
+          const index = nodeGroups.indexOf(endNodeGroup);
+          if (index !== -1) {
+            nodeGroups.splice(index, 1);
           }
         }
       } else {
-        if (startNode && endNode) {
-          // do nothing
+        console.log({
+          start,
+          end,
+          distance,
+          startNode: startNodeGroup,
+          endNode: endNodeGroup,
+        });
+        if (startNodeGroup) {
+          startNodeGroup.push(end);
+        } else if (endNodeGroup) {
+          endNodeGroup.push(start);
         } else {
-          if (!startNode) {
-            DEBUG && console.log('Creating b');
-            nodesById[nodeId] = { id: nodeId, representedIds: [start] };
-            nodeId++;
-          }
-          if (!endNode) {
-            DEBUG && console.log('Creating c');
-            nodesById[nodeId] = { id: nodeId, representedIds: [end] };
-            nodeId++;
-          }
+          // create new group with both start and end
+          nodeGroups.push([start, end]);
         }
       }
-    });
-  } else {
-    data.forEach(({ start, end }) => {
-      if (!nodesById[start]) {
-        nodesById[start] = { id: start, representedIds: [start] };
+    } else {
+      if (!startNodeGroup) {
+        nodeGroups.push([start]);
       }
-      if (!nodesById[end]) {
-        nodesById[end] = { id: end, representedIds: [end] };
+      if (!endNodeGroup) {
+        nodeGroups.push([end]);
       }
-    });
-  }
+    }
+  });
 
-  const nodes = Object.values(nodesById);
+  const nodes = nodeGroups.map((nodeGroup, index) => ({
+    id: index,
+    representedIds: nodeGroup,
+  }));
+
+  console.log(JSON.stringify({ nodes }, null, 2));
+
+  const nodeWithRepresentedId = (id) =>
+    Object.values(nodes).find(({ representedIds }) => {
+      return representedIds.includes(id);
+    });
 
   const links = data.flatMap(({ start, end, distance }) => {
-    const startNode = nodeWithRepresentedId(start);
-    const endNode = nodeWithRepresentedId(end);
-    // if (!startNode || !endNode) {
-    //   debugger;
-    // }
-    // if (distance === 0) {
-    //   return [];
-    // }
-    if (startNode == endNode) {
+    if (distance === 0) {
       return [];
     }
+    const startNode = nodeWithRepresentedId(start);
+    const endNode = nodeWithRepresentedId(end);
     return {
       source: startNode.id,
       target: endNode.id,
@@ -111,10 +99,6 @@ const transformData = (data) => {
       visualDistance: distance * SCALE_VISUAL_DISTANCE,
     };
   });
-
-  console.log(JSON.stringify({ nodesById }, null, 2));
-
-  // create mst and flag each link that is in the mst
 
   return { nodes, links };
 };
@@ -250,7 +234,7 @@ const DistanceViewPrototype = () => {
       .append('text')
       .attr('x', 8)
       .attr('y', '0.31em')
-      .text((d) => d.representedIds.map((id) => id.substr(0, 3)).join(', '))
+      .text((d) => d.representedIds.map((id) => id.substr(0, 8)).join(', '))
       .attr('font-size', '12px');
 
     newSimulation.on('tick', () => {
