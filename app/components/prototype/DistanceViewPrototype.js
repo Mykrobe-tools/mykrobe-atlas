@@ -12,8 +12,6 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
-import createGraph from 'ngraph.graph';
-
 const SCALE_VISUAL_DISTANCE = 50;
 
 const sources = {
@@ -27,85 +25,55 @@ const transformData = (data) => {
 
   const nodesById = {};
 
-  data.forEach(({ start, end }) => {
-    if (!nodesById[start]) {
-      nodesById[start] = { id: start, zeroDistanceIds: [start] };
-    }
-    if (!nodesById[end]) {
-      nodesById[end] = { id: end, zeroDistanceIds: [start] };
+  const nodeWithRepresentedId = (id) =>
+    Object.values(nodesById).find(({ representedIds }) => {
+      return representedIds.includes(id);
+    });
+
+  let nodeId = 0;
+
+  data.forEach(({ start, end, distance }) => {
+    const startNode = nodeWithRepresentedId(start);
+    const endNode = nodeWithRepresentedId(end);
+    if (distance === 0) {
+      if (startNode) {
+        startNode.representedIds.push(end);
+      } else if (endNode) {
+        endNode.representedIds.push(start);
+      } else {
+        // create single node with both start and end
+        nodesById[start] = { id: nodeId++, representedIds: [start, end] };
+      }
+    } else {
+      if (!startNode) {
+        nodesById[start] = { id: nodeId++, representedIds: [start] };
+      }
+      if (!endNode) {
+        nodesById[end] = { id: nodeId++, representedIds: [end] };
+      }
     }
   });
 
   const nodes = Object.values(nodesById);
 
   const links = data.flatMap(({ start, end, distance }) => {
+    const startNode = nodeWithRepresentedId(start);
+    const endNode = nodeWithRepresentedId(end);
+    // if (!startNode || !endNode) {
+    //   debugger;
+    // }
+    if (distance === 0) {
+      return [];
+    }
     return {
-      source: start,
-      target: end,
+      source: startNode.id,
+      target: endNode.id,
       distance,
       visualDistance: distance * SCALE_VISUAL_DISTANCE,
     };
   });
 
-  // let nodes = data.map(({ start }) => ({
-  //   id: start,
-  //   zeroDistanceIds: [start],
-  // }));
-
-  // // find relationships with zero distance, mark end node for removal
-
-  // const nodesIdsToRemove = [];
-
-  // nodes.forEach(({ start, end, distance }) => {
-  //   if (distance === 0) {
-  //     const startNode = nodes.find(({ id }) => id === start);
-  //     startNode.zeroDistanceIds.push(end);
-  //     nodesIdsToRemove.push(end);
-  //   }
-  // });
-
-  // // remove the nodes
-
-  // nodes = nodes.filter(({ id }) => !nodesIdsToRemove.includes(id));
-
-  // // remove the relationships
-
-  // const filteredData = data.filter(({ start, end }) => {
-  //   const remove =
-  //     nodesIdsToRemove.includes(start) || nodesIdsToRemove.includes(end);
-  //   return !remove;
-  // });
-
-  // const links = filteredData.flatMap(({ start, end, distance }) => {
-  //   return {
-  //     source: start,
-  //     target: end,
-  //     distance,
-  //     visualDistance: distance * SCALE_VISUAL_DISTANCE,
-  //   };
-  // });
-
   console.log(JSON.stringify({ nodesById, nodes, links }, null, 2));
-
-  // // build graph used to create mst
-
-  // const g = createGraph();
-
-  // nodes.forEach((node) => {
-  //   g.addNode(node.id, node);
-  // });
-
-  // links.forEach((link) => {
-  //   g.addLink(link.source, link.target, link);
-  // });
-
-  // g.forEachNode(function (node) {
-  //   console.log(node.id, node.data);
-  // });
-
-  // g.forEachLink(function (link) {
-  //   console.dir(link);
-  // });
 
   // create mst and flag each link that is in the mst
 
@@ -237,13 +205,13 @@ const DistanceViewPrototype = () => {
     node
       .append('circle')
       .attr('fill', 'gray')
-      .attr('r', (d) => 5 * Math.sqrt(d.zeroDistanceIds.length));
+      .attr('r', (d) => 5 * Math.sqrt(d.representedIds.length));
 
     node
       .append('text')
       .attr('x', 8)
       .attr('y', '0.31em')
-      .text((d) => d.zeroDistanceIds.join(', '))
+      .text((d) => d.representedIds.join(', '))
       .attr('font-size', '12px');
 
     newSimulation.on('tick', () => {
