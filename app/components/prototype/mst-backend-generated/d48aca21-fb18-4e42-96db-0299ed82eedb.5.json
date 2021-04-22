@@ -1,0 +1,22 @@
+[
+  {
+    "start": "d48aca21-fb18-4e42-96db-0299ed82eedb",
+    "end": "9c02bb7a-9751-451b-b15e-36a8a17efb61",
+    "distance": 8
+  },
+  {
+    "start": "d48aca21-fb18-4e42-96db-0299ed82eedb",
+    "end": "3722e91a-d9e2-48a6-82c1-bece6b0fe8f2",
+    "distance": 9
+  },
+  {
+    "start": "9c02bb7a-9751-451b-b15e-36a8a17efb61",
+    "end": "a38740c5-3d84-432e-846e-ce8954b20416",
+    "distance": 5
+  },
+  {
+    "start": "a38740c5-3d84-432e-846e-ce8954b20416",
+    "end": "aca2428a-225e-4f9a-a574-40892c54ad7f",
+    "distance": 0
+  }
+]

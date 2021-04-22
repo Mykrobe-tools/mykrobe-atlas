@@ -1,0 +1,50 @@
+{
+  "nodes": [
+    {
+      "id": 2144,
+      "zeroDistanceIds": [2144]
+    },
+    {
+      "id": 4783,
+      "zeroDistanceIds": [4783]
+    },
+    {
+      "id": 61555,
+      "zeroDistanceIds": [61555]
+    },
+    {
+      "id": 55270,
+      "zeroDistanceIds": [55270, 40290]
+    }
+  ],
+  "links": [
+    {
+      "source": 2144,
+      "target": 4783,
+      "distance": 8,
+      "visualDistance": 400,
+      "mst": true
+    },
+    {
+      "source": 2144,
+      "target": 55270,
+      "distance": 8,
+      "visualDistance": 400,
+      "mst": false
+    },
+    {
+      "source": 2144,
+      "target": 61555,
+      "distance": 9,
+      "visualDistance": 450,
+      "mst": true
+    },
+    {
+      "source": 4783,
+      "target": 55270,
+      "distance": 5,
+      "visualDistance": 250,
+      "mst": true
+    }
+  ]
+}
