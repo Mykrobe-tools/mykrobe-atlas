@@ -39,33 +39,43 @@ const transformData = (data) => {
       const startNode = nodeWithRepresentedId(start);
       const endNode = nodeWithRepresentedId(end);
       // 82fa4fc2-0356-46c6-8681-7cd1e38c628c
-      const DEBUG = end === '82fa4fc2-0356-46c6-8681-7cd1e38c628c';
+      // const DEBUG = end === '82fa4fc2-0356-46c6-8681-7cd1e38c628c';
+      // "9ff4792d-d368-4163-afb4-27c69ba82fd4"
+      const DEBUG = start === '9ff4792d-d368-4163-afb4-27c69ba82fd4';
       if (DEBUG) {
         console.log(JSON.stringify({ startNode, endNode, distance }, null, 2));
       }
       if (distance === 0) {
-        if (startNode) {
-          DEBUG && console.log('Pushing a');
-          startNode.representedIds.push(end);
-        } else if (endNode) {
-          DEBUG && console.log('Pushing b');
-          endNode.representedIds.push(start);
+        if (startNode && endNode) {
+          // do nothing
         } else {
-          // create single node with both start and end
-          DEBUG && console.log('Creating a');
-          nodesById[nodeId] = { id: nodeId, representedIds: [start, end] };
-          nodeId++;
+          if (startNode) {
+            DEBUG && console.log('Pushing a');
+            startNode.representedIds.push(end);
+          } else if (endNode) {
+            DEBUG && console.log('Pushing b');
+            endNode.representedIds.push(start);
+          } else {
+            // create single node with both start and end
+            DEBUG && console.log('Creating a');
+            nodesById[nodeId] = { id: nodeId, representedIds: [start, end] };
+            nodeId++;
+          }
         }
       } else {
-        if (!startNode) {
-          DEBUG && console.log('Creating b');
-          nodesById[nodeId] = { id: nodeId, representedIds: [start] };
-          nodeId++;
-        }
-        if (!endNode) {
-          DEBUG && console.log('Creating c');
-          nodesById[nodeId] = { id: nodeId, representedIds: [end] };
-          nodeId++;
+        if (startNode && endNode) {
+          // do nothing
+        } else {
+          if (!startNode) {
+            DEBUG && console.log('Creating b');
+            nodesById[nodeId] = { id: nodeId, representedIds: [start] };
+            nodeId++;
+          }
+          if (!endNode) {
+            DEBUG && console.log('Creating c');
+            nodesById[nodeId] = { id: nodeId, representedIds: [end] };
+            nodeId++;
+          }
         }
       }
     });
@@ -102,7 +112,7 @@ const transformData = (data) => {
     };
   });
 
-  console.log(JSON.stringify({ nodesById, nodes, links }, null, 2));
+  console.log(JSON.stringify({ nodesById }, null, 2));
 
   // create mst and flag each link that is in the mst
 
@@ -240,7 +250,7 @@ const DistanceViewPrototype = () => {
       .append('text')
       .attr('x', 8)
       .attr('y', '0.31em')
-      .text((d) => d.representedIds.join(', '))
+      .text((d) => d.representedIds.map((id) => id.substr(0, 3)).join(', '))
       .attr('font-size', '12px');
 
     newSimulation.on('tick', () => {
