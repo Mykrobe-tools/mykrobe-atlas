@@ -44,6 +44,8 @@ export const SEQUENCE_SEARCH_COMPLETE = `${typePrefix}SEQUENCE_SEARCH_COMPLETE`;
 
 export const DISTANCE_SEARCH_COMPLETE = `${typePrefix}DISTANCE_SEARCH_COMPLETE`;
 
+export const CLUSTER_SEARCH_COMPLETE = `${typePrefix}CLUSTER_SEARCH_COMPLETE`;
+
 const _eventSourceChannel = channel();
 let _eventSource;
 
@@ -265,6 +267,11 @@ function* eventWorker(action: any) {
   } else if (event === 'Distance search complete') {
     yield put({
       type: DISTANCE_SEARCH_COMPLETE,
+      payload,
+    });
+  } else if (event === 'Cluster search complete') {
+    yield put({
+      type: CLUSTER_SEARCH_COMPLETE,
       payload,
     });
   } else {

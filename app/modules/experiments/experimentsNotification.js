@@ -19,11 +19,13 @@ import {
   SEQUENCE_SEARCH_STARTED,
   SEQUENCE_SEARCH_COMPLETE,
   DISTANCE_SEARCH_COMPLETE,
+  CLUSTER_SEARCH_COMPLETE,
 } from '../users/currentUserEvents';
 
 import {
   getExperiment,
   getExperimentDistanceIsSearching,
+  getExperimentClusterIsSearching,
   requestExperiment,
 } from './experiment';
 
@@ -151,6 +153,24 @@ function* distanceSearchCompleteWatcher() {
   });
 }
 
+function* clusterSearchCompleteWatcher() {
+  yield takeEvery(CLUSTER_SEARCH_COMPLETE, function* (action) {
+    // refresh if this matches the current experiment
+    const completeExperimentId = _get(action.payload, 'id');
+    const currentExperiment = yield select(getExperiment);
+    const currentExperimentId = _get(currentExperiment, 'id');
+    const isViewingCompleteExperiment =
+      currentExperimentId === completeExperimentId;
+    const experimentClusterIsSearching = yield select(
+      getExperimentClusterIsSearching
+    );
+    if (isViewingCompleteExperiment && experimentClusterIsSearching) {
+      yield put(requestExperiment(completeExperimentId));
+      yield put(showNotification(`Cluster search complete`));
+    }
+  });
+}
+
 export function* experimentsNotificationSaga(): Saga {
   yield all([
     fork(interactionChannelWatcher),
@@ -158,5 +178,6 @@ export function* experimentsNotificationSaga(): Saga {
     fork(searchStartedWatcher),
     fork(searchCompleteWatcher),
     fork(distanceSearchCompleteWatcher),
+    fork(clusterSearchCompleteWatcher),
   ]);
 }
