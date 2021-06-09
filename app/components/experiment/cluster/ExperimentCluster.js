@@ -8,7 +8,7 @@ import useSize from '@react-hook/size';
 
 import styles from './ExperimentCluster.module.scss';
 
-const SCALE_VISUAL_DISTANCE = 80;
+const SCALE_VISUAL_DISTANCE = 40;
 
 const drag = (simulation) => {
   const dragstarted = (event) => {
@@ -94,7 +94,7 @@ const ExperimentCluster = ({
       .force('charge', d3.forceManyBody())
       .force('center', d3.forceCenter(width / 2, height / 2))
       .alpha(1)
-      .alphaDecay(0.01);
+      .alphaDecay(0.05);
 
     const link = newSvg
       .append('g')
@@ -152,11 +152,17 @@ const ExperimentCluster = ({
       .append('text')
       .attr('x', 8)
       .attr('y', '0.31em')
-      .text((d) =>
-        d.experiments.map(
-          (experiment) => experiment.metadata?.sample?.isolateId ?? 'Unknown'
-        )
-      )
+      // .text(
+      //   (d) =>
+      //     `Node ${d.id} - ` +
+      //     d.experiments
+      //       .map(
+      //         (experiment) =>
+      //           experiment.metadata?.sample?.isolateId ?? 'Unknown'
+      //       )
+      //       .join(', ')
+      // )
+      .text((d) => `Node ${d.id} (${d.experiments.length} experiments)`)
       .attr('font-size', '12px');
 
     newSimulation.on('tick', () => {
