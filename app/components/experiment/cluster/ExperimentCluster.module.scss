@@ -1,0 +1,7 @@
+@import '~styles/colors';
+@import '~styles/use-bootstrap';
+
+.container {
+  composes: container from '~styles/layout.scss';
+  background-color: white;
+}

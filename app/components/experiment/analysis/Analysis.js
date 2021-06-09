@@ -15,6 +15,7 @@ import { withFileUploadPropTypes } from '../../../hoc/withFileUpload';
 import { withExperimentsHighlightedPropTypes } from '../../../hoc/withExperimentsHighlighted';
 
 import styles from './Analysis.module.scss';
+import ExperimentCluster from '../cluster/ExperimentCluster';
 
 class Analysis extends React.Component<*> {
   render() {
@@ -38,6 +39,8 @@ class Analysis extends React.Component<*> {
       experiment,
       experimentDistanceIsSearching,
       experimentIsAnalysing,
+      experimentCluster,
+      experimentClusterIsSearching,
     } = this.props;
     let content;
     if (isBusyWithCurrentRoute || experimentIsAnalysing) {
@@ -75,24 +78,30 @@ class Analysis extends React.Component<*> {
               experimentIsolateId={experimentIsolateId}
               experimentDistanceIsSearching={experimentDistanceIsSearching}
             />
-            <div className={styles.phylogenyContainer}>
-              <Phylogeny
-                experiment={experiment}
-                experimentsTreeNewick={experimentsTreeNewick}
-                experiments={experimentAndNearestNeigbours}
-                experimentsHighlighted={experimentsHighlighted}
-                experimentsHighlightedInTree={experimentsHighlightedInTree}
-                experimentsHighlightedNotInTree={
-                  experimentsHighlightedNotInTree
-                }
-                experimentsInTree={experimentAndNearestNeigboursInTree}
-                experimentsNotInTree={experimentAndNearestNeigboursNotInTree}
-                setExperimentsHighlighted={setExperimentsHighlighted}
-                resetExperimentsHighlighted={resetExperimentsHighlighted}
-                experimentIsolateId={experimentIsolateId}
-                experimentDistanceIsSearching={experimentDistanceIsSearching}
-              />
-            </div>
+            {false && (
+              <div className={styles.phylogenyContainer}>
+                <Phylogeny
+                  experiment={experiment}
+                  experimentsTreeNewick={experimentsTreeNewick}
+                  experiments={experimentAndNearestNeigbours}
+                  experimentsHighlighted={experimentsHighlighted}
+                  experimentsHighlightedInTree={experimentsHighlightedInTree}
+                  experimentsHighlightedNotInTree={
+                    experimentsHighlightedNotInTree
+                  }
+                  experimentsInTree={experimentAndNearestNeigboursInTree}
+                  experimentsNotInTree={experimentAndNearestNeigboursNotInTree}
+                  setExperimentsHighlighted={setExperimentsHighlighted}
+                  resetExperimentsHighlighted={resetExperimentsHighlighted}
+                  experimentIsolateId={experimentIsolateId}
+                  experimentDistanceIsSearching={experimentDistanceIsSearching}
+                />
+              </div>
+            )}
+            <ExperimentCluster
+              experimentCluster={experimentCluster}
+              experimentClusterIsSearching={experimentClusterIsSearching}
+            />
           </div>
         </div>
       );
