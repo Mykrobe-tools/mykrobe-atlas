@@ -79,6 +79,8 @@ export {
   updateExperiment,
   getExperimentInTree,
   getExperimentNotInTree,
+  getExperimentCluster,
+  getExperimentClusterIsSearching,
 } from './experiment';
 
 export {

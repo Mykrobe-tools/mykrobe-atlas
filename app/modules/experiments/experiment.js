@@ -195,6 +195,27 @@ export const getExperimentAndNearestNeigbours = createSelector(
   }
 );
 
+// 'cliuster' = minimum spanning tree
+
+export const getExperimentClusterIsSearching = createSelector(
+  getExperiment,
+  getIsFetching,
+  (experiment, isFetching) => {
+    if (isFetching) {
+      return false;
+    }
+    const hasCluster = _has(experiment, 'results.cluster');
+    return !hasCluster;
+  }
+);
+
+export const getExperimentCluster = createSelector(
+  getExperiment,
+  (experiment) => {
+    return _get(experiment, 'results.cluster');
+  }
+);
+
 // highlighted with and without tree node
 
 export const getExperimentAndNearestNeigboursInTree = createSelector(
