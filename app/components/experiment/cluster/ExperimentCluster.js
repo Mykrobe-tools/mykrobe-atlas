@@ -36,11 +36,9 @@ const drag = (simulation) => {
 };
 
 const ExperimentCluster = ({
-  experimentCluster,
+  experimentCluster = {},
   experimentClusterIsSearching,
 }: React.ElementProps<*>) => {
-  console.log({ experimentCluster, experimentClusterIsSearching });
-
   const svgContainerRef = React.useRef();
   const svgRef = React.useRef();
 
@@ -50,7 +48,9 @@ const ExperimentCluster = ({
 
   React.useEffect(() => {
     const { nodes, distance } = experimentCluster;
-
+    if (!nodes) {
+      return;
+    }
     // add forces to the centre of each link to help with overlapping
     // http://bl.ocks.org/couchand/7190660
 
@@ -203,9 +203,13 @@ const ExperimentCluster = ({
 
   return (
     <div className={styles.container}>
-      <div ref={svgContainerRef} className={styles.svgContainer}>
-        <svg ref={svgRef} />
-      </div>
+      {experimentClusterIsSearching ? (
+        <span>Cluster searching…</span>
+      ) : (
+        <div ref={svgContainerRef} className={styles.svgContainer}>
+          <svg ref={svgRef} />
+        </div>
+      )}
     </div>
   );
 };
