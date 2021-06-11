@@ -8,6 +8,7 @@ import useSize from '@react-hook/size';
 
 const Graph = require('graphology');
 import forceAtlas2 from 'graphology-layout-forceatlas2';
+import { render } from 'graphology-canvas';
 
 import styles from './ExperimentCluster.module.scss';
 
@@ -44,6 +45,7 @@ const ExperimentCluster = ({
 }: React.ElementProps<*>) => {
   const svgContainerRef = React.useRef();
   const svgRef = React.useRef();
+  const canvasRef = React.useRef();
 
   const [width, height] = useSize(svgContainerRef);
   const [svg, setSvg] = React.useState(null);
@@ -71,13 +73,33 @@ const ExperimentCluster = ({
     });
 
     distance.forEach((distance) => {
-      graph.addEdge(distance.start, distance.end, distance);
+      graph.addEdge(distance.start, distance.end, {
+        weight: distance.distance,
+      });
     });
 
-    const positions = forceAtlas2(graph, { iterations: 50 });
+    // const sensibleSettings = forceAtlas2.inferSettings(graph);
+    // const positions = forceAtlas2(graph, {
+    //   iterations: 50,
+    //   settings: sensibleSettings,
+    // });
+
+    // const positions = forceAtlas2(graph, {
+    //   iterations: 5000,
+    //   edgeWeightInfluence: 1,
+    // });
+    forceAtlas2.assign(graph, {
+      iterations: 5000,
+      edgeWeightInfluence: 1,
+    });
 
     console.log(graph.toJSON());
-    console.log(positions);
+    // console.log(positions);
+
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    console.log(context);
+    render(graph, context, { width: canvas.width, height: canvas.height });
 
     // -- end new
 
@@ -244,6 +266,7 @@ const ExperimentCluster = ({
       ) : (
         <div ref={svgContainerRef} className={styles.svgContainer}>
           <svg ref={svgRef} />
+          <canvas ref={canvasRef} />
         </div>
       )}
     </div>
