@@ -198,6 +198,8 @@
     "font-awesome": "^4.7.0",
     "fs-extra": "^6.0.1",
     "glob": "^7.1.6",
+    "graphology": "^0.19.3",
+    "graphology-layout-forceatlas2": "^0.6.0",
     "history": "^4.7.2",
     "html-webpack-plugin": "^3.0.7",
     "http-status-codes": "^1.3.0",

@@ -6,6 +6,9 @@ import * as React from 'react';
 import * as d3 from 'd3';
 import useSize from '@react-hook/size';
 
+const Graph = require('graphology');
+import forceAtlas2 from 'graphology-layout-forceatlas2';
+
 import styles from './ExperimentCluster.module.scss';
 
 const SCALE_VISUAL_DISTANCE = 40;
@@ -51,6 +54,33 @@ const ExperimentCluster = ({
     if (!nodes) {
       return;
     }
+
+    // -- new
+
+    const graph = new Graph();
+
+    // https://github.com/graphology/graphology-layout-forceatlas2#pre-requisites
+    // each node must have an initial x and y
+    // here we arrange them in a circle
+
+    nodes.forEach((node, index) => {
+      const angle = (Math.PI * 2 * index) / nodes.length;
+      const x = 50 * Math.sin(angle);
+      const y = 50 * Math.cos(angle);
+      graph.addNode(node.id, { x, y, ...node });
+    });
+
+    distance.forEach((distance) => {
+      graph.addEdge(distance.start, distance.end, distance);
+    });
+
+    const positions = forceAtlas2(graph, { iterations: 50 });
+
+    console.log(graph.toJSON());
+    console.log(positions);
+
+    // -- end new
+
     // add forces to the centre of each link to help with overlapping
     // http://bl.ocks.org/couchand/7190660
 
