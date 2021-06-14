@@ -58,7 +58,7 @@ const ExperimentCluster = ({
   }, [experimentCluster]);
 
   React.useEffect(() => {
-    if (!width || !height) {
+    if (!width || !height || !graphRef.current) {
       return;
     }
     const sensibleSettings = forceAtlas2.inferSettings(graphRef.current);
@@ -85,9 +85,76 @@ const ExperimentCluster = ({
       width,
       height,
     });
-  }, [elapsedMilliseconds, graphRef, width, height]);
+
+    draw();
+  }, [elapsedMilliseconds, width, height]);
 
   // console.log({ canvasStyle });
+
+  // __________________________________________________________________________________________ draw to convas
+
+  const draw = React.useCallback(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    const canvasWidth = context.width;
+    const canvasHeight = context.height;
+
+    let minX = Infinity,
+      minY = Infinity,
+      maxX = -Infinity,
+      maxY = -Infinity;
+
+    graphRef.current.forEachNode((node, attr) => {
+      const { x, y } = attr;
+      minX = Math.min(x, minX);
+      minY = Math.min(y, minY);
+      maxX = Math.max(x, minX);
+      maxY = Math.max(y, maxY);
+    });
+
+    const graphWidth = maxX - minX;
+    const graphHeight = maxY - minY;
+
+    const canvasAspectRatio = canvasWidth / canvasHeight;
+    const graphAspectRatio = graphWidth / graphHeight;
+
+    //
+
+    // const scaleGraphToCanvas = Math.min(
+    //   canvasWidth / graphWidth,
+    //   canvasHeight / graphHeight
+    // );
+
+    let scaleGraphToCanvas = 1;
+
+    if (canvasAspectRatio > graphAspectRatio) {
+      // fit height
+      scaleGraphToCanvas = canvasHeight / graphHeight;
+    } else {
+      // fit width
+      scaleGraphToCanvas = canvasWidth / graphWidth;
+    }
+    console.log({
+      canvasWidth,
+      canvasHeight,
+      graphWidth,
+      graphHeight,
+      scaleGraphToCanvas,
+    });
+
+    graphRef.current.forEachNode((node, attr) => {
+      const x = canvasWidth * 0.5 + attr.x * scaleGraphToCanvas;
+      const y = canvasHeight * 0.5 - attr.y * scaleGraphToCanvas;
+      // context.fillRect(x, iconHeight, barWidth, -barHeight);
+      context.beginPath();
+      context.arc(x, y, 10, 0, 2 * Math.PI, true);
+
+      context.closePath();
+      context.fill();
+    });
+  });
+
+  // __________________________________________________________________________________________ mouse events
 
   const onClick = React.useCallback((e) => {
     console.log('onClick', e);
@@ -135,6 +202,8 @@ const ExperimentCluster = ({
       canvasRef.current.addEventListener('mousewheel', mouseWheel);
     }
   }, []);
+
+  // __________________________________________________________________________________________ render
 
   return (
     <div className={styles.container}>
