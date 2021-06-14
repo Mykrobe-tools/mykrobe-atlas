@@ -260,20 +260,17 @@ const ExperimentCluster = ({
     if (!width || !height) {
       return;
     }
-    // const sensibleSettings = forceAtlas2.inferSettings(graph);
-    // const positions = forceAtlas2(graph, {
-    //   iterations: 50,
-    //   settings: sensibleSettings,
-    // });
+    const sensibleSettings = forceAtlas2.inferSettings(graphRef.current);
 
-    // const positions = forceAtlas2(graph, {
-    //   iterations: 5000,
-    //   edgeWeightInfluence: 1,
-    // });
     forceAtlas2.assign(graphRef.current, {
       iterations: 1,
-      edgeWeightInfluence: 1,
+      settings: sensibleSettings,
     });
+
+    // forceAtlas2.assign(graphRef.current, {
+    //   iterations: 1,
+    //   edgeWeightInfluence: 1,
+    // });
 
     // console.log(graphRef.current.toJSON());
     // console.log(positions);
