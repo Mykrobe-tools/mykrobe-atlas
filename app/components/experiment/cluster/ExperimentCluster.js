@@ -57,7 +57,7 @@ const ExperimentCluster = ({
   }, [experimentCluster]);
 
   React.useEffect(() => {
-    if (!width || !height || !graphRef.current) {
+    if (!graphRef.current) {
       return;
     }
     const sensibleSettings = forceAtlas2.inferSettings(graphRef.current);
@@ -72,27 +72,17 @@ const ExperimentCluster = ({
     //   edgeWeightInfluence: 1,
     // });
 
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-    const scale = window?.devicePixelRatio || 1;
-
-    context.width = width;
-    context.height = height;
-    context.scale = scale;
-
-    // render(graphRef.current, context, {
-    //   width,
-    //   height,
-    // });
-
     draw();
-  }, [elapsedMilliseconds, width, height]);
+  }, [elapsedMilliseconds]);
 
   // console.log({ canvasStyle });
 
   // __________________________________________________________________________________________ draw to convas
 
   const draw = React.useCallback(() => {
+    if (!canvasRef.current) {
+      return;
+    }
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
@@ -214,6 +204,8 @@ const ExperimentCluster = ({
     console.log({ delta });
   });
 
+  // __________________________________________________________________________________________ canvas attributes
+
   const setCanvasRef = React.useCallback((ref) => {
     console.log('setCanvasRef', ref);
     if (canvasRef.current) {
@@ -222,10 +214,22 @@ const ExperimentCluster = ({
     }
     canvasRef.current = ref;
     if (canvasRef.current) {
+      const scale = window?.devicePixelRatio || 1;
+      const context = canvasRef.current.getContext('2d');
+      context.scale = scale;
       canvasRef.current.addEventListener('DOMMouseScroll', mouseWheel);
       canvasRef.current.addEventListener('mousewheel', mouseWheel);
     }
   }, []);
+
+  React.useEffect(() => {
+    if (!width || !height || !canvasRef.current) {
+      return;
+    }
+    const context = canvasRef.current.getContext('2d');
+    context.width = width;
+    context.height = height;
+  }, [width, height]);
 
   // __________________________________________________________________________________________ render
 

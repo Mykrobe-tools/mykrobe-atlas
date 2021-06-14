@@ -7748,14 +7748,6 @@ grapheme-splitter@^1.0.2:
   resolved "https://registry.yarnpkg.com/grapheme-splitter/-/grapheme-splitter-1.0.4.tgz#9cf3a665c6247479896834af35cf1dbb4400767e"
   integrity sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==
 
-graphology-canvas@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/graphology-canvas/-/graphology-canvas-0.3.1.tgz#d002d55a1db396412805ece9668b2c734d203f5b"
-  integrity sha512-PJl2f3mMlLgJURD8+LeY3E1T4fdgnlgtE1NfjmKlDwdzdOohAzrOKmxKmECiYqbGb0L12tvA+U0KFSmEcd2/oA==
-  dependencies:
-    graphology-utils "^2.0.0"
-    lodash "^4.17.20"
-
 graphology-layout-forceatlas2@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/graphology-layout-forceatlas2/-/graphology-layout-forceatlas2-0.6.0.tgz#0329c14ccd037be3896ee1409831e8884cee8e8f"
@@ -7767,11 +7759,6 @@ graphology-utils@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/graphology-utils/-/graphology-utils-1.8.0.tgz#41315c468656e2a3e028a76468bbc2fbe42b0145"
   integrity sha512-Pa7SW30OMm8fVtyH49b3GJ/uxlMHGfXly50wIhlcc7ZoX9ahZa7sPBz+obo4WZClrRV6wh3tIu0GJoI42eao1A==
-
-graphology-utils@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/graphology-utils/-/graphology-utils-2.1.0.tgz#e284c0b2f401a14e8f6b67fbbe9a24f7ecb6c2d5"
-  integrity sha512-riI6qHSORCBXpTEtNmJ/0Sp0FQkWanv2WEnirMyQufUdr8gVwmRQCVoA+6o5K+YlT4elpS8jjFRBHNGCtsRf1w==
 
 graphology@^0.19.3:
   version "0.19.3"
@@ -10239,11 +10226,6 @@ lodash@^4.17.19:
   version "4.17.19"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
   integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
-
-lodash@^4.17.20:
-  version "4.17.21"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
-  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 loglevel@^1.6.6:
   version "1.6.8"
