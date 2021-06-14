@@ -11,6 +11,7 @@ import forceAtlas2 from 'graphology-layout-forceatlas2';
 import { render } from 'graphology-canvas';
 
 import styles from './ExperimentCluster.module.scss';
+import useAnimationFrame from '../../../hooks/useAnimationFrame';
 
 const SCALE_VISUAL_DISTANCE = 40;
 
@@ -46,10 +47,12 @@ const ExperimentCluster = ({
   const svgContainerRef = React.useRef();
   const svgRef = React.useRef();
   const canvasRef = React.useRef();
+  const graphRef = React.useRef();
 
   const [width, height] = useSize(svgContainerRef);
   const [svg, setSvg] = React.useState(null);
   const [simulation, setSimulation] = React.useState(null);
+  const elapsedMilliseconds = useAnimationFrame();
 
   React.useEffect(() => {
     const { nodes, distance } = experimentCluster;
@@ -59,7 +62,7 @@ const ExperimentCluster = ({
 
     // -- new
 
-    const graph = new Graph();
+    graphRef.current = new Graph();
 
     // https://github.com/graphology/graphology-layout-forceatlas2#pre-requisites
     // each node must have an initial x and y
@@ -69,37 +72,14 @@ const ExperimentCluster = ({
       const angle = (Math.PI * 2 * index) / nodes.length;
       const x = 50 * Math.sin(angle);
       const y = 50 * Math.cos(angle);
-      graph.addNode(node.id, { x, y, ...node });
+      graphRef.current.addNode(node.id, { x, y, ...node });
     });
 
     distance.forEach((distance) => {
-      graph.addEdge(distance.start, distance.end, {
+      graphRef.current.addEdge(distance.start, distance.end, {
         weight: distance.distance,
       });
     });
-
-    // const sensibleSettings = forceAtlas2.inferSettings(graph);
-    // const positions = forceAtlas2(graph, {
-    //   iterations: 50,
-    //   settings: sensibleSettings,
-    // });
-
-    // const positions = forceAtlas2(graph, {
-    //   iterations: 5000,
-    //   edgeWeightInfluence: 1,
-    // });
-    forceAtlas2.assign(graph, {
-      iterations: 5000,
-      edgeWeightInfluence: 1,
-    });
-
-    console.log(graph.toJSON());
-    // console.log(positions);
-
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-    console.log(context);
-    render(graph, context, { width: canvas.width, height: canvas.height });
 
     // -- end new
 
@@ -257,7 +237,58 @@ const ExperimentCluster = ({
     simulation
       ?.force('center', d3.forceCenter(width / 2, height / 2))
       .restart();
-  }, [width, height, svg]);
+
+    //
+    // const canvas = canvasRef.current;
+    // if (canvas) {
+    //   const context = canvas.getContext('2d');
+    //   context.width = width;
+    //   context.height = height;
+    // }
+    // console.log({ width, height });
+  }, [width, height, svg, canvasRef]);
+
+  const canvasStyle = React.useMemo(
+    () => ({
+      width,
+      height,
+    }),
+    [width, height]
+  );
+
+  React.useEffect(() => {
+    if (!width || !height) {
+      return;
+    }
+    // const sensibleSettings = forceAtlas2.inferSettings(graph);
+    // const positions = forceAtlas2(graph, {
+    //   iterations: 50,
+    //   settings: sensibleSettings,
+    // });
+
+    // const positions = forceAtlas2(graph, {
+    //   iterations: 5000,
+    //   edgeWeightInfluence: 1,
+    // });
+    forceAtlas2.assign(graphRef.current, {
+      iterations: 1,
+      edgeWeightInfluence: 1,
+    });
+
+    // console.log(graphRef.current.toJSON());
+    // console.log(positions);
+
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    context.width = width;
+    context.height = height;
+    render(graphRef.current, context, {
+      width,
+      height,
+    });
+  }, [elapsedMilliseconds, graphRef, width, height]);
+
+  // console.log({ canvasStyle });
 
   return (
     <div className={styles.container}>
@@ -266,7 +297,12 @@ const ExperimentCluster = ({
       ) : (
         <div ref={svgContainerRef} className={styles.svgContainer}>
           <svg ref={svgRef} />
-          <canvas ref={canvasRef} />
+          <canvas
+            ref={canvasRef}
+            width={width}
+            height={height}
+            _style={canvasStyle}
+          />
         </div>
       )}
     </div>
