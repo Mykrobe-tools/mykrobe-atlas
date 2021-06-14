@@ -108,22 +108,17 @@ const ExperimentCluster = ({
       const { x, y } = attr;
       minX = Math.min(x, minX);
       minY = Math.min(y, minY);
-      maxX = Math.max(x, minX);
+      maxX = Math.max(x, maxX);
       maxY = Math.max(y, maxY);
     });
 
     const graphWidth = maxX - minX;
     const graphHeight = maxY - minY;
+    const graphCenterX = 0.5 * (minX + maxX);
+    const graphCenterY = 0.5 * (minY + maxY);
 
     const canvasAspectRatio = canvasWidth / canvasHeight;
     const graphAspectRatio = graphWidth / graphHeight;
-
-    //
-
-    // const scaleGraphToCanvas = Math.min(
-    //   canvasWidth / graphWidth,
-    //   canvasHeight / graphHeight
-    // );
 
     let scaleGraphToCanvas = 1;
 
@@ -134,6 +129,7 @@ const ExperimentCluster = ({
       // fit width
       scaleGraphToCanvas = canvasWidth / graphWidth;
     }
+
     console.log({
       canvasWidth,
       canvasHeight,
@@ -142,9 +138,30 @@ const ExperimentCluster = ({
       scaleGraphToCanvas,
     });
 
+    context.fillStyle = '#ff0000';
+    context.strokeStyle = 'blue';
+
+    // context.fillRect(
+    //   canvasWidth * 0.5 - scaleGraphToCanvas * graphWidth * 0.5,
+    //   canvasHeight * 0.5 - scaleGraphToCanvas * graphHeight * 0.5,
+    //   scaleGraphToCanvas * graphWidth,
+    //   scaleGraphToCanvas * graphHeight
+    // );
+
+    context.strokeRect(
+      canvasWidth * 0.5 - scaleGraphToCanvas * graphWidth * 0.5,
+      canvasHeight * 0.5 - scaleGraphToCanvas * graphHeight * 0.5,
+      scaleGraphToCanvas * graphWidth,
+      scaleGraphToCanvas * graphHeight
+    );
+
+    context.fillStyle = '#00ff00';
+
     graphRef.current.forEachNode((node, attr) => {
-      const x = canvasWidth * 0.5 + attr.x * scaleGraphToCanvas;
-      const y = canvasHeight * 0.5 - attr.y * scaleGraphToCanvas;
+      const x =
+        canvasWidth * 0.5 + (attr.x - graphCenterX) * scaleGraphToCanvas;
+      const y =
+        canvasHeight * 0.5 - (attr.y - graphCenterY) * scaleGraphToCanvas;
       // context.fillRect(x, iconHeight, barWidth, -barHeight);
       context.beginPath();
       context.arc(x, y, 10, 0, 2 * Math.PI, true);
