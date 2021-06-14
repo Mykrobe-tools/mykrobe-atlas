@@ -7,7 +7,6 @@ import useSize from '@react-hook/size';
 
 const Graph = require('graphology');
 import forceAtlas2 from 'graphology-layout-forceatlas2';
-import { render } from 'graphology-canvas';
 
 import styles from './ExperimentCluster.module.scss';
 import useAnimationFrame from '../../../hooks/useAnimationFrame';
@@ -81,10 +80,10 @@ const ExperimentCluster = ({
     context.height = height;
     context.scale = scale;
 
-    render(graphRef.current, context, {
-      width,
-      height,
-    });
+    // render(graphRef.current, context, {
+    //   width,
+    //   height,
+    // });
 
     draw();
   }, [elapsedMilliseconds, width, height]);
@@ -96,8 +95,12 @@ const ExperimentCluster = ({
   const draw = React.useCallback(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-    const canvasWidth = context.width;
-    const canvasHeight = context.height;
+
+    context.clearRect(0, 0, context.width, context.height);
+
+    const canvasMargin = 50;
+    const canvasWidth = context.width - 2 * canvasMargin;
+    const canvasHeight = context.height - 2 * canvasMargin;
 
     let minX = Infinity,
       minY = Infinity,
@@ -130,39 +133,43 @@ const ExperimentCluster = ({
       scaleGraphToCanvas = canvasWidth / graphWidth;
     }
 
-    console.log({
-      canvasWidth,
-      canvasHeight,
-      graphWidth,
-      graphHeight,
-      scaleGraphToCanvas,
-    });
-
-    context.fillStyle = '#ff0000';
-    context.strokeStyle = 'blue';
-
-    // context.fillRect(
-    //   canvasWidth * 0.5 - scaleGraphToCanvas * graphWidth * 0.5,
-    //   canvasHeight * 0.5 - scaleGraphToCanvas * graphHeight * 0.5,
-    //   scaleGraphToCanvas * graphWidth,
-    //   scaleGraphToCanvas * graphHeight
-    // );
-
-    context.strokeRect(
-      canvasWidth * 0.5 - scaleGraphToCanvas * graphWidth * 0.5,
-      canvasHeight * 0.5 - scaleGraphToCanvas * graphHeight * 0.5,
-      scaleGraphToCanvas * graphWidth,
-      scaleGraphToCanvas * graphHeight
-    );
-
     context.fillStyle = '#00ff00';
 
-    graphRef.current.forEachNode((node, attr) => {
+    const mapGraphToCanvas = (attr) => {
       const x =
-        canvasWidth * 0.5 + (attr.x - graphCenterX) * scaleGraphToCanvas;
+        canvasMargin +
+        canvasWidth * 0.5 +
+        (attr.x - graphCenterX) * scaleGraphToCanvas;
       const y =
-        canvasHeight * 0.5 - (attr.y - graphCenterY) * scaleGraphToCanvas;
-      // context.fillRect(x, iconHeight, barWidth, -barHeight);
+        canvasMargin +
+        canvasHeight * 0.5 -
+        (attr.y - graphCenterY) * scaleGraphToCanvas;
+
+      return { x, y };
+    };
+
+    graphRef.current.forEachEdge(
+      (edge, attr, source, target, sourceAttributes, targetAttributes) => {
+        // console.log({
+        //   edge,
+        //   attr,
+        //   source,
+        //   target,
+        //   sourceAttributes,
+        //   targetAttributes,
+        // });
+        const sourceXY = mapGraphToCanvas(sourceAttributes);
+        const targetXY = mapGraphToCanvas(targetAttributes);
+        context.beginPath();
+        context.moveTo(sourceXY.x, sourceXY.y);
+        context.lineTo(targetXY.x, targetXY.y);
+        context.stroke();
+      }
+    );
+
+    graphRef.current.forEachNode((node, attr) => {
+      const { x, y } = mapGraphToCanvas(attr);
+
       context.beginPath();
       context.arc(x, y, 10, 0, 2 * Math.PI, true);
 
