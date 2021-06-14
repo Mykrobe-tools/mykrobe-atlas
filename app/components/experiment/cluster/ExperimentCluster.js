@@ -12,6 +12,12 @@ import { render } from 'graphology-canvas';
 import styles from './ExperimentCluster.module.scss';
 import useAnimationFrame from '../../../hooks/useAnimationFrame';
 
+const CAMERA_DEFAULT = {
+  x: 0,
+  y: 0,
+  s: 1,
+};
+
 const ExperimentCluster = ({
   experimentCluster = {},
   experimentClusterIsSearching,
@@ -19,6 +25,8 @@ const ExperimentCluster = ({
   const clusterContainerRef = React.useRef();
   const canvasRef = React.useRef();
   const graphRef = React.useRef();
+
+  const camera = React.useState({ ...CAMERA_DEFAULT });
 
   const [width, height] = useSize(clusterContainerRef);
   const elapsedMilliseconds = useAnimationFrame();
@@ -81,13 +89,69 @@ const ExperimentCluster = ({
 
   // console.log({ canvasStyle });
 
+  const onClick = React.useCallback((e) => {
+    console.log('onClick', e);
+  });
+
+  const onMouseMove = React.useCallback((e) => {
+    console.log('onMouseMove', e);
+  });
+
+  const onMouseDown = React.useCallback((e) => {
+    console.log('onMouseDown', e);
+  });
+
+  const onMouseUp = React.useCallback((e) => {
+    console.log('onMouseUp', e);
+  });
+
+  const onMouseOut = React.useCallback((e) => {
+    console.log('onMouseOut', e);
+  });
+
+  const mouseWheel = React.useCallback((event) => {
+    let delta = 0;
+
+    if (event.wheelDelta) {
+      /* IE/Opera. */
+      delta = -(event.wheelDelta / 120);
+    } else if (event.detail) {
+      /* Mozilla */
+      delta = event.detail / 3;
+    }
+
+    console.log({ delta });
+  });
+
+  const setCanvasRef = React.useCallback((ref) => {
+    console.log('setCanvasRef', ref);
+    if (canvasRef.current) {
+      canvasRef.current.removeEventListener('DOMMouseScroll', mouseWheel);
+      canvasRef.current.removeEventListener('mousewheel', mouseWheel);
+    }
+    canvasRef.current = ref;
+    if (canvasRef.current) {
+      canvasRef.current.addEventListener('DOMMouseScroll', mouseWheel);
+      canvasRef.current.addEventListener('mousewheel', mouseWheel);
+    }
+  }, []);
+
   return (
     <div className={styles.container}>
       {experimentClusterIsSearching ? (
         <span>Cluster searching…</span>
       ) : (
         <div ref={clusterContainerRef} className={styles.svgContainer}>
-          <canvas ref={canvasRef} width={width} height={height} />
+          <canvas
+            ref={setCanvasRef}
+            width={width}
+            height={height}
+            onClick={onClick}
+            onMouseMove={onMouseMove}
+            onMouseDown={onMouseDown}
+            onMouseUp={onMouseUp}
+            onMouseOut={onMouseOut}
+          />
         </div>
       )}
     </div>
