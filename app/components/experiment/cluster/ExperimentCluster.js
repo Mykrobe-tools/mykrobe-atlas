@@ -17,6 +17,8 @@ const CAMERA_DEFAULT = {
   s: 1,
 };
 
+const canvasMargin = 50;
+
 const ExperimentCluster = ({
   experimentCluster = {},
   experimentClusterIsSearching,
@@ -25,7 +27,8 @@ const ExperimentCluster = ({
   const canvasRef = React.useRef();
   const graphRef = React.useRef();
 
-  const camera = React.useState({ ...CAMERA_DEFAULT });
+  const [camera, setCamers] = React.useState({ ...CAMERA_DEFAULT });
+  const [renderAttributes, setRenderAttributes] = React.useState();
 
   const [width, height] = useSize(clusterContainerRef);
   const elapsedMilliseconds = useAnimationFrame();
@@ -72,23 +75,20 @@ const ExperimentCluster = ({
     //   edgeWeightInfluence: 1,
     // });
 
-    draw();
+    updateRenderAttributes();
   }, [elapsedMilliseconds]);
 
   // console.log({ canvasStyle });
 
   // __________________________________________________________________________________________ draw to convas
 
-  const draw = React.useCallback(() => {
+  const updateRenderAttributes = React.useCallback(() => {
     if (!canvasRef.current) {
       return;
     }
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    context.clearRect(0, 0, context.width, context.height);
-
-    const canvasMargin = 50;
     const canvasWidth = context.width - 2 * canvasMargin;
     const canvasHeight = context.height - 2 * canvasMargin;
 
@@ -123,9 +123,24 @@ const ExperimentCluster = ({
       scaleGraphToCanvas = canvasWidth / graphWidth;
     }
 
-    context.fillStyle = '#00ff00';
+    setRenderAttributes({
+      scaleGraphToCanvas,
+      canvasWidth,
+      canvasHeight,
+      graphCenterX,
+      graphCenterY,
+    });
+  });
 
-    const mapGraphToCanvas = (attr) => {
+  const mapGraphToCanvas = React.useCallback(
+    (attr) => {
+      const {
+        scaleGraphToCanvas,
+        canvasWidth,
+        canvasHeight,
+        graphCenterX,
+        graphCenterY,
+      } = renderAttributes;
       const x =
         canvasMargin +
         canvasWidth * 0.5 +
@@ -134,20 +149,23 @@ const ExperimentCluster = ({
         canvasMargin +
         canvasHeight * 0.5 -
         (attr.y - graphCenterY) * scaleGraphToCanvas;
-
       return { x, y };
-    };
+    },
+    [renderAttributes]
+  );
+
+  React.useEffect(() => {
+    if (!canvasRef.current || !renderAttributes) {
+      return;
+    }
+    const context = canvasRef.current.getContext('2d');
+
+    context.clearRect(0, 0, context.width, context.height);
+
+    context.fillStyle = '#00ff00';
 
     graphRef.current.forEachEdge(
       (edge, attr, source, target, sourceAttributes, targetAttributes) => {
-        // console.log({
-        //   edge,
-        //   attr,
-        //   source,
-        //   target,
-        //   sourceAttributes,
-        //   targetAttributes,
-        // });
         const sourceXY = mapGraphToCanvas(sourceAttributes);
         const targetXY = mapGraphToCanvas(targetAttributes);
         context.beginPath();
@@ -166,7 +184,7 @@ const ExperimentCluster = ({
       context.closePath();
       context.fill();
     });
-  });
+  }, [mapGraphToCanvas, elapsedMilliseconds]);
 
   // __________________________________________________________________________________________ mouse events
 
