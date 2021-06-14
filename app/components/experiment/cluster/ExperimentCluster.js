@@ -133,7 +133,7 @@ const ExperimentCluster = ({
   });
 
   const mapGraphToCanvas = React.useCallback(
-    (attr) => {
+    ({ x, y }) => {
       const {
         scaleGraphToCanvas,
         canvasWidth,
@@ -141,15 +141,34 @@ const ExperimentCluster = ({
         graphCenterX,
         graphCenterY,
       } = renderAttributes;
-      const x =
+      const canvasX =
         canvasMargin +
         canvasWidth * 0.5 +
-        (attr.x - graphCenterX) * scaleGraphToCanvas;
-      const y =
+        (x - graphCenterX) * scaleGraphToCanvas;
+      const canvasY =
         canvasMargin +
         canvasHeight * 0.5 -
-        (attr.y - graphCenterY) * scaleGraphToCanvas;
-      return { x, y };
+        (y - graphCenterY) * scaleGraphToCanvas;
+      return { x: canvasX, y: canvasY };
+    },
+    [renderAttributes]
+  );
+
+  const findNodeForCanvasCoordinates = React.useCallback(
+    ({ x, y }) => {
+      const nodes = graphRef.current.nodes();
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
+        const attributes = graphRef.current.getNodeAttributes(node);
+        const canvasXY = mapGraphToCanvas({ x: attributes.x, y: attributes.y });
+        const vx = x - canvasXY.x;
+        const vy = y - canvasXY.y;
+        const d = Math.sqrt(vx * vx + vy * vy);
+        if (d <= 10) {
+          console.log({ node, attributes });
+          return node;
+        }
+      }
     },
     [renderAttributes]
   );
@@ -192,9 +211,14 @@ const ExperimentCluster = ({
     console.log('onClick', e);
   });
 
-  const onMouseMove = React.useCallback((e) => {
-    console.log('onMouseMove', e);
-  });
+  const onMouseMove = React.useCallback(
+    (e) => {
+      const x = e.nativeEvent.offsetX;
+      const y = e.nativeEvent.offsetY;
+      const node = findNodeForCanvasCoordinates({ x, y });
+    },
+    [findNodeForCanvasCoordinates]
+  );
 
   const onMouseDown = React.useCallback((e) => {
     console.log('onMouseDown', e);
