@@ -219,8 +219,6 @@ const ExperimentCluster = ({
 
     context.clearRect(0, 0, context.width, context.height);
 
-    context.strokeStyle = Colors.COLOR_RULE;
-
     graphRef.current.forEachEdge(
       (
         edge,
@@ -232,11 +230,28 @@ const ExperimentCluster = ({
       ) => {
         const sourceXY = mapGraphToCanvas(sourceAttributes);
         const targetXY = mapGraphToCanvas(targetAttributes);
+
+        context.strokeStyle = Colors.COLOR_RULE;
+        context.lineWidth = 1;
+
         context.beginPath();
         context.moveTo(sourceXY.x, sourceXY.y);
         context.lineTo(targetXY.x, targetXY.y);
         context.stroke();
 
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.font = '12px Bryant2-Bold';
+
+        context.strokeStyle = '#ffffff';
+        context.lineWidth = 4;
+        context.strokeText(
+          `${attributes.distance}`,
+          0.5 * (sourceXY.x + targetXY.x),
+          0.5 * (sourceXY.y + targetXY.y)
+        );
+
+        context.fillStyle = Colors.COLOR_GREY_MID;
         context.fillText(
           `${attributes.distance}`,
           0.5 * (sourceXY.x + targetXY.x),
