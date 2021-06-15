@@ -29,6 +29,7 @@ const ExperimentCluster = ({
   const clusterContainerRef = React.useRef();
   const canvasRef = React.useRef();
   const graphRef = React.useRef();
+  const mapIdToNode = React.useRef({});
 
   const [camera, setCamera] = React.useState({ ...CAMERA_DEFAULT });
   const [renderAttributes, setRenderAttributes] = React.useState();
@@ -43,6 +44,7 @@ const ExperimentCluster = ({
     }
 
     graphRef.current = new Graph();
+    mapIdToNode.current = {};
 
     // https://github.com/graphology/graphology-layout-forceatlas2#pre-requisites
     // each node must have an initial x and y
@@ -53,6 +55,9 @@ const ExperimentCluster = ({
       const x = 50 * Math.sin(angle);
       const y = 50 * Math.cos(angle);
       graphRef.current.addNode(node.id, { x, y, ...node });
+      node.experiments.forEach((experiment) => {
+        mapIdToNode.current[experiment.id] = node;
+      });
     });
 
     distance.forEach((distance) => {
@@ -298,6 +303,23 @@ const ExperimentCluster = ({
             onMouseUp={onMouseUp}
             onMouseOut={onMouseOut}
           />
+          {/* {experimentsHighlighted &&
+            Object.entries(experimentsHighlighted).map((experiment) => {
+              const attributes = graphRef.current.getNodeAttributes(node);
+              const experimentsTooltipLocation = this.screenPositionForNodeId(
+                leafId
+              );
+              return (
+                <ExperimentsTooltip
+                  key={leafId}
+                  experiment={experiment}
+                  experiments={experiments}
+                  x={experimentsTooltipLocation.x}
+                  y={experimentsTooltipLocation.y}
+                  onClickOutside={this.onExperimentsTooltipClickOutside}
+                />
+              );
+            })} */}
         </div>
       )}
     </div>
