@@ -22,12 +22,15 @@ const canvasMargin = 50;
 const ExperimentCluster = ({
   experimentCluster = {},
   experimentClusterIsSearching,
+  experimentsHighlighted,
+  setExperimentsHighlighted,
+  resetExperimentsHighlighted,
 }: React.ElementProps<*>) => {
   const clusterContainerRef = React.useRef();
   const canvasRef = React.useRef();
   const graphRef = React.useRef();
 
-  const [camera, setCamers] = React.useState({ ...CAMERA_DEFAULT });
+  const [camera, setCamera] = React.useState({ ...CAMERA_DEFAULT });
   const [renderAttributes, setRenderAttributes] = React.useState();
 
   const [width, height] = useSize(clusterContainerRef);
@@ -165,8 +168,7 @@ const ExperimentCluster = ({
         const vy = y - canvasXY.y;
         const d = Math.sqrt(vx * vx + vy * vy);
         if (d <= 10) {
-          console.log({ node, attributes });
-          return node;
+          return { node, attributes };
         }
       }
     },
@@ -215,9 +217,14 @@ const ExperimentCluster = ({
     (e) => {
       const x = e.nativeEvent.offsetX;
       const y = e.nativeEvent.offsetY;
-      const node = findNodeForCanvasCoordinates({ x, y });
+      const result = findNodeForCanvasCoordinates({ x, y });
+      if (result) {
+        const { node, attributes } = result;
+        console.log({ node, attributes });
+        setExperimentsHighlighted(attributes.experiments);
+      }
     },
-    [findNodeForCanvasCoordinates]
+    [findNodeForCanvasCoordinates, setExperimentsHighlighted]
   );
 
   const onMouseDown = React.useCallback((e) => {
