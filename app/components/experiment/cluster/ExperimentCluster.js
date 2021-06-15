@@ -21,7 +21,9 @@ const CAMERA_DEFAULT = {
   s: 1,
 };
 
-const canvasMargin = 50;
+const CANVAS_MARGIN = 50;
+const MIN_RADIUS = 5;
+const MAX_RADIUS = 15;
 
 const ExperimentCluster = ({
   experimentCluster = {},
@@ -114,8 +116,8 @@ const ExperimentCluster = ({
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    const canvasWidth = context.width - 2 * canvasMargin;
-    const canvasHeight = context.height - 2 * canvasMargin;
+    const canvasWidth = context.width - 2 * CANVAS_MARGIN;
+    const canvasHeight = context.height - 2 * CANVAS_MARGIN;
 
     let minX = Infinity,
       minY = Infinity,
@@ -167,11 +169,11 @@ const ExperimentCluster = ({
         graphCenterY,
       } = renderAttributes;
       const canvasX =
-        canvasMargin +
+        CANVAS_MARGIN +
         canvasWidth * 0.5 +
         (x - graphCenterX) * scaleGraphToCanvas;
       const canvasY =
-        canvasMargin +
+        CANVAS_MARGIN +
         canvasHeight * 0.5 -
         (y - graphCenterY) * scaleGraphToCanvas;
       return { x: canvasX, y: canvasY };
@@ -235,7 +237,14 @@ const ExperimentCluster = ({
         : Colors.COLOR_HIGHLIGHT_EXPERIMENT;
 
       context.beginPath();
-      context.arc(x, y, 5 + radius * 5, 0, 2 * Math.PI, true);
+      context.arc(
+        x,
+        y,
+        Math.min(MAX_RADIUS, MIN_RADIUS + radius * 5),
+        0,
+        2 * Math.PI,
+        true
+      );
 
       context.closePath();
       context.fill();
