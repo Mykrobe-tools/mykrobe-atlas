@@ -23,5 +23,12 @@
       font-family: 'Bryant2-Bold', sans-serif;
       text-transform: uppercase;
     }
+    display: none;
+  }
+  canvas {
+    // width and height are set programatically
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 }
