@@ -82,6 +82,7 @@ const ExperimentCluster = ({
 
     distance.forEach((distance) => {
       graphRef.current.addEdge(distance.start, distance.end, {
+        ...distance,
         weight: 1 / distance.distance,
       });
     });
@@ -235,6 +236,12 @@ const ExperimentCluster = ({
         context.moveTo(sourceXY.x, sourceXY.y);
         context.lineTo(targetXY.x, targetXY.y);
         context.stroke();
+
+        context.fillText(
+          `${attributes.distance}`,
+          0.5 * (sourceXY.x + targetXY.x),
+          0.5 * (sourceXY.y + targetXY.y)
+        );
       }
     );
 
