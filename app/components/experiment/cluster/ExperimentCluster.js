@@ -13,6 +13,7 @@ import useBoundingClientRect from '../../../hooks/useBoundingClientRect';
 
 import styles from './ExperimentCluster.module.scss';
 import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
+import * as Colors from '../../../constants/Colors';
 
 const CAMERA_DEFAULT = {
   x: 0,
@@ -204,7 +205,8 @@ const ExperimentCluster = ({
 
     context.clearRect(0, 0, context.width, context.height);
 
-    // area = pi * r - squared;
+    context.strokeStyle = Colors.COLOR_RULE;
+
     graphRef.current.forEachEdge(
       (
         edge,
@@ -229,8 +231,8 @@ const ExperimentCluster = ({
       const radius = Math.sqrt(area / Math.PI);
 
       context.fillStyle = attributes.includesCurrentExperiment
-        ? '#ff0000'
-        : '#00ff00';
+        ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
+        : Colors.COLOR_HIGHLIGHT_EXPERIMENT;
 
       context.beginPath();
       context.arc(x, y, 5 + radius * 5, 0, 2 * Math.PI, true);
