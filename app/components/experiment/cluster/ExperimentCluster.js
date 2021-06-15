@@ -29,7 +29,7 @@ const ExperimentCluster = ({
   const clusterContainerRef = React.useRef();
   const canvasRef = React.useRef();
   const graphRef = React.useRef();
-  const mapIdToNode = React.useRef({});
+  const mapEntityIdToClusterNodeId = React.useRef({});
 
   const [camera, setCamera] = React.useState({ ...CAMERA_DEFAULT });
   const [renderAttributes, setRenderAttributes] = React.useState();
@@ -44,7 +44,7 @@ const ExperimentCluster = ({
     }
 
     graphRef.current = new Graph();
-    mapIdToNode.current = {};
+    mapEntityIdToClusterNodeId.current = {};
 
     // https://github.com/graphology/graphology-layout-forceatlas2#pre-requisites
     // each node must have an initial x and y
@@ -56,8 +56,9 @@ const ExperimentCluster = ({
       const y = 50 * Math.cos(angle);
       graphRef.current.addNode(node.id, { x, y, ...node });
       node.experiments.forEach((experiment) => {
-        mapIdToNode.current[experiment.id] = node;
+        mapEntityIdToClusterNodeId.current[experiment.id] = node.id;
       });
+      console.log({ mapIdToNode: mapEntityIdToClusterNodeId.current });
     });
 
     distance.forEach((distance) => {
@@ -303,23 +304,39 @@ const ExperimentCluster = ({
             onMouseUp={onMouseUp}
             onMouseOut={onMouseOut}
           />
-          {/* {experimentsHighlighted &&
-            Object.entries(experimentsHighlighted).map((experiment) => {
-              const attributes = graphRef.current.getNodeAttributes(node);
-              const experimentsTooltipLocation = this.screenPositionForNodeId(
-                leafId
-              );
-              return (
-                <ExperimentsTooltip
-                  key={leafId}
-                  experiment={experiment}
-                  experiments={experiments}
-                  x={experimentsTooltipLocation.x}
-                  y={experimentsTooltipLocation.y}
-                  onClickOutside={this.onExperimentsTooltipClickOutside}
-                />
-              );
-            })} */}
+          {experimentsHighlighted &&
+            experimentsHighlighted.map((experiment) => {
+              const nodeId = mapEntityIdToClusterNodeId.current[experiment.id];
+              if (nodeId) {
+                console.log(nodeId);
+                const attributes = graphRef.current.getNodeAttributes(nodeId);
+                console.log({ nodeId, attributes });
+              } else {
+                console.log(
+                  'Could not find MST experiment with id ',
+                  experiment.id
+                );
+                console.log({
+                  experimentsHighlighted,
+                  mapIdToNode: mapEntityIdToClusterNodeId.current,
+                });
+                debugger;
+              }
+              return null;
+              // const experimentsTooltipLocation = this.screenPositionForNodeId(
+              //   leafId
+              // );
+              // return (
+              //   <ExperimentsTooltip
+              //     key={leafId}
+              //     experiment={experiment}
+              //     experiments={experiments}
+              //     x={experimentsTooltipLocation.x}
+              //     y={experimentsTooltipLocation.y}
+              //     onClickOutside={this.onExperimentsTooltipClickOutside}
+              //   />
+              // );
+            })}
         </div>
       )}
     </div>
