@@ -8,8 +8,10 @@ import useSize from '@react-hook/size';
 const Graph = require('graphology');
 import forceAtlas2 from 'graphology-layout-forceatlas2';
 
-import styles from './ExperimentCluster.module.scss';
 import useAnimationFrame from '../../../hooks/useAnimationFrame';
+import useBoundingClientRect from '../../../hooks/useBoundingClientRect';
+
+import styles from './ExperimentCluster.module.scss';
 import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
 
 const CAMERA_DEFAULT = {
@@ -30,6 +32,7 @@ const ExperimentCluster = ({
 }: React.ElementProps<*>) => {
   const clusterContainerRef = React.useRef();
   const canvasRef = React.useRef();
+  const boundingClientRect = useBoundingClientRect(canvasRef);
   const graphRef = React.useRef();
   const mapEntityIdToClusterNodeId = React.useRef({});
 
@@ -56,10 +59,20 @@ const ExperimentCluster = ({
       const angle = (Math.PI * 2 * index) / nodes.length;
       const x = 50 * Math.sin(angle);
       const y = 50 * Math.cos(angle);
-      graphRef.current.addNode(node.id, { x, y, ...node });
-      node.experiments.forEach((experiment) => {
-        mapEntityIdToClusterNodeId.current[experiment.id] = node.id;
+      const includesCurrentExperiment = false;
+      const attributes = {
+        x,
+        y,
+        includesCurrentExperiment,
+        ...node,
+      };
+      node.experiments.forEach((nodeExperiment) => {
+        mapEntityIdToClusterNodeId.current[nodeExperiment.id] = node.id;
+        if (nodeExperiment.id === experiment.id) {
+          attributes.includesCurrentExperiment = true;
+        }
       });
+      graphRef.current.addNode(node.id, attributes);
       // console.log({ mapIdToNode: mapEntityIdToClusterNodeId.current });
     });
 
@@ -191,10 +204,16 @@ const ExperimentCluster = ({
 
     context.clearRect(0, 0, context.width, context.height);
 
-    context.fillStyle = '#00ff00';
-
+    // area = pi * r - squared;
     graphRef.current.forEachEdge(
-      (edge, attr, source, target, sourceAttributes, targetAttributes) => {
+      (
+        edge,
+        attributes,
+        source,
+        target,
+        sourceAttributes,
+        targetAttributes
+      ) => {
         const sourceXY = mapGraphToCanvas(sourceAttributes);
         const targetXY = mapGraphToCanvas(targetAttributes);
         context.beginPath();
@@ -204,11 +223,17 @@ const ExperimentCluster = ({
       }
     );
 
-    graphRef.current.forEachNode((node, attr) => {
-      const { x, y } = mapGraphToCanvas(attr);
+    graphRef.current.forEachNode((node, attributes) => {
+      const { x, y } = mapGraphToCanvas(attributes);
+      const area = attributes.experiments.length;
+      const radius = Math.sqrt(area / Math.PI);
+
+      context.fillStyle = attributes.includesCurrentExperiment
+        ? '#ff0000'
+        : '#00ff00';
 
       context.beginPath();
-      context.arc(x, y, 10, 0, 2 * Math.PI, true);
+      context.arc(x, y, 5 + radius * 5, 0, 2 * Math.PI, true);
 
       context.closePath();
       context.fill();
@@ -313,18 +338,22 @@ const ExperimentCluster = ({
               if (nodeId) {
                 // console.log(nodeId);
                 const attributes = graphRef.current.getNodeAttributes(nodeId);
-                console.log({ nodeId, attributes });
+                // console.log({ nodeId, attributes });
                 const experimentsTooltipLocation = mapGraphToCanvas({
                   x: attributes.x,
                   y: attributes.y,
                 });
+                const screenPosition = {
+                  x: boundingClientRect.left + experimentsTooltipLocation.x,
+                  y: boundingClientRect.top + experimentsTooltipLocation.y,
+                };
                 return (
                   <ExperimentsTooltip
                     key={experimentHighlighted.id}
                     experiment={experiment}
                     experiments={attributes.experiments}
-                    x={experimentsTooltipLocation.x}
-                    y={experimentsTooltipLocation.y}
+                    x={screenPosition.x}
+                    y={screenPosition.y}
                     onClickOutside={resetExperimentsHighlighted}
                   />
                 );
