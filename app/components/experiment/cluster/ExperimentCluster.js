@@ -59,9 +59,11 @@ const ExperimentCluster = ({
     // here we arrange them in a circle
 
     nodes.forEach((node, index) => {
-      const angle = (Math.PI * 2 * index) / nodes.length;
-      const x = 50 * Math.sin(angle);
-      const y = 50 * Math.cos(angle);
+      // const angle = (Math.PI * 2 * index) / nodes.length;
+      // const x = 5 * Math.sin(angle);
+      // const y = 5 * Math.cos(angle);
+      const x = 0.1 + Math.random();
+      const y = 0.1 + Math.random();
       const includesCurrentExperiment = false;
       const attributes = {
         x,
@@ -104,7 +106,7 @@ const ExperimentCluster = ({
       settings: {
         ...sensibleSettings,
         // adjustSizes: true, // needs investigation
-        edgeWeightInfluence: 2,
+        edgeWeightInfluence: 1,
       },
     });
 
