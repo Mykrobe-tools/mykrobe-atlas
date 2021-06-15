@@ -66,6 +66,7 @@ const ExperimentCluster = ({
       const attributes = {
         x,
         y,
+        size: getRadiusForExperiments(node.experiments),
         includesCurrentExperiment,
         ...node,
       };
@@ -81,7 +82,7 @@ const ExperimentCluster = ({
 
     distance.forEach((distance) => {
       graphRef.current.addEdge(distance.start, distance.end, {
-        weight: distance.distance,
+        weight: 1 / distance.distance,
       });
     });
   }, [experimentCluster]);
@@ -92,15 +93,19 @@ const ExperimentCluster = ({
     }
     const sensibleSettings = forceAtlas2.inferSettings(graphRef.current);
 
-    forceAtlas2.assign(graphRef.current, {
-      iterations: 1,
-      settings: sensibleSettings,
-    });
-
     // forceAtlas2.assign(graphRef.current, {
     //   iterations: 1,
-    //   edgeWeightInfluence: 1,
+    //   settings: sensibleSettings,
     // });
+
+    forceAtlas2.assign(graphRef.current, {
+      iterations: 1,
+      settings: {
+        ...sensibleSettings,
+        // adjustSizes: true, // needs investigation
+        edgeWeightInfluence: 2,
+      },
+    });
 
     updateRenderAttributes();
   }, [elapsedMilliseconds]);
@@ -199,6 +204,12 @@ const ExperimentCluster = ({
     [renderAttributes]
   );
 
+  const getRadiusForExperiments = React.useCallback((experiments) => {
+    const area = experiments.length;
+    const radius = Math.sqrt(area / Math.PI);
+    return Math.min(MAX_RADIUS, MIN_RADIUS + radius * 5);
+  });
+
   React.useEffect(() => {
     if (!canvasRef.current || !renderAttributes) {
       return;
@@ -229,22 +240,14 @@ const ExperimentCluster = ({
 
     graphRef.current.forEachNode((node, attributes) => {
       const { x, y } = mapGraphToCanvas(attributes);
-      const area = attributes.experiments.length;
-      const radius = Math.sqrt(area / Math.PI);
+      const r = getRadiusForExperiments(attributes.experiments);
 
       context.fillStyle = attributes.includesCurrentExperiment
         ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
         : Colors.COLOR_HIGHLIGHT_EXPERIMENT;
 
       context.beginPath();
-      context.arc(
-        x,
-        y,
-        Math.min(MAX_RADIUS, MIN_RADIUS + radius * 5),
-        0,
-        2 * Math.PI,
-        true
-      );
+      context.arc(x, y, r, 0, 2 * Math.PI, true);
 
       context.closePath();
       context.fill();
