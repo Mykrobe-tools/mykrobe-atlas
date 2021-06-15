@@ -10,6 +10,7 @@ import forceAtlas2 from 'graphology-layout-forceatlas2';
 
 import styles from './ExperimentCluster.module.scss';
 import useAnimationFrame from '../../../hooks/useAnimationFrame';
+import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
 
 const CAMERA_DEFAULT = {
   x: 0,
@@ -22,6 +23,7 @@ const canvasMargin = 50;
 const ExperimentCluster = ({
   experimentCluster = {},
   experimentClusterIsSearching,
+  experiment,
   experimentsHighlighted,
   setExperimentsHighlighted,
   resetExperimentsHighlighted,
@@ -58,7 +60,7 @@ const ExperimentCluster = ({
       node.experiments.forEach((experiment) => {
         mapEntityIdToClusterNodeId.current[experiment.id] = node.id;
       });
-      console.log({ mapIdToNode: mapEntityIdToClusterNodeId.current });
+      // console.log({ mapIdToNode: mapEntityIdToClusterNodeId.current });
     });
 
     distance.forEach((distance) => {
@@ -226,7 +228,7 @@ const ExperimentCluster = ({
       const result = findNodeForCanvasCoordinates({ x, y });
       if (result) {
         const { node, attributes } = result;
-        console.log({ node, attributes });
+        // console.log({ node, attributes });
         setExperimentsHighlighted(attributes.experiments);
       }
     },
@@ -305,24 +307,39 @@ const ExperimentCluster = ({
             onMouseOut={onMouseOut}
           />
           {experimentsHighlighted &&
-            experimentsHighlighted.map((experiment) => {
-              const nodeId = mapEntityIdToClusterNodeId.current[experiment.id];
+            experimentsHighlighted.map((experimentHighlighted) => {
+              const nodeId =
+                mapEntityIdToClusterNodeId.current[experimentHighlighted.id];
               if (nodeId) {
-                console.log(nodeId);
+                // console.log(nodeId);
                 const attributes = graphRef.current.getNodeAttributes(nodeId);
                 console.log({ nodeId, attributes });
+                const experimentsTooltipLocation = mapGraphToCanvas({
+                  x: attributes.x,
+                  y: attributes.y,
+                });
+                return (
+                  <ExperimentsTooltip
+                    key={experimentHighlighted.id}
+                    experiment={experiment}
+                    experiments={attributes.experiments}
+                    x={experimentsTooltipLocation.x}
+                    y={experimentsTooltipLocation.y}
+                    onClickOutside={resetExperimentsHighlighted}
+                  />
+                );
               } else {
                 console.log(
                   'Could not find MST experiment with id ',
-                  experiment.id
+                  experimentHighlighted.id
                 );
-                console.log({
-                  experimentsHighlighted,
-                  mapIdToNode: mapEntityIdToClusterNodeId.current,
-                });
-                debugger;
+                // console.log({
+                //   experimentsHighlighted,
+                //   mapIdToNode: mapEntityIdToClusterNodeId.current,
+                // });
+                // debugger;
+                return null;
               }
-              return null;
               // const experimentsTooltipLocation = this.screenPositionForNodeId(
               //   leafId
               // );
