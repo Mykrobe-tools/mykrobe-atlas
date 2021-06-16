@@ -188,6 +188,29 @@ const ExperimentCluster = ({
     [renderAttributes]
   );
 
+  const mapCanvasToGraph = React.useCallback(
+    ({ x, y }) => {
+      if (!renderAttributes) {
+        return { x: 0, y: 0 };
+      }
+      const {
+        scaleGraphToCanvas,
+        canvasWidth,
+        canvasHeight,
+        graphCenterX,
+        graphCenterY,
+      } = renderAttributes;
+      const graphX =
+        (x - CANVAS_MARGIN - canvasWidth * 0.5) / scaleGraphToCanvas +
+        graphCenterX;
+      const graphY =
+        (y - CANVAS_MARGIN - canvasHeight * 0.5) / -scaleGraphToCanvas +
+        graphCenterY;
+      return { x: graphX, y: graphY };
+    },
+    [renderAttributes]
+  );
+
   const findNodeForCanvasCoordinates = React.useCallback(
     ({ x, y }) => {
       const nodes = graphRef.current.nodes();
@@ -302,12 +325,13 @@ const ExperimentCluster = ({
     (e) => {
       if (dragging) {
         const { x, y } = canvasXYForMouseEvent(e);
+        const graphXY = mapCanvasToGraph({ x, y });
         const { node, vx, vy } = dragging;
         graphRef.current.updateNode(node, (attributes) => {
           return {
             ...attributes,
-            x: x + vx,
-            y: y + vy,
+            x: graphXY.x - vx,
+            y: graphXY.y - vy,
             fixed: true,
           };
         });
@@ -334,20 +358,33 @@ const ExperimentCluster = ({
       const result = findNodeForMouseEvent(e);
       if (result) {
         const { node, vx, vy } = result;
+        graphRef.current.updateNode(node, (attributes) => {
+          return {
+            ...attributes,
+            fixed: true,
+          };
+        });
         setDragging({ node, vx, vy });
       }
     },
-    [setDragging, findNodeForMouseEvent]
+    [setDragging, findNodeForMouseEvent, graphRef]
   );
 
   const onMouseUp = React.useCallback(
     (e) => {
       console.log('onMouseUp', e);
       if (dragging) {
+        const { node } = dragging;
+        graphRef.current.updateNode(node, (attributes) => {
+          return {
+            ...attributes,
+            fixed: false,
+          };
+        });
         setDragging(null);
       }
     },
-    [dragging, setDragging]
+    [dragging, setDragging, graphRef]
   );
 
   const onMouseOut = React.useCallback((e) => {
