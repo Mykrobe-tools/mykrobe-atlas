@@ -4,8 +4,8 @@
 
 import * as React from 'react';
 import useSize from '@react-hook/size';
-
-const Graph = require('graphology');
+import * as Color from 'color';
+import Graph from 'graphology';
 import forceAtlas2 from 'graphology-layout-forceatlas2';
 
 import useAnimationFrame from '../../../hooks/useAnimationFrame';
@@ -33,15 +33,19 @@ const ExperimentCluster = ({
   setExperimentsHighlighted,
   resetExperimentsHighlighted,
 }: React.ElementProps<*>) => {
+  // refs
   const clusterContainerRef = React.useRef();
   const canvasRef = React.useRef();
-  const boundingClientRect = useBoundingClientRect(canvasRef);
   const graphRef = React.useRef();
   const mapEntityIdToClusterNodeId = React.useRef({});
 
+  // states
   const [camera, setCamera] = React.useState({ ...CAMERA_DEFAULT });
   const [renderAttributes, setRenderAttributes] = React.useState();
+  const [dragging, setDragging] = React.useState();
 
+  // hooks
+  const boundingClientRect = useBoundingClientRect(canvasRef);
   const [width, height] = useSize(clusterContainerRef);
   const elapsedMilliseconds = useAnimationFrame();
 
@@ -56,12 +60,12 @@ const ExperimentCluster = ({
 
     // https://github.com/graphology/graphology-layout-forceatlas2#pre-requisites
     // each node must have an initial x and y
-    // here we arrange them in a circle
+    // here we assign a random position
+    // this produces a better layout than circular from testing
 
-    nodes.forEach((node, index) => {
-      const angle = (Math.PI * 2 * index) / nodes.length;
-      const x = 50 * Math.sin(angle);
-      const y = 50 * Math.cos(angle);
+    nodes.forEach((node) => {
+      const x = 0.1 + Math.random();
+      const y = 0.1 + Math.random();
       const includesCurrentExperiment = false;
       const attributes = {
         x,
@@ -77,7 +81,6 @@ const ExperimentCluster = ({
         }
       });
       graphRef.current.addNode(node.id, attributes);
-      // console.log({ mapIdToNode: mapEntityIdToClusterNodeId.current });
     });
 
     distance.forEach((distance) => {
@@ -94,24 +97,17 @@ const ExperimentCluster = ({
     }
     const sensibleSettings = forceAtlas2.inferSettings(graphRef.current);
 
-    // forceAtlas2.assign(graphRef.current, {
-    //   iterations: 1,
-    //   settings: sensibleSettings,
-    // });
-
     forceAtlas2.assign(graphRef.current, {
       iterations: 1,
       settings: {
         ...sensibleSettings,
         // adjustSizes: true, // needs investigation
-        edgeWeightInfluence: 2,
+        edgeWeightInfluence: 1,
       },
     });
 
     updateRenderAttributes();
   }, [elapsedMilliseconds]);
-
-  // console.log({ canvasStyle });
 
   // __________________________________________________________________________________________ draw to convas
 
@@ -156,17 +152,22 @@ const ExperimentCluster = ({
       scaleGraphToCanvas = canvasWidth / graphWidth;
     }
 
-    setRenderAttributes({
+    const attributes = {
       scaleGraphToCanvas,
       canvasWidth,
       canvasHeight,
       graphCenterX,
       graphCenterY,
-    });
-  });
+    };
+
+    setRenderAttributes(attributes);
+  }, [setRenderAttributes, graphRef, canvasRef]);
 
   const mapGraphToCanvas = React.useCallback(
     ({ x, y }) => {
+      if (!renderAttributes) {
+        return { x: 0, y: 0 };
+      }
       const {
         scaleGraphToCanvas,
         canvasWidth,
@@ -187,6 +188,29 @@ const ExperimentCluster = ({
     [renderAttributes]
   );
 
+  const mapCanvasToGraph = React.useCallback(
+    ({ x, y }) => {
+      if (!renderAttributes) {
+        return { x: 0, y: 0 };
+      }
+      const {
+        scaleGraphToCanvas,
+        canvasWidth,
+        canvasHeight,
+        graphCenterX,
+        graphCenterY,
+      } = renderAttributes;
+      const graphX =
+        (x - CANVAS_MARGIN - canvasWidth * 0.5) / scaleGraphToCanvas +
+        graphCenterX;
+      const graphY =
+        (y - CANVAS_MARGIN - canvasHeight * 0.5) / -scaleGraphToCanvas +
+        graphCenterY;
+      return { x: graphX, y: graphY };
+    },
+    [renderAttributes]
+  );
+
   const findNodeForCanvasCoordinates = React.useCallback(
     ({ x, y }) => {
       const nodes = graphRef.current.nodes();
@@ -198,11 +222,26 @@ const ExperimentCluster = ({
         const vy = y - canvasXY.y;
         const d = Math.sqrt(vx * vx + vy * vy);
         if (d <= 10) {
-          return { node, attributes };
+          return { node, attributes, vx, vy, d };
         }
       }
     },
-    [renderAttributes]
+    [renderAttributes, mapGraphToCanvas, graphRef]
+  );
+
+  const canvasXYForMouseEvent = React.useCallback((e) => {
+    const x = e.nativeEvent.offsetX;
+    const y = e.nativeEvent.offsetY;
+    return { x, y };
+  });
+
+  const findNodeForMouseEvent = React.useCallback(
+    (e) => {
+      const { x, y } = canvasXYForMouseEvent(e);
+      const result = findNodeForCanvasCoordinates({ x, y });
+      return result;
+    },
+    [findNodeForCanvasCoordinates]
   );
 
   const getRadiusForExperiments = React.useCallback((experiments) => {
@@ -260,49 +299,114 @@ const ExperimentCluster = ({
       }
     );
 
+    const experimentsHighlightedId = experimentsHighlighted.map(({ id }) => id);
+
     graphRef.current.forEachNode((node, attributes) => {
       const { x, y } = mapGraphToCanvas(attributes);
       const r = getRadiusForExperiments(attributes.experiments);
+      const isInExperimentsHighlighted = attributes.experiments.find(({ id }) =>
+        experimentsHighlightedId.includes(id)
+      );
 
-      context.fillStyle = attributes.includesCurrentExperiment
+      context.fillStyle = Colors.COLOR_GREY_MID;
+      context.beginPath();
+      context.arc(x, y, 1.5, 0, 2 * Math.PI, true);
+      context.closePath();
+      context.fill();
+
+      const color = attributes.includesCurrentExperiment
         ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
         : Colors.COLOR_HIGHLIGHT_EXPERIMENT;
 
+      context.fillStyle = Color(color).alpha(
+        isInExperimentsHighlighted ? 1 : 0.2
+      );
+      context.strokeStyle = color;
+      context.lineWidth = 0.5;
+
       context.beginPath();
       context.arc(x, y, r, 0, 2 * Math.PI, true);
-
       context.closePath();
       context.fill();
+      context.stroke();
     });
-  }, [mapGraphToCanvas, elapsedMilliseconds]);
+  }, [mapGraphToCanvas, elapsedMilliseconds, experimentsHighlighted]);
 
   // __________________________________________________________________________________________ mouse events
 
-  const onClick = React.useCallback((e) => {
-    console.log('onClick', e);
-  });
+  const onClick = React.useCallback(
+    (e) => {
+      const result = findNodeForMouseEvent(e);
+      if (!result) {
+        // clicked in space
+        resetExperimentsHighlighted();
+      }
+    },
+    [resetExperimentsHighlighted]
+  );
 
   const onMouseMove = React.useCallback(
     (e) => {
-      const x = e.nativeEvent.offsetX;
-      const y = e.nativeEvent.offsetY;
-      const result = findNodeForCanvasCoordinates({ x, y });
-      if (result) {
-        const { node, attributes } = result;
-        // console.log({ node, attributes });
-        setExperimentsHighlighted(attributes.experiments);
+      if (dragging) {
+        const { x, y } = canvasXYForMouseEvent(e);
+        const graphXY = mapCanvasToGraph({ x, y });
+        const { node, vx, vy } = dragging;
+        graphRef.current.updateNode(node, (attributes) => {
+          return {
+            ...attributes,
+            x: graphXY.x - vx,
+            y: graphXY.y - vy,
+            fixed: true,
+          };
+        });
+      } else {
+        const result = findNodeForMouseEvent(e);
+        if (result) {
+          const { attributes } = result;
+          setExperimentsHighlighted(attributes.experiments);
+        }
       }
     },
-    [findNodeForCanvasCoordinates, setExperimentsHighlighted]
+    [
+      findNodeForMouseEvent,
+      setExperimentsHighlighted,
+      dragging,
+      canvasXYForMouseEvent,
+    ]
   );
 
-  const onMouseDown = React.useCallback((e) => {
-    console.log('onMouseDown', e);
-  });
+  const onMouseDown = React.useCallback(
+    (e) => {
+      const result = findNodeForMouseEvent(e);
+      if (result) {
+        const { node, vx, vy } = result;
+        graphRef.current.updateNode(node, (attributes) => {
+          return {
+            ...attributes,
+            fixed: true,
+          };
+        });
+        setDragging({ node, vx, vy });
+      }
+    },
+    [setDragging, findNodeForMouseEvent, graphRef]
+  );
 
-  const onMouseUp = React.useCallback((e) => {
-    console.log('onMouseUp', e);
-  });
+  const onMouseUp = React.useCallback(
+    (e) => {
+      if (dragging) {
+        const { node } = dragging;
+        graphRef.current.updateNode(node, (attributes) => {
+          return {
+            ...attributes,
+            fixed: false,
+          };
+        });
+        setDragging(null);
+      }
+    },
+    [dragging, setDragging, graphRef]
+  );
 
   const onMouseOut = React.useCallback((e) => {
     console.log('onMouseOut', e);
@@ -372,16 +476,14 @@ const ExperimentCluster = ({
               const nodeId =
                 mapEntityIdToClusterNodeId.current[experimentHighlighted.id];
               if (nodeId) {
-                // console.log(nodeId);
                 const attributes = graphRef.current.getNodeAttributes(nodeId);
-                // console.log({ nodeId, attributes });
-                const experimentsTooltipLocation = mapGraphToCanvas({
+                const canvasXY = mapGraphToCanvas({
                   x: attributes.x,
                   y: attributes.y,
                 });
                 const screenPosition = {
-                  x: boundingClientRect.left + experimentsTooltipLocation.x,
-                  y: boundingClientRect.top + experimentsTooltipLocation.y,
+                  x: boundingClientRect.left + canvasXY.x,
+                  y: boundingClientRect.top + canvasXY.y,
                 };
                 return (
                   <ExperimentsTooltip
@@ -395,29 +497,10 @@ const ExperimentCluster = ({
                 );
               } else {
                 console.log(
-                  'Could not find MST experiment with id ',
+                  'Could not find MST experiment with id',
                   experimentHighlighted.id
                 );
-                // console.log({
-                //   experimentsHighlighted,
-                //   mapIdToNode: mapEntityIdToClusterNodeId.current,
-                // });
-                // debugger;
-                return null;
               }
-              // const experimentsTooltipLocation = this.screenPositionForNodeId(
-              //   leafId
-              // );
-              // return (
-              //   <ExperimentsTooltip
-              //     key={leafId}
-              //     experiment={experiment}
-              //     experiments={experiments}
-              //     x={experimentsTooltipLocation.x}
-              //     y={experimentsTooltipLocation.y}
-              //     onClickOutside={this.onExperimentsTooltipClickOutside}
-              //   />
-              // );
             })}
         </div>
       )}

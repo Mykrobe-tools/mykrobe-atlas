@@ -209,10 +209,31 @@ export const getExperimentClusterIsSearching = createSelector(
   }
 );
 
-export const getExperimentCluster = createSelector(
+export const getExperimentClusterRaw = createSelector(
   getExperiment,
   (experiment) => {
     return _get(experiment, 'results.cluster');
+  }
+);
+
+// take the experiment cluster and enrich with in nearest neighbour info
+export const getExperimentCluster = createSelector(
+  getExperimentNearestNeigbours,
+  getExperimentClusterRaw,
+  (experimentNearestNeigbours, experimentClusterRaw) => {
+    if (experimentClusterRaw) {
+      experimentClusterRaw.nodes.forEach((node) => {
+        node.experiments.forEach((nodeExperiment) => {
+          const experimentNearestNeigbour = experimentNearestNeigbours.find(
+            ({ id }) => id === nodeExperiment.id
+          );
+          if (experimentNearestNeigbour) {
+            Object.assign(nodeExperiment, experimentNearestNeigbour);
+          }
+        });
+      });
+    }
+    return experimentClusterRaw;
   }
 );
 
