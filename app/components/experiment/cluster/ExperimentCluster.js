@@ -165,6 +165,9 @@ const ExperimentCluster = ({
 
   const mapGraphToCanvas = React.useCallback(
     ({ x, y }) => {
+      if (!renderAttributes) {
+        return { x: 0, y: 0 };
+      }
       const {
         scaleGraphToCanvas,
         canvasWidth,
@@ -298,6 +301,16 @@ const ExperimentCluster = ({
   const onMouseMove = React.useCallback(
     (e) => {
       if (dragging) {
+        const { x, y } = canvasXYForMouseEvent(e);
+        const { node, vx, vy } = dragging;
+        graphRef.current.updateNode(node, (attributes) => {
+          return {
+            ...attributes,
+            x: x + vx,
+            y: y + vy,
+            fixed: true,
+          };
+        });
         console.log('dragging...');
       } else {
         const result = findNodeForMouseEvent(e);
@@ -307,7 +320,12 @@ const ExperimentCluster = ({
         }
       }
     },
-    [findNodeForMouseEvent, setExperimentsHighlighted, dragging]
+    [
+      findNodeForMouseEvent,
+      setExperimentsHighlighted,
+      dragging,
+      canvasXYForMouseEvent,
+    ]
   );
 
   const onMouseDown = React.useCallback(
