@@ -383,7 +383,10 @@ const ExperimentGeographicMap = ({
           const experiments = clusterMarkers.map((marker) =>
             marker.get('experiment')
           );
-          if (experiments.includes(experimentHighlighted)) {
+          const isIncluded = experiments.find(
+            ({ id }) => id === experimentHighlighted.id
+          );
+          if (isIncluded) {
             // show from cluster
             const key = JSON.stringify(center);
             if (!experimentsByLatLng[key]) {
@@ -396,11 +399,12 @@ const ExperimentGeographicMap = ({
         }
       });
       if (!handled) {
+        console.log('Showing individually');
         // show individually
         if (markers.length) {
           const marker = markers.find((marker) => {
             const experiment = marker.get('experiment');
-            return experiment === experimentHighlighted;
+            return experiment.id === experimentHighlighted.id;
           });
           if (marker) {
             const position = marker.getPosition();
@@ -411,6 +415,7 @@ const ExperimentGeographicMap = ({
             experimentsByLatLng[key].push(experimentHighlighted);
           } else {
             // Not found - map, markers and data may be loading and out of sync
+            debugger;
           }
         }
       }

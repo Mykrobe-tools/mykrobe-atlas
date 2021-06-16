@@ -31,6 +31,8 @@ import {
   updateExperiment,
   getExperimentDistanceIsSearching,
   getExperimentIsAnalysing,
+  getExperimentCluster,
+  getExperimentClusterIsSearching,
 } from '../modules/experiments';
 
 const withExperiment = connect(
@@ -68,6 +70,8 @@ const withExperiment = connect(
     isFetchingExperiment: getIsFetchingExperiment(state),
     experimentDistanceIsSearching: getExperimentDistanceIsSearching(state),
     experimentIsAnalysing: getExperimentIsAnalysing(state),
+    experimentCluster: getExperimentCluster(state),
+    experimentClusterIsSearching: getExperimentClusterIsSearching(state),
   }),
   {
     newExperiment,
@@ -106,6 +110,8 @@ export const withExperimentPropTypes = {
   isFetchingExperiment: PropTypes.bool,
   experimentDistanceIsSearching: PropTypes.bool,
   experimentIsAnalysing: PropTypes.bool,
+  experimentClusterIsSearching: PropTypes.bool,
+  experimentCluster: PropTypes.any,
 };
 
 export default withExperiment;

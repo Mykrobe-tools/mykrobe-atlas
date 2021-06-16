@@ -195,6 +195,48 @@ export const getExperimentAndNearestNeigbours = createSelector(
   }
 );
 
+// 'cliuster' = minimum spanning tree
+
+export const getExperimentClusterIsSearching = createSelector(
+  getExperiment,
+  getIsFetching,
+  (experiment, isFetching) => {
+    if (isFetching) {
+      return false;
+    }
+    const hasCluster = _has(experiment, 'results.cluster');
+    return !hasCluster;
+  }
+);
+
+export const getExperimentClusterRaw = createSelector(
+  getExperiment,
+  (experiment) => {
+    return _get(experiment, 'results.cluster');
+  }
+);
+
+// take the experiment cluster and enrich with in nearest neighbour info
+export const getExperimentCluster = createSelector(
+  getExperimentNearestNeigbours,
+  getExperimentClusterRaw,
+  (experimentNearestNeigbours, experimentClusterRaw) => {
+    if (experimentClusterRaw) {
+      experimentClusterRaw.nodes.forEach((node) => {
+        node.experiments.forEach((nodeExperiment) => {
+          const experimentNearestNeigbour = experimentNearestNeigbours.find(
+            ({ id }) => id === nodeExperiment.id
+          );
+          if (experimentNearestNeigbour) {
+            Object.assign(nodeExperiment, experimentNearestNeigbour);
+          }
+        });
+      });
+    }
+    return experimentClusterRaw;
+  }
+);
+
 // highlighted with and without tree node
 
 export const getExperimentAndNearestNeigboursInTree = createSelector(
