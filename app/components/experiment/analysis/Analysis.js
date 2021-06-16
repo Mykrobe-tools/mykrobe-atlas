@@ -99,8 +99,13 @@ class Analysis extends React.Component<*> {
               </div>
             )}
             <ExperimentCluster
+              experiment={experiment}
+              experimentIsolateId={experimentIsolateId}
               experimentCluster={experimentCluster}
               experimentClusterIsSearching={experimentClusterIsSearching}
+              experimentsHighlighted={experimentsHighlighted}
+              setExperimentsHighlighted={setExperimentsHighlighted}
+              resetExperimentsHighlighted={resetExperimentsHighlighted}
             />
           </div>
         </div>
