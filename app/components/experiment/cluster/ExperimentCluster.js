@@ -4,8 +4,8 @@
 
 import * as React from 'react';
 import useSize from '@react-hook/size';
-
-const Graph = require('graphology');
+import * as Color from 'color';
+import Graph from 'graphology';
 import forceAtlas2 from 'graphology-layout-forceatlas2';
 
 import useAnimationFrame from '../../../hooks/useAnimationFrame';
@@ -299,21 +299,38 @@ const ExperimentCluster = ({
       }
     );
 
+    const experimentsHighlightedId = experimentsHighlighted.map(({ id }) => id);
+
     graphRef.current.forEachNode((node, attributes) => {
       const { x, y } = mapGraphToCanvas(attributes);
       const r = getRadiusForExperiments(attributes.experiments);
+      const isInExperimentsHighlighted = attributes.experiments.find(({ id }) =>
+        experimentsHighlightedId.includes(id)
+      );
 
-      context.fillStyle = attributes.includesCurrentExperiment
+      context.fillStyle = Colors.COLOR_GREY_MID;
+      context.beginPath();
+      context.arc(x, y, 1.5, 0, 2 * Math.PI, true);
+      context.closePath();
+      context.fill();
+
+      const color = attributes.includesCurrentExperiment
         ? Colors.COLOR_HIGHLIGHT_EXPERIMENT_FIRST
         : Colors.COLOR_HIGHLIGHT_EXPERIMENT;
 
+      context.fillStyle = Color(color).alpha(
+        isInExperimentsHighlighted ? 1 : 0.2
+      );
+      context.strokeStyle = color;
+      context.lineWidth = 0.5;
+
       context.beginPath();
       context.arc(x, y, r, 0, 2 * Math.PI, true);
-
       context.closePath();
       context.fill();
+      context.stroke();
     });
-  }, [mapGraphToCanvas, elapsedMilliseconds]);
+  }, [mapGraphToCanvas, elapsedMilliseconds, experimentsHighlighted]);
 
   // __________________________________________________________________________________________ mouse events
 
