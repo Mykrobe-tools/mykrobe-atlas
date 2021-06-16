@@ -317,9 +317,16 @@ const ExperimentCluster = ({
 
   // __________________________________________________________________________________________ mouse events
 
-  const onClick = React.useCallback((e) => {
-    console.log('onClick', e);
-  });
+  const onClick = React.useCallback(
+    (e) => {
+      const result = findNodeForMouseEvent(e);
+      if (!result) {
+        // clicked in space
+        resetExperimentsHighlighted();
+      }
+    },
+    [resetExperimentsHighlighted]
+  );
 
   const onMouseMove = React.useCallback(
     (e) => {
@@ -335,7 +342,6 @@ const ExperimentCluster = ({
             fixed: true,
           };
         });
-        console.log('dragging...');
       } else {
         const result = findNodeForMouseEvent(e);
         if (result) {
@@ -354,7 +360,6 @@ const ExperimentCluster = ({
 
   const onMouseDown = React.useCallback(
     (e) => {
-      console.log('onMouseDown', e);
       const result = findNodeForMouseEvent(e);
       if (result) {
         const { node, vx, vy } = result;
@@ -372,7 +377,6 @@ const ExperimentCluster = ({
 
   const onMouseUp = React.useCallback(
     (e) => {
-      console.log('onMouseUp', e);
       if (dragging) {
         const { node } = dragging;
         graphRef.current.updateNode(node, (attributes) => {
