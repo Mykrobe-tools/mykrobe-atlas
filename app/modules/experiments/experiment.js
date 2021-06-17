@@ -221,7 +221,7 @@ export const getExperimentCluster = createSelector(
   getExperimentNearestNeigbours,
   getExperimentClusterRaw,
   (experimentNearestNeigbours, experimentClusterRaw) => {
-    if (experimentClusterRaw) {
+    if (experimentClusterRaw && experimentNearestNeigbours) {
       experimentClusterRaw.nodes.forEach((node) => {
         node.experiments.forEach((nodeExperiment) => {
           const experimentNearestNeigbour = experimentNearestNeigbours.find(
