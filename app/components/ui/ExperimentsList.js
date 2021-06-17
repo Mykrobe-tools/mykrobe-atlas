@@ -37,17 +37,19 @@ const ExperimentsList = ({
   experiments = [],
   expandable = false,
 }: React.ElementProps<*>): React.Element<*> | null => {
+  const [collapse, setCollapse] = React.useState(false);
+  const toggleCollapse = React.useCallback(() => {
+    setCollapse(!collapse);
+  }, [setCollapse]);
+
   if (!experiments || !experiments.length) {
     return null;
   }
 
   if (expandable && experiments.length > 6) {
-    const [collapse, setCollapse] = React.useState(false);
     const visibleExperiments = experiments.slice(0, 5).map(ExperimentsListItem);
     const hiddenExperiments = experiments.slice(5).map(ExperimentsListItem);
-    const toggleCollapse = React.useCallback(() => {
-      setCollapse(!collapse);
-    });
+
     return (
       <React.Fragment>
         {visibleExperiments}
@@ -63,6 +65,17 @@ const ExperimentsList = ({
         )}
       </React.Fragment>
     );
+  }
+
+  // ensure 'experiment' is first
+  if (experiment) {
+    const experimentIndex = experiments.findIndex(
+      ({ id }) => id === experiment.id
+    );
+    if (experimentIndex > 0) {
+      experiments.splice(experimentIndex, 1);
+      experiments.unshift(experiment);
+    }
   }
 
   return experiments.map((experimentItem) => {

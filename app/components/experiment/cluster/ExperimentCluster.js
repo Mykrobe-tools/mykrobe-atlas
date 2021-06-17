@@ -7,6 +7,7 @@ import useSize from '@react-hook/size';
 import * as Color from 'color';
 import Graph from 'graphology';
 import forceAtlas2 from 'graphology-layout-forceatlas2';
+import _orderBy from 'lodash.orderby';
 
 import useAnimationFrame from '../../../hooks/useAnimationFrame';
 import useBoundingClientRect from '../../../hooks/useBoundingClientRect';
@@ -250,6 +251,10 @@ const ExperimentCluster = ({
     return Math.min(MAX_RADIUS, MIN_RADIUS + radius * 5);
   });
 
+  const experimentsHighlightedId = React.useMemo(() => {
+    return experimentsHighlighted.map(({ id }) => id);
+  }, [experimentsHighlighted]);
+
   React.useEffect(() => {
     if (!canvasRef.current || !renderAttributes) {
       return;
@@ -299,8 +304,6 @@ const ExperimentCluster = ({
       }
     );
 
-    const experimentsHighlightedId = experimentsHighlighted.map(({ id }) => id);
-
     graphRef.current.forEachNode((node, attributes) => {
       const { x, y } = mapGraphToCanvas(attributes);
       const r = getRadiusForExperiments(attributes.experiments);
@@ -330,7 +333,7 @@ const ExperimentCluster = ({
       context.fill();
       context.stroke();
     });
-  }, [mapGraphToCanvas, elapsedMilliseconds, experimentsHighlighted]);
+  }, [mapGraphToCanvas, elapsedMilliseconds, experimentsHighlightedId]);
 
   // __________________________________________________________________________________________ mouse events
 
@@ -485,11 +488,20 @@ const ExperimentCluster = ({
                   x: boundingClientRect.left + canvasXY.x,
                   y: boundingClientRect.top + canvasXY.y,
                 };
+                const nodeExperiments = attributes.experiments.filter(
+                  ({ id }) => {
+                    return experimentsHighlightedId.includes(id);
+                  }
+                );
+                const sortedNodeExperiments = _orderBy(
+                  nodeExperiments,
+                  'distance'
+                );
                 return (
                   <ExperimentsTooltip
                     key={experimentHighlighted.id}
                     experiment={experiment}
-                    experiments={attributes.experiments}
+                    experiments={sortedNodeExperiments}
                     x={screenPosition.x}
                     y={screenPosition.y}
                     onClickOutside={resetExperimentsHighlighted}
