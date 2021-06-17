@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import _get from 'lodash.get';
 import { Link } from 'react-router-dom';
 import { Collapse } from 'reactstrap';
+import _orderBy from 'lodash.orderby';
 
 import styles from './ExperimentsList.module.scss';
 
@@ -67,18 +68,20 @@ const ExperimentsList = ({
     );
   }
 
+  const sortedExperiments = _orderBy(experiments, 'distance');
+
   // ensure 'experiment' is first
   if (experiment) {
-    const experimentIndex = experiments.findIndex(
+    const experimentIndex = sortedExperiments.findIndex(
       ({ id }) => id === experiment.id
     );
     if (experimentIndex > 0) {
-      experiments.splice(experimentIndex, 1);
-      experiments.unshift(experiment);
+      sortedExperiments.splice(experimentIndex, 1);
+      sortedExperiments.unshift(experiment);
     }
   }
 
-  return experiments.map((experimentItem) => {
+  return sortedExperiments.map((experimentItem) => {
     const highlighted = experimentItem?.id === experiment?.id;
     if (!experimentItem.id) {
       return null;

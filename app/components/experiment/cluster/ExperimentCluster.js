@@ -7,7 +7,6 @@ import useSize from '@react-hook/size';
 import * as Color from 'color';
 import Graph from 'graphology';
 import forceAtlas2 from 'graphology-layout-forceatlas2';
-import _orderBy from 'lodash.orderby';
 
 import useAnimationFrame from '../../../hooks/useAnimationFrame';
 import useBoundingClientRect from '../../../hooks/useBoundingClientRect';
@@ -493,15 +492,11 @@ const ExperimentCluster = ({
                     return experimentsHighlightedId.includes(id);
                   }
                 );
-                const sortedNodeExperiments = _orderBy(
-                  nodeExperiments,
-                  'distance'
-                );
                 return (
                   <ExperimentsTooltip
                     key={experimentHighlighted.id}
                     experiment={experiment}
-                    experiments={sortedNodeExperiments}
+                    experiments={nodeExperiments}
                     x={screenPosition.x}
                     y={screenPosition.y}
                     onClickOutside={resetExperimentsHighlighted}
