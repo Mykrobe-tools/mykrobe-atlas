@@ -21,6 +21,7 @@ import experimentsTree, { experimentsTreeSaga } from './experimentsTree';
 import { experimentsFiltersChoicesSaga } from './experimentsFiltersChoices';
 import { experimentsNotificationSaga } from './experimentsNotification';
 import experimentsHighlighted from './experimentsHighlighted';
+import { reducer as experimentSettings } from './experimentSettings';
 
 export {
   getExperiments,
@@ -124,6 +125,11 @@ export {
   experimentsTreeSaga,
 } from './experimentsTree';
 
+export {
+  selectors as experimentSettingsSelectors,
+  actions as experimentSettingsActions,
+} from './experimentSettings';
+
 const reducer = combineReducers({
   experiments,
   experimentsFilters,
@@ -132,6 +138,7 @@ const reducer = combineReducers({
   experiment,
   experimentMetadataTemplate,
   experimentsHighlighted,
+  experimentSettings,
 });
 
 export {
