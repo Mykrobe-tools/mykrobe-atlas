@@ -31,6 +31,7 @@ import {
   completenessForSchemaAndData,
 } from '../../schemas/experiment';
 import { getExperimentMetadataFormCompletion } from './experimentMetadataForm';
+import { selectors as experimentSettingsSelectors } from './experimentSettings';
 
 const module = createEntityModule('experiment', {
   typePrefix: 'experiments/experiment/',
@@ -147,12 +148,15 @@ export const getExperimentDistanceIsSearching = createSelector(
 
 export const getExperimentNearestNeigbours = createSelector(
   getExperiment,
-  (experiment) => {
+  experimentSettingsSelectors.getDistanceThreshold,
+  (experiment, distanceThreshold) => {
     const neighbours = _get(experiment, 'results.distance.experiments');
     // omit current sample if included
     if (neighbours) {
       const filtered = neighbours.filter(
-        (neighbour) => neighbour.id !== experiment.id
+        (neighbour) =>
+          neighbour.id !== experiment.id &&
+          neighbour.distance <= distanceThreshold
       );
       return filtered;
     }

@@ -11,7 +11,7 @@ export const actions = {
 
 // Selectors
 
-const getState = (state: any) => state?.experimentSettings;
+const getState = (state: any) => state?.experiments?.experimentSettings;
 
 const getDistanceThreshold = createSelector(
   getState,
