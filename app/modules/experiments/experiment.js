@@ -13,6 +13,7 @@ import type { Saga } from 'redux-saga';
 import { createSelector } from 'reselect';
 import _get from 'lodash.get';
 import _has from 'lodash.has';
+import produce from 'immer';
 
 import { showNotification, NotificationCategories } from '../notifications';
 import { createEntityModule } from 'makeandship-js-common/src/modules/generic';
@@ -220,12 +221,19 @@ export const getExperimentClusterRaw = createSelector(
   }
 );
 
-// take the experiment cluster and enrich with in nearest neighbour info
 export const getExperimentCluster = createSelector(
+  getExperiment,
   getExperimentNearestNeigbours,
   getExperimentClusterRaw,
-  (experimentNearestNeigbours, experimentClusterRaw) => {
+  experimentSettingsSelectors.getDistanceThreshold,
+  (
+    experiment,
+    experimentNearestNeigbours,
+    experimentClusterRaw,
+    distanceThreshold
+  ) => {
     if (experimentClusterRaw && experimentNearestNeigbours) {
+      // take the experiment cluster and enrich with in nearest neighbour info
       experimentClusterRaw.nodes.forEach((node) => {
         node.experiments.forEach((nodeExperiment) => {
           const experimentNearestNeigbour = experimentNearestNeigbours.find(
@@ -236,6 +244,72 @@ export const getExperimentCluster = createSelector(
           }
         });
       });
+    }
+    // filter based on sum distance from the root node representing experiment
+    if (experiment && experimentClusterRaw) {
+      const rootNode = experimentClusterRaw.nodes.find((node) => {
+        const rootNodeExperiment = node.experiments.find((nodeExperiment) => {
+          return nodeExperiment.id === experiment.id;
+        });
+        if (rootNodeExperiment) {
+          return true;
+        }
+      });
+      if (rootNode) {
+        const edges = experimentClusterRaw.distance;
+        const edgesWithStartId = (id) =>
+          edges.filter(({ start }) => start === id);
+        const edgesWithEndId = (id) => edges.filter(({ end }) => end === id);
+        const mapNodeIdToDistance = {};
+        const traverseEdge = ({ edge, sumDistance = 0 }) => {
+          const { start, end, distance } = edge;
+          sumDistance += distance;
+          if (distance === 5) {
+            console.log(JSON.stringify(edge, null, 2));
+          }
+          const nextEdges = edgesWithStartId(end);
+          if (nextEdges.length > 0) {
+            nextEdges.forEach((nextEdge) => {
+              traverseEdge({ edge: nextEdge, sumDistance });
+            });
+          } else {
+            mapNodeIdToDistance[end] = sumDistance;
+          }
+        };
+        const startEdges = edgesWithStartId(rootNode.id);
+        mapNodeIdToDistance[rootNode.id] = 0;
+        startEdges.forEach((starEdges) => {
+          traverseEdge({ edge: starEdges });
+        });
+        // filter nodes with sum distance <= threshold
+        const nodesIdsToInclude = Object.entries(mapNodeIdToDistance).flatMap(
+          ([nodeIdString, sumDistance]) => {
+            if (sumDistance <= distanceThreshold) {
+              return parseInt(nodeIdString);
+            }
+            return [];
+          }
+        );
+        console.log({ mapNodeIdToDistance, nodesIdsToInclude });
+        const filteredExperimentClusterRaw = produce(
+          experimentClusterRaw,
+          (draft) => {
+            // draft.nodes = draft.nodes.filter(({ id }) =>
+            //   nodesIdsToInclude.includes(id)
+            // );
+            // draft.distance = draft.distance.filter(
+            //   ({ start, end }) =>
+            //     nodesIdsToInclude.includes(start) ||
+            //     nodesIdsToInclude.includes(end)
+            // );
+
+            draft.distance = draft.distance.filter(({ start, end }) =>
+              nodesIdsToInclude.includes(end)
+            );
+          }
+        );
+        return filteredExperimentClusterRaw;
+      }
     }
     return experimentClusterRaw;
   }

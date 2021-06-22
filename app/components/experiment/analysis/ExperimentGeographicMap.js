@@ -415,7 +415,7 @@ const ExperimentGeographicMap = ({
             experimentsByLatLng[key].push(experimentHighlighted);
           } else {
             // Not found - map, markers and data may be loading and out of sync
-            debugger;
+            // debugger;
           }
         }
       }
