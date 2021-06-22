@@ -232,6 +232,17 @@ export const getExperimentCluster = createSelector(
     experimentClusterRaw,
     distanceThreshold
   ) => {
+    // if (experimentClusterRaw) {
+    //   // local optimisation - make sure start < end
+    //   experimentClusterRaw.distance.forEach((edge) => {
+    //     if (edge.start > edge.end) {
+    //       const temp = edge.start;
+    //       edge.start = edge.end;
+    //       edge.end = temp;
+    //     }
+    //   });
+    //   console.log(JSON.stringify(experimentClusterRaw.distance, null, 2));
+    // }
     if (experimentClusterRaw && experimentNearestNeigbours) {
       // take the experiment cluster and enrich with in nearest neighbour info
       experimentClusterRaw.nodes.forEach((node) => {
@@ -258,28 +269,59 @@ export const getExperimentCluster = createSelector(
       if (rootNode) {
         const edges = experimentClusterRaw.distance;
         const edgesWithStartId = (id) =>
-          edges.filter(({ start }) => start === id);
-        const edgesWithEndId = (id) => edges.filter(({ end }) => end === id);
+          edges.filter(({ start }) => start == id);
+        const edgesWithEndId = (id) => edges.filter(({ end }) => end == id);
+        const edgesWithId = (id) =>
+          edges.filter(({ start, end }) => start == id || end == id);
         const mapNodeIdToDistance = {};
-        const traverseEdge = ({ edge, sumDistance = 0 }) => {
+        const traverseEdge = ({
+          rootNodeId = false,
+          edge,
+          previousEdges = [],
+          sumDistance = 0,
+        }) => {
           const { start, end, distance } = edge;
           sumDistance += distance;
-          if (distance === 5) {
-            console.log(JSON.stringify(edge, null, 2));
+          mapNodeIdToDistance[end] = sumDistance;
+          // if (end == 7 || end == 8) {
+          //   debugger;
+          // }
+          const previousEdgesInclusive = [
+            ...previousEdges,
+            JSON.stringify(edge),
+          ];
+          let nextEdges = [];
+          // don't traverse rootNodeId
+          if (start !== rootNodeId) {
+            nextEdges = nextEdges.concat(edgesWithId(start));
           }
-          const nextEdges = edgesWithStartId(end);
+          if (end !== rootNodeId) {
+            nextEdges = nextEdges.concat(edgesWithId(end));
+          }
+          // remove any that have already been traversed
+          nextEdges = nextEdges.filter(
+            (nextEdge) =>
+              !previousEdgesInclusive.includes(JSON.stringify(nextEdge))
+          );
+          console.log(nextEdges);
           if (nextEdges.length > 0) {
             nextEdges.forEach((nextEdge) => {
-              traverseEdge({ edge: nextEdge, sumDistance });
+              traverseEdge({
+                edge: nextEdge,
+                previousEdges: previousEdgesInclusive,
+                sumDistance,
+              });
             });
           } else {
-            mapNodeIdToDistance[end] = sumDistance;
+            if (end == 2 || start == 2) {
+              debugger;
+            }
           }
         };
         const startEdges = edgesWithStartId(rootNode.id);
         mapNodeIdToDistance[rootNode.id] = 0;
-        startEdges.forEach((starEdges) => {
-          traverseEdge({ edge: starEdges });
+        startEdges.forEach((startEdge) => {
+          traverseEdge({ rootNodeId: rootNode.id, edge: startEdge });
         });
         // filter nodes with sum distance <= threshold
         const nodesIdsToInclude = Object.entries(mapNodeIdToDistance).flatMap(
@@ -302,10 +344,9 @@ export const getExperimentCluster = createSelector(
             //     nodesIdsToInclude.includes(start) ||
             //     nodesIdsToInclude.includes(end)
             // );
-
-            draft.distance = draft.distance.filter(({ start, end }) =>
-              nodesIdsToInclude.includes(end)
-            );
+            // draft.distance = draft.distance.filter(({ start, end }) =>
+            //   nodesIdsToInclude.includes(end)
+            // );
           }
         );
         return filteredExperimentClusterRaw;

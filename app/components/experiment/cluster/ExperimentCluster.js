@@ -364,6 +364,7 @@ const ExperimentCluster = ({
       } else {
         const result = findNodeForMouseEvent(e);
         if (result) {
+          console.log(result);
           const { attributes } = result;
           setExperimentsHighlighted(attributes.experiments);
         }
@@ -411,7 +412,7 @@ const ExperimentCluster = ({
   );
 
   const onMouseOut = React.useCallback((e) => {
-    console.log('onMouseOut', e);
+    // console.log('onMouseOut', e);
   });
 
   const mouseWheel = React.useCallback((event) => {
@@ -503,10 +504,10 @@ const ExperimentCluster = ({
                   />
                 );
               } else {
-                console.log(
-                  'Could not find MST experiment with id',
-                  experimentHighlighted.id
-                );
+                // console.log(
+                //   'Could not find MST experiment with id',
+                //   experimentHighlighted.id
+                // );
               }
             })}
         </div>
