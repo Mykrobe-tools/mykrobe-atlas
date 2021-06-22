@@ -33,8 +33,15 @@
 .mapAndPhylogenyContainer {
   composes: container from '~styles/layout.scss';
   background-color: white;
+  position: relative;
 }
 
 .phylogenyContainer {
   composes: container from '~styles/layout.scss';
+}
+
+.controlsTopRight {
+  position: absolute;
+  right: 0;
+  margin: 30px;
 }

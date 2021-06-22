@@ -21,6 +21,7 @@ import {
   requestExperiments,
   requestExperiment,
   deleteExperiment,
+  experimentSettingsActions,
 } from '../modules/experiments';
 
 import {
@@ -49,7 +50,7 @@ export const actionCreators = {
   requestExperiments,
   requestExperiment,
   deleteExperiment,
-  login,
+  setDistanceThreshold: experimentSettingsActions.setDistanceThreshold,
   register,
   logout,
   updateToken,

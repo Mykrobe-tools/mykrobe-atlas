@@ -16,6 +16,7 @@ import { withExperimentsHighlightedPropTypes } from '../../../hoc/withExperiment
 
 import styles from './Analysis.module.scss';
 import ExperimentCluster from '../cluster/ExperimentCluster';
+import DistanceThresholdControl from './DistanceThresholdControl';
 
 class Analysis extends React.Component<*> {
   render() {
@@ -107,6 +108,9 @@ class Analysis extends React.Component<*> {
               setExperimentsHighlighted={setExperimentsHighlighted}
               resetExperimentsHighlighted={resetExperimentsHighlighted}
             />
+            <div className={styles.controlsTopRight}>
+              <DistanceThresholdControl />
+            </div>
           </div>
         </div>
       );
