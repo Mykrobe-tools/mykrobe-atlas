@@ -267,13 +267,13 @@ export const getExperimentCluster = createSelector(
         }
       });
       if (rootNode) {
-        const edges = experimentClusterRaw.distance;
-        const edgesWithStartId = (id) =>
-          edges.filter(({ start }) => start == id);
-        const edgesWithEndId = (id) => edges.filter(({ end }) => end == id);
         const edgesWithId = (id) =>
-          edges.filter(({ start, end }) => start == id || end == id);
+          experimentClusterRaw.distance.filter(
+            ({ start, end }) => start == id || end == id
+          );
         const mapNodeIdToDistance = {};
+
+        // traverse without going back to edges with previous node id
         const traverseEdge = ({ previousNodeId, edge, sumDistance = 0 }) => {
           const { start, end, distance } = edge;
           sumDistance += distance;
@@ -281,7 +281,7 @@ export const getExperimentCluster = createSelector(
           const nextNodeId = start == previousNodeId ? end : start;
           mapNodeIdToDistance[nextNodeId] = sumDistance;
 
-          console.log(`${previousNodeId} -> ${nextNodeId} (${distance})`);
+          // console.log(`${previousNodeId} -> ${nextNodeId} (${distance})`);
 
           const nextEdges = edgesWithId(nextNodeId).filter(
             ({ start, end }) => start != previousNodeId && end != previousNodeId
@@ -296,12 +296,9 @@ export const getExperimentCluster = createSelector(
                 sumDistance,
               });
             });
-          } else {
-            if (end == 2 || start == 2) {
-              // debugger;
-            }
           }
         };
+
         const startEdges = edgesWithId(rootNode.id);
         mapNodeIdToDistance[rootNode.id] = 0;
         startEdges.forEach((startEdge) => {
