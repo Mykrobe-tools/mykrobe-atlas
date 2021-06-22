@@ -332,8 +332,8 @@ const ExperimentCluster = ({
       context.fill();
       context.stroke();
 
-      context.fillStyle = Colors.COLOR_GREY_MID;
-      context.fillText(`(id ${node})`, x + r + 15, y);
+      // context.fillStyle = Colors.COLOR_GREY_MID;
+      // context.fillText(`(id ${node})`, x + r + 15, y);
     });
   }, [mapGraphToCanvas, elapsedMilliseconds, experimentsHighlightedId]);
 
