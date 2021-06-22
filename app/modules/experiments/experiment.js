@@ -274,54 +274,38 @@ export const getExperimentCluster = createSelector(
         const edgesWithId = (id) =>
           edges.filter(({ start, end }) => start == id || end == id);
         const mapNodeIdToDistance = {};
-        const traverseEdge = ({
-          rootNodeId = false,
-          edge,
-          previousEdges = [],
-          sumDistance = 0,
-        }) => {
+        const traverseEdge = ({ previousNodeId, edge, sumDistance = 0 }) => {
           const { start, end, distance } = edge;
           sumDistance += distance;
-          mapNodeIdToDistance[end] = sumDistance;
-          // if (end == 7 || end == 8) {
-          //   debugger;
-          // }
-          const previousEdgesInclusive = [
-            ...previousEdges,
-            JSON.stringify(edge),
-          ];
-          let nextEdges = [];
-          // don't traverse rootNodeId
-          if (start !== rootNodeId) {
-            nextEdges = nextEdges.concat(edgesWithId(start));
-          }
-          if (end !== rootNodeId) {
-            nextEdges = nextEdges.concat(edgesWithId(end));
-          }
-          // remove any that have already been traversed
-          nextEdges = nextEdges.filter(
-            (nextEdge) =>
-              !previousEdgesInclusive.includes(JSON.stringify(nextEdge))
+
+          const nextNodeId = start == previousNodeId ? end : start;
+          mapNodeIdToDistance[nextNodeId] = sumDistance;
+
+          console.log(`${previousNodeId} -> ${nextNodeId} (${distance})`);
+
+          const nextEdges = edgesWithId(nextNodeId).filter(
+            ({ start, end }) => start != previousNodeId && end != previousNodeId
           );
-          console.log(nextEdges);
+
+          // console.log(nextEdges);
           if (nextEdges.length > 0) {
             nextEdges.forEach((nextEdge) => {
               traverseEdge({
                 edge: nextEdge,
-                previousEdges: previousEdgesInclusive,
+                previousNodeId: nextNodeId,
                 sumDistance,
               });
             });
           } else {
             if (end == 2 || start == 2) {
-              debugger;
+              // debugger;
             }
           }
         };
-        const startEdges = edgesWithStartId(rootNode.id);
+        const startEdges = edgesWithId(rootNode.id);
         mapNodeIdToDistance[rootNode.id] = 0;
         startEdges.forEach((startEdge) => {
-          traverseEdge({ rootNodeId: rootNode.id, edge: startEdge });
+          traverseEdge({ previousNodeId: rootNode.id, edge: startEdge });
         });
         // filter nodes with sum distance <= threshold
         const nodesIdsToInclude = Object.entries(mapNodeIdToDistance).flatMap(
@@ -336,17 +320,14 @@ export const getExperimentCluster = createSelector(
         const filteredExperimentClusterRaw = produce(
           experimentClusterRaw,
           (draft) => {
-            // draft.nodes = draft.nodes.filter(({ id }) =>
-            //   nodesIdsToInclude.includes(id)
-            // );
-            // draft.distance = draft.distance.filter(
-            //   ({ start, end }) =>
-            //     nodesIdsToInclude.includes(start) ||
-            //     nodesIdsToInclude.includes(end)
-            // );
-            // draft.distance = draft.distance.filter(({ start, end }) =>
-            //   nodesIdsToInclude.includes(end)
-            // );
+            draft.nodes = draft.nodes.filter(({ id }) =>
+              nodesIdsToInclude.includes(id)
+            );
+            draft.distance = draft.distance.filter(
+              ({ start, end }) =>
+                nodesIdsToInclude.includes(start) &&
+                nodesIdsToInclude.includes(end)
+            );
           }
         );
         return filteredExperimentClusterRaw;
