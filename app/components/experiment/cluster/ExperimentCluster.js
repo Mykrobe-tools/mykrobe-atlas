@@ -49,6 +49,12 @@ const ExperimentCluster = ({
   const [width, height] = useSize(clusterContainerRef);
   const elapsedMilliseconds = useAnimationFrame();
 
+  const getRadiusForExperiments = React.useCallback((experiments) => {
+    const area = experiments.length;
+    const radius = Math.sqrt(area / Math.PI);
+    return Math.min(MAX_RADIUS, MIN_RADIUS + radius * 5);
+  }, []);
+
   React.useEffect(() => {
     const { nodes, distance } = experimentCluster;
     if (!nodes) {
@@ -89,25 +95,7 @@ const ExperimentCluster = ({
         weight: 1 / distance.distance,
       });
     });
-  }, [experimentCluster]);
-
-  React.useEffect(() => {
-    if (!graphRef.current) {
-      return;
-    }
-    const sensibleSettings = forceAtlas2.inferSettings(graphRef.current);
-
-    forceAtlas2.assign(graphRef.current, {
-      iterations: 1,
-      settings: {
-        ...sensibleSettings,
-        // adjustSizes: true, // needs investigation
-        edgeWeightInfluence: 1,
-      },
-    });
-
-    updateRenderAttributes();
-  }, [elapsedMilliseconds]);
+  }, [experiment.id, experimentCluster, getRadiusForExperiments]);
 
   // __________________________________________________________________________________________ draw to convas
 
@@ -162,6 +150,24 @@ const ExperimentCluster = ({
 
     setRenderAttributes(attributes);
   }, [setRenderAttributes, graphRef, canvasRef]);
+
+  React.useEffect(() => {
+    if (!graphRef.current) {
+      return;
+    }
+    const sensibleSettings = forceAtlas2.inferSettings(graphRef.current);
+
+    forceAtlas2.assign(graphRef.current, {
+      iterations: 1,
+      settings: {
+        ...sensibleSettings,
+        // adjustSizes: true, // needs investigation
+        edgeWeightInfluence: 1,
+      },
+    });
+
+    updateRenderAttributes();
+  }, [elapsedMilliseconds, updateRenderAttributes]);
 
   const mapGraphToCanvas = React.useCallback(
     ({ x, y }) => {
@@ -226,14 +232,14 @@ const ExperimentCluster = ({
         }
       }
     },
-    [renderAttributes, mapGraphToCanvas, graphRef]
+    [mapGraphToCanvas, graphRef]
   );
 
   const canvasXYForMouseEvent = React.useCallback((e) => {
     const x = e.nativeEvent.offsetX;
     const y = e.nativeEvent.offsetY;
     return { x, y };
-  });
+  }, []);
 
   const findNodeForMouseEvent = React.useCallback(
     (e) => {
@@ -241,14 +247,8 @@ const ExperimentCluster = ({
       const result = findNodeForCanvasCoordinates({ x, y });
       return result;
     },
-    [findNodeForCanvasCoordinates]
+    [canvasXYForMouseEvent, findNodeForCanvasCoordinates]
   );
-
-  const getRadiusForExperiments = React.useCallback((experiments) => {
-    const area = experiments.length;
-    const radius = Math.sqrt(area / Math.PI);
-    return Math.min(MAX_RADIUS, MIN_RADIUS + radius * 5);
-  });
 
   const experimentsHighlightedId = React.useMemo(() => {
     return experimentsHighlighted.map(({ id }) => id);
@@ -335,7 +335,13 @@ const ExperimentCluster = ({
       // context.fillStyle = Colors.COLOR_GREY_MID;
       // context.fillText(`(id ${node})`, x + r + 15, y);
     });
-  }, [mapGraphToCanvas, elapsedMilliseconds, experimentsHighlightedId]);
+  }, [
+    mapGraphToCanvas,
+    elapsedMilliseconds,
+    experimentsHighlightedId,
+    renderAttributes,
+    getRadiusForExperiments,
+  ]);
 
   // __________________________________________________________________________________________ mouse events
 
@@ -347,7 +353,7 @@ const ExperimentCluster = ({
         resetExperimentsHighlighted();
       }
     },
-    [resetExperimentsHighlighted]
+    [findNodeForMouseEvent, resetExperimentsHighlighted]
   );
 
   const onMouseMove = React.useCallback(
@@ -374,10 +380,11 @@ const ExperimentCluster = ({
       }
     },
     [
-      findNodeForMouseEvent,
-      setExperimentsHighlighted,
       dragging,
       canvasXYForMouseEvent,
+      mapCanvasToGraph,
+      findNodeForMouseEvent,
+      setExperimentsHighlighted,
     ]
   );
 
