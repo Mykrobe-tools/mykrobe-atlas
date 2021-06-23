@@ -475,7 +475,7 @@ const ExperimentCluster = ({
       (experimentHighlighted) => {
         const nodeId =
           mapEntityIdToClusterNodeId.current[experimentHighlighted.id];
-        if (nodeId) {
+        if (nodeId !== undefined) {
           const attributes = graphRef.current.getNodeAttributes(nodeId);
           const nodeExperiments = attributes.experiments.filter(({ id }) => {
             return experimentsHighlightedId.includes(id);
