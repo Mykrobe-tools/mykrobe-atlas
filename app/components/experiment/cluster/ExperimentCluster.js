@@ -14,6 +14,7 @@ import useBoundingClientRect from '../../../hooks/useBoundingClientRect';
 import styles from './ExperimentCluster.module.scss';
 import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
 import * as Colors from '../../../constants/Colors';
+import Empty from '../../ui/Empty';
 
 const CAMERA_DEFAULT = {
   x: 0,
@@ -526,12 +527,17 @@ const ExperimentCluster = ({
 
   // __________________________________________________________________________________________ render
 
+  /*
+  
+        */
+
+  const isEmpty = experimentCluster.distance?.length === 0;
   return (
     <div className={styles.container}>
       {experimentClusterIsSearching ? (
         <span>Cluster searching…</span>
       ) : (
-        <div ref={clusterContainerRef} className={styles.svgContainer}>
+        <div ref={clusterContainerRef} className={styles.clusterContainer}>
           <canvas
             ref={setCanvasRef}
             width={width}
@@ -543,6 +549,15 @@ const ExperimentCluster = ({
             onMouseOut={onMouseOut}
           />
           {tooltips}
+        </div>
+      )}
+      {isEmpty && (
+        <div className={styles.emptyContainer}>
+          <Empty
+            icon={'snowflake-o'}
+            title={'No cluster'}
+            subtitle={`The current selection has no edges`}
+          />
         </div>
       )}
     </div>
