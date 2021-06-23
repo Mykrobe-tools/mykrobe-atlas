@@ -488,8 +488,8 @@ const ExperimentCluster = ({
                   y: attributes.y,
                 });
                 const screenPosition = {
-                  x: boundingClientRect.left + canvasXY.x,
-                  y: boundingClientRect.top + canvasXY.y,
+                  x: Math.round(boundingClientRect.left + canvasXY.x),
+                  y: Math.round(boundingClientRect.top + canvasXY.y),
                 };
                 const nodeExperiments = attributes.experiments.filter(
                   ({ id }) => {

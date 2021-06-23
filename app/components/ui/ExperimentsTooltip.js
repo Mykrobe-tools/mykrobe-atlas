@@ -49,6 +49,7 @@ class ExperimentsTooltip extends React.PureComponent<*> {
               <ExperimentsList
                 experiment={experiment}
                 experiments={experiments}
+                expandable
               />
             </div>
           </div>
