@@ -282,7 +282,9 @@
     "webpack-dev-server": "^3.10.0",
     "webpack-merge": "^4.2.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "eslint-plugin-react-hooks": "^4.2.0"
+  },
   "targetName": "desktop",
   "jest": {
     "verbose": true,
