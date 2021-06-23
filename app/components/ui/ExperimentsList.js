@@ -10,7 +10,7 @@ import styles from './ExperimentsList.module.scss';
 
 const ExperimentsListItem = ({
   highlighted,
-  id,
+  id = '',
   distance,
   metadata,
 }: React.ElementProps<*>): React.Element<*> => {
@@ -76,7 +76,15 @@ const ExperimentsList = ({
   return (
     <React.Fragment>
       {filteredAndSortedExperiments.map(({ id, ...rest }) => {
-        return <ExperimentsListItem key={id} {...rest} />;
+        const highlighted = id === experiment?.id;
+        return (
+          <ExperimentsListItem
+            key={id}
+            id={id}
+            highlighted={highlighted}
+            {...rest}
+          />
+        );
       })}
       {isExpandable &&
         (expanded ? (

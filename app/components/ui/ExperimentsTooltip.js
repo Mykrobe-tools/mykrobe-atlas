@@ -50,6 +50,7 @@ class ExperimentsTooltip extends React.PureComponent<*> {
                 experiment={experiment}
                 experiments={experiments}
                 expandable
+                minExpandable={4}
               />
             </div>
           </div>

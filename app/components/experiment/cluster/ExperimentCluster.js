@@ -29,7 +29,7 @@ const ExperimentCluster = ({
   experimentCluster = {},
   experimentClusterIsSearching,
   experiment,
-  experimentsHighlighted,
+  experimentsHighlighted = [],
   setExperimentsHighlighted,
   resetExperimentsHighlighted,
 }: React.ElementProps<*>) => {
@@ -469,6 +469,62 @@ const ExperimentCluster = ({
     context.height = height;
   }, [width, height]);
 
+  // __________________________________________________________________________________________ tooltips
+
+  const tooltipAttributes = React.useMemo(() => {
+    const attributes = experimentsHighlighted.flatMap(
+      (experimentHighlighted) => {
+        const nodeId =
+          mapEntityIdToClusterNodeId.current[experimentHighlighted.id];
+        if (nodeId) {
+          const attributes = graphRef.current.getNodeAttributes(nodeId);
+          const nodeExperiments = attributes.experiments.filter(({ id }) => {
+            return experimentsHighlightedId.includes(id);
+          });
+          return {
+            experimentHighlightedId: experimentHighlighted.id,
+            x: attributes.x,
+            y: attributes.y,
+            experiments: nodeExperiments,
+          };
+        } else {
+          return [];
+        }
+      }
+    );
+    return attributes;
+  }, [experimentsHighlighted, experimentsHighlightedId, graphRef]);
+
+  const tooltips = React.useMemo(() => {
+    return tooltipAttributes.map((attributes) => {
+      const { experimentHighlightedId, x, y, experiments } = attributes;
+      const canvasXY = mapGraphToCanvas({
+        x,
+        y,
+      });
+      const screenPosition = {
+        x: Math.round(boundingClientRect.left + canvasXY.x),
+        y: Math.round(boundingClientRect.top + canvasXY.y),
+      };
+      return (
+        <ExperimentsTooltip
+          key={experimentHighlightedId}
+          experiment={experiment}
+          experiments={experiments}
+          x={screenPosition.x}
+          y={screenPosition.y}
+          onClickOutside={resetExperimentsHighlighted}
+        />
+      );
+    });
+  }, [
+    boundingClientRect,
+    experiment,
+    mapGraphToCanvas,
+    resetExperimentsHighlighted,
+    tooltipAttributes,
+  ]);
+
   // __________________________________________________________________________________________ render
 
   return (
@@ -487,42 +543,7 @@ const ExperimentCluster = ({
             onMouseUp={onMouseUp}
             onMouseOut={onMouseOut}
           />
-          {experimentsHighlighted &&
-            experimentsHighlighted.map((experimentHighlighted) => {
-              const nodeId =
-                mapEntityIdToClusterNodeId.current[experimentHighlighted.id];
-              if (nodeId) {
-                const attributes = graphRef.current.getNodeAttributes(nodeId);
-                const canvasXY = mapGraphToCanvas({
-                  x: attributes.x,
-                  y: attributes.y,
-                });
-                const screenPosition = {
-                  x: Math.round(boundingClientRect.left + canvasXY.x),
-                  y: Math.round(boundingClientRect.top + canvasXY.y),
-                };
-                const nodeExperiments = attributes.experiments.filter(
-                  ({ id }) => {
-                    return experimentsHighlightedId.includes(id);
-                  }
-                );
-                return (
-                  <ExperimentsTooltip
-                    key={experimentHighlighted.id}
-                    experiment={experiment}
-                    experiments={nodeExperiments}
-                    x={screenPosition.x}
-                    y={screenPosition.y}
-                    onClickOutside={resetExperimentsHighlighted}
-                  />
-                );
-              } else {
-                // console.log(
-                //   'Could not find MST experiment with id',
-                //   experimentHighlighted.id
-                // );
-              }
-            })}
+          {tooltips}
         </div>
       )}
     </div>
