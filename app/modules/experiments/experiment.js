@@ -243,7 +243,10 @@ export const getExperimentCluster = createSelector(
             Object.assign(nodeExperiment, experimentNearestNeigbour);
           }
         });
-        // filter distance // TODO: needs reworking
+        // filter distance
+        // FIXME: we are mutating the original object here
+        // so the user cannot change threshold to a low value then high value
+        // reimplement distance as an API parameter so we can remove this client-side code
         // node.experiments = node.experiments.filter((nodeExperiment) => {
         //   return (
         //     nodeExperiment.distance === undefined ||
