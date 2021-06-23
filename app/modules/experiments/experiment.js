@@ -232,17 +232,6 @@ export const getExperimentCluster = createSelector(
     experimentClusterRaw,
     distanceThreshold
   ) => {
-    // if (experimentClusterRaw) {
-    //   // local optimisation - make sure start < end
-    //   experimentClusterRaw.distance.forEach((edge) => {
-    //     if (edge.start > edge.end) {
-    //       const temp = edge.start;
-    //       edge.start = edge.end;
-    //       edge.end = temp;
-    //     }
-    //   });
-    //   console.log(JSON.stringify(experimentClusterRaw.distance, null, 2));
-    // }
     if (experimentClusterRaw && experimentNearestNeigbours) {
       // take the experiment cluster and enrich with in nearest neighbour info
       experimentClusterRaw.nodes.forEach((node) => {
@@ -254,6 +243,13 @@ export const getExperimentCluster = createSelector(
             Object.assign(nodeExperiment, experimentNearestNeigbour);
           }
         });
+        // filter distance // TODO: needs reworking
+        // node.experiments = node.experiments.filter((nodeExperiment) => {
+        //   return (
+        //     nodeExperiment.distance === undefined ||
+        //     nodeExperiment.distance <= distanceThreshold
+        //   );
+        // });
       });
     }
     // filter based on sum distance from the root node representing experiment
