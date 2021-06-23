@@ -16,9 +16,9 @@
   pointer-events: auto;
   position: relative;
   max-width: $popover-max-width;
-  @include reset-text();
   background-color: $popover-bg;
   border: $popover-border-width solid $popover-border-color;
+  line-height: normal;
   @include border-radius($popover-border-radius);
   @include box-shadow($popover-box-shadow);
 }

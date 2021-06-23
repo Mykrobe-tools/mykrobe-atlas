@@ -46,6 +46,11 @@ import {
   UPLOAD_THIRD_PARTY_PROGRESS,
 } from '../modules/users/currentUserEvents';
 
+import {
+  RESET_EXPERIMENTS_HIGHLIGHTED,
+  SET_EXPERIMENTS_HIGHLIGHTED,
+} from '../modules/experiments/experimentsHighlighted';
+
 export const actionCreators = {
   requestExperiments,
   requestExperiment,
@@ -74,6 +79,8 @@ export const actionsBlacklist = [
   UPDATE_NOTIFICATION,
   EVENT,
   UPLOAD_THIRD_PARTY_PROGRESS,
+  SET_EXPERIMENTS_HIGHLIGHTED,
+  RESET_EXPERIMENTS_HIGHLIGHTED,
   urlNetworkStatusActions.check.toString(),
   urlNetworkStatusActions.checkSuccess.toString(),
   urlNetworkStatusActions.setCountDownSeconds.toString(),
