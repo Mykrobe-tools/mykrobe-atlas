@@ -25,7 +25,6 @@ const ExperimentsListItem = ({
   }, [metadata, distance]);
   return (
     <div
-      key={id}
       className={highlighted ? styles.experimentHighlighted : styles.experiment}
     >
       <Link to={`/experiments/${id}/analysis`}>
@@ -42,9 +41,13 @@ const ExperimentsList = ({
   minExpandable = 5,
 }: React.ElementProps<*>): React.Element<*> | null => {
   const [expanded, setExpanded] = React.useState(false);
-  const toggleExpanded = React.useCallback(() => {
-    setExpanded(!expanded);
-  }, [expanded, setExpanded]);
+  const toggleExpanded = React.useCallback(
+    (e) => {
+      e.preventDefault();
+      setExpanded(!expanded);
+    },
+    [expanded, setExpanded]
+  );
 
   const isExpandable = React.useMemo(() => {
     return expandable && experiments.length >= minExpandable;
@@ -70,74 +73,24 @@ const ExperimentsList = ({
     return sortedExperiments;
   }, [experiments, isExpandable, expanded, experiment, minExpandable]);
 
-  // if (!filteredAndSortedExperiments.length) {
-  //   return null;
-  // }
-
   return (
     <React.Fragment>
-      {filteredAndSortedExperiments.map(ExperimentsListItem)}
+      {filteredAndSortedExperiments.map(({ id, ...rest }) => {
+        return <ExperimentsListItem key={id} {...rest} />;
+      })}
       {isExpandable &&
         (expanded ? (
           <a href="#" color="primary" onClick={toggleExpanded}>
-            <i className="fa fa-minus-circle" /> Hide all
+            <i className="fa fa-minus-circle" /> Show less
           </a>
         ) : (
           <a href="#" color="primary" onClick={toggleExpanded}>
-            <i className="fa fa-plus-circle" /> Show all{' '}
-            {experiments.length + 1}
+            <i className="fa fa-plus-circle" /> Show all (
+            {experiments.length + 1})
           </a>
         ))}
     </React.Fragment>
   );
-
-  // if (expandable && experiments.length > 6) {
-  //   const visibleExperiments = experiments.slice(0, 5).map(ExperimentsListItem);
-  //   const hiddenExperiments = experiments.slice(5).map(ExperimentsListItem);
-
-  //   return (
-  //     <React.Fragment>
-  //       {visibleExperiments}
-  //       <Collapse isOpen={collapse}>{hiddenExperiments}</Collapse>
-  //       {collapse ? (
-  //         <a href="#" color="primary" onClick={toggleCollapse}>
-  //           <i className="fa fa-minus-circle" /> Less
-  //         </a>
-  //       ) : (
-  //         <a href="#" color="primary" onClick={toggleCollapse}>
-  //           <i className="fa fa-plus-circle" /> {experiments.length - 5} more
-  //         </a>
-  //       )}
-  //     </React.Fragment>
-  //   );
-  // }
-
-  // const sortedExperiments = _orderBy(experiments, 'distance');
-
-  // // ensure 'experiment' is first
-  // if (experiment) {
-  //   const experimentIndex = sortedExperiments.findIndex(
-  //     ({ id }) => id === experiment.id
-  //   );
-  //   if (experimentIndex > 0) {
-  //     sortedExperiments.splice(experimentIndex, 1);
-  //     sortedExperiments.unshift(experiment);
-  //   }
-  // }
-
-  // return sortedExperiments.map((experimentItem) => {
-  //   const highlighted = experimentItem?.id === experiment?.id;
-  //   if (!experimentItem.id) {
-  //     return null;
-  //   }
-  //   return (
-  //     <ExperimentsListItem
-  //       key={experimentItem.id}
-  //       highlighted={highlighted}
-  //       {...experimentItem}
-  //     />
-  //   );
-  // });
 };
 
 ExperimentsList.propTypes = {
