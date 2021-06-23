@@ -423,7 +423,7 @@ const ExperimentCluster = ({
 
   const onMouseOut = React.useCallback((e) => {
     // console.log('onMouseOut', e);
-  });
+  }, []);
 
   const mouseWheel = React.useCallback((event) => {
     let delta = 0;
@@ -437,25 +437,28 @@ const ExperimentCluster = ({
     }
 
     console.log({ delta });
-  });
+  }, []);
 
   // __________________________________________________________________________________________ canvas attributes
 
-  const setCanvasRef = React.useCallback((ref) => {
-    console.log('setCanvasRef', ref);
-    if (canvasRef.current) {
-      canvasRef.current.removeEventListener('DOMMouseScroll', mouseWheel);
-      canvasRef.current.removeEventListener('mousewheel', mouseWheel);
-    }
-    canvasRef.current = ref;
-    if (canvasRef.current) {
-      const scale = window?.devicePixelRatio || 1;
-      const context = canvasRef.current.getContext('2d');
-      context.scale = scale;
-      canvasRef.current.addEventListener('DOMMouseScroll', mouseWheel);
-      canvasRef.current.addEventListener('mousewheel', mouseWheel);
-    }
-  }, []);
+  const setCanvasRef = React.useCallback(
+    (ref) => {
+      console.log('setCanvasRef', ref);
+      if (canvasRef.current) {
+        canvasRef.current.removeEventListener('DOMMouseScroll', mouseWheel);
+        canvasRef.current.removeEventListener('mousewheel', mouseWheel);
+      }
+      canvasRef.current = ref;
+      if (canvasRef.current) {
+        const scale = window?.devicePixelRatio || 1;
+        const context = canvasRef.current.getContext('2d');
+        context.scale = scale;
+        canvasRef.current.addEventListener('DOMMouseScroll', mouseWheel);
+        canvasRef.current.addEventListener('mousewheel', mouseWheel);
+      }
+    },
+    [mouseWheel]
+  );
 
   React.useEffect(() => {
     if (!width || !height || !canvasRef.current) {
