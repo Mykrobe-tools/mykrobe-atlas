@@ -313,7 +313,6 @@ export const getExperimentCluster = createSelector(
             return [];
           }
         );
-        console.log({ mapNodeIdToDistance, nodesIdsToInclude });
         const filteredExperimentClusterRaw = produce(
           experimentClusterRaw,
           (draft) => {

@@ -373,7 +373,7 @@ const ExperimentCluster = ({
       } else {
         const result = findNodeForMouseEvent(e);
         if (result) {
-          console.log(result);
+          // console.log(result);
           const { attributes } = result;
           setExperimentsHighlighted(attributes.experiments);
         }
@@ -443,7 +443,6 @@ const ExperimentCluster = ({
 
   const setCanvasRef = React.useCallback(
     (ref) => {
-      console.log('setCanvasRef', ref);
       if (canvasRef.current) {
         canvasRef.current.removeEventListener('DOMMouseScroll', mouseWheel);
         canvasRef.current.removeEventListener('mousewheel', mouseWheel);
