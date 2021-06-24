@@ -93,8 +93,7 @@ const ExperimentsList = ({
           </a>
         ) : (
           <a href="#" color="primary" onClick={toggleExpanded}>
-            <i className="fa fa-plus-circle" /> Show all (
-            {experiments.length + 1})
+            <i className="fa fa-plus-circle" /> Show all ({experiments.length})
           </a>
         ))}
     </React.Fragment>
