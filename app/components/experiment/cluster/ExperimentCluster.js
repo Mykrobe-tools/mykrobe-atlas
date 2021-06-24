@@ -477,14 +477,15 @@ const ExperimentCluster = ({
         const nodeId =
           mapEntityIdToClusterNodeId.current[experimentHighlighted.id];
         if (nodeId !== undefined) {
-          const attributes = graphRef.current.getNodeAttributes(nodeId);
-          const nodeExperiments = attributes.experiments.filter(({ id }) => {
-            return experimentsHighlightedId.includes(id);
-          });
+          const nodeAttributes = graphRef.current.getNodeAttributes(nodeId);
+          const nodeExperiments = nodeAttributes.experiments.filter(
+            ({ id }) => {
+              return experimentsHighlightedId.includes(id);
+            }
+          );
           return {
+            nodeId,
             experimentHighlightedId: experimentHighlighted.id,
-            x: attributes.x,
-            y: attributes.y,
             experiments: nodeExperiments,
           };
         } else {
@@ -497,10 +498,11 @@ const ExperimentCluster = ({
 
   const tooltips = React.useMemo(() => {
     return tooltipAttributes.map((attributes) => {
-      const { experimentHighlightedId, x, y, experiments } = attributes;
+      const { nodeId, experimentHighlightedId, experiments } = attributes;
+      const nodeAttributes = graphRef.current.getNodeAttributes(nodeId);
       const canvasXY = mapGraphToCanvas({
-        x,
-        y,
+        x: nodeAttributes.x,
+        y: nodeAttributes.y,
       });
       const screenPosition = {
         x: Math.round(boundingClientRect.left + canvasXY.x),
@@ -523,6 +525,7 @@ const ExperimentCluster = ({
     mapGraphToCanvas,
     resetExperimentsHighlighted,
     tooltipAttributes,
+    graphRef,
   ]);
 
   // __________________________________________________________________________________________ render
@@ -535,7 +538,7 @@ const ExperimentCluster = ({
   return (
     <div className={styles.container}>
       {experimentClusterIsSearching ? (
-        <span>Cluster searching…</span>
+        <div className={styles.searchingContainer}>Searching…</div>
       ) : (
         <div ref={clusterContainerRef} className={styles.clusterContainer}>
           <canvas
