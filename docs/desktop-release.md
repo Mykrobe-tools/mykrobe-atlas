@@ -37,22 +37,24 @@ Using these version tags, the desktop app checks for updates automatically on la
 
 ## Release a new version
 
-1. Run a complete test
+1. Update the version in `package.json` to match the draft release - e.g. if the GitHub release tag is `v1.0.7` then change the version in `package.json` to `1.0.7`
+
+2. Run a complete test
 
    ```
    $ yarn test
    ```
 
-2. If the tests pass, publish a draft release for all configured platforms.
+3. If the tests pass, publish a draft release for all configured platforms.
 
    ```
    $ yarn desktop-package --all
    $ yarn desktop-dist --all --publish
    ```
 
-   > If you see an error similar to `skipped publishing file=<file> reason=existing type not compatible with publishing type tag=<tag> version=<tag> existingType=release publishingType=draft`, check that the GitHub release you are publishing too is in 'draft' mode and not 'published'
+   > If you see an error similar to `skipped publishing file=<file> reason=existing type not compatible with publishing type tag=<tag> version=<tag> existingType=release publishingType=draft`, check that the you updated the version in `package.json` and that the GitHub release you are publishing too is in 'draft' mode and not 'published'
 
-3. Publish the release using GitHub - make sure that 'This is a pre-release' is unchecked or this release will be overlooked by the auto-updater.
+4. Publish the release using GitHub - make sure that 'This is a pre-release' is unchecked or this release will be overlooked by the auto-updater.
 
 ## See next
 
