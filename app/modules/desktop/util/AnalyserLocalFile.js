@@ -137,7 +137,9 @@ class AnalyserLocalFile extends EventEmitter {
 
     const args = [
       'predict',
+      '--sample',
       sampleName,
+      '--species',
       'tb',
       '--seq',
       ...filePaths,

@@ -20,6 +20,7 @@ import Table from 'makeandship-js-common/src/components/ui/table';
 import styles from './ExperimentsTable.module.scss';
 
 import Susceptibility from '../ui/susceptibility/Susceptibility';
+import DateISO from '../ui/DateISO';
 
 export const countryCodeToName = (countryCode) => {
   const index = Sample.properties.countryIsolate.enum.indexOf(countryCode);
@@ -121,6 +122,10 @@ class ExperimentsTable extends React.Component<*> {
         sort: 'metadata.sample.countryIsolate',
       },
       {
+        title: 'Collection date',
+        sort: 'metadata.sample.collectionDate',
+      },
+      {
         title: 'Created',
         sort: 'created',
       },
@@ -142,6 +147,7 @@ class ExperimentsTable extends React.Component<*> {
     const countryIsolate =
       _get(experiment, 'metadata.sample.countryIsolate') || '–';
     const cityIsolate = _get(experiment, 'metadata.sample.cityIsolate') || '–';
+    const collectionDate = _get(experiment, 'metadata.sample.collectionDate');
     const isSelected =
       allSelected ||
       (selected && selected.includes && selected.includes(id)) ||
@@ -196,8 +202,15 @@ class ExperimentsTable extends React.Component<*> {
         </td>
         <td>{cityIsolate}</td>
         <td>{countryCodeToName(countryIsolate)}</td>
-        <td>{formatDate(dateFns.parseISO(created))}</td>
-        <td>{formatDate(dateFns.parseISO(modified))}</td>
+        <td>
+          <DateISO date={collectionDate} />
+        </td>
+        <td>
+          <DateISO date={created} />
+        </td>
+        <td>
+          <DateISO date={modified} />
+        </td>
         <td>
           {owner && (
             <UncontrolledDropdown>
