@@ -2,6 +2,8 @@
 
 import { createSelector } from 'reselect';
 import _get from 'lodash.get';
+import qs from 'qs';
+import { call } from 'redux-saga/effects';
 
 import { createCollectionModule } from 'makeandship-js-common/src/modules/generic';
 
@@ -50,10 +52,20 @@ export const getSearchDescription = createSelector(
       : 'Search'
 );
 
+// FIXME: here we are constructing an explicit query URL to bypass swagger-client
+// this is so we can query foo.bar[min]=&foo.bar[max]=
+// which are currently otherwise omitted as they cannot be expressed by Swagger 2 spec.
+
 const module = createCollectionModule('experiments', {
   typePrefix: 'experiments/experiments/',
   getState,
-  operationId: 'experimentsSearch',
+  // operationId: 'experimentsSearch',
+  url: function* () {
+    const filters = yield call(getExperimentsFiltersSaga);
+    const query = qs.stringify(filters);
+    const url = `/experiments/search?${query}`;
+    return yield url;
+  },
   parameters: getExperimentsFiltersSaga,
   initialData: { results: [] },
 });
