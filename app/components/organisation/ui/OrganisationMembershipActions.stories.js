@@ -4,6 +4,8 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Nav } from 'reactstrap';
 
+import CenterContainerStorybook from '../../../util/storybook/CenterContainerStorybook';
+
 import OrganisationMembershipActions from './OrganisationMembershipActions';
 
 const variations = {
@@ -27,6 +29,7 @@ const variations = {
 };
 
 storiesOf('Organisation/OrganisationMembershipActions', module)
+  .addDecorator((story) => <CenterContainerStorybook story={story()} />)
   .addDecorator((story) => <Nav>{story()}</Nav>)
   .add('Default', () => (
     <OrganisationMembershipActions {...variations.default} />
