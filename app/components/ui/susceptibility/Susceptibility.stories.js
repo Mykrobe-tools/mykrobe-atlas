@@ -3,6 +3,8 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 
+import CenterContainerStorybook from '../../../util/storybook/CenterContainerStorybook';
+
 import Susceptibility from './Susceptibility';
 
 const metadataPhenotyping = {
@@ -222,6 +224,7 @@ const variations = {
   metadata: { susceptibility: metadataPhenotyping },
 };
 
-storiesOf('Susceptibility', module)
+storiesOf('ui/Susceptibility', module)
+  .addDecorator((story) => <CenterContainerStorybook story={story()} />)
   .add('Predictor format', () => <Susceptibility {...variations.predictor} />)
   .add('Metadata format', () => <Susceptibility {...variations.metadata} />);

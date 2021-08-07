@@ -13,6 +13,8 @@ const organisations = [
     id: '123',
     name: 'Acme Corporation',
     template: 'Lorem ipsum',
+    members: [],
+    owners: [],
   },
 ];
 
@@ -22,6 +24,8 @@ const organisationsWithCurrentUserStatus = [
     name: 'Acme Corporation',
     template: 'Lorem ipsum',
     currentUserStatus: 'owner',
+    members: [],
+    owners: [],
   },
 ];
 
@@ -35,7 +39,7 @@ const variations = {
   },
 };
 
-storiesOf('Organisations', module)
+storiesOf('Organisations/Organisations', module)
   .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))

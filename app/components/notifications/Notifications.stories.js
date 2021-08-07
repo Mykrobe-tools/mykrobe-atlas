@@ -39,6 +39,6 @@ const variations = {
   },
 };
 
-storiesOf('Notifications', module).add('Default', () => (
+storiesOf('Notifications/Notifications', module).add('Default', () => (
   <Notifications {...variations.default} />
 ));

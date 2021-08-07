@@ -8,7 +8,7 @@ import ExperimentMetadataNavigation from './ExperimentMetadataNavigation';
 
 const variations = {
   default: {
-    completion: {
+    experimentMetadataLiveCompletion: {
       complete: 7,
       total: 10,
     },
@@ -19,7 +19,7 @@ const variations = {
   },
 };
 
-storiesOf('ExperimentMetadataNavigation', module)
+storiesOf('Experiment/ExperimentMetadataNavigation', module)
   .addDecorator((story) => (
     <MemoryRouter initialEntries={['/patient']}>{story()}</MemoryRouter>
   ))

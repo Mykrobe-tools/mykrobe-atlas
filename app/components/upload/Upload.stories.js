@@ -9,7 +9,7 @@ import FillContainerStorybook from '../../util/storybook/FillContainerStorybook'
 
 import Upload from './Upload';
 
-storiesOf('Upload', module)
+storiesOf('Upload/Upload', module)
   .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))

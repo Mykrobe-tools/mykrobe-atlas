@@ -9,6 +9,8 @@ export default ({ story }: React.ElementProps<*>): React.Element<*> => (
       display: 'flex',
       width: '100vw',
       height: '100vh',
+      alignItems: 'center',
+      justifyContent: 'center',
     }}
   >
     {story}

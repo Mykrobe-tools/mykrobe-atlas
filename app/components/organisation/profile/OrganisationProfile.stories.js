@@ -61,7 +61,7 @@ const variations = {
   },
 };
 
-storiesOf('OrganisationProfile', module)
+storiesOf('Organisation/OrganisationProfile', module)
   .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
