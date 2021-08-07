@@ -31,7 +31,7 @@ const variations = {
   },
 };
 
-storiesOf('ExperimentsTooltip', module)
+storiesOf('ui/ExperimentsTooltip', module)
   .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))

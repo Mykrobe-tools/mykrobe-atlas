@@ -12,7 +12,7 @@ const variations = {
   default: {},
 };
 
-storiesOf('NotFoundPage', module)
+storiesOf('NotFound/NotFoundPage', module)
   .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))

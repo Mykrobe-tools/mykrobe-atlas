@@ -9,6 +9,6 @@ const variations = {
   default: {},
 };
 
-storiesOf('AnimatedBackgroundCanvas', module).add('Default', () => (
+storiesOf('ui/AnimatedBackgroundCanvas', module).add('Default', () => (
   <AnimatedBackgroundCanvas {...variations.default} />
 ));

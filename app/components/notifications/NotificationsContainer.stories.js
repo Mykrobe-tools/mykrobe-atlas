@@ -52,7 +52,7 @@ store.dispatch(
   })
 );
 
-storiesOf('NotificationsContainer', module)
+storiesOf('Notifications/NotificationsContainer', module)
   .addDecorator((story) => <ConnectedStorybook story={story()} />)
   .addDecorator((story) => (
     <div
@@ -61,9 +61,8 @@ storiesOf('NotificationsContainer', module)
         left: 0,
         top: 0,
         bottom: 0,
-        width: '80%',
+        width: '100vw',
         padding: '10px',
-        background: 'linear-gradient(white, #ccc)',
       }}
     >
       {story()}

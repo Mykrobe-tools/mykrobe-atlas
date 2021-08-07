@@ -9,6 +9,10 @@ import ConnectedStorybook from '../../util/storybook/ConnectedStorybook';
 
 import Experiments from './Experiments';
 
+const location = {
+  hash: '',
+};
+
 const experiments = {
   results: [],
 };
@@ -24,6 +28,7 @@ const experimentsSearchDescription = 'Search storybook';
 
 const variations = {
   error: {
+    location,
     experiments,
     experimentsFilters,
     experimentsSearchDescription,
@@ -37,12 +42,14 @@ const variations = {
     setExperimentsFilters,
   },
   empty: {
+    location,
     experiments,
     experimentsFilters,
     experimentsSearchDescription,
     setExperimentsFilters,
   },
   pending: {
+    location,
     experiments,
     experimentsFilters,
     experimentsSearchDescription,
@@ -51,7 +58,7 @@ const variations = {
   },
 };
 
-storiesOf('Experiments', module)
+storiesOf('Experiments/Experiments', module)
   .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))

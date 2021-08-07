@@ -7,7 +7,7 @@ import FillContainerStorybook from '../../util/storybook/FillContainerStorybook'
 
 import Upload from './Upload.electron';
 
-storiesOf('Upload.electron', module)
+storiesOf('Upload/Electron', module)
   .addDecorator((story) => <FillContainerStorybook story={story()} />)
   .add('20%', () => <Upload isAnalysing progress={20} />)
   .add('40%', () => <Upload isAnalysing progress={40} />)
