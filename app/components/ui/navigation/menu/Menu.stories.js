@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 import Menu from './Menu';
 
-storiesOf('Menu', module)
+storiesOf('ui/Menu', module)
   .addDecorator((story) => (
     <MemoryRouter initialEntries={['/lorem']}>{story()}</MemoryRouter>
   ))

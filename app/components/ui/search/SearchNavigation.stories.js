@@ -27,7 +27,7 @@ const variations = {
   },
 };
 
-storiesOf('SearchNavigation', module)
+storiesOf('ui/SearchNavigation', module)
   .add('Default', () => <SearchNavigation {...variations.default} />)
   .add('Transparent', () => <SearchNavigation {...variations.transparent} />)
   .add('Populated', () => <SearchNavigation {...variations.populated} />);

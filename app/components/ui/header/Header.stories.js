@@ -22,7 +22,7 @@ const variations = {
   },
 };
 
-storiesOf('Header', module)
+storiesOf('ui/Header', module)
   .addDecorator((story) => (
     <MemoryRouter initialEntries={['/lorem']}>{story()}</MemoryRouter>
   ))

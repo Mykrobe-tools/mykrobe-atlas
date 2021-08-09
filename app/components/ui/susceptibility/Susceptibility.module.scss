@@ -15,6 +15,7 @@
   composes: global(badge);
   color: white;
   background-color: $color-grey-light;
+  cursor: default;
 }
 
 .UNKNOWN {

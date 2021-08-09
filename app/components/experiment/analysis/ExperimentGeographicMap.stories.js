@@ -75,7 +75,7 @@ const variations = {
   },
 };
 
-storiesOf('ExperimentGeographicMap', module)
+storiesOf('Experiment/ExperimentGeographicMap', module)
   .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))
