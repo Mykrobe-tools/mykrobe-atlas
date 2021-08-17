@@ -75,11 +75,11 @@ const ExperimentsList = ({
 
   return (
     <React.Fragment>
-      {filteredAndSortedExperiments.map(({ id, ...rest }) => {
+      {filteredAndSortedExperiments.map(({ id, ...rest }, index) => {
         const highlighted = id === experiment?.id;
         return (
           <ExperimentsListItem
-            key={id}
+            key={`${index}-${id}`}
             id={id}
             highlighted={highlighted}
             {...rest}

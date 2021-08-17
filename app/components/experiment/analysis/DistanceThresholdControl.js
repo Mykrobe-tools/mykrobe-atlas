@@ -10,6 +10,8 @@ import {
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap';
+
+import { resetExperimentsHighlighted } from '../../../modules/experiments';
 import {
   selectors as experimentSettingsSelectors,
   actions as experimentSettingsActions,
@@ -40,6 +42,7 @@ const DistanceThresholdControl = () => {
               key={option}
               onClick={(e) => {
                 e.preventDefault();
+                dispatch(resetExperimentsHighlighted());
                 dispatch(
                   experimentSettingsActions.setDistanceThreshold(option)
                 );
