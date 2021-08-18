@@ -100,7 +100,11 @@ export function* uploadDropboxWorker(): Saga {
 export function* uploadDropboxSaga(): Saga {
   // cannot load and initiaite on-demand as it uses a pop-up window which requires suer interaction
   if (!isDropboxReady()) {
-    yield call(loadDropbox);
+    try {
+      yield call(loadDropbox);
+    } catch (error) {
+      console.warn('Failed to load dropbox', error);
+    }
   }
   yield all([fork(uploadDropboxWatcher)]);
 }

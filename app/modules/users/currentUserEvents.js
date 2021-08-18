@@ -106,62 +106,67 @@ function* startWatcher() {
 }
 
 function* startWorker() {
-  // don't start multiple sources
-  if (_eventSource) {
-    return;
-  }
-
-  // don't start unless authenticated
-  const isAuthenticated = yield select(getIsAuthenticated);
-  if (!isAuthenticated) {
-    return;
-  }
-
-  const options = {
-    heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
-  };
-  const config = yield call(getConfig);
-  yield call(config.provider.updateToken);
-  const token = yield call(config.provider.getToken);
-  if (token) {
-    if (!options.headers) {
-      options.headers = {};
-    }
-    options.headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  // TODO construct this with Swagger operation id
   try {
-    _eventSource = new EventSourcePolyfill(
-      `${window.env.REACT_APP_API_URL}/user/events`,
-      options
-    );
-  } catch (error) {
-    console.log(`Couldn't start event source`, error);
-  }
-  /* Example messages
+    // don't start multiple sources
+    if (_eventSource) {
+      return;
+    }
+
+    // don't start unless authenticated
+    const isAuthenticated = yield select(getIsAuthenticated);
+    if (!isAuthenticated) {
+      return;
+    }
+
+    const options = {
+      heartbeatTimeout: 2147483647, // TODO: replace with sensible value once ping implemented in API
+    };
+    const config = yield call(getConfig);
+    yield call(config.provider.updateToken);
+    const token = yield call(config.provider.getToken);
+    if (token) {
+      if (!options.headers) {
+        options.headers = {};
+      }
+      options.headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    // TODO construct this with Swagger operation id
+    try {
+      _eventSource = new EventSourcePolyfill(
+        `${window.env.REACT_APP_API_URL}/user/events`,
+        options
+      );
+    } catch (error) {
+      console.log(`Couldn't start event source`, error);
+    }
+    /* Example messages
   "{"id":"5b7eb595ed9f300010167cfa","complete":"99.03…,"file":"MDR.fastq.gz","event":"Upload progress"}"
   "{"id":"5b7eb595ed9f300010167cfa","complete":"100.0…,"file":"MDR.fastq.gz","event":"Upload complete"}"
   "{"id":"5b7eb595ed9f300010167cfa","taskId":"ab5e8f36-72be-40f2-928b-cdb93d8512a3","file":"/atlas/uploads/experiments/5b7eb595ed9f300010167cfa/file/MDR.fastq.gz","event":"Analysis started"}"
   "{"id":"5b7eb595ed9f300010167cfa","taskId":"ab5e8f3…depth","externalId":"5b7eb595ed9f300010167cfa"}]}"
 
   */
-  if (!_eventSource) {
-    return;
-  }
-  _eventSource.onmessage = (e) => {
-    try {
-      const json = JSON.parse(e.data);
-      _eventSourceChannel.put(event(json));
-    } catch (error) {
-      console.log(`Couldn't parse event data`, e.data);
+    if (!_eventSource) {
+      return;
     }
-  };
-  _eventSource.onerror = (e) => {
-    console.log('EventSource failed.', e);
-    _eventSourceChannel.put(error(e));
-  };
-  yield put(started());
+    _eventSource.onmessage = (e) => {
+      try {
+        const json = JSON.parse(e.data);
+        _eventSourceChannel.put(event(json));
+      } catch (error) {
+        console.log(`Couldn't parse event data`, e.data);
+      }
+    };
+    _eventSource.onerror = (e) => {
+      console.log('EventSource failed.', e);
+      _eventSourceChannel.put(error(e));
+    };
+    yield put(started());
+  } catch (e) {
+    console.warn('error', e);
+    debugger;
+  }
 }
 
 function* stopWatcher() {

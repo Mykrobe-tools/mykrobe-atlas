@@ -1,8 +1,6 @@
-/* @flow */
-
 export const SCALE = 1.5;
 
-export const LOZENGES_PER_COLOR = 8;
+export const LOZENGES_PER_COLOR = 16;
 
 export const LOZENGE_COLORS = [
   'rgba(0, 93, 138, 0.8)',
