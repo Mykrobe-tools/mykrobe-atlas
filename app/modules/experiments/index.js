@@ -74,6 +74,7 @@ export {
   getExperimentOwnerIsCurrentUser,
   getExperimentTransformed,
   getIsFetchingExperiment,
+  getIsRefetchingExperiment,
   newExperiment,
   requestExperiment,
   setExperiment,

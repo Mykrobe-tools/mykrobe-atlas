@@ -3,7 +3,6 @@
 // 82fa4fc2-0356-46c6-8681-7cd1e38c628c
 
 import * as React from 'react';
-import useSize from '@react-hook/size';
 import * as Color from 'color';
 import Graph from 'graphology';
 import forceAtlas2 from 'graphology-layout-forceatlas2';
@@ -15,12 +14,6 @@ import styles from './ExperimentCluster.module.scss';
 import ExperimentsTooltip from '../../ui/ExperimentsTooltip';
 import * as Colors from '../../../constants/Colors';
 import Empty from '../../ui/Empty';
-
-const CAMERA_DEFAULT = {
-  x: 0,
-  y: 0,
-  s: 1,
-};
 
 const CANVAS_MARGIN = 50;
 const MIN_RADIUS = 5;
@@ -35,19 +28,20 @@ const ExperimentCluster = ({
   resetExperimentsHighlighted,
 }: React.ElementProps<*>) => {
   // refs
-  const clusterContainerRef = React.useRef();
   const canvasRef = React.useRef();
   const graphRef = React.useRef();
   const mapEntityIdToClusterNodeId = React.useRef({});
 
   // states
-  const [camera, setCamera] = React.useState({ ...CAMERA_DEFAULT });
   const [renderAttributes, setRenderAttributes] = React.useState();
   const [dragging, setDragging] = React.useState();
+  const [canvasProps, setCanvasProps] = React.useState();
 
   // hooks
-  const boundingClientRect = useBoundingClientRect(canvasRef);
-  const [width, height] = useSize(clusterContainerRef);
+  const {
+    ref: clusterContainerRef,
+    boundingClientRect,
+  } = useBoundingClientRect();
   const elapsedMilliseconds = useAnimationFrame();
 
   const getRadiusForExperiments = React.useCallback((experiments) => {
@@ -57,7 +51,7 @@ const ExperimentCluster = ({
   }, []);
 
   React.useEffect(() => {
-    const { nodes, distance } = experimentCluster;
+    const { nodes, distance = [] } = experimentCluster;
     if (!nodes) {
       return;
     }
@@ -450,9 +444,6 @@ const ExperimentCluster = ({
       }
       canvasRef.current = ref;
       if (canvasRef.current) {
-        const scale = window?.devicePixelRatio || 1;
-        const context = canvasRef.current.getContext('2d');
-        context.scale = scale;
         canvasRef.current.addEventListener('DOMMouseScroll', mouseWheel);
         canvasRef.current.addEventListener('mousewheel', mouseWheel);
       }
@@ -461,13 +452,17 @@ const ExperimentCluster = ({
   );
 
   React.useEffect(() => {
-    if (!width || !height || !canvasRef.current) {
+    if (!boundingClientRect || !canvasRef.current) {
       return;
     }
+    const { width, height } = boundingClientRect;
     const context = canvasRef.current.getContext('2d');
+    const scale = window?.devicePixelRatio || 1;
+    context.scale = scale;
     context.width = width;
     context.height = height;
-  }, [width, height]);
+    setCanvasProps({ width, height });
+  }, [canvasRef, boundingClientRect]);
 
   // __________________________________________________________________________________________ tooltips
 
@@ -530,10 +525,6 @@ const ExperimentCluster = ({
 
   // __________________________________________________________________________________________ render
 
-  /*
-  
-        */
-
   const isEmpty = experimentCluster.distance?.length === 0;
   return (
     <div className={styles.container}>
@@ -543,13 +534,12 @@ const ExperimentCluster = ({
         <div ref={clusterContainerRef} className={styles.clusterContainer}>
           <canvas
             ref={setCanvasRef}
-            width={width}
-            height={height}
             onClick={onClick}
             onMouseMove={onMouseMove}
             onMouseDown={onMouseDown}
             onMouseUp={onMouseUp}
             onMouseOut={onMouseOut}
+            {...canvasProps}
           />
           {tooltips}
         </div>

@@ -1,5 +1,3 @@
-/* @flow */
-
 const fillRoundedRect = (context, x, y, w, h, r) => {
   r = Math.min(r, w / 2, h / 2);
   context.beginPath();

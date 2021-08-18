@@ -30,6 +30,9 @@ Object {
             "RIF inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
+          ],
           "title": "Genexpert",
           "type": "string",
         },
@@ -50,6 +53,9 @@ Object {
             "AM inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "AM resistant, AM, Aminoglycoside, Gentamicin, Amikacin, Kanamycin, Streptomycin",
+          ],
           "title": "HAIN AM",
           "type": "string",
         },
@@ -59,6 +65,9 @@ Object {
             "ETH resistant",
             "ETH inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "ETH resistant, ETH, Ethambutol",
           ],
           "title": "HAIN ETH",
           "type": "string",
@@ -70,6 +79,9 @@ Object {
             "FL inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "FL resistant, FL, Fluoroquinolone, Ciprofloxacin, Moxifloxacin, Levofloxacin, Ofloxacin",
+          ],
           "title": "HAIN FL",
           "type": "string",
         },
@@ -80,6 +92,9 @@ Object {
             "INH inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "INH resistant, INH, Isoniazid",
+          ],
           "title": "HAIN INH",
           "type": "string",
         },
@@ -89,6 +104,9 @@ Object {
             "RIF resistant",
             "RIF inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
           ],
           "title": "HAIN RIF",
           "type": "string",
@@ -709,6 +727,12 @@ Object {
             "Insulin+tablets",
             "Not known",
           ],
+          "synonyms": Array [
+            "Diet alone, Diabetic, Diabetes",
+            "Tablets, Diabetic, Diabetes",
+            "Insulin, Diabetic, Diabetes",
+            "Insulin+tablets, Diabetic, Diabetes",
+          ],
           "title": "Diabetic",
           "type": "string",
         },
@@ -729,6 +753,9 @@ Object {
             "Not tested",
             "Not known",
           ],
+          "synonyms": Array [
+            "Tested, positive, HIV, HIV Positive",
+          ],
           "title": "HIV Status",
           "type": "string",
         },
@@ -736,6 +763,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Homeless, Destitute",
           ],
           "title": "Homeless",
           "type": "string",
@@ -745,6 +775,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Prison, Imprisoned, Jail",
+          ],
           "title": "Imprisoned",
           "type": "string",
         },
@@ -752,6 +785,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Injecting Drug Use, Drug User, Drug Use, Drug Abuse, Injecting Drug Use",
           ],
           "title": "Injecting Drug Use",
           "type": "string",
@@ -769,6 +805,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Smoker, Smoking, Cigarettes",
+          ],
           "title": "Smoker",
           "type": "string",
         },
@@ -780,86 +819,149 @@ Object {
       "properties": Object {
         "amikacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amikacin",
+          ],
           "title": "Amikacin",
         },
         "amoxicilinClavulanate": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amoxicilin, Clavulanate",
+          ],
           "title": "Amoxicilin/Clavulanate",
         },
         "bedaquiline": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Bedaquiline",
+          ],
           "title": "Bedaquiline",
         },
         "capreomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Capreomycin",
+          ],
           "title": "Capreomycin",
         },
         "ciprofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ciprofloxacin",
+          ],
           "title": "Ciprofloxacin",
         },
         "clarythromycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clarythromycin",
+          ],
           "title": "Clarythromycin",
         },
         "clofazimine": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clofazimine",
+          ],
           "title": "Clofazimine",
         },
         "delamanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Delamanid",
+          ],
           "title": "Delamanid",
         },
         "ethambutol": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethambutol",
+          ],
           "title": "Ethambutol",
         },
         "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethionamide",
+          ],
           "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gatifloxacin",
+          ],
           "title": "Gatifloxacin",
         },
         "gentamicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gentamicin",
+          ],
           "title": "Gentamicin",
         },
         "highDoseIsoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, High-dose Isoniazid",
+          ],
           "title": "High-dose Isoniazid",
         },
         "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Imipenem",
+          ],
           "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Resistant, Isoniazid",
+          ],
           "title": "Isoniazid",
         },
         "kanamycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Kanamycin",
+          ],
           "title": "Kanamycin",
         },
         "levofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Levofloxacin",
+          ],
           "title": "Levofloxacin",
         },
         "linezolid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Linezolid",
+          ],
           "title": "Linezolid",
         },
         "meropenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Meropenem",
+          ],
           "title": "Meropenem",
         },
         "ofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ofloxacin",
+          ],
           "title": "Ofloxacin",
         },
         "pas": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, PAS",
+          ],
           "title": "PAS",
         },
         "phenotypeInformationFirstLineDrugs": Object {
@@ -880,34 +982,58 @@ Object {
         },
         "pretomanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pretomanid",
+          ],
           "title": "Pretomanid (PA-824)",
         },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Prothionamide",
+          ],
           "title": "Prothionamide",
         },
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pyrazinamide",
+          ],
           "title": "Pyrazinamide",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifabutin",
+          ],
           "title": "Rifabutin",
         },
         "rifampicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifampicin",
+          ],
           "title": "Rifampicin",
         },
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Streptomycin",
+          ],
           "title": "Streptomycin",
         },
         "terizidone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Terizidone",
+          ],
           "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Thioacetazone",
+          ],
           "title": "Thioacetazone",
         },
       },
@@ -949,6 +1075,21 @@ Object {
         "phylogenetics": Object {
           "items": Object {
             "properties": Object {
+              "calls": Object {
+                "title": "Calls",
+                "type": "object",
+              },
+              "callsSummary": Object {
+                "title": "Calls summary",
+                "type": "object",
+              },
+              "lineage": Object {
+                "items": Object {
+                  "type": "string",
+                },
+                "title": "Lineage",
+                "type": "array",
+              },
               "medianDepth": Object {
                 "title": "Median depth",
                 "type": "number",
@@ -963,13 +1104,13 @@ Object {
               },
               "type": Object {
                 "enum": Array [
-                  "complex",
-                  "sub-complex",
-                  "species",
-                  "sub-species",
                   "phylo_group",
                   "sub_complex",
+                  "species",
                   "lineage",
+                  "complex",
+                  "sub-complex",
+                  "sub-species",
                 ],
                 "title": "Name",
                 "type": "string",
@@ -1040,6 +1181,7 @@ Object {
           "enum": Array [
             "predictor",
             "distance",
+            "cluster",
           ],
           "title": "Type",
           "type": "string",
@@ -1590,6 +1732,7 @@ Object {
             "string",
             "null",
           ],
+          "useSynonyms": true,
         },
         "dateArrived": Object {
           "format": "date",
@@ -1597,10 +1740,13 @@ Object {
           "type": "string",
         },
         "isolateId": Object {
+          "index": true,
+          "keyword": true,
           "title": "Isolate Id",
           "type": "string",
         },
         "labId": Object {
+          "keyword": true,
           "title": "Lab Id",
           "type": "string",
         },
@@ -1889,6 +2035,9 @@ Object {
             "RIF inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
+          ],
           "title": "Genexpert",
           "type": "string",
         },
@@ -1909,6 +2058,9 @@ Object {
             "AM inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "AM resistant, AM, Aminoglycoside, Gentamicin, Amikacin, Kanamycin, Streptomycin",
+          ],
           "title": "HAIN AM",
           "type": "string",
         },
@@ -1918,6 +2070,9 @@ Object {
             "ETH resistant",
             "ETH inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "ETH resistant, ETH, Ethambutol",
           ],
           "title": "HAIN ETH",
           "type": "string",
@@ -1929,6 +2084,9 @@ Object {
             "FL inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "FL resistant, FL, Fluoroquinolone, Ciprofloxacin, Moxifloxacin, Levofloxacin, Ofloxacin",
+          ],
           "title": "HAIN FL",
           "type": "string",
         },
@@ -1939,6 +2097,9 @@ Object {
             "INH inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "INH resistant, INH, Isoniazid",
+          ],
           "title": "HAIN INH",
           "type": "string",
         },
@@ -1948,6 +2109,9 @@ Object {
             "RIF resistant",
             "RIF inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
           ],
           "title": "HAIN RIF",
           "type": "string",
@@ -2568,6 +2732,12 @@ Object {
             "Insulin+tablets",
             "Not known",
           ],
+          "synonyms": Array [
+            "Diet alone, Diabetic, Diabetes",
+            "Tablets, Diabetic, Diabetes",
+            "Insulin, Diabetic, Diabetes",
+            "Insulin+tablets, Diabetic, Diabetes",
+          ],
           "title": "Diabetic",
           "type": "string",
         },
@@ -2588,6 +2758,9 @@ Object {
             "Not tested",
             "Not known",
           ],
+          "synonyms": Array [
+            "Tested, positive, HIV, HIV Positive",
+          ],
           "title": "HIV Status",
           "type": "string",
         },
@@ -2595,6 +2768,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Homeless, Destitute",
           ],
           "title": "Homeless",
           "type": "string",
@@ -2604,6 +2780,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Prison, Imprisoned, Jail",
+          ],
           "title": "Imprisoned",
           "type": "string",
         },
@@ -2611,6 +2790,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Injecting Drug Use, Drug User, Drug Use, Drug Abuse, Injecting Drug Use",
           ],
           "title": "Injecting Drug Use",
           "type": "string",
@@ -2628,6 +2810,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Smoker, Smoking, Cigarettes",
+          ],
           "title": "Smoker",
           "type": "string",
         },
@@ -2639,86 +2824,149 @@ Object {
       "properties": Object {
         "amikacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amikacin",
+          ],
           "title": "Amikacin",
         },
         "amoxicilinClavulanate": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amoxicilin, Clavulanate",
+          ],
           "title": "Amoxicilin/Clavulanate",
         },
         "bedaquiline": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Bedaquiline",
+          ],
           "title": "Bedaquiline",
         },
         "capreomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Capreomycin",
+          ],
           "title": "Capreomycin",
         },
         "ciprofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ciprofloxacin",
+          ],
           "title": "Ciprofloxacin",
         },
         "clarythromycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clarythromycin",
+          ],
           "title": "Clarythromycin",
         },
         "clofazimine": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clofazimine",
+          ],
           "title": "Clofazimine",
         },
         "delamanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Delamanid",
+          ],
           "title": "Delamanid",
         },
         "ethambutol": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethambutol",
+          ],
           "title": "Ethambutol",
         },
         "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethionamide",
+          ],
           "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gatifloxacin",
+          ],
           "title": "Gatifloxacin",
         },
         "gentamicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gentamicin",
+          ],
           "title": "Gentamicin",
         },
         "highDoseIsoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, High-dose Isoniazid",
+          ],
           "title": "High-dose Isoniazid",
         },
         "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Imipenem",
+          ],
           "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Resistant, Isoniazid",
+          ],
           "title": "Isoniazid",
         },
         "kanamycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Kanamycin",
+          ],
           "title": "Kanamycin",
         },
         "levofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Levofloxacin",
+          ],
           "title": "Levofloxacin",
         },
         "linezolid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Linezolid",
+          ],
           "title": "Linezolid",
         },
         "meropenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Meropenem",
+          ],
           "title": "Meropenem",
         },
         "ofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ofloxacin",
+          ],
           "title": "Ofloxacin",
         },
         "pas": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, PAS",
+          ],
           "title": "PAS",
         },
         "phenotypeInformationFirstLineDrugs": Object {
@@ -2739,34 +2987,58 @@ Object {
         },
         "pretomanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pretomanid",
+          ],
           "title": "Pretomanid (PA-824)",
         },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Prothionamide",
+          ],
           "title": "Prothionamide",
         },
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pyrazinamide",
+          ],
           "title": "Pyrazinamide",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifabutin",
+          ],
           "title": "Rifabutin",
         },
         "rifampicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifampicin",
+          ],
           "title": "Rifampicin",
         },
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Streptomycin",
+          ],
           "title": "Streptomycin",
         },
         "terizidone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Terizidone",
+          ],
           "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Thioacetazone",
+          ],
           "title": "Thioacetazone",
         },
       },
@@ -2808,6 +3080,21 @@ Object {
         "phylogenetics": Object {
           "items": Object {
             "properties": Object {
+              "calls": Object {
+                "title": "Calls",
+                "type": "object",
+              },
+              "callsSummary": Object {
+                "title": "Calls summary",
+                "type": "object",
+              },
+              "lineage": Object {
+                "items": Object {
+                  "type": "string",
+                },
+                "title": "Lineage",
+                "type": "array",
+              },
               "medianDepth": Object {
                 "title": "Median depth",
                 "type": "number",
@@ -2822,13 +3109,13 @@ Object {
               },
               "type": Object {
                 "enum": Array [
-                  "complex",
-                  "sub-complex",
-                  "species",
-                  "sub-species",
                   "phylo_group",
                   "sub_complex",
+                  "species",
                   "lineage",
+                  "complex",
+                  "sub-complex",
+                  "sub-species",
                 ],
                 "title": "Name",
                 "type": "string",
@@ -2899,6 +3186,7 @@ Object {
           "enum": Array [
             "predictor",
             "distance",
+            "cluster",
           ],
           "title": "Type",
           "type": "string",
@@ -3449,6 +3737,7 @@ Object {
             "string",
             "null",
           ],
+          "useSynonyms": true,
         },
         "dateArrived": Object {
           "format": "date",
@@ -3456,10 +3745,13 @@ Object {
           "type": "string",
         },
         "isolateId": Object {
+          "index": true,
+          "keyword": true,
           "title": "Isolate Id",
           "type": "string",
         },
         "labId": Object {
+          "keyword": true,
           "title": "Lab Id",
           "type": "string",
         },
@@ -3748,6 +4040,9 @@ Object {
             "RIF inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
+          ],
           "title": "Genexpert",
           "type": "string",
         },
@@ -3768,6 +4063,9 @@ Object {
             "AM inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "AM resistant, AM, Aminoglycoside, Gentamicin, Amikacin, Kanamycin, Streptomycin",
+          ],
           "title": "HAIN AM",
           "type": "string",
         },
@@ -3777,6 +4075,9 @@ Object {
             "ETH resistant",
             "ETH inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "ETH resistant, ETH, Ethambutol",
           ],
           "title": "HAIN ETH",
           "type": "string",
@@ -3788,6 +4089,9 @@ Object {
             "FL inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "FL resistant, FL, Fluoroquinolone, Ciprofloxacin, Moxifloxacin, Levofloxacin, Ofloxacin",
+          ],
           "title": "HAIN FL",
           "type": "string",
         },
@@ -3798,6 +4102,9 @@ Object {
             "INH inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "INH resistant, INH, Isoniazid",
+          ],
           "title": "HAIN INH",
           "type": "string",
         },
@@ -3807,6 +4114,9 @@ Object {
             "RIF resistant",
             "RIF inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
           ],
           "title": "HAIN RIF",
           "type": "string",
@@ -4427,6 +4737,12 @@ Object {
             "Insulin+tablets",
             "Not known",
           ],
+          "synonyms": Array [
+            "Diet alone, Diabetic, Diabetes",
+            "Tablets, Diabetic, Diabetes",
+            "Insulin, Diabetic, Diabetes",
+            "Insulin+tablets, Diabetic, Diabetes",
+          ],
           "title": "Diabetic",
           "type": "string",
         },
@@ -4447,6 +4763,9 @@ Object {
             "Not tested",
             "Not known",
           ],
+          "synonyms": Array [
+            "Tested, positive, HIV, HIV Positive",
+          ],
           "title": "HIV Status",
           "type": "string",
         },
@@ -4454,6 +4773,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Homeless, Destitute",
           ],
           "title": "Homeless",
           "type": "string",
@@ -4463,6 +4785,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Prison, Imprisoned, Jail",
+          ],
           "title": "Imprisoned",
           "type": "string",
         },
@@ -4470,6 +4795,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Injecting Drug Use, Drug User, Drug Use, Drug Abuse, Injecting Drug Use",
           ],
           "title": "Injecting Drug Use",
           "type": "string",
@@ -4487,6 +4815,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Smoker, Smoking, Cigarettes",
+          ],
           "title": "Smoker",
           "type": "string",
         },
@@ -4498,86 +4829,149 @@ Object {
       "properties": Object {
         "amikacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amikacin",
+          ],
           "title": "Amikacin",
         },
         "amoxicilinClavulanate": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amoxicilin, Clavulanate",
+          ],
           "title": "Amoxicilin/Clavulanate",
         },
         "bedaquiline": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Bedaquiline",
+          ],
           "title": "Bedaquiline",
         },
         "capreomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Capreomycin",
+          ],
           "title": "Capreomycin",
         },
         "ciprofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ciprofloxacin",
+          ],
           "title": "Ciprofloxacin",
         },
         "clarythromycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clarythromycin",
+          ],
           "title": "Clarythromycin",
         },
         "clofazimine": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clofazimine",
+          ],
           "title": "Clofazimine",
         },
         "delamanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Delamanid",
+          ],
           "title": "Delamanid",
         },
         "ethambutol": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethambutol",
+          ],
           "title": "Ethambutol",
         },
         "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethionamide",
+          ],
           "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gatifloxacin",
+          ],
           "title": "Gatifloxacin",
         },
         "gentamicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gentamicin",
+          ],
           "title": "Gentamicin",
         },
         "highDoseIsoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, High-dose Isoniazid",
+          ],
           "title": "High-dose Isoniazid",
         },
         "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Imipenem",
+          ],
           "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Resistant, Isoniazid",
+          ],
           "title": "Isoniazid",
         },
         "kanamycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Kanamycin",
+          ],
           "title": "Kanamycin",
         },
         "levofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Levofloxacin",
+          ],
           "title": "Levofloxacin",
         },
         "linezolid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Linezolid",
+          ],
           "title": "Linezolid",
         },
         "meropenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Meropenem",
+          ],
           "title": "Meropenem",
         },
         "ofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ofloxacin",
+          ],
           "title": "Ofloxacin",
         },
         "pas": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, PAS",
+          ],
           "title": "PAS",
         },
         "phenotypeInformationFirstLineDrugs": Object {
@@ -4598,34 +4992,58 @@ Object {
         },
         "pretomanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pretomanid",
+          ],
           "title": "Pretomanid (PA-824)",
         },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Prothionamide",
+          ],
           "title": "Prothionamide",
         },
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pyrazinamide",
+          ],
           "title": "Pyrazinamide",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifabutin",
+          ],
           "title": "Rifabutin",
         },
         "rifampicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifampicin",
+          ],
           "title": "Rifampicin",
         },
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Streptomycin",
+          ],
           "title": "Streptomycin",
         },
         "terizidone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Terizidone",
+          ],
           "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Thioacetazone",
+          ],
           "title": "Thioacetazone",
         },
       },
@@ -4667,6 +5085,21 @@ Object {
         "phylogenetics": Object {
           "items": Object {
             "properties": Object {
+              "calls": Object {
+                "title": "Calls",
+                "type": "object",
+              },
+              "callsSummary": Object {
+                "title": "Calls summary",
+                "type": "object",
+              },
+              "lineage": Object {
+                "items": Object {
+                  "type": "string",
+                },
+                "title": "Lineage",
+                "type": "array",
+              },
               "medianDepth": Object {
                 "title": "Median depth",
                 "type": "number",
@@ -4681,13 +5114,13 @@ Object {
               },
               "type": Object {
                 "enum": Array [
-                  "complex",
-                  "sub-complex",
-                  "species",
-                  "sub-species",
                   "phylo_group",
                   "sub_complex",
+                  "species",
                   "lineage",
+                  "complex",
+                  "sub-complex",
+                  "sub-species",
                 ],
                 "title": "Name",
                 "type": "string",
@@ -4758,6 +5191,7 @@ Object {
           "enum": Array [
             "predictor",
             "distance",
+            "cluster",
           ],
           "title": "Type",
           "type": "string",
@@ -5308,6 +5742,7 @@ Object {
             "string",
             "null",
           ],
+          "useSynonyms": true,
         },
         "dateArrived": Object {
           "format": "date",
@@ -5315,10 +5750,13 @@ Object {
           "type": "string",
         },
         "isolateId": Object {
+          "index": true,
+          "keyword": true,
           "title": "Isolate Id",
           "type": "string",
         },
         "labId": Object {
+          "keyword": true,
           "title": "Lab Id",
           "type": "string",
         },
@@ -5607,6 +6045,9 @@ Object {
             "RIF inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
+          ],
           "title": "Genexpert",
           "type": "string",
         },
@@ -5627,6 +6068,9 @@ Object {
             "AM inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "AM resistant, AM, Aminoglycoside, Gentamicin, Amikacin, Kanamycin, Streptomycin",
+          ],
           "title": "HAIN AM",
           "type": "string",
         },
@@ -5636,6 +6080,9 @@ Object {
             "ETH resistant",
             "ETH inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "ETH resistant, ETH, Ethambutol",
           ],
           "title": "HAIN ETH",
           "type": "string",
@@ -5647,6 +6094,9 @@ Object {
             "FL inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "FL resistant, FL, Fluoroquinolone, Ciprofloxacin, Moxifloxacin, Levofloxacin, Ofloxacin",
+          ],
           "title": "HAIN FL",
           "type": "string",
         },
@@ -5657,6 +6107,9 @@ Object {
             "INH inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "INH resistant, INH, Isoniazid",
+          ],
           "title": "HAIN INH",
           "type": "string",
         },
@@ -5666,6 +6119,9 @@ Object {
             "RIF resistant",
             "RIF inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
           ],
           "title": "HAIN RIF",
           "type": "string",
@@ -6286,6 +6742,12 @@ Object {
             "Insulin+tablets",
             "Not known",
           ],
+          "synonyms": Array [
+            "Diet alone, Diabetic, Diabetes",
+            "Tablets, Diabetic, Diabetes",
+            "Insulin, Diabetic, Diabetes",
+            "Insulin+tablets, Diabetic, Diabetes",
+          ],
           "title": "Diabetic",
           "type": "string",
         },
@@ -6306,6 +6768,9 @@ Object {
             "Not tested",
             "Not known",
           ],
+          "synonyms": Array [
+            "Tested, positive, HIV, HIV Positive",
+          ],
           "title": "HIV Status",
           "type": "string",
         },
@@ -6313,6 +6778,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Homeless, Destitute",
           ],
           "title": "Homeless",
           "type": "string",
@@ -6322,6 +6790,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Prison, Imprisoned, Jail",
+          ],
           "title": "Imprisoned",
           "type": "string",
         },
@@ -6329,6 +6800,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Injecting Drug Use, Drug User, Drug Use, Drug Abuse, Injecting Drug Use",
           ],
           "title": "Injecting Drug Use",
           "type": "string",
@@ -6346,6 +6820,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Smoker, Smoking, Cigarettes",
+          ],
           "title": "Smoker",
           "type": "string",
         },
@@ -6357,86 +6834,149 @@ Object {
       "properties": Object {
         "amikacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amikacin",
+          ],
           "title": "Amikacin",
         },
         "amoxicilinClavulanate": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amoxicilin, Clavulanate",
+          ],
           "title": "Amoxicilin/Clavulanate",
         },
         "bedaquiline": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Bedaquiline",
+          ],
           "title": "Bedaquiline",
         },
         "capreomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Capreomycin",
+          ],
           "title": "Capreomycin",
         },
         "ciprofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ciprofloxacin",
+          ],
           "title": "Ciprofloxacin",
         },
         "clarythromycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clarythromycin",
+          ],
           "title": "Clarythromycin",
         },
         "clofazimine": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clofazimine",
+          ],
           "title": "Clofazimine",
         },
         "delamanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Delamanid",
+          ],
           "title": "Delamanid",
         },
         "ethambutol": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethambutol",
+          ],
           "title": "Ethambutol",
         },
         "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethionamide",
+          ],
           "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gatifloxacin",
+          ],
           "title": "Gatifloxacin",
         },
         "gentamicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gentamicin",
+          ],
           "title": "Gentamicin",
         },
         "highDoseIsoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, High-dose Isoniazid",
+          ],
           "title": "High-dose Isoniazid",
         },
         "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Imipenem",
+          ],
           "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Resistant, Isoniazid",
+          ],
           "title": "Isoniazid",
         },
         "kanamycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Kanamycin",
+          ],
           "title": "Kanamycin",
         },
         "levofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Levofloxacin",
+          ],
           "title": "Levofloxacin",
         },
         "linezolid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Linezolid",
+          ],
           "title": "Linezolid",
         },
         "meropenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Meropenem",
+          ],
           "title": "Meropenem",
         },
         "ofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ofloxacin",
+          ],
           "title": "Ofloxacin",
         },
         "pas": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, PAS",
+          ],
           "title": "PAS",
         },
         "phenotypeInformationFirstLineDrugs": Object {
@@ -6457,34 +6997,58 @@ Object {
         },
         "pretomanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pretomanid",
+          ],
           "title": "Pretomanid (PA-824)",
         },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Prothionamide",
+          ],
           "title": "Prothionamide",
         },
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pyrazinamide",
+          ],
           "title": "Pyrazinamide",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifabutin",
+          ],
           "title": "Rifabutin",
         },
         "rifampicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifampicin",
+          ],
           "title": "Rifampicin",
         },
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Streptomycin",
+          ],
           "title": "Streptomycin",
         },
         "terizidone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Terizidone",
+          ],
           "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Thioacetazone",
+          ],
           "title": "Thioacetazone",
         },
       },
@@ -6526,6 +7090,21 @@ Object {
         "phylogenetics": Object {
           "items": Object {
             "properties": Object {
+              "calls": Object {
+                "title": "Calls",
+                "type": "object",
+              },
+              "callsSummary": Object {
+                "title": "Calls summary",
+                "type": "object",
+              },
+              "lineage": Object {
+                "items": Object {
+                  "type": "string",
+                },
+                "title": "Lineage",
+                "type": "array",
+              },
               "medianDepth": Object {
                 "title": "Median depth",
                 "type": "number",
@@ -6540,13 +7119,13 @@ Object {
               },
               "type": Object {
                 "enum": Array [
-                  "complex",
-                  "sub-complex",
-                  "species",
-                  "sub-species",
                   "phylo_group",
                   "sub_complex",
+                  "species",
                   "lineage",
+                  "complex",
+                  "sub-complex",
+                  "sub-species",
                 ],
                 "title": "Name",
                 "type": "string",
@@ -6617,6 +7196,7 @@ Object {
           "enum": Array [
             "predictor",
             "distance",
+            "cluster",
           ],
           "title": "Type",
           "type": "string",
@@ -7167,6 +7747,7 @@ Object {
             "string",
             "null",
           ],
+          "useSynonyms": true,
         },
         "dateArrived": Object {
           "format": "date",
@@ -7174,10 +7755,13 @@ Object {
           "type": "string",
         },
         "isolateId": Object {
+          "index": true,
+          "keyword": true,
           "title": "Isolate Id",
           "type": "string",
         },
         "labId": Object {
+          "keyword": true,
           "title": "Lab Id",
           "type": "string",
         },
@@ -7466,6 +8050,9 @@ Object {
             "RIF inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
+          ],
           "title": "Genexpert",
           "type": "string",
         },
@@ -7486,6 +8073,9 @@ Object {
             "AM inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "AM resistant, AM, Aminoglycoside, Gentamicin, Amikacin, Kanamycin, Streptomycin",
+          ],
           "title": "HAIN AM",
           "type": "string",
         },
@@ -7495,6 +8085,9 @@ Object {
             "ETH resistant",
             "ETH inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "ETH resistant, ETH, Ethambutol",
           ],
           "title": "HAIN ETH",
           "type": "string",
@@ -7506,6 +8099,9 @@ Object {
             "FL inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "FL resistant, FL, Fluoroquinolone, Ciprofloxacin, Moxifloxacin, Levofloxacin, Ofloxacin",
+          ],
           "title": "HAIN FL",
           "type": "string",
         },
@@ -7516,6 +8112,9 @@ Object {
             "INH inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "INH resistant, INH, Isoniazid",
+          ],
           "title": "HAIN INH",
           "type": "string",
         },
@@ -7525,6 +8124,9 @@ Object {
             "RIF resistant",
             "RIF inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
           ],
           "title": "HAIN RIF",
           "type": "string",
@@ -8145,6 +8747,12 @@ Object {
             "Insulin+tablets",
             "Not known",
           ],
+          "synonyms": Array [
+            "Diet alone, Diabetic, Diabetes",
+            "Tablets, Diabetic, Diabetes",
+            "Insulin, Diabetic, Diabetes",
+            "Insulin+tablets, Diabetic, Diabetes",
+          ],
           "title": "Diabetic",
           "type": "string",
         },
@@ -8165,6 +8773,9 @@ Object {
             "Not tested",
             "Not known",
           ],
+          "synonyms": Array [
+            "Tested, positive, HIV, HIV Positive",
+          ],
           "title": "HIV Status",
           "type": "string",
         },
@@ -8172,6 +8783,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Homeless, Destitute",
           ],
           "title": "Homeless",
           "type": "string",
@@ -8181,6 +8795,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Prison, Imprisoned, Jail",
+          ],
           "title": "Imprisoned",
           "type": "string",
         },
@@ -8188,6 +8805,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Injecting Drug Use, Drug User, Drug Use, Drug Abuse, Injecting Drug Use",
           ],
           "title": "Injecting Drug Use",
           "type": "string",
@@ -8205,6 +8825,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Smoker, Smoking, Cigarettes",
+          ],
           "title": "Smoker",
           "type": "string",
         },
@@ -8216,86 +8839,149 @@ Object {
       "properties": Object {
         "amikacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amikacin",
+          ],
           "title": "Amikacin",
         },
         "amoxicilinClavulanate": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amoxicilin, Clavulanate",
+          ],
           "title": "Amoxicilin/Clavulanate",
         },
         "bedaquiline": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Bedaquiline",
+          ],
           "title": "Bedaquiline",
         },
         "capreomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Capreomycin",
+          ],
           "title": "Capreomycin",
         },
         "ciprofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ciprofloxacin",
+          ],
           "title": "Ciprofloxacin",
         },
         "clarythromycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clarythromycin",
+          ],
           "title": "Clarythromycin",
         },
         "clofazimine": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clofazimine",
+          ],
           "title": "Clofazimine",
         },
         "delamanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Delamanid",
+          ],
           "title": "Delamanid",
         },
         "ethambutol": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethambutol",
+          ],
           "title": "Ethambutol",
         },
         "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethionamide",
+          ],
           "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gatifloxacin",
+          ],
           "title": "Gatifloxacin",
         },
         "gentamicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gentamicin",
+          ],
           "title": "Gentamicin",
         },
         "highDoseIsoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, High-dose Isoniazid",
+          ],
           "title": "High-dose Isoniazid",
         },
         "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Imipenem",
+          ],
           "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Resistant, Isoniazid",
+          ],
           "title": "Isoniazid",
         },
         "kanamycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Kanamycin",
+          ],
           "title": "Kanamycin",
         },
         "levofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Levofloxacin",
+          ],
           "title": "Levofloxacin",
         },
         "linezolid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Linezolid",
+          ],
           "title": "Linezolid",
         },
         "meropenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Meropenem",
+          ],
           "title": "Meropenem",
         },
         "ofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ofloxacin",
+          ],
           "title": "Ofloxacin",
         },
         "pas": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, PAS",
+          ],
           "title": "PAS",
         },
         "phenotypeInformationFirstLineDrugs": Object {
@@ -8316,34 +9002,58 @@ Object {
         },
         "pretomanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pretomanid",
+          ],
           "title": "Pretomanid (PA-824)",
         },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Prothionamide",
+          ],
           "title": "Prothionamide",
         },
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pyrazinamide",
+          ],
           "title": "Pyrazinamide",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifabutin",
+          ],
           "title": "Rifabutin",
         },
         "rifampicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifampicin",
+          ],
           "title": "Rifampicin",
         },
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Streptomycin",
+          ],
           "title": "Streptomycin",
         },
         "terizidone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Terizidone",
+          ],
           "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Thioacetazone",
+          ],
           "title": "Thioacetazone",
         },
       },
@@ -8385,6 +9095,21 @@ Object {
         "phylogenetics": Object {
           "items": Object {
             "properties": Object {
+              "calls": Object {
+                "title": "Calls",
+                "type": "object",
+              },
+              "callsSummary": Object {
+                "title": "Calls summary",
+                "type": "object",
+              },
+              "lineage": Object {
+                "items": Object {
+                  "type": "string",
+                },
+                "title": "Lineage",
+                "type": "array",
+              },
               "medianDepth": Object {
                 "title": "Median depth",
                 "type": "number",
@@ -8399,13 +9124,13 @@ Object {
               },
               "type": Object {
                 "enum": Array [
-                  "complex",
-                  "sub-complex",
-                  "species",
-                  "sub-species",
                   "phylo_group",
                   "sub_complex",
+                  "species",
                   "lineage",
+                  "complex",
+                  "sub-complex",
+                  "sub-species",
                 ],
                 "title": "Name",
                 "type": "string",
@@ -8476,6 +9201,7 @@ Object {
           "enum": Array [
             "predictor",
             "distance",
+            "cluster",
           ],
           "title": "Type",
           "type": "string",
@@ -9026,6 +9752,7 @@ Object {
             "string",
             "null",
           ],
+          "useSynonyms": true,
         },
         "dateArrived": Object {
           "format": "date",
@@ -9033,10 +9760,13 @@ Object {
           "type": "string",
         },
         "isolateId": Object {
+          "index": true,
+          "keyword": true,
           "title": "Isolate Id",
           "type": "string",
         },
         "labId": Object {
+          "keyword": true,
           "title": "Lab Id",
           "type": "string",
         },
@@ -9325,6 +10055,9 @@ Object {
             "RIF inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
+          ],
           "title": "Genexpert",
           "type": "string",
         },
@@ -9345,6 +10078,9 @@ Object {
             "AM inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "AM resistant, AM, Aminoglycoside, Gentamicin, Amikacin, Kanamycin, Streptomycin",
+          ],
           "title": "HAIN AM",
           "type": "string",
         },
@@ -9354,6 +10090,9 @@ Object {
             "ETH resistant",
             "ETH inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "ETH resistant, ETH, Ethambutol",
           ],
           "title": "HAIN ETH",
           "type": "string",
@@ -9365,6 +10104,9 @@ Object {
             "FL inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "FL resistant, FL, Fluoroquinolone, Ciprofloxacin, Moxifloxacin, Levofloxacin, Ofloxacin",
+          ],
           "title": "HAIN FL",
           "type": "string",
         },
@@ -9375,6 +10117,9 @@ Object {
             "INH inconclusive",
             "Not tested",
           ],
+          "synonyms": Array [
+            "INH resistant, INH, Isoniazid",
+          ],
           "title": "HAIN INH",
           "type": "string",
         },
@@ -9384,6 +10129,9 @@ Object {
             "RIF resistant",
             "RIF inconclusive",
             "Not tested",
+          ],
+          "synonyms": Array [
+            "RIF resistant, RIF, Rifampicin",
           ],
           "title": "HAIN RIF",
           "type": "string",
@@ -10004,6 +10752,12 @@ Object {
             "Insulin+tablets",
             "Not known",
           ],
+          "synonyms": Array [
+            "Diet alone, Diabetic, Diabetes",
+            "Tablets, Diabetic, Diabetes",
+            "Insulin, Diabetic, Diabetes",
+            "Insulin+tablets, Diabetic, Diabetes",
+          ],
           "title": "Diabetic",
           "type": "string",
         },
@@ -10024,6 +10778,9 @@ Object {
             "Not tested",
             "Not known",
           ],
+          "synonyms": Array [
+            "Tested, positive, HIV, HIV Positive",
+          ],
           "title": "HIV Status",
           "type": "string",
         },
@@ -10031,6 +10788,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Homeless, Destitute",
           ],
           "title": "Homeless",
           "type": "string",
@@ -10040,6 +10800,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Prison, Imprisoned, Jail",
+          ],
           "title": "Imprisoned",
           "type": "string",
         },
@@ -10047,6 +10810,9 @@ Object {
           "enum": Array [
             "Yes",
             "No",
+          ],
+          "synonyms": Array [
+            "Yes, Injecting Drug Use, Drug User, Drug Use, Drug Abuse, Injecting Drug Use",
           ],
           "title": "Injecting Drug Use",
           "type": "string",
@@ -10064,6 +10830,9 @@ Object {
             "Yes",
             "No",
           ],
+          "synonyms": Array [
+            "Yes, Smoker, Smoking, Cigarettes",
+          ],
           "title": "Smoker",
           "type": "string",
         },
@@ -10075,86 +10844,149 @@ Object {
       "properties": Object {
         "amikacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amikacin",
+          ],
           "title": "Amikacin",
         },
         "amoxicilinClavulanate": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Amoxicilin, Clavulanate",
+          ],
           "title": "Amoxicilin/Clavulanate",
         },
         "bedaquiline": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Bedaquiline",
+          ],
           "title": "Bedaquiline",
         },
         "capreomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Capreomycin",
+          ],
           "title": "Capreomycin",
         },
         "ciprofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ciprofloxacin",
+          ],
           "title": "Ciprofloxacin",
         },
         "clarythromycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clarythromycin",
+          ],
           "title": "Clarythromycin",
         },
         "clofazimine": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Clofazimine",
+          ],
           "title": "Clofazimine",
         },
         "delamanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Delamanid",
+          ],
           "title": "Delamanid",
         },
         "ethambutol": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethambutol",
+          ],
           "title": "Ethambutol",
         },
         "ethionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ethionamide",
+          ],
           "title": "Ethionamide",
         },
         "gatifloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gatifloxacin",
+          ],
           "title": "Gatifloxacin",
         },
         "gentamicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Gentamicin",
+          ],
           "title": "Gentamicin",
         },
         "highDoseIsoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, High-dose Isoniazid",
+          ],
           "title": "High-dose Isoniazid",
         },
         "imipenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Imipenem",
+          ],
           "title": "Imipenem",
         },
         "isoniazid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Resistant, Isoniazid",
+          ],
           "title": "Isoniazid",
         },
         "kanamycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Kanamycin",
+          ],
           "title": "Kanamycin",
         },
         "levofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Levofloxacin",
+          ],
           "title": "Levofloxacin",
         },
         "linezolid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Linezolid",
+          ],
           "title": "Linezolid",
         },
         "meropenem": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Meropenem",
+          ],
           "title": "Meropenem",
         },
         "ofloxacin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Ofloxacin",
+          ],
           "title": "Ofloxacin",
         },
         "pas": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, PAS",
+          ],
           "title": "PAS",
         },
         "phenotypeInformationFirstLineDrugs": Object {
@@ -10175,34 +11007,58 @@ Object {
         },
         "pretomanid": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pretomanid",
+          ],
           "title": "Pretomanid (PA-824)",
         },
         "prothionamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Prothionamide",
+          ],
           "title": "Prothionamide",
         },
         "pyrazinamide": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Pyrazinamide",
+          ],
           "title": "Pyrazinamide",
         },
         "rifabutin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifabutin",
+          ],
           "title": "Rifabutin",
         },
         "rifampicin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Rifampicin",
+          ],
           "title": "Rifampicin",
         },
         "streptomycin": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Streptomycin",
+          ],
           "title": "Streptomycin",
         },
         "terizidone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Terizidone",
+          ],
           "title": "Terizidone",
         },
         "thioacetazone": Object {
           "$ref": "#/definitions/Susceptibility",
+          "synonyms": Array [
+            "Susceptibility/Resistant, Thioacetazone",
+          ],
           "title": "Thioacetazone",
         },
       },
@@ -10244,6 +11100,21 @@ Object {
         "phylogenetics": Object {
           "items": Object {
             "properties": Object {
+              "calls": Object {
+                "title": "Calls",
+                "type": "object",
+              },
+              "callsSummary": Object {
+                "title": "Calls summary",
+                "type": "object",
+              },
+              "lineage": Object {
+                "items": Object {
+                  "type": "string",
+                },
+                "title": "Lineage",
+                "type": "array",
+              },
               "medianDepth": Object {
                 "title": "Median depth",
                 "type": "number",
@@ -10258,13 +11129,13 @@ Object {
               },
               "type": Object {
                 "enum": Array [
-                  "complex",
-                  "sub-complex",
-                  "species",
-                  "sub-species",
                   "phylo_group",
                   "sub_complex",
+                  "species",
                   "lineage",
+                  "complex",
+                  "sub-complex",
+                  "sub-species",
                 ],
                 "title": "Name",
                 "type": "string",
@@ -10335,6 +11206,7 @@ Object {
           "enum": Array [
             "predictor",
             "distance",
+            "cluster",
           ],
           "title": "Type",
           "type": "string",
@@ -10885,6 +11757,7 @@ Object {
             "string",
             "null",
           ],
+          "useSynonyms": true,
         },
         "dateArrived": Object {
           "format": "date",
@@ -10892,10 +11765,13 @@ Object {
           "type": "string",
         },
         "isolateId": Object {
+          "index": true,
+          "keyword": true,
           "title": "Isolate Id",
           "type": "string",
         },
         "labId": Object {
+          "keyword": true,
           "title": "Lab Id",
           "type": "string",
         },

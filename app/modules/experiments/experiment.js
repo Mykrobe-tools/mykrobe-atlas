@@ -69,7 +69,12 @@ const {
     deleteEntity,
     setEntity,
   },
-  selectors: { getEntity: getExperiment, getError, getIsFetching },
+  selectors: {
+    getEntity: getExperiment,
+    getError,
+    getIsFetching,
+    getIsRefetching,
+  },
   sagas: { entitySaga },
 } = module;
 
@@ -370,6 +375,7 @@ export {
   deleteEntity as deleteExperiment,
   getError as getExperimentError,
   getIsFetching as getIsFetchingExperiment,
+  getIsRefetching as getIsRefetchingExperiment,
   actionTypes as experimentActionTypes,
 };
 

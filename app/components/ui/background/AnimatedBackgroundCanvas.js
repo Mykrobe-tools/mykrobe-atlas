@@ -1,132 +1,71 @@
-/* @flow */
-
 import * as React from 'react';
 
-import styles from './AnimatedBackgroundCanvas.module.scss';
 import { CanvasLozenge } from './CanvasLozenge';
 import { LOZENGE_COLORS, LOZENGES_PER_COLOR } from './constants';
+import useAnimationFrame from '../../../hooks/useAnimationFrame';
+import useBoundingClientRect from '../../../hooks/useBoundingClientRect';
 
-type State = {
-  width: number,
-  height: number,
-};
+import styles from './AnimatedBackgroundCanvas.module.scss';
 
-class AnimatedBackgroundCanvas extends React.Component<*, State> {
-  _canvasRef: HTMLCanvasElement;
-  _container: HTMLElement;
-  _context: CanvasRenderingContext2D;
-  _raf: AnimationFrameID;
-  _lozenges: Array<CanvasLozenge>;
-  _measureContainerDeferred: TimeoutID;
+const AnimatedBackgroundCanvas = () => {
+  const lozenges = React.useRef();
+  const canvasRef = React.useRef(null);
+  const { ref, boundingClientRect } = useBoundingClientRect();
+  const elapsedMilliseconds = useAnimationFrame();
+  const containerWidth = 1920;
 
-  state = {
-    width: 1024,
-    height: 768,
-  };
-
-  constructor(props: any) {
-    super(props);
-    this._lozenges = [];
+  React.useEffect(() => {
+    if (!boundingClientRect || lozenges.current) {
+      return;
+    }
+    const { width } = boundingClientRect;
+    const containerScale = width / containerWidth;
+    const containerHeight =
+      (1920 * boundingClientRect.height) / boundingClientRect.width;
+    lozenges.current = [];
     for (let j = 0; j < LOZENGE_COLORS.length; j++) {
       const color = LOZENGE_COLORS[j];
       for (let i = 0; i < LOZENGES_PER_COLOR; i++) {
         const l = new CanvasLozenge({
-          containerWidth: 1024,
-          containerHeight: 1024,
+          containerWidth,
+          containerHeight,
+          containerScale,
           color,
         });
-        this._lozenges.push(l);
+        lozenges.current.push(l);
       }
     }
-  }
+  }, [boundingClientRect]);
 
-  componentDidMount() {
-    // load event in case we are resized due to css change, e.g. in dev
-    window.addEventListener('resize', this.resize);
-    window.addEventListener('load', this.resize);
-    this._raf = requestAnimationFrame(this.renderCanvas);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resize);
-    window.removeEventListener('load', this.resize);
-    this._raf && cancelAnimationFrame(this._raf);
-    this._measureContainerDeferred &&
-      clearTimeout(this._measureContainerDeferred);
-  }
-
-  resize = () => {
-    this.measureContainer();
-  };
-
-  measureContainerDeferred = () => {
-    this._measureContainerDeferred &&
-      clearTimeout(this._measureContainerDeferred);
-    this._measureContainerDeferred = setTimeout(this.measureContainer, 0);
-  };
-
-  measureContainer = () => {
-    const boundingClientRect = this._container.getBoundingClientRect();
+  React.useEffect(() => {
+    if (!canvasRef.current || !lozenges.current || !boundingClientRect) {
+      return;
+    }
     const { width, height } = boundingClientRect;
-    // returns 0 if still initialising layout
-    const stillInitialisingLayout = 0 === height;
-    if (stillInitialisingLayout) {
-      // try again next frame
-      this.measureContainerDeferred();
-      return;
-    }
-    this.setState({
-      width,
-      height,
-    });
-    this._lozenges.forEach((lozenge) => {
+    const context = canvasRef.current.getContext('2d', { alpha: false });
+    const containerScale = width / containerWidth;
+    const containerHeight =
+      (1920 * boundingClientRect.height) / boundingClientRect.width;
+    context.globalCompositeOperation = 'source-over';
+    context.fillStyle = '#f7f6f1';
+    context.fillRect(0, 0, width, height);
+    context.globalCompositeOperation = 'multiply';
+    lozenges.current.forEach((lozenge) => {
       lozenge.setProps({
-        containerWidth: width,
-        containerHeight: height,
+        containerScale,
+        containerHeight,
       });
+      lozenge.onEnterFrame();
+      lozenge.renderInContext(context);
     });
-  };
+  }, [boundingClientRect, elapsedMilliseconds, canvasRef]);
 
-  containerRef = (ref: HTMLElement | null) => {
-    if (!ref) {
-      return;
-    }
-    this._container = ref;
-    this.measureContainerDeferred();
-  };
-
-  canvasRef = (ref: HTMLCanvasElement | null) => {
-    if (!ref) {
-      return;
-    }
-    this._canvasRef = ref;
-    this._context = ref.getContext('2d', { alpha: false });
-    this.measureContainerDeferred();
-  };
-
-  renderCanvas = () => {
-    const { width, height } = this.state;
-    if (this._context) {
-      this._context.globalCompositeOperation = 'source-over';
-      this._context.fillStyle = '#f7f6f1';
-      this._context.fillRect(0, 0, width, height);
-      this._context.globalCompositeOperation = 'multiply';
-      this._lozenges.forEach((lozenge) => {
-        lozenge.onEnterFrame();
-        lozenge.renderInContext(this._context);
-      });
-    }
-    this._raf = requestAnimationFrame(this.renderCanvas);
-  };
-
-  render() {
-    const { width, height } = this.state;
-    return (
-      <div ref={this.containerRef} className={styles.container}>
-        <canvas width={width} height={height} ref={this.canvasRef} />
-      </div>
-    );
-  }
-}
+  const { width, height } = boundingClientRect || {};
+  return (
+    <div ref={ref} className={styles.container}>
+      <canvas width={width} height={height} ref={canvasRef} />
+    </div>
+  );
+};
 
 export default AnimatedBackgroundCanvas;

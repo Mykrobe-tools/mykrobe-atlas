@@ -9,13 +9,15 @@ const Protected = ({
   isAuthenticated,
   children,
 }: React.ElementProps<*>): React.Element<*> | null => {
+  React.useEffect(() => {
+    if (isInitialised && !isAuthenticated) {
+      login();
+    }
+  }, [isAuthenticated, isInitialised, login]);
   if (!isInitialised) {
     return <Loading />;
   }
   if (!isAuthenticated) {
-    React.useEffect(() => {
-      login();
-    }, []);
     return null;
   }
   return children;
