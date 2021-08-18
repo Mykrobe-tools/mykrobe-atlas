@@ -1,10 +1,8 @@
-/* @flow */
-
 import { LozengeDimensions } from './constants';
 import fillRoundedRect from './fillRoundedRect';
 
 export class CanvasLozenge {
-  constructor({ containerWidth, containerHeight, color }) {
+  constructor({ containerWidth, containerHeight, containerScale, color }) {
     this.state = {
       initialised: true,
       x: (-0.2 + 1.2 * Math.random()) * containerWidth,
@@ -18,6 +16,7 @@ export class CanvasLozenge {
     this.props = {
       containerWidth,
       containerHeight,
+      containerScale,
       color,
     };
   }
@@ -43,6 +42,7 @@ export class CanvasLozenge {
     if (newState.x > containerWidth + thisWidth) {
       newState.x = -thisWidth - Math.random() * thisWidth;
       newState.y = Math.random() * containerHeight;
+      console.log({ containerHeight });
     }
     if (opacity < 1) {
       newState.opacity = Math.min(1, opacity + 1 / 120);
@@ -54,17 +54,18 @@ export class CanvasLozenge {
   };
 
   renderInContext = (context) => {
-    const { color } = this.props;
+    const { color, containerScale } = this.props;
     const { x, y, rotation, scale, opacity } = this.state;
     const width = scale * LozengeDimensions.width;
     const height = scale * LozengeDimensions.height;
+    let alpha = scale * opacity;
+    alpha = Math.min(1, alpha);
+    alpha = Math.max(0, alpha);
     context.save();
+    context.scale(containerScale, containerScale);
     context.translate(x, y);
     context.rotate(rotation);
-    context.globalAlpha = 1;
-    if (opacity < 1) {
-      context.globalAlpha = Math.max(0, opacity);
-    }
+    context.globalAlpha = alpha;
     context.fillStyle = color;
     fillRoundedRect(
       context,
