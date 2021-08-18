@@ -22,6 +22,7 @@ class Analysis extends React.Component<*> {
   render() {
     const {
       isFetchingExperiment,
+      isRefetchingExperiment,
       isBusyWithCurrentRoute,
       experimentsTreeNewick,
       experimentAndNearestNeigbours,
@@ -52,7 +53,7 @@ class Analysis extends React.Component<*> {
           experimentIsAnalysing={experimentIsAnalysing}
         />
       );
-    } else if (isFetchingExperiment) {
+    } else if (isFetchingExperiment && !isRefetchingExperiment) {
       content = <Loading />;
     } else {
       content = (
