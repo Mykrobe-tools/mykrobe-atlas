@@ -163,12 +163,13 @@ Array [
   "metadata.outcome.whoOutcomeCategory",
   "metadata.outcome.dateOfDeath",
   "results",
+  "awaitingFirstDistanceResult",
 ]
 `;
 
 exports[`experiment schema util should determine completeness as expected 1`] = `
 Object {
   "complete": 2,
-  "total": 161,
+  "total": 162,
 }
 `;
