@@ -42,7 +42,6 @@ export class CanvasLozenge {
     if (newState.x > containerWidth + thisWidth) {
       newState.x = -thisWidth - Math.random() * thisWidth;
       newState.y = Math.random() * containerHeight;
-      console.log({ containerHeight });
     }
     if (opacity < 1) {
       newState.opacity = Math.min(1, opacity + 1 / 120);
