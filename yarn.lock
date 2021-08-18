@@ -10386,7 +10386,7 @@ make-dir@^3.0.0, make-dir@^3.0.2:
 
 "makeandship-js-common@https://bitbucket.org/makeandship/makeandship-js-common#feature/377-entity-has-an-attribute-which-indicates-if-it-is-being-refetched":
   version "0.2.19"
-  resolved "https://bitbucket.org/makeandship/makeandship-js-common#d6ec0fec7380200b9eed77ce49b169cc2c7531a4"
+  resolved "https://bitbucket.org/makeandship/makeandship-js-common#476f909cb889e71fea8f2d0d17b6a866ce49b33d"
   dependencies:
     ajv "^6.7.0"
     react-jsonschema-form "^1.8.0"
