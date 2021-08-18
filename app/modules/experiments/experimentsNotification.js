@@ -146,9 +146,19 @@ function* distanceSearchCompleteWatcher() {
     const experimentDistanceIsSearching = yield select(
       getExperimentDistanceIsSearching
     );
+    const status = _get(action.payload, 'status');
     if (isViewingCompleteExperiment && experimentDistanceIsSearching) {
-      yield put(requestExperiment(completeExperimentId));
-      yield put(showNotification(`Distance search complete`));
+      if (status === 'error') {
+        yield put(
+          showNotification({
+            category: NotificationCategories.ERROR,
+            content: `Distance search failed`,
+          })
+        );
+      } else {
+        yield put(requestExperiment(completeExperimentId));
+        yield put(showNotification(`Distance search complete`));
+      }
     }
   });
 }
