@@ -5,8 +5,14 @@ import { push, getLocation } from 'connected-react-router';
 
 import { NEW_ENTITY_KEY } from 'makeandship-js-common/src/modules/generic';
 
-import { experimentActionTypes } from '../experiments/experiment';
-import { requestExperiments } from '../experiments';
+import {
+  experimentActionTypes,
+  getExperiment,
+} from '../experiments/experiment';
+import {
+  requestExperiments,
+  resetExperimentsHighlighted,
+} from '../experiments';
 
 // Side effects
 
@@ -26,6 +32,19 @@ export function* createWorker(action: any): Generator<*, *, *> {
   const entity = action.payload;
   const { id } = entity;
   yield put(push(`/experiments/${id}`));
+}
+
+function* requestWatcher() {
+  // reset tooltips when new experiment is fetched
+  yield takeLatest(experimentActionTypes.REQUEST, function* (action: any) {
+    const current = yield select(getExperiment);
+    const currentId = current.id;
+    const requestId = action.payload;
+    if (currentId && currentId !== requestId) {
+      // new request
+      yield put(resetExperimentsHighlighted());
+    }
+  });
 }
 
 // TODO: remove if expected user behaviour is to stay on current experiement tab when updating experiment
@@ -57,6 +76,7 @@ export function* experimentNavigationSaga(): Generator<*, *, *> {
   yield all([
     fork(newWatcher),
     fork(createWatcher),
+    fork(requestWatcher),
     // fork(updateWatcher),
     fork(deleteWatcher),
   ]);
