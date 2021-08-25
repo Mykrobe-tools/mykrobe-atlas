@@ -57,7 +57,7 @@ const axiosInstance = axios.create({
 
 if (process.env.NODE_ENV !== 'production') {
   // log network requests as curl to help with debugging
-  const curlirize = require('axios-curlirize/dist/curlirize').default;
+  const curlirize = require('axios-curlirize').default;
   curlirize(axiosInstance);
 }
 

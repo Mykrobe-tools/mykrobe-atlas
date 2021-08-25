@@ -1,0 +1,5659 @@
+{
+  "metadata": {
+    "sample": {
+      "countryIsolate": "ZA",
+      "cityIsolate": "Johannesburg",
+      "isolateId": "YA00211329",
+      "collectionDate": "2020-06-01T00:00:00.000Z",
+      "dateArrived": "1970-01-01T00:00:00.000Z",
+      "longitudeIsolate": 28.0473051,
+      "latitudeIsolate": -26.2041028
+    },
+    "patient": {
+      "injectingDrugUse": "No",
+      "homeless": "Yes",
+      "imprisoned": "No",
+      "smoker": "Yes",
+      "diabetic": "Insulin+tablets",
+      "hivStatus": "Tested, positive"
+    }
+  },
+  "files": [],
+  "sampleId": "8b64c580-a69d-467b-81e7-9502797d8eee",
+  "created": "2021-04-26T13:26:17.020Z",
+  "modified": "2021-08-18T14:16:35.367Z",
+  "leafId": "leaf_1772",
+  "id": "6086bf7445eb0100132724a0",
+  "results": {
+    "predictor": {
+      "probeSets": [
+        "/nfs/leia/research/iqbal/software/Python-3.8.1/lib/python3.8/site-packages/mykrobe/data/tb/tb-species-170421.fasta.gz",
+        "/nfs/leia/research/iqbal/software/Python-3.8.1/lib/python3.8/site-packages/mykrobe/data/tb/tb-hunt-probe-set-jan-03-2019.fasta.gz",
+        "/nfs/leia/research/iqbal/software/Python-3.8.1/lib/python3.8/site-packages/mykrobe/data/tb/tb.lineage.20200930.probes.fa.gz"
+      ],
+      "susceptibility": {
+        "Ofloxacin": {
+          "prediction": "R",
+          "calledBy": {
+            "gyrA_A90V-GCG7569GTG": {
+              "variant": null,
+              "genotype": [1, 1],
+              "genotype_likelihoods": [
+                -10870.165996750431,
+                -99999999,
+                -86.25240011617441
+              ],
+              "info": {
+                "coverage": {
+                  "reference": {
+                    "percent_coverage": 0,
+                    "median_depth": 0,
+                    "min_non_zero_depth": 0,
+                    "kmer_count": 0,
+                    "klen": 21
+                  },
+                  "alternate": {
+                    "percent_coverage": 100,
+                    "median_depth": 100,
+                    "min_non_zero_depth": 93,
+                    "kmer_count": 1883,
+                    "klen": 20
+                  }
+                },
+                "expected_depths": [74],
+                "contamination_depths": [],
+                "filter": [],
+                "conf": 10784
+              },
+              "_cls": "Call.VariantCall"
+            }
+          }
+        },
+        "Moxifloxacin": {
+          "prediction": "R",
+          "calledBy": {
+            "gyrA_A90V-GCG7569GTG": {
+              "variant": null,
+              "genotype": [1, 1],
+              "genotype_likelihoods": [
+                -10870.165996750431,
+                -99999999,
+                -86.25240011617441
+              ],
+              "info": {
+                "coverage": {
+                  "reference": {
+                    "percent_coverage": 0,
+                    "median_depth": 0,
+                    "min_non_zero_depth": 0,
+                    "kmer_count": 0,
+                    "klen": 21
+                  },
+                  "alternate": {
+                    "percent_coverage": 100,
+                    "median_depth": 100,
+                    "min_non_zero_depth": 93,
+                    "kmer_count": 1883,
+                    "klen": 20
+                  }
+                },
+                "expected_depths": [74],
+                "contamination_depths": [],
+                "filter": [],
+                "conf": 10784
+              },
+              "_cls": "Call.VariantCall"
+            }
+          }
+        },
+        "Isoniazid": {
+          "prediction": "R",
+          "calledBy": {
+            "inhA_I194T-ATC1674781ACC": {
+              "variant": null,
+              "genotype": [1, 1],
+              "genotype_likelihoods": [
+                -8587.382112293848,
+                -99999999,
+                -69.54501911474452
+              ],
+              "info": {
+                "coverage": {
+                  "reference": {
+                    "percent_coverage": 0,
+                    "median_depth": 0,
+                    "min_non_zero_depth": 0,
+                    "kmer_count": 0,
+                    "klen": 21
+                  },
+                  "alternate": {
+                    "percent_coverage": 100,
+                    "median_depth": 69,
+                    "min_non_zero_depth": 59,
+                    "kmer_count": 1336,
+                    "klen": 20
+                  }
+                },
+                "expected_depths": [74],
+                "contamination_depths": [],
+                "filter": [],
+                "conf": 8518
+              },
+              "_cls": "Call.VariantCall"
+            },
+            "fabG1_C-15X-C1673425T": {
+              "variant": null,
+              "genotype": [1, 1],
+              "genotype_likelihoods": [
+                -9651.179312182288,
+                -99999999,
+                -55.992550135978966
+              ],
+              "info": {
+                "coverage": {
+                  "reference": {
+                    "percent_coverage": 0,
+                    "median_depth": 0,
+                    "min_non_zero_depth": 0,
+                    "kmer_count": 0,
+                    "klen": 21
+                  },
+                  "alternate": {
+                    "percent_coverage": 100,
+                    "median_depth": 80,
+                    "min_non_zero_depth": 73,
+                    "kmer_count": 1615,
+                    "klen": 21
+                  }
+                },
+                "expected_depths": [74],
+                "contamination_depths": [],
+                "filter": [],
+                "conf": 9595
+              },
+              "_cls": "Call.VariantCall"
+            }
+          }
+        },
+        "Kanamycin": {
+          "prediction": "S"
+        },
+        "Ethambutol": {
+          "prediction": "R",
+          "calledBy": {
+            "embB_M306V-ATG4247429GTG": {
+              "variant": null,
+              "genotype": [1, 1],
+              "genotype_likelihoods": [
+                -7175.903721449891,
+                -99999999,
+                -176.2907512327006
+              ],
+              "info": {
+                "coverage": {
+                  "reference": {
+                    "percent_coverage": 0,
+                    "median_depth": 0,
+                    "min_non_zero_depth": 0,
+                    "kmer_count": 0,
+                    "klen": 21
+                  },
+                  "alternate": {
+                    "percent_coverage": 100,
+                    "median_depth": 48,
+                    "min_non_zero_depth": 39,
+                    "kmer_count": 981,
+                    "klen": 21
+                  }
+                },
+                "expected_depths": [74],
+                "contamination_depths": [],
+                "filter": [],
+                "conf": 7000
+              },
+              "_cls": "Call.VariantCall"
+            }
+          }
+        },
+        "Streptomycin": {
+          "prediction": "S"
+        },
+        "Ciprofloxacin": {
+          "prediction": "R",
+          "calledBy": {
+            "gyrA_A90V-GCG7569GTG": {
+              "variant": null,
+              "genotype": [1, 1],
+              "genotype_likelihoods": [
+                -10870.165996750431,
+                -99999999,
+                -86.25240011617441
+              ],
+              "info": {
+                "coverage": {
+                  "reference": {
+                    "percent_coverage": 0,
+                    "median_depth": 0,
+                    "min_non_zero_depth": 0,
+                    "kmer_count": 0,
+                    "klen": 21
+                  },
+                  "alternate": {
+                    "percent_coverage": 100,
+                    "median_depth": 100,
+                    "min_non_zero_depth": 93,
+                    "kmer_count": 1883,
+                    "klen": 20
+                  }
+                },
+                "expected_depths": [74],
+                "contamination_depths": [],
+                "filter": [],
+                "conf": 10784
+              },
+              "_cls": "Call.VariantCall"
+            }
+          }
+        },
+        "Pyrazinamide": {
+          "prediction": "R",
+          "calledBy": {
+            "pncA_D8N-GTC2289218GTT": {
+              "variant": null,
+              "genotype": [1, 1],
+              "genotype_likelihoods": [
+                -7502.648720262088,
+                -99999999,
+                -114.83289242062138
+              ],
+              "info": {
+                "coverage": {
+                  "reference": {
+                    "percent_coverage": 5,
+                    "median_depth": 0,
+                    "min_non_zero_depth": 69,
+                    "kmer_count": 69,
+                    "klen": 21
+                  },
+                  "alternate": {
+                    "percent_coverage": 100,
+                    "median_depth": 62,
+                    "min_non_zero_depth": 56,
+                    "kmer_count": 1154,
+                    "klen": 19
+                  }
+                },
+                "expected_depths": [74],
+                "contamination_depths": [],
+                "filter": [],
+                "conf": 7388
+              },
+              "_cls": "Call.VariantCall"
+            }
+          }
+        },
+        "Rifampicin": {
+          "prediction": "R",
+          "calledBy": {
+            "rpoB_S450L-TCG761154TTG": {
+              "variant": null,
+              "genotype": [1, 1],
+              "genotype_likelihoods": [
+                -9018.694180335438,
+                -99999999,
+                -57.584352476807716
+              ],
+              "info": {
+                "coverage": {
+                  "reference": {
+                    "percent_coverage": 0,
+                    "median_depth": 0,
+                    "min_non_zero_depth": 0,
+                    "kmer_count": 0,
+                    "klen": 21
+                  },
+                  "alternate": {
+                    "percent_coverage": 100,
+                    "median_depth": 76,
+                    "min_non_zero_depth": 70,
+                    "kmer_count": 1443,
+                    "klen": 20
+                  }
+                },
+                "expected_depths": [74],
+                "contamination_depths": [],
+                "filter": [],
+                "conf": 8961
+              },
+              "_cls": "Call.VariantCall"
+            }
+          }
+        },
+        "Amikacin": {
+          "prediction": "S"
+        },
+        "Capreomycin": {
+          "prediction": "S"
+        }
+      },
+      "phylogenetics": {
+        "phylo_group": {
+          "Mycobacterium_tuberculosis_complex": {
+            "percent_coverage": 99.414,
+            "median_depth": 74
+          }
+        },
+        "sub_complex": {
+          "Unknown": {
+            "percent_coverage": -1,
+            "median_depth": -1
+          }
+        },
+        "species": {
+          "Mycobacterium_tuberculosis": {
+            "percent_coverage": 98.477,
+            "median_depth": 69.5
+          }
+        },
+        "lineage": {
+          "lineage": ["lineage2.2"],
+          "calls_summary": {
+            "lineage2.2": {
+              "good_nodes": 2,
+              "tree_depth": 2,
+              "genotypes": {
+                "lineage2": 1,
+                "lineage2.2": 1
+              }
+            }
+          },
+          "calls": {
+            "lineage2.2": {
+              "lineage2": {
+                "G497491A": {
+                  "variant": "ref-G497491A?var_name=G497491A&num_alts=1&ref=NC_000962.3&enum=0&gene=NA&mut=G497491A",
+                  "genotype": [1, 1],
+                  "genotype_likelihoods": [
+                    -11564.098732558865,
+                    -99999999,
+                    -130.72169838120817
+                  ],
+                  "info": {
+                    "coverage": {
+                      "reference": {
+                        "percent_coverage": 0,
+                        "median_depth": 0,
+                        "min_non_zero_depth": 0,
+                        "kmer_count": 0,
+                        "klen": 21
+                      },
+                      "alternate": {
+                        "percent_coverage": 100,
+                        "median_depth": 102,
+                        "min_non_zero_depth": 95,
+                        "kmer_count": 2064,
+                        "klen": 21
+                      }
+                    },
+                    "expected_depths": [74],
+                    "contamination_depths": [],
+                    "filter": [],
+                    "conf": 11433
+                  },
+                  "_cls": "Call.VariantCall"
+                }
+              },
+              "lineage2.2": {
+                "G2505085A": {
+                  "variant": "ref-G2505085A?var_name=G2505085A&num_alts=2&ref=NC_000962.3&enum=0&gene=NA&mut=G2505085A",
+                  "genotype": [1, 1],
+                  "genotype_likelihoods": [
+                    -7754.666629219135,
+                    -99999999,
+                    -116.39512347301162
+                  ],
+                  "info": {
+                    "coverage": {
+                      "reference": {
+                        "percent_coverage": 0,
+                        "median_depth": 0,
+                        "min_non_zero_depth": 0,
+                        "kmer_count": 0,
+                        "klen": 21
+                      },
+                      "alternate": {
+                        "percent_coverage": 100,
+                        "median_depth": 57,
+                        "min_non_zero_depth": 52,
+                        "kmer_count": 1137,
+                        "klen": 21
+                      }
+                    },
+                    "expected_depths": [74],
+                    "contamination_depths": [],
+                    "filter": [],
+                    "conf": 7638
+                  },
+                  "_cls": "Call.VariantCall"
+                }
+              }
+            }
+          }
+        }
+      },
+      "type": "predictor",
+      "received": "2021-04-26T13:25:57.703Z",
+      "kmer": 21,
+      "files": [
+        "/nfs/leia/research/iqbal/projects/mykrobeatlas/pilot/Pipeline_root/00/07/34/80/73480/Reads/reads.original.1.1.fq.gz",
+        "/nfs/leia/research/iqbal/projects/mykrobeatlas/pilot/Pipeline_root/00/07/34/80/73480/Reads/reads.original.1.2.fq.gz"
+      ],
+      "version": {
+        "mykrobe-predictor": "v0.9.0",
+        "mykrobe-atlas": "v0.9.0"
+      },
+      "genotypeModel": "kmer_count",
+      "externalId": "YA00211329",
+      "r": true,
+      "mdr": true,
+      "xdr": false,
+      "tdr": false,
+      "id": "6086bf7445eb0100132724a1",
+      "experiments": []
+    },
+    "cluster": {
+      "type": "cluster",
+      "received": "2021-08-25T09:21:15.423Z",
+      "status": "success",
+      "nodes": [
+        {
+          "id": 0,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95429668",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "5d9dbf33-2999-40dc-9560-799b7271b1fa",
+              "id": "5fd7ef18e804da0012654c3d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196051",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "89d3c4d8-18e2-4fea-8264-4e5f4b350bad",
+              "id": "6086bf6645eb010013270330"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00198336",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "65f0e671-3b12-471d-8df7-c52e9cf25861",
+              "id": "6086bf6a45eb010013270b5e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196062",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "b56bba50-10ed-49eb-8f04-656041841b97",
+              "id": "6086bf6645eb0100132703a2"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204151",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "5883ecd0-2013-42e0-9025-ece3718112ca",
+              "id": "6086bf6e45eb010013271649"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209349",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "7b11a984-fe81-4fe4-a90f-e34fb35b7d10",
+              "id": "6086bf7345eb0100132723a9"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204123",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "922d307b-c0c6-41c9-94cc-10cb97f77ba2",
+              "id": "6086bf6d45eb0100132714e0"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196103",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "b5d13f18-04c7-46fe-a314-cee234443118",
+              "id": "6086bf6745eb0100132704f8"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204127",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "da476aab-435f-442e-a9ab-117c319d893d",
+              "id": "6086bf6d45eb010013271506"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2399717"
+                }
+              },
+              "sampleId": "7c33c53c-3c4b-4594-9420-6ac94536e1c0",
+              "id": "5fd7f2b7e804da001269c6a3"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196111",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "bddeec33-7e51-47b5-99a3-a2d63fd00ef4",
+              "id": "6086bf6745eb010013270590"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209337",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "250777e0-92c9-4cdb-9960-dfc9e2f744c3",
+              "id": "6086bf7345eb01001327235d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00212102",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "a434720b-f870-4f9b-981c-14a09874af22",
+              "id": "6086bf7445eb0100132725d0"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196163",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "b65ec2de-fa95-4d03-a58d-9b2ad5af6c6f",
+              "id": "6086bf6845eb01001327071f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204363",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "bddb7c7e-dac1-466d-9bf0-2ff2a669c586",
+              "id": "6086bf7145eb010013271d45"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204142",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "bdeca22f-2295-4c60-a07e-8d00fff0a488",
+              "id": "6086bf6e45eb0100132715c4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204281",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "f4174dc8-1573-4075-98e5-6a264482c30e",
+              "id": "6086bf7045eb010013271b44"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196119",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "f9132a30-6fd1-493e-9870-0c155ea62f4f",
+              "id": "6086bf6745eb010013270602"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204226",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "18f4220f-cbd9-4e09-a20f-2231fb5af88a",
+              "id": "6086bf6f45eb010013271969"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204086",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "85e9d86f-a668-437b-9e48-b6dc5c96c8c6",
+              "id": "6086bf6d45eb010013271362"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196171",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "c960cdda-f2a2-48a2-a8de-e6689502adcb",
+              "id": "6086bf6845eb01001327076b"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204366",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "cf938ea3-dc66-4a85-8f2e-f563dd692b50",
+              "id": "6086bf7145eb010013271d6b"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02557849",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "545dd6f4-afdb-470b-93a3-712588590792",
+              "id": "5fd882dae804da001270a2dc"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196184",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "66a82f49-0cc3-4d13-92e4-7097c2767916",
+              "id": "6086bf6845eb0100132707ca"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02077323",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "72384102-63c6-43e7-a608-84fe873d7acd",
+              "id": "5fd8816be804da00126f74d0"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00198341",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "499ec24f-470b-49a5-b048-f77fb5ea0633",
+              "id": "6086bf6a45eb010013270baa"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00197508",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "8ad4ab40-7e6d-46bf-8b94-f11128d9afe5",
+              "id": "6086bf6845eb010013270803"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XG00534041",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "4d9c3ae6-75c0-4b6f-ab82-1cef348f2f1a",
+              "id": "5fd882dae804da001270a39c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_30234"
+                }
+              },
+              "sampleId": "615e7911-1b77-4193-a94f-a7df18c2ecb6",
+              "id": "5fd88399e804da0012715080"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00208294",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "9e5b359f-da17-4469-ae14-131654880a9e",
+              "id": "6086bf7245eb0100132720c4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00197519",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "bcce8c7b-6ab4-4f6d-a447-278b36d415ca",
+              "id": "6086bf6845eb0100132708ae"
+            }
+          ]
+        },
+        {
+          "id": 9,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00197520",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "11931500-81fa-4169-83ae-f5da0e2657c4",
+              "id": "6086bf6845eb0100132708c1"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558546"
+                }
+              },
+              "sampleId": "15f28359-afc9-4058-91da-8ddce389c6f4",
+              "id": "5fd884fbe804da001272d6d2"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00205147",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "27e9c6f8-321d-4a51-b53b-c455ed3cd80d",
+              "id": "6086bf7145eb010013271e51"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204183",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "4eed61b3-51ef-44e3-b6f1-f9d80ee4815b",
+              "id": "6086bf6f45eb01001327184c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213800",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "b5c4f47b-b1df-4417-8a14-6a77632dc94d",
+              "id": "6086bf7545eb010013272772"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00198337",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "c185ee8a-f77e-472b-8170-0a7e73028e77",
+              "id": "6086bf6a45eb010013270b71"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00208802",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "d1a2bb20-8736-4778-a4bd-bfc13c05ec37",
+              "id": "6086bf7245eb010013272182"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204165",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "2267845c-c2d8-40a9-9a9c-468aca78edd5",
+              "id": "6086bf6e45eb010013271740"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204215",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "2571d1f3-7b84-4d37-9dba-d2191eb6d011",
+              "id": "6086bf6f45eb0100132718ab"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204171",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "2fcdd0f7-af5d-47f7-8a4e-ab9edfd0ea72",
+              "id": "6086bf6e45eb01001327178e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XG00553870",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "409adf49-72d8-406a-ae0a-147122830b6e",
+              "id": "5fd882dae804da001270a3af"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204059",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "65f1d8d0-d340-4729-89c1-8d12b0e7bf26",
+              "id": "6086bf6c45eb010013271161"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204216",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "70e3d9c6-5900-4a4f-8701-f76cf1d9ccab",
+              "id": "6086bf6f45eb0100132718be"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204146",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "bcb27c8f-edf7-47d2-8f64-8465f4e637f8",
+              "id": "6086bf6e45eb010013271610"
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204235",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "125e8cf0-0866-4eeb-9491-e7101b2b0282",
+              "id": "6086bf6f45eb0100132719c8"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204081",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "a76b5b9d-7bc0-4df1-91b1-fa95f472fc52",
+              "id": "6086bf6d45eb010013271303"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204143",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "3c00b7c9-8577-492e-a451-fbf98d28a450",
+              "id": "6086bf6e45eb0100132715d7"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204156",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "646d650a-52a1-4442-b5c3-ef376ed31a19",
+              "id": "6086bf6e45eb0100132716a8"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204118",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "64addc3e-22ee-4445-ac80-57a3e7dda524",
+              "id": "6086bf6d45eb0100132714a7"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204150",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "b801910b-7ba1-4e32-b701-9044e300e680",
+              "id": "6086bf6e45eb010013271636"
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204144",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "0c97a401-6ccb-4a02-9d3b-f1d36f7be7f7",
+              "id": "6086bf6e45eb0100132715ea"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209316",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "c7b19d84-4caa-46b0-8812-d6db002737ab",
+              "id": "6086bf7345eb010013272279"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204161",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "7dbcca11-31ec-48e6-8da3-2a89a0d0724b",
+              "id": "6086bf6e45eb010013271707"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204311",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "e27ef69a-d939-4a72-93f3-4ab429b0c6e7",
+              "id": "6086bf7045eb010013271bdc"
+            }
+          ]
+        },
+        {
+          "id": 15,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95439418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "08ca85c1-4784-4d75-bf61-7f71d85c0a32",
+              "id": "5fd7ef19e804da0012654d34"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209326",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "a62e10fd-b501-4943-aedc-4a2cbbfc2c84",
+              "id": "6086bf7345eb0100132722fe"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95506168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "f34fce82-f73d-4b5f-bf3c-2d446d75d4a6",
+              "id": "5fd7ef1de804da001265538b"
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN03648707"
+                }
+              },
+              "sampleId": "025867d9-90a3-4b77-85b6-681c69fa254c",
+              "id": "5fd885f5e804da001273b752"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2399814"
+                }
+              },
+              "sampleId": "5b2c90f2-580a-4e06-8cd1-ec8a9a756e32",
+              "id": "5fd7f2f5e804da001269cf3f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN08795335"
+                }
+              },
+              "sampleId": "8f35e0dc-e659-4d1e-8e10-18709ef7e672",
+              "id": "5fd7eb35e804da0012651a7b"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN08795302"
+                }
+              },
+              "sampleId": "9e815afc-ca00-416d-a406-f22d54c12998",
+              "id": "5fd7eb34e804da001265182e"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95415418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "e7785513-1059-4218-b7a4-1250055ded69",
+              "id": "5fd7ef17e804da0012654ad4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95498668",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "ec639764-72be-41a8-8f69-11ef5af2d26f",
+              "id": "5fd7ef1ce804da00126552cd"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95451418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "fcee3c0b-17a2-463d-9ead-cc4c8f80f77e",
+              "id": "5fd7ef1ae804da0012654e57"
+            }
+          ]
+        },
+        {
+          "id": 18,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95419168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "a89671bd-316c-48d1-87a5-60818c3d8fdc",
+              "id": "5fd7ef17e804da0012654b33"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95431168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "ac40495a-9851-4725-b579-4ba3d303784c",
+              "id": "5fd7ef18e804da0012654c63"
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204158",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "02a8dff9-b0e7-4cf4-a1f7-5dc925e2f41c",
+              "id": "6086bf6e45eb0100132716ce"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400519"
+                }
+              },
+              "sampleId": "04303650-1106-4e01-a371-c76a5ede14c2",
+              "id": "5fd7f30de804da00126a0392"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204075",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "05960171-6f27-4d9b-a947-7e01900f14c0",
+              "id": "6086bf6c45eb010013271291"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196108",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "069b1b1f-cb10-44eb-a588-a6b99bdf51e7",
+              "id": "6086bf6745eb010013270557"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00211336",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "06e249b6-afc9-4f36-a905-665acf50f83f",
+              "id": "6086bf7445eb010013272525"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95432668",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "0d0f37ea-5d9b-4ec3-b40d-9076f52fa024",
+              "id": "5fd7ef18e804da0012654c89"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400205"
+                }
+              },
+              "sampleId": "0fc969db-ee62-4fa7-a6e0-06c03df76c1f",
+              "id": "5fd7f302e804da001269ec44"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204140",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "13c5999c-2a80-4069-bf3d-534222952a6d",
+              "id": "6086bf6e45eb01001327159e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00211324",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "147fa064-b350-456b-a904-446bf7873024",
+              "id": "6086bf7445eb010013272454"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204153",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "166426d3-e603-4bc3-95b9-b557ff136e1b",
+              "id": "6086bf6e45eb01001327166f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_29146"
+                }
+              },
+              "sampleId": "1bbfba9b-8040-4ed6-9a59-a33d843a74b5",
+              "id": "5fd88399e804da0012714ffb"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204090",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "1f383522-cbf2-4d8a-9067-814d4c1129f5",
+              "id": "6086bf6d45eb010013271388"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2401731"
+                }
+              },
+              "sampleId": "2a3c0808-217c-4de0-9967-87c86a09449a",
+              "id": "5fd7f3c2e804da00126ac6ef"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196152",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "2ba2b65e-8927-4beb-a652-8f5edeec49ba",
+              "id": "6086bf6745eb010013270687"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204219",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "3568c612-1aa9-453c-9aff-e5c0146e938f",
+              "id": "6086bf6f45eb0100132718f7"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD01329489",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "358bb323-e693-4fc1-b609-50f4ffa3b3fd",
+              "id": "5fd882d9e804da001270a101"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_30737"
+                }
+              },
+              "sampleId": "3990b44a-90bd-43f1-a91b-3e74a399d861",
+              "id": "5fd88399e804da00127150df"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400112"
+                }
+              },
+              "sampleId": "39b8d16a-b355-49e9-ad79-cdc7d5ac03a3",
+              "id": "5fd7f2ffe804da001269e55d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02314331",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "3e26de0b-d967-4ce6-af1c-1a12b4a47134",
+              "id": "5fd8824ee804da0012702958"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204289",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "40212d72-a7cf-4688-9f29-d9a5759a999a",
+              "id": "6086bf7045eb010013271b7d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00211334",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "442a0fdd-fa75-4258-be7f-a9bd70335e65",
+              "id": "6086bf7445eb0100132724ff"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204369",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "4df6691a-9915-4aac-abf7-4be216d99746",
+              "id": "6086bf7145eb010013271d91"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204259",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "534613f5-9704-4539-a314-320317c7f181",
+              "id": "6086bf7045eb010013271a60"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2401494"
+                }
+              },
+              "sampleId": "563993a7-092b-4953-b616-2f05ed18cd53",
+              "id": "5fd7f322e804da00126a3513"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196157",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "5bae3a63-8b90-481f-8193-1c8bc62afd50",
+              "id": "6086bf6845eb0100132706d3"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204367",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "5e435c24-eff0-4a3d-a962-22e551445199",
+              "id": "6086bf7145eb010013271d7e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204069",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "62040b2c-df14-4b8d-ac17-cae0ab781a54",
+              "id": "6086bf6c45eb01001327121f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204231",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "6319799a-062d-458f-bb26-e99ef7e15ea8",
+              "id": "6086bf6f45eb0100132719a2"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204137",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "794bf4f2-1d74-4985-bb88-58f8619eb15d",
+              "id": "6086bf6e45eb010013271578"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204269",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "7f80cbfc-27ac-424b-b1cb-d7dded28d36e",
+              "id": "6086bf7045eb010013271ad2"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196099",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "80c3c4f5-8318-4bb2-9820-cc46b16f728e",
+              "id": "6086bf6745eb0100132704bf"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204238",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "8b71f984-7081-4ac8-9e81-87bd1c8a0e06",
+              "id": "6086bf6f45eb0100132719ee"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_30021"
+                }
+              },
+              "sampleId": "8ef41440-3ab5-4a8a-95d9-43f665c74fce",
+              "id": "5fd88399e804da001271505a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204169",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "8f71281d-0591-4def-b79c-ab2e8b1b12f6",
+              "id": "6086bf6e45eb010013271768"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02313510",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "9084cb1e-2cc3-45e5-b9b6-004e1903e828",
+              "id": "5fd882d9e804da001270a199"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204101",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "95edcda2-2a11-456f-b04d-81fd2c4467ad",
+              "id": "6086bf6d45eb010013271420"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213066",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "9953b12a-e1cf-4024-8e41-d63f8ff0cc45",
+              "id": "6086bf7445eb01001327262f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00207504",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "9b54ffb4-0ea1-44fd-bb09-5c76ecb433e4",
+              "id": "6086bf7245eb010013271f81"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00207505",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "a1374117-668c-46b2-9ac3-736745b6807c",
+              "id": "6086bf7245eb010013271f94"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204286",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "ab42a4bc-f413-4ee8-9f0f-aebe5cb2c7fb",
+              "id": "6086bf7045eb010013271b6a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196098",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "aebbbfac-efb5-4748-a4cd-bec8b012d669",
+              "id": "6086bf6745eb0100132704ac"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3374964"
+                }
+              },
+              "sampleId": "aff0eba0-56d5-4da3-8aec-ba053945f52e",
+              "id": "5fd884e8e804da001272ace1"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204253",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "b2f017a0-ee99-4838-9610-e91cfdc42d41",
+              "id": "6086bf6f45eb010013271a27"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558548"
+                }
+              },
+              "sampleId": "c2f5b0fb-f9a0-40e8-8fcf-1600ebdd51d0",
+              "id": "5fd884fbe804da001272d6f8"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD01164887",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "d1cf8167-76cc-4c56-8159-efa202715e20",
+              "id": "5fd882d9e804da001270a043"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00208295",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "d5915688-83b1-4ecb-a497-dd499cb1249d",
+              "id": "6086bf7245eb0100132720d7"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95505418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "dfcfe980-1c6c-4625-9788-c7cbdc4fee35",
+              "id": "5fd7ef1de804da0012655378"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_32216"
+                }
+              },
+              "sampleId": "dfd2fb88-ff4f-4a7c-bb7b-9ff80d6d857d",
+              "id": "5fd8839ae804da0012715151"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196124",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "e29548c5-fff5-4271-ba96-8964bbd1a55b",
+              "id": "6086bf6745eb010013270628"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02306320",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "ef49eb58-9099-4124-891a-5e19281dbb63",
+              "id": "5fd8824ee804da0012702945"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400307"
+                }
+              },
+              "sampleId": "f990c463-092a-4b36-8f44-17a5d1b8e727",
+              "id": "5fd7f306e804da001269f3d6"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00211319",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "fa8ff9b4-5f8d-43e8-b909-ab94b9309a8e",
+              "id": "6086bf7345eb010013272408"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209330",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "fb7ed012-36c0-4f3d-98d4-e0bfeb9473f1",
+              "id": "6086bf7345eb010013272324"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204217",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "fbd3a9d8-4084-4e93-9b91-cc962fb8eb88",
+              "id": "6086bf6f45eb0100132718d1"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD01333944",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "ffc1b674-18cb-4a97-878a-2de9e1d90a44",
+              "id": "5fd882d9e804da001270a114"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95502418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "0599e901-de2e-4f0a-8dca-bfc76b912510",
+              "id": "5fd7ef1ce804da001265532c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00137037",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "078b4436-3600-4324-8c24-3e8e55c75e61",
+              "id": "5fd882e4e804da001270b95b"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558543"
+                }
+              },
+              "sampleId": "10936dd0-3ab7-4f69-87fb-bdff554d2428",
+              "id": "5fd884fbe804da001272d699"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196179",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "2535417a-b954-4a14-8f0f-47b63b8fc1d6",
+              "id": "6086bf6845eb0100132707a4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204068",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "39d1898f-6c5a-4835-b3d1-317f3d286f62",
+              "id": "6086bf6c45eb01001327120c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00024465",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "4c54bef9-958d-4d30-9653-f533fe4e9f36",
+              "id": "5fd882dfe804da001270aee4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "UH01337713",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "5053b903-a599-4e27-b963-90acabe75527",
+              "id": "5fd882d8e804da0012709daa"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204318",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "5e3c91dc-0ed1-4dec-ad7b-e951c93f1fe8",
+              "id": "6086bf7045eb010013271c4e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209324",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "5f4b4cae-8658-4797-98b3-e7f989244f19",
+              "id": "6086bf7345eb0100132722eb"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD00954195"
+                }
+              },
+              "sampleId": "62a8ff4e-f15d-4fca-9591-5ef2d9e46c6a",
+              "id": "5fd882d9e804da001270a00a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95455168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "775873dd-45ac-4cc8-8940-45fab2f4a105",
+              "id": "5fd7ef1ae804da0012654eb8"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00022118",
+                  "longitudeIsolate": 26.7967849,
+                  "latitudeIsolate": -28.4541105
+                }
+              },
+              "sampleId": "85f51f20-7187-4a76-af4b-5be66263d32d",
+              "id": "5fd7f21de804da00126927e6"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD01920413",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "8794e755-eee8-47fc-b261-404605b4d4ed",
+              "id": "5fd8816be804da00126f7484"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95435668",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "a67d0619-a489-4fad-a69b-676eb788694c",
+              "id": "5fd7ef18e804da0012654cd5"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209315",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "a72054ac-796b-4031-9dd9-ffca8c441444",
+              "id": "6086bf7345eb010013272266"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213089",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "c2965acb-98eb-4536-9190-1138df23a440",
+              "id": "6086bf7545eb01001327275f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95467168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "c91d3d12-5dd4-48cd-8ab5-655345532a11",
+              "id": "5fd7ef1be804da0012654fd5"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00027817",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "d0839f8f-961d-4ac6-86b6-08ea365e2713",
+              "id": "5fd882e0e804da001270b03a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204317",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "d43ba93c-6ca5-40dc-bb1e-b87407e4255e",
+              "id": "6086bf7045eb010013271c3b"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00137046",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "e49df16b-d7eb-4f49-b851-f418f117da7f",
+              "id": "5fd882e4e804da001270b96e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196112",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "e74a171d-993d-4778-971a-04b6f45d5408",
+              "id": "6086bf6745eb0100132705a3"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00206176",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "eb10cd45-a9b8-431c-b97a-129e4513ee4b",
+              "id": "6086bf7145eb010013271e9d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204270",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "feae9808-5377-4347-a408-f4681eefd3a5",
+              "id": "6086bf7045eb010013271ae5"
+            }
+          ]
+        },
+        {
+          "id": 21,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_18500"
+                }
+              },
+              "sampleId": "3b801a2f-f99e-4671-a11d-aa5e3655490f",
+              "id": "5fd88398e804da0012714e33"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95487418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "b1cc9654-e00e-4121-8202-3943f2cf3a2d",
+              "id": "5fd7ef1ce804da00126551b0"
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204155",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "00ed151b-87ad-45be-9f34-5b0b8cc23b4a",
+              "id": "6086bf6e45eb010013271695"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95440918",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "014da22b-47a7-4d00-b099-898cfd7c5818",
+              "id": "5fd7ef19e804da0012654d5a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196058",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "090ea474-ee35-4af2-bd40-c068250c8ee2",
+              "id": "6086bf6645eb01001327037c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00125841",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "0ae61026-21b6-404f-acc4-c1af0b912c82",
+              "id": "5fd8816ce804da00126f7814"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204117",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "0cb982e0-febe-4a1f-b217-259c15fed3b1",
+              "id": "6086bf6d45eb010013271492"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95437168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "0dea9cca-32d4-4fbf-9117-f355febead7c",
+              "id": "5fd7ef18e804da0012654cfb"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95491168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "0e66908c-f940-48ef-9df6-7c06a3a56e38",
+              "id": "5fd7ef1ce804da001265520f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_30078"
+                }
+              },
+              "sampleId": "1059d4f5-25d7-47fc-b993-216aa7fbf9c9",
+              "id": "5fd88399e804da001271506d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209319",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "132c9695-e6f2-4416-abd6-6235b358786f",
+              "id": "6086bf7345eb01001327229f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204261",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "15951698-e028-4eaf-8b37-026bb5c18684",
+              "id": "6086bf7045eb010013271a73"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204276",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "1606db40-aa0b-4c82-b0ec-c76957a94582",
+              "id": "6086bf7045eb010013271b0b"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN03648777"
+                }
+              },
+              "sampleId": "160f5535-2fa3-43ad-982a-50e688eac41b",
+              "id": "5fd885f8e804da001273bc84"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400063"
+                }
+              },
+              "sampleId": "181de381-dad7-458a-813c-ae622f0862e0",
+              "id": "5fd7f2fde804da001269e1ba"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SA00660055",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "1870e05e-e7c8-4e82-9351-98be9c88f6f4",
+              "id": "5fd882d3e804da00127093b8"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SA00544557",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "194c49ed-a3e8-40d5-90a7-e6bb7ad80d5a",
+              "id": "5fd882d1e804da00127092d4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204133",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "197bd2db-9f14-40b8-bdbb-e850f66a4b6a",
+              "id": "6086bf6e45eb01001327153f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN02403527",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "19855ac3-8c04-4748-bb09-cba198156d89",
+              "id": "5fd7ef8de804da001265e143"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "RJ00237580",
+                  "longitudeIsolate": 25.2837585,
+                  "latitudeIsolate": -26.6638599
+                }
+              },
+              "sampleId": "19b5b922-ae09-45e5-a51d-c50cd4f67e1f",
+              "id": "5fd7f214e804da00126913a3"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400648"
+                }
+              },
+              "sampleId": "1a4f6acb-bddc-4d64-9549-c693e7465cc6",
+              "id": "5fd7f311e804da00126a0d25"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN02350436",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "1a7f83b7-340c-4af5-b952-a68d281a8bc1",
+              "id": "5fd7ef7ce804da001265bd8e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ST02824705",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "1abe67f3-3e14-42f7-952d-8ca7ce31d606",
+              "id": "5fd882d5e804da001270988b"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95442418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "1cd27f87-1f64-4c76-b827-3d9e7e2464d9",
+              "id": "5fd7ef19e804da0012654d80"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00207341",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "21e6c5dd-3ad6-41f0-b39a-41a124f4e827",
+              "id": "6086bf7245eb010013271f48"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95427418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "229f5b8f-917c-4bda-b41a-4fb45f14caa7",
+              "id": "5fd7ef18e804da0012654c04"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558576"
+                }
+              },
+              "sampleId": "22aa4d3a-bebc-4317-80f5-2c0fcccd2189",
+              "id": "5fd884fce804da001272d90c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204091",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "245a502d-8399-4889-b959-15ae3da778a4",
+              "id": "6086bf6d45eb01001327139b"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400093"
+                }
+              },
+              "sampleId": "25ea168f-25b0-400e-8b24-7e1207c799de",
+              "id": "5fd7f2fee804da001269e3f4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204152",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "260ad1b7-2473-4118-85a6-62e68c7375cb",
+              "id": "6086bf6e45eb01001327165c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02156639",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "2615c295-4f2f-49fd-97ae-5e7f6cbf4b0c",
+              "id": "5fd8816be804da00126f7542"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204777",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "27c2d92f-fd67-4c19-8fcf-59b1b4fe79e3",
+              "id": "6086bf7145eb010013271df0"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204100",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "27e1e157-72c9-4446-8057-b24c835f9407",
+              "id": "6086bf6d45eb01001327140d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204372",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "28704c5f-4144-44a8-aa70-fcd18250ad64",
+              "id": "6086bf7145eb010013271da4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3448364"
+                }
+              },
+              "sampleId": "2b64f52c-78ca-4c36-8d6a-aa58e65ba688",
+              "id": "5fd8849ce804da0012726fe0"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SA00219215",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "2b96bf8b-beb7-4d93-a990-a914e3d472b3",
+              "id": "5fd882cfe804da0012708ef8"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196102",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "2c3d21ef-8888-4171-b7b1-a55347f3472b",
+              "id": "6086bf6745eb0100132704e5"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213073",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "2ce62d69-05ef-41b4-8b74-fa6023c82c0b",
+              "id": "6086bf7445eb010013272668"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3374972"
+                }
+              },
+              "sampleId": "2cef909c-d5d9-4e23-aa18-5e0ab8192531",
+              "id": "5fd884e9e804da001272ad53"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN06251211",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "2d8b3520-ed1f-4d94-985d-27716ec6dfb3",
+              "id": "5fd88667e804da0012743fe7"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213071",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "2fbe94df-a797-4199-95c6-64811eb2494c",
+              "id": "6086bf7445eb010013272655"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SA00235835",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "30b6bd7b-70bf-4815-962e-e6752ea616d5",
+              "id": "5fd7f518e804da00126ca8a6"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204060",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "321fdd7d-f40e-4d5b-8248-423478acf38e",
+              "id": "6086bf6c45eb010013271174"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95479168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "337e6012-0421-4a0f-b39e-d30eba824695",
+              "id": "5fd7ef1be804da00126550df"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95454418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "33ad6a87-5995-43da-837f-4bda99f52c96",
+              "id": "5fd7ef1ae804da0012654ea5"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2401462"
+                }
+              },
+              "sampleId": "356c331c-569c-4407-9f48-a02a02379b9f",
+              "id": "5fd7f321e804da00126a32b3"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196166",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "35ebef59-2389-41fe-9e1d-3b2c65b5e16f",
+              "id": "6086bf6845eb010013270732"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196080",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "3a47416e-81eb-4cb8-a261-07cbd21dd152",
+              "id": "6086bf6645eb01001327044d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "UH01309735"
+                }
+              },
+              "sampleId": "3b3fda49-0d3e-4f19-b0e9-f155dbf52d0f",
+              "id": "5fd882d7e804da0012709d38"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204227",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "3c5b485b-fdcf-4022-9700-61e53cf76753",
+              "id": "6086bf6f45eb01001327197c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95532418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "430b402b-f031-4930-aed3-c9759990607d",
+              "id": "5fd7ef1ee804da0012655613"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00126322",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "432693c1-74f8-4811-b629-82f727012b9d",
+              "id": "5fd8816de804da00126f7a15"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95515918",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "448ae445-ab5c-4501-9c7f-f45ec2b8d2bf",
+              "id": "5fd7ef1de804da0012655484"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204774",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "45aa1d2e-ac8f-4420-bf8d-5655f8cb1738",
+              "id": "6086bf7145eb010013271ddd"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204221",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "4769b957-8bb5-4ad8-8753-d5ea52b29f27",
+              "id": "6086bf6f45eb01001327191d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SCH8601357",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "47dbe08a-9b75-4e53-bcfe-d8ab15ca7aaf",
+              "id": "5fd882d5e804da0012709878"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95540668",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "49f0d27e-74e3-463e-ad94-58cd36eeaabc",
+              "id": "5fd7ef1ee804da00126556e4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00211321",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "4abe3495-5788-4f8d-9cb2-876a48863d94",
+              "id": "6086bf7445eb01001327242e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN02350452",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "4b0d6643-d6b7-4a55-a818-04644bcc30b9",
+              "id": "5fd7ef7ce804da001265bebe"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00198331",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "4ba5efc3-3931-4118-916d-86b2e18a2a7d",
+              "id": "6086bf6945eb010013270aff"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00126270",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "4e1327b7-6cd2-433e-8ded-b54a77a60fbc",
+              "id": "5fd8816de804da00126f7990"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02380734"
+                }
+              },
+              "sampleId": "4f9da4ce-7899-4ba6-b593-87ba4e7dae07",
+              "id": "5fd882dae804da001270a21e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2399927"
+                }
+              },
+              "sampleId": "51dc9757-ec4f-478d-87f5-33f588002fca",
+              "id": "5fd7f2f9e804da001269d7a2"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2399888"
+                }
+              },
+              "sampleId": "5215b862-b1b7-4495-9ee5-b31a4b6826d5",
+              "id": "5fd7f2f8e804da001269d4bd"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02502177",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "522fd5aa-cb21-45c3-89f5-d79283685cb2",
+              "id": "5fd882dae804da001270a2b6"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95494918",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "5464024a-1fab-4080-b8eb-b9eb8002db94",
+              "id": "5fd7ef1ce804da001265526e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558560"
+                }
+              },
+              "sampleId": "57cf2c27-5910-48d2-b352-224d9dca044a",
+              "id": "5fd884fce804da001272d7dc"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN02350439",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "58c0685b-8db7-44dc-b039-ccf6002d589c",
+              "id": "5fd7ef7ce804da001265bdc7"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00125973",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "58e011c4-b2ad-4737-b8b9-2fe8642842c1",
+              "id": "5fd8816de804da00126f78bf"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SA00050301"
+                }
+              },
+              "sampleId": "59d78269-a6b4-4bea-991f-8a0ede42019c",
+              "id": "5fd88165e804da00126f6845"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204074",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "5a2b4975-d639-41b5-b096-30c02fca2ab7",
+              "id": "6086bf6c45eb01001327127e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02104034",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "5d7a22e2-11d9-4b27-8d0b-1107be071125",
+              "id": "5fd8816be804da00126f751c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN02350432",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "5e05e282-d4f7-4130-95c8-f368d18f9a96",
+              "id": "5fd7ef7ce804da001265bd42"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN04521941",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "5e6b2f12-e121-42fe-ab19-ccd7536dfec6",
+              "id": "5fd8861ce804da0012740b69"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA1903102"
+                }
+              },
+              "sampleId": "6001b040-7909-4791-83eb-4eeab3b2016b",
+              "id": "5fd88400e804da0012719047"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95458918",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "602da25d-50d1-4fe5-95b7-0384da913db3",
+              "id": "5fd7ef1be804da0012654f17"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196064",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "60826dfc-90f8-4e27-af0c-6f6d05018ecf",
+              "id": "6086bf6645eb0100132703b5"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95467918",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "6415416f-e9a2-41a0-b6be-d80e6b4b33df",
+              "id": "5fd7ef1be804da0012654fe8"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02583671",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "64583031-d3af-48cb-bfdf-0507345ce960",
+              "id": "5fd882dae804da001270a304"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00211332",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "655a59bd-1063-499b-82d8-66a352bc0cc5",
+              "id": "6086bf7445eb0100132724d9"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196082",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "66587cfc-5802-4690-9d4f-24453c448f7f",
+              "id": "6086bf6645eb010013270460"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00206728",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "671e2325-4876-44a8-bcce-e5f0be31c0d2",
+              "id": "6086bf7145eb010013271f0f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95426668",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "697e1e8e-3de3-47e1-998d-cfeab9854237",
+              "id": "5fd7ef18e804da0012654bf1"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400175"
+                }
+              },
+              "sampleId": "6b1f6b2a-a5b0-43ea-a8f0-c2cf535e772e",
+              "id": "5fd7f301e804da001269ea0a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN08912771"
+                }
+              },
+              "sampleId": "6bbf7185-fca0-4cd2-84e7-369ccaa603fd",
+              "id": "5fd7ef39e804da0012659102"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA4441606",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "6bd62522-b014-4897-8a6f-8bf6f7baa1a6",
+              "id": "5fd88579e804da001273399a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400122"
+                }
+              },
+              "sampleId": "6e10ab9a-c5c4-4c5d-b29c-7cf422a2997f",
+              "id": "5fd7f2ffe804da001269e61b"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213074",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "6ef9842d-6772-4b91-9cba-267bf871cb0b",
+              "id": "6086bf7445eb01001327267b"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558609"
+                }
+              },
+              "sampleId": "6fc9a85d-b9d1-43f3-b2c4-2db3b81c7a69",
+              "id": "5fd884fde804da001272db7f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "WG00267926"
+                }
+              },
+              "sampleId": "715b3bbb-c4e0-4511-a6e0-158b561ea8e4",
+              "id": "5fd882d8e804da0012709f4c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204107",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "71d4cb7c-bcfc-4dca-8d1d-8ba5d4d467ab",
+              "id": "6086bf6d45eb010013271459"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA4441614",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "71db7c81-8f97-4a14-9230-15881329c740",
+              "id": "5fd88579e804da00127339f9"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213063",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "782b4a37-6112-4720-92a8-36a5683833ac",
+              "id": "6086bf7445eb01001327261c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204360",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "7a05da85-9ed0-4fdd-a0be-53adda39ffbb",
+              "id": "6086bf7145eb010013271d0c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00211325",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "7a19f615-5a40-4f4f-80e6-2cb14fe1916d",
+              "id": "6086bf7445eb010013272467"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN02403526",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "7bf7563b-4cc3-430b-8dac-1e9a869e432c",
+              "id": "5fd7ef8de804da001265e130"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209320",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "7cebea38-4656-4286-9787-bcf9f2ad257e",
+              "id": "6086bf7345eb0100132722b2"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558602"
+                }
+              },
+              "sampleId": "7f185494-cbc2-466a-8881-e42f29b587b1",
+              "id": "5fd884fde804da001272dafa"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209334",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "82690830-539d-4874-8715-cab6cc0b4a3b",
+              "id": "6086bf7345eb01001327234a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204365",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "840e0a6d-66d3-4029-92d9-b769e7556558",
+              "id": "6086bf7145eb010013271d58"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95440168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "8557dff3-2240-4976-869c-228d30c24d16",
+              "id": "5fd7ef19e804da0012654d47"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XK00991315",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "862f2ad7-6517-4788-8544-37b9ed05c21e",
+              "id": "5fd882dae804da001270a3d5"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204102",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "87017d3d-c14a-48f5-bfc0-9e97b5c04b1d",
+              "id": "6086bf6d45eb010013271433"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204323",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "87f5db31-811c-43a2-9f54-49dcfee4c9f5",
+              "id": "6086bf7045eb010013271c9a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2399855"
+                }
+              },
+              "sampleId": "885c20f9-0023-4f11-bc83-0555e1e853fd",
+              "id": "5fd7f2f7e804da001269d24a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00211329",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "8b64c580-a69d-467b-81e7-9502797d8eee",
+              "id": "6086bf7445eb0100132724a0"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "WG00269790"
+                }
+              },
+              "sampleId": "8f86b3ec-83a1-428e-92b6-60f3b61800be",
+              "id": "5fd882d8e804da0012709f5f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400473"
+                }
+              },
+              "sampleId": "8fcc3230-71fd-49fe-bed9-d481606d6e9e",
+              "id": "5fd7f30be804da00126a0028"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_27657"
+                }
+              },
+              "sampleId": "904cf4a1-65af-4af8-8c4c-3f661a37f147",
+              "id": "5fd88399e804da0012714faf"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_30456"
+                }
+              },
+              "sampleId": "90ca3ffc-1dfe-4da5-bd1b-feacacb1850a",
+              "id": "5fd88399e804da00127150a6"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00137104",
+                  "longitudeIsolate": 28.1122679,
+                  "latitudeIsolate": -26.2707593
+                }
+              },
+              "sampleId": "91b77894-1db3-4593-8d0c-fa693f05fcd2",
+              "id": "5fd882e4e804da001270b994"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204222",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "93f2ffd3-745c-4181-8d09-f685279c4772",
+              "id": "6086bf6f45eb010013271930"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00211327",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "944eaecc-efad-4a3c-96dd-c708a4c8a433",
+              "id": "6086bf7445eb01001327248d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00126290",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "95daffe5-b340-40db-823b-876d5af211f8",
+              "id": "5fd8816de804da00126f79c9"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204357",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "960e30ec-6599-4a39-be32-11f1c22bf752",
+              "id": "6086bf7145eb010013271cd3"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196105",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "9806dcb0-0f4f-4e34-80a6-5c439b4c9227",
+              "id": "6086bf6745eb01001327051e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95473168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "99ae76fa-9910-4a9c-9f41-ab4dee104ecc",
+              "id": "5fd7ef1be804da0012655047"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95539918",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "99b86fe5-fcf6-4051-9a49-c40107c270ed",
+              "id": "5fd7ef1ee804da00126556d1"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SA00051645",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "9be51c0a-b180-4a70-9e51-58c0874e7591",
+              "id": "5fd882cfe804da0012708e86"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204063",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "9d4da506-ce0e-41fb-bec6-01b860f61a26",
+              "id": "6086bf6c45eb0100132711ad"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400249"
+                }
+              },
+              "sampleId": "9da89d8a-5a9f-4e86-b0ee-b417c4b96893",
+              "id": "5fd7f304e804da001269ef88"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95448418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "9dc096ba-aa09-4299-83a9-72ae699c4aee",
+              "id": "5fd7ef19e804da0012654e18"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00205151",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "a0377193-1732-43eb-b7e6-90b01e824645",
+              "id": "6086bf7145eb010013271e77"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196046",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "a0bfde4f-98c8-48cc-a43a-3c8c68f2bb10",
+              "id": "6086bf6645eb0100132702f7"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00125857",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "a35176f0-f123-43ba-b978-afe3605c7bd6",
+              "id": "5fd8816de804da00126f7873"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95464918",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "a5173b93-dd99-4311-9dd8-1e5b14456109",
+              "id": "5fd7ef1be804da0012654f9c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN02350408",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "a671ccb5-22dc-440c-a288-50d9029eb4e3",
+              "id": "5fd7ef7be804da001265bb7a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2401564"
+                }
+              },
+              "sampleId": "aa07f507-b3ee-4975-8c18-b6ff6fc43a93",
+              "id": "5fd7f324e804da00126a3a45"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA1903181"
+                }
+              },
+              "sampleId": "abc20071-5152-461a-af62-a1d36df103f4",
+              "id": "5fd88403e804da00127195eb"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00208803",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "ad8231b6-e2a3-4907-9302-d9446090796d",
+              "id": "6086bf7245eb010013272195"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209329",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "ae629e1d-ecd5-418f-8dc6-649650a8d483",
+              "id": "6086bf7345eb010013272311"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95466418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "af340fc2-4f5d-4c25-a406-e8b743602df4",
+              "id": "5fd7ef1be804da0012654fc2"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213802",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "b1c8ba85-cfef-4070-bc06-ccba5bb87977",
+              "id": "6086bf7545eb010013272785"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204130",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "b38ee728-35f4-4e85-92c6-13560671b496",
+              "id": "6086bf6e45eb01001327152c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95494168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "b65a9023-2d5c-40d4-acf6-0be2dbfd02d8",
+              "id": "5fd7ef1ce804da001265525b"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_28155",
+                  "longitudeIsolate": 106.6296638,
+                  "latitudeIsolate": 10.8230989
+                }
+              },
+              "sampleId": "b6be0c3b-4d72-44e2-8e84-da0e3d0ca1a5",
+              "id": "5fd88399e804da0012714fc2"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204263",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "b7f62ab3-0cdf-40bb-972c-9e4ee3933c71",
+              "id": "6086bf7045eb010013271a99"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209121",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "b979df08-d99c-4eca-afea-58a5a70a2391",
+              "id": "6086bf7345eb01001327222d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95542168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "bf23892b-d194-4232-8b9f-03120be20b02",
+              "id": "5fd7ef1ee804da001265570a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95423668",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "c300dfd8-9c52-4316-bc4a-e19ad5f10165",
+              "id": "5fd7ef18e804da0012654ba5"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3374962"
+                }
+              },
+              "sampleId": "c3395d3e-a8bd-44f5-be0d-e1400db8ce1f",
+              "id": "5fd884e8e804da001272acbb"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213079",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "c4a2d157-98f9-4590-b52b-86afe0d46e51",
+              "id": "6086bf7545eb0100132726b4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400259"
+                }
+              },
+              "sampleId": "c79f3823-e129-4c6e-bb90-9ebd6fc2ae15",
+              "id": "5fd7f304e804da001269f046"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204083",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "c9b732d0-80f0-41d5-a36d-340946aafd60",
+              "id": "6086bf6d45eb010013271329"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209323",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "cb32dab5-8130-4074-9d32-fdb9ba2f77b7",
+              "id": "6086bf7345eb0100132722d8"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_29338"
+                }
+              },
+              "sampleId": "cb78bdf9-0d65-4aff-b646-d920fd087b26",
+              "id": "5fd88399e804da0012715021"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196101",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "cba8e7a5-8e09-4b7c-9329-cb4657a84391",
+              "id": "6086bf6745eb0100132704d2"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196050",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "d09b9767-3966-49f4-8404-6c58ee46cd08",
+              "id": "6086bf6645eb01001327031d"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00105984",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -29.0466808
+                }
+              },
+              "sampleId": "d3d7a702-a819-43f9-8a02-da853c6c07c2",
+              "id": "5fd7f4b1e804da00126c169c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN04521982",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "d43387f0-d65c-4bdd-b741-6bcd6c269e59",
+              "id": "5fd8861ee804da0012740e4e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213083",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "d61a496a-c059-4373-aadb-34413c5a1332",
+              "id": "6086bf7545eb010013272700"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2399909"
+                }
+              },
+              "sampleId": "d75f45be-5d0f-4f49-8f9f-09876eeacca4",
+              "id": "5fd7f2f8e804da001269d64c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204267",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "d770e599-fb2d-4544-a3a3-fe2b2ffb9f8b",
+              "id": "6086bf7045eb010013271abf"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204237",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "d80053ab-f212-4c3f-9836-e83b78cb0623",
+              "id": "6086bf6f45eb0100132719db"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00106073",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "d8622609-a770-4f0f-93f7-990c490d0a88",
+              "id": "5fd7f4b3e804da00126c1a52"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TD02840146",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "daa45e57-8ed4-44da-909c-c0a95db5e7b1",
+              "id": "5fd882d6e804da0012709a07"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00198333",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "dbe72e36-a37f-4ad7-a335-d8e3a60ac2ad",
+              "id": "6086bf6a45eb010013270b25"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204089",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "ddd98101-5e74-4ce4-ab13-d4e5518ed7e3",
+              "id": "6086bf6d45eb010013271375"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95465668",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "de9ff104-5e81-4f42-bbb8-fb5ae8a7c66e",
+              "id": "5fd7ef1be804da0012654faf"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204067",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "dea93ef2-34bb-4af1-b498-280d9567b07a",
+              "id": "6086bf6c45eb0100132711f9"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196118",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "dfa136ce-be5c-44a6-8c6b-5bab58364b98",
+              "id": "6086bf6745eb0100132705ef"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00128361",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "e10bfb10-bf3c-45a1-9ca1-0e6efbbadadf",
+              "id": "5fd8816fe804da00126f7e2a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204255",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "e3275c63-2c58-4a45-a3f8-dd14157b50ae",
+              "id": "6086bf7045eb010013271a3a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204094",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "e38b8e71-8525-4173-878f-e7bec1ca0585",
+              "id": "6086bf6d45eb0100132713ae"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95422918",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "e4d9a030-ee95-4ae7-bda4-0309330b6c5a",
+              "id": "5fd7ef17e804da0012654b92"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD01227017",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "e6b64d06-a8ae-4684-8b09-56e3a59688e7",
+              "id": "5fd882d9e804da001270a08f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196055",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "e6c5b361-7484-48de-ba09-789051a20e32",
+              "id": "6086bf6645eb010013270356"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204174",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "e7043573-8dd2-49a9-af79-14a9ab44833a",
+              "id": "6086bf6f45eb0100132717c7"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204099",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "e89aa101-3653-4e35-8e58-6a630a7a7d27",
+              "id": "6086bf6d45eb0100132713fa"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00128289",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "ea74e080-bf9e-4227-b8e4-2a0521777d27",
+              "id": "5fd8816fe804da00126f7d46"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00211331",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "ebd62b9b-30da-4894-be34-6044034469d1",
+              "id": "6086bf7445eb0100132724c6"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95508418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "ef2d97ad-4472-4fa4-b840-a0922cc22751",
+              "id": "5fd7ef1de804da00126553c4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204295",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "ef2e6df0-6b0e-4274-840d-51527e8a9167",
+              "id": "6086bf7045eb010013271bb6"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95418418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "f06db6b8-4d22-40f6-b1f5-7341645b1c89",
+              "id": "5fd7ef17e804da0012654b20"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SCH8608291"
+                }
+              },
+              "sampleId": "f22ab3da-0b86-4cca-9c8c-38edde77eb10",
+              "id": "5fd8824de804da0012702686"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213076",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "f33e0830-9a4f-4498-8e79-d97a61073a7a",
+              "id": "6086bf7545eb01001327268e"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02208983",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "f4b87e68-fee7-4310-8151-cb48998be2ec",
+              "id": "5fd8816be804da00126f7568"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00211323",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "f4fe8ac0-43dd-4f99-a3a5-55feefde2db9",
+              "id": "6086bf7445eb010013272441"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SA00256590",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "f7059094-aa7a-44e6-8d4d-65fc1279e05c",
+              "id": "5fd7f518e804da00126ca8b9"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA1904673"
+                }
+              },
+              "sampleId": "f8313511-9f3e-4079-9ae9-fc234c6361f7",
+              "id": "5fd87f42e804da00126dad41"
+            }
+          ]
+        },
+        {
+          "id": 23,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558612"
+                }
+              },
+              "sampleId": "2fc3f220-930b-41eb-8162-d63beb7dcdf7",
+              "id": "5fd884fde804da001272dbb8"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD01171491",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "70ded9e7-0001-4db0-a66a-484dd94e22e8",
+              "id": "5fd7f218e804da0012691d10"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95527918",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "b66ed66a-c4cf-47a2-b902-6dd405def7d8",
+              "id": "5fd7ef1ee804da00126555a1"
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_32082"
+                }
+              },
+              "sampleId": "0b16b87e-b927-4a99-ae53-7aaac238de48",
+              "id": "5fd8839ae804da001271512b"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_32842"
+                }
+              },
+              "sampleId": "1fbff046-d8cb-4266-8a60-6ac357a61dac",
+              "id": "5fd8839ae804da001271518a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XG00255349",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "7f16d264-d817-49a9-af11-9269d4eabeb7",
+              "id": "5fd7f218e804da0012691d23"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_32183"
+                }
+              },
+              "sampleId": "96ded0b2-b599-49bb-baa6-e4c6ee6e76ca",
+              "id": "5fd8839ae804da001271513e"
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2399981"
+                }
+              },
+              "sampleId": "34beaeb4-0bab-4ee7-87ae-7980e33e9330",
+              "id": "5fd7f2fbe804da001269dba4"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00020533",
+                  "longitudeIsolate": 30.5279096,
+                  "latitudeIsolate": -25.565336
+                }
+              },
+              "sampleId": "e3bb0262-8936-4d44-828c-a9b5ff341763",
+              "id": "5fd7f21ce804da00126925e5"
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400190"
+                }
+              },
+              "sampleId": "4d8d7c26-8fba-4817-add6-8850277e2b77",
+              "id": "5fd7f302e804da001269eb27"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400409"
+                }
+              },
+              "sampleId": "a5c7435f-cb40-4cac-a3b4-75277c623a0d",
+              "id": "5fd7f309e804da001269fb68"
+            }
+          ]
+        },
+        {
+          "id": 27,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558618"
+                }
+              },
+              "sampleId": "ecf2f2d2-1467-4f6b-9ba8-bb000823322a",
+              "id": "5fd884fde804da001272dc2a"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400548"
+                }
+              },
+              "sampleId": "f246575a-f8c0-4d94-b932-b5cb8f077ed1",
+              "id": "5fd7f30ee804da00126a05b9"
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_27172"
+                }
+              },
+              "sampleId": "06fdc5d9-97b7-4c12-ba6f-2d3857cec051",
+              "id": "5fd88399e804da0012714f63"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400613"
+                }
+              },
+              "sampleId": "ed13d529-f920-42e1-b7e5-5cc26e8431d3",
+              "id": "5fd7f310e804da00126a0a8c"
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "UH01275143",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "12d6afae-a910-4fe0-9c7f-f027d24f4863",
+              "id": "5fd882d7e804da0012709d12"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "UH01130344",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "760d4ffa-d4c3-4129-84c5-8bbb8ebfed92",
+              "id": "5fd8816ae804da00126f7341"
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SA00644057",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "0eab9443-dd83-48fc-8a7b-6b5ea736bfca",
+              "id": "5fd882d3e804da001270937f"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SCH8339513"
+                }
+              },
+              "sampleId": "5baa57b9-189d-462a-83ab-a19f4e0b085f",
+              "id": "5fd882d5e804da00127097e0"
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00026337",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "5706635e-0d71-43e5-8819-07b997e4c7ef",
+              "id": "5fd882e0e804da001270afdb"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TD02935590",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "f7ab6fbd-e223-4e43-8b7e-6229ac8d5fac",
+              "id": "5fd882d6e804da0012709a2d"
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA1903094"
+                }
+              },
+              "sampleId": "43d8bed7-2bc6-4aa3-a6f9-90213ac48117",
+              "id": "5fd88400e804da0012718faf"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA4441531",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "e95ce142-d899-4c9b-85c9-213f4f44af4f",
+              "id": "5fd88577e804da00127335ab"
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558608"
+                }
+              },
+              "sampleId": "2642fac4-6903-47eb-a797-1dcfc9e28b14",
+              "id": "5fd884fde804da001272db6c"
+            },
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558607"
+                }
+              },
+              "sampleId": "8b6f8e4f-8b59-4629-a0aa-c00f867f76b3",
+              "id": "5fd884fde804da001272db59"
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95484418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "1c93ea48-1f95-4d2f-9712-d58904266496",
+              "id": "5fd7ef1ce804da0012655164"
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204062",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "199200af-770a-47ff-b997-7d637e7831e0",
+              "id": "6086bf6c45eb01001327119a"
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196095",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "5e3b3c6f-dfae-4e90-98a9-8f1a58e78299",
+              "id": "6086bf6745eb010013270486"
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SA00262329",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "fc88ba87-ae6e-4c32-b5f3-08b42e6ae736",
+              "id": "5fd7f518e804da00126ca8df"
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204084",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "6107f65b-316f-4a33-84c4-56ba8de3182a",
+              "id": "6086bf6d45eb01001327133c"
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00196121",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "5580a63c-35b4-4816-9b33-fecae71091ab",
+              "id": "6086bf6745eb010013270615"
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204064",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "3ebadc73-cc92-4378-8b7d-88a4034ff6e9",
+              "id": "6086bf6c45eb0100132711c0"
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00197515",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "16a892e4-19b5-4af1-b361-de6ed476caa3",
+              "id": "6086bf6845eb010013270862"
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558556"
+                }
+              },
+              "sampleId": "4cf1177d-0a8a-49e6-bf4d-48806167dcea",
+              "id": "5fd884fbe804da001272d790"
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558614"
+                }
+              },
+              "sampleId": "dc109dbd-fc39-4aaf-86ce-512cd24dd80b",
+              "id": "5fd884fde804da001272dbde"
+            }
+          ]
+        },
+        {
+          "id": 44,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204070",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "46784058-d987-415d-92cb-86d4a9a46553",
+              "id": "6086bf6c45eb010013271232"
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00198437",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "477ee466-87b1-45ee-a982-4031edf4821e",
+              "id": "6086bf6a45eb010013270c7b"
+            }
+          ]
+        },
+        {
+          "id": 46,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00199602",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "75036aea-7999-4da6-a853-5f355b33be2e",
+              "id": "6086bf6b45eb010013270e8f"
+            }
+          ]
+        },
+        {
+          "id": 47,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00201663",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "5a67da1f-a85b-4f29-a6c7-53ec0fb8d6f7",
+              "id": "6086bf6b45eb010013270fd2"
+            }
+          ]
+        },
+        {
+          "id": 48,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2399726"
+                }
+              },
+              "sampleId": "4e392393-88d0-4b84-a903-b5d5c9b73228",
+              "id": "5fd7f2b7e804da001269c74e"
+            }
+          ]
+        },
+        {
+          "id": 49,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SA00224228",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "e7ffac67-61ac-4cc8-a513-1a06bfec7f8b",
+              "id": "5fd882cfe804da0012708f0b"
+            }
+          ]
+        },
+        {
+          "id": 50,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204359",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "9cc4fe9e-3d03-4f62-a029-3fd7007be424",
+              "id": "6086bf7145eb010013271cf9"
+            }
+          ]
+        },
+        {
+          "id": 51,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204061",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "d7936866-ace2-437e-af23-f7931d530851",
+              "id": "6086bf6c45eb010013271187"
+            }
+          ]
+        },
+        {
+          "id": 52,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204073",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "d13bac13-5b63-4fa6-a86e-297566ad4ecc",
+              "id": "6086bf6c45eb01001327126b"
+            }
+          ]
+        },
+        {
+          "id": 53,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00127818",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -29.0466808
+                }
+              },
+              "sampleId": "fb9cc696-c780-41e6-9281-011544a4f4e9",
+              "id": "5fd8816ee804da00126f7c3c"
+            }
+          ]
+        },
+        {
+          "id": 54,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558545"
+                }
+              },
+              "sampleId": "5727bc2d-fb52-416b-b1d3-4a9e19989188",
+              "id": "5fd884fbe804da001272d6bf"
+            }
+          ]
+        },
+        {
+          "id": 55,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209333",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "272f50d1-668b-46a3-8010-f659b57d03b0",
+              "id": "6086bf7345eb010013272337"
+            }
+          ]
+        },
+        {
+          "id": 56,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMN04276752",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "b2f32d48-6fa6-4b35-9ca9-b7baa86692b5",
+              "id": "5fd8860fe804da001273ebcb"
+            }
+          ]
+        },
+        {
+          "id": 57,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204262",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "d36b9448-bac0-4b34-b1a4-921d8e03a7ba",
+              "id": "6086bf7045eb010013271a86"
+            }
+          ]
+        },
+        {
+          "id": 58,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204135",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "e6f691e8-dc9c-4f53-ace0-f7da96c4bd29",
+              "id": "6086bf6e45eb010013271552"
+            }
+          ]
+        },
+        {
+          "id": 59,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204172",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "b0997d7a-c651-4a33-9dd4-bec6fa78ba80",
+              "id": "6086bf6e45eb0100132717a1"
+            }
+          ]
+        },
+        {
+          "id": 60,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_33480"
+                }
+              },
+              "sampleId": "48d1b84d-1805-4d59-a95e-ab24abcc54eb",
+              "id": "5fd8839ae804da00127151e9"
+            }
+          ]
+        },
+        {
+          "id": 61,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213087",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "2ca2d808-de43-4c47-a6eb-774ba22750dc",
+              "id": "6086bf7545eb01001327274c"
+            }
+          ]
+        },
+        {
+          "id": 62,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00209318",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "1262577c-5358-4515-bcf7-38b48d9e81e6",
+              "id": "6086bf7345eb01001327228c"
+            }
+          ]
+        },
+        {
+          "id": 63,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558592"
+                }
+              },
+              "sampleId": "ba267652-f552-4a99-ae97-a8752d39f3a6",
+              "id": "5fd884fde804da001272da3c"
+            }
+          ]
+        },
+        {
+          "id": 64,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204324",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "8ebcbc2f-4fad-467c-862c-52a425fbdef3",
+              "id": "6086bf7045eb010013271cad"
+            }
+          ]
+        },
+        {
+          "id": 65,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00204358",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "712a2d36-2de7-43de-ab49-01ced98b2852",
+              "id": "6086bf7145eb010013271ce6"
+            }
+          ]
+        },
+        {
+          "id": 66,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD01908331",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "659e5436-b7c8-4a95-9812-49c1aef4d016",
+              "id": "5fd8816be804da00126f7471"
+            }
+          ]
+        },
+        {
+          "id": 67,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "GB-74250122",
+                  "longitudeIsolate": 12.1368679,
+                  "latitudeIsolate": 50.4976133
+                }
+              },
+              "sampleId": "2b6ea34b-d3c8-4393-bf63-6e8ade12d46d",
+              "id": "5fd88380e804da00127118bb"
+            }
+          ]
+        },
+        {
+          "id": 68,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_27633"
+                }
+              },
+              "sampleId": "dd3722a1-3e4a-4a1b-8ce6-7147f9c721d1",
+              "id": "5fd88399e804da0012714f9c"
+            }
+          ]
+        },
+        {
+          "id": 69,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_32258"
+                }
+              },
+              "sampleId": "0c53cdee-0d84-486c-b234-04f0edfd7e91",
+              "id": "5fd8839ae804da0012715164"
+            }
+          ]
+        },
+        {
+          "id": 70,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SA00416802",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "cb07d50b-4772-45b1-bd61-7280e2d3ecdf",
+              "id": "5fd882d0e804da0012709132"
+            }
+          ]
+        },
+        {
+          "id": 71,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95514418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "5e5c4478-c6ee-44de-a827-60e925c7191c",
+              "id": "5fd7ef1de804da001265545e"
+            }
+          ]
+        },
+        {
+          "id": 72,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213084",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "180750c9-5988-494f-90e1-caaea54ad085",
+              "id": "6086bf7545eb010013272713"
+            }
+          ]
+        },
+        {
+          "id": 73,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213086",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "8398dfab-53ab-4403-8720-c9f3c12abae0",
+              "id": "6086bf7545eb010013272739"
+            }
+          ]
+        },
+        {
+          "id": 74,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2399930"
+                }
+              },
+              "sampleId": "bae6fa58-14cd-4c2a-8e0a-358fc94828c7",
+              "id": "5fd7f2f9e804da001269d7db"
+            }
+          ]
+        },
+        {
+          "id": 75,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400623"
+                }
+              },
+              "sampleId": "e8e6d440-c8ba-410b-9c20-0d0073186ffc",
+              "id": "5fd7f310e804da00126a0b4a"
+            }
+          ]
+        },
+        {
+          "id": 76,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00027779",
+                  "longitudeIsolate": 26.419389,
+                  "latitudeIsolate": -32.2968402
+                }
+              },
+              "sampleId": "1f772e87-9581-48f8-8b28-8ccfd7535569",
+              "id": "5fd7f3d2e804da00126aeae1"
+            }
+          ]
+        },
+        {
+          "id": 77,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SCH7827166",
+                  "longitudeIsolate": 18.4240553,
+                  "latitudeIsolate": -33.9248685
+                }
+              },
+              "sampleId": "42362263-560e-42e7-a57e-58bf3229e555",
+              "id": "5fd88167e804da00126f6c21"
+            }
+          ]
+        },
+        {
+          "id": 78,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD02092703",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "3848fc05-65a7-486e-9ee9-b8db4ece8af8",
+              "id": "5fd8816be804da00126f74f6"
+            }
+          ]
+        },
+        {
+          "id": 79,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_1692"
+                }
+              },
+              "sampleId": "523a776f-d925-404a-b4c5-cce146c26db5",
+              "id": "5fd88398e804da0012714de5"
+            }
+          ]
+        },
+        {
+          "id": 80,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213080",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "98fdabd5-9dff-4ac5-8421-f665f1515985",
+              "id": "6086bf7545eb0100132726c7"
+            }
+          ]
+        },
+        {
+          "id": 81,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "YA00213085",
+                  "longitudeIsolate": 28.0473051,
+                  "latitudeIsolate": -26.2041028
+                }
+              },
+              "sampleId": "fc0810db-95cc-41a8-9225-14451bb456e3",
+              "id": "6086bf7545eb010013272726"
+            }
+          ]
+        },
+        {
+          "id": 82,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400509"
+                }
+              },
+              "sampleId": "7c4fb7f5-c55e-40f7-a893-5e3654646b5e",
+              "id": "5fd7f30ce804da00126a02d4"
+            }
+          ]
+        },
+        {
+          "id": 83,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "TORCH_33204"
+                }
+              },
+              "sampleId": "1a003b97-9405-492f-98e6-d1e6cea2f180",
+              "id": "5fd8839ae804da00127151d6"
+            }
+          ]
+        },
+        {
+          "id": 84,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95458168",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "28da08e0-9f1c-4cab-bca4-c78714998653",
+              "id": "5fd7ef1be804da0012654f04"
+            }
+          ]
+        },
+        {
+          "id": 85,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA95520418",
+                  "longitudeIsolate": 22.937506,
+                  "latitudeIsolate": -30.559482
+                }
+              },
+              "sampleId": "0169e694-3938-408e-aa12-305276c30fb3",
+              "id": "5fd7ef1de804da00126554f6"
+            }
+          ]
+        },
+        {
+          "id": 86,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XB00596740",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "17e89b98-cc5f-481e-bf7c-9d53cb082e7d",
+              "id": "5fd7f49be804da00126be3c5"
+            }
+          ]
+        },
+        {
+          "id": 87,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "ERS2400434"
+                }
+              },
+              "sampleId": "944a2b5e-d91e-4eaa-8c49-7f42b5ee3cfd",
+              "id": "5fd7f30ae804da001269fd43"
+            }
+          ]
+        },
+        {
+          "id": 88,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "XD01199413",
+                  "longitudeIsolate": 21.8568586,
+                  "latitudeIsolate": -33.2277918
+                }
+              },
+              "sampleId": "cbe76225-452d-4523-9266-16fde3526256",
+              "id": "5fd882d9e804da001270a069"
+            }
+          ]
+        },
+        {
+          "id": 89,
+          "experiments": [
+            {
+              "metadata": {
+                "sample": {
+                  "isolateId": "SAMEA3558540"
+                }
+              },
+              "sampleId": "b739f26a-9c3e-48a4-88d9-28194f90c523",
+              "id": "5fd884fbe804da001272d660"
+            }
+          ]
+        }
+      ],
+      "distance": [
+        {
+          "start": 0,
+          "end": 22,
+          "distance": 1
+        },
+        {
+          "start": 0,
+          "end": 34,
+          "distance": 1
+        },
+        {
+          "start": 1,
+          "end": 19,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 35,
+          "distance": 1
+        },
+        {
+          "start": 36,
+          "end": 17,
+          "distance": 1
+        },
+        {
+          "start": 2,
+          "end": 37,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 38,
+          "distance": 1
+        },
+        {
+          "start": 3,
+          "end": 19,
+          "distance": 1
+        },
+        {
+          "start": 20,
+          "end": 39,
+          "distance": 1
+        },
+        {
+          "start": 20,
+          "end": 40,
+          "distance": 1
+        },
+        {
+          "start": 20,
+          "end": 22,
+          "distance": 3
+        },
+        {
+          "start": 19,
+          "end": 41,
+          "distance": 1
+        },
+        {
+          "start": 19,
+          "end": 7,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 8,
+          "distance": 1
+        },
+        {
+          "start": 7,
+          "end": 42,
+          "distance": 1
+        },
+        {
+          "start": 7,
+          "end": 43,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 44,
+          "distance": 2
+        },
+        {
+          "start": 45,
+          "end": 22,
+          "distance": 1
+        },
+        {
+          "start": 46,
+          "end": 22,
+          "distance": 2
+        },
+        {
+          "start": 47,
+          "end": 4,
+          "distance": 1
+        },
+        {
+          "start": 10,
+          "end": 11,
+          "distance": 1
+        },
+        {
+          "start": 10,
+          "end": 22,
+          "distance": 1
+        },
+        {
+          "start": 10,
+          "end": 48,
+          "distance": 2
+        },
+        {
+          "start": 10,
+          "end": 49,
+          "distance": 1
+        },
+        {
+          "start": 10,
+          "end": 30,
+          "distance": 1
+        },
+        {
+          "start": 10,
+          "end": 16,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 50,
+          "distance": 1
+        },
+        {
+          "start": 51,
+          "end": 22,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 32,
+          "distance": 2
+        },
+        {
+          "start": 52,
+          "end": 22,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 53,
+          "distance": 3
+        },
+        {
+          "start": 22,
+          "end": 54,
+          "distance": 3
+        },
+        {
+          "start": 22,
+          "end": 13,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 55,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 56,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 57,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 27,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 58,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 12,
+          "distance": 1
+        },
+        {
+          "start": 59,
+          "end": 22,
+          "distance": 2
+        },
+        {
+          "start": 57,
+          "end": 14,
+          "distance": 2
+        },
+        {
+          "start": 22,
+          "end": 60,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 61,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 62,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 63,
+          "distance": 1
+        },
+        {
+          "start": 64,
+          "end": 22,
+          "distance": 1
+        },
+        {
+          "start": 65,
+          "end": 19,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 66,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 67,
+          "distance": 1
+        },
+        {
+          "start": 4,
+          "end": 17,
+          "distance": 1
+        },
+        {
+          "start": 5,
+          "end": 22,
+          "distance": 3
+        },
+        {
+          "start": 8,
+          "end": 68,
+          "distance": 1
+        },
+        {
+          "start": 8,
+          "end": 69,
+          "distance": 1
+        },
+        {
+          "start": 15,
+          "end": 23,
+          "distance": 2
+        },
+        {
+          "start": 2,
+          "end": 70,
+          "distance": 2
+        },
+        {
+          "start": 22,
+          "end": 71,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 19,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 72,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 73,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 9,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 15,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 74,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 25,
+          "distance": 2
+        },
+        {
+          "start": 22,
+          "end": 75,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 76,
+          "distance": 3
+        },
+        {
+          "start": 22,
+          "end": 77,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 29,
+          "distance": 2
+        },
+        {
+          "start": 22,
+          "end": 78,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 33,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 79,
+          "distance": 5
+        },
+        {
+          "start": 4,
+          "end": 22,
+          "distance": 2
+        },
+        {
+          "start": 80,
+          "end": 22,
+          "distance": 2
+        },
+        {
+          "start": 81,
+          "end": 22,
+          "distance": 2
+        },
+        {
+          "start": 18,
+          "end": 22,
+          "distance": 2
+        },
+        {
+          "start": 22,
+          "end": 28,
+          "distance": 1
+        },
+        {
+          "start": 17,
+          "end": 82,
+          "distance": 1
+        },
+        {
+          "start": 20,
+          "end": 21,
+          "distance": 1
+        },
+        {
+          "start": 20,
+          "end": 83,
+          "distance": 1
+        },
+        {
+          "start": 84,
+          "end": 22,
+          "distance": 1
+        },
+        {
+          "start": 85,
+          "end": 22,
+          "distance": 1
+        },
+        {
+          "start": 22,
+          "end": 6,
+          "distance": 1
+        },
+        {
+          "start": 25,
+          "end": 26,
+          "distance": 1
+        },
+        {
+          "start": 19,
+          "end": 86,
+          "distance": 1
+        },
+        {
+          "start": 19,
+          "end": 70,
+          "distance": 1
+        },
+        {
+          "start": 87,
+          "end": 19,
+          "distance": 1
+        },
+        {
+          "start": 88,
+          "end": 22,
+          "distance": 1
+        },
+        {
+          "start": 19,
+          "end": 89,
+          "distance": 1
+        },
+        {
+          "start": 31,
+          "end": 22,
+          "distance": 1
+        },
+        {
+          "start": 24,
+          "end": 22,
+          "distance": 1
+        }
+      ]
+    }
+  }
+}
