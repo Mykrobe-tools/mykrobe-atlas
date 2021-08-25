@@ -35,7 +35,6 @@ const ExperimentCluster = ({
   // states
   const [renderAttributes, setRenderAttributes] = React.useState();
   const [dragging, setDragging] = React.useState();
-  const [canvasProps, setCanvasProps] = React.useState();
 
   // hooks
   const {
@@ -98,11 +97,8 @@ const ExperimentCluster = ({
     if (!canvasRef.current) {
       return;
     }
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-
-    const canvasWidth = context.width - 2 * CANVAS_MARGIN;
-    const canvasHeight = context.height - 2 * CANVAS_MARGIN;
+    const canvasWidth = boundingClientRect.width - 2 * CANVAS_MARGIN;
+    const canvasHeight = boundingClientRect.height - 2 * CANVAS_MARGIN;
 
     let minX = Infinity,
       minY = Infinity,
@@ -144,7 +140,7 @@ const ExperimentCluster = ({
     };
 
     setRenderAttributes(attributes);
-  }, [setRenderAttributes, graphRef, canvasRef]);
+  }, [boundingClientRect.width, boundingClientRect.height]);
 
   React.useEffect(() => {
     if (!graphRef.current) {
@@ -254,8 +250,16 @@ const ExperimentCluster = ({
       return;
     }
     const context = canvasRef.current.getContext('2d');
+    const scale = window?.devicePixelRatio || 1;
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.scale(scale, scale);
 
-    context.clearRect(0, 0, context.width, context.height);
+    context.clearRect(
+      0,
+      0,
+      boundingClientRect.width,
+      boundingClientRect.height
+    );
 
     graphRef.current.forEachEdge(
       (
@@ -336,12 +340,17 @@ const ExperimentCluster = ({
     experimentsHighlightedId,
     renderAttributes,
     getRadiusForExperiments,
+    boundingClientRect.width,
+    boundingClientRect.height,
   ]);
 
   // __________________________________________________________________________________________ mouse events
 
   const onClick = React.useCallback(
     (e) => {
+      if (!graphRef.current) {
+        return;
+      }
       const result = findNodeForMouseEvent(e);
       if (!result) {
         // clicked in space
@@ -353,6 +362,9 @@ const ExperimentCluster = ({
 
   const onMouseMove = React.useCallback(
     (e) => {
+      if (!graphRef.current) {
+        return;
+      }
       if (dragging) {
         const { x, y } = canvasXYForMouseEvent(e);
         const graphXY = mapCanvasToGraph({ x, y });
@@ -385,6 +397,9 @@ const ExperimentCluster = ({
 
   const onMouseDown = React.useCallback(
     (e) => {
+      if (!graphRef.current) {
+        return;
+      }
       const result = findNodeForMouseEvent(e);
       if (result) {
         const { node, vx, vy } = result;
@@ -402,6 +417,9 @@ const ExperimentCluster = ({
 
   const onMouseUp = React.useCallback(
     (e) => {
+      if (!graphRef.current) {
+        return;
+      }
       if (dragging) {
         const { node } = dragging;
         graphRef.current.updateNode(node, (attributes) => {
@@ -451,18 +469,21 @@ const ExperimentCluster = ({
     [mouseWheel]
   );
 
-  React.useEffect(() => {
-    if (!boundingClientRect || !canvasRef.current) {
+  const canvasProps = React.useMemo(() => {
+    if (!boundingClientRect.width) {
       return;
     }
-    const { width, height } = boundingClientRect;
-    const context = canvasRef.current.getContext('2d');
     const scale = window?.devicePixelRatio || 1;
-    context.scale = scale;
-    context.width = width;
-    context.height = height;
-    setCanvasProps({ width, height });
-  }, [canvasRef, boundingClientRect]);
+    const canvasProps = {
+      width: boundingClientRect.width * scale,
+      height: boundingClientRect.height * scale,
+      style: {
+        width: `${boundingClientRect.width}px`,
+        height: `${boundingClientRect.height}px`,
+      },
+    };
+    return canvasProps;
+  }, [boundingClientRect.height, boundingClientRect.width]);
 
   // __________________________________________________________________________________________ tooltips
 

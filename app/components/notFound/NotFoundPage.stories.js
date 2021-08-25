@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import ConnectedStorybook from '../../util/storybook/ConnectedStorybook';
-
+import FillContainerStorybook from '../../util/storybook/FillContainerStorybook';
 import NotFoundPage from './NotFoundPage';
 
 const variations = {
@@ -13,6 +13,7 @@ const variations = {
 };
 
 storiesOf('NotFound/NotFoundPage', module)
+  .addDecorator((story) => <FillContainerStorybook story={story()} />)
   .addDecorator((story) => (
     <MemoryRouter initialEntries={['/']}>{story()}</MemoryRouter>
   ))

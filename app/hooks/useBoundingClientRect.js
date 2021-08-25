@@ -4,7 +4,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 const useBoundingClientRect = () => {
   const ref = React.useRef(null);
   const resizeObserver = React.useRef(null);
-  const [boundingClientRect, setBoundingClientRect] = React.useState();
+  const [boundingClientRect, setBoundingClientRect] = React.useState({});
 
   const updateBoundingClientRect = React.useCallback(() => {
     if (ref?.current) {
