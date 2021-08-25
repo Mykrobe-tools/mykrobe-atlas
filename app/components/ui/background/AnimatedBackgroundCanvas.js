@@ -63,7 +63,6 @@ const AnimatedBackgroundCanvas = () => {
     });
   }, [
     elapsedMilliseconds,
-    canvasRef,
     boundingClientRect.width,
     boundingClientRect.height,
   ]);
