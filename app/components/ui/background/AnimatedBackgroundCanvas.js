@@ -15,11 +15,10 @@ const AnimatedBackgroundCanvas = () => {
   const containerWidth = 1920;
 
   React.useEffect(() => {
-    if (!boundingClientRect || lozenges.current) {
+    if (!boundingClientRect.width || lozenges.current) {
       return;
     }
-    const { width } = boundingClientRect;
-    const containerScale = width / containerWidth;
+    const containerScale = boundingClientRect.width / containerWidth;
     const containerHeight =
       (1920 * boundingClientRect.height) / boundingClientRect.width;
     lozenges.current = [];
@@ -35,21 +34,25 @@ const AnimatedBackgroundCanvas = () => {
         lozenges.current.push(l);
       }
     }
-  }, [boundingClientRect]);
+  }, [boundingClientRect.height, boundingClientRect.width]);
 
   React.useEffect(() => {
-    if (!canvasRef.current || !lozenges.current || !boundingClientRect) {
+    if (!canvasRef.current || !lozenges.current || !boundingClientRect.width) {
       return;
     }
-    const { width, height } = boundingClientRect;
-    const context = canvasRef.current.getContext('2d', { alpha: false });
-    const containerScale = width / containerWidth;
+    const containerScale = boundingClientRect.width / containerWidth;
     const containerHeight =
       (1920 * boundingClientRect.height) / boundingClientRect.width;
+
+    const context = canvasRef.current.getContext('2d', { alpha: false });
+    const scale = window?.devicePixelRatio || 1;
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.scale(scale, scale);
     context.globalCompositeOperation = 'source-over';
     context.fillStyle = '#f7f6f1';
-    context.fillRect(0, 0, width, height);
+    context.fillRect(0, 0, boundingClientRect.width, boundingClientRect.height);
     context.globalCompositeOperation = 'multiply';
+
     lozenges.current.forEach((lozenge) => {
       lozenge.setProps({
         containerScale,
@@ -58,12 +61,32 @@ const AnimatedBackgroundCanvas = () => {
       lozenge.onEnterFrame();
       lozenge.renderInContext(context);
     });
-  }, [boundingClientRect, elapsedMilliseconds, canvasRef]);
+  }, [
+    elapsedMilliseconds,
+    canvasRef,
+    boundingClientRect.width,
+    boundingClientRect.height,
+  ]);
 
-  const { width, height } = boundingClientRect || {};
+  const canvasProps = React.useMemo(() => {
+    if (!boundingClientRect.width) {
+      return;
+    }
+    const scale = window?.devicePixelRatio || 1;
+    const canvasProps = {
+      width: boundingClientRect.width * scale,
+      height: boundingClientRect.height * scale,
+      style: {
+        width: `${boundingClientRect.width}px`,
+        height: `${boundingClientRect.height}px`,
+      },
+    };
+    return canvasProps;
+  }, [boundingClientRect.height, boundingClientRect.width]);
+
   return (
     <div ref={ref} className={styles.container}>
-      <canvas width={width} height={height} ref={canvasRef} />
+      <canvas ref={canvasRef} {...canvasProps} />
     </div>
   );
 };
