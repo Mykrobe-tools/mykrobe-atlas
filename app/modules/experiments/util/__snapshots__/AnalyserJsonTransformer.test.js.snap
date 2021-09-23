@@ -321,7 +321,7 @@ Object {
   "evidence": Object {
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315G in gene katG",
+        "Resistance mutation found: S315T in gene katG",
         "Depth 82 on the resistant allele",
         "Depth 1 on the susceptible allele",
       ],
@@ -369,7 +369,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315G)",
+      "mutation": "katG (S315T)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -444,7 +444,7 @@ Object {
   "evidence": Object {
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315G in gene katG",
+        "Resistance mutation found: S315T in gene katG",
         "Depth 43 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
@@ -500,7 +500,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315G)",
+      "mutation": "katG (S315T)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -748,7 +748,7 @@ Object {
     ],
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315G in gene katG",
+        "Resistance mutation found: S315T in gene katG",
         "Depth 30 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
@@ -862,7 +862,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315G)",
+      "mutation": "katG (S315T)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -936,7 +936,7 @@ Object {
   "evidence": Object {
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315G in gene katG",
+        "Resistance mutation found: S315T in gene katG",
         "Depth 82 on the resistant allele",
         "Depth 1 on the susceptible allele",
       ],
@@ -997,7 +997,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315G)",
+      "mutation": "katG (S315T)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -1076,7 +1076,7 @@ Object {
   "evidence": Object {
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315G in gene katG",
+        "Resistance mutation found: S315T in gene katG",
         "Depth 43 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
@@ -1145,7 +1145,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315G)",
+      "mutation": "katG (S315T)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
@@ -1416,7 +1416,7 @@ Object {
     ],
     "Isoniazid": Array [
       Array [
-        "Resistance mutation found: S315G in gene katG",
+        "Resistance mutation found: S315T in gene katG",
         "Depth 30 on the resistant allele",
         "Depth 0 on the susceptible allele",
       ],
@@ -1543,7 +1543,7 @@ Object {
     "Isoniazid": Object {
       "inconclusive": false,
       "inducible": false,
-      "mutation": "katG (S315G)",
+      "mutation": "katG (S315T)",
       "notTested": false,
       "resistant": true,
       "susceptible": false,
