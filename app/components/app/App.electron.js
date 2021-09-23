@@ -48,8 +48,8 @@ class App extends React.Component<*> {
       if (this._aboutWindow) {
         this._aboutWindow.show();
       } else {
-        // window.location.href has trailing slash e.g. http://localhost:3000/#/
-        const url = `${window.location.href}about`;
+        const baseUrl = window.location.origin + window.location.pathname;
+        const url = `${baseUrl}#/about`;
         this._aboutWindow = new remote.BrowserWindow({
           width: 400,
           height: 320,
